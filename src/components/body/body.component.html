@@ -1,0 +1,94 @@
+<div :style="classObject" class="datatable-body">
+<datatable-selection
+ref="selector"
+:selected="selected"
+:rows="rows"
+:selectCheck="selectCheck"
+:selectEnabled="selectEnabled"
+:selectionType="selectionType"
+:rowIdentity="rowIdentity"
+@select="$emit('select')"
+@activate="$emit('activate')">
+<datatable-progress
+  v-if="loadingIndicator">
+</datatable-progress>
+<datatable-scroller ref="scroller"
+  v-if="rows && rows.length"
+  :scrollbarV="scrollbarV"
+  :scrollbarH="scrollbarH"
+  :scrollHeight="scrollHeight"
+  :scrollWidth="scrollWidth"
+  @scroll="onBodyScroll">
+  <datatable-summary-row class="datatable-summary-row"
+    v-if="summaryRow && summaryPosition === 'top'"
+    :rowHeight="summaryHeight"
+    :offsetX="offsetX"
+    :innerWidth="innerWidth"
+    :rows="rows"
+    :columns="columns">
+  </datatable-summary-row>
+  <datatable-row-wrapper class="datatable-row-wrapper"
+    :groupedRows="groupedRows"
+    v-for="(group, i) of temp" :key="rowTrackingFn(group)"
+    :innerWidth="innerWidth"
+    :style="getRowsStyles(group)"
+    :rowDetail="rowDetail"
+    :groupHeader="groupHeader"
+    :offsetX="offsetX"
+    :detailRowHeight="getDetailRowHeight(group[i],i)"
+    :row="group"
+    :expanded="getRowExpanded(group)"
+    :rowIndex="getRowIndex(group[i])"
+    @rowContextmenu="$emit('rowContextmenu')">
+    <datatable-body-row
+      v-if="!groupedRows"
+      tabindex="-1"
+      :isSelected="isSelect(group)"
+      :innerWidth="innerWidth"
+      :offsetX="offsetX"
+      :columns="columns"
+      :rowHeight="getRowHeight(group)"
+      :row="group"
+      :rowIndex="getRowIndex(group)"
+      :expanded="getRowExpanded(group)"
+      :rowClass="rowClass"
+      :displayCheck="displayCheck"
+      :treeStatus="group.treeStatus"
+      @treeAction="onTreeAction(group)"
+      @activate="onActivate($event, i)">
+    </datatable-body-row>
+    <!-- <slot v-else-if="groupedRowsTemplate" name="groupedRowsTemplate">
+      <datatable-body-row
+        v-for="(row,i) of group.value; let i = index;" :key="rowTrackingFn(row)"
+        tabindex="-1"
+        :isSelected="selector.getRowSelected(row)"
+        :innerWidth="innerWidth"
+        :offsetX="offsetX"
+        :columns="columns"
+        :rowHeight="getRowHeight(row)"
+        :row="row"
+        :group="group.value"
+        :rowIndex="getRowIndex(row)"
+        :expanded="getRowExpanded(row)"
+        :rowClass="rowClass"
+        @activate="selector.onActivate($event, i)">
+      </datatable-body-row>
+    </slot> -->
+  </datatable-row-wrapper>
+  <datatable-summary-row class="datatable-summary-row"
+    v-if="summaryRow && summaryPosition === 'bottom'"
+    :style="getBottomSummaryRowStyles"
+    :rowHeight="summaryHeight"
+    :offsetX="offsetX"
+    :innerWidth="innerWidth"
+    :rows="rows"
+    :columns="columns">
+  </datatable-summary-row>
+</datatable-scroller>
+<div
+  class="empty-row"
+  v-if="(!rows || !rows.length) && !loadingIndicator"
+  v-html="emptyMessage">
+</div>
+</datatable-selection>
+</div>

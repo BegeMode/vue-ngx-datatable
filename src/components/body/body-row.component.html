@@ -1,0 +1,19 @@
+<div id="row-group" :class="classObject" :style="styleObject">
+<div class="datatable-row-group" v-for="(colGroup, i) of columnsByPin" :key="colGroup.type" :class="[cssClass(colGroup)]"
+  :style="getStyles(colGroup)" @keydown="onKeyDown" @mouseenter="onMouseenter">
+  <datatable-body-cell v-for="(column, ii) of colGroup.columns" :key="column.$$id" 
+    tabindex="-1" 
+    :row="row" 
+    :group="group"
+    :expanded="expanded" 
+    :isSelected="isSelected" 
+    :rowIndex="rowIndex" 
+    :column="column" 
+    :rowHeight="rowHeight"
+    :displayCheck="displayCheck" 
+    :treeStatus="treeStatus" 
+    @activate="onActivate($event, ii)" 
+    @treeAction="onTreeAction">
+  </datatable-body-cell>
+</div>
+</div>
