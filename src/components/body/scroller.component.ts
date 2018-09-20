@@ -29,6 +29,7 @@ export default class ScrollerComponent extends Vue {
   prevScrollXPos: number = 0;
   parentElement: any;
   onScrollListener: any;
+  scrollDirty = false;
 
   mounted(): void {
     // manual bind so we don't always listen
@@ -36,7 +37,9 @@ export default class ScrollerComponent extends Vue {
       // const renderer = this.renderer;
       this.parentElement = this.$el.closest('.datatable-body');
       // .parentElement; //  renderer.parentNode(renderer.parentNode(this.element));
-      this.parentElement.addEventListener('scroll', this.onScrolled.bind(this));
+      this.parentElement.addEventListener('scroll', this.onScrolled.bind(this), {
+        passive: true,
+      });
     }
   }
 
@@ -54,12 +57,19 @@ export default class ScrollerComponent extends Vue {
 
   onScrolled(event: MouseEvent): void {
     if (this.scrollbarV || this.scrollbarH) {
-      const dom: Element = <Element>event.currentTarget;
-      requestAnimationFrame(() => {
-        this.scrollYPos = dom.scrollTop;
-        this.scrollXPos = dom.scrollLeft;
-        this.updateOffset();
-      });
+      if (!this.scrollDirty) {
+        this.scrollDirty = true;
+        const dom: Element = <Element>event.currentTarget;
+        requestAnimationFrame(() => {
+          this.scrollDirty = false;
+          this.scrollYPos = dom.scrollTop;
+          this.scrollXPos = dom.scrollLeft;
+          this.updateOffset();
+        });
+      } else {
+        console.log(('this.scrollDirty is true'));
+        
+      }
     }
   }
 
@@ -70,12 +80,13 @@ export default class ScrollerComponent extends Vue {
     } else if (this.scrollYPos > this.prevScrollYPos) {
       direction = 'up';
     }
-
-    this.$emit('scroll', {
-      direction,
-      scrollYPos: this.scrollYPos,
-      scrollXPos: this.scrollXPos
-    });
+    if (direction) {
+      this.$emit('scroll', {
+        direction,
+        scrollYPos: this.scrollYPos,
+        scrollXPos: this.scrollXPos
+      });
+    }
 
     this.prevScrollYPos = this.scrollYPos;
     this.prevScrollXPos = this.scrollXPos;

@@ -28,7 +28,7 @@ export default class DataTableBodyComponent extends Vue {
   @Prop() offsetX: number;
   @Prop() emptyMessage: string;
   @Prop() selectionType: SelectionType;
-  @Prop({ type: Array, default: () => []}) selected: any[];
+  @Prop({ type: Array, default: () => [] }) selected: any[];
   @Prop() rowIdentity: any;
   @Prop() rowDetail: any;
   @Prop() groupHeader: any;
@@ -50,6 +50,8 @@ export default class DataTableBodyComponent extends Vue {
   @Prop() offset: number;
   @Prop() rowCount: number;
   @Prop() bodyHeight: number;
+  @Prop({ type: [Number, String], default: null }) minItemHeight: number | string;
+  @Prop({ type: [String], default: 'height' }) heightField: string;
 
   scroller: any = null; // ScrollerComponent
   selector: any = null; // DataTableSelectionComponent;
@@ -67,6 +69,26 @@ export default class DataTableBodyComponent extends Vue {
   myBodyHeight: any;
   lastFirst: number;
   lastLast: number;
+
+  ready = false;
+  startIndex = 0;
+  endIndex = 0;
+  length = 0;
+  oldScrollTop = null;
+  oldScrollBottom = null;
+  offsetTop = 0;
+  height = 0;
+  scrollDirty = false;
+  updateDirty = false;
+  buffer: number = 200;
+  poolSize: number = 2000;
+  skip: boolean = false;
+  visibleItems = [];
+  itemContainerStyle = null;
+  itemsStyle = null;
+  keysEnabled = true;
+  delayPreviousItems: boolean;
+  pageMode: boolean = false;
 
   // @Output() scroll: EventEmitter<any> = new EventEmitter();
   // @Output() page: EventEmitter<any> = new EventEmitter();
@@ -98,6 +120,7 @@ export default class DataTableBodyComponent extends Vue {
   }
 
   @Watch('rows', { immediate: true }) onRowsChanged() {
+    // this.updateVisibleItems(true);
     this.rowExpansions.clear();
     this.recalcLayout();
   }
@@ -272,12 +295,15 @@ export default class DataTableBodyComponent extends Vue {
    * Updates the rows in the view port
    */
   updateRows(): void {
-    const { first, last } = this.indexes;
+    let { first, last } = this.indexes;
     if (this.lastFirst === first && this.lastLast === last) {
+      console.log('this.lastFirst === first');
       return;
     }
     this.lastFirst = first;
     this.lastLast = last;
+    first = Math.max(0, first - 20);
+    last = Math.min(this.rowCount, last + 10);
     let rowIndex = first;
     let idx = 0;
     const temp: any[] = [];
@@ -287,7 +313,7 @@ export default class DataTableBodyComponent extends Vue {
     // if grouprowsby has been specified treat row paging
     // parameters as group paging parameters ie if limit 10 has been
     // specified treat it as 10 groups rather than 10 rows
-    if(this.groupedRows) {
+    if (this.groupedRows) {
       let maxRowsPerGroup = 3;
       // if there is only one group set the maximum number of
       // rows per group the same as the total number of rows
@@ -319,6 +345,7 @@ export default class DataTableBodyComponent extends Vue {
     }
   
     this.temp = temp;
+    // console.log('first = ', first);
   }
 
   /**
@@ -402,10 +429,11 @@ export default class DataTableBodyComponent extends Vue {
 
     if (this.scrollbarV && this.virtualization) {
       let idx = 0;
+      let row = rows;
 
       if (this.groupedRows) {
         // Get the latest row rowindex in a group
-        const row = rows[rows.length - 1];
+        row = rows[rows.length - 1];
         idx = row ? this.getRowIndex(row) : 0;
       } else {
         idx = this.getRowIndex(rows);
@@ -414,7 +442,18 @@ export default class DataTableBodyComponent extends Vue {
       // const pos = idx * rowHeight;
       // The position of this row would be the sum of all row heights
       // until the previous row position.
-      const pos = this.rowHeightsCache.query(idx - 1);
+      let pos = 0;
+      let height = 50;
+      if (this.rowHeight) {
+        if (typeof this.rowHeight === 'function') {
+          height = this.rowHeight(row);
+        } else {
+          height = this.rowHeight;
+        }
+        pos = idx * height;
+      } else {
+        pos = this.rowHeightsCache.query(idx - 1);
+      }
 
       translateXY(styles, 0, pos);
     }
@@ -465,7 +504,7 @@ export default class DataTableBodyComponent extends Vue {
         // that shows up inside the view port the last.
         const height = this.bodyHeight; // parseInt(this.bodyHeight, 0);
         first = this.rowHeightsCache.getRowIndex(this.offsetY);
-        last = this.rowHeightsCache.getRowIndex(height + this.offsetY) + 1;
+        last = this.rowHeightsCache.getRowIndex(height + this.offsetY) + 50;
       } else {
         // If virtual rows are not needed
         // We render all in one go
@@ -611,9 +650,9 @@ export default class DataTableBodyComponent extends Vue {
       width: `${widths[group]}px`
     };
 
-    if(group === 'left') {
+    if (group === 'left') {
       translateXY(styles, offsetX, 0);
-    } else if(group === 'right') {
+    } else if (group === 'right') {
       const bodyWidth = parseInt(this.innerWidth + '', 0);
       const totalDiff = widths.total - bodyWidth;
       const offsetDiff = totalDiff - offsetX;
@@ -655,6 +694,212 @@ export default class DataTableBodyComponent extends Vue {
 
   onActivate(event, index) {
     this.selector && this.selector.onActivate(event, this.indexes.first + index);
+  }
+
+  rowStyle(row, index: number) {
+    return {
+      transform: `translate3d(${this.offsetX}px,${row.id * 50}px, 0px)`,
+    };
+    // const widths = this.columnGroupWidths;
+    // const offsetX = this.offsetX;
+    // const styles = {
+    //   width: `${widths['center']}px`
+    // };
+    // const bodyWidth = parseInt(this.innerWidth + '', 0);
+    // const totalDiff = widths.total - bodyWidth;
+    // const offsetDiff = totalDiff - offsetX;
+    // const offset = (offsetDiff + 1000) * -1;
+    // translateXY(styles, offset, 0);
+    
+    // return styles;
+  }
+
+  get heights() {
+    if (this.rowHeight === null) {
+      const heights = {
+        '-1': { accumulator: 0 },
+      };
+      const items = this.rows;
+      const field = this.heightField;
+      const minItemHeight = this.minItemHeight;
+      let accumulator = 0;
+      let current;
+      for (let i = 0, l = items.length; i < l; i++) {
+        current = items[i][field] || minItemHeight;
+        accumulator += current;
+        heights[i] = { accumulator, height: current };
+      }
+      return heights;
+    }
+  }
+
+  handleScroll() {
+    if (!this.scrollDirty) {
+      this.scrollDirty = true;
+      requestAnimationFrame(() => {
+        this.scrollDirty = false;
+        this.updateVisibleItems();
+      });
+    }
+  }
+
+  getScroll() {
+    const el = this.$el;
+    let scrollState;
+
+    if (this.pageMode) {
+      const rect = el.getBoundingClientRect();
+      let top = -rect.top;
+      let height = window.innerHeight;
+      if (top < 0) {
+        height += top;
+        top = 0;
+      }
+      if (top + height > rect.height) {
+        height = rect.height - top;
+      }
+      scrollState = {
+        top,
+        bottom: top + height,
+      };
+    } else {
+      scrollState = {
+        top: el.scrollTop,
+        bottom: el.scrollTop + el.clientHeight,
+      };
+    }
+    return scrollState;
+  }
+
+  updateVisibleItems(force = false) {
+    if (!this.updateDirty) {
+      this.updateDirty = true;
+      this.$nextTick(() => {
+        this.updateDirty = false;
+
+        const l = this.rows.length;
+        const scroll = this.getScroll();
+        // const scroll = {
+        //   top: this.offsetX,
+        //   bottom: this.offsetY,
+        // };
+        const items = this.rows;
+        const itemHeight: number = 50;
+        // if (typeof this.rowHeight === function) {
+        //   itemHeight = this.rowHeight()
+        // }
+        //  = this.rowHeight;
+        let containerHeight;
+        let offsetTop;
+        if (scroll) {
+          let startIndex = -1;
+          let endIndex = -1;
+
+          const buffer = this.buffer; // parseInt(this.buffer);
+          const poolSize = this.poolSize; // parseInt(this.poolSize);
+          const scrollTop = ~~(scroll.top / poolSize) * poolSize - buffer;
+          const scrollBottom = Math.ceil(scroll.bottom / poolSize) * poolSize + buffer;
+
+          if (!force && ((scrollTop === this.oldScrollTop && scrollBottom === this.oldScrollBottom) || this.skip)) {
+            this.skip = false;
+            return;
+          } else {
+            this.oldScrollTop = scrollTop;
+            this.oldScrollBottom = scrollBottom;
+          }
+
+          // Variable height mode
+          if (itemHeight === null) {
+            const heights = this.heights;
+            let h;
+            let a = 0;
+            let b = l - 1;
+            let i = ~~(l / 2);
+            let oldI;
+
+            // Searching for startIndex
+            do {
+              oldI = i;
+              h = heights[i].accumulator;
+              if (h < scrollTop) {
+                a = i;
+              } else if (i < l - 1 && heights[i + 1].accumulator > scrollTop) {
+                b = i;
+              }
+              i = ~~((a + b) / 2);
+            } while (i !== oldI);
+            i < 0 && (i = 0);
+            startIndex = i;
+
+            // For containers style
+            offsetTop = i > 0 ? heights[i - 1].accumulator : 0;
+            containerHeight = heights[l - 1].accumulator;
+
+            // Searching for endIndex
+            for (endIndex = i; endIndex < l && heights[endIndex].accumulator < scrollBottom; endIndex++);
+            if (endIndex === -1) {
+              endIndex = items.length - 1;
+            } else {
+              endIndex++;
+              // Bounds
+              endIndex > l && (endIndex = l);
+            }
+          } else {
+            // Fixed height mode
+            startIndex = ~~(scrollTop / itemHeight);
+            endIndex = Math.ceil(scrollBottom / itemHeight);
+
+            // Bounds
+            startIndex < 0 && (startIndex = 0);
+            endIndex > l && (endIndex = l);
+
+            offsetTop = startIndex * itemHeight;
+            containerHeight = l * itemHeight;
+          }
+
+          // if (endIndex - startIndex > config.itemsLimit) {
+          //   this.itemsLimitError()
+          // }
+
+          if (
+            force ||
+            this.startIndex !== startIndex ||
+            this.endIndex !== endIndex ||
+            this.offsetTop !== offsetTop ||
+            this.height !== containerHeight ||
+            this.length !== l
+          ) {
+            this.keysEnabled = !(startIndex > this.endIndex || endIndex < this.startIndex);
+
+            this.itemContainerStyle = {
+              height: containerHeight + 'px',
+            };
+            this.itemsStyle = {
+              marginTop: offsetTop + 'px',
+            };
+
+            if (this.delayPreviousItems) {
+              // Add next items
+              this.visibleItems = items.slice(this.startIndex, endIndex);
+              // Remove previous items
+              this.$nextTick(() => {
+                this.visibleItems = items.slice(startIndex, endIndex);
+              });
+            } else {
+              this.visibleItems = items.slice(startIndex, endIndex);
+            }
+
+            // this.emitUpdate && this.$emit('update', startIndex, endIndex);
+
+            this.startIndex = startIndex;
+            this.endIndex = endIndex;
+            this.length = l;
+            this.offsetTop = offsetTop;
+            this.height = containerHeight;
+          }
+        }
+      });
+    }
   }
 
 }

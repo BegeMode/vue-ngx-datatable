@@ -27,6 +27,18 @@ ref="selector"
     :rows="rows"
     :columns="columns">
   </datatable-summary-row>
+  <!-- <div class="datatable-row-wrapper" :style="rowStyle(group, i)"
+    v-for="(group, i) of temp" :key="rowTrackingFn(group)" :item-index="group.id">
+    <span>{{group.id}}  {{group.name}}</span>
+  </div> -->
+  <!-- <div v-for="(item, index) in visibleItems"
+      :key="keysEnabled && item.id || undefined"
+      :item="item"
+      :item-index="startIndex + index"
+      class="item">
+    <span>{{item.id}}</span>
+  </div> -->
+
   <datatable-row-wrapper class="datatable-row-wrapper"
     :groupedRows="groupedRows"
     v-for="(group, i) of temp" :key="rowTrackingFn(group)"
