@@ -9,6 +9,12 @@
     display: none !important;
   }
 
+  .hidden-columns {
+    visibility: hidden;
+    position: absolute;
+    z-index: -1;
+  }
+
   *, *:before, *:after {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;

@@ -1,10 +1,12 @@
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import DatatableComponent from '../../src/components/datatable.component.vue';
 import { TableColumn } from '../../src/types';
+import DataTableColumnComponent from '../../src/components/columns/column.component';
 
 @Component({
   components: {
     'ngx-datatable': DatatableComponent,
+    'vue-datatable-column': DataTableColumnComponent,
   },
   template: `
     <div>
@@ -25,14 +27,19 @@ import { TableColumn } from '../../src/types';
         :rowHeight="50"
         :scrollbarV="true"
         :scrollbarH="true"
-        :columns="columns"
+        :columns=columns
         :rows="rows">
-        <!-- <ngx-datatable-column name="Id" [width]="80"></ngx-datatable-column>
-        <ngx-datatable-column name="Name" [width]="300"></ngx-datatable-column>
-        <ngx-datatable-column name="Gender"></ngx-datatable-column>
-        <ngx-datatable-column name="Age"></ngx-datatable-column>
-        <ngx-datatable-column name="City" [width]="300" prop="address.city"></ngx-datatable-column>
-        <ngx-datatable-column name="State" [width]="300" prop="address.state"></ngx-datatable-column> -->
+        <vue-datatable-column name="Id" :width="80"></vue-datatable-column>
+        <vue-datatable-column name="Name" :width="300">
+          <span slot="header"><strong>FullName</strong></span>
+          <template slot-scope="scope" v-if="scope.row">
+            <span style="margin-left: 10px"><i>{{ scope.row.name }}</i></span>
+          </template>
+        </vue-datatable-column>
+        <vue-datatable-column name="Gender"></vue-datatable-column>
+        <vue-datatable-column name="Age"></vue-datatable-column>
+        <vue-datatable-column name="City" :width="300" prop="address.city"></vue-datatable-column>
+        <vue-datatable-column name="State" :width="300" prop="address.state"></vue-datatable-column>
       </ngx-datatable>
     </div>
   `

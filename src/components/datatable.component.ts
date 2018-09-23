@@ -14,12 +14,14 @@ import DataTableHeaderComponent from './header/header.component';
 import DataTableFooterComponent from './footer/footer.component';
 import { ScrollbarHelper } from '../services/scrollbar-helper.service';
 import { DimensionsHelper } from '../services/dimensions-helper.service';
+import DataTableColumnComponent from './columns/column.component';
 
 @Component({
   components: {
     'datatable-header': DataTableHeaderComponent,
     'datatable-body': DataTableBodyComponent,
     'datatable-footer': DataTableFooterComponent,
+    'datatable-column': DataTableColumnComponent,
 
   }
 })
@@ -326,6 +328,8 @@ export default class DatatableComponent extends Vue {
    * properties of a directive are initialized.
    */
   mounted(): void {
+    // pick up columns
+    // DataTableColumnComponent
     // need to call this immediatly to size
     // if the table is hidden the visibility
     // listener will invoke this itself upon show
@@ -446,9 +450,9 @@ export default class DatatableComponent extends Vue {
   /**
    * Columns to be displayed.
    */
-  @Watch('columns', { immediate: true }) onColumnsChanged() {
-    if (this.columns) {
-      this.internalColumns = [...this.columns];
+  @Watch('columns', { immediate: true }) onColumnsChanged(newVal) {
+    if (newVal) {
+      this.internalColumns = [...newVal];
       setColumnDefaults(this.internalColumns, this);
       this.recalculateColumns();
     }
@@ -1033,6 +1037,22 @@ export default class DatatableComponent extends Vue {
     const rowIndex = this.rows.findIndex(r =>
       r[this.treeToRelation] === event.row[this.treeToRelation]);
     this.$emit('treeAction', {row, rowIndex});
+  }
+
+  onColumnInsert(column: TableColumn) {
+    console.log('onColumnInsert', column);
+    // const columns = [...this.internalColumns]
+    if (!this.internalColumns) {
+      this.internalColumns = [];
+    }
+    const col = this.internalColumns.find(c => c.name === column.name);
+    if (!col) {
+      this.internalColumns = [...this.internalColumns, column];
+    } else {
+      // Object.assign(col, column);
+      this.$set(col, 'headerTemplate', column.headerTemplate);
+      this.$set(col, 'cellTemplate', column.cellTemplate);
+    }
   }
     
   /**

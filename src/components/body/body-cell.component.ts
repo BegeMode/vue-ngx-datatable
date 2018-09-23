@@ -64,12 +64,15 @@ export default class DataTableBodyCellComponent extends Vue {
     this.checkValueUpdates();
   }
 
-  @Watch('column') onColumnChanged() {
+  @Watch('column', { immediate: true }) onColumnChanged() {
     this.cellContext.column = this.column;
+    if (this.column.cellTemplate) {
+      this.$slots.default = this.column.cellTemplate({ row: this.row });
+    }
     this.checkValueUpdates();
   }
 
-  @Watch('row', { immediate: true }) onRowChanged() {
+  @Watch('row') onRowChanged() {
     this.cellContext.row = this.row;
     this.checkValueUpdates();
   }
@@ -95,6 +98,17 @@ export default class DataTableBodyCellComponent extends Vue {
   // @Output() treeAction: EventEmitter<any> = new EventEmitter();
 
   // @ViewChild('cellTemplate', { read: ViewContainerRef }) cellTemplate: ViewContainerRef;
+
+  created() {
+    this.cellContext.group = this.group;
+    this.cellContext.rowHeight = this.rowHeight;
+    this.cellContext.isSelected = this.isSelected;
+    this.cellContext.expanded = this.expanded;
+    this.cellContext.rowIndex = this.rowIndex;
+    this.cellContext.column = this.column;
+    this.cellContext.row = this.row;
+    this.cellContext.treeStatus = this._treeStatus;
+  }
 
   get columnCssClasses(): any {
     const result = {

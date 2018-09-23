@@ -47,6 +47,8 @@ import DataTableHeaderCellComponent from './header-cell.component';
           @sort="onSort"
           @select="$emit('select')"
           @columnContextmenu="$emit('columnContextmenu')">
+          <slot>
+          </slot>
         </datatable-header-cell>
       </div>
     </div>

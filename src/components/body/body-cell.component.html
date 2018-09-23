@@ -1,7 +1,6 @@
 <div class="datatable-body-cell-label" :style="styleObject" :class="columnCssClasses" @focus="onFocus" @blur="onBlur"
      @click="onClick" @dblclick="onDblClick" @keydown="onKeyDown" >
-<label 
-  v-if="column.checkboxable && (!displayCheck || displayCheck(row, column, value))"
+<label v-if="column.checkboxable && (!displayCheck || displayCheck(row, column, value))"
   class="datatable-checkbox">
   <input
     type="checkbox"
@@ -29,11 +28,10 @@
   </slot> -->
 </template>
 
-<span
-  v-if="!column.cellTemplate"
-  :title="sanitizedValue"
-  v-html="value">
-</span>
+<!-- v-if="!column.cellTemplate" -->
+<slot v-bind:row="row">
+  <span :title="sanitizedValue" v-html="value"></span>
+</slot>
 <!-- <slot
   v-if="column.cellTemplate"
   :templateOutlet="column.cellTemplate"

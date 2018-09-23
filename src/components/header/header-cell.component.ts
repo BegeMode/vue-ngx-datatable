@@ -20,15 +20,14 @@ import { nextSortDir } from '../../utils';
           @change="$emit('select', !allRowsSelected)"
         />
       </label>
-      <span
-        v-if="!column.headerTemplate"
-        class="datatable-header-cell-wrapper">
-        <span
-          class="datatable-header-cell-label draggable"
-          @click="onSort"
-          v-html="name">
+      <slot>
+      <!-- Контент по умолчанию v-if="!column.headerTemplate" -->
+        <span class="datatable-header-cell-wrapper">
+          <span class="datatable-header-cell-label draggable"
+            @click="onSort" v-html="name">
+          </span>
         </span>
-      </span>
+      </slot>
       <!-- <template
         v-if="column.headerTemplate"
         :templateOutlet="column.headerTemplate"
@@ -74,6 +73,9 @@ export default class DataTableHeaderCellComponent extends Vue {
   
   @Watch('column', { immediate: true }) onColumnChahged() {
     this.cellContext.column = this.column;
+    if (this.column.headerTemplate) {
+      this.$slots.default = this.column.headerTemplate;
+    }
   }
 
   @Watch('sorts', { immediate: true }) onSorts() {
