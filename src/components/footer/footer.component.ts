@@ -10,7 +10,7 @@ import DataTablePagerComponent from './pager.component';
       class="datatable-footer-inner"
       :class="{'selected-count': selectedMessage}"
       :style = "{ 'height': footerHeight + 'px' }">
-      <slot v-if="!pagination" v-bind:row="{ rowCount: rowCount, pageSize: pageSize, 
+      <slot v-bind:row="{ rowCount: rowCount, pageSize: pageSize, 
                           selectedCount: selectedCount, curPage: curPage, offset: offset }">
         <div class="page-count">
           <span v-if="selectedMessage">
@@ -19,18 +19,18 @@ import DataTablePagerComponent from './pager.component';
           {{rowCount.toLocaleString()}} {{totalMessage}}
         </div>
       </slot>
-      <div class="datatable-pager" v-else="pagination">
-      <datatable-pager
-        :pagerLeftArrowIcon="pagerLeftArrowIcon"
-        :pagerRightArrowIcon="pagerRightArrowIcon"
-        :pagerPreviousIcon="pagerPreviousIcon"
-        :pagerNextIcon="pagerNextIcon"
-        :page="curPage"
-        :size="pageSize"
-        :count="rowCount"
-        :hidden="!isVisible"
-        @change="$emit('page')">
-      </datatable-pager>
+      <div class="datatable-pager" v-if="pagination">
+        <datatable-pager
+          :pagerLeftArrowIcon="pagerLeftArrowIcon"
+          :pagerRightArrowIcon="pagerRightArrowIcon"
+          :pagerPreviousIcon="pagerPreviousIcon"
+          :pagerNextIcon="pagerNextIcon"
+          :page="curPage"
+          :size="pageSize"
+          :count="rowCount"
+          :hidden="!isVisible"
+          @change="$emit('page', $event)">
+        </datatable-pager>
       </div>
     </div>
   `,

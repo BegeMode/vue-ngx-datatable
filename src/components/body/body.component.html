@@ -1,4 +1,4 @@
-<div :style="classObject" class="datatable-body">
+<div :style="styleObject" class="datatable-body">
 <datatable-selection
 ref="selector"
 :selected="selected"
@@ -42,13 +42,13 @@ ref="selector"
   <datatable-row-wrapper class="datatable-row-wrapper"
     :groupedRows="groupedRows"
     v-for="(group, i) of temp" :key="rowTrackingFn(group)"
+    :row="group"
     :innerWidth="innerWidth"
     :style="getRowsStyles(group)"
     :rowDetail="rowDetail"
     :groupHeader="groupHeader"
     :offsetX="offsetX"
     :detailRowHeight="getDetailRowHeight(group[i],i)"
-    :row="group"
     :expanded="getRowExpanded(group)"
     :rowIndex="getRowIndex(group[i])"
     @rowContextmenu="$emit('rowContextmenu')">

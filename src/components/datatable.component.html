@@ -42,6 +42,7 @@ visibility-observer
   :trackByProp="trackByProp"
   :columns="internalColumns"
   :pageSize="pageSize"
+  :pagination="pagination"
   :offsetX="offsetX"
   :rowDetail="rowDetail"
   :groupHeader="groupHeader"
@@ -64,20 +65,22 @@ visibility-observer
   @scroll="onBodyScroll"
   @treeAction="onTreeAction">
 </datatable-body>
-<datatable-footer  ref="datatableFooter" class="datatable-footer"
-  v-if="footerHeight || pagination"
-  :pagination="pagination"
-  :rowCount="rowCount"
-  :pageSize="pageSize"
-  :offset="myOffset"
-  :footerHeight="footerHeight"
-  :totalMessage="messages.totalMessage"
-  :pagerLeftArrowIcon="cssClasses.pagerLeftArrow"
-  :pagerRightArrowIcon="cssClasses.pagerRightArrow"
-  :pagerPreviousIcon="cssClasses.pagerPrevious"
-  :selectedCount="selected.length"
-  :selectedMessage="!!selectionType && messages.selectedMessage"
-  :pagerNextIcon="cssClasses.pagerNext"
-  @page="onFooterPage">
-</datatable-footer>
+<div class="datatable-footer">
+  <datatable-footer ref="datatableFooter"
+    v-if="footerHeight || pagination"
+    :pagination="pagination"
+    :rowCount="rowCount"
+    :pageSize="pageSize"
+    :offset="myOffset"
+    :footerHeight="footerHeight"
+    :totalMessage="messages.totalMessage"
+    :pagerLeftArrowIcon="cssClasses.pagerLeftArrow"
+    :pagerRightArrowIcon="cssClasses.pagerRightArrow"
+    :pagerPreviousIcon="cssClasses.pagerPrevious"
+    :selectedCount="selected.length"
+    :selectedMessage="!!selectionType && messages.selectedMessage"
+    :pagerNextIcon="cssClasses.pagerNext"
+    @page="onFooterPage">
+  </datatable-footer>
+</div>
 </div>

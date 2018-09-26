@@ -294,7 +294,8 @@ export default class DatatableComponent extends Vue {
   internalColumns: TableColumn[] = null;
   myColumnMode: ColumnMode = ColumnMode.standard;
   mySortType: SortType = SortType.single;
-  $myOffset: number = 0;
+  // tslint:disable-next-line:variable-name
+  myOffset_: number = 0;
   // _columnTemplates: QueryList<DataTableColumnDirective>;
   // _subscriptions: Subscription[] = [];
   /**
@@ -312,13 +313,6 @@ export default class DatatableComponent extends Vue {
   private dimensionsHelper: DimensionsHelper = new DimensionsHelper();
   // private columnChangesService: ColumnChangesService;
 
-  created() {
-    this.bodyComponent = this.$refs.datatableBody; // as DataTableBodyComponent;
-    this.headerComponent = this.$refs.datatableHeader; //  as DataTableHeaderComponent;
-    // this.rowDiffer = this.differs.find({}).create();
-    window.addEventListener('resize', this.onWindowResize);
-  }
-
   destroyed() {
     window.removeEventListener('resize', this.onWindowResize);
     //  todo: this._subscriptions.forEach(subscription => subscription.unsubscribe());
@@ -329,8 +323,13 @@ export default class DatatableComponent extends Vue {
    * properties of a directive are initialized.
    */
   mounted(): void {
+    this.bodyComponent = this.$refs.datatableBody; // as DataTableBodyComponent;
+    this.headerComponent = this.$refs.datatableHeader; //  as DataTableHeaderComponent;
+    // this.rowDiffer = this.differs.find({}).create();
+
     // pick up columns
     // DataTableColumnComponent
+
     // need to call this immediatly to size
     // if the table is hidden the visibility
     // listener will invoke this itself upon show
@@ -355,6 +354,7 @@ export default class DatatableComponent extends Vue {
           offset: 0
         });
       }
+      window.addEventListener('resize', this.onWindowResize);
     });
 
     // this.columnTemplates.changes.subscribe(v =>
@@ -484,11 +484,11 @@ export default class DatatableComponent extends Vue {
   }
 
   @Watch('offset', { immediate: true }) onOffsetCahnged() {
-    this.$myOffset = this.offset;
+    this.myOffset_ = this.offset;
   }
 
   get myOffset(): number {
-    return Math.max(Math.min(this.$myOffset, Math.ceil(this.rowCount / this.pageSize) - 1), 0);
+    return Math.max(Math.min(this.myOffset_, Math.ceil(this.rowCount / this.pageSize) - 1), 0);
   }
 
   /**
@@ -783,13 +783,17 @@ export default class DatatableComponent extends Vue {
       return;
     }
 
-    this.$myOffset = offset;
+    if (this.myOffset_ === offset) {
+      return;
+    }
+    
+    this.myOffset_ = offset;
 
     this.$emit('page', {
       count: this.count,
       pageSize: this.pageSize,
       limit: this.limit,
-      offset: this.offset
+      offset: this.myOffset_,
     });
   }
 
@@ -806,14 +810,14 @@ export default class DatatableComponent extends Vue {
    * The footer triggered a page event.
    */
   onFooterPage(event: any) {
-    this.$myOffset = event.page - 1;
-    this.bodyComponent.updateOffsetY(this.offset);
+    this.myOffset_ = event.page - 1;
+    this.bodyComponent.updateOffsetY(this.myOffset_);
 
     this.$emit('page', {
       count: this.count,
       pageSize: this.pageSize,
       limit: this.limit,
-      offset: this.offset
+      offset: this.myOffset_
     });
 
     if (this.selectAllRowsOnPage) {
@@ -987,8 +991,8 @@ export default class DatatableComponent extends Vue {
     );
 
     // Always go to first page when sorting to see the newly sorted data
-    this.$myOffset = 0;
-    this.bodyComponent.updateOffsetY(this.offset);
+    this.myOffset_ = 0;
+    this.bodyComponent.updateOffsetY(this.myOffset_);
     this.$emit('sort', event);
   }
 

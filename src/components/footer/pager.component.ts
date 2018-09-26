@@ -65,6 +65,7 @@ export default class DataTablePagerComponent extends Vue {
   @Prop() page: number;
 
   pages: any = [];
+  myPage: number = 0;
 
   @Watch('count') onCountChanged() {
     this.pages = this.calcPages();
@@ -75,10 +76,12 @@ export default class DataTablePagerComponent extends Vue {
   }
 
   @Watch('page') onPageChanged() {
+    this.myPage = this.page;
     this.pages = this.calcPages();
   }
 
   created() {
+    this.myPage = this.page;
     this.pages = this.calcPages();
   }
 
@@ -90,24 +93,24 @@ export default class DataTablePagerComponent extends Vue {
   // @Output() change: EventEmitter<any> = new EventEmitter();
 
   get canPrevious(): boolean {
-    return this.page > 1;
+    return this.myPage > 1;
   }
 
   get canNext(): boolean {
-    return this.page < this.totalPages;
+    return this.myPage < this.totalPages;
   }
 
   prevPage(): void {
-    this.selectPage(this.page - 1);
+    this.selectPage(this.myPage - 1);
   }
 
   nextPage(): void {
-    this.selectPage(this.page + 1);
+    this.selectPage(this.myPage + 1);
   }
 
   selectPage(page: number): void {
-    if (page > 0 && page <= this.totalPages && page !== this.page) {
-      this.page = page;
+    if (page > 0 && page <= this.totalPages && page !== this.myPage) {
+      this.myPage = page;
 
       this.$emit('change', {
         page
@@ -122,7 +125,7 @@ export default class DataTablePagerComponent extends Vue {
     const maxSize = 5;
     const isMaxSized = maxSize < this.totalPages;
 
-    page = page || this.page;
+    page = page || this.myPage;
 
     if (isMaxSized) {
       startPage = page - Math.floor(maxSize / 2);

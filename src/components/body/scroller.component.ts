@@ -87,7 +87,6 @@ export default class ScrollerComponent extends Vue {
         scrollXPos: this.scrollXPos
       });
     }
-
     this.prevScrollYPos = this.scrollYPos;
     this.prevScrollXPos = this.scrollXPos;
   }

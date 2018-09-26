@@ -45,6 +45,7 @@ export default class DataTableBodyComponent extends Vue {
   @Prop() summaryPosition: string;
   @Prop() summaryHeight: number;
   @Prop() pageSize: number;
+  @Prop() pagination: boolean;
   @Prop() rows: any[];
   @Prop() columns: any[];
   @Prop() offset: number;
@@ -58,37 +59,27 @@ export default class DataTableBodyComponent extends Vue {
   rowHeightsCache: RowHeightCache = new RowHeightCache();
   temp: any[] = [];
   offsetY: number = 0;
+  myOffset: number = 0;
   indexes: any = {};
   columnGroupWidths: any = null;
   columnGroupWidthsWithoutGroup: any = null;
   rowIndexes: any = new Map();
   rowExpansions: any = new Map();
+  myBodyHeight: any = null;
 
   rowTrackingFn: any;
   listener: any;
-  myBodyHeight: any;
   lastFirst: number;
   lastLast: number;
 
-  ready = false;
-  startIndex = 0;
-  endIndex = 0;
-  length = 0;
+  // ready = false;
+  // startIndex = 0;
+  // endIndex = 0;
+  // length = 0;
   oldScrollTop = null;
   oldScrollBottom = null;
-  offsetTop = 0;
-  height = 0;
-  scrollDirty = false;
-  updateDirty = false;
-  buffer: number = 200;
-  poolSize: number = 2000;
-  skip: boolean = false;
-  visibleItems = [];
-  itemContainerStyle = null;
-  itemsStyle = null;
-  keysEnabled = true;
-  delayPreviousItems: boolean;
-  pageMode: boolean = false;
+  // offsetTop = 0;
+  // height = 0;
 
   // @Output() scroll: EventEmitter<any> = new EventEmitter();
   // @Output() page: EventEmitter<any> = new EventEmitter();
@@ -102,8 +93,6 @@ export default class DataTableBodyComponent extends Vue {
    * Creates an instance of DataTableBodyComponent.
    */
   created() {
-    this.selector = this.$refs.selector;
-    this.scroller = this.$refs.scroller;
     // declare fn here so we can get access to the `this` property
     this.rowTrackingFn = function(row: any): any {
       const idx = this.getRowIndex(row);
@@ -115,6 +104,11 @@ export default class DataTableBodyComponent extends Vue {
     }.bind(this);
   }
 
+  mounted() {
+    this.selector = this.$refs.selector;
+    this.scroller = this.$refs.scroller;
+  }
+
   @Watch('pageSize') onPageSize() {
     this.recalcLayout();
   }
@@ -123,6 +117,9 @@ export default class DataTableBodyComponent extends Vue {
     // this.updateVisibleItems(true);
     this.rowExpansions.clear();
     this.recalcLayout();
+    this.$nextTick(() => {
+      this.scroller = this.$refs.scroller;
+    });
   }
 
   @Watch('columns', { immediate: true }) onColumnsChanged() {
@@ -130,7 +127,11 @@ export default class DataTableBodyComponent extends Vue {
     this.columnGroupWidths = columnGroupWidths(colsByPin, this.columns);
   }
 
-  @Watch('offset') onOffsetChanged() {
+  @Watch('offset', { immediate: true }) onOffsetChanged() {
+    this.myOffset = this.offset;
+  }
+
+  @Watch('myOffset') onMyOffsetChanged() {
     this.recalcLayout();
   }
 
@@ -156,7 +157,7 @@ export default class DataTableBodyComponent extends Vue {
     }
   }
 
-  get classObject() {
+  get styleObject() {
     return {
       width: this.bodyWidth ? this.bodyWidth : 'auto',
       height: this.myBodyHeight ? this.myBodyHeight : 'auto',
@@ -258,13 +259,13 @@ export default class DataTableBodyComponent extends Vue {
 
     // if scroll change, trigger update
     // this is mainly used for header cell positions
-    if (this.offsetY !== scrollYPos || this.offsetX !== scrollXPos) {
+    if (this.offsetY !== scrollYPos || this.offsetX !== scrollXPos) { // Math.abs(scrollYPos - this.offsetY) > 50
       this.$emit('scroll', {
         offsetY: scrollYPos,
         offsetX: scrollXPos
       });
     }
-
+   
     this.offsetY = scrollYPos;
     this.offsetX = scrollXPos;
     this.$nextTick(() => {
@@ -297,13 +298,15 @@ export default class DataTableBodyComponent extends Vue {
   updateRows(): void {
     let { first, last } = this.indexes;
     if (this.lastFirst === first && this.lastLast === last) {
-      console.log('this.lastFirst === first');
+      // console.log('this.lastFirst === first');
       return;
     }
     this.lastFirst = first;
     this.lastLast = last;
-    first = Math.max(0, first - 20);
-    last = Math.min(this.rowCount, last + 10);
+    if (!this.pagination) {
+      first = Math.max(0, first - 20);
+      last = Math.min(this.rowCount, last + 10);
+    }
     let rowIndex = first;
     let idx = 0;
     const temp: any[] = [];
@@ -345,7 +348,7 @@ export default class DataTableBodyComponent extends Vue {
     }
   
     this.temp = temp;
-    // console.log('first = ', first);
+    console.log('updateRows first = ', first);
   }
 
   /**
@@ -515,7 +518,7 @@ export default class DataTableBodyComponent extends Vue {
       // The server is handling paging and will pass an array that begins with the
       // element at a specified offset.  first should always be 0 with external paging.
       if (!this.externalPaging) {
-        first = Math.max(this.offset * this.pageSize, 0);
+        first = Math.max(this.myOffset * this.pageSize, 0);
       }
       last = Math.min((first + this.pageSize), this.rowCount);
     }
@@ -629,7 +632,9 @@ export default class DataTableBodyComponent extends Vue {
   recalcLayout(): void {
     this.refreshRowHeightCache();
     this.updateIndexes();
-    this.updateRows();
+    this.$nextTick(() => {
+      this.updateRows();
+    });
   }
 
   /**
@@ -681,7 +686,7 @@ export default class DataTableBodyComponent extends Vue {
    * Gets the row index given a row
    */
   getRowIndex(row: any): number {
-    return this.rowIndexes.get(row) || 0;
+    return row ? this.rowIndexes.get(row) || 0 : 0;
   }
 
   onTreeAction(row: any) {
@@ -730,175 +735,6 @@ export default class DataTableBodyComponent extends Vue {
         heights[i] = { accumulator, height: current };
       }
       return heights;
-    }
-  }
-
-  handleScroll() {
-    if (!this.scrollDirty) {
-      this.scrollDirty = true;
-      requestAnimationFrame(() => {
-        this.scrollDirty = false;
-        this.updateVisibleItems();
-      });
-    }
-  }
-
-  getScroll() {
-    const el = this.$el;
-    let scrollState;
-
-    if (this.pageMode) {
-      const rect = el.getBoundingClientRect();
-      let top = -rect.top;
-      let height = window.innerHeight;
-      if (top < 0) {
-        height += top;
-        top = 0;
-      }
-      if (top + height > rect.height) {
-        height = rect.height - top;
-      }
-      scrollState = {
-        top,
-        bottom: top + height,
-      };
-    } else {
-      scrollState = {
-        top: el.scrollTop,
-        bottom: el.scrollTop + el.clientHeight,
-      };
-    }
-    return scrollState;
-  }
-
-  updateVisibleItems(force = false) {
-    if (!this.updateDirty) {
-      this.updateDirty = true;
-      this.$nextTick(() => {
-        this.updateDirty = false;
-
-        const l = this.rows.length;
-        const scroll = this.getScroll();
-        // const scroll = {
-        //   top: this.offsetX,
-        //   bottom: this.offsetY,
-        // };
-        const items = this.rows;
-        const itemHeight: number = 50;
-        // if (typeof this.rowHeight === function) {
-        //   itemHeight = this.rowHeight()
-        // }
-        //  = this.rowHeight;
-        let containerHeight;
-        let offsetTop;
-        if (scroll) {
-          let startIndex = -1;
-          let endIndex = -1;
-
-          const buffer = this.buffer; // parseInt(this.buffer);
-          const poolSize = this.poolSize; // parseInt(this.poolSize);
-          const scrollTop = ~~(scroll.top / poolSize) * poolSize - buffer;
-          const scrollBottom = Math.ceil(scroll.bottom / poolSize) * poolSize + buffer;
-
-          if (!force && ((scrollTop === this.oldScrollTop && scrollBottom === this.oldScrollBottom) || this.skip)) {
-            this.skip = false;
-            return;
-          } else {
-            this.oldScrollTop = scrollTop;
-            this.oldScrollBottom = scrollBottom;
-          }
-
-          // Variable height mode
-          if (itemHeight === null) {
-            const heights = this.heights;
-            let h;
-            let a = 0;
-            let b = l - 1;
-            let i = ~~(l / 2);
-            let oldI;
-
-            // Searching for startIndex
-            do {
-              oldI = i;
-              h = heights[i].accumulator;
-              if (h < scrollTop) {
-                a = i;
-              } else if (i < l - 1 && heights[i + 1].accumulator > scrollTop) {
-                b = i;
-              }
-              i = ~~((a + b) / 2);
-            } while (i !== oldI);
-            i < 0 && (i = 0);
-            startIndex = i;
-
-            // For containers style
-            offsetTop = i > 0 ? heights[i - 1].accumulator : 0;
-            containerHeight = heights[l - 1].accumulator;
-
-            // Searching for endIndex
-            for (endIndex = i; endIndex < l && heights[endIndex].accumulator < scrollBottom; endIndex++);
-            if (endIndex === -1) {
-              endIndex = items.length - 1;
-            } else {
-              endIndex++;
-              // Bounds
-              endIndex > l && (endIndex = l);
-            }
-          } else {
-            // Fixed height mode
-            startIndex = ~~(scrollTop / itemHeight);
-            endIndex = Math.ceil(scrollBottom / itemHeight);
-
-            // Bounds
-            startIndex < 0 && (startIndex = 0);
-            endIndex > l && (endIndex = l);
-
-            offsetTop = startIndex * itemHeight;
-            containerHeight = l * itemHeight;
-          }
-
-          // if (endIndex - startIndex > config.itemsLimit) {
-          //   this.itemsLimitError()
-          // }
-
-          if (
-            force ||
-            this.startIndex !== startIndex ||
-            this.endIndex !== endIndex ||
-            this.offsetTop !== offsetTop ||
-            this.height !== containerHeight ||
-            this.length !== l
-          ) {
-            this.keysEnabled = !(startIndex > this.endIndex || endIndex < this.startIndex);
-
-            this.itemContainerStyle = {
-              height: containerHeight + 'px',
-            };
-            this.itemsStyle = {
-              marginTop: offsetTop + 'px',
-            };
-
-            if (this.delayPreviousItems) {
-              // Add next items
-              this.visibleItems = items.slice(this.startIndex, endIndex);
-              // Remove previous items
-              this.$nextTick(() => {
-                this.visibleItems = items.slice(startIndex, endIndex);
-              });
-            } else {
-              this.visibleItems = items.slice(startIndex, endIndex);
-            }
-
-            // this.emitUpdate && this.$emit('update', startIndex, endIndex);
-
-            this.startIndex = startIndex;
-            this.endIndex = endIndex;
-            this.length = l;
-            this.offsetTop = offsetTop;
-            this.height = containerHeight;
-          }
-        }
-      });
     }
   }
 
