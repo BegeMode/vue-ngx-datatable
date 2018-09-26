@@ -65,7 +65,8 @@ visibility-observer
   @treeAction="onTreeAction">
 </datatable-body>
 <datatable-footer  ref="datatableFooter" class="datatable-footer"
-  v-if="footerHeight"
+  v-if="footerHeight || pagination"
+  :pagination="pagination"
   :rowCount="rowCount"
   :pageSize="pageSize"
   :offset="myOffset"

@@ -1,101 +1,85 @@
-import {
-  Component, Input, Output, EventEmitter, ChangeDetectionStrategy
-} from '@angular/core';
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 
 @Component({
-  selector: 'datatable-pager',
   template: `
     <ul class="pager">
-      <li [class.disabled]="!canPrevious()">
+      <li :class="{ disabled: !canPrevious }">
         <a
           role="button"
           aria-label="go to first page"
           href="javascript:void(0)"
-          (click)="selectPage(1)">
-          <i class="{{pagerPreviousIcon}}"></i>
+          @click="selectPage(1)">
+          <i :class="pagerPreviousIcon"></i>
         </a>
       </li>
-      <li [class.disabled]="!canPrevious()">
+      <li :class="{ disabled: !canPrevious }">
         <a
           role="button"
           aria-label="go to previous page"
           href="javascript:void(0)"
-          (click)="prevPage()">
-          <i class="{{pagerLeftArrowIcon}}"></i>
+          @click="prevPage">
+          <i :class="pagerLeftArrowIcon"></i>
         </a>
       </li>
       <li
         role="button"
-        [attr.aria-label]="'page ' + pg.number"
+        aria-label="'page ' + pg.number"
         class="pages"
-        *ngFor="let pg of pages"
-        [class.active]="pg.number === page">
+        v-for="pg of pages"
+        :class="{ active: pg.number === page }">
         <a
           href="javascript:void(0)"
-          (click)="selectPage(pg.number)">
+          @click="selectPage(pg.number)">
           {{pg.text}}
         </a>
       </li>
-      <li [class.disabled]="!canNext()">
+      <li :class="{ disabled: !canNext }">
         <a
           role="button"
           aria-label="go to next page"
           href="javascript:void(0)"
-          (click)="nextPage()">
-          <i class="{{pagerRightArrowIcon}}"></i>
+          @click="nextPage">
+          <i :class="pagerRightArrowIcon"></i>
         </a>
       </li>
-      <li [class.disabled]="!canNext()">
+      <li :class="{ disabled: !canNext }">
         <a
           role="button"
           aria-label="go to last page"
           href="javascript:void(0)"
-          (click)="selectPage(totalPages)">
-          <i class="{{pagerNextIcon}}"></i>
+          @click="selectPage(totalPages)">
+          <i :class="pagerNextIcon"></i>
         </a>
       </li>
     </ul>
   `,
-  host: {
-    class: 'datatable-pager'
-  },
-  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DataTablePagerComponent {
+export default class DataTablePagerComponent extends Vue {
 
-  @Input() pagerLeftArrowIcon: string;
-  @Input() pagerRightArrowIcon: string;
-  @Input() pagerPreviousIcon: string;
-  @Input() pagerNextIcon: string;
+  @Prop() pagerLeftArrowIcon: string;
+  @Prop() pagerRightArrowIcon: string;
+  @Prop() pagerPreviousIcon: string;
+  @Prop() pagerNextIcon: string;
+  @Prop() size: number;
+  @Prop() count: number;
+  @Prop() page: number;
 
-  @Input()
-  set size(val: number) {
-    this._size = val;
+  pages: any = [];
+
+  @Watch('count') onCountChanged() {
     this.pages = this.calcPages();
   }
 
-  get size(): number {
-    return this._size;
-  }
-
-  @Input()
-  set count(val: number) {
-    this._count = val;
+  @Watch('size') onSizeChanged() {
     this.pages = this.calcPages();
   }
 
-  get count(): number {
-    return this._count;
-  }
-
-  @Input()
-  set page(val: number) {
-    this._page = val;
+  @Watch('page') onPageChanged() {
     this.pages = this.calcPages();
   }
 
-  get page(): number {
-    return this._page;
+  created() {
+    this.pages = this.calcPages();
   }
 
   get totalPages(): number {
@@ -103,18 +87,13 @@ export class DataTablePagerComponent {
     return Math.max(count || 0, 1);
   }
 
-  @Output() change: EventEmitter<any> = new EventEmitter();
+  // @Output() change: EventEmitter<any> = new EventEmitter();
 
-  _count: number = 0;
-  _page: number = 1;
-  _size: number = 0;
-  pages: any;
-
-  canPrevious(): boolean {
+  get canPrevious(): boolean {
     return this.page > 1;
   }
 
-  canNext(): boolean {
+  get canNext(): boolean {
     return this.page < this.totalPages;
   }
 
@@ -130,7 +109,7 @@ export class DataTablePagerComponent {
     if (page > 0 && page <= this.totalPages && page !== this.page) {
       this.page = page;
 
-      this.change.emit({
+      this.$emit('change', {
         page
       });
     }

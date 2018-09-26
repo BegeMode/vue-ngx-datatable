@@ -90,6 +90,7 @@ export default class DatatableComponent extends Vue {
    * Pass falsey for no footer
    */
   @Prop({ type: Number, default: 0 }) footerHeight: number;
+  @Prop() pagination: boolean;
   /**
    * If the table should use external paging
    * otherwise its assumed that all data is preloaded.

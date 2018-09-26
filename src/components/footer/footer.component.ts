@@ -1,12 +1,16 @@
 import { Component, Vue, Prop } from 'vue-property-decorator';
+import DataTablePagerComponent from './pager.component';
 
 @Component({
+  components: {
+    'datatable-pager': DataTablePagerComponent
+  },
   template: `
     <div
       class="datatable-footer-inner"
       :class="{'selected-count': selectedMessage}"
       :style = "{ 'height': footerHeight + 'px' }">
-      <slot v-bind:row="{ rowCount: rowCount, pageSize: pageSize, 
+      <slot v-if="!pagination" v-bind:row="{ rowCount: rowCount, pageSize: pageSize, 
                           selectedCount: selectedCount, curPage: curPage, offset: offset }">
         <div class="page-count">
           <span v-if="selectedMessage">
@@ -15,17 +19,19 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
           {{rowCount.toLocaleString()}} {{totalMessage}}
         </div>
       </slot>
-      <!-- <datatable-pager *ngIf="!footerTemplate"
-        [pagerLeftArrowIcon]="pagerLeftArrowIcon"
-        [pagerRightArrowIcon]="pagerRightArrowIcon"
-        [pagerPreviousIcon]="pagerPreviousIcon"
-        [pagerNextIcon]="pagerNextIcon"
-        [page]="curPage"
-        [size]="pageSize"
-        [count]="rowCount"
-        [hidden]="!isVisible"
-        (change)="page.emit($event)">
-      </datatable-pager> -->
+      <div class="datatable-pager" v-else="pagination">
+      <datatable-pager
+        :pagerLeftArrowIcon="pagerLeftArrowIcon"
+        :pagerRightArrowIcon="pagerRightArrowIcon"
+        :pagerPreviousIcon="pagerPreviousIcon"
+        :pagerNextIcon="pagerNextIcon"
+        :page="curPage"
+        :size="pageSize"
+        :count="rowCount"
+        :hidden="!isVisible"
+        @change="$emit('page')">
+      </datatable-pager>
+      </div>
     </div>
   `,
 })
@@ -40,7 +46,7 @@ export default class DataTableFooterComponent extends Vue {
   @Prop() pagerPreviousIcon: string;
   @Prop() pagerNextIcon: string;
   @Prop() totalMessage: string;
-  // @Prop() footerTemplate: DatatableFooterDirective;
+  @Prop() pagination: boolean;
 
   @Prop() selectedCount: number = 0;
   @Prop() selectedMessage: string | boolean;

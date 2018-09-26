@@ -5,12 +5,14 @@ import '../src/themes/bootstrap.scss';
 import { FullScreenComponent } from './basic/fullscreen.component';
 import BasicAutoComponent from './basic/basic-auto.component';
 import BasicFixedComponent from './basic/basic-fixed.component';
+import ClientPagingComponent from './paging/paging-client.component';
 
 @Component({
   components: {
     'basic-auto-demo': BasicAutoComponent,
     'full-screen-demo': FullScreenComponent,
     'basic-fixed-demo': BasicFixedComponent,
+    'client-paging-demo': ClientPagingComponent 
   },
   template: `
     <div :class="classObject">
@@ -159,8 +161,8 @@ import BasicFixedComponent from './basic/basic-fixed.component';
         <client-side-tree-demo v-if="state === 'client-tree'"></client-side-tree-demo> -->
 
         <!-- Paging -->
-        <!-- <row-grouping-demo v-if="state === 'row-grouping'"></row-grouping-demo>
         <client-paging-demo v-if="state === 'client-paging'"></client-paging-demo>
+        <!-- <row-grouping-demo v-if="state === 'row-grouping'"></row-grouping-demo>
         <server-paging-demo v-if="state === 'server-paging'"></server-paging-demo>
         <paging-scrolling-novirtualization-demo v-if="state === 'paging-scrolling-novirtualization'"></paging-scrolling-novirtualization-demo>
         <server-scrolling-demo v-if="state === 'server-scrolling'"></server-scrolling-demo>
