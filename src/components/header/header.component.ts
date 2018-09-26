@@ -91,7 +91,7 @@ export default class DataTableHeaderComponent extends Vue {
   }
  
   // @HostBinding('style.height')
-  @Watch('headerHeight') onHeaderHeightChanged() {
+  @Watch('headerHeight', { immediate: true }) onHeaderHeightChanged() {
     if (this.headerHeight !== 'auto') {
       this.myHeaderHeight = `${this.headerHeight}px`;
     } else {

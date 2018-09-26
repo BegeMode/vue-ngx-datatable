@@ -10,9 +10,10 @@ import { TableColumnProp, TableColumn } from '../../types';
   template: `
     <div>
       <slot name="header">
-      <!-- Контент по умолчанию -->
+      <!-- default content -->
         {{ name }}
       </slot>
+      <!-- default slot for cell -->
       <slot>
       </slot>
     </div>`

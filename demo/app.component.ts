@@ -3,10 +3,14 @@ import '../src/themes/material.scss';
 import '../src/themes/dark.scss';
 import '../src/themes/bootstrap.scss';
 import { FullScreenComponent } from './basic/fullscreen.component';
+import BasicAutoComponent from './basic/basic-auto.component';
+import BasicFixedComponent from './basic/basic-fixed.component';
 
 @Component({
   components: {
+    'basic-auto-demo': BasicAutoComponent,
     'full-screen-demo': FullScreenComponent,
+    'basic-fixed-demo': BasicFixedComponent,
   },
   template: `
     <div :class="classObject">
@@ -128,10 +132,10 @@ import { FullScreenComponent } from './basic/fullscreen.component';
       </nav>
       <content>
         <!-- Basic -->
+        <basic-auto-demo v-if="!state"></basic-auto-demo>
         <full-screen-demo v-if="state === 'full-screen'"></full-screen-demo>
-        <!-- <basic-auto-demo v-if="!state"></basic-auto-demo>
         <basic-fixed-demo v-if="state === 'basic-fixed'"></basic-fixed-demo>
-        <inline-edit-demo v-if="state === 'inline-edit'"></inline-edit-demo>
+        <!-- <inline-edit-demo v-if="state === 'inline-edit'"></inline-edit-demo>
         <virtual-scroll-demo v-if="state === 'virtual-scroll'"></virtual-scroll-demo>
         <horz-vert-scrolling-demo v-if="state === 'horz-vert-scrolling'"></horz-vert-scrolling-demo>
         <multiple-tables-demo v-if="state === 'multiple-tables'"></multiple-tables-demo>

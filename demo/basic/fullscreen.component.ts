@@ -13,7 +13,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
       <h3>
         Full Screen
         <small>
-          <a href="https://github.com/swimlane/ngx-datatable/blob/master/demo/basic/fullscreen.component.ts" target="_blank">
+          <a href="https://github.com/begemode/vue-ngx-datatable/blob/master/demo/basic/fullscreen.component.ts" target="_blank">
             Source
           </a>
         </small>
@@ -27,7 +27,6 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
         :rowHeight="50"
         :scrollbarV="true"
         :scrollbarH="true"
-        :columns=columns
         :rows="rows">
         <vue-datatable-column name="Id" :width="80"></vue-datatable-column>
         <vue-datatable-column name="Name" :width="300">

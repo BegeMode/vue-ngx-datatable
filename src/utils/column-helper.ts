@@ -8,7 +8,7 @@ import Vue from 'vue';
 /**
  * Sets the column defaults
  */
-export function setColumnDefaults(columns: TableColumn[], vm: Vue) {
+export function setColumnsDefaults(columns: TableColumn[], vm: Vue) {
   if(!columns) return;
 
   // Only one column should hold the tree view
@@ -17,63 +17,72 @@ export function setColumnDefaults(columns: TableColumn[], vm: Vue) {
   let treeColumnFound: boolean = false;
 
   for(const column of columns) {
-    if(!column.$$id) {
-      column.$$id = id();
-    }
-
-    // prop can be numeric; zero is valid not a missing prop
-    // translate name => prop
-    if(isNullOrUndefined(column.prop) && column.name) {
-      column.prop = camelCase(column.name);
-    }
-
-    if (!column.$$valueGetter) {
-      column.$$valueGetter = getterForProp(column.prop);
-    }
-
-    // format props if no name passed
-    if(!isNullOrUndefined(column.prop) && isNullOrUndefined(column.name)) {
-      column.name = deCamelCase(String(column.prop));
-    }
-
-    if(isNullOrUndefined(column.prop) && isNullOrUndefined(column.name)) {
-      column.name = ''; // Fixes IE and Edge displaying `null`
-    }
-
-    if(!column.hasOwnProperty('resizeable')) {
-      column.resizeable = true;
-    }
-
-    if(!column.hasOwnProperty('sortable')) {
-      column.sortable = true;
-    }
-
-    if(!column.hasOwnProperty('draggable')) {
-      column.draggable = true;
-    }
-
-    if(!column.hasOwnProperty('canAutoResize')) {
-      column.canAutoResize = true;
-    }
-
-    if(!column.hasOwnProperty('width')) {
-      vm.$set(column, 'width', 150);
-    }
-
+    setColumnDefaults(column, vm);
     if(!column.hasOwnProperty('isTreeColumn')) {
-      column.isTreeColumn = false;
+      vm.$set(column, 'isTreeColumn', false);
     } else {
       if (column.isTreeColumn && !treeColumnFound) {
         // If the first column with isTreeColumn is true found
         // we mark that treeCoulmn is found
+        vm.$set(column, 'isTreeColumn', true);
         treeColumnFound = true;
       } else {
         // After that isTreeColumn property for any other column
         // will be set as false
-        column.isTreeColumn = false;
+        vm.$set(column, 'isTreeColumn', false);
       }
     }
   }
+}
+
+export function setColumnDefaults(column: TableColumn, vm: Vue) {
+  if (!column) return;
+
+  if (!column.$$id) {
+    column.$$id = id();
+  }
+
+  // prop can be numeric; zero is valid not a missing prop
+  // translate name => prop
+  if (isNullOrUndefined(column.prop) && column.name) {
+    column.prop = camelCase(column.name);
+  }
+
+  if (!column.$$valueGetter) {
+    vm.$set(column, '$$valueGetter', getterForProp(column.prop));
+  }
+
+  // format props if no name passed
+  if (!isNullOrUndefined(column.prop) && isNullOrUndefined(column.name)) {
+    column.name = deCamelCase(String(column.prop));
+  }
+
+  if (isNullOrUndefined(column.prop) && isNullOrUndefined(column.name)) {
+    column.name = ''; // Fixes IE and Edge displaying `null`
+  }
+
+  if (!column.hasOwnProperty('resizeable')) {
+    vm.$set(column, 'resizeable', true);
+  }
+
+  if (!column.hasOwnProperty('sortable')) {
+    vm.$set(column, 'sortable', true);
+  }
+
+  if (!column.hasOwnProperty('draggable')) {
+    vm.$set(column, 'draggable', true);
+  }
+
+  if (!column.hasOwnProperty('canAutoResize')) {
+    vm.$set(column, 'canAutoResize', true);
+  }
+
+  if (!column.hasOwnProperty('width') || !column.width) {
+    vm.$set(column, 'width', 150);
+  } else {
+    vm.$set(column, 'width', column.width);
+  }
+  vm.$set(column, 'isTreeColumn', column.isTreeColumn);
 }
 
 export function isNullOrUndefined<T>(value: T | null | undefined): value is null | undefined {

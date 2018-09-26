@@ -2,7 +2,7 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import {
   forceFillColumnWidths, adjustColumnWidths, sortRows,
   setColumnDefaults, throttleable,
-  groupRowsByParents, optionalGetterForProp
+  groupRowsByParents, optionalGetterForProp, setColumnsDefaults
 } from '../utils';
 import { ColumnMode, SortType, SelectionType, TableColumn, ContextmenuType } from '../types';
 import DataTableBodyComponent from './body/body.component.vue';
@@ -73,7 +73,7 @@ export default class DatatableComponent extends Vue {
    * The row height; which is necessary
    * to calculate the height for the lazy rendering.
    */
-  @Prop({ type: Number, default: 30 }) rowHeight: number;
+  @Prop() rowHeight: number | string;
   /**
    * Type of column width distribution formula.
    * Example: flex, force, standard
@@ -84,7 +84,7 @@ export default class DatatableComponent extends Vue {
    * The minimum header height in pixels.
    * Pass a falsey for no header
    */
-  @Prop({ type: Number, default: 30 }) headerHeight: any;
+  @Prop({ type: Number, default: 30 }) headerHeight: number;
   /**
    * The minimum footer height in pixels.
    * Pass falsey for no footer
@@ -453,7 +453,7 @@ export default class DatatableComponent extends Vue {
   @Watch('columns', { immediate: true }) onColumnsChanged(newVal) {
     if (newVal) {
       this.internalColumns = [...newVal];
-      setColumnDefaults(this.internalColumns, this);
+      setColumnsDefaults(this.internalColumns, this);
       this.recalculateColumns();
     }
   }
@@ -474,7 +474,7 @@ export default class DatatableComponent extends Vue {
     this.recalculate();
   }
 
-  @Watch('columnMode', { immediate: true }) onColumnChanged() {
+  @Watch('columnMode', { immediate: true }) onColumnModeChanged() {
     this.myColumnMode = ColumnMode[this.columnMode];
   }
 
@@ -831,7 +831,11 @@ export default class DatatableComponent extends Vue {
     // This is because an expanded row is still considered to be a child of
     // the original row.  Hence calculation would use rowHeight only.
     if (this.scrollbarV && this.virtualization) {
-      const size = Math.ceil(this.bodyHeight / this.rowHeight);
+      let rowHeight = 30;
+      if (typeof this.rowHeight === 'number') {
+        rowHeight = this.rowHeight;
+      }
+      const size = Math.ceil(this.bodyHeight / rowHeight);
       return Math.max(size, 0);
     }
 
@@ -1041,18 +1045,20 @@ export default class DatatableComponent extends Vue {
 
   onColumnInsert(column: TableColumn) {
     console.log('onColumnInsert', column);
-    // const columns = [...this.internalColumns]
     if (!this.internalColumns) {
-      this.internalColumns = [];
+      return this.onColumnsChanged([column]);
     }
-    const col = this.internalColumns.find(c => c.name === column.name);
-    if (!col) {
+    const colIndex = this.internalColumns.findIndex(c => c.name === column.name);
+    // setColumnDefaults(column, this);
+    if (colIndex < 0) {
+      setColumnDefaults(column, this);
       this.internalColumns = [...this.internalColumns, column];
     } else {
-      // Object.assign(col, column);
+      // this.internalColumns[colIndex] = column;
+      const col = this.internalColumns[colIndex];
       this.$set(col, 'headerTemplate', column.headerTemplate);
       this.$set(col, 'cellTemplate', column.cellTemplate);
-    }
+      }
   }
     
   /**

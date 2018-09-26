@@ -6,23 +6,15 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
       class="datatable-footer-inner"
       :class="{'selected-count': selectedMessage}"
       :style = "{ 'height': footerHeight + 'px' }">
-      <!-- <ng-template
-        *ngIf="footerTemplate"
-        [ngTemplateOutlet]="footerTemplate.template"
-        [ngTemplateOutletContext]="{ 
-          rowCount: rowCount, 
-          pageSize: pageSize, 
-          selectedCount: selectedCount,
-          curPage: curPage,
-          offset: offset
-        }">
-      </ng-template> -->
-      <div class="page-count" v-if="!footerTemplate">
-        <span v-if="selectedMessage">
-          {{selectedCount?.toLocaleString()}} {{selectedMessage}} / 
-        </span>
-        {{rowCount?.toLocaleString()}} {{totalMessage}}
-      </div>
+      <slot v-bind:row="{ rowCount: rowCount, pageSize: pageSize, 
+                          selectedCount: selectedCount, curPage: curPage, offset: offset }">
+        <div class="page-count">
+          <span v-if="selectedMessage">
+            {{selectedCount.toLocaleString()}} {{selectedMessage}} / 
+          </span>
+          {{rowCount.toLocaleString()}} {{totalMessage}}
+        </div>
+      </slot>
       <!-- <datatable-pager *ngIf="!footerTemplate"
         [pagerLeftArrowIcon]="pagerLeftArrowIcon"
         [pagerRightArrowIcon]="pagerRightArrowIcon"
