@@ -1,13 +1,15 @@
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
-import { translateXY, columnsByPin, columnGroupWidths, RowHeightCache } from '../../utils';
-import { SelectionType } from '../../types';
+import { translateXY, columnsByPin, columnGroupWidths, RowHeightCache, columnsByPinArr } from '../../utils';
+import { SelectionType, TableColumn, SortDirection } from '../../types';
 import ScrollerComponent from './scroller.component';
 import { MouseEvent } from '../../events';
 import DataTableSelectionComponent from './selection.component';
 import ProgressBarComponent from './progress-bar.component';
-import DataTableRowWrapperComponent from './body-row-wrapper.component';
+import DataTableRowWrapperComponent from './body-row-wrapper.component.vue';
 import DataTableBodyRowComponent from './body-row.component.vue';
 import DataTableSummaryRowComponent from './summary/summary-row.component';
+import { ScrollbarHelper } from '../../services/scrollbar-helper.service';
+import { ICellContext } from '../../types/cell-context.type';
 
 @Component({
   components: {
@@ -66,18 +68,25 @@ export default class DataTableBodyComponent extends Vue {
   rowIndexes: any = new Map();
   rowExpansions: any = new Map();
   myBodyHeight: any = null;
+  columnsByPin: any = null;
+  groupStyles = {
+    left: {},
+    center: {},
+    right: {}
+  };
 
   rowTrackingFn: any;
   listener: any;
   lastFirst: number;
   lastLast: number;
+  private scrollbarHelper = new ScrollbarHelper();
 
   // ready = false;
   // startIndex = 0;
   // endIndex = 0;
   // length = 0;
-  oldScrollTop = null;
-  oldScrollBottom = null;
+  // oldScrollTop = null;
+  // oldScrollBottom = null;
   // offsetTop = 0;
   // height = 0;
 
@@ -123,12 +132,21 @@ export default class DataTableBodyComponent extends Vue {
   }
 
   @Watch('columns', { immediate: true }) onColumnsChanged() {
-    const colsByPin = columnsByPin(this.columns);
-    this.columnGroupWidths = columnGroupWidths(colsByPin, this.columns);
+    this.recalculateColumns();
+    this.buildStylesByGroup();
   }
 
   @Watch('offset', { immediate: true }) onOffsetChanged() {
     this.myOffset = this.offset;
+  }
+
+  @Watch('offsetX') onOffsetXChanged() {
+    this.buildStylesByGroup();
+  }
+
+  @Watch('innerWidth') onInnerWidthChanged() {
+    this.recalculateColumns();
+    this.buildStylesByGroup();
   }
 
   @Watch('myOffset') onMyOffsetChanged() {
@@ -231,6 +249,12 @@ export default class DataTableBodyComponent extends Vue {
     // if (this.groupHeader) this.listener.unsubscribe();
   }
 
+  recalculateColumns(val: any[] = this.columns): void {
+    const colsByPin = columnsByPin(this.columns);
+    this.columnsByPin = columnsByPinArr(this.columns);
+    this.columnGroupWidths = columnGroupWidths(colsByPin, this.columns);
+  }
+
   /**
    * Updates the Y offset given a new offset.
    */
@@ -296,17 +320,17 @@ export default class DataTableBodyComponent extends Vue {
    * Updates the rows in the view port
    */
   updateRows(): void {
-    let { first, last } = this.indexes;
+    const { first, last } = this.indexes;
     if (this.lastFirst === first && this.lastLast === last) {
       // console.log('this.lastFirst === first');
       return;
     }
     this.lastFirst = first;
     this.lastLast = last;
-    if (!this.pagination) {
-      first = Math.max(0, first - 20);
-      last = Math.min(this.rowCount, last + 10);
-    }
+    // if (!this.pagination) {
+    //   first = Math.max(0, first - 20);
+    //   last = Math.min(this.rowCount, last + 10);
+    // }
     let rowIndex = first;
     let idx = 0;
     const temp: any[] = [];
@@ -348,7 +372,7 @@ export default class DataTableBodyComponent extends Vue {
     }
   
     this.temp = temp;
-    console.log('updateRows first = ', first);
+    // console.log('updateRows first = ', first);
   }
 
   /**
@@ -507,7 +531,7 @@ export default class DataTableBodyComponent extends Vue {
         // that shows up inside the view port the last.
         const height = this.bodyHeight; // parseInt(this.bodyHeight, 0);
         first = this.rowHeightsCache.getRowIndex(this.offsetY);
-        last = this.rowHeightsCache.getRowIndex(height + this.offsetY) + 50;
+        last = this.rowHeightsCache.getRowIndex(height + this.offsetY);
       } else {
         // If virtual rows are not needed
         // We render all in one go
@@ -719,23 +743,204 @@ export default class DataTableBodyComponent extends Vue {
     // return styles;
   }
 
-  get heights() {
-    if (this.rowHeight === null) {
-      const heights = {
-        '-1': { accumulator: 0 },
-      };
-      const items = this.rows;
-      const field = this.heightField;
-      const minItemHeight = this.minItemHeight;
-      let accumulator = 0;
-      let current;
-      for (let i = 0, l = items.length; i < l; i++) {
-        current = items[i][field] || minItemHeight;
-        accumulator += current;
-        heights[i] = { accumulator, height: current };
-      }
-      return heights;
+  buildStylesByGroup() {
+    this.groupStyles['left'] = this.calcStylesByGroup('left');
+    this.groupStyles['center'] = this.calcStylesByGroup('center');
+    this.groupStyles['right'] = this.calcStylesByGroup('right');
+  }
+
+  calcStylesByGroup(group: string) {
+    const widths = this.columnGroupWidths;
+    const offsetX = this.offsetX;
+    const styles = {
+      width: `${widths[group]}px`
+    };
+    if (group === 'left') {
+      translateXY(styles, offsetX, 0);
+    } else if (group === 'right') {
+      const bodyWidth = parseInt(this.innerWidth + '', 0);
+      const totalDiff = widths.total - bodyWidth;
+      const offsetDiff = totalDiff - offsetX;
+      const offset = (offsetDiff + this.scrollbarHelper.width) * -1;
+      translateXY(styles, offset, 0);
     }
+    return styles;
+  }
+
+  getGroupStyles(colGroup: any): object {
+    if (colGroup) {
+      return {
+        width: this.columnGroupWidths.total + 'px',
+        height: this.getRowHeight(colGroup) + 'px',
+        ...this.groupStyles[colGroup.type],
+      };
+    }
+    return {
+      width: this.columnGroupWidths.total + 'px',
+      height: this.rowHeight + 'px',
+      };
+}
+
+  getGroupClass(row): string {
+    let cls = 'datatable-body-row';
+    // if (this.isSelected(row)) cls += ' active';
+    const rowIndex = this.getRowIndex(row);
+    if (rowIndex % 2 !== 0) {
+      cls += ' datatable-row-odd';
+    } else {
+      cls += ' datatable-row-even';
+    }
+    if (this.rowClass) {
+      const res = this.rowClass(row);
+      if (typeof res === 'string') {
+        cls += ` ${res}`;
+      } else if (typeof res === 'object') {
+        const keys = Object.keys(res);
+        for (const k of keys) {
+          if (res[k] === true) cls += ` ${k}`;
+        }
+      }
+    }
+    return cls;
+  }
+
+  getCellContext(row: any, group: any, column: any): ICellContext {
+    const cellContext: ICellContext = {
+      onCheckboxChangeFn: null,
+      activateFn: null,
+      displayCheck: this.displayCheck,
+      row,
+      group,
+      column,
+      rowHeight: this.getRowHeight(row),
+      isSelected: this.isSelect(row),
+      rowIndex: this.getRowIndex(row),
+      expanded: this.getRowExpanded(row),
+      treeStatus: row.treeStatus,
+      onTreeAction: null,
+      isFocused: false,
+      value: '',
+      sanitizedValue: '',
+      // sortDir: SortDirection;
+      // sorts: any[];
+    };
+    this.setCellValue(cellContext);
+    return cellContext;
+  }
+
+  setCellValue(cellContext: ICellContext): void {
+    let value = '';
+
+    if (!cellContext.row || !cellContext.column) {
+      value = '';
+    } else {
+      // todo: make transform by vue filters
+      // const val = this.column.$$valueGetter(this.row, this.column.prop);
+      // const userPipe: PipeTransform = this.column.pipe;
+
+      // if (userPipe) {
+      //   value = userPipe.transform(val);
+      // } else if (value !== undefined) {
+      //   value = val;
+      // }
+      value = cellContext.column.$$valueGetter(cellContext.row, cellContext.column.prop);
+    }
+
+    if(cellContext.value !== value) {
+      cellContext.value = value;
+      cellContext.sanitizedValue = value !== null && value !== undefined ? this.stripHtml(value) : value;
+    }
+  }
+
+  stripHtml(html: string): string {
+    if(!html.replace) return html;
+    return html.replace(/<\/?[^>]+(>|$)/g, '');
+  }
+
+  cellColumnCssClasses(context: ICellContext): any {
+    if (!context) {
+      return 'datatable-body-cell';
+    }
+    const result = {
+      'datatable-body-cell': true,
+    };
+    // let cls = 'datatable-body-cell';
+    if (context.column.cellClass) {
+      if (typeof context.column.cellClass === 'string') {
+        // cls += ' ' + this.column.cellClass;
+        result[context.column.cellClass] = true;
+      } else if(typeof context.column.cellClass === 'function') {
+        const res = context.column.cellClass({
+          row: context.row,
+          group: context.group,
+          column: context.column,
+          value: context.value,
+          rowHeight: context.rowHeight,
+        });
+
+        if (typeof res === 'string') {
+          // cls += res;
+          result[res] = true;
+        } else if (typeof res === 'object') {
+          const keys = Object.keys(res);
+          for (const k of keys) {
+            if (res[k] === true) {
+              // cls += ` ${k}`;
+              result[` ${k}`] = true;
+            }
+          }
+        }
+      }
+    }
+    result['sort-active'] = !context.sortDir;
+    result['active'] = !context.isFocused;
+    result['sort-asc'] = context.sortDir === SortDirection.asc;
+    result['sort-desc'] = context.sortDir === SortDirection.desc;
+    
+    // if (!this.sortDir) cls += ' sort-active';
+    // if (this.isFocused) cls += ' active';
+    // if (this.sortDir === SortDirection.asc) cls += ' sort-asc';
+    // if (this.sortDir === SortDirection.desc) cls += ' sort-desc';
+    // return cls;
+    return result;
+  }
+
+  cellStyleObject(context: ICellContext) {
+    if (!context) {
+      return {};
+    }
+    return {
+      width: context.column.width + 'px',
+      minWidth: context.column.minWidth + 'px',
+      maxWidth: context.column.maxWidth + 'px',
+      height: this.cellHeight(context.rowHeight),
+      'margin-left': this.calcLeftMargin(context.column, context.row) + 'px',
+    };
+  }
+
+  cellHeight(rowHeight): string | number {
+    const height = rowHeight;
+    if (isNaN(height)) return height;
+    return height + 'px';
+  }
+
+  calcLeftMargin(column: any, row: any) {
+    const levelIndent = column.treeLevelIndent != null ? column.treeLevelIndent : 50;
+    return column.isTreeColumn ? row.level * levelIndent : 0;
+  }
+
+  get cellSlots(): () => {} {
+    const result = {};
+    this.columns.forEach(column => {
+      if (column.cellTemplate) {
+        result[column.prop] = column.cellTemplate;
+      }
+    });
+    return () => result;
+  }
+
+  onCellFocus($event) {
+    console.log('onCellFocus($event)');
   }
 
 }

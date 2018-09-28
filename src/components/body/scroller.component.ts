@@ -61,10 +61,10 @@ export default class ScrollerComponent extends Vue {
         this.scrollDirty = true;
         const dom: Element = <Element>event.currentTarget;
         requestAnimationFrame(() => {
-          this.scrollDirty = false;
           this.scrollYPos = dom.scrollTop;
           this.scrollXPos = dom.scrollLeft;
           this.updateOffset();
+          this.scrollDirty = false;
         });
       } else {
         console.log(('this.scrollDirty is true'));

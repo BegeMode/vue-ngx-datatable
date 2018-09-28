@@ -1,6 +1,22 @@
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 
-@Component({
+export default Vue.extend({
+  functional: true,
+  props: {
+    innerWidth: Number,
+    rowDetail: Boolean,
+    groupHeader: Boolean,
+    offsetX: Number,
+    detailRowHeight: Number,
+    row: Object,
+    groupedRows: Object,
+    rowIndex: Number,
+    expanded: Boolean,
+    styleObject: Object
+  },
+});
+
+/*@Component({
   template: `
     <div v-if="groupHeader && groupHeader.template"
       class="datatable-group-header" @contextmenu="onContextmenu"
@@ -25,7 +41,7 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
     </div>
   `,
 })
-export default class DataTableRowWrapperComponent extends Vue {
+export class DataTableRowWrapperComponent extends Vue {
 
   @Prop() innerWidth: number;
   @Prop() rowDetail: any;
@@ -49,6 +65,15 @@ export default class DataTableRowWrapperComponent extends Vue {
     expanded: this.expanded,
     rowIndex: this.rowIndex
   };
+
+  mounted() {
+    this.rowContext.row = this.row;
+    this.rowContext.rowIndex = this.rowIndex;
+    this.rowContext.expanded = this.expanded;
+    this.groupContext.row = this.row;
+    this.groupContext.rowIndex = this.rowIndex;
+    this.groupContext.expanded = this.expanded;
+  }
 
   @Watch('row') onRowChanged() {
     this.rowContext.row = this.row;
@@ -78,4 +103,4 @@ export default class DataTableRowWrapperComponent extends Vue {
 
     return styles; 
   }
-}
+}*/

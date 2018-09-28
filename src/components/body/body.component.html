@@ -27,11 +27,39 @@ ref="selector"
     :rows="rows"
     :columns="columns">
   </datatable-summary-row>
-  <!-- <div class="datatable-row-wrapper" :style="rowStyle(group, i)"
-    v-for="(group, i) of temp" :key="rowTrackingFn(group)" :item-index="group.id">
-    <span>{{group.id}}  {{group.name}}</span>
-  </div> -->
-  <!-- <div v-for="(item, index) in visibleItems"
+  <datatable-row-wrapper class="datatable-row-wrapper" :styleObject="getRowsStyles(group, i)"
+    v-for="(group, i) of temp" :key="rowTrackingFn(group)"
+    :groupedRows="groupedRows"
+    :row="group"
+    :innerWidth="innerWidth"
+    :rowDetail="rowDetail"
+    :groupHeader="groupHeader"
+    :offsetX="offsetX"
+    :detailRowHeight="getDetailRowHeight(group[i],i)"
+    :expanded="getRowExpanded(group)"
+    :rowIndex="getRowIndex(group[i])"
+    @row-contextmenu="$emit('rowContextmenu')">
+    <!-- <span>{{group.id}}  {{group.name}}</span> -->
+    <datatable-body-row
+      v-if="!groupedRows"
+      tabindex="-1"
+      :columnsByPin="columnsByPin"
+      :columnGroupWidths="columnGroupWidths"
+      :isSelected="isSelect(group)"
+      :styles="getGroupStyles"
+      :groupClass="getGroupClass(group)"
+      :row="group"
+      :displayCheck="displayCheck"
+      :treeStatus="group.treeStatus"
+      :cellContext="getCellContext"
+      :cellColumnCssClasses="cellColumnCssClasses"
+      :cellStyleObject="cellStyleObject"
+      :slots=cellSlots
+      @tree-action="onTreeAction(group)"
+      @activate="onActivate($event, i)">
+    </datatable-body-row>
+  </datatable-row-wrapper>
+  <!-- <div v-for="(item, index) in visibleItems"   // rowStyle
       :key="keysEnabled && item.id || undefined"
       :item="item"
       :item-index="startIndex + index"
@@ -39,7 +67,7 @@ ref="selector"
     <span>{{item.id}}</span>
   </div> -->
 
-  <datatable-row-wrapper class="datatable-row-wrapper"
+  <!-- <datatable-row-wrapper class="datatable-row-wrapper"
     :groupedRows="groupedRows"
     v-for="(group, i) of temp" :key="rowTrackingFn(group)"
     :row="group"
@@ -68,7 +96,7 @@ ref="selector"
       :treeStatus="group.treeStatus"
       @treeAction="onTreeAction(group)"
       @activate="onActivate($event, i)">
-    </datatable-body-row>
+    </datatable-body-row> -->
     <!-- <slot v-else-if="groupedRowsTemplate" name="groupedRowsTemplate">
       <datatable-body-row
         v-for="(row,i) of group.value; let i = index;" :key="rowTrackingFn(row)"

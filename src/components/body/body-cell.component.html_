@@ -1,0 +1,40 @@
+<div class="datatable-body-cell-label" :style="styleObject" :class="columnCssClasses" @focus="onFocus" @blur="onBlur"
+     @click="onClick" @dblclick="onDblClick" @keydown="onKeyDown" >
+<label v-if="column.checkboxable && (!displayCheck || displayCheck(row, column, value))"
+  class="datatable-checkbox">
+  <input
+    type="checkbox"
+    :checked="isSelected"
+    @click="onCheckboxChange"
+  />
+</label>
+<template v-if="column.isTreeColumn">
+  <button v-if="!column.treeToggleTemplate"
+    class="datatable-tree-button"
+    :disabled="treeStatus==='disabled'"
+    @click="onTreeAction">
+    <span>
+      <i v-if="treeStatus==='loading'"
+        class="icon datatable-icon-collapse"></i>
+      <i v-if="treeStatus==='collapsed'"
+        class="icon datatable-icon-up"></i>
+      <i v-if="treeStatus==='expanded' || treeStatus==='disabled'"
+        class="icon datatable-icon-down"></i>
+    </span>
+  </button>
+  <!-- <slot name="tree-toggle" v-if="column.treeToggleTemplate"
+    :templateOutlet="column.treeToggleTemplate"
+    :templateOutletContext="{ cellContext: cellContext }">
+  </slot> -->
+</template>
+
+<!-- v-if="!column.cellTemplate" -->
+<slot v-bind:row="row">
+  <span :title="sanitizedValue" v-html="value"></span>
+</slot>
+<!-- <slot
+  v-if="column.cellTemplate"
+  :templateOutlet="column.cellTemplate"
+  :templateOutletContext="cellContext">
+  </slot> -->
+</div>

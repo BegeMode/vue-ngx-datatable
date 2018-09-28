@@ -1,4 +1,34 @@
-<div id="row-group" :class="classObject" :style="styleObject">
+<div id="row-group" :class="props.groupClass" :style="props.styles()">
+  <div class="datatable-row-group" v-for="(colGroup, i) of props.columnsByPin" :key="colGroup.type" :class="'datatable-row-' + colGroup.type"
+    :style="props.styles(colGroup)" @keydown="listeners.keydown($event, props.row)" @mouseenter="listeners.activate($event, props.row)">
+    <!-- <div v-for="(column, ii) of colGroup.columns" :key="column.$$id">
+      <span>{{props.row[column.prop]}}</span>
+    </div> -->
+    <datatable-body-cell v-for="(column, ii) of colGroup.columns" :key="column.$$id"
+      tabindex="-1" 
+      :context="props.cellContext(props.row, props.group, column)" 
+      :cellColumnCssClasses="props.cellColumnCssClasses"
+      :cellStyleObject="props.cellStyleObject" :slot=props.slots()[column.prop]>
+      <template :slot="column.prop" slot-scope="scope" v-if="scope.row">
+        <span style="margin-left: 10px"><i>{{ scope.row.name }}</i></span>
+      </template>
+    </datatable-body-cell>
+    <!-- <datatable-body-cell v-for="(column, ii) of colGroup.columns" :key="column.$$id"
+      tabindex="-1" 
+      :row="props.row" 
+      :group="props.group"
+      :expanded="props.expanded" 
+      :isSelected="props.isSelected" 
+      :rowIndex="props.rowIndex" 
+      :column="column" 
+      :rowHeight="props.rowHeight"
+      :displayCheck="props.displayCheck" 
+      :treeStatus="props.treeStatus">
+    </datatable-body-cell> -->
+  </div>
+</div>
+
+<!-- <div id="row-group" :class="classObject" :style="styleObject">
 <div class="datatable-row-group" v-for="(colGroup, i) of columnsByPin" :key="colGroup.type" :class="[cssClass(colGroup)]"
   :style="getStyles(colGroup)" @keydown="onKeyDown" @mouseenter="onMouseenter">
   <datatable-body-cell v-for="(column, ii) of colGroup.columns" :key="column.$$id" 
@@ -16,4 +46,4 @@
     @treeAction="onTreeAction">
   </datatable-body-cell>
 </div>
-</div>
+</div> -->

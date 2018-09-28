@@ -15,6 +15,9 @@ import DataTableFooterComponent from './footer/footer.component';
 import { ScrollbarHelper } from '../services/scrollbar-helper.service';
 import { DimensionsHelper } from '../services/dimensions-helper.service';
 import DataTableColumnComponent from './columns/column.component';
+import DataTableBodyCellComponent from './body/body-cell.component.vue';
+
+Vue.component('datatable-body-cell', DataTableBodyCellComponent);
 
 @Component({
   components: {
@@ -22,7 +25,6 @@ import DataTableColumnComponent from './columns/column.component';
     'datatable-body': DataTableBodyComponent,
     'datatable-footer': DataTableFooterComponent,
     'datatable-column': DataTableColumnComponent,
-
   }
 })
 export default class DatatableComponent extends Vue {
@@ -1063,8 +1065,8 @@ export default class DatatableComponent extends Vue {
       const col = this.internalColumns[colIndex];
       this.$set(col, 'headerTemplate', column.headerTemplate);
       this.$set(col, 'cellTemplate', column.cellTemplate);
-      }
-  }
+    }
+}
     
   /**
    * listen for changes to input bindings of all DataTableColumnDirective and
