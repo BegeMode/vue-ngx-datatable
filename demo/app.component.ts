@@ -7,6 +7,7 @@ import BasicAutoComponent from './basic/basic-auto.component';
 import BasicFixedComponent from './basic/basic-fixed.component';
 import ClientPagingComponent from './paging/paging-client.component';
 import VirtualPagingComponent from './paging/paging-virtual.component';
+import VirtualScrollComponent from './basic/virtual.component';
 
 @Component({
   components: {
@@ -15,6 +16,7 @@ import VirtualPagingComponent from './paging/paging-virtual.component';
     'basic-fixed-demo': BasicFixedComponent,
     'client-paging-demo': ClientPagingComponent,
     'virtual-paging-demo': VirtualPagingComponent,
+    'virtual-scroll-demo': VirtualScrollComponent,
   },
   template: `
     <div :class="classObject">
@@ -139,8 +141,8 @@ import VirtualPagingComponent from './paging/paging-virtual.component';
         <basic-auto-demo v-if="!state"></basic-auto-demo>
         <full-screen-demo v-if="state === 'full-screen'"></full-screen-demo>
         <basic-fixed-demo v-if="state === 'basic-fixed'"></basic-fixed-demo>
-        <!-- <inline-edit-demo v-if="state === 'inline-edit'"></inline-edit-demo>
         <virtual-scroll-demo v-if="state === 'virtual-scroll'"></virtual-scroll-demo>
+        <!-- <inline-edit-demo v-if="state === 'inline-edit'"></inline-edit-demo>
         <horz-vert-scrolling-demo v-if="state === 'horz-vert-scrolling'"></horz-vert-scrolling-demo>
         <multiple-tables-demo v-if="state === 'multiple-tables'"></multiple-tables-demo>
         <row-details-demo v-if="state === 'row-details'"></row-details-demo>

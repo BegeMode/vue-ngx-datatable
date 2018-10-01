@@ -471,12 +471,8 @@ export default class DataTableBodyComponent extends Vue {
       // until the previous row position.
       let pos = 0;
       let height = 50;
-      if (this.rowHeight) {
-        if (typeof this.rowHeight === 'function') {
-          height = this.rowHeight(row);
-        } else {
-          height = this.rowHeight;
-        }
+      if (this.rowHeight && typeof this.rowHeight === 'number') {
+        height = this.rowHeight;
         pos = idx * height;
       } else {
         pos = this.rowHeightsCache.query(idx - 1);
