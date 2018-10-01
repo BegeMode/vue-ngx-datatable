@@ -8,6 +8,8 @@ import BasicFixedComponent from './basic/basic-fixed.component';
 import ClientPagingComponent from './paging/paging-client.component';
 import VirtualPagingComponent from './paging/paging-virtual.component';
 import VirtualScrollComponent from './basic/virtual.component';
+import FilterBarComponent from './basic/filter.component';
+import SingleSelectionComponent from './selection/selection-single.component';
 
 @Component({
   components: {
@@ -17,6 +19,8 @@ import VirtualScrollComponent from './basic/virtual.component';
     'client-paging-demo': ClientPagingComponent,
     'virtual-paging-demo': VirtualPagingComponent,
     'virtual-scroll-demo': VirtualScrollComponent,
+    'filter-demo': FilterBarComponent,
+    'single-selection-demo': SingleSelectionComponent,
   },
   template: `
     <div :class="classObject">
@@ -142,12 +146,12 @@ import VirtualScrollComponent from './basic/virtual.component';
         <full-screen-demo v-if="state === 'full-screen'"></full-screen-demo>
         <basic-fixed-demo v-if="state === 'basic-fixed'"></basic-fixed-demo>
         <virtual-scroll-demo v-if="state === 'virtual-scroll'"></virtual-scroll-demo>
+        <filter-demo v-if="state === 'filter'"></filter-demo>
         <!-- <inline-edit-demo v-if="state === 'inline-edit'"></inline-edit-demo>
         <horz-vert-scrolling-demo v-if="state === 'horz-vert-scrolling'"></horz-vert-scrolling-demo>
         <multiple-tables-demo v-if="state === 'multiple-tables'"></multiple-tables-demo>
         <row-details-demo v-if="state === 'row-details'"></row-details-demo>
         <responsive-demo v-if="state === 'responsive'"></responsive-demo>
-        <filter-demo v-if="state === 'filter'"></filter-demo>
         <tabs-demo v-if="state === 'hidden'"></tabs-demo>
         <live-data-demo v-if="state === 'live'"></live-data-demo>
         <rx-demo v-if="state === 'rx'"></rx-demo>
@@ -179,8 +183,8 @@ import VirtualScrollComponent from './basic/virtual.component';
         <comparator-sorting-demo v-if="state === 'comparator-sorting'"></comparator-sorting-demo> -->
 
         <!-- Selection -->
-        <!-- <cell-selection-demo v-if="state === 'cell-selection'"></cell-selection-demo>
         <single-selection-demo v-if="state === 'single-selection'"></single-selection-demo>
+        <!-- <cell-selection-demo v-if="state === 'cell-selection'"></cell-selection-demo>
         <multi-selection-demo v-if="state === 'multi-selection'"></multi-selection-demo>
         <multidisable-selection-demo v-if="state === 'multidisable-selection'"></multidisable-selection-demo>
         <chkbox-selection-demo v-if="state === 'chkbox-selection'"></chkbox-selection-demo>

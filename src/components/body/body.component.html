@@ -7,8 +7,8 @@ ref="selector"
 :selectEnabled="selectEnabled"
 :selectionType="selectionType"
 :rowIdentity="rowIdentity"
-@select="$emit('select')"
-@activate="$emit('activate')">
+@select="$emit('select', $event)"
+@activate="$emit('activate', $event)">
 <datatable-progress
   v-if="loadingIndicator">
 </datatable-progress>

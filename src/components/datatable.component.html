@@ -61,9 +61,9 @@ visibility-observer
   @page="onBodyPage"
   @activate="$emit('activate')"
   @rowContextmenu="onRowContextmenu"
-  @select="onBodySelect"
-  @scroll="onBodyScroll"
-  @treeAction="onTreeAction">
+  @select="onBodySelect($event)"
+  @scroll="onBodyScroll($event)"
+  @treeAction="onTreeAction($event)">
 </datatable-body>
 <div class="datatable-footer">
   <datatable-footer ref="datatableFooter"

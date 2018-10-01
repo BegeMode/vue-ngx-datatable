@@ -79,6 +79,7 @@ export default class DataTableBodyComponent extends Vue {
   listener: any;
   lastFirst: number;
   lastLast: number;
+  lastRowCount: number;
   private scrollbarHelper = new ScrollbarHelper();
 
   // ready = false;
@@ -189,6 +190,13 @@ export default class DataTableBodyComponent extends Vue {
     return !!this.selectionType;
   }
 
+  get fixedRowHeight(): boolean {
+    if (this.rowHeight && typeof this.rowHeight === 'number') {
+      return true;
+    }
+    return false;
+  }
+
   /**
    * Property that would calculate the height of scroll bar
    * based on the row heights cache for virtual scroll and virtualization. Other scenarios
@@ -196,6 +204,10 @@ export default class DataTableBodyComponent extends Vue {
    */
   get scrollHeight(): number | undefined {
     if (this.scrollbarV && this.virtualization && this.rowCount) {
+      if (this.fixedRowHeight) {
+        const height: any = this.rowHeight;
+        return height * this.rowCount;
+      }
       return this.rowHeightsCache.query(this.rowCount - 1);
     }
     // avoid TS7030: Not all code paths return a value.
@@ -321,12 +333,13 @@ export default class DataTableBodyComponent extends Vue {
    */
   updateRows(): void {
     const { first, last } = this.indexes;
-    if (this.lastFirst === first && this.lastLast === last) {
+    if (this.lastFirst === first && this.lastLast === last && this.rowCount === this.lastRowCount) {
       // console.log('this.lastFirst === first');
       return;
     }
     this.lastFirst = first;
     this.lastLast = last;
+    this.lastRowCount = this.rowCount;
     // if (!this.pagination) {
     //   first = Math.max(0, first - 20);
     //   last = Math.min(this.rowCount, last + 10);
@@ -470,8 +483,8 @@ export default class DataTableBodyComponent extends Vue {
       // The position of this row would be the sum of all row heights
       // until the previous row position.
       let pos = 0;
-      let height = 50;
-      if (this.rowHeight && typeof this.rowHeight === 'number') {
+      let height: any = 50;
+      if (this.fixedRowHeight) {
         height = this.rowHeight;
         pos = idx * height;
       } else {
@@ -713,8 +726,8 @@ export default class DataTableBodyComponent extends Vue {
     this.$emit('treeAction', { row });
   }
 
-  isSelect(group) {
-    return this.selector ? this.selector.getRowSelected(group) : false;
+  isSelect(row) {
+    return this.selector ? this.selector.getRowSelected(row) : false;
   }
 
   onActivate(event, index) {
@@ -779,7 +792,7 @@ export default class DataTableBodyComponent extends Vue {
 
   getGroupClass(row): string {
     let cls = 'datatable-body-row';
-    // if (this.isSelected(row)) cls += ' active';
+    if (this.isSelect(row)) cls += ' active';
     const rowIndex = this.getRowIndex(row);
     if (rowIndex % 2 !== 0) {
       cls += ' datatable-row-odd';

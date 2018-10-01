@@ -15,6 +15,7 @@ export class RowHeightCache {
    * height instead of the detail row height.
    */
   private treeArray: number[] = [];
+  private heights = null;
 
   /**
    * Clear the Tree array.
@@ -74,6 +75,7 @@ export class RowHeightCache {
 
       this.update(i, currentRowHeight);
     }
+    this.heights = this.initHeights(details);
   }
 
   /**
@@ -108,20 +110,27 @@ export class RowHeightCache {
    * Range Sum query from 1 to the rowIndex
    */
   query(atIndex: number): number {
-    if (!this.treeArray.length) {
-      throw new Error(`query at index ${atIndex} failed: Fenwick tree array not initialized.`);
-    }
-
-    let sum = 0;
-    atIndex |= 0;
-
-    while(atIndex >= 0) {
-      sum += this.treeArray[atIndex];
-      atIndex = (atIndex & (atIndex + 1)) - 1;
-    }
-
-    return sum;
+    console.time('query');
+    const result = this.heights[atIndex].accumulator;
+    console.timeEnd('query');
+    return result;
   }
+
+  // query(atIndex: number): number {
+  //   if (!this.treeArray.length) {
+  //     throw new Error(`query at index ${atIndex} failed: Fenwick tree array not initialized.`);
+  //   }
+
+  //   let sum = 0;
+  //   atIndex |= 0;
+
+  //   while(atIndex >= 0) {
+  //     sum += this.treeArray[atIndex];
+  //     atIndex = (atIndex & (atIndex + 1)) - 1;
+  //   }
+
+  //   return sum;
+  // }
 
   /**
    * Find the total height between 2 row indexes
@@ -152,6 +161,27 @@ export class RowHeightCache {
     }
 
     return pos + 1;
+  }
+
+  private initHeights(details: any) {
+    const { rows, rowHeight, externalVirtual, rowCount } = details;
+    const isFn = typeof rowHeight === 'function';
+    const n = externalVirtual ? rowCount : rows.length;
+    const heights = {
+      '-1': { accumulator: 0 },
+    };
+
+    let accumulator = 0;
+    for (let i = 0; i < n; ++i) {
+      const row = rows[i];
+      let currentRowHeight = rowHeight;
+      if (isFn) {
+        currentRowHeight = rowHeight(row);
+      }
+      accumulator += currentRowHeight;
+      heights[i] = { accumulator, height: currentRowHeight };
+    }
+    return heights;
   }
 
 }

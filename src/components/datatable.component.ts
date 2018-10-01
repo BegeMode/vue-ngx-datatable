@@ -485,7 +485,7 @@ export default class DatatableComponent extends Vue {
     this.mySortType = SortType[this.sortType];
   }
 
-  @Watch('offset', { immediate: true }) onOffsetCahnged() {
+  @Watch('offset', { immediate: true }) onOffsetChanged() {
     this.myOffset_ = this.offset;
   }
 
