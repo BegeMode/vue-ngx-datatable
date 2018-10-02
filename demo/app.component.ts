@@ -10,6 +10,8 @@ import VirtualPagingComponent from './paging/paging-virtual.component';
 import VirtualScrollComponent from './basic/virtual.component';
 import FilterBarComponent from './basic/filter.component';
 import SingleSelectionComponent from './selection/selection-single.component';
+import MultiSelectionComponent from './selection/selection-multi.component';
+import MultiClickSelectionComponent from './selection/selection-multi-click.component';
 
 @Component({
   components: {
@@ -21,6 +23,8 @@ import SingleSelectionComponent from './selection/selection-single.component';
     'virtual-scroll-demo': VirtualScrollComponent,
     'filter-demo': FilterBarComponent,
     'single-selection-demo': SingleSelectionComponent,
+    'multi-selection-demo': MultiSelectionComponent,
+    'multi-click-selection-demo': MultiClickSelectionComponent,
   },
   template: `
     <div :class="classObject">
@@ -184,12 +188,13 @@ import SingleSelectionComponent from './selection/selection-single.component';
 
         <!-- Selection -->
         <single-selection-demo v-if="state === 'single-selection'"></single-selection-demo>
-        <!-- <cell-selection-demo v-if="state === 'cell-selection'"></cell-selection-demo>
         <multi-selection-demo v-if="state === 'multi-selection'"></multi-selection-demo>
+        <multi-click-selection-demo v-if="state === 'multi-click-selection'"></multi-click-selection-demo>
+        <!-- <cell-selection-demo v-if="state === 'cell-selection'"></cell-selection-demo>
         <multidisable-selection-demo v-if="state === 'multidisable-selection'"></multidisable-selection-demo>
         <chkbox-selection-demo v-if="state === 'chkbox-selection'"></chkbox-selection-demo>
-        <chkbox-selection-template-demo v-if="state === 'chkbox-selection-template'"></chkbox-selection-template-demo>
-        <multi-click-selection-demo v-if="state === 'multi-click-selection'"></multi-click-selection-demo> -->
+        <chkbox-selection-template-demo v-if="state === 'chkbox-selection-template'"></chkbox-selection-template-demo> 
+        -->
 
         <!-- Templates -->
         <!-- <template-ref-demo v-if="state === 'templateref'"></template-ref-demo>
