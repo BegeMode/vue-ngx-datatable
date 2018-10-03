@@ -1,6 +1,6 @@
-<div id="row-group" :class="props.groupClass" :style="props.styles()">
+<div id="row-group" :class="props.groupClass" :style="props.rowStyles(props.row)">
   <div class="datatable-row-group" v-for="(colGroup, i) of props.columnsByPin" :key="colGroup.type" :class="'datatable-row-' + colGroup.type"
-    :style="props.styles(colGroup)" @keydown="listeners.keydown($event, props.row)" @mouseenter="listeners.activate($event, props.row)">
+    :style="props.groupStyles(colGroup)" @keydown="listeners.keydown($event, props.row)" @mouseenter="listeners.activate($event, props.row)">
     <!-- <div v-for="(column, ii) of colGroup.columns" :key="column.$$id">
       <span>{{props.row[column.prop]}}</span>
     </div> -->

@@ -12,6 +12,7 @@ import FilterBarComponent from './basic/filter.component';
 import SingleSelectionComponent from './selection/selection-single.component';
 import MultiSelectionComponent from './selection/selection-multi.component';
 import MultiClickSelectionComponent from './selection/selection-multi-click.component';
+import DynamicHeightComponent from './basic/dynamic-height.component';
 
 @Component({
   components: {
@@ -25,6 +26,7 @@ import MultiClickSelectionComponent from './selection/selection-multi-click.comp
     'single-selection-demo': SingleSelectionComponent,
     'multi-selection-demo': MultiSelectionComponent,
     'multi-click-selection-demo': MultiClickSelectionComponent,
+    'dynamic-height-demo': DynamicHeightComponent,
   },
   template: `
     <div :class="classObject">
@@ -151,6 +153,7 @@ import MultiClickSelectionComponent from './selection/selection-multi-click.comp
         <basic-fixed-demo v-if="state === 'basic-fixed'"></basic-fixed-demo>
         <virtual-scroll-demo v-if="state === 'virtual-scroll'"></virtual-scroll-demo>
         <filter-demo v-if="state === 'filter'"></filter-demo>
+        <dynamic-height-demo v-if="state === 'dynamic'"></dynamic-height-demo>
         <!-- <inline-edit-demo v-if="state === 'inline-edit'"></inline-edit-demo>
         <horz-vert-scrolling-demo v-if="state === 'horz-vert-scrolling'"></horz-vert-scrolling-demo>
         <multiple-tables-demo v-if="state === 'multiple-tables'"></multiple-tables-demo>
@@ -161,7 +164,6 @@ import MultiClickSelectionComponent from './selection/selection-multi-click.comp
         <rx-demo v-if="state === 'rx'"></rx-demo>
         <contextmenu-demo v-if="state === 'contextmenu'"></contextmenu-demo>
         <row-css-demo v-if="state === 'css'"></row-css-demo>
-        <dynamic-height-demo v-if="state === 'dynamic'"></dynamic-height-demo>
         <footer-demo v-if="state === 'footer'"></footer-demo> -->
 
         <!-- Themes -->

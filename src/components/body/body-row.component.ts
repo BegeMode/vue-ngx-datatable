@@ -67,9 +67,9 @@ export default Vue.extend({
     columnsByPin: Array,
     columnGroupWidths: Object,
     isSelected: Boolean,
-    styles: Function,
+    rowStyles: Function,
+    groupStyles: Function,
     groupClass: String,
-    // rowStyles: Object,
     displayCheck: Boolean,
     treeStatus: ({ type: String, default: 'collapsed' }),
     cellContext: Function,
@@ -86,13 +86,13 @@ export default Vue.extend({
         {
           key: colGroup.type,
           attrs: {
-            id: props.$$id,
+            id: `${colGroup.type}-${props.$$id}`,
           },
           props: {
             key: colGroup.type,
           },
           class: 'datatable-row-group datatable-row-' + colGroup.type,
-          style: props.styles(colGroup),
+          style: props.groupStyles(colGroup),
           nativeOn: {
             keydown: listeners.keydown,
             mouseenter: listeners.mouseenter,
@@ -135,7 +135,7 @@ export default Vue.extend({
           id: 'row-group'
         },
         class: props.groupClass,
-        style: props.styles(),
+        style: props.rowStyles(props.row),
       }, rowGroups);
     return rootDiv;
   },

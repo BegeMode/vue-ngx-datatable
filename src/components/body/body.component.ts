@@ -776,19 +776,29 @@ export default class DataTableBodyComponent extends Vue {
     return styles;
   }
 
-  getGroupStyles(colGroup: any): object {
-    if (colGroup) {
+  getRowStyles(row: any): object {
+    if (row) {
       return {
         width: this.columnGroupWidths.total + 'px',
-        height: this.getRowHeight(colGroup) + 'px',
+        height: this.getRowHeight(row) + 'px',
+      };
+    }
+    return {
+      width: this.columnGroupWidths.total + 'px',
+    };
+  }
+
+  getGroupStyles(colGroup: any): object {
+    if (colGroup && colGroup.type) {
+      return {
+        width: this.columnGroupWidths.total + 'px',
         ...this.groupStyles[colGroup.type],
       };
     }
     return {
       width: this.columnGroupWidths.total + 'px',
-      height: this.rowHeight + 'px',
-      };
-}
+    };
+  }
 
   getGroupClass(row): string {
     let cls = 'datatable-body-row';
