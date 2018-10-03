@@ -110,10 +110,7 @@ export class RowHeightCache {
    * Range Sum query from 1 to the rowIndex
    */
   query(atIndex: number): number {
-    console.time('query');
-    const result = this.heights[atIndex].accumulator;
-    console.timeEnd('query');
-    return result;
+    return this.heights[atIndex].accumulator;
   }
 
   // query(atIndex: number): number {

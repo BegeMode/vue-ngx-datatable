@@ -25,8 +25,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
         :headerHeight="50"
         :footerHeight="50"
         :rowHeight="getRowHeight"
-        :scrollbarV="true"
-        @page="onPage($event)">
+        :scrollbarV="true">
         <vue-datatable-column name="Name" width="300">
           <template slot-scope="scope" v-if="scope.row">
             <strong>{{scope.row.name}}</strong>
