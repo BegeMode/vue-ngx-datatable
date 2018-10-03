@@ -31,9 +31,9 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
         <vue-datatable-column name="Id" :width="80"></vue-datatable-column>
         <vue-datatable-column name="Name" :width="300">
           <span slot="header"><strong>FullName</strong></span>
-          <template slot-scope="scope" v-if="scope.row">
+          <!-- <template slot-scope="scope" v-if="scope.row">
             <span style="margin-left: 10px"><i>{{ scope.row.name }}</i></span>
-          </template>
+          </template> -->
         </vue-datatable-column>
         <vue-datatable-column name="Gender"></vue-datatable-column>
         <vue-datatable-column name="Age"></vue-datatable-column>
