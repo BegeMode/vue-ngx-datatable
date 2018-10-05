@@ -6,8 +6,8 @@ visibility-observer
 <div class="hidden-columns" ref="hiddenColumns"><slot></slot></div>
 <datatable-header ref="datatableHeader" class="datatable-header"
   v-if="headerHeight"
-  :sorts="sorts"
-  :sortType="sortType"
+  :sorts="mySorts"
+  :sortType="mySortType"
   :scrollbarH="scrollbarH"
   :innerWidth="innerWidth"
   :offsetX="offsetX"
@@ -20,11 +20,11 @@ visibility-observer
   :sortDescendingIcon="cssClasses.sortDescending"
   :allRowsSelected="allRowsSelected"
   :selectionType="selectionType"
-  @sort="onColumnSort"
-  @resize="onColumnResize"
-  @reorder="onColumnReorder"
-  @select="onHeaderSelect"
-  @columnContextmenu="onColumnContextmenu">
+  @sort="onColumnSort($event)"
+  @resize="onColumnResize($event)"
+  @reorder="onColumnReorder($event)"
+  @select="onHeaderSelect($event)"
+  @columnContextmenu="onColumnContextmenu($event)">
 </datatable-header>
 <datatable-body ref="datatableBody"
   :groupRowsBy="groupRowsBy"
@@ -42,7 +42,7 @@ visibility-observer
   :trackByProp="trackByProp"
   :columns="internalColumns"
   :pageSize="pageSize"
-  :pagination="pagination"
+  :pagination="Boolean(limit)"
   :offsetX="offsetX"
   :rowDetail="rowDetail"
   :groupHeader="groupHeader"
@@ -67,8 +67,8 @@ visibility-observer
 </datatable-body>
 <div class="datatable-footer">
   <datatable-footer ref="datatableFooter"
-    v-if="footerHeight || pagination"
-    :pagination="pagination"
+    v-if="footerHeight || limit || externalPaging"
+    :pagination="!!limit || externalPaging"
     :rowCount="rowCount"
     :pageSize="pageSize"
     :offset="myOffset"

@@ -5,6 +5,13 @@
   position: relative;
   -webkit-transform: translate3d(0, 0, 0);
 
+  &.flex {
+    display: flex;
+    flex-flow: column;
+    justify-content: flex-start;
+    height: 100%;
+  }
+
   [hidden] {
     display: none !important;
   }
@@ -265,6 +272,7 @@
   .datatable-footer {
     display: block;
     width: 100%;
+    margin-top: auto;
 
     .datatable-footer-inner {
       display: flex;

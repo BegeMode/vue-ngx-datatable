@@ -29,7 +29,6 @@ import DatatableComponent from '../../src/components/datatable.component.vue';
           :footerHeight="50"
           :rowHeight="'auto'"
           :limit="5"
-          :pagination="true"
           :selected="selected"
           :selectionType="'single'"
           @activate="onActivate($event)"

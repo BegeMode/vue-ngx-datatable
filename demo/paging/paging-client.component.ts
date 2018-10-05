@@ -22,7 +22,6 @@ import DatatableComponent from '../../src/components/datatable.component.vue';
         :columnMode="'force'"
         :headerHeight="50"
         :footerHeight="50"
-        :pagination="true"
         :rowHeight="'auto'"
         :limit="10">
       </ngx-datatable>

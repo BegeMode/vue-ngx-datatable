@@ -44,9 +44,9 @@ import DataTableHeaderCellComponent from './header-cell.component';
           :sortAscendingIcon="sortAscendingIcon"
           :sortDescendingIcon="sortDescendingIcon"
           :allRowsSelected="allRowsSelected"
-          @sort="onSort"
+          @sort="onSort($event)"
           @select="$emit('select')"
-          @columnContextmenu="$emit('columnContextmenu')">
+          @columnContextmenu="$emit('columnContextmenu', $event)">
           <slot>
           </slot>
         </datatable-header-cell>

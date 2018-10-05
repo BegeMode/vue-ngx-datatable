@@ -92,7 +92,6 @@ export default class DatatableComponent extends Vue {
    * Pass falsey for no footer
    */
   @Prop({ type: Number, default: 0 }) footerHeight: number;
-  @Prop() pagination: boolean;
   /**
    * If the table should use external paging
    * otherwise its assumed that all data is preloaded.
@@ -298,6 +297,8 @@ export default class DatatableComponent extends Vue {
   mySortType: SortType = SortType.single;
   // tslint:disable-next-line:variable-name
   myOffset_: number = 0;
+  mySorts: any[];
+
   // _columnTemplates: QueryList<DataTableColumnDirective>;
   // _subscriptions: Subscription[] = [];
   /**
@@ -482,11 +483,17 @@ export default class DatatableComponent extends Vue {
   }
 
   @Watch('sortType', { immediate: true }) onSortTypeChanged() {
-    this.mySortType = SortType[this.sortType];
+    if (SortType[this.sortType]) {
+      this.mySortType = SortType[this.sortType];
+    }
   }
 
   @Watch('offset', { immediate: true }) onOffsetChanged() {
     this.myOffset_ = this.offset;
+  }
+
+  @Watch('sorts', { immediate: true }) onSortsChanged() {
+    this.mySorts = this.sorts;
   }
 
   get myOffset(): number {
@@ -976,7 +983,7 @@ export default class DatatableComponent extends Vue {
       });
     }
 
-    this.sorts = event.sorts;
+    this.mySorts = event.sorts;
 
     // this could be optimized better since it will resort
     // the rows again on the 'push' detection...
@@ -1084,6 +1091,6 @@ export default class DatatableComponent extends Vue {
   // }
 
   private sortInternalRows(): void {
-    this.internalRows = sortRows(this.internalRows, this.internalColumns, this.sorts);
+    this.internalRows = sortRows(this.internalRows, this.internalColumns, this.mySorts);
   }
 }

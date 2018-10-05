@@ -80,6 +80,7 @@ export default class DataTableBodyComponent extends Vue {
   lastFirst: number;
   lastLast: number;
   lastRowCount: number;
+  rowsChanged: boolean;
   private scrollbarHelper = new ScrollbarHelper();
 
   // ready = false;
@@ -125,6 +126,7 @@ export default class DataTableBodyComponent extends Vue {
 
   @Watch('rows', { immediate: true }) onRowsChanged() {
     // this.updateVisibleItems(true);
+    this.rowsChanged = true;
     this.rowExpansions.clear();
     this.recalcLayout();
     this.$nextTick(() => {
@@ -333,10 +335,11 @@ export default class DataTableBodyComponent extends Vue {
    */
   updateRows(): void {
     const { first, last } = this.indexes;
-    if (this.lastFirst === first && this.lastLast === last && this.rowCount === this.lastRowCount) {
+    if (!this.rowsChanged && this.lastFirst === first && this.lastLast === last) {
       // console.log('this.lastFirst === first');
       return;
     }
+    this.rowsChanged = false;
     this.lastFirst = first;
     this.lastLast = last;
     this.lastRowCount = this.rowCount;

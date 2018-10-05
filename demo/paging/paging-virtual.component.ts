@@ -30,7 +30,6 @@ import {Page} from './model/page';
         :rowHeight="50"
         :externalPaging="true"
         :count="page.totalElements"
-        :pagination="true"
         :offset="page.pageNumber"
         @page="setPage($event)">
       </ngx-datatable>

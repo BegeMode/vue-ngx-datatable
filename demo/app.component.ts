@@ -13,6 +13,7 @@ import SingleSelectionComponent from './selection/selection-single.component';
 import MultiSelectionComponent from './selection/selection-multi.component';
 import MultiClickSelectionComponent from './selection/selection-multi-click.component';
 import DynamicHeightComponent from './basic/dynamic-height.component';
+import DefaultSortingComponent from './sorting/sorting-default.component';
 
 @Component({
   components: {
@@ -27,10 +28,11 @@ import DynamicHeightComponent from './basic/dynamic-height.component';
     'multi-selection-demo': MultiSelectionComponent,
     'multi-click-selection-demo': MultiClickSelectionComponent,
     'dynamic-height-demo': DynamicHeightComponent,
+    'default-sorting-demo': DefaultSortingComponent,
   },
   template: `
-    <div :class="classObject">
-      <nav>
+    <div :class="classObject" style="height:100%;">
+      <nav style="height:100%;overflow-y:auto;">
         <h3>vue-ngx-datatable <small>({{version}})</small></h3>
         <ul class="main-ul">
           <li>
@@ -183,8 +185,8 @@ import DynamicHeightComponent from './basic/dynamic-height.component';
         <server-scrolling-demo v-if="state === 'server-scrolling'"></server-scrolling-demo>  -->
 
         <!-- Sorting -->
-        <!-- <client-sorting-demo v-if="state === 'client-sorting'"></client-sorting-demo>
         <default-sorting-demo v-if="state === 'default-sorting'"></default-sorting-demo>
+        <!-- <client-sorting-demo v-if="state === 'client-sorting'"></client-sorting-demo>
         <server-sorting-demo v-if="state === 'server-sorting'"></server-sorting-demo>
         <comparator-sorting-demo v-if="state === 'comparator-sorting'"></comparator-sorting-demo> -->
 

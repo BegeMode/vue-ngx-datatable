@@ -5,7 +5,7 @@ import { nextSortDir } from '../../utils';
 @Component({
   template: `
     <div class="datatable-header-cell-template-wrap" :class="[columnCssClasses]" :style="styles" :title="name" 
-          @contextmenu="onContextmenu">
+          @contextmenu="onContextmenu($event)">
       <!-- <template
         v-if="isTarget"
         :templateOutlet="targetMarkerTemplate"
@@ -28,11 +28,6 @@ import { nextSortDir } from '../../utils';
           </span>
         </span>
       </slot>
-      <!-- <template
-        v-if="column.headerTemplate"
-        :templateOutlet="column.headerTemplate"
-        :templateOutletContext="cellContext">
-      </template> -->
       <span
         @click="onSort"
         :class="sortClass">
@@ -78,7 +73,7 @@ export default class DataTableHeaderCellComponent extends Vue {
     }
   }
 
-  @Watch('sorts', { immediate: true }) onSorts() {
+  @Watch('sorts', { immediate: true }) onSortsChanged() {
     this.sortDir = this.calcSortDir(this.sorts);
     this.cellContext.sortDir = this.sortDir;
     this.sortClass = this.calcSortClass(this.sortDir);

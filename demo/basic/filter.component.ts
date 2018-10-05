@@ -6,7 +6,7 @@ import DatatableComponent from '../../src/components/datatable.component.vue';
     'ngx-datatable': DatatableComponent,
   },
   template: `
-    <div>
+    <div style="height:100%;display:flex;flex-direction:column;">
       <h3>
         Client-side Search and Filtering
         <small>
@@ -16,22 +16,21 @@ import DatatableComponent from '../../src/components/datatable.component.vue';
         </small>
       </h3>
       <input
-        type='text'
-        style='padding:8px;margin:15px auto;width:30%;'
-        placeholder='Type to filter the name column...'
-        @keyup='updateFilter($event)'
-      />
+          type='text'
+          style='padding:8px;margin:15px auto;width:30%;'
+          placeholder='Type to filter the name column...'
+          @keyup='updateFilter($event)'
+        />
       <ngx-datatable
-        ref="table"
-        class='material'
-        :columns="columns"
-        :columnMode="'force'"
-        :headerHeight="50"
-        :footerHeight="50"
-        :rowHeight="'auto'"
-        :limit="10"
-        :pagination="true"
-        :rows="rows">
+          ref="table"
+          class="material flex"
+          :columns="columns"
+          :columnMode="'force'"
+          :headerHeight="50"
+          :footerHeight="50"
+          :rowHeight="'auto'"
+          :limit="10"
+          :rows="rows">
       </ngx-datatable>
     </div>
   `
