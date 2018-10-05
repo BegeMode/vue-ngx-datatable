@@ -14,6 +14,9 @@ import MultiSelectionComponent from './selection/selection-multi.component';
 import MultiClickSelectionComponent from './selection/selection-multi-click.component';
 import DynamicHeightComponent from './basic/dynamic-height.component';
 import DefaultSortingComponent from './sorting/sorting-default.component';
+import ClientSortingComponent from './sorting/sorting-client.component';
+import SortingComparatorComponent from './sorting/sorting-comparator.component';
+import ServerSortingComponent from './sorting/sorting-server.component';
 
 @Component({
   components: {
@@ -29,6 +32,9 @@ import DefaultSortingComponent from './sorting/sorting-default.component';
     'multi-click-selection-demo': MultiClickSelectionComponent,
     'dynamic-height-demo': DynamicHeightComponent,
     'default-sorting-demo': DefaultSortingComponent,
+    'client-sorting-demo': ClientSortingComponent,
+    'comparator-sorting-demo': SortingComparatorComponent,
+    'server-sorting-demo': ServerSortingComponent,
   },
   template: `
     <div :class="classObject" style="height:100%;">
@@ -186,9 +192,9 @@ import DefaultSortingComponent from './sorting/sorting-default.component';
 
         <!-- Sorting -->
         <default-sorting-demo v-if="state === 'default-sorting'"></default-sorting-demo>
-        <!-- <client-sorting-demo v-if="state === 'client-sorting'"></client-sorting-demo>
+        <client-sorting-demo v-if="state === 'client-sorting'"></client-sorting-demo>
+        <comparator-sorting-demo v-if="state === 'comparator-sorting'"></comparator-sorting-demo>
         <server-sorting-demo v-if="state === 'server-sorting'"></server-sorting-demo>
-        <comparator-sorting-demo v-if="state === 'comparator-sorting'"></comparator-sorting-demo> -->
 
         <!-- Selection -->
         <single-selection-demo v-if="state === 'single-selection'"></single-selection-demo>

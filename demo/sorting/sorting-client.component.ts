@@ -1,32 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
+import DatatableComponent from '../../src/components/datatable.component.vue';
 
 @Component({
-  selector: 'client-sorting-demo',
+  components: {
+    'ngx-datatable': DatatableComponent,
+  },
   template: `
     <div>
       <h3>
         Client-side Sorting
         <small>
-          <a href="https://github.com/swimlane/ngx-datatable/blob/master/demo/sorting/sorting-client.component.ts" target="_blank">
+          <a href="https://github.com/begemode/vue-ngx-datatable/blob/master/demo/sorting/sorting-client.component.ts" target="_blank">
             Source
           </a>
         </small>
       </h3>
       <ngx-datatable
         class="material"
-        [rows]="rows"
-        [columns]="columns"
-        [sortType]="'multi'"
-        [columnMode]="'force'"
-        [headerHeight]="50"
-        [footerHeight]="50"
-        [rowHeight]="50"
-        [scrollbarV]="true">
+        :rows="rows"
+        :columns="columns"
+        :sortType="'multi'"
+        :columnMode="'force'"
+        :headerHeight="50"
+        :footerHeight="50"
+        :rowHeight="50"
+        :scrollbarV="true">
       </ngx-datatable>
     </div>
   `
 })
-export class ClientSortingComponent {
+export default class ClientSortingComponent extends Vue {
 
   rows = [];
 
@@ -36,7 +39,7 @@ export class ClientSortingComponent {
     { name: 'Gender' }
   ];
 
-  constructor() {
+  created() {
     this.fetch((data) => {
       this.rows = data;
     });

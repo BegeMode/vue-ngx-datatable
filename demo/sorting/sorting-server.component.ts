@@ -1,33 +1,36 @@
-import { Component } from '@angular/core';
+import { Component, Vue } from 'vue-property-decorator';
+import DatatableComponent from '../../src/components/datatable.component.vue';
 
 @Component({
-  selector: 'server-sorting-demo',
+  components: {
+    'ngx-datatable': DatatableComponent,
+  },
   template: `
     <div>
       <h3>
         Server-side Sorting
         <small>
-          <a href="https://github.com/swimlane/ngx-datatable/blob/master/demo/sorting/sorting-server.component.ts" target="_blank">
+          <a href="https://github.com/begemode/vue-ngx-datatable/blob/master/demo/sorting/sorting-server.component.ts" target="_blank">
             Source
           </a>
         </small>
       </h3>
       <ngx-datatable
         class="material"
-        [rows]="rows"
-        [columns]="columns"
-        [columnMode]="'force'"
-        [headerHeight]="50"
-        [footerHeight]="50"
-        [rowHeight]="'auto'"
-        [externalSorting]="true"
-        [loadingIndicator]="loading"
-        (sort)="onSort($event)">
+        :rows="rows"
+        :columns="columns"
+        :columnMode="'force'"
+        :headerHeight="50"
+        :footerHeight="50"
+        :rowHeight="'auto'"
+        :externalSorting="true"
+        :loadingIndicator="loading"
+        @sort="onSort($event)">
       </ngx-datatable>
     </div>
   `
 })
-export class ServerSortingComponent {
+export default class ServerSortingComponent extends Vue {
 
   loading: boolean = false;
 
@@ -39,7 +42,7 @@ export class ServerSortingComponent {
     { name: 'Gender', sortable: true }
   ];
 
-  constructor() {
+  created() {
     this.fetch((data) => {
       this.rows = data;
     });

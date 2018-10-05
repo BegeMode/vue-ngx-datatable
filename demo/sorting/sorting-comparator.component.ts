@@ -1,30 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, Vue } from 'vue-property-decorator';
+import DatatableComponent from '../../src/components/datatable.component.vue';
 
 @Component({
-  selector: 'comparator-sorting-demo',
+  components: {
+    'ngx-datatable': DatatableComponent,
+  },
   template: `
     <div>
       <h3>
         Custom Sorting Comparator
         <small>
-          <a href="https://github.com/swimlane/ngx-datatable/blob/master/demo/sorting/sorting-comparator.component.ts" target="_blank">
+          <a href="https://github.com/begemode/vue-ngx-datatable/blob/master/demo/sorting/sorting-comparator.component.ts" target="_blank">
             Source
           </a>
         </small>
       </h3>
       <ngx-datatable
         class="material"
-        [rows]="rows"
-        [columns]="columns"
-        [columnMode]="'force'"
-        [headerHeight]="50"
-        [footerHeight]="50"
-        [rowHeight]="'auto'">
+        :rows="rows"
+        :columns="columns"
+        :columnMode="'force'"
+        :headerHeight="50"
+        :footerHeight="50"
+        :rowHeight="'auto'">
       </ngx-datatable>
     </div>
   `
 })
-export class SortingComparatorComponent {
+export default class SortingComparatorComponent extends Vue {
 
   rows = [];
 
@@ -34,7 +37,7 @@ export class SortingComparatorComponent {
     { name: 'Gender', sortable: false }
   ];
 
-  constructor() {
+  created() {
     this.fetch((data) => {
       this.rows = data;
     });
