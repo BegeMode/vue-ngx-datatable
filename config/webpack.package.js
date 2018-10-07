@@ -4,34 +4,44 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const commonConfig = require('./webpack.common');
 const { ENV, dir, APP_VERSION } = require('./helpers');
-const { CheckerPlugin } = require('awesome-typescript-loader');
 // const ngtools = require('@ngtools/webpack');
 
 const banner =
 `/**
- * angular2-data-table v${APP_VERSION} (https://github.com/swimlane/angular2-data-table)
- * Copyright 2016
+ * vue-data-table v${APP_VERSION} (https://github.com/begemode/vue-ngx-data-table)
+ * Copyright 2018
  * Licensed under MIT
  */`;
 
 module.exports = function(env) {
   return webpackMerge(commonConfig({ env: ENV }), {
     devtool: 'source-map',
+    mode: 'production',
     module: {
       exprContextCritical: false,
       rules: [
         {
+          enforce: 'pre',
           test: /\.ts$/,
-          loaders: [
-            'awesome-typescript-loader',
-            'angular2-template-loader'
-          ],
+          loader: 'tslint-loader',
+          exclude: /(node_modules|release|dist|demo)/
+        },
+        {
+          test: /\.ts$/,
+          loader: 'ts-loader',
+          options: {
+            appendTsSuffixTo: [/\.vue$/]
+          },
           exclude: [/\.(spec|e2e|d)\.ts$/]
-        }
+        },
+        {
+          test: /\.vue$/,
+          loader: 'vue-loader',
+        },
       ]
     },
     entry: {
-      'index': './src/index.ts'
+      'index': './src/components/datatable.component.ts'
     },
     output: {
       path: dir('release'),
@@ -40,26 +50,9 @@ module.exports = function(env) {
       umdNamedDefine: true
     },
     externals: {
-      '@angular/platform-browser-dynamic': '@angular/platform-browser-dynamic',
-      '@angular/platform-browser': '@angular/platform-browser',
-      '@angular/core': '@angular/core',
-      '@angular/common': '@angular/common',
-      '@angular/forms': '@angular/forms',
-      'core-js': 'core-js',
-      'core-js/es6': 'core-js/es6',
-      'core-js/es7/reflect': 'core-js/es7/reflect',
-      'rxjs': 'rxjs',
-      'rxjs/Rx': 'rxjs/Rx',
-      'rxjs/Observable': 'rxjs/Observable',
-      'rxjs/BehaviorSubject': 'rxjs/BehaviorSubject',
-      'rxjs/observable/fromEvent': 'rxjs/observable/fromEvent',
-      'rxjs/Subscription': 'rxjs/Subscription',
-      'rxjs/operators': 'rxjs/operators',
-      'zone.js/dist/zone': 'zone.js/dist/zone'
     },
     plugins: [
       new webpack.optimize.ModuleConcatenationPlugin(),
-      new CheckerPlugin(),
       new webpack.BannerPlugin({
         banner: banner,
         raw: true,

@@ -2,10 +2,17 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import { SortType, SelectionType } from '../../types';
 import { columnsByPin, columnGroupWidths, columnsByPinArr, translateXY } from '../../utils';
 import DataTableHeaderCellComponent from './header-cell.component';
+import ResizeableDirective from '../../directives/resizeable.directive';
+import LongPressDirective from '../../directives/long-press.directive';
 
 @Component({
   components: {
     'datatable-header-cell': DataTableHeaderCellComponent,
+  },
+  directives: {
+    resizeable: ResizeableDirective,
+    'long-press': LongPressDirective,
+
   },
   template: `
     <div
@@ -20,15 +27,12 @@ import DataTableHeaderCellComponent from './header-cell.component';
         :style="styleByGroup[colGroup.type]">
         <datatable-header-cell class="datatable-header-cell"
           v-for="column of colGroup.columns" :key="column.$$id"
-          resizeable
-          :resizeEnabled="column.resizeable"
+          v-resizeable="{ resizeEnabled: column.resizeable }"
           @resize="onColumnResized($event, column)"
-          long-press
-          :pressModel="column"
-          :pressEnabled="reorderable && column.draggable"
-          @longPressStart="onLongPressStart"
-          @longPressEnd="onLongPressEnd"
-          draggable
+          v-long-press="{pressModel: column, pressEnabled: reorderable && column.draggable}"
+          @longPressStart="onLongPressStart($event, column)"
+          @longPressEnd="onLongPressEnd($event, column)"
+          :draggable="reorderable && column.draggable"
           :dragX="reorderable && column.draggable && column.dragging"
           :dragY="false"
           :dragModel="column"

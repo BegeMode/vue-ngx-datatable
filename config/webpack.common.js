@@ -41,6 +41,11 @@ module.exports = function(options = {}) {
         'vue-loader': require.resolve('../node_modules/vue-loader/lib')
       }
     },
+    optimization: {
+      splitChunks: {
+        chunks: 'all',
+      },
+    },
     module: {
       exprContextCritical: false,
       rules: [

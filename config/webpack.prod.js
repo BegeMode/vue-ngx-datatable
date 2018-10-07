@@ -4,11 +4,11 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const commonConfig = require('./webpack.common');
 const { ENV, dir } = require('./helpers');
-const { CheckerPlugin } = require('awesome-typescript-loader');
 
 module.exports = function(env) {
   return webpackMerge(commonConfig({ env: ENV }), {
     devtool: 'source-map',
+    mode: 'production',
     entry: {
       'app': './demo/bootstrap.ts',
       // 'polyfills': './demo/polyfills.ts'
@@ -23,11 +23,17 @@ module.exports = function(env) {
           exclude: /(node_modules)/
         },
         {
+          enforce: 'pre',
           test: /\.ts$/,
-          loaders: [
-            'awesome-typescript-loader',
-            'angular2-template-loader'
-         ],
+          loader: 'tslint-loader',
+          exclude: /(node_modules|release|dist|demo)/
+        },
+        {
+          test: /\.ts$/,
+          loader: 'ts-loader',
+          options: {
+            appendTsSuffixTo: [/\.vue$/]
+          },
           exclude: [/\.(spec|e2e|d)\.ts$/]
         },
         {
@@ -38,11 +44,6 @@ module.exports = function(env) {
     },
     plugins: [
       new webpack.optimize.ModuleConcatenationPlugin(),
-      new CheckerPlugin(),
-      new webpack.optimize.CommonsChunkPlugin({
-        name: ['polyfills'],
-        minChunks: Infinity
-      }),
       new HtmlWebpackPlugin({
         template: 'demo/index.ejs',
         chunksSortMode: 'dependency',
@@ -57,7 +58,7 @@ module.exports = function(env) {
         verbose: false,
         dry: false
       }),
-      new webpack.optimize.UglifyJsPlugin()
+      // new webpack.optimize.UglifyJsPlugin()
     ]
   });
 

@@ -24,6 +24,7 @@ import DatatableComponent from '../../src/components/datatable.component.vue';
         :headerHeight="50"
         :footerHeight="50"
         :rowHeight="'auto'"
+        :resizeable="true"
         :reorderable="reorderable">
       </ngx-datatable>
     </div>
@@ -33,7 +34,7 @@ export default class BasicAutoComponent extends Vue {
 
   rows = [];
   loadingIndicator: boolean = true;
-  reorderable: boolean = true;
+  reorderable: boolean = false;
 
   columns = [
     { prop: 'name' },
