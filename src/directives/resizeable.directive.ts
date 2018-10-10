@@ -3,12 +3,12 @@ import { VNode } from 'vue';
 
 let _id = 0;
 
-class DirectiveData {
+class ResizeableDirectiveController {
   resizeEnabled = true;
   minWidth = 0;
   maxWidth = 0;
   resizing = false;
-  element = null;
+  element: HTMLElement = null;
   handleUp = null;
   handleDown = null;
   handleMove = null;
@@ -73,25 +73,25 @@ class DirectiveData {
 export default Vue.directive('resizeable', {
   resizing: false,
   bind(el, binding, vnode) {
-    const data = new DirectiveData(_id++, vnode, el);
+    const ctrl = new ResizeableDirectiveController(_id++, vnode, el);
     if (binding.value.resizeEnabled !== undefined && binding.value.resizeEnabled !== null) {
-      data.resizeEnabled = binding.value.resizeEnabled;
+      ctrl.resizeEnabled = binding.value.resizeEnabled;
     }
-    data.minWidth = binding.value.minWidth;
-    data.maxWidth = binding.value.maxWidth;
-    el.__resizeable__ = data;
-    document.addEventListener('mouseup', data.handleUp);
-    el.addEventListener('mousedown', data.handleDown);
+    ctrl.minWidth = binding.value.minWidth;
+    ctrl.maxWidth = binding.value.maxWidth;
+    el.__resizeable__ = ctrl;
+    document.addEventListener('mouseup', ctrl.handleUp);
+    el.addEventListener('mousedown', ctrl.handleDown);
   },
   unbind(el: any) {
-    const data = el.__resizeable__;
-    document.removeEventListener('mouseup', data.handleUp);
-    el.removeEventListener('mousedown', data.handleDown);
+    const ctrl = el.__resizeable__;
+    document.removeEventListener('mouseup', ctrl.handleUp);
+    el.removeEventListener('mousedown', ctrl.handleDown);
   },
   inserted(el: any) {
     const node = document.createElement('span');
-    const data = el.__resizeable__;
-    if (data.resizeEnabled) {
+    const ctrl = el.__resizeable__;
+    if (ctrl.resizeEnabled) {
       node.classList.add('resize-handle');
     } else {
       node.classList.add('resize-handle--not-resizable');

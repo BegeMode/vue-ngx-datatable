@@ -23,7 +23,7 @@ import DatatableComponent from '../../src/components/datatable.component.vue';
         />
       <ngx-datatable
           ref="table"
-          class="material flex"
+          class="material ngx-flex"
           :columns="columns"
           :columnMode="'force'"
           :headerHeight="50"

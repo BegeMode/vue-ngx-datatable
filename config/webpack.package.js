@@ -5,6 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const commonConfig = require('./webpack.common');
 const { ENV, dir, APP_VERSION } = require('./helpers');
 // const ngtools = require('@ngtools/webpack');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const banner =
 `/**
@@ -16,7 +17,7 @@ const banner =
 module.exports = function(env) {
   return webpackMerge(commonConfig({ env: ENV }), {
     devtool: 'source-map',
-    mode: 'production',
+    mode: 'development',
     module: {
       exprContextCritical: false,
       rules: [
@@ -41,7 +42,7 @@ module.exports = function(env) {
       ]
     },
     entry: {
-      'index': './src/components/datatable.component.ts'
+      'index': './src/components/datatable.component.vue'
     },
     output: {
       path: dir('release'),
@@ -50,20 +51,26 @@ module.exports = function(env) {
       umdNamedDefine: true
     },
     externals: {
+      'vue': 'vue/dist/vue.esm.js',
+      'Vue': 'vue/dist/vue.esm.js',
+      'vue-property-decorator': 'vue-property-decorator',
+      'vue-class-component': 'vue-class-component',
+      // 'vue-style-loader': 'vue-style-loader/lib/',
+      // 'vue-loader': 'vue-loader/lib/runtime',
+      // 'css-loader': 'css-loader/lib',
     },
     plugins: [
+      new webpack.optimize.LimitChunkCountPlugin({
+        maxChunks: 1,
+      }),
       new webpack.optimize.ModuleConcatenationPlugin(),
       new webpack.BannerPlugin({
         banner: banner,
         raw: true,
         entryOnly: true
       }),
+      new BundleAnalyzerPlugin(),
       /*
-      new ngtools.AotPlugin({
-        tsConfigPath: 'tsconfig-aot.json',
-        baseDir: dir()
-        entryModule: dir('datatable.module.ts') + '#Angular2DataTableModule'
-      }),
       new CleanWebpackPlugin(['release'], {
         root: dir(),
         verbose: false,

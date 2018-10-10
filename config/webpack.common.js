@@ -130,11 +130,6 @@ module.exports = function(options = {}) {
         // }
       ]
     },
-    optimization: {
-      splitChunks: {
-        chunks: 'all',
-      }
-    },
     plugins: [
       // new ExtractTextPlugin('[name].css'),
       // new webpack.NamedModulesPlugin(),

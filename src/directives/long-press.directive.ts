@@ -1,10 +1,9 @@
 import { Vue } from 'vue-property-decorator';
 import { VNode } from 'vue';
-import { MouseEvent } from '../events';
 
 let _id = 0;
 
-class LongPressData {
+class LongPressController {
   id = 0;
   pressEnabled: boolean = true;
   pressModel: any;
@@ -15,7 +14,7 @@ class LongPressData {
   mouseX: number = 0;
   mouseY: number = 0;
   vnode: VNode = null;
-  element: Element = null;
+  element: HTMLElement = null;
   handleUp = null;
   handleDown = null;
   handleMove = null;
@@ -141,19 +140,19 @@ class LongPressData {
 export default Vue.directive('long-press', {
   resizing: false,
   bind(el, binding, vnode) {
-    const data = new LongPressData(_id++, vnode, el);
+    const ctrl = new LongPressController(_id++, vnode, el);
     if (binding.value.pressEnabled !== undefined && binding.value.pressEnabled !== null) {
-      data.pressEnabled = binding.value.pressEnabled;
+      ctrl.pressEnabled = binding.value.pressEnabled;
     }
     if (binding.value.duration !== undefined && binding.value.duration !== null) {
-      data.duration = binding.value.duration;
+      ctrl.duration = binding.value.duration;
     }
-    data.pressModel = binding.value.pressModel;
-    el.__longpress__ = data;
+    ctrl.pressModel = binding.value.pressModel;
+    el.__longpress__ = ctrl;
   },
   unbind(el: any) {
-    const data = el.__longpress__;
-    data.unsubcribe();
+    const ctrl = el.__longpress__;
+    ctrl.unsubcribe();
   },
 });
 

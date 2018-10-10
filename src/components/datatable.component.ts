@@ -16,15 +16,20 @@ import { ScrollbarHelper } from '../services/scrollbar-helper.service';
 import { DimensionsHelper } from '../services/dimensions-helper.service';
 import DataTableColumnComponent from './columns/column.component';
 import DataTableBodyCellComponent from './body/body-cell.component.vue';
+import VisibilityDirective from '../directives/visibility.directive';
 
+Vue.component('datatable-column', DataTableColumnComponent);
 Vue.component('datatable-body-cell', DataTableBodyCellComponent);
 
 @Component({
+  directives: {
+    'v-visibility-observer': VisibilityDirective,
+
+  },
   components: {
     'datatable-header': DataTableHeaderComponent,
     'datatable-body': DataTableBodyComponent,
     'datatable-footer': DataTableFooterComponent,
-    'datatable-column': DataTableColumnComponent,
   }
 })
 export default class DatatableComponent extends Vue {

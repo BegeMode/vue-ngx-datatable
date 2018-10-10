@@ -230,7 +230,7 @@
 		  margin: 0;
       position: absolute;
 
-			.container {
+			.ngx-container {
 			  display: block;
 			  position: relative;
 			  overflow: hidden;
@@ -240,7 +240,7 @@
 			  transform: translate(0,0) scale(1,1);
 			  background-color: rgb(170,209,249);
 
-				.bar {
+				.ngx-bar {
 				  transition: all .2s linear;
 				  -webkit-animation: query .8s infinite cubic-bezier(.39,.575,.565,1);
 				  animation: query .8s infinite cubic-bezier(.39,.575,.565,1);
