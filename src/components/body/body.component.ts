@@ -2,7 +2,6 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import { translateXY, columnsByPin, columnGroupWidths, RowHeightCache, columnsByPinArr } from '../../utils';
 import { SelectionType, TableColumn, SortDirection } from '../../types';
 import ScrollerComponent from './scroller.component';
-import { MouseEvent } from '../../events';
 import DataTableSelectionComponent from './selection.component';
 import ProgressBarComponent from './progress-bar.component';
 import DataTableRowWrapperComponent from './body-row-wrapper.component.vue';
@@ -62,6 +61,7 @@ export default class DataTableBodyComponent extends Vue {
   temp: any[] = [];
   offsetY: number = 0;
   myOffset: number = 0;
+  myOffsetX: number = 0;
   indexes: any = {};
   columnGroupWidths: any = null;
   columnGroupWidthsWithoutGroup: any = null;
@@ -143,7 +143,11 @@ export default class DataTableBodyComponent extends Vue {
     this.myOffset = this.offset;
   }
 
-  @Watch('offsetX') onOffsetXChanged() {
+  @Watch('offsetX', { immediate: true }) onOffsetXChanged() {
+    this.myOffsetX = this.offsetX;
+  }
+
+  @Watch('myOffsetX') onMyOffsetXChanged() {
     this.buildStylesByGroup();
   }
 
@@ -297,7 +301,7 @@ export default class DataTableBodyComponent extends Vue {
 
     // if scroll change, trigger update
     // this is mainly used for header cell positions
-    if (this.offsetY !== scrollYPos || this.offsetX !== scrollXPos) { // Math.abs(scrollYPos - this.offsetY) > 50
+    if (this.offsetY !== scrollYPos || this.myOffsetX !== scrollXPos) { // Math.abs(scrollYPos - this.offsetY) > 50
       this.$emit('scroll', {
         offsetY: scrollYPos,
         offsetX: scrollXPos
@@ -305,7 +309,7 @@ export default class DataTableBodyComponent extends Vue {
     }
    
     this.offsetY = scrollYPos;
-    this.offsetX = scrollXPos;
+    this.myOffsetX = scrollXPos;
     this.$nextTick(() => {
       this.updateIndexes();
       this.updatePage(event.direction);
@@ -683,26 +687,26 @@ export default class DataTableBodyComponent extends Vue {
   /**
    * Gets the row pinning group styles
    */
-  stylesByGroup(group: string) {
-    const widths = this.columnGroupWidths;
-    const offsetX = this.offsetX;
+  // stylesByGroup(group: string) {
+  //   const widths = this.columnGroupWidths;
+  //   const offsetX = this.myOffsetX;
 
-    const styles = {
-      width: `${widths[group]}px`
-    };
+  //   const styles = {
+  //     width: `${widths[group]}px`
+  //   };
 
-    if (group === 'left') {
-      translateXY(styles, offsetX, 0);
-    } else if (group === 'right') {
-      const bodyWidth = parseInt(this.innerWidth + '', 0);
-      const totalDiff = widths.total - bodyWidth;
-      const offsetDiff = totalDiff - offsetX;
-      const offset = offsetDiff * -1;
-      translateXY(styles, offset, 0);
-    }
+  //   if (group === 'left') {
+  //     translateXY(styles, offsetX, 0);
+  //   } else if (group === 'right') {
+  //     const bodyWidth = parseInt(this.innerWidth + '', 0);
+  //     const totalDiff = widths.total - bodyWidth;
+  //     const offsetDiff = totalDiff - offsetX;
+  //     const offset = offsetDiff * -1;
+  //     translateXY(styles, offset, 0);
+  //   }
 
-    return styles;
-  }
+  //   return styles;
+  // }
 
   /**
    * Returns if the row was expanded and set default row expansion when row expansion is empty
@@ -737,24 +741,6 @@ export default class DataTableBodyComponent extends Vue {
     this.selector && this.selector.onActivate(event, this.indexes.first + index);
   }
 
-  rowStyle(row, index: number) {
-    return {
-      transform: `translate3d(${this.offsetX}px,${row.id * 50}px, 0px)`,
-    };
-    // const widths = this.columnGroupWidths;
-    // const offsetX = this.offsetX;
-    // const styles = {
-    //   width: `${widths['center']}px`
-    // };
-    // const bodyWidth = parseInt(this.innerWidth + '', 0);
-    // const totalDiff = widths.total - bodyWidth;
-    // const offsetDiff = totalDiff - offsetX;
-    // const offset = (offsetDiff + 1000) * -1;
-    // translateXY(styles, offset, 0);
-    
-    // return styles;
-  }
-
   buildStylesByGroup() {
     this.groupStyles['left'] = this.calcStylesByGroup('left');
     this.groupStyles['center'] = this.calcStylesByGroup('center');
@@ -763,7 +749,7 @@ export default class DataTableBodyComponent extends Vue {
 
   calcStylesByGroup(group: string) {
     const widths = this.columnGroupWidths;
-    const offsetX = this.offsetX;
+    const offsetX = this.myOffsetX;
     const styles = {
       width: `${widths[group]}px`
     };

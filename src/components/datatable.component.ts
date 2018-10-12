@@ -286,6 +286,8 @@ export default class DatatableComponent extends Vue {
    */
   headerComponent: any; // DataTableHeaderComponent;
 
+  resizeHander: any;
+
   /**
    * Returns if all rows are selected.
    */
@@ -293,8 +295,6 @@ export default class DatatableComponent extends Vue {
   pageSize: number = 0;
   bodyHeight: number = 0;
   rowCount: number = 0;
-  // rowDiffer: KeyValueDiffer<{}, {}>;
-  // offsetX = new BehaviorSubject(0);
   offsetX: number = 0;
   internalRows: any[] = null;
   internalColumns: TableColumn[] = null;
@@ -322,7 +322,7 @@ export default class DatatableComponent extends Vue {
   // private columnChangesService: ColumnChangesService;
 
   destroyed() {
-    window.removeEventListener('resize', this.onWindowResize);
+    window.removeEventListener('resize', this.resizeHander);
     //  todo: this._subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
@@ -362,7 +362,8 @@ export default class DatatableComponent extends Vue {
           offset: 0
         });
       }
-      window.addEventListener('resize', this.onWindowResize);
+      this.resizeHander = this.onWindowResize.bind(this);
+      window.addEventListener('resize', this.resizeHander);
     });
 
     // this.columnTemplates.changes.subscribe(v =>
@@ -815,7 +816,7 @@ export default class DatatableComponent extends Vue {
    * The body triggered a scroll event.
    */
   onBodyScroll(event: MouseEvent): void {
-    // this.offsetX.next(event.offsetX);
+    this.offsetX = event.offsetX;
     this.$emit('offsetX', event.offsetX);
     this.$emit('scroll', event);
   }

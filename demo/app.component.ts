@@ -17,6 +17,7 @@ import DefaultSortingComponent from './sorting/sorting-default.component';
 import ClientSortingComponent from './sorting/sorting-client.component';
 import SortingComparatorComponent from './sorting/sorting-comparator.component';
 import ServerSortingComponent from './sorting/sorting-server.component';
+import HorzVertScrolling from './basic/scrolling.component';
 
 @Component({
   components: {
@@ -35,6 +36,7 @@ import ServerSortingComponent from './sorting/sorting-server.component';
     'client-sorting-demo': ClientSortingComponent,
     'comparator-sorting-demo': SortingComparatorComponent,
     'server-sorting-demo': ServerSortingComponent,
+    'horz-vert-scrolling-demo': HorzVertScrolling,
   },
   template: `
     <div :class="classObject" style="height:100%;">
@@ -162,8 +164,9 @@ import ServerSortingComponent from './sorting/sorting-server.component';
         <virtual-scroll-demo v-if="state === 'virtual-scroll'"></virtual-scroll-demo>
         <filter-demo v-if="state === 'filter'"></filter-demo>
         <dynamic-height-demo v-if="state === 'dynamic'"></dynamic-height-demo>
-        <!-- <inline-edit-demo v-if="state === 'inline-edit'"></inline-edit-demo>
         <horz-vert-scrolling-demo v-if="state === 'horz-vert-scrolling'"></horz-vert-scrolling-demo>
+
+        <!-- <inline-edit-demo v-if="state === 'inline-edit'"></inline-edit-demo>
         <multiple-tables-demo v-if="state === 'multiple-tables'"></multiple-tables-demo>
         <row-details-demo v-if="state === 'row-details'"></row-details-demo>
         <responsive-demo v-if="state === 'responsive'"></responsive-demo>

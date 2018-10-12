@@ -79,6 +79,10 @@ export default class ScrollerComponent extends Vue {
       direction = 'down';
     } else if (this.scrollYPos > this.prevScrollYPos) {
       direction = 'up';
+    } else if (this.scrollXPos < this.prevScrollXPos) {
+      direction = 'right';
+    } else if (this.scrollXPos > this.prevScrollXPos) {
+      direction = 'left';
     }
     if (direction) {
       this.$emit('scroll', {
