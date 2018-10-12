@@ -26,7 +26,7 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
         aria-label="'page ' + pg.number"
         class="pages"
         v-for="pg of pages"
-        :class="{ active: pg.number === page }">
+        :class="{ active: pg.number === myPage }">
         <a
           href="javascript:void(0)"
           @click="selectPage(pg.number)">

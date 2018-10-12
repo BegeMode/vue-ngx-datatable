@@ -69,7 +69,7 @@ module.exports = function(env) {
         raw: true,
         entryOnly: true
       }),
-      new BundleAnalyzerPlugin(),
+      // new BundleAnalyzerPlugin(),
       /*
       new CleanWebpackPlugin(['release'], {
         root: dir(),
