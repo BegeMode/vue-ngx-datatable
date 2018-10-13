@@ -112,6 +112,7 @@ export default class DataTableBodyComponent extends Vue {
         return idx;
       }
     }.bind(this);
+    this.myBodyHeight = this.bodyHeight;
   }
 
   mounted() {
@@ -544,7 +545,7 @@ export default class DataTableBodyComponent extends Vue {
         // Calculation of the first and last indexes will be based on where the
         // scrollY position would be at.  The last index would be the one
         // that shows up inside the view port the last.
-        const height = this.bodyHeight; // parseInt(this.bodyHeight, 0);
+        const height = parseInt(this.myBodyHeight, 0);
         first = this.rowHeightsCache.getRowIndex(this.offsetY);
         last = this.rowHeightsCache.getRowIndex(height + this.offsetY);
       } else {

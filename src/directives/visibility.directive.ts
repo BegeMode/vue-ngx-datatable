@@ -25,23 +25,25 @@ class VisibilityController {
     clearTimeout(this.timeout);
   }
 
-  onVisibilityChange(): void {
-    this.isVisible = true;
-    this.emit('visible', true);
+  onVisibilityChange(visible: boolean): void {
+    if (this.isVisible !== visible) {
+      this.isVisible = visible;
+      this.emit('visible', visible);
+    }
   }
 
   runCheck(): void {
     const check = () => {
+      clearTimeout(this.timeout);
       // https://davidwalsh.name/offsetheight-visibility
       const { offsetHeight, offsetWidth } = this.element;
 
       if (offsetHeight && offsetWidth) {
-        clearTimeout(this.timeout);
-        this.onVisibilityChange();
+        this.onVisibilityChange(true);
       } else {
-        clearTimeout(this.timeout);
-        this.timeout = setTimeout(check.bind(this), 50);
+        this.onVisibilityChange(false);
       }
+      this.timeout = setTimeout(check.bind(this), 100);
     };
     this.timeout = setTimeout(check.bind(this));
   }

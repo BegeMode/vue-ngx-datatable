@@ -1,7 +1,7 @@
 <div class="ngx-datatable"
 v-visibility-observer
 :class="classObject"
-@visible="recalculate" 
+@visible="onVisible" 
 @insert-column="onColumnInsert">
 <div class="hidden-columns" ref="hiddenColumns"><slot></slot></div>
 <datatable-header ref="datatableHeader" class="datatable-header"

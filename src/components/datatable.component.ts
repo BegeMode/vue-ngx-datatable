@@ -302,7 +302,10 @@ export default class DatatableComponent extends Vue {
   mySortType: SortType = SortType.single;
   // tslint:disable-next-line:variable-name
   myOffset_: number = 0;
+
+  // non-reactive
   mySorts: any[];
+  isVisible: boolean;
 
   // _columnTemplates: QueryList<DataTableColumnDirective>;
   // _subscriptions: Subscription[] = [];
@@ -840,6 +843,15 @@ export default class DatatableComponent extends Vue {
       this.$emit('select', {
         selected: this.selected
       });
+    }
+  }
+
+  onVisible(visible: boolean) {
+    if (this.isVisible !== visible) {
+      this.isVisible = visible;
+      if (this.isVisible) {
+        this.recalculate();
+      }
     }
   }
 
