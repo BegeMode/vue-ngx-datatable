@@ -46,7 +46,6 @@ export default class DataTableBodyComponent extends Vue {
   @Prop() summaryPosition: string;
   @Prop() summaryHeight: number;
   @Prop() pageSize: number;
-  @Prop() pagination: boolean;
   @Prop() rows: any[];
   @Prop() columns: any[];
   @Prop() offset: number;

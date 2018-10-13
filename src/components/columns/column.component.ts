@@ -54,7 +54,7 @@ export default class DataTableColumnComponent extends Vue {
   // @Prop()
   // @ContentChild(DataTableColumnCellTreeToggle, { read: TemplateRef })
   // treeToggleTemplate: TemplateRef<any>;
-  private isFirstChange = true;
+  // private isFirstChange = true;
   
   // ngOnChanges() {
   //   if (this.isFirstChange) {

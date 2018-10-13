@@ -42,7 +42,6 @@ v-visibility-observer
   :trackByProp="trackByProp"
   :columns="internalColumns"
   :pageSize="pageSize"
-  :pagination="Boolean(limit)"
   :offsetX="offsetX"
   :rowDetail="rowDetail"
   :groupHeader="groupHeader"
@@ -67,8 +66,7 @@ v-visibility-observer
 </datatable-body>
 <div class="datatable-footer">
   <datatable-footer ref="datatableFooter"
-    v-if="footerHeight || limit || externalPaging"
-    :pagination="!!limit || externalPaging"
+    v-if="footerHeight"
     :rowCount="rowCount"
     :pageSize="pageSize"
     :offset="myOffset"

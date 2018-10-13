@@ -8,7 +8,7 @@ import DataTablePagerComponent from './pager.component';
   template: `
     <div
       class="datatable-footer-inner"
-      :class="{'selected-count': selectedMessage}"
+      :class="{'selected-count': selectedMessage }"
       :style = "{ 'height': footerHeight + 'px' }">
       <slot v-bind:row="{ rowCount: rowCount, pageSize: pageSize, 
                           selectedCount: selectedCount, curPage: curPage, offset: offset }">
@@ -19,7 +19,7 @@ import DataTablePagerComponent from './pager.component';
           {{rowCount.toLocaleString()}} {{totalMessage}}
         </div>
       </slot>
-      <div class="datatable-pager" v-if="pagination">
+      <div class="datatable-pager">
         <datatable-pager
           :pagerLeftArrowIcon="pagerLeftArrowIcon"
           :pagerRightArrowIcon="pagerRightArrowIcon"
@@ -46,7 +46,6 @@ export default class DataTableFooterComponent extends Vue {
   @Prop() pagerPreviousIcon: string;
   @Prop() pagerNextIcon: string;
   @Prop() totalMessage: string;
-  @Prop() pagination: boolean;
 
   @Prop() selectedCount: number = 0;
   @Prop() selectedMessage: string | boolean;
