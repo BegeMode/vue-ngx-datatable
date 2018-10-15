@@ -1,39 +1,28 @@
-<div :id="`${props.context.column.prop}-${props.context.column.$$id}`" class="datatable-body-cell-label" :style="props.cellStyleObject(props.context)" :class="props.cellColumnCssClasses(props.context)"
-     @focus="$options.methods.onFocus(props)" @blur="$options.methods.onBlur(props)" @dblclick="$options.methods.onDblClick($event, listeners, props)" 
-     @click="$options.methods.onClick($event, listeners, props)" @keydown="$options.methods.onKeyDown($event, listeners, props)">
-<label v-if="props.context.column.checkboxable && (!props.context.displayCheck || props.context.displayCheck(props.context.row, props.context.column, props.context.value))"
-  class="datatable-checkbox">
-  <input
-    type="checkbox"
-    :checked="props.context.isSelected"
-    @click="$options.methods.onCheckboxChange($event, listeners, props)"
-  />
-</label>
-<template v-if="props.context.column.isTreeColumn">
-  <button v-if="!props.context.column.treeToggleTemplate"
-    class="datatable-tree-button"
-    :disabled="props.context.treeStatus==='disabled'"
-    @click="$options.methods.onTreeAction($event, listeners, props)">
-    <span>
-      <i v-if="props.context.treeStatus==='loading'"
-        class="icon datatable-icon-collapse"></i>
-      <i v-if="props.context.treeStatus==='collapsed'"
-        class="icon datatable-icon-up"></i>
-      <i v-if="props.context.treeStatus==='expanded' || props.context.treeStatus==='disabled'"
-        class="icon datatable-icon-down"></i>
-    </span>
-  </button>
-  <!-- <slot name="tree-toggle" v-if="column.treeToggleTemplate"
-    :templateOutlet="column.treeToggleTemplate"
-    :templateOutletContext="{ cellContext: cellContext }">
-  </slot> -->
-</template>
-<slot :name="props.context.column.prop" v-bind:row="props.context.row">
-  <span :title="props.context.sanitizedValue" v-html="props.context.value"></span>
-</slot>
-<!-- <slot
-  v-if="column.cellTemplate"
-  :templateOutlet="column.cellTemplate"
-  :templateOutletContext="cellContext">
-  </slot> -->
+<div :id="`${props.context.column.prop}-${props.context.column.$$id}`" class="datatable-body-cell" :style="props.cellStyleObject(props.context)"
+  :class="props.cellColumnCssClasses(props.context)" @focus="$options.methods.onFocus(props)" @blur="$options.methods.onBlur(props)"
+  @dblclick="$options.methods.onDblClick($event, listeners, props)" @click="$options.methods.onClick($event, listeners, props)"
+  @keydown="$options.methods.onKeyDown($event, listeners, props)">
+  <div class="datatable-body-cell-label" :style="props.marginCellStyle(props.context)">
+    <label v-if="props.context.column.checkboxable && (!props.context.displayCheck || props.context.displayCheck(props.context.row, props.context.column, props.context.value))"
+      class="datatable-checkbox">
+      <input type="checkbox" :checked="props.context.isSelected" @click="$options.methods.onCheckboxChange($event, listeners, props)" />
+    </label>
+    <template v-if="props.context.column.isTreeColumn">
+      <button v-if="!props.context.column.treeToggleTemplate" class="datatable-tree-button" :disabled="props.context.treeStatus==='disabled'"
+        @click="$options.methods.onTreeAction($event, listeners, props)">
+        <span>
+          <i v-if="props.context.treeStatus==='loading'" class="icon datatable-icon-collapse"></i>
+          <i v-else-if="props.context.treeStatus==='collapsed'" class="icon datatable-icon-right"></i>
+          <i v-else-if="props.context.treeStatus==='expanded'" class="icon datatable-icon-down"></i> 
+          <!-- || props.context.treeStatus==='disabled' -->
+          <i v-else class="icon icon-disabled datatable-icon-down"></i> 
+        </span>
+      </button>
+      <slot name="tree-toggle">
+      </slot>
+    </template>
+    <slot :name="props.context.column.prop" v-bind:row="props.context.row">
+      <span :title="props.context.sanitizedValue" v-html="props.context.value"></span>
+    </slot>
+  </div>
 </div>

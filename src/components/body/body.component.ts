@@ -867,10 +867,11 @@ export default class DataTableBodyComponent extends Vue {
 
   cellColumnCssClasses(context: ICellContext): any {
     if (!context) {
-      return 'datatable-body-cell';
+      // return 'datatable-body-cell';
+      return '';
     }
     const result = {
-      'datatable-body-cell': true,
+      // 'datatable-body-cell': true,
     };
     // let cls = 'datatable-body-cell';
     if (context.column.cellClass) {
@@ -922,6 +923,14 @@ export default class DataTableBodyComponent extends Vue {
       minWidth: context.column.minWidth + 'px',
       maxWidth: context.column.maxWidth + 'px',
       height: this.cellHeight(context.rowHeight),
+    };
+  }
+
+  marginCellStyle(context: ICellContext) {
+    if (!context) {
+      return {};
+    }
+    return {
       'margin-left': this.calcLeftMargin(context.column, context.row) + 'px',
     };
   }

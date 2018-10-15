@@ -1076,9 +1076,9 @@ export default class DatatableComponent extends Vue {
   }
 
   onColumnInsert(column: TableColumn) {
-    console.log('onColumnInsert', column);
     if (!this.internalColumns) {
-      return this.onColumnsChanged([column]);
+      setColumnDefaults(column, this);
+      this.internalColumns = [column];
     }
     const colIndex = this.internalColumns.findIndex(c => c.name === column.name);
     // setColumnDefaults(column, this);

@@ -3,7 +3,6 @@ import DatatableComponent from '../../src/components/datatable.component.vue';
 import DataTableColumnComponent from '../../src/components/columns/column.component';
 
 @Component({
-  selector: 'client-side-tree-demo',
   components: {
     'ngx-datatable': DatatableComponent,
     'ngx-datatable-column': DataTableColumnComponent,

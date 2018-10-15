@@ -21,6 +21,7 @@ export default Vue.extend({
     context: Object,
     cellColumnCssClasses: Function,
     cellStyleObject: Function,
+    marginCellStyle: Function,
     slot: Function,
   },
   methods: {

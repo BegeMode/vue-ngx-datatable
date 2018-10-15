@@ -1,7 +1,12 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
+import { Component, Vue } from 'vue-property-decorator';
+import DatatableComponent from '../../src/components/datatable.component.vue';
+import DataTableColumnComponent from '../../src/components/columns/column.component';
 
 @Component({
-  selector: 'full-screen-tree-demo',
+  components: {
+    'ngx-datatable': DatatableComponent,
+    'ngx-datatable-column': DataTableColumnComponent,
+  },
   template: `
     <div>
       <h3>
@@ -15,23 +20,23 @@ import { Component, ChangeDetectorRef } from '@angular/core';
       <ngx-datatable
         class="material fullscreen"
         style="top: 52px"
-        [columnMode]="'force'"
-        [headerHeight]="50"
-        [footerHeight]="0"
-        [rowHeight]="50"
-        [scrollbarV]="true"
-        [scrollbarH]="true"
-        [rows]="rows"
-        [treeFromRelation]="'parentId'"
-        [treeToRelation]="'id'"
-        (treeAction)="onTreeAction($event)">
-        <ngx-datatable-column name="Id" [width]="80"></ngx-datatable-column>
+        :columnMode="'force'"
+        :headerHeight="50"
+        :footerHeight="0"
+        :rowHeight="50"
+        :scrollbarV="true"
+        :scrollbarH="true"
+        :rows="rows"
+        :treeFromRelation="'parentId'"
+        :treeToRelation="'id'"
+        @treeAction="onTreeAction($event)">
+        <ngx-datatable-column name="Id" :width="80"></ngx-datatable-column>
         <ngx-datatable-column
           name="Name"
-          [isTreeColumn]="true"
-          [width]="300"
-          [treeLevelIndent]="20">
-          <ng-template ngx-datatable-tree-toggle let-tree="cellContext">
+          :isTreeColumn="true"
+          :width="300"
+          :treeLevelIndent="20">
+          <!-- <ng-template ngx-datatable-tree-toggle let-tree="cellContext">
             <button [disabled]="tree.treeStatus==='disabled'" (click)="tree.onTreeAction()">
               <span *ngIf="tree.treeStatus==='loading'">
                 ...
@@ -46,12 +51,12 @@ import { Component, ChangeDetectorRef } from '@angular/core';
                 ⃠
               </span>
             </button>
-          </ng-template>
+          </ng-template> -->
         </ngx-datatable-column>
         <ngx-datatable-column name="Gender"></ngx-datatable-column>
         <ngx-datatable-column name="Age"></ngx-datatable-column>
-        <ngx-datatable-column name="City" [width]="300" prop="address.city"></ngx-datatable-column>
-        <ngx-datatable-column name="State" [width]="300" prop="address.state"></ngx-datatable-column>
+        <ngx-datatable-column name="City" :width="300" prop="address.city"></ngx-datatable-column>
+        <ngx-datatable-column name="State" :width="300" prop="address.state"></ngx-datatable-column>
       </ngx-datatable>
     </div>
   `,
@@ -60,12 +65,12 @@ import { Component, ChangeDetectorRef } from '@angular/core';
     '.disabled {opacity: 0.5; }'
   ],
 })
-export class FullScreenTreeComponent {
+export default class FullScreenTreeComponent extends Vue {
 
   rows = [];
   lastIndex = 15;
 
-  constructor(private cd: ChangeDetectorRef) {
+  created() {
     this.fetch((data) => {
       data = data.slice(1, this.lastIndex);
       this.rows = data.map((d) => {
@@ -104,12 +109,10 @@ export class FullScreenTreeComponent {
         this.lastIndex = this.lastIndex + 3;
         row.treeStatus = 'expanded';
         this.rows = [...this.rows, ...data];
-        this.cd.detectChanges();
       });
     } else {
       row.treeStatus = 'collapsed';
       this.rows = [...this.rows];
-      this.cd.detectChanges();
     }
   }
 

@@ -73,8 +73,8 @@ export function setColumnDefaults(column: TableColumn, vm: Vue) {
     vm.$set(column, 'draggable', true);
   }
 
-  if (!column.hasOwnProperty('canAutoResize')) {
-    vm.$set(column, 'canAutoResize', true);
+  if (!column.hasOwnProperty('canAutoResize') || isNullOrUndefined(column.canAutoResize)) {
+    column.canAutoResize = true;
   }
 
   if (!column.hasOwnProperty('width') || !column.width) {

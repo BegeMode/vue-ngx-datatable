@@ -75,6 +75,7 @@ export default Vue.extend({
     cellContext: Function,
     cellColumnCssClasses: Function,
     cellStyleObject: Function,
+    marginCellStyle: Function,
     slots: Function,
   },
   render(createElement, { props, listeners, slots }) {
@@ -108,6 +109,7 @@ export default Vue.extend({
                 context: props.cellContext(props.row, props.group, column),
                 cellColumnCssClasses: props.cellColumnCssClasses,
                 cellStyleObject: props.cellStyleObject,
+                marginCellStyle: props.marginCellStyle,
               },
               scopedSlots: {
                 [column.prop]: props.slots()[column.prop]

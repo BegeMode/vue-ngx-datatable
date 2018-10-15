@@ -35,32 +35,32 @@
   &:not(.cell-selection) {
     .datatable-body-row {
       &:hover,
-			&:hover .datatable-row-group {
+			&:hover .datatable-row-group, &:hover .datatable-row-group .datatable-tree-button  {
 	      background-color: #eee;
 	      transition-property: background;
-	      transition-duration: .3s;
-	      transition-timing-function: linear;
+	      // transition-duration: .3s;
+				transition-timing-function: linear;
 	    }
 
 			&:focus,
-			&:focus .datatable-row-group {
+			&:focus .datatable-row-group, &:focus .datatable-row-group .datatable-tree-button {
 				background-color: #ddd;
 			}
     }
   }
 
-  &.cell-selection {
+	&.cell-selection {
     .datatable-body-cell {
       &:hover,
-			&:hover .datatable-row-group {
+			&:hover .datatable-row-group, &:hover .datatable-row-group .datatable-tree-button {
 	      background-color: #eee;
 	      transition-property: background;
 	      transition-duration: .3s;
 	      transition-timing-function: linear;
-	    }
-
+			}
+			
 			&:focus,
-			&:focus .datatable-row-group {
+			&:focus .datatable-row-group, &:focus .datatable-row-group .datatable-tree-button {
 				background-color: #ddd;
 			}
 
@@ -207,8 +207,25 @@
         // cell active class
         // &.active {
         //  background: #0829e0
-        // }
+				// }
+				
+				.datatable-body-cell-label {
+					display: inline-flex;
+				}
+
+				.datatable-tree-button {
+					border: none;
+					background-color: white;
+					outline: none;
+					 & .icon {
+						 font-size: 1.5rem;
+					 }
+					 & .icon-disabled {
+						 color: rgba(255, 255, 255, 0);
+					 }
+				}
 			}
+
 	    .datatable-body-group-cell {
 	      text-align: left;
 	      padding: .9rem 1.2rem;

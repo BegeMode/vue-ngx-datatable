@@ -19,6 +19,7 @@ import SortingComparatorComponent from './sorting/sorting-comparator.component';
 import ServerSortingComponent from './sorting/sorting-server.component';
 import HorzVertScrolling from './basic/scrolling.component';
 import ClientTreeComponent from './tree/client-tree.component';
+import FullScreenTreeComponent from './tree/fullscreen.component';
 
 @Component({
   components: {
@@ -39,6 +40,7 @@ import ClientTreeComponent from './tree/client-tree.component';
     'server-sorting-demo': ServerSortingComponent,
     'horz-vert-scrolling-demo': HorzVertScrolling,
     'client-side-tree-demo': ClientTreeComponent,
+    'full-screen-tree-demo': FullScreenTreeComponent,
   },
   template: `
     <div :class="classObject" style="height:100%;">
@@ -184,7 +186,7 @@ import ClientTreeComponent from './tree/client-tree.component';
         <basic-bootstrap-theme-demo  v-if="state === 'bootstrap'"></basic-bootstrap-theme-demo>  -->
 
         <!-- Tree -->
-        <!-- <full-screen-tree-demo v-if="state === 'fullscreen-tree'"></full-screen-tree-demo>  -->
+        <full-screen-tree-demo v-if="state === 'fullscreen-tree'"></full-screen-tree-demo>
         <client-side-tree-demo v-if="state === 'client-tree'"></client-side-tree-demo>
 
         <!-- Paging -->
