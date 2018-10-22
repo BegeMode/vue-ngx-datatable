@@ -2,7 +2,7 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 // import { Keys } from '../../utils';
 // import { SortDirection } from '../../types';
 // import { TableColumn } from '../../types/table-column.type';
-import { ICellContext } from '../../types/cell-context.type';
+// import { ICellContext } from '../../types/cell-context.type';
 import { Keys } from '../../utils';
 
 export type TreeStatus = 'collapsed' | 'expanded' | 'loading' | 'disabled';
@@ -22,16 +22,18 @@ export default Vue.extend({
     cellColumnCssClasses: Function,
     cellStyleObject: Function,
     marginCellStyle: Function,
-    slot: Function,
+    tabIndex: String,
   },
   methods: {
     onFocus(props): void {
-      props.context.this.isFocused = true;
+      props.context.isFocused = true;
     },  
     onBlur(props): void {
       props.context.isFocused = false;
     },
     onClick(event, listeners, props): void {
+      // props.context.isFocused = true;
+      // props.context.abcd = true;
       listeners.activate({
         type: 'click',
         event,

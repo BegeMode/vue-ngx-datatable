@@ -47,7 +47,7 @@ export default class DataTableFooterComponent extends Vue {
   @Prop() pagerNextIcon: string;
   @Prop() totalMessage: string;
 
-  @Prop() selectedCount: number = 0;
+  @Prop({ type: Number, default: 0 }) selectedCount: number;
   @Prop() selectedMessage: string | boolean;
 
   // @Output() page: EventEmitter<any> = new EventEmitter();

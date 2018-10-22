@@ -1,7 +1,8 @@
 <div :id="`${props.context.column.prop}-${props.context.column.$$id}`" class="datatable-body-cell" :style="props.cellStyleObject(props.context)"
-  :class="props.cellColumnCssClasses(props.context)" @focus="$options.methods.onFocus(props)" @blur="$options.methods.onBlur(props)"
+  :tabindex="props.tabIndex" :class="props.cellColumnCssClasses(props.context)"
   @dblclick="$options.methods.onDblClick($event, listeners, props)" @click="$options.methods.onClick($event, listeners, props)"
-  @keydown="$options.methods.onKeyDown($event, listeners, props)">
+  @keydown="$options.methods.onKeyDown($event, listeners, props)" @mouseenter="listeners.mouseenter($event)"
+  @focus="$options.methods.onFocus(props)" @blur="$options.methods.onBlur(props)">
   <div class="datatable-body-cell-label" :style="props.marginCellStyle(props.context)">
     <label v-if="props.context.column.checkboxable && (!props.context.displayCheck || props.context.displayCheck(props.context.row, props.context.column, props.context.value))"
       class="datatable-checkbox">

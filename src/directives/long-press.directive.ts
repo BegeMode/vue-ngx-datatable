@@ -138,7 +138,6 @@ class LongPressController {
 }
 
 export default Vue.directive('long-press', {
-  resizing: false,
   bind(el, binding, vnode) {
     const ctrl = new LongPressController(_id++, vnode, el);
     if (binding.value.pressEnabled !== undefined && binding.value.pressEnabled !== null) {

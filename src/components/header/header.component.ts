@@ -51,8 +51,6 @@ import LongPressDirective from '../../directives/long-press.directive';
           @sort="onSort($event)"
           @select="$emit('select')"
           @columnContextmenu="$emit('columnContextmenu', $event)">
-          <slot>
-          </slot>
         </datatable-header-cell>
       </div>
     </div>

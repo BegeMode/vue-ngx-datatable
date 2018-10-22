@@ -302,6 +302,7 @@ export default class DatatableComponent extends Vue {
   mySortType: SortType = SortType.single;
   // tslint:disable-next-line:variable-name
   myOffset_: number = 0;
+  mySelected = [];
 
   // non-reactive
   mySorts: any[];
@@ -505,6 +506,10 @@ export default class DatatableComponent extends Vue {
     this.mySorts = this.sorts;
   }
 
+  @Watch('selected', { immediate: true }) onSelectedChanged() {
+    this.mySelected = this.selected;
+  }
+
   get myOffset(): number {
     return Math.max(Math.min(this.myOffset_, Math.ceil(this.rowCount / this.pageSize) - 1), 0);
   }
@@ -611,15 +616,15 @@ export default class DatatableComponent extends Vue {
   }
 
   get allRowsSelected(): boolean {
-    let allRowsSelected = (this.rows && this.selected && this.selected.length === this.rows.length);
+    let allRowsSelected = (this.rows && this.mySelected && this.mySelected.length === this.rows.length);
 
     if (this.selectAllRowsOnPage) {
       const indexes = this.bodyComponent.indexes;
       const rowsOnPage = indexes.last - indexes.first;
-      allRowsSelected = (this.selected.length === rowsOnPage);
+      allRowsSelected = (this.mySelected.length === rowsOnPage);
     }
 
-    return this.selected && this.rows &&
+    return this.mySelected && this.rows &&
       this.rows.length !== 0 && allRowsSelected;
   }
   /**
@@ -839,9 +844,9 @@ export default class DatatableComponent extends Vue {
     });
 
     if (this.selectAllRowsOnPage) {
-      this.selected = [];
+      this.mySelected = [];
       this.$emit('select', {
-        selected: this.selected
+        selected: this.mySelected
       });
     }
   }
@@ -995,9 +1000,9 @@ export default class DatatableComponent extends Vue {
   onColumnSort(event: any): void {
     // clean selected rows
     if (this.selectAllRowsOnPage) {
-      this.selected = [];
+      this.mySelected = [];
       this.$emit('select', {
-        selected: this.selected
+        selected: this.mySelected
       });
     }
 
@@ -1032,28 +1037,28 @@ export default class DatatableComponent extends Vue {
       // before we splice, chk if we currently have all selected
       const first = this.bodyComponent.indexes.first;
       const last = this.bodyComponent.indexes.last;
-      const allSelected = this.selected.length === (last - first);
+      const allSelected = this.mySelected.length === (last - first);
 
       // remove all existing either way
-      this.selected = [];
+      this.mySelected = [];
 
       // do the opposite here
       if (!allSelected) {
-        this.selected.push(...this.internalRows.slice(first, last));
+        this.mySelected.push(...this.internalRows.slice(first, last));
       }
     } else {
       // before we splice, chk if we currently have all selected
-      const allSelected = this.selected.length === this.rows.length;
+      const allSelected = this.mySelected.length === this.rows.length;
       // remove all existing either way
-      this.selected = [];
+      this.mySelected = [];
       // do the opposite here
       if (!allSelected) {
-        this.selected.push(...this.rows);
+        this.mySelected.push(...this.rows);
       }
     }
 
     this.$emit('select', {
-      selected: this.selected
+      selected: this.mySelected
     });
   }
 

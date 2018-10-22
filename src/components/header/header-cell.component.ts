@@ -21,7 +21,7 @@ import { nextSortDir } from '../../utils';
         />
       </label>
       <slot>
-      <!-- Контент по умолчанию v-if="!column.headerTemplate" -->
+      <!-- Контент по умолчанию -->
         <span class="datatable-header-cell-wrapper">
           <span class="datatable-header-cell-label draggable"
             @click="onSort" v-html="name">
@@ -68,9 +68,6 @@ export default class DataTableHeaderCellComponent extends Vue {
   
   @Watch('column', { immediate: true }) onColumnChahged() {
     this.cellContext.column = this.column;
-    if (this.column.headerTemplate) {
-      this.$slots.default = this.column.headerTemplate;
-    }
   }
 
   @Watch('sorts', { immediate: true }) onSortsChanged() {
@@ -78,6 +75,19 @@ export default class DataTableHeaderCellComponent extends Vue {
     this.cellContext.sortDir = this.sortDir;
     this.sortClass = this.calcSortClass(this.sortDir);
   }
+
+  created() {
+    if (this.column.headerTemplate) {
+      this.$slots.default = this.column.headerTemplate;
+    }
+  }
+
+  // updated() {
+  //   if (this.column.headerTemplate && !this.$slots.default) {
+  //     this.$slots.default = this.column.headerTemplate;
+  //     this.$forceUpdate();
+  //   }
+  // }
 
   // @Output() sort: EventEmitter<any> = new EventEmitter();
   // @Output() select: EventEmitter<any> = new EventEmitter();

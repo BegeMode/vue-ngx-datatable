@@ -70,7 +70,7 @@ export default Vue.extend({
     rowStyles: Function,
     groupStyles: Function,
     groupClass: String,
-    displayCheck: Boolean,
+    displayCheck: Function, // (row: any, column?: TableColumn, value?: any) => boolean,
     treeStatus: ({ type: String, default: 'collapsed' }),
     cellContext: Function,
     cellColumnCssClasses: Function,
@@ -94,22 +94,24 @@ export default Vue.extend({
           },
           class: 'datatable-row-group datatable-row-' + colGroup.type,
           style: props.groupStyles(colGroup),
-          nativeOn: {
-            keydown: listeners.keydown,
-            mouseenter: listeners.mouseenter,
+          on: {
+           keydown: onKeyDown(listeners, props),
+           mouseenter: onMouseenter(listeners, props),
             // 'tree-action': listeners['tree-action']($event, props.row),
           },
-        }, colGroup.columns.map((column) => {
+        }, colGroup.columns.map((column, index) => {
+          const context = props.cellContext(props.row, props.group, column);
           return createElement(
             'datatable-body-cell',
             {
               key: column.$$id,
               props: {
                 key: column.$$id,
-                context: props.cellContext(props.row, props.group, column),
+                context,
                 cellColumnCssClasses: props.cellColumnCssClasses,
                 cellStyleObject: props.cellStyleObject,
                 marginCellStyle: props.marginCellStyle,
+                tabIndex: '-1' // context.rowIndex ? `${context.rowIndex}${index}` : `${index}`,
               },
               scopedSlots: {
                 [column.prop]: props.slots()[column.prop]
@@ -117,10 +119,6 @@ export default Vue.extend({
               on: {
                 'tree-action': onTreeAction(listeners, props),
                 activate: listeners.activate,
-                // focus: listeners.focus,
-              },
-              nativeOn: {
-                // focus: listeners.focus,
                 keydown: onKeyDown(listeners, props),
                 mouseenter: onMouseenter(listeners, props),
               },

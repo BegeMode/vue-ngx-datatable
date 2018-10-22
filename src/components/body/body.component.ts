@@ -81,6 +81,7 @@ export default class DataTableBodyComponent extends Vue {
   lastRowCount: number;
   rowsChanged: boolean;
   private scrollbarHelper = new ScrollbarHelper();
+  private cellContexts = new Map();
 
   // ready = false;
   // startIndex = 0;
@@ -813,7 +814,13 @@ export default class DataTableBodyComponent extends Vue {
   }
 
   getCellContext(row: any, group: any, column: any): ICellContext {
-    const cellContext: ICellContext = {
+    let cellContext: ICellContext = this.cellContextFor(row, column);
+    if (cellContext) {
+      this.updateCellContext(cellContext, row);
+      this.setCellValue(cellContext);
+      return cellContext;
+    }
+    cellContext = {
       onCheckboxChangeFn: null,
       activateFn: null,
       displayCheck: this.displayCheck,
@@ -833,7 +840,37 @@ export default class DataTableBodyComponent extends Vue {
       // sorts: any[];
     };
     this.setCellValue(cellContext);
+    this.saveContextFor(row, column, cellContext);
     return cellContext;
+  }
+
+  updateCellContext(context: ICellContext, row: any) {
+    context.rowHeight = this.getRowHeight(row);
+    context.isSelected = this.isSelect(row);
+    context.rowIndex = this.getRowIndex(row);
+    context.expanded = this.getRowExpanded(row);
+    context.treeStatus = row.treeStatus;
+  }
+
+  cellContextFor(row: any, column: any): ICellContext {
+    const rowId = this.rowIdentity(row);
+    const colId = column.$$id;
+    const cols = this.cellContexts.get(rowId);
+    if (cols) {
+      return cols[colId];
+    }
+    return null;
+  }
+
+  saveContextFor(row: any, column: any, cellContext: ICellContext) {
+    const rowId = this.rowIdentity(row);
+    const colId = column.$$id;
+    let cols = this.cellContexts.get(rowId);
+    if (!cols) {
+      cols = {};
+    }
+    cols[colId] = cellContext;
+    this.cellContexts.set(rowId, cols);
   }
 
   setCellValue(cellContext: ICellContext): void {
@@ -902,7 +939,7 @@ export default class DataTableBodyComponent extends Vue {
       }
     }
     result['sort-active'] = !context.sortDir;
-    result['active'] = !context.isFocused;
+    result['active'] = context.isFocused;
     result['sort-asc'] = context.sortDir === SortDirection.asc;
     result['sort-desc'] = context.sortDir === SortDirection.desc;
     
