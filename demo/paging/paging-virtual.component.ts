@@ -22,7 +22,7 @@ import {Page} from './model/page';
       <ngx-datatable
         class="material"
         :rows="rows"
-        :columns="[{name:'Name'},{name:'Gender'},{name:'Company'}]"
+        :columns="columns"
         :columnMode="'force'"
         :headerHeight="50"
         :scrollbarV="true"
@@ -40,6 +40,7 @@ export default class VirtualPagingComponent extends Vue {
 
   page = new Page();
   rows = new Array<CorporateEmployee>();
+  columns = [{ name: 'Name' }, { name: 'Gender' }, { name: 'Company' }];
   cache: any = {};
   serverResultsService: MockServerResultsService;
 

@@ -29,7 +29,7 @@ import DataTablePagerComponent from './pager.component';
           :size="pageSize"
           :count="rowCount"
           :hidden="!isVisible"
-          @change="$emit('page', $event)">
+          @change-page="$emit('page', $event)">
         </datatable-pager>
       </div>
     </div>

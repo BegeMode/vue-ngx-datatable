@@ -112,7 +112,7 @@ export default class DataTablePagerComponent extends Vue {
     if (page > 0 && page <= this.totalPages && page !== this.myPage) {
       this.myPage = page;
 
-      this.$emit('change', {
+      this.$emit('change-page', {
         page
       });
     }
