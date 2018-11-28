@@ -34,6 +34,7 @@ import DatatableComponent from '../../src/components/datatable.component.vue';
 export default class ClientPagingComponent extends Vue {
 
   rows = [];
+  page = 2;
 
   created() {
     this.fetch((data) => {
