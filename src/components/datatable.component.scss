@@ -10,6 +10,14 @@
     flex-flow: column;
     justify-content: flex-start;
     height: 100%;
+
+    .datatable-body {
+      overflow-y: auto;
+      flex: 1 1 auto;
+    }
+    .datatable-header, .datatable-footer {
+      flex: none;
+    }
   }
 
   [hidden] {
