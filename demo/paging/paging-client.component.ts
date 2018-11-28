@@ -22,7 +22,10 @@ import DatatableComponent from '../../src/components/datatable.component.vue';
         :columnMode="'force'"
         :headerHeight="50"
         :footerHeight="50"
-        :rowHeight="'auto'"
+        :rowHeight="50"
+        :scrollbarV="true"
+        :offset="page"
+        :virtualization="false"
         :limit="10">
       </ngx-datatable>
     </div>
@@ -31,6 +34,7 @@ import DatatableComponent from '../../src/components/datatable.component.vue';
 export default class ClientPagingComponent extends Vue {
 
   rows = [];
+  page = 2;
 
   created() {
     this.fetch((data) => {
