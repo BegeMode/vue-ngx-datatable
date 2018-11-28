@@ -15,16 +15,19 @@ import DatatableComponent from '../../src/components/datatable.component.vue';
           </a>
         </small>
       </h3>
+      <div style="height:100%;">
       <ngx-datatable
-        class="material"
+        class="material ngx-flex"
         :rows="rows"
         :columns="[{name:'Name'},{name:'Gender'},{name:'Company'}]"
         :columnMode="'force'"
         :headerHeight="50"
         :footerHeight="50"
         :rowHeight="'auto'"
-        :limit="10">
+        :scrollbarY="true"
+        :limit="30">
       </ngx-datatable>
+      </div>
     </div>
   `
 })

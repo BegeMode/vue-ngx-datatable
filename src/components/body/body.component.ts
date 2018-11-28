@@ -46,6 +46,7 @@ export default class DataTableBodyComponent extends Vue {
   @Prop() summaryPosition: string;
   @Prop() summaryHeight: number;
   @Prop() pageSize: number;
+  @Prop() limit: number;
   @Prop() rows: any[];
   @Prop() columns: any[];
   @Prop() offset: number;
@@ -541,7 +542,7 @@ export default class DataTableBodyComponent extends Vue {
     let first = 0;
     let last = 0;
 
-    if (this.scrollbarV) {
+    if (this.scrollbarV && !this.limit) {
       if (this.virtualization) {
         // Calculation of the first and last indexes will be based on where the
         // scrollY position would be at.  The last index would be the one
