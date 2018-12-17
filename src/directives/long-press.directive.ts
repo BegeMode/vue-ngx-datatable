@@ -29,10 +29,9 @@ class LongPressController {
     el.addEventListener('mousedown', this.handleDown);
   }
 
-  unsubcribe() {
-    this.element.removeEventListener('mousedown', this.handleDown);
-    document.removeEventListener('mouseup', this.handleUp);
+  unsubscribe() {
     document.removeEventListener('mousemove', this.handleMove);
+    document.removeEventListener('mouseup', this.handleUp);
   }
   
   set pressing(value: boolean) {
@@ -46,7 +45,7 @@ class LongPressController {
 
   set isLongPressing(value: boolean) {
     this._isLongPressing = value;
-    console.log('set isLongPressing, id, value', this.id, value);
+    // console.log('set isLongPressing, id, value', this.id, value);
 
     value ? this.element.classList.add('longpress') : this.element.classList.remove('longpress');
   }
@@ -86,12 +85,17 @@ class LongPressController {
     this.loop(event);
   }
 
+  private onMouseUp(): void {
+    document.removeEventListener('mousemove', this.handleMove);
+    this.endPress();
+  }
+
   private onMouseMove(event: MouseEvent): void {
     if (this.pressing && !this.isLongPressing) {
       const xThres = Math.abs(event.clientX - this.mouseX) > 10;
       const yThres = Math.abs(event.clientY - this.mouseY) > 10;
 
-      console.log('long-press mouse move, id=', this.id);
+      // console.log('long-press mouse move, id=', this.id);
 
       if (xThres || yThres) {
         this.endPress();
@@ -113,18 +117,15 @@ class LongPressController {
 
   private endPress(): void {
     clearTimeout(this.timeout);
-    this.isLongPressing = false;
-    this.pressing = false;
-    this.unsubcribe();
+    if (this.isLongPressing) {
+      this.unsubscribe();
+      this.isLongPressing = false;
+      this.pressing = false;
 
-    this.emit('longPressEnd', {
-      model: this.pressModel
-    });
-  }
-
-  private onMouseUp(): void {
-    document.removeEventListener('mousemove', this.handleMove);
-    this.endPress();
+      this.emit('longPressEnd', {
+        model: this.pressModel
+      });
+    }
   }
 
   private emit(name, data) {
@@ -150,8 +151,9 @@ export default Vue.directive('long-press', {
     el.__longpress__ = ctrl;
   },
   unbind(el: any) {
-    const ctrl = el.__longpress__;
-    ctrl.unsubcribe();
+    const ctrl: LongPressController = el.__longpress__;
+    ctrl.element.removeEventListener('mousedown', ctrl.handleDown);
+    ctrl.unsubscribe();
   },
 });
 

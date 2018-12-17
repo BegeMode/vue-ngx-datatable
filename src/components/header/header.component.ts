@@ -4,6 +4,7 @@ import { columnsByPin, columnGroupWidths, columnsByPinArr, translateXY } from '.
 import DataTableHeaderCellComponent from './header-cell.component';
 import ResizeableDirective from '../../directives/resizeable.directive';
 import LongPressDirective from '../../directives/long-press.directive';
+import DraggableDirective from '../../directives/draggable.directive';
 
 @Component({
   components: {
@@ -12,31 +13,22 @@ import LongPressDirective from '../../directives/long-press.directive';
   directives: {
     resizeable: ResizeableDirective,
     'long-press': LongPressDirective,
+    dragndrop: DraggableDirective,
 
   },
   template: `
-    <div
-      orderable
-      @reorder="onColumnReordered"
-      @targetChanged="onTargetChanged"
-      :style="styleObject"
-      class="datatable-header-inner">
-      <div
-        v-for="colGroup of columnsByPin" :key="colGroup.type"
+    <div :style="styleObject" class="datatable-header-inner">
+      <div v-for="colGroup of columnsByPin" :key="colGroup.type"
         :class="['datatable-row-' + colGroup.type]"
         :style="styleByGroup[colGroup.type]">
         <datatable-header-cell class="datatable-header-cell"
           v-for="column of colGroup.columns" :key="column.$$id"
           v-resizeable="{ resizeEnabled: column.resizeable }"
-          @resize="onColumnResized($event, column)"
           v-long-press="{pressModel: column, pressEnabled: reorderable && column.draggable}"
+          v-dragndrop="{dragEventTarget:dragEventTarget,dragModel:column,dragX:isEnableDragX(column),dragY:false}"
+          @resize="onColumnResized($event, column)"
           @longPressStart="onLongPressStart($event, column)"
           @longPressEnd="onLongPressEnd($event, column)"
-          :draggable="reorderable && column.draggable"
-          :dragX="reorderable && column.draggable && column.dragging"
-          :dragY="false"
-          :dragModel="column"
-          :dragEventTarget="dragEventTarget"
           :headerHeight="headerHeight"
           :isTarget="column.isTarget"
           :targetMarkerTemplate="targetMarkerTemplate"
@@ -50,7 +42,11 @@ import LongPressDirective from '../../directives/long-press.directive';
           :allRowsSelected="allRowsSelected"
           @sort="onSort($event)"
           @select="$emit('select')"
-          @columnContextmenu="$emit('columnContextmenu', $event)">
+          @columnContextmenu="$emit('columnContextmenu', $event)"
+          @header-cell-mounted="onHeaderCellMounted(column, $event)"
+          @dragStart="onDragStart"
+          @dragEnd="onDragEnd"
+          @dragging="onDragging">
         </datatable-header-cell>
       </div>
     </div>
@@ -83,6 +79,11 @@ export default class DataTableHeaderComponent extends Vue {
   };
   targetMarkerContext: any = null;
   dragEventTarget: any = null;
+
+  // non-reactive props
+  positions: any;
+  lastDraggingIndex: number;
+  draggables: any[];
 
   @Watch('innerWidth', { immediate: true }) onChangedInnerWidth() {
     if (this.columns) {    
@@ -146,6 +147,10 @@ export default class DataTableHeaderComponent extends Vue {
     return '100%';
   }
 
+  isEnableDragX(column) {
+    return this.reorderable && column.draggable && column.dragging;
+  }
+
   // trackByGroups(colGroup: any): any {    
   //   return colGroup.type;
   // }
@@ -166,34 +171,6 @@ export default class DataTableHeaderComponent extends Vue {
       prevValue: column.width,
       newValue: width
     });
-  }
-
-  onColumnReordered({ prevIndex, newIndex, model }: any): void {
-    const column = this.getColumn(newIndex);
-    column.isTarget = false;
-    column.targetMarkerContext = undefined;
-    this.$emit('reorder', {
-      column: model,
-      prevValue: prevIndex,
-      newValue: newIndex
-    });
-  }
-
-  onTargetChanged({ prevIndex, newIndex, initialIndex }: any): void {
-    if (prevIndex || prevIndex === 0) {
-      const oldColumn = this.getColumn(prevIndex);
-      oldColumn.isTarget = false;
-      oldColumn.targetMarkerContext = undefined;
-    }
-    if (newIndex || newIndex === 0) {
-      const newColumn = this.getColumn(newIndex);
-      newColumn.isTarget = true;
-      
-      if (initialIndex !== newIndex) {
-        newColumn.targetMarkerContext = {class: 'targetMarker '.concat( 
-          initialIndex > newIndex ? 'dragFromRight' : 'dragFromLeft')};
-      }
-    }
   }
 
   getColumn(index: number): any {
@@ -286,4 +263,120 @@ export default class DataTableHeaderComponent extends Vue {
       height: this.myHeaderHeight,
     };
   }
+
+  onHeaderCellMounted(column, element) {
+    if (!this.draggables) {
+      this.draggables = [];
+    }
+    this.draggables.push({ dragModel: column, element });
+  }
+
+  onDragStart(): void {
+    this.positions = {};
+
+    let i = 0;
+    this.draggables.sort((a, b) => {
+      const left = parseInt(a.element.offsetLeft.toString(), 0);
+      const left1 = parseInt(b.element.offsetLeft.toString(), 0);
+      return left - left1;
+    });
+    for (const dragger of this.draggables) {
+      const elm = dragger.element;
+      const left = parseInt(elm.offsetLeft.toString(), 0);
+      this.positions[ dragger.dragModel.prop ] = {
+        left,
+        right: left + parseInt(elm.offsetWidth.toString(), 0),
+        index: i++,
+        element: elm
+      };
+    }
+  }
+
+  onDragging({ element, model, event }: any): void {
+    const prevPos = this.positions[ model.prop ];    
+    const target = this.isTarget(model, event);
+
+    if (target) {
+      if (this.lastDraggingIndex !== target.i) {
+        this.onTargetChanged({
+          prevIndex: this.lastDraggingIndex,
+          newIndex: target.i,
+          initialIndex: prevPos.index
+        });
+        this.lastDraggingIndex = target.i;
+      } 
+    } else if (this.lastDraggingIndex !== prevPos.index) {
+      this.onTargetChanged({
+        prevIndex: this.lastDraggingIndex,
+        initialIndex: prevPos.index
+      });
+      this.lastDraggingIndex = prevPos.index;
+    }
+  }
+
+  onDragEnd({ element, model, event }: any): void {
+    const prevPos = this.positions[model.prop];
+
+    const target = this.isTarget(model, event);
+    if (target) {
+      this.onColumnReordered({
+        prevIndex: prevPos.index,
+        newIndex: target.i,
+        model
+      });
+    }
+    this.lastDraggingIndex = undefined;
+    element.style.left = 'auto';
+  }
+
+  onColumnReordered({ prevIndex, newIndex, model }: any): void {
+    const column = this.getColumn(newIndex);
+    column.isTarget = false;
+    column.targetMarkerContext = undefined;
+    this.$emit('reorder', {
+      column: model,
+      prevValue: prevIndex,
+      newValue: newIndex
+    });
+  }
+
+  onTargetChanged({ prevIndex, newIndex, initialIndex }: any): void {
+    if (prevIndex || prevIndex === 0) {
+      const oldColumn = this.getColumn(prevIndex);
+      oldColumn.isTarget = false;
+      oldColumn.targetMarkerContext = undefined;
+    }
+    if (newIndex || newIndex === 0) {
+      const newColumn = this.getColumn(newIndex);
+      newColumn.isTarget = true;
+      
+      if (initialIndex !== newIndex) {
+        newColumn.targetMarkerContext = {class: 'targetMarker '.concat( 
+          initialIndex > newIndex ? 'dragFromRight' : 'dragFromLeft')};
+      }
+    }
+  }
+
+  isTarget(model: any, event: any): any {
+    let i = 0;
+    const x = event.x || event.clientX;
+    const y = event.y || event.clientY;
+    const targets = document.elementsFromPoint(x, y);
+
+    for (const prop in this.positions) {
+      // current column position which throws event.
+      const pos = this.positions[ prop ];
+
+      // since we drag the inner span, we need to find it in the elements at the cursor
+      if (model.prop !== prop && targets.find((el: any) => el === pos.element)) {
+        return {
+          pos,
+          i
+        };
+      }
+
+      i++;
+    }
+  }
+
 }

@@ -6,11 +6,13 @@ import { nextSortDir } from '../../utils';
   template: `
     <div class="datatable-header-cell-template-wrap" :class="[columnCssClasses]" :style="styles" :title="name" 
           @contextmenu="onContextmenu($event)">
-      <!-- <template
-        v-if="isTarget"
-        :templateOutlet="targetMarkerTemplate"
-        :templateOutletContext="targetMarkerContext">
-      </template> -->
+      <slot name="target-marker">
+        <!-- Контент по умолчанию -->
+        <div class="targetMarker" v-if="isTarget">
+          <div class="icon datatable-icon-down"></div>
+          <div class="icon datatable-icon-up"></div>
+        </div>
+      </slot>
       <label
         v-if="isCheckboxable"
         class="datatable-checkbox">
@@ -41,8 +43,6 @@ export default class DataTableHeaderCellComponent extends Vue {
   @Prop() sortAscendingIcon: string;
   @Prop() sortDescendingIcon: string;
   @Prop() isTarget: boolean;
-  @Prop() targetMarkerTemplate: any;
-  @Prop() targetMarkerContext: any;
   @Prop() allRowsSelected: boolean;
   @Prop() selectionType: SelectionType;
   @Prop() column: TableColumn;
@@ -77,11 +77,15 @@ export default class DataTableHeaderCellComponent extends Vue {
   }
 
   created() {
+    this.$emit('header-cell-created', this.$el);
     if (this.column.headerTemplate) {
       this.$slots.default = this.column.headerTemplate;
     }
   }
 
+  mounted() {
+    this.$emit('header-cell-mounted', this.$el);
+  }
   // updated() {
   //   if (this.column.headerTemplate && !this.$slots.default) {
   //     this.$slots.default = this.column.headerTemplate;
@@ -99,6 +103,7 @@ export default class DataTableHeaderCellComponent extends Vue {
     if (this.column) {
       if (this.column.sortable) cls += ' sortable';
       if (this.column.resizeable) cls += ' resizeable';
+      if (this.column.draggable) cls += ' draggable';
       if (this.column.headerClass) {
         if (typeof this.column.headerClass === 'string') {
           cls += ' ' + this.column.headerClass;

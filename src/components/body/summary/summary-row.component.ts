@@ -3,6 +3,7 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 export interface ISummaryColumn {
   summaryFunc?: (cells: any[]) => any;
   summaryTemplate?: string; // TemplateRef<any>;
+  cellTemplate?: string;
 
   prop: string;
   // pipe?: PipeTransform;
@@ -66,10 +67,14 @@ export default class DataTableSummaryRowComponent extends Vue {
   }
 
   private updateInternalColumns() {
-    this.internalColumns = this.columns.map(col => ({
-      ...col,
-      cellTemplate: col.summaryTemplate
-    }));
+    // this.internalColumns = this.columns.map(col => ({
+    //   ...col,
+    //   cellTemplate: col.summaryTemplate
+    // }));
+    this.internalColumns = this.columns.map(col => {
+      col.cellTemplate = col.summaryTemplate;
+      return col;
+    });
   }
 
   private updateValues() {

@@ -83,6 +83,7 @@ export function setColumnDefaults(column: TableColumn, vm: Vue) {
     vm.$set(column, 'width', column.width);
   }
   vm.$set(column, 'isTreeColumn', column.isTreeColumn);
+  vm.$set(column, 'isTarget', isNullOrUndefined(column.isTarget) ? false : column.isTarget);
 }
 
 export function isNullOrUndefined<T>(value: T | null | undefined): value is null | undefined {
