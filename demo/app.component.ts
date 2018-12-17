@@ -24,6 +24,7 @@ import CheckboxSelectionComponent from './selection/selection-chkbox.component';
 import MultiDisableSelectionComponent from './selection/selection-disabled.component';
 import CustomCheckboxSelectionComponent from './selection/selection-chkbox-template.component';
 import CellSelectionComponent from './selection/selection-cell.component';
+import ColumnReorderComponent from './columns/column-reorder.component';
 
 @Component({
   components: {
@@ -49,6 +50,7 @@ import CellSelectionComponent from './selection/selection-cell.component';
     'multidisable-selection-demo': MultiDisableSelectionComponent,
     'chkbox-selection-template-demo': CustomCheckboxSelectionComponent,
     'cell-selection-demo': CellSelectionComponent,
+    'column-reorder-demo': ColumnReorderComponent,
   },
   template: `
     <div :class="classObject" style="height:100%;">
@@ -225,12 +227,13 @@ import CellSelectionComponent from './selection/selection-cell.component';
         <inline-templates-demo v-if="state === 'inline'"></inline-templates-demo> -->
 
         <!-- Columns -->
+        <column-reorder-demo v-if="state === 'reorder'"></column-reorder-demo>
         <!-- <column-flex-demo v-if="state === 'flex'"></column-flex-demo>
         <column-toggle-demo v-if="state === 'toggle'"></column-toggle-demo>
         <column-standard-demo v-if="state === 'fixed'"></column-standard-demo>
         <column-force-demo v-if="state === 'force'"></column-force-demo>
         <column-pinning-demo v-if="state === 'pinning'"></column-pinning-demo>
-        <column-reorder-demo v-if="state === 'reorder'"></column-reorder-demo> -->
+         -->
 
         <!-- Summary row -->
         <!-- <summary-row-simple-demo v-if="state === 'simple-summary'"></summary-row-simple-demo>

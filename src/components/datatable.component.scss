@@ -164,6 +164,7 @@
     .datatable-header-cell {
       position: relative;
       display: inline-block;
+      user-select: none;
 
       &.sortable {
         .datatable-header-cell-wrapper {
@@ -215,11 +216,23 @@
         bottom: 0;
 
         &.dragFromLeft {
-          right: 0;
+          right: -13px;
         }
 
         &.dragFromRight {
           left: 0;
+        }
+
+        & .icon {
+          position:absolute;
+        }
+        
+        & .datatable-icon-down {
+          top: 0px;
+        }
+        
+        & .datatable-icon-up {
+          top: 35px;
         }
       }
 

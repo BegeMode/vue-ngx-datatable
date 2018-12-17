@@ -934,8 +934,6 @@ export default class DatatableComponent extends Vue {
 
     let idx: number;
     const cols = this.internalColumns.map((c, i) => {
-      c = { ...c };
-
       if (c.$$id === column.$$id) {
         idx = i;
         c.width = newValue;
@@ -961,9 +959,7 @@ export default class DatatableComponent extends Vue {
    * The header triggered a column re-order event.
    */
   onColumnReorder({ column, newValue, prevValue }: any): void {
-    const cols = this.internalColumns.map(c => {
-      return { ...c };
-    });
+    const cols = [...this.internalColumns];
 
     if (this.swapColumns) {
       const prevCol = cols[newValue];

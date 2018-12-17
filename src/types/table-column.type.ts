@@ -245,4 +245,10 @@ export interface TableColumn {
    * @memberOf TableColumn
    */
   summaryTemplate?: any;
+  /**
+   * Is column the drag'n'drop target?
+   * @type {boolean}
+   * @memberOf TableColumn
+   */
+  isTarget?: boolean;
 }
