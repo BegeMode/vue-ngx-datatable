@@ -112,7 +112,8 @@
       -webkit-align-items: stretch; }
     .ngx-datatable .datatable-header .datatable-header-cell {
       position: relative;
-      display: inline-block; }
+      display: inline-block;
+      user-select: none; }
       .ngx-datatable .datatable-header .datatable-header-cell.sortable .datatable-header-cell-wrapper {
         cursor: pointer; }
       .ngx-datatable .datatable-header .datatable-header-cell.longpress .datatable-header-cell-wrapper {
@@ -142,9 +143,15 @@
         top: 0;
         bottom: 0; }
         .ngx-datatable .datatable-header .datatable-header-cell .targetMarker.dragFromLeft {
-          right: 0; }
+          right: -13px; }
         .ngx-datatable .datatable-header .datatable-header-cell .targetMarker.dragFromRight {
           left: 0; }
+        .ngx-datatable .datatable-header .datatable-header-cell .targetMarker .icon {
+          position: absolute; }
+        .ngx-datatable .datatable-header .datatable-header-cell .targetMarker .datatable-icon-down {
+          top: 0px; }
+        .ngx-datatable .datatable-header .datatable-header-cell .targetMarker .datatable-icon-up {
+          top: 35px; }
       .ngx-datatable .datatable-header .datatable-header-cell .datatable-header-cell-template-wrap {
         height: inherit; }
   .ngx-datatable .datatable-body {
