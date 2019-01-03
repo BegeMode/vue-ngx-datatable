@@ -44,14 +44,14 @@ export default class ContextMenuDemoComponent extends Vue {
   rows = [];
 
   columns = [
-    { prop: 'name' },
-    { name: 'Gender' },
-    { name: 'Company' }
+    { prop: 'name', visible: true },
+    { name: 'Gender', visible: true },
+    { name: 'Company', visible: true }
   ];
 
-  rawEvent: any;
-  contextmenuRow: any;
-  contextmenuColumn: any;
+  rawEvent: any = null;
+  contextmenuRow: any = null;
+  contextmenuColumn: any = null;
 
   created() {
     this.fetch((data) => {
@@ -73,6 +73,7 @@ export default class ContextMenuDemoComponent extends Vue {
 
     contextMenuEvent.event.preventDefault();
     contextMenuEvent.event.stopPropagation();
+    this.columns[1].visible = !this.columns[1].visible;
   }
 
   fetch(cb) {
