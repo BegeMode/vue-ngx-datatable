@@ -25,6 +25,7 @@ import MultiDisableSelectionComponent from './selection/selection-disabled.compo
 import CustomCheckboxSelectionComponent from './selection/selection-chkbox-template.component';
 import CellSelectionComponent from './selection/selection-cell.component';
 import ColumnReorderComponent from './columns/column-reorder.component';
+import ContextMenuDemoComponent from './basic/contextmenu.component';
 
 @Component({
   components: {
@@ -51,6 +52,7 @@ import ColumnReorderComponent from './columns/column-reorder.component';
     'chkbox-selection-template-demo': CustomCheckboxSelectionComponent,
     'cell-selection-demo': CellSelectionComponent,
     'column-reorder-demo': ColumnReorderComponent,
+    'contextmenu-demo': ContextMenuDemoComponent,
   },
   template: `
     <div :class="classObject" style="height:100%;">
@@ -179,6 +181,7 @@ import ColumnReorderComponent from './columns/column-reorder.component';
         <filter-demo v-if="state === 'filter'"></filter-demo>
         <dynamic-height-demo v-if="state === 'dynamic'"></dynamic-height-demo>
         <horz-vert-scrolling-demo v-if="state === 'horz-vert-scrolling'"></horz-vert-scrolling-demo>
+        <contextmenu-demo v-if="state === 'contextmenu'"></contextmenu-demo>
 
         <!-- <inline-edit-demo v-if="state === 'inline-edit'"></inline-edit-demo>
         <multiple-tables-demo v-if="state === 'multiple-tables'"></multiple-tables-demo>
@@ -187,7 +190,6 @@ import ColumnReorderComponent from './columns/column-reorder.component';
         <tabs-demo v-if="state === 'hidden'"></tabs-demo>
         <live-data-demo v-if="state === 'live'"></live-data-demo>
         <rx-demo v-if="state === 'rx'"></rx-demo>
-        <contextmenu-demo v-if="state === 'contextmenu'"></contextmenu-demo>
         <row-css-demo v-if="state === 'css'"></row-css-demo>
         <footer-demo v-if="state === 'footer'"></footer-demo> -->
 
