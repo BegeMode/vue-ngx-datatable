@@ -1,4 +1,5 @@
 <div :id="`${props.context.column.prop}-${props.context.column.$$id}`" class="datatable-body-cell" :style="props.cellStyleObject(props.context)"
+  v-show="props.context.column.visible"
   :tabindex="props.tabIndex" :class="props.cellColumnCssClasses(props.context)"
   @dblclick="$options.methods.onDblClick($event, listeners, props)" @click="$options.methods.onClick($event, listeners, props)"
   @keydown="$options.methods.onKeyDown($event, listeners, props)" @mouseenter="listeners.mouseenter($event)"

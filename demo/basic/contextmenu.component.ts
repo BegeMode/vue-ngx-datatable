@@ -73,7 +73,6 @@ export default class ContextMenuDemoComponent extends Vue {
 
     contextMenuEvent.event.preventDefault();
     contextMenuEvent.event.stopPropagation();
-    this.columns[1].visible = !this.columns[1].visible;
   }
 
   fetch(cb) {

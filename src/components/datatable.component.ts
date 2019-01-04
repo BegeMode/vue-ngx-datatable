@@ -466,8 +466,8 @@ export default class DatatableComponent extends Vue {
    */
   @Watch('columns', { immediate: true }) onColumnsChanged(newVal) {
     if (newVal) {
+      setColumnsDefaults(newVal, this);
       this.internalColumns = [...newVal];
-      setColumnsDefaults(this.internalColumns, this);
       this.recalculateColumns();
     }
   }
@@ -933,7 +933,7 @@ export default class DatatableComponent extends Vue {
     }
 
     let idx: number;
-    const cols = this.internalColumns.map((c, i) => {
+    this.internalColumns.map((c, i) => {
       if (c.$$id === column.$$id) {
         idx = i;
         c.width = newValue;
@@ -946,8 +946,7 @@ export default class DatatableComponent extends Vue {
       return c;
     });
 
-    this.recalculateColumns(cols, idx);
-    this.internalColumns = cols;
+    this.recalculateColumns(this.internalColumns, idx);
 
     this.$emit('resize', {
       column,
@@ -1077,22 +1076,37 @@ export default class DatatableComponent extends Vue {
   }
 
   onColumnInsert(column: TableColumn) {
+    // make all props reactive
+    // column = Object.assign({}, column);
     if (!this.internalColumns) {
       setColumnDefaults(column, this);
       this.internalColumns = [column];
     }
     const colIndex = this.internalColumns.findIndex(c => c.name === column.name);
-    // setColumnDefaults(column, this);
     if (colIndex < 0) {
       setColumnDefaults(column, this);
       this.internalColumns = [...this.internalColumns, column];
     } else {
-      // this.internalColumns[colIndex] = column;
       const col = this.internalColumns[colIndex];
       this.$set(col, 'headerTemplate', column.headerTemplate);
       this.$set(col, 'cellTemplate', column.cellTemplate);
     }
-}
+    if (this.isVisible) {
+      this.recalculateColumns();
+    }
+  }
+  
+  onColumnRemoved(column: TableColumn) {
+    const colIndex = this.internalColumns.findIndex(c => c.name === column.name);
+    const cols = [...this.internalColumns];
+    cols.splice(colIndex, 1);
+    this.internalColumns = [...cols];
+    this.recalculateColumns();
+  }
+
+  onColumnChangeVisible(column: TableColumn) {
+    this.recalculateColumns();
+  }
     
   /**
    * listen for changes to input bindings of all DataTableColumnDirective and

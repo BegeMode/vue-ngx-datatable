@@ -4,7 +4,8 @@ import { nextSortDir } from '../../utils';
 
 @Component({
   template: `
-    <div class="datatable-header-cell-template-wrap" :class="[columnCssClasses]" :style="styles" :title="name" 
+    <div class="datatable-header-cell-template-wrap" :class="[columnCssClasses]" :style="styles" :title="name"
+          v-show="column.visible"
           @contextmenu="onContextmenu($event)">
       <slot name="target-marker">
         <!-- Контент по умолчанию -->
