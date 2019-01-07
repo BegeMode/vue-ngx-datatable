@@ -1,4 +1,4 @@
-import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
+import { Component, Vue } from 'vue-property-decorator';
 import DatatableComponent from '../../src/components/datatable.component.vue';
 import DataTableColumnComponent from '../../src/components/columns/column.component';
 

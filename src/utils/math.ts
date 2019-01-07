@@ -3,7 +3,7 @@ import { columnsByPin, columnsTotalWidth } from './column';
 /**
  * Calculates the Total Flex Grow
  */
-export function getTotalFlexGrow(columns: any[]) {
+function getTotalFlexGrow(columns: any[]) {
   let totalFlexGrow = 0;
 
   for (const c of columns) {
@@ -18,6 +18,9 @@ export function getTotalFlexGrow(columns: any[]) {
  * Inspired by: https://github.com/facebook/fixed-data-table/blob/master/src/FixedDataTableWidthHelper.js
  */
 export function adjustColumnWidths(allColumns: any, expectedWidth: any) {
+  if (allColumns && allColumns.length) {
+    allColumns = allColumns.filter(c => c.visible);
+  }
   const columnsWidth = columnsTotalWidth(allColumns);
   const totalFlexGrow = getTotalFlexGrow(allColumns);
   const colsByGroup = columnsByPin(allColumns);
