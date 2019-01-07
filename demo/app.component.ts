@@ -27,6 +27,10 @@ import CellSelectionComponent from './selection/selection-cell.component';
 import ColumnReorderComponent from './columns/column-reorder.component';
 import ContextMenuDemoComponent from './basic/contextmenu.component';
 import ColumnToggleComponent from './columns/column-toggle.component';
+import ColumnStandardComponent from './columns/column-standard.component';
+import ColumnForceComponent from './columns/column-force.component';
+import ColumnFlexComponent from './columns/column-flex.component';
+import ColumnPinningComponent from './columns/pinning.component';
 
 @Component({
   components: {
@@ -55,6 +59,10 @@ import ColumnToggleComponent from './columns/column-toggle.component';
     'column-reorder-demo': ColumnReorderComponent,
     'contextmenu-demo': ContextMenuDemoComponent,
     'column-toggle-demo': ColumnToggleComponent,
+    'column-standard-demo': ColumnStandardComponent,
+    'column-force-demo': ColumnForceComponent,
+    'column-flex-demo': ColumnFlexComponent,
+    'column-pinning-demo': ColumnPinningComponent,
   },
   template: `
     <div :class="classObject" style="height:100%;">
@@ -233,11 +241,10 @@ import ColumnToggleComponent from './columns/column-toggle.component';
         <!-- Columns -->
         <column-reorder-demo v-if="state === 'reorder'"></column-reorder-demo>
         <column-toggle-demo v-if="state === 'toggle'"></column-toggle-demo>
-        <!-- <column-flex-demo v-if="state === 'flex'"></column-flex-demo>
+        <column-flex-demo v-if="state === 'flex'"></column-flex-demo>
         <column-standard-demo v-if="state === 'fixed'"></column-standard-demo>
         <column-force-demo v-if="state === 'force'"></column-force-demo>
         <column-pinning-demo v-if="state === 'pinning'"></column-pinning-demo>
-         -->
 
         <!-- Summary row -->
         <!-- <summary-row-simple-demo v-if="state === 'simple-summary'"></summary-row-simple-demo>

@@ -236,19 +236,19 @@ export default class DataTableHeaderComponent extends Vue {
 
   calcStylesByGroup(group: string): any {
     const widths = this.columnGroupWidths;
-    const offsetX = this.offsetX;
+    // const offsetX = this.offsetX;
 
     const styles = {
       width: `${widths[group]}px`
     };
 
-    if (group === 'center') {
-      translateXY(styles, offsetX * -1, 0);
-    } else if (group === 'right') {
-      const totalDiff = widths.total - this.innerWidth;
-      const offset = totalDiff * -1;
-      translateXY(styles, offset, 0);
-    }
+    // if (group === 'center') {
+    //   translateXY(styles, offsetX * -1, 0);
+    // } else if (group === 'right') {
+    //   const totalDiff = widths.total - this.innerWidth;
+    //   const offset = totalDiff * -1;
+    //   translateXY(styles, offset, 0);
+    // }
 
     return styles;
   }
