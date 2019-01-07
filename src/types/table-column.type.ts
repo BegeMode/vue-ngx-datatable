@@ -251,4 +251,11 @@ export interface TableColumn {
    * @memberOf TableColumn
    */
   isTarget?: boolean;
+
+  /**
+   * Is column visibled?
+   * @type {boolean}
+   * @memberOf TableColumn
+   */
+  visible?: boolean;
 }

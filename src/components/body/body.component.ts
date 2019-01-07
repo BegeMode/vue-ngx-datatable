@@ -136,7 +136,13 @@ export default class DataTableBodyComponent extends Vue {
     });
   }
 
-  @Watch('columns', { immediate: true }) onColumnsChanged() {
+  @Watch('columns', { immediate: true }) onColumnsChanged(newVal, oldVal) {
+    if (newVal && oldVal && newVal.length < oldVal.length) {
+      const removedColumns = oldVal.filter(col => !newVal.find(c => c.$$id === col.$$id));
+      if (removedColumns) {
+        this.updateCellContexts(removedColumns);
+      }
+    }
     this.recalculateColumns();
     this.buildStylesByGroup();
   }
@@ -896,6 +902,13 @@ export default class DataTableBodyComponent extends Vue {
       cellContext.value = value;
       cellContext.sanitizedValue = value !== null && value !== undefined ? this.stripHtml(value) : value;
     }
+  }
+
+  updateCellContexts(removedColumns: TableColumn[]) {
+    const values = Array.from(this.cellContexts.values());
+    values.forEach(value => {
+      removedColumns.forEach(removed => delete value[removed.$$id]);
+    });
   }
 
   stripHtml(html: string): string {

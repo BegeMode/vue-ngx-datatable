@@ -26,6 +26,7 @@ import CustomCheckboxSelectionComponent from './selection/selection-chkbox-templ
 import CellSelectionComponent from './selection/selection-cell.component';
 import ColumnReorderComponent from './columns/column-reorder.component';
 import ContextMenuDemoComponent from './basic/contextmenu.component';
+import ColumnToggleComponent from './columns/column-toggle.component';
 
 @Component({
   components: {
@@ -53,6 +54,7 @@ import ContextMenuDemoComponent from './basic/contextmenu.component';
     'cell-selection-demo': CellSelectionComponent,
     'column-reorder-demo': ColumnReorderComponent,
     'contextmenu-demo': ContextMenuDemoComponent,
+    'column-toggle-demo': ColumnToggleComponent,
   },
   template: `
     <div :class="classObject" style="height:100%;">
@@ -230,8 +232,8 @@ import ContextMenuDemoComponent from './basic/contextmenu.component';
 
         <!-- Columns -->
         <column-reorder-demo v-if="state === 'reorder'"></column-reorder-demo>
-        <!-- <column-flex-demo v-if="state === 'flex'"></column-flex-demo>
         <column-toggle-demo v-if="state === 'toggle'"></column-toggle-demo>
+        <!-- <column-flex-demo v-if="state === 'flex'"></column-flex-demo>
         <column-standard-demo v-if="state === 'fixed'"></column-standard-demo>
         <column-force-demo v-if="state === 'force'"></column-force-demo>
         <column-pinning-demo v-if="state === 'pinning'"></column-pinning-demo>

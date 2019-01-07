@@ -3,7 +3,7 @@ import { columnsByPin, columnsTotalWidth } from './column';
 /**
  * Calculates the Total Flex Grow
  */
-export function getTotalFlexGrow(columns: any[]) {
+function getTotalFlexGrow(columns: any[]) {
   let totalFlexGrow = 0;
 
   for (const c of columns) {
@@ -18,6 +18,9 @@ export function getTotalFlexGrow(columns: any[]) {
  * Inspired by: https://github.com/facebook/fixed-data-table/blob/master/src/FixedDataTableWidthHelper.js
  */
 export function adjustColumnWidths(allColumns: any, expectedWidth: any) {
+  if (allColumns && allColumns.length) {
+    allColumns = allColumns.filter(c => c.visible);
+  }
   const columnsWidth = columnsTotalWidth(allColumns);
   const totalFlexGrow = getTotalFlexGrow(allColumns);
   const colsByGroup = columnsByPin(allColumns);
@@ -98,18 +101,21 @@ export function forceFillColumnWidths(
   const columnsToResize = allColumns
     .slice(startIdx + 1, allColumns.length)
     .filter((c) => { 
-      return c.canAutoResize !== false; 
+      return c.visible && c.canAutoResize !== false; 
     });
+  
+  const averageColumnWidth = expectedWidth / columnsToResize.length;
 
   for (const column of columnsToResize) {
     if(!column.$$oldWidth) {
       column.$$oldWidth = column.width;
     }
+    column.width = averageColumnWidth;
   }
 
   let additionWidthPerColumn = 0;
   let exceedsWindow = false;
-  let contentWidth = getContentWidth(allColumns, defaultColWidth);
+  let contentWidth = getContentWidth(allColumns.filter(c => c.visible), defaultColWidth);
   let remainingWidth = expectedWidth - contentWidth;
   const columnsProcessed: any[] = [];
 

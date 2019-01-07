@@ -41,6 +41,7 @@ export default class DataTableColumnComponent extends Vue {
   @Prop() isTreeColumn: boolean;
   @Prop() treeLevelIndent: number;
   @Prop() summaryFunc: (cells: any[]) => any;
+  @Prop({ default: true }) visible: boolean;
   // @Prop() summaryTemplate: TemplateRef<any>;
 
   // @Prop()
@@ -64,32 +65,44 @@ export default class DataTableColumnComponent extends Vue {
   //   }
   // }
 
+  column: TableColumn = {};
+
   mounted() {
-    const column: TableColumn = {};
-    column.name = this.name;
-    column.prop = this.prop;
-    column.frozenLeft = this.frozenLeft;
-    column.frozenRight = this.frozenRight;
-    column.flexGrow = this.flexGrow;
-    column.resizeable = this.resizeable;
-    column.comparator = this.comparator;
+    this.$set(this.column, 'name', this.name);
+    this.$set(this.column, 'prop', this.prop);
+    this.$set(this.column, 'frozenLeft', this.frozenLeft);
+    this.$set(this.column, 'frozenRight', this.frozenRight);
+    this.$set(this.column, 'flexGrow', this.flexGrow);
+    this.$set(this.column, 'resizeable', this.resizeable);
+    this.$set(this.column, 'comparator', this.comparator);
     // column.pipe = this.pipe;
-    column.sortable = this.sortable;
-    column.draggable = this.draggable;
-    column.canAutoResize = this.canAutoResize;
-    column.minWidth = this.minWidth;
-    column.width = this.width;
-    column.maxWidth = this.maxWidth;
-    column.checkboxable = this.checkboxable;
-    column.headerCheckboxable = this.headerCheckboxable;
-    column.headerClass = this.headerClass;
-    column.cellClass = this.cellClass;
-    column.isTreeColumn = this.isTreeColumn;
-    column.treeLevelIndent = this.treeLevelIndent;
-    column.summaryFunc = this.summaryFunc;
-    column.headerTemplate = this.$slots.header;
-    column.cellTemplate = this.$scopedSlots.default;
+    this.$set(this.column, 'sortable', this.sortable);
+    this.$set(this.column, 'draggable', this.draggable);
+    this.$set(this.column, 'canAutoResize', this.canAutoResize);
+    this.$set(this.column, 'minWidth', this.minWidth);
+    this.$set(this.column, 'width', this.width);
+    this.$set(this.column, 'maxWidth', this.maxWidth);
+    this.$set(this.column, 'checkboxable', this.checkboxable);
+    this.$set(this.column, 'headerCheckboxable', this.headerCheckboxable);
+    this.$set(this.column, 'headerClass', this.headerClass);
+    this.$set(this.column, 'cellClass', this.cellClass);
+    this.$set(this.column, 'isTreeColumn', this.isTreeColumn);
+    this.$set(this.column, 'treeLevelIndent', this.treeLevelIndent);
+    this.$set(this.column, 'summaryFunc', this.summaryFunc);
+    this.$set(this.column, 'headerTemplate', this.$slots.header);
+    this.$set(this.column, 'cellTemplate', this.$scopedSlots.default);
+    this.$set(this.column, 'visible', this.visible);
+
     // todo: select any way to pass column to datatable // this.$emit('insert-column', column);
-    (this.$parent as any).onColumnInsert(column);
-    }
+    (this.$parent as any).onColumnInsert(this.column);
+  }
+  
+  destroyed() {
+    (this.$parent as any).onColumnRemoved(this.column);
+  }
+
+  @Watch('visible') onVisibleChanged(newVal) {
+    this.column.visible = newVal;
+    (this.$parent as any).onColumnChangeVisible(this.column);
+  }
 }
