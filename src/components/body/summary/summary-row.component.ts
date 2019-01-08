@@ -1,4 +1,5 @@
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
+import DataTableBodyRowComponent from '../body-row.component.vue';
 
 export interface ISummaryColumn {
   summaryFunc?: (cells: any[]) => any;
@@ -28,13 +29,16 @@ function noopSumFunc(cells: any[]): void {
 }
 
 @Component({
+  components: {
+    'datatable-body-row': DataTableBodyRowComponent,
+  },
   template: `
   <datatable-body-row
     v-if="summaryRow && internalColumns"
     tabindex="-1"
     :innerWidth="innerWidth"
     :offsetX="offsetX"
-    :columns="internalColumns"
+    :columnsByPin="internalColumns"
     :rowHeight="rowHeight"
     :row="summaryRow"
     :rowIndex="-1">

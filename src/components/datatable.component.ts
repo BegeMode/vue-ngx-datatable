@@ -265,7 +265,7 @@ export default class DatatableComponent extends Vue {
   /**
    * A height of summary row
    */
-  @Prop({ type: Number, default: 30 }) summaryHeight: number;
+  @Prop({ default: 30 }) summaryHeight: number | string;
   /**
    * A property holds a summary row position: top/bottom
    */
