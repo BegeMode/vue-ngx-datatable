@@ -105,7 +105,6 @@
   .ngx-datatable .datatable-row-right {
     position: relative; }
   .ngx-datatable .datatable-header {
-    display: block;
     overflow: hidden; }
     .ngx-datatable .datatable-header .datatable-header-inner {
       align-items: stretch;
