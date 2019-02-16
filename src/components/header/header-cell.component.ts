@@ -8,7 +8,7 @@ import { nextSortDir } from '../../utils';
           v-show="column.visible"
           @contextmenu="onContextmenu($event)">
       <slot name="target-marker">
-        <!-- Контент по умолчанию -->
+        <!-- Default content -->
         <div class="targetMarker" v-if="isTarget">
           <div class="icon datatable-icon-down"></div>
           <div class="icon datatable-icon-up"></div>
@@ -24,7 +24,7 @@ import { nextSortDir } from '../../utils';
         />
       </label>
       <slot>
-      <!-- Контент по умолчанию -->
+      <!-- Default content -->
         <span class="datatable-header-cell-wrapper">
           <span class="datatable-header-cell-label draggable"
             @click="onSort" v-html="name">
@@ -51,8 +51,7 @@ export default class DataTableHeaderCellComponent extends Vue {
   @Prop() headerHeight: number;
 
   sortFn = this.onSort.bind(this);
-  sortClass: string;
-  sortDir: SortDirection;
+  sortDir: SortDirection = null;
   // selectFn = this.select.emit.bind(this.select);
 
   cellContext: any = {
@@ -74,7 +73,6 @@ export default class DataTableHeaderCellComponent extends Vue {
   @Watch('sorts', { immediate: true }) onSortsChanged() {
     this.sortDir = this.calcSortDir(this.sorts);
     this.cellContext.sortDir = this.sortDir;
-    this.sortClass = this.calcSortClass(this.sortDir);
   }
 
   created() {
@@ -147,6 +145,10 @@ export default class DataTableHeaderCellComponent extends Vue {
       'min-width': this.column.minWidth + 'px',
       'max-width': this.column.maxWidth + 'px',
     };
+  }
+
+  get sortClass(): string {
+    return this.calcSortClass(this.sortDir);
   }
 
   // @HostBinding('style.minWidth.px')
