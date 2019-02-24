@@ -1,6 +1,6 @@
 {
   "name": "@begemode/ngx-datatable",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "vue-ngx-datatable is a Vue.js table grid component for presenting large and complex data (clone Angular2+ ngx-datatable).",
   "main": "release/index.js",
   "typings": "release/index.d.ts",
