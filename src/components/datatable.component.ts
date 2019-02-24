@@ -627,6 +627,10 @@ export default class DatatableComponent extends Vue {
     return this.mySelected && this.rows &&
       this.rows.length !== 0 && allRowsSelected;
   }
+
+  get scrollbarWidth(): number {
+    return this.scrollbarHelper.width;
+  }
   /**
    * Column templates gathered from `ContentChildren`
    * if described in your markup.
@@ -825,7 +829,7 @@ export default class DatatableComponent extends Vue {
    */
   onBodyScroll(event: MouseEvent): void {
     this.offsetX = event.offsetX;
-    this.$emit('offsetX', event.offsetX);
+    // this.$emit('offsetX', event.offsetX);
     this.$emit('scroll', event);
   }
 

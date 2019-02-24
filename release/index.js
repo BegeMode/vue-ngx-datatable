@@ -2632,6 +2632,13 @@ var DatatableComponent = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(DatatableComponent.prototype, "scrollbarWidth", {
+        get: function () {
+            return this.scrollbarHelper.width;
+        },
+        enumerable: true,
+        configurable: true
+    });
     /**
      * Column templates gathered from `ContentChildren`
      * if described in your markup.
@@ -2809,7 +2816,7 @@ var DatatableComponent = /** @class */ (function (_super) {
      */
     DatatableComponent.prototype.onBodyScroll = function (event) {
         this.offsetX = event.offsetX;
-        this.$emit('offsetX', event.offsetX);
+        // this.$emit('offsetX', event.offsetX);
         this.$emit('scroll', event);
     };
     /**
@@ -5180,6 +5187,7 @@ var render = function() {
             attrs: {
               sorts: _vm.mySorts,
               sortType: _vm.mySortType,
+              scrollbarWidth: _vm.scrollbarWidth,
               scrollbarH: _vm.scrollbarH,
               innerWidth: _vm.innerWidth,
               offsetX: _vm.offsetX,
@@ -6153,17 +6161,21 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
     };
     DataTableHeaderComponent.prototype.calcStylesByGroup = function (group) {
         var widths = this.columnGroupWidths;
-        // const offsetX = this.offsetX;
+        var offsetX = this.offsetX;
         var styles = {
             width: widths[group] + "px"
         };
-        // if (group === 'center') {
-        //   translateXY(styles, offsetX * -1, 0);
-        // } else if (group === 'right') {
-        //   const totalDiff = widths.total - this.innerWidth;
-        //   const offset = totalDiff * -1;
-        //   translateXY(styles, offset, 0);
-        // }
+        if (group === 'center') {
+            utils_1.translateXY(styles, offsetX * -1, 0);
+        }
+        else if (group === 'right') {
+            var totalDiff = widths.total - this.innerWidth;
+            var offset = totalDiff * -1;
+            if (this.scrollbarWidth !== undefined && this.scrollbarWidth !== null) {
+                offset -= this.scrollbarWidth;
+            }
+            utils_1.translateXY(styles, offset, 0);
+        }
         return styles;
     };
     DataTableHeaderComponent.prototype.styleForGroup = function (group) {
@@ -6299,6 +6311,10 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
         vue_property_decorator_1.Prop(),
         __metadata("design:type", Object)
     ], DataTableHeaderComponent.prototype, "sortDescendingIcon", void 0);
+    __decorate([
+        vue_property_decorator_1.Prop(),
+        __metadata("design:type", Number)
+    ], DataTableHeaderComponent.prototype, "scrollbarWidth", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
         __metadata("design:type", Boolean)
