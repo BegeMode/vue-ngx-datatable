@@ -36,22 +36,39 @@ function noopSumFunc(cells: any[]): void {
   <datatable-body-row
     v-if="summaryRow && internalColumns"
     tabindex="-1"
-    :innerWidth="innerWidth"
-    :offsetX="offsetX"
-    :columnsByPin="internalColumns"
-    :rowHeight="rowHeight"
+    :columnsByPin="columnsByPin"
+    :columnGroupWidths="columnGroupWidths"
+    :groupStyles="groupStyles"
+    :groupClass="groupClass"
+    :rowStyles="rowStyles"
     :row="summaryRow"
-    :rowIndex="-1">
+    :rowIndex="-1"
+    :cellContext="cellContext"
+    :cellColumnCssClasses="cellColumnCssClasses"
+    :cellStyleObject="cellStyleObject"
+    :marginCellStyle="marginCellStyle"
+    :slots="slots"
+    @activate="onActivate">
   </datatable-body-row>
   `,
 })
 export default class DataTableSummaryRowComponent extends Vue {
   @Prop() rows: any[];
   @Prop() columns: ISummaryColumn[];
-
   @Prop() rowHeight: number;
   @Prop() offsetX: number;
   @Prop() innerWidth: number;
+
+  @Prop() columnsByPin: any[];
+  @Prop() columnGroupWidths: any;
+  @Prop() groupStyles: any;
+  @Prop() groupClass: string;
+  @Prop() rowStyles: any;
+  @Prop() cellContext: any;
+  @Prop() cellColumnCssClasses: any;
+  @Prop() cellStyleObject: any;
+  @Prop() marginCellStyle: any;
+  @Prop() slots: any;
 
   internalColumns: ISummaryColumn[] = [];
   summaryRow = {};
@@ -68,6 +85,10 @@ export default class DataTableSummaryRowComponent extends Vue {
     if (!this.columns || !this.rows) { return; }
     this.updateInternalColumns();
     this.updateValues();
+  }
+
+  onActivate(event) {
+    this.$emit('summary-activate', event, this.summaryRow);
   }
 
   private updateInternalColumns() {

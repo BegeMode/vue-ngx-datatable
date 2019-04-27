@@ -91,11 +91,9 @@ bootstrap table theme
     }
   }
   // Summary row styles
-  .datatable-summary-row {
-    .datatable-body-row {
+  .datatable-summary-row.datatable-body-row {
       .datatable-body-cell {
 	      font-weight: bold;
       }
-    }
   }
 }

@@ -25,7 +25,17 @@ ref="selector"
     :offsetX="offsetX"
     :innerWidth="innerWidth"
     :rows="rows"
-    :columns="columns">
+    :columns="columns"
+    :columnsByPin="columnsByPin"
+    :columnGroupWidths="columnGroupWidths"
+    :groupStyles="getGroupStyles"
+    :groupClass="getGroupClass('center')"
+    :rowStyles="getRowStyles"
+    :cellContext="getCellContext"
+    :cellColumnCssClasses="cellColumnCssClasses"
+    :cellStyleObject="cellStyleObject"
+    :marginCellStyle="marginCellStyle"
+    :slots=cellSlots>
   </datatable-summary-row>
   <datatable-row-wrapper class="datatable-row-wrapper" :styleObject="getRowsStyles(group, i)"
     v-for="(group, i) of temp" :key="rowTrackingFn(group)"
@@ -124,7 +134,17 @@ ref="selector"
     :offsetX="offsetX"
     :innerWidth="innerWidth"
     :rows="rows"
-    :columns="columns">
+    :columns="columns"
+    :columnsByPin="columnsByPin"
+    :columnGroupWidths="columnGroupWidths"
+    :groupStyles="getGroupStyles"
+    :groupClass="getGroupClass('center')"
+    :rowStyles="getRowStyles"
+    :cellContext="getCellContext"
+    :cellColumnCssClasses="cellColumnCssClasses"
+    :cellStyleObject="cellStyleObject"
+    :marginCellStyle="marginCellStyle"
+    :slots=cellSlots>
   </datatable-summary-row>
 </datatable-scroller>
 <div
