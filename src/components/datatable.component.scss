@@ -19,6 +19,11 @@
       flex: none;
     }
   }
+  &.ngx-nowrap-text .datatable-body .datatable-body-row .datatable-body-cell .datatable-body-cell-label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 
   [hidden] {
     display: none !important;
