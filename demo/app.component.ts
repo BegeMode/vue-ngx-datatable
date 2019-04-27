@@ -31,6 +31,7 @@ import ColumnStandardComponent from './columns/column-standard.component';
 import ColumnForceComponent from './columns/column-force.component';
 import ColumnFlexComponent from './columns/column-flex.component';
 import ColumnPinningComponent from './columns/pinning.component';
+import SummaryRowSimpleComponent from './summary/summary-row-simple.component';
 
 @Component({
   components: {
@@ -63,6 +64,7 @@ import ColumnPinningComponent from './columns/pinning.component';
     'column-force-demo': ColumnForceComponent,
     'column-flex-demo': ColumnFlexComponent,
     'column-pinning-demo': ColumnPinningComponent,
+    'summary-row-simple-demo': SummaryRowSimpleComponent,
   },
   template: `
     <div :class="classObject" style="height:100%;">
@@ -247,8 +249,8 @@ import ColumnPinningComponent from './columns/pinning.component';
         <column-pinning-demo v-if="state === 'pinning'"></column-pinning-demo>
 
         <!-- Summary row -->
-        <!-- <summary-row-simple-demo v-if="state === 'simple-summary'"></summary-row-simple-demo>
-        <summary-row-custom-template-demo v-if="state === 'custom-template-summary'">
+        <summary-row-simple-demo v-if="state === 'simple-summary'"></summary-row-simple-demo>
+        <!-- <summary-row-custom-template-demo v-if="state === 'custom-template-summary'">
         </summary-row-custom-template-demo>
         <summary-row-server-paging-demo v-if="state === 'paging-summary'">
         </summary-row-server-paging-demo>

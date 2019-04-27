@@ -1,7 +1,13 @@
 /**
  * Returns the columns by pin.
  */
-export function columnsByPin(cols: any[]) {
+export interface IColumnsByPin {
+  left: any[];
+  center: any[];
+  right: any[];
+}
+
+export function columnsByPin(cols: any[]): IColumnsByPin {
   const ret: {left: any, center: any, right: any} = {
     left: [],
     center: [],
