@@ -9,6 +9,7 @@ import DataTableBodyRowComponent from './body-row.component.vue';
 import DataTableSummaryRowComponent from './summary/summary-row.component';
 import { ScrollbarHelper } from '../../services/scrollbar-helper.service';
 import { ICellContext } from '../../types/cell-context.type';
+import DataTableBodyGroupHeaderComponent from './body-group-header.component';
 
 @Component({
   components: {
@@ -18,6 +19,7 @@ import { ICellContext } from '../../types/cell-context.type';
     'datatable-summary-row': DataTableSummaryRowComponent,
     'datatable-row-wrapper': DataTableRowWrapperComponent,
     'datatable-body-row': DataTableBodyRowComponent,
+    'datatable-group-header': DataTableBodyGroupHeaderComponent,
   }
 })
 export default class DataTableBodyComponent extends Vue {
@@ -54,6 +56,8 @@ export default class DataTableBodyComponent extends Vue {
   @Prop() bodyHeight: number;
   @Prop({ type: [Number, String], default: null }) minItemHeight: number | string;
   @Prop({ type: [String], default: 'height' }) heightField: string;
+  @Prop() groupHeaderSlot: any;
+  @Prop() detailRowSlot: any;
 
   scroller: any = null; // ScrollerComponent
   selector: any = null; // DataTableSelectionComponent;
@@ -106,14 +110,14 @@ export default class DataTableBodyComponent extends Vue {
    */
   created() {
     // declare fn here so we can get access to the `this` property
-    this.rowTrackingFn = function(row: any): any {
+    this.rowTrackingFn = (row: any): any => {
       const idx = this.getRowIndex(row);
       if (this.trackByProp) {
         return `${idx}-${this.trackByProp}`;
       } else {
         return idx;
       }
-    }.bind(this);
+    };
     this.myBodyHeight = this.bodyHeight;
   }
 
@@ -345,9 +349,9 @@ export default class DataTableBodyComponent extends Vue {
   /**
    * Updates the rows in the view port
    */
-  updateRows(): void {
+  updateRows(force: boolean = false): void {
     const { first, last } = this.indexes;
-    if (!this.rowsChanged && this.lastFirst === first && this.lastLast === last) {
+    if (!force && !this.rowsChanged && this.lastFirst === first && this.lastLast === last) {
       // console.log('this.lastFirst === first');
       return;
     }
@@ -375,10 +379,11 @@ export default class DataTableBodyComponent extends Vue {
       if (this.groupedRows.length === 1) {
         maxRowsPerGroup = this.groupedRows[0].value.length;
       }
-
+      let index = 0; 
       while (rowIndex < last && rowIndex < this.groupedRows.length) {
         // Add the groups into this page
         const group = this.groupedRows[rowIndex];
+        group.value.forEach(row => this.rowIndexes.set(row, ++index));
         temp[idx] = group;
         idx++;
 
@@ -640,7 +645,7 @@ export default class DataTableBodyComponent extends Vue {
     expanded = expanded ^= 1;
     this.rowExpansions.set(row, expanded);
 
-    this.$emit('detailToggle', {
+    this.$emit('detail-toggle', {
       rows: [row],
       currentIndex: viewPortFirstRowIndex
     });
@@ -668,10 +673,20 @@ export default class DataTableBodyComponent extends Vue {
     }
 
     // Emit all rows that have been expanded.
-    this.$emit('detailToggle', {
+    this.$emit('detail-toggle', {
       rows: this.rows,
       currentIndex: viewPortFirstRowIndex
     });
+  }
+
+  onGroupToggle($event) {
+    if ($event.type === 'group') {
+      this.toggleRowExpansion($event.value);
+    } else if ($event.type === 'all') {
+      this.toggleAllRows($event.value);
+    }
+    this.updateIndexes();
+    this.updateRows(true);
   }
 
   /**

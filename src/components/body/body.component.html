@@ -48,6 +48,9 @@ ref="selector"
     :detailRowHeight="getDetailRowHeight(group[i],i)"
     :expanded="getRowExpanded(group)"
     :rowIndex="getRowIndex(group[i])"
+    :groupHeaderSlot="groupHeaderSlot"
+    :detailRowSlot="detailRowSlot"
+    @group-toggle="onGroupToggle"
     @row-contextmenu="$emit('rowContextmenu')">
     <!-- <span>{{group.id}}  {{group.name}}</span> -->
     <datatable-body-row
@@ -70,6 +73,27 @@ ref="selector"
       @tree-action="onTreeAction(group)"
       @activate="onActivate($event, i)">
     </datatable-body-row>
+    <datatable-body-row v-else
+        v-for="(row,i) of group.value" :key="rowTrackingFn(row)"
+        tabindex="-1"
+        :group="group.value"
+        :columnsByPin="columnsByPin"
+        :columnGroupWidths="columnGroupWidths"
+        :isSelected="isSelect(row)"
+        :groupStyles="getGroupStyles"
+        :groupClass="getGroupClass(row)"
+        :rowStyles="getRowStyles"
+        :row="row"
+        :displayCheck="displayCheck"
+        :treeStatus="row.treeStatus"
+        :cellContext="getCellContext"
+        :cellColumnCssClasses="cellColumnCssClasses"
+        :cellStyleObject="cellStyleObject"
+        :marginCellStyle="marginCellStyle"
+        :slots=cellSlots
+        @tree-action="onTreeAction(row)"
+        @activate="onActivate($event, i)">
+    </datatable-body-row>
   </datatable-row-wrapper>
   <!-- <div v-for="(item, index) in visibleItems"   // rowStyle
       :key="keysEnabled && item.id || undefined"
@@ -79,54 +103,6 @@ ref="selector"
     <span>{{item.id}}</span>
   </div> -->
 
-  <!-- <datatable-row-wrapper class="datatable-row-wrapper"
-    :groupedRows="groupedRows"
-    v-for="(group, i) of temp" :key="rowTrackingFn(group)"
-    :row="group"
-    :innerWidth="innerWidth"
-    :style="getRowsStyles(group)"
-    :rowDetail="rowDetail"
-    :groupHeader="groupHeader"
-    :offsetX="offsetX"
-    :detailRowHeight="getDetailRowHeight(group[i],i)"
-    :expanded="getRowExpanded(group)"
-    :rowIndex="getRowIndex(group[i])"
-    @rowContextmenu="$emit('rowContextmenu')">
-    <datatable-body-row
-      v-if="!groupedRows"
-      tabindex="-1"
-      :isSelected="isSelect(group)"
-      :innerWidth="innerWidth"
-      :offsetX="offsetX"
-      :columns="columns"
-      :rowHeight="getRowHeight(group)"
-      :row="group"
-      :rowIndex="getRowIndex(group)"
-      :expanded="getRowExpanded(group)"
-      :rowClass="rowClass"
-      :displayCheck="displayCheck"
-      :treeStatus="group.treeStatus"
-      @treeAction="onTreeAction(group)"
-      @activate="onActivate($event, i)">
-    </datatable-body-row> -->
-    <!-- <slot v-else-if="groupedRowsTemplate" name="groupedRowsTemplate">
-      <datatable-body-row
-        v-for="(row,i) of group.value; let i = index;" :key="rowTrackingFn(row)"
-        tabindex="-1"
-        :isSelected="selector.getRowSelected(row)"
-        :innerWidth="innerWidth"
-        :offsetX="offsetX"
-        :columns="columns"
-        :rowHeight="getRowHeight(row)"
-        :row="row"
-        :group="group.value"
-        :rowIndex="getRowIndex(row)"
-        :expanded="getRowExpanded(row)"
-        :rowClass="rowClass"
-        @activate="selector.onActivate($event, i)">
-      </datatable-body-row>
-    </slot> -->
-  </datatable-row-wrapper>
   <datatable-summary-row class="datatable-summary-row"
     v-if="summaryRow && summaryPosition === 'bottom'"
     :style="getBottomSummaryRowStyles"
