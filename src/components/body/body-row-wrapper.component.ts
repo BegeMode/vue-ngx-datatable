@@ -1,7 +1,11 @@
-import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
+import { Vue } from 'vue-property-decorator';
+import DataTableBodyGroupHeaderComponent from './body-group-header.component';
 
 export default Vue.extend({
   functional: true,
+  components: {
+    'datatable-group-header': DataTableBodyGroupHeaderComponent,
+  },
   props: {
     innerWidth: Number,
     rowDetail: Boolean,
@@ -9,10 +13,12 @@ export default Vue.extend({
     offsetX: Number,
     detailRowHeight: Number,
     row: Object,
-    groupedRows: Object,
+    groupedRows: Array,
     rowIndex: Number,
     expanded: Boolean,
-    styleObject: Object
+    styleObject: Object,
+    groupHeaderSlot: Function,
+    detailRowSlot: Function,
   },
 });
 

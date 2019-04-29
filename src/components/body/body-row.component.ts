@@ -63,7 +63,7 @@ export default Vue.extend({
   functional: true,
   props: {
     row: Object,
-    group: Object,
+    group: Array,
     columnsByPin: Array,
     columnGroupWidths: Object,
     isSelected: Boolean,

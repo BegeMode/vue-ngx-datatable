@@ -56,7 +56,7 @@ export default class DatatableComponent extends Vue {
    *    ]}
    *  ]
    */
-  @Prop() groupedRows: any[];
+  // @Prop() groupedRows: any[];
    /**
     * This attribute allows the user to set the name of the column to group the data with
     */
@@ -81,6 +81,10 @@ export default class DatatableComponent extends Vue {
    * to calculate the height for the lazy rendering.
    */
   @Prop() rowHeight: number | string;
+  /**
+   * The group row height
+   */
+  @Prop() groupRowHeight: number | string;
   /**
    * Type of column width distribution formula.
    * Example: flex, force, standard
@@ -288,9 +292,8 @@ export default class DatatableComponent extends Vue {
 
   resizeHander: any;
 
-  /**
-   * Returns if all rows are selected.
-   */
+  groupedRows: any[] = null;
+
   innerWidth: number = 0;
   pageSize: number = 0;
   bodyHeight: number = 0;
@@ -321,6 +324,9 @@ export default class DatatableComponent extends Vue {
   // @ContentChild(DatatableGroupHeaderDirective)
   groupHeader: boolean = false; // DatatableGroupHeaderDirective;
 
+  groupHeaderSlot = null;
+  detailRowSlot = null;
+
   private scrollbarHelper: ScrollbarHelper = new ScrollbarHelper();
   private dimensionsHelper: DimensionsHelper = new DimensionsHelper();
   // private columnChangesService: ColumnChangesService;
@@ -335,6 +341,9 @@ export default class DatatableComponent extends Vue {
    * properties of a directive are initialized.
    */
   mounted(): void {
+    this.groupHeader = Boolean(this.groupRowsBy);
+    this.groupHeaderSlot = this.$scopedSlots.groupHeader;
+    this.detailRowSlot = this.$scopedSlots.detailRowSlot;
     this.bodyComponent = this.$refs.datatableBody; // as DataTableBodyComponent;
     this.headerComponent = this.$refs.datatableHeader; //  as DataTableHeaderComponent;
     // this.rowDiffer = this.differs.find({}).create();
@@ -453,6 +462,7 @@ export default class DatatableComponent extends Vue {
   }
 
   @Watch('groupRowsBy') onGroupRowsByChanged() {
+    this.groupHeader = Boolean(this.groupRowsBy);
     if (this.groupRowsBy) {
       if (this.rows) {
         // creates a new array with the data grouped

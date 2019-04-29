@@ -32,6 +32,7 @@ import ColumnForceComponent from './columns/column-force.component';
 import ColumnFlexComponent from './columns/column-flex.component';
 import ColumnPinningComponent from './columns/pinning.component';
 import SummaryRowSimpleComponent from './summary/summary-row-simple.component';
+import RowGroupingComponent from './basic/row-grouping.component';
 
 @Component({
   components: {
@@ -65,6 +66,7 @@ import SummaryRowSimpleComponent from './summary/summary-row-simple.component';
     'column-flex-demo': ColumnFlexComponent,
     'column-pinning-demo': ColumnPinningComponent,
     'summary-row-simple-demo': SummaryRowSimpleComponent,
+    'row-grouping-demo': RowGroupingComponent,
   },
   template: `
     <div :class="classObject" style="height:100%;">
@@ -216,8 +218,8 @@ import SummaryRowSimpleComponent from './summary/summary-row-simple.component';
         <!-- Paging -->
         <client-paging-demo v-if="state === 'client-paging'"></client-paging-demo>
         <virtual-paging-demo v-if="state === 'virtual-paging'"></virtual-paging-demo>
-        <!-- <row-grouping-demo v-if="state === 'row-grouping'"></row-grouping-demo>
-        <server-paging-demo v-if="state === 'server-paging'"></server-paging-demo>
+        <row-grouping-demo v-if="state === 'row-grouping'"></row-grouping-demo>
+        <!-- <server-paging-demo v-if="state === 'server-paging'"></server-paging-demo>
         <paging-scrolling-novirtualization-demo v-if="state === 'paging-scrolling-novirtualization'"></paging-scrolling-novirtualization-demo>
         <server-scrolling-demo v-if="state === 'server-scrolling'"></server-scrolling-demo>  -->
 
