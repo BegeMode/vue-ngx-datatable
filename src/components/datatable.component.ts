@@ -976,6 +976,9 @@ export default class DatatableComponent extends Vue {
 
     if (this.swapColumns) {
       const prevCol = cols[newValue];
+      if (column.$$id === prevCol.$$id) {
+        return;
+      }
       cols[newValue] = column;
       cols[prevValue] = prevCol;
     } else {

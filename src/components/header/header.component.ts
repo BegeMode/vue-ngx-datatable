@@ -85,6 +85,7 @@ export default class DataTableHeaderComponent extends Vue {
   positions: any;
   lastDraggingIndex: number;
   draggables: any[];
+  dragging = false;
 
   @Watch('innerWidth', { immediate: true }) onChangedInnerWidth() {
     if (this.columns) {    
@@ -276,6 +277,11 @@ export default class DataTableHeaderComponent extends Vue {
   }
 
   onDragStart(): void {
+    if (this.dragging) {
+      return;
+    }
+    this.dragging = true;
+
     this.positions = {};
 
     let i = 0;
@@ -319,6 +325,7 @@ export default class DataTableHeaderComponent extends Vue {
   }
 
   onDragEnd({ element, model, event }: any): void {
+    this.dragging = false;
     const prevPos = this.positions[model.prop];
 
     const target = this.isTarget(model, event);
