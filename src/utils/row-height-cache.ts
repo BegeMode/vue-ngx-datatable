@@ -14,14 +14,15 @@ export class RowHeightCache {
    * range queries and updates.  Currently the tree is initialized to the base row
    * height instead of the detail row height.
    */
-  private treeArray: number[] = [];
-  private heights = null;
+  // private treeArray: number[] = [];
+  private heights = [];
 
   /**
    * Clear the Tree array.
    */
   clearCache(): void {
-    this.treeArray = [];
+    // this.treeArray = [];
+    this.heights = [];
   }
 
   /**
@@ -29,32 +30,36 @@ export class RowHeightCache {
    *
    * @param rows The array of rows which contain the expanded status.
    * @param rowHeight The row height.
-   * @param detailRowHeight The detail row height.
+   * @param rowDetailHeight The detail row height.
    */
   initCache(details: any): void {
-    const { rows, rowHeight, detailRowHeight, externalVirtual, rowCount, rowIndexes, rowExpansions } = details;
+    const { rows, rowHeight, rowDetailHeight, externalVirtual, rowCount, rowIndexes, rowExpansions } = details;
     const isFn = typeof rowHeight === 'function';
-    const isDetailFn = typeof detailRowHeight === 'function';
+    const isDetailFn = typeof rowDetailHeight === 'function';
 
     if (!isFn && isNaN(rowHeight)) {
       throw new Error(`Row Height cache initialization failed. Please ensure that 'rowHeight' is a
         valid number or function value: (${rowHeight}) when 'scrollbarV' is enabled.`);
     }
 
-    // Add this additional guard in case detailRowHeight is set to 'auto' as it wont work.
-    if (!isDetailFn && isNaN(detailRowHeight)) {
-      throw new Error(`Row Height cache initialization failed. Please ensure that 'detailRowHeight' is a
-        valid number or function value: (${detailRowHeight}) when 'scrollbarV' is enabled.`);
+    // Add this additional guard in case rowDetailHeight is set to 'auto' as it wont work.
+    if (!isDetailFn && isNaN(rowDetailHeight)) {
+      throw new Error(`Row Height cache initialization failed. Please ensure that 'rowDetailHeight' is a
+        valid number or function value: (${rowDetailHeight}) when 'scrollbarV' is enabled.`);
     }
 
     const n = externalVirtual ? rowCount : rows.length;
-    this.treeArray = new Array(n);
+    // this.treeArray = new Array(n);
+    this.heights = new Array(n);
 
     for(let i = 0; i < n; ++i) {
-      this.treeArray[i] = 0;
+      // this.treeArray[i] = 0;
+      this.heights[i] = 0;
     }
 
-    for(let i = 0; i < n; ++i) {
+    let accumulator = 0;
+
+    for (let i = 0; i < n; ++i) {
       const row = rows[i];
       let currentRowHeight = rowHeight;
       if(isFn) {
@@ -67,15 +72,17 @@ export class RowHeightCache {
       if(row && expanded === 1) {
         if(isDetailFn) {
           const index = rowIndexes.get(row);
-          currentRowHeight += detailRowHeight(row, index);
+          currentRowHeight += rowDetailHeight(row, index);
         } else {
-          currentRowHeight += detailRowHeight;
+          currentRowHeight += rowDetailHeight;
         }
       }
 
-      this.update(i, currentRowHeight);
+      // this.updateTree(i, currentRowHeight);
+      accumulator += currentRowHeight;
+      this.heights[i] = { accumulator, height: currentRowHeight };
     }
-    this.heights = this.initHeights(details);
+    // this.heights = this.initHeights(details);
   }
 
   /**
@@ -92,24 +99,42 @@ export class RowHeightCache {
    * be utilized in future when Angular Data table supports dynamic row heights.
    */
   update(atRowIndex: number, byRowHeight: number): void {
-    if (!this.treeArray.length) {
-      throw new Error(`Update at index ${atRowIndex} with value ${byRowHeight} failed:
-        Row Height cache not initialized.`);
+    if (!this.heights || !this.heights.length) {
+      return;
+      // throw new Error(`Update at index ${atRowIndex} with value ${byRowHeight} failed:
+      //   Row Height cache not initialized.`);
     }
 
-    const n = this.treeArray.length;
-    atRowIndex |= 0;
+    const n = this.heights.length;
 
     while(atRowIndex < n) {
-      this.treeArray[atRowIndex] += byRowHeight;
-      atRowIndex |= (atRowIndex + 1);
+      this.heights[atRowIndex].accumulator += byRowHeight;
+      atRowIndex++;
     }
   }
+
+  // update(atRowIndex: number, byRowHeight: number): void {
+  //   if (!this.treeArray.length) {
+  //     throw new Error(`Update at index ${atRowIndex} with value ${byRowHeight} failed:
+  //       Row Height cache not initialized.`);
+  //   }
+
+  //   const n = this.treeArray.length;
+  //   atRowIndex |= 0;
+
+  //   while(atRowIndex < n) {
+  //     this.treeArray[atRowIndex] += byRowHeight;
+  //     atRowIndex |= (atRowIndex + 1);
+  //   }
+  // }
 
   /**
    * Range Sum query from 1 to the rowIndex
    */
   query(atIndex: number): number {
+    if (atIndex < 0) {
+      return 0;
+    }
     return this.heights[atIndex].accumulator;
   }
 
@@ -141,44 +166,86 @@ export class RowHeightCache {
    * that is present in the current view port.
    */
   private calcRowIndex(sum: number): number {
-    if(!this.treeArray.length) return 0;
+    if (!this.heights.length) return 0;
+    
+    if (this.heights[this.heights.length - 1].accumulator < sum) {
+      return this.heights.length;
+    }
 
     let pos = -1;
-    const dataLength = this.treeArray.length;
+    const dataLength = this.heights.length;
 
-    // Get the highest bit for the block size.
-    const highestBit = Math.pow(2, dataLength.toString(2).length - 1);
-
-    for (let blockSize = highestBit; blockSize !== 0; blockSize >>= 1) {
-      const nextPos = pos + blockSize;
-      if (nextPos < dataLength && sum >= this.treeArray[nextPos]) {
-        sum -= this.treeArray[nextPos];
-        pos = nextPos;
+    for (let i = 0; i < dataLength; i++) {
+      if (this.heights[i].accumulator >= sum) {
+        pos = i;
+        break;
       }
     }
 
     return pos + 1;
   }
 
-  private initHeights(details: any) {
-    const { rows, rowHeight, externalVirtual, rowCount } = details;
-    const isFn = typeof rowHeight === 'function';
-    const n = externalVirtual ? rowCount : rows.length;
-    const heights = {
-      '-1': { accumulator: 0 },
-    };
+  // private calcRowIndex(sum: number): number {
+  //   if(!this.treeArray.length) return 0;
 
-    let accumulator = 0;
-    for (let i = 0; i < n; ++i) {
-      const row = rows[i];
-      let currentRowHeight = rowHeight;
-      if (isFn) {
-        currentRowHeight = rowHeight(row);
-      }
-      accumulator += currentRowHeight;
-      heights[i] = { accumulator, height: currentRowHeight };
-    }
-    return heights;
-  }
+  //   let pos = -1;
+  //   const dataLength = this.treeArray.length;
+
+  //   // Get the highest bit for the block size.
+  //   const highestBit = Math.pow(2, dataLength.toString(2).length - 1);
+
+  //   for (let blockSize = highestBit; blockSize !== 0; blockSize >>= 1) {
+  //     const nextPos = pos + blockSize;
+  //     if (nextPos < dataLength && sum >= this.treeArray[nextPos]) {
+  //       sum -= this.treeArray[nextPos];
+  //       pos = nextPos;
+  //     }
+  //   }
+
+  //   return pos + 1;
+  // }
+
+  // private initHeights(details: any) {
+  //   const { rows, rowHeight, rowDetailHeight, externalVirtual, rowCount, rowIndexes, rowExpansions } = details;
+  //   const isFn = typeof rowHeight === 'function';
+  //   const isDetailFn = typeof rowDetailHeight === 'function';
+
+  //   if (!isFn && isNaN(rowHeight)) {
+  //     throw new Error(`Row Height cache initialization failed. Please ensure that 'rowHeight' is a
+  //       valid number or function value: (${rowHeight}) when 'scrollbarV' is enabled.`);
+  //   }
+
+  //   // Add this additional guard in case rowDetailHeight is set to 'auto' as it wont work.
+  //   if (!isDetailFn && isNaN(rowDetailHeight)) {
+  //     throw new Error(`Row Height cache initialization failed. Please ensure that 'rowDetailHeight' is a
+  //       valid number or function value: (${rowDetailHeight}) when 'scrollbarV' is enabled.`);
+  //   }
+  //   const n = externalVirtual ? rowCount : rows.length;
+  //   const heights = new Array(n);
+
+  //   let accumulator = 0;
+  //   for (let i = 0; i < n; ++i) {
+  //     const row = rows[i];
+  //     let currentRowHeight = rowHeight;
+  //     if(isFn) {
+  //       currentRowHeight = rowHeight(row);
+  //     }
+
+  //     // Add the detail row height to the already expanded rows.
+  //     // This is useful for the table that goes through a filter or sort.
+  //     const expanded = rowExpansions.get(row);
+  //     if(row && expanded === 1) {
+  //       if(isDetailFn) {
+  //         const index = rowIndexes.get(row);
+  //         currentRowHeight += rowDetailHeight(row, index);
+  //       } else {
+  //         currentRowHeight += rowDetailHeight;
+  //       }
+  //     }
+  //     accumulator += currentRowHeight;
+  //     heights[i] = { accumulator, height: currentRowHeight };
+  //   }
+  //   return heights;
+  // }
 
 }

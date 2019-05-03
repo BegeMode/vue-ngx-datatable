@@ -1,24 +1,27 @@
 import { Vue } from 'vue-property-decorator';
 import DataTableBodyGroupHeaderComponent from './body-group-header.component';
+import DataTableBodyRowDetailComponent from './body-row-detail.component';
 
 export default Vue.extend({
   functional: true,
   components: {
     'datatable-group-header': DataTableBodyGroupHeaderComponent,
+    'datatable-row-detail': DataTableBodyRowDetailComponent,
   },
   props: {
     innerWidth: Number,
     rowDetail: Boolean,
     groupHeader: Boolean,
     offsetX: Number,
-    detailRowHeight: Number,
+    rowDetailHeight: Number,
+    groupRowHeight: Number,
     row: Object,
     groupedRows: Array,
     rowIndex: Number,
     expanded: Boolean,
     styleObject: Object,
     groupHeaderSlot: Function,
-    detailRowSlot: Function,
+    rowDetailSlot: Function,
   },
 });
 
@@ -38,7 +41,7 @@ export default Vue.extend({
       <slot></slot>
     </div>
     <div v-else-if="rowDetail && rowDetail.template && expanded"
-      :style="{'height': detailRowHeight + 'px'}" class="datatable-row-detail">
+      :style="{'height': rowDetailHeight + 'px'}" class="datatable-row-detail">
       <!-- <template
         v-if="rowDetail && rowDetail.template"
         :templateOutlet="rowDetail.template"
@@ -53,7 +56,7 @@ export class DataTableRowWrapperComponent extends Vue {
   @Prop() rowDetail: any;
   @Prop() groupHeader: any;
   @Prop() offsetX: number;
-  @Prop() detailRowHeight: any;
+  @Prop() rowDetailHeight: any;
   @Prop() row: any;
   @Prop() groupedRows: any;  
   @Prop() rowIndex: number;

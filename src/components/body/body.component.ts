@@ -10,6 +10,7 @@ import DataTableSummaryRowComponent from './summary/summary-row.component';
 import { ScrollbarHelper } from '../../services/scrollbar-helper.service';
 import { ICellContext } from '../../types/cell-context.type';
 import DataTableBodyGroupHeaderComponent from './body-group-header.component';
+import DataTableBodyRowDetailComponent from './body-row-detail.component';
 
 @Component({
   components: {
@@ -20,6 +21,7 @@ import DataTableBodyGroupHeaderComponent from './body-group-header.component';
     'datatable-row-wrapper': DataTableRowWrapperComponent,
     'datatable-body-row': DataTableBodyRowComponent,
     'datatable-group-header': DataTableBodyGroupHeaderComponent,
+    'datatable-row-detail': DataTableBodyRowDetailComponent,
   }
 })
 export default class DataTableBodyComponent extends Vue {
@@ -28,12 +30,14 @@ export default class DataTableBodyComponent extends Vue {
   @Prop() loadingIndicator: boolean;
   @Prop() externalPaging: boolean;
   @Prop() rowHeight: number | ((row?: any) => number);
+  @Prop() groupRowHeight: number | string;
   @Prop() offsetX: number;
   @Prop() emptyMessage: string;
   @Prop() selectionType: SelectionType;
   @Prop({ type: Array, default: () => [] }) selected: any[];
   @Prop() rowIdentity: any;
   @Prop() rowDetail: any;
+  @Prop() rowDetailHeight: number | string | ((row?: any, index?: any) => number);
   @Prop() groupHeader: any;
   @Prop() selectCheck: any;
   @Prop() displayCheck: any;
@@ -57,7 +61,7 @@ export default class DataTableBodyComponent extends Vue {
   @Prop({ type: [Number, String], default: null }) minItemHeight: number | string;
   @Prop({ type: [String], default: 'height' }) heightField: string;
   @Prop() groupHeaderSlot: any;
-  @Prop() detailRowSlot: any;
+  @Prop() rowDetailSlot: any;
 
   scroller: any = null; // ScrollerComponent
   selector: any = null; // DataTableSelectionComponent;
@@ -455,8 +459,8 @@ export default class DataTableBodyComponent extends Vue {
    */
   getDetailRowHeight = (row?: any, index?: any): number => {
     if (!this.rowDetail) return 0;
-    const rowHeight = this.rowDetail.rowHeight;
-    return typeof rowHeight === 'function' ? rowHeight(row, index) : rowHeight;
+    const rowHeight = this.rowDetailHeight;
+    return typeof rowHeight === 'function' ? rowHeight(row, index) : Number(rowHeight);
   }
 
   /**
@@ -504,7 +508,7 @@ export default class DataTableBodyComponent extends Vue {
       // until the previous row position.
       let pos = 0;
       let height: any = 50;
-      if (this.fixedRowHeight) {
+      if (this.fixedRowHeight && !this.rowDetail) {
         height = this.rowHeight;
         pos = idx * height;
       } else {
@@ -596,7 +600,7 @@ export default class DataTableBodyComponent extends Vue {
       this.rowHeightsCache.initCache({
         rows: this.rows,
         rowHeight: this.rowHeight,
-        detailRowHeight: this.getDetailRowHeight,
+        rowDetailHeight: this.getDetailRowHeight,
         externalVirtual: this.scrollbarV && this.externalPaging,
         rowCount: this.rowCount,
         rowIndexes: this.rowIndexes,
@@ -633,12 +637,12 @@ export default class DataTableBodyComponent extends Vue {
     const viewPortFirstRowIndex = this.getAdjustedViewPortIndex();
     let expanded = this.rowExpansions.get(row);
 
-    // If the detailRowHeight is auto --> only in case of non-virtualized scroll
+    // If the rowDetailHeight is auto --> only in case of non-virtualized scroll
     if (this.scrollbarV && this.virtualization) {
-      const detailRowHeight = this.getDetailRowHeight(row) * (expanded ? -1 : 1);
+      const rowDetailHeight = this.getDetailRowHeight(row) * (expanded ? -1 : 1);
       // const idx = this.rowIndexes.get(row) || 0;
       const idx = this.getRowIndex(row);
-      this.rowHeightsCache.update(idx, detailRowHeight);
+      this.rowHeightsCache.update(idx, rowDetailHeight);
     }
 
     // Update the toggled row and update thive nevere heights in the cache.
@@ -1024,6 +1028,41 @@ export default class DataTableBodyComponent extends Vue {
 
   onCellFocus($event) {
     console.log('onCellFocus($event)');
+  }
+
+  /**
+   * Toggle the expansion of the row
+   */
+  toggleExpandDetail(row: any): void {
+    this.toggleRowExpansion(row);
+    this.updateIndexes();
+    this.updateRows(true);
+    this.$emit('detail-toggle', {
+      type: 'row',
+      value: row
+    });
+  }
+
+  /**
+   * Expand all the rows.
+   */
+  expandAllDetails(): void {
+    this.toggleAllRows(true);
+    this.$emit('detail-toggle', {
+      type: 'all',
+      value: true
+    });
+  }
+
+  /**
+   * Collapse all the rows.
+   */
+  collapseAllDetails(): void {
+    this.toggleAllRows(false);
+    this.$emit('detail-toggle', {
+      type: 'all',
+      value: false
+    });
   }
 
 }

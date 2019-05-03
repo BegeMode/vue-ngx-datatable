@@ -23,7 +23,7 @@
       <slot name="tree-toggle">
       </slot>
     </template>
-    <slot :name="props.context.column.prop" v-bind="{ row: props.context.row, rowIndex: props.context.rowIndex, group: props.context.group }">
+    <slot :name="props.context.column.prop" v-bind="{ row: props.context.row, rowIndex: props.context.rowIndex, group: props.context.group, expanded: props.context.expanded }">
       <span :title="props.context.sanitizedValue" v-html="props.context.value"></span>
     </slot>
   </div>

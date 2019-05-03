@@ -86,6 +86,10 @@ export default class DatatableComponent extends Vue {
    */
   @Prop() groupRowHeight: number | string;
   /**
+   * The detail row height
+   */
+  @Prop() rowDetailHeight: number | string;
+  /**
    * Type of column width distribution formula.
    * Example: flex, force, standard
    */
@@ -325,7 +329,7 @@ export default class DatatableComponent extends Vue {
   groupHeader: boolean = false; // DatatableGroupHeaderDirective;
 
   groupHeaderSlot = null;
-  detailRowSlot = null;
+  rowDetailSlot = null;
 
   private scrollbarHelper: ScrollbarHelper = new ScrollbarHelper();
   private dimensionsHelper: DimensionsHelper = new DimensionsHelper();
@@ -343,7 +347,8 @@ export default class DatatableComponent extends Vue {
   mounted(): void {
     this.groupHeader = Boolean(this.groupRowsBy);
     this.groupHeaderSlot = this.$scopedSlots.groupHeader;
-    this.detailRowSlot = this.$scopedSlots.detailRowSlot;
+    this.rowDetailSlot = this.$scopedSlots.rowDetail;
+    this.rowDetail = Boolean(this.rowDetailSlot);
     this.bodyComponent = this.$refs.datatableBody; // as DataTableBodyComponent;
     this.headerComponent = this.$refs.datatableHeader; //  as DataTableHeaderComponent;
     // this.rowDiffer = this.differs.find({}).create();
@@ -448,17 +453,15 @@ export default class DatatableComponent extends Vue {
       optionalGetterForProp(this.treeToRelation)
   );
 
-    // recalculate sizes/etc
-    if (this.$el) {
-      this.recalculate();
-    }
-
     if (this.rows && this.groupRowsBy) {
       // If a column has been specified in _groupRowsBy created a new array with the data grouped by that row
       this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy);
     }
 
-    // this.cd.markForCheck();
+    // recalculate sizes/etc
+    if (this.$el) {
+      this.recalculate();
+    }
   }
 
   @Watch('groupRowsBy') onGroupRowsByChanged() {
@@ -1139,6 +1142,39 @@ export default class DatatableComponent extends Vue {
   //       }
   //     }));
   // }
+
+  /**
+   * Toggle the expansion of the row
+   */
+  toggleExpandDetail(row: any): void {
+    this.bodyComponent.toggleExpandDetail(row);
+    this.$emit('detail-toggle', {
+      type: 'row',
+      value: row
+    });
+  }
+
+  /**
+   * Expand all the rows.
+   */
+  expandAllDetails(): void {
+    this.bodyComponent.expandAllDetails();
+    this.$emit('detail-toggle', {
+      type: 'all',
+      value: true
+    });
+  }
+
+  /**
+   * Collapse all the rows.
+   */
+  collapseAllDetails(): void {
+    this.bodyComponent.collapseAllDetails();
+    this.$emit('detail-toggle', {
+      type: 'all',
+      value: false
+    });
+  }
 
   private sortInternalRows(): void {
     this.internalRows = sortRows(this.internalRows, this.internalColumns, this.mySorts);

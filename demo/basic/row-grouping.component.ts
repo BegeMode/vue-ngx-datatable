@@ -7,7 +7,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
     'ngx-datatable': DatatableComponent,
     'ngx-datatable-column': DataTableColumnComponent,
   },
-  selector: 'row-grouping-demo',
+  name: 'row-grouping-demo',
   template: `
     <div>
       <h3>
@@ -30,11 +30,11 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
         :rowHeight="40"
         limit="4"
         :groupExpansionDefault="true"
-        :groupRowHeight="50"
+        :groupRowHeight="30"
         @group-toggle="onDetailToggle($event)">
 
         <!-- Group Header Template -->
-        <template slot="groupHeader" slot-scope="scope" v-if="scope">
+        <template v-slot:groupHeader="scope">
           <b>Age: {{scope.group.key}}</b>
         </template>
 
