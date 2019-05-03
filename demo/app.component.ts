@@ -34,6 +34,8 @@ import ColumnPinningComponent from './columns/pinning.component';
 import SummaryRowSimpleComponent from './summary/summary-row-simple.component';
 import RowGroupingComponent from './basic/row-grouping.component';
 import RowDetailsComponent from './basic/row-detail.component';
+import MultipleTablesComponent from './basic/multiple.component';
+import TabsDemoComponent from './basic/tabs.component';
 
 @Component({
   components: {
@@ -69,6 +71,8 @@ import RowDetailsComponent from './basic/row-detail.component';
     'summary-row-simple-demo': SummaryRowSimpleComponent,
     'row-grouping-demo': RowGroupingComponent,
     'row-details-demo': RowDetailsComponent,
+    'multiple-tables-demo': MultipleTablesComponent,
+    'tabs-demo': TabsDemoComponent,
   },
   template: `
     <div :class="classObject" style="height:100%;">
@@ -97,7 +101,7 @@ import RowDetailsComponent from './basic/row-detail.component';
               <li><a href="#filter" @click="state='filter'">Filtering</a></li>
               <li><a href="#hidden" @click="state='hidden'">Hidden On Load</a></li>
               <li><a href="#live" @click="state='live'">Live Data</a></li>
-              <li><a href="#rx" @click="state='rx'">RxJS</a></li>
+              <!-- <li><a href="#rx" @click="state='rx'">RxJS</a></li> -->
               <li><a href="#contextmenu" @click="state='contextmenu'">Context Menu</a></li>
               <li><a href="#css" @click="state='css'">CSS Classes</a></li>
               <li><a href="#footer" @click="state='footer'">Footer Template</a></li>
@@ -200,10 +204,10 @@ import RowDetailsComponent from './basic/row-detail.component';
         <contextmenu-demo v-if="state === 'contextmenu'"></contextmenu-demo>
 
         <row-details-demo v-if="state === 'row-details'"></row-details-demo>
-        <!-- <inline-edit-demo v-if="state === 'inline-edit'"></inline-edit-demo>
         <multiple-tables-demo v-if="state === 'multiple-tables'"></multiple-tables-demo>
-        <responsive-demo v-if="state === 'responsive'"></responsive-demo>
         <tabs-demo v-if="state === 'hidden'"></tabs-demo>
+        <!-- <inline-edit-demo v-if="state === 'inline-edit'"></inline-edit-demo>
+        <responsive-demo v-if="state === 'responsive'"></responsive-demo>
         <live-data-demo v-if="state === 'live'"></live-data-demo>
         <rx-demo v-if="state === 'rx'"></rx-demo>
         <row-css-demo v-if="state === 'css'"></row-css-demo>
