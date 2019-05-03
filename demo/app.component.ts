@@ -33,6 +33,7 @@ import ColumnFlexComponent from './columns/column-flex.component';
 import ColumnPinningComponent from './columns/pinning.component';
 import SummaryRowSimpleComponent from './summary/summary-row-simple.component';
 import RowGroupingComponent from './basic/row-grouping.component';
+import RowDetailsComponent from './basic/row-detail.component';
 
 @Component({
   components: {
@@ -67,6 +68,7 @@ import RowGroupingComponent from './basic/row-grouping.component';
     'column-pinning-demo': ColumnPinningComponent,
     'summary-row-simple-demo': SummaryRowSimpleComponent,
     'row-grouping-demo': RowGroupingComponent,
+    'row-details-demo': RowDetailsComponent,
   },
   template: `
     <div :class="classObject" style="height:100%;">
@@ -197,9 +199,9 @@ import RowGroupingComponent from './basic/row-grouping.component';
         <horz-vert-scrolling-demo v-if="state === 'horz-vert-scrolling'"></horz-vert-scrolling-demo>
         <contextmenu-demo v-if="state === 'contextmenu'"></contextmenu-demo>
 
+        <row-details-demo v-if="state === 'row-details'"></row-details-demo>
         <!-- <inline-edit-demo v-if="state === 'inline-edit'"></inline-edit-demo>
         <multiple-tables-demo v-if="state === 'multiple-tables'"></multiple-tables-demo>
-        <row-details-demo v-if="state === 'row-details'"></row-details-demo>
         <responsive-demo v-if="state === 'responsive'"></responsive-demo>
         <tabs-demo v-if="state === 'hidden'"></tabs-demo>
         <live-data-demo v-if="state === 'live'"></live-data-demo>

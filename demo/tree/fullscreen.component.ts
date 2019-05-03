@@ -12,7 +12,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
       <h3>
         Full Screen
         <small>
-          <a href="https://github.com/swimlane/ngx-datatable/blob/master/demo/tree/fullscreen.component.ts" target="_blank">
+          <a href="https://github.com/begemode/vue-ngx-datatable/blob/master/demo/tree/fullscreen.component.ts" target="_blank">
             Source
           </a>
         </small>
@@ -20,15 +20,15 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
       <ngx-datatable
         class="material fullscreen"
         style="top: 52px"
-        :columnMode="'force'"
+        columnMode="force"
         :headerHeight="50"
         :footerHeight="0"
         :rowHeight="50"
         :scrollbarV="true"
         :scrollbarH="true"
         :rows="rows"
-        :treeFromRelation="'parentId'"
-        :treeToRelation="'id'"
+        treeFromRelation="parentId"
+        treeToRelation="id"
         @treeAction="onTreeAction($event)">
         <ngx-datatable-column name="Id" :width="80"></ngx-datatable-column>
         <ngx-datatable-column

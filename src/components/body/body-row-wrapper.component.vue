@@ -1,9 +1,9 @@
 <template functional>
   <div class="datatable-row-wrapper" :style="props.styleObject">
-    <datatable-group-header 
+    <datatable-group-header
       v-if="props.groupHeader" 
       class="datatable-group-header"
-      :style="{ 'transform': 'translate3d(' + props.offsetX + 'px, 0px, 0px)', 'backface-visibility': 'hidden', 'width': props.innerWidth }"
+      :style="{ 'transform': 'translate3d(' + props.offsetX + 'px, 0px, 0px)', 'backface-visibility': 'hidden', 'width': props.innerWidth, 'height': props.groupRowHeight? props.groupRowHeight + 'px': 'auto' }"
       :group="props.row"
       :expanded="props.expanded"
       :groupHeaderSlot="props.groupHeaderSlot"
@@ -15,10 +15,16 @@
         <!-- here datatable-body-row -->
       </slot>
     </div>
-    <div v-else-if="slots().rowDetail && props.expanded"
-      :style="{'height': props.detailRowHeight + 'px'}" class="datatable-row-detail">
-      <slot name="row-detail" v-bind="{ row: props.row, expanded: props.expanded, rowIndex: props.rowIndex }"></slot>
-    </div>
+    <datatable-row-detail
+      v-if="props.rowDetail && props.expanded" 
+      class="datatable-row-detail"
+      :style="{'height': props.rowDetailHeight + 'px'}"
+      :row="props.row"
+      :expanded="props.expanded"
+      :rowDetailSlot="props.rowDetailSlot"
+      @detail-toggle="listeners['detail-toggle']($event)"
+      @contextmenu="listeners['row-contextmenu']($event, props.row)">
+    </datatable-row-detail>
   </div>
 </template>
 <script src="./body-row-wrapper.component.ts"></script>
