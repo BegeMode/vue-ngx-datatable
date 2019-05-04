@@ -36,6 +36,7 @@ import RowGroupingComponent from './basic/row-grouping.component';
 import RowDetailsComponent from './basic/row-detail.component';
 import MultipleTablesComponent from './basic/multiple.component';
 import TabsDemoComponent from './basic/tabs.component';
+import LiveDataComponent from './basic/live.component';
 
 @Component({
   components: {
@@ -73,6 +74,7 @@ import TabsDemoComponent from './basic/tabs.component';
     'row-details-demo': RowDetailsComponent,
     'multiple-tables-demo': MultipleTablesComponent,
     'tabs-demo': TabsDemoComponent,
+    'live-data-demo': LiveDataComponent,
   },
   template: `
     <div :class="classObject" style="height:100%;">
@@ -206,9 +208,9 @@ import TabsDemoComponent from './basic/tabs.component';
         <row-details-demo v-if="state === 'row-details'"></row-details-demo>
         <multiple-tables-demo v-if="state === 'multiple-tables'"></multiple-tables-demo>
         <tabs-demo v-if="state === 'hidden'"></tabs-demo>
+        <live-data-demo v-if="state === 'live'"></live-data-demo>
         <!-- <inline-edit-demo v-if="state === 'inline-edit'"></inline-edit-demo>
         <responsive-demo v-if="state === 'responsive'"></responsive-demo>
-        <live-data-demo v-if="state === 'live'"></live-data-demo>
         <rx-demo v-if="state === 'rx'"></rx-demo>
         <row-css-demo v-if="state === 'css'"></row-css-demo>
         <footer-demo v-if="state === 'footer'"></footer-demo> -->
