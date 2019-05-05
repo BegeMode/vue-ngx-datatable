@@ -37,6 +37,7 @@ import RowDetailsComponent from './basic/row-detail.component';
 import MultipleTablesComponent from './basic/multiple.component';
 import TabsDemoComponent from './basic/tabs.component';
 import LiveDataComponent from './basic/live.component';
+import InlineEditComponent from './basic/inline.component';
 
 @Component({
   components: {
@@ -75,6 +76,7 @@ import LiveDataComponent from './basic/live.component';
     'multiple-tables-demo': MultipleTablesComponent,
     'tabs-demo': TabsDemoComponent,
     'live-data-demo': LiveDataComponent,
+    'inline-edit-demo': InlineEditComponent,
   },
   template: `
     <div :class="classObject" style="height:100%;">
@@ -209,7 +211,8 @@ import LiveDataComponent from './basic/live.component';
         <multiple-tables-demo v-if="state === 'multiple-tables'"></multiple-tables-demo>
         <tabs-demo v-if="state === 'hidden'"></tabs-demo>
         <live-data-demo v-if="state === 'live'"></live-data-demo>
-        <!-- <inline-edit-demo v-if="state === 'inline-edit'"></inline-edit-demo>
+        <inline-edit-demo v-if="state === 'inline-edit'"></inline-edit-demo>
+        <!-- 
         <responsive-demo v-if="state === 'responsive'"></responsive-demo>
         <rx-demo v-if="state === 'rx'"></rx-demo>
         <row-css-demo v-if="state === 'css'"></row-css-demo>
