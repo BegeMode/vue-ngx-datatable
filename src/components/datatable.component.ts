@@ -17,6 +17,8 @@ import { DimensionsHelper } from '../services/dimensions-helper.service';
 import DataTableColumnComponent from './columns/column.component';
 import DataTableBodyCellComponent from './body/body-cell.component.vue';
 import VisibilityDirective from '../directives/visibility.directive';
+import { IGroupedRows } from '../types/grouped-rows';
+import { isArrayEqual } from '../utils/equal.array';
 
 Vue.component('datatable-column', DataTableColumnComponent);
 Vue.component('datatable-body-cell', DataTableBodyCellComponent);
@@ -454,8 +456,10 @@ export default class DatatableComponent extends Vue {
   );
 
     if (this.rows && this.groupRowsBy) {
-      // If a column has been specified in _groupRowsBy created a new array with the data grouped by that row
-      this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy);
+      this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy, 0);
+      // if (this.groupedRows.length) {
+      //   this.groupedRows[0].groups = [{ key: '1111', value: this.groupedRows[0].value, level: 2 }];
+      // }
     }
 
     // recalculate sizes/etc
@@ -464,7 +468,10 @@ export default class DatatableComponent extends Vue {
     }
   }
 
-  @Watch('groupRowsBy') onGroupRowsByChanged() {
+  @Watch('groupRowsBy') onGroupRowsByChanged(newVal, oldVal) {
+    if (isArrayEqual(newVal, oldVal)) {
+      return;
+    }
     this.groupHeader = Boolean(this.groupRowsBy);
     if (this.groupRowsBy) {
       if (this.rows) {
@@ -688,27 +695,66 @@ export default class DatatableComponent extends Vue {
    * @param originalArray the original array passed via parameter
    * @param groupByIndex  the index of the column to group the data by
    */
-  groupArrayBy(originalArray: any, groupBy: any) {
+  groupArrayBy(originalArray: any[], groupRowsBy: any, level: number = 0): IGroupedRows[] {
+    let groupBy = groupRowsBy;
+    if (Array.isArray(groupRowsBy)) {
+      groupBy = groupRowsBy[level];
+    }
+
     // create a map to hold groups with their corresponding results
     const map = new Map();
-    let i: number = 0;
+    let getKey = (row: any, prop: string | string[]): string => row[prop as string] ;
+    if (Array.isArray(groupBy)) {
+      getKey = (row: any, groupByArr: string[]): string => {
+        return groupByArr.reduce((key, prop) => {
+          const value = row[prop];
+          if (!value) {
+            return value;
+          }
+          return key ? `${key}^^${value}` : `${value}`;
+        }, '');
+      };
+    }
 
+    const itemsToRemove = [];
     originalArray.forEach((item: any) => {
-      const key = item[groupBy];
-      if (!map.has(key)) {
-        map.set(key, [item]);
-      } else {
-        map.get(key).push(item);
+      const key = getKey(item, groupBy);
+      if (key !== undefined || key !== null) {
+        itemsToRemove.push(item);
+        if (!map.has(key)) {
+          map.set(key, [item]);
+        } else {
+          map.get(key).push(item);
+        }
       }
-      i++;
     });
+    if (level > 0 && itemsToRemove.length) {
+      itemsToRemove.forEach(item => {
+        const i = originalArray.indexOf(item);
+        if (i >= 0) {
+          originalArray.splice(i, 1);
+        }
+      });
+    }
 
-    const addGroup = (key: any, value: any) => {
-      return {key, value};
+    const addGroup = (key: string, value: any, _level: number): IGroupedRows => {
+      return {
+        key,
+        value,
+        level: _level,
+        keys: key ? key.toString().split('^^') : null
+      };
     };
 
     // convert map back to a simple array of objects
-    return Array.from(map, x => addGroup(x[0], x[1]));
+    const result = Array.from(map, x => addGroup(x[0], x[1], level));
+    if (Array.isArray(groupRowsBy) && level < groupRowsBy.length - 1) {
+      result.forEach(item => {
+        item.groups = this.groupArrayBy(item.value, groupRowsBy, level + 1);
+      });
+    }
+   
+    return result;
   }
 
   /*

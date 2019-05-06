@@ -11,6 +11,7 @@ import { ScrollbarHelper } from '../../services/scrollbar-helper.service';
 import { ICellContext } from '../../types/cell-context.type';
 import DataTableBodyGroupHeaderComponent from './body-group-header.component';
 import DataTableBodyRowDetailComponent from './body-row-detail.component';
+import { IGroupedRows } from '../../types/grouped-rows';
 
 @Component({
   components: {
@@ -735,16 +736,24 @@ export default class DataTableBodyComponent extends Vue {
   //   return styles;
   // }
 
+  initExpansions(group: IGroupedRows) {
+    this.rowExpansions.set(group, 1);
+    if (group.groups) {
+      for (const gr of group.groups) {
+        this.initExpansions(gr);
+      }
+    }
+  }
+
   /**
    * Returns if the row was expanded and set default row expansion when row expansion is empty
    */
   getRowExpanded(row: any): boolean {
     if (this.rowExpansions.size === 0 && this.groupExpansionDefault) {
       for (const group of this.groupedRows) {
-        this.rowExpansions.set(group, 1);
+        this.initExpansions(group);
       }
     }
-
     const expanded = this.rowExpansions.get(row);
     return expanded === 1;
   }

@@ -22,7 +22,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
         ref="table"
         class="material expandable"
         :rows="rows"
-        groupRowsBy="age"
+        :groupRowsBy="['age', ['gender', 'company']]"
         columnMode="force"
         :scrollbarH="true"
         :headerHeight="50"
@@ -35,7 +35,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
 
         <!-- Group Header Template -->
         <template v-slot:groupHeader="scope">
-          <b>Age: {{scope.group.key}}</b>
+          <b>{{groupTitle(scope.group, scope.groupBy)}}</b>
         </template>
 
         <!-- Row Column Template -->
@@ -214,11 +214,17 @@ export default class RowGroupingComponent  extends Vue {
   updateValue(event, cell, rowIndex) {
     this.editing[rowIndex + '-' + cell] = false;
     this.rows[rowIndex][cell] = event.target.value;
-    this.rows = [...this.rows];
   }
 
   onDetailToggle(event) {
     console.log('Detail Toggled', event);
+  }
+
+  groupTitle(group: any, groupBy: string | any[]) {
+    if (groupBy === 'age') {
+      return `Age: ${group.key}`;
+    }
+    return `Genger- ${group.keys[0]}, company- ${group.keys[1]}`;
   }
 
 }

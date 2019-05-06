@@ -40,6 +40,8 @@ ref="selector"
   <datatable-row-wrapper class="datatable-row-wrapper" :styleObject="getRowsStyles(group, i)"
     v-for="(group, i) of temp" :key="rowTrackingFn(group)"
     :groupedRows="groupedRows"
+    :groupRowsBy="groupRowsBy"
+    :groupLevel="0"
     :row="group"
     :innerWidth="innerWidth"
     :rowDetail="rowDetail"
@@ -53,7 +55,6 @@ ref="selector"
     :rowDetailSlot="rowDetailSlot"
     @group-toggle="onGroupToggle"
     @row-contextmenu="$emit('rowContextmenu')">
-    <!-- <span>{{group.id}}  {{group.name}}</span> -->
     <datatable-body-row
       v-if="!groupedRows"
       tabindex="-1"
