@@ -221,10 +221,15 @@ export default class RowGroupingComponent  extends Vue {
   }
 
   groupTitle(group: any, groupBy: string | any[]) {
-    if (groupBy === 'age') {
-      return `Age: ${group.key}`;
-    }
-    return `Genger- ${group.keys[0]}, company- ${group.keys[1]}`;
+    // if (groupBy === 'age') {
+    //   return `Age: ${group.key}`;
+    // }
+    let result = '';
+    group.keys.forEach(gr => {
+      result += `${gr.title} - ${gr.value}; `;
+    });
+    return result ? result : 'Age - empty';
+    // return `Genger- ${group.keys[0]}, company- ${group.keys[1]}`;
   }
 
 }

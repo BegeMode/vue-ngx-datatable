@@ -696,6 +696,9 @@ export default class DatatableComponent extends Vue {
    * @param groupByIndex  the index of the column to group the data by
    */
   groupArrayBy(originalArray: any[], groupRowsBy: any, level: number = 0): IGroupedRows[] {
+    if (!this.internalColumns) {
+      return;
+    }
     let groupBy = groupRowsBy;
     if (Array.isArray(groupRowsBy)) {
       groupBy = groupRowsBy[level];
@@ -737,17 +740,40 @@ export default class DatatableComponent extends Vue {
       });
     }
 
-    const addGroup = (key: string, value: any, _level: number): IGroupedRows => {
+    const addGroup = (key: string, value: any, _level: number,
+                      _keysDescr: Array<{ title: string, prop: string }>): IGroupedRows => {
+      const keys = key ? key.toString().split('^^') : null;
+      const keysObj = [];
+      if (keys) {
+        if (Array.isArray(groupBy)) {
+          groupBy.forEach((prop, index) => {
+            const descr = _keysDescr[index];
+            keysObj.push({ title: descr.title, prop, value: keys[index] });
+          });
+        } else {
+          keysObj.push({ title: _keysDescr[0].title, prop: groupBy, value: key });
+        }
+      }
       return {
         key,
         value,
         level: _level,
-        keys: key ? key.toString().split('^^') : null
+        keys: keysObj
       };
     };
-
-    // convert map back to a simple array of objects
-    const result = Array.from(map, x => addGroup(x[0], x[1], level));
+    
+    const keysDescr = [];
+    if (Array.isArray(groupBy)) {
+      groupBy.forEach(prop => {
+        const column = this.internalColumns.find(c => c.prop === prop);
+        keysDescr.push({ title: column ? column.name : prop, prop });
+      });
+    } else {
+      const column = this.internalColumns.find(c => c.prop === groupBy);
+      keysDescr.push({ title: column ? column.name : groupBy, prop: groupBy });
+    }
+// convert map back to a simple array of objects
+    const result = Array.from(map, x => addGroup(x[0], x[1], level, keysDescr));
     if (Array.isArray(groupRowsBy) && level < groupRowsBy.length - 1) {
       result.forEach(item => {
         item.groups = this.groupArrayBy(item.value, groupRowsBy, level + 1);
@@ -941,7 +967,7 @@ export default class DatatableComponent extends Vue {
 
     // if limit is passed, we are paging
     if (this.limit !== undefined) {
-      return this.limit;
+      return Number(this.limit);
     }
 
     // otherwise use row length
