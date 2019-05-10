@@ -1,13 +1,14 @@
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
+import { IGroupedRows } from '../../types/grouped-rows';
 
 @Component({
   template: `
-      <div style="padding-left:5px;">
+      <div :style="styles">
         <a href="#" :class="{ 'datatable-icon-right': !expanded, 'datatable-icon-down': expanded }"
            title="Expand/Collapse Group"
            @click="toggleExpandGroup">
-           <slot name="groupHeader" v-bind="{ group: group, expanded: expanded }">
-             <b>{{group.key}}</b>
+           <slot name="groupHeader" v-bind="{ group: group, expanded: expanded, level: groupLevel, groupBy: groupBy }">
+              <b>{{groupTitle}}</b>
            </slot>  
         </a>                          
       </div>
@@ -15,19 +16,31 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 })
 export default class DataTableBodyGroupHeaderComponent extends Vue {
   @Prop({ default: 0 }) rowHeight: (number | ((group?: any, index?: number) => number));
-  @Prop() group: any;
+  @Prop() group: IGroupedRows;
   @Prop() expanded: boolean;
   @Prop() groupHeaderSlot: any;
-
+  @Prop() groupLevel: number;
+  @Prop() groupRowsBy: string | any[];
+ 
   created() {
     if (this.groupHeaderSlot) {
-      this.$slots.groupHeader = this.groupHeaderSlot({group: this.group, expanded: this.expanded});
+      this.$slots.groupHeader = this.groupHeaderSlot({
+        group: this.group,
+        expanded: this.expanded,
+        level: this.groupLevel,
+        groupBy: this.groupBy
+      });
     }
   }
 
   beforeUpdate() {
     if (this.groupHeaderSlot) {
-      this.$slots.groupHeader = this.groupHeaderSlot({group: this.group, expanded: this.expanded});
+      this.$slots.groupHeader = this.groupHeaderSlot({
+        group: this.group,
+        expanded: this.expanded,
+        level: this.groupLevel,
+        groupBy: this.groupBy
+      });
     }
   }
 
@@ -59,5 +72,32 @@ export default class DataTableBodyGroupHeaderComponent extends Vue {
       type: 'all',
       value: false
     });
+  }
+
+  get groupTitle() {
+    let result = '';
+    this.group.keys.forEach(gr => {
+      if (!result) {
+        result += `${gr.title} - ${gr.value}`;
+      } else {
+        result += `; ${gr.title} - ${gr.value}`;
+
+      }
+    });
+    return result;
+  }
+
+  get styles() {
+    return {
+      'padding-left': this.groupLevel ? (this.groupLevel * 10) + 'px' : '5px'
+    };
+  }
+
+  get groupBy() {
+    if (this.groupLevel !== undefined && this.groupLevel !== null
+      && Array.isArray(this.groupRowsBy) && this.groupRowsBy.length - 1 >= this.groupLevel) {
+      return this.groupRowsBy[this.groupLevel];
+    }
+    return null;
   }
 }
