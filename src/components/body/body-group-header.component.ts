@@ -1,4 +1,5 @@
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
+import { IGroupedRows } from '../../types/grouped-rows';
 
 @Component({
   template: `
@@ -7,7 +8,7 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
            title="Expand/Collapse Group"
            @click="toggleExpandGroup">
            <slot name="groupHeader" v-bind="{ group: group, expanded: expanded, level: groupLevel, groupBy: groupBy }">
-             <b>{{group.key}}</b>
+              <b>{{groupTitle}}</b>
            </slot>  
         </a>                          
       </div>
@@ -15,7 +16,7 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 })
 export default class DataTableBodyGroupHeaderComponent extends Vue {
   @Prop({ default: 0 }) rowHeight: (number | ((group?: any, index?: number) => number));
-  @Prop() group: any;
+  @Prop() group: IGroupedRows;
   @Prop() expanded: boolean;
   @Prop() groupHeaderSlot: any;
   @Prop() groupLevel: number;
@@ -71,6 +72,19 @@ export default class DataTableBodyGroupHeaderComponent extends Vue {
       type: 'all',
       value: false
     });
+  }
+
+  get groupTitle() {
+    let result = '';
+    this.group.keys.forEach(gr => {
+      if (!result) {
+        result += `${gr.title} - ${gr.value}`;
+      } else {
+        result += `; ${gr.title} - ${gr.value}`;
+
+      }
+    });
+    return result;
   }
 
   get styles() {

@@ -689,100 +689,6 @@ export default class DatatableComponent extends Vue {
   //   }
   // }
 
-  /**
-   * Creates a map with the data grouped by the user choice of grouping index
-   *
-   * @param originalArray the original array passed via parameter
-   * @param groupByIndex  the index of the column to group the data by
-   */
-  groupArrayBy(originalArray: any[], groupRowsBy: any, level: number = 0): IGroupedRows[] {
-    if (!this.internalColumns) {
-      return;
-    }
-    let groupBy = groupRowsBy;
-    if (Array.isArray(groupRowsBy)) {
-      groupBy = groupRowsBy[level];
-    }
-
-    // create a map to hold groups with their corresponding results
-    const map = new Map();
-    let getKey = (row: any, prop: string | string[]): string => row[prop as string] ;
-    if (Array.isArray(groupBy)) {
-      getKey = (row: any, groupByArr: string[]): string => {
-        return groupByArr.reduce((key, prop) => {
-          const value = row[prop];
-          if (!value) {
-            return value;
-          }
-          return key ? `${key}^^${value}` : `${value}`;
-        }, '');
-      };
-    }
-
-    const itemsToRemove = [];
-    originalArray.forEach((item: any) => {
-      const key = getKey(item, groupBy);
-      if (key !== undefined || key !== null) {
-        itemsToRemove.push(item);
-        if (!map.has(key)) {
-          map.set(key, [item]);
-        } else {
-          map.get(key).push(item);
-        }
-      }
-    });
-    if (level > 0 && itemsToRemove.length) {
-      itemsToRemove.forEach(item => {
-        const i = originalArray.indexOf(item);
-        if (i >= 0) {
-          originalArray.splice(i, 1);
-        }
-      });
-    }
-
-    const addGroup = (key: string, value: any, _level: number,
-                      _keysDescr: Array<{ title: string, prop: string }>): IGroupedRows => {
-      const keys = key ? key.toString().split('^^') : null;
-      const keysObj = [];
-      if (keys) {
-        if (Array.isArray(groupBy)) {
-          groupBy.forEach((prop, index) => {
-            const descr = _keysDescr[index];
-            keysObj.push({ title: descr.title, prop, value: keys[index] });
-          });
-        } else {
-          keysObj.push({ title: _keysDescr[0].title, prop: groupBy, value: key });
-        }
-      }
-      return {
-        key,
-        value,
-        level: _level,
-        keys: keysObj
-      };
-    };
-    
-    const keysDescr = [];
-    if (Array.isArray(groupBy)) {
-      groupBy.forEach(prop => {
-        const column = this.internalColumns.find(c => c.prop === prop);
-        keysDescr.push({ title: column ? column.name : prop, prop });
-      });
-    } else {
-      const column = this.internalColumns.find(c => c.prop === groupBy);
-      keysDescr.push({ title: column ? column.name : groupBy, prop: groupBy });
-    }
-// convert map back to a simple array of objects
-    const result = Array.from(map, x => addGroup(x[0], x[1], level, keysDescr));
-    if (Array.isArray(groupRowsBy) && level < groupRowsBy.length - 1) {
-      result.forEach(item => {
-        item.groups = this.groupArrayBy(item.value, groupRowsBy, level + 1);
-      });
-    }
-   
-    return result;
-  }
-
   /*
   * Lifecycle hook that is called when Angular dirty checks a directive.
   */
@@ -1246,6 +1152,117 @@ export default class DatatableComponent extends Vue {
       type: 'all',
       value: false
     });
+  }
+
+  /**
+   * Creates a map with the data grouped by the user choice of grouping index
+   *
+   * @param originalArray the original array passed via parameter
+   * @param groupByIndex  the index of the column to group the data by
+   */
+  private groupArrayBy(originalArray: any[], groupRowsBy: any, level: number = 0): IGroupedRows[] {
+    if (!this.internalColumns) {
+      return;
+    }
+    let groupBy = groupRowsBy;
+    if (Array.isArray(groupRowsBy)) {
+      groupBy = groupRowsBy[level];
+    }
+
+    // create a map to hold groups with their corresponding results
+    const map = new Map();
+    let getKey = (row: any, groupDescr: string | { title: string, prop: string } | string): string => {
+      if (typeof groupDescr === 'string') {
+        return row[groupDescr as string];
+      } else if ('prop' in groupDescr) {
+        return row[groupDescr.prop];
+      }
+    };
+    if (Array.isArray(groupBy)) {
+      const getKey1 = (row: any, groupByArr: Array<{ title: string, prop: string } | string>): string => {
+        return groupByArr.reduce((key, groupDescr) => {
+          let prop = groupDescr as string;
+          if (typeof groupDescr === 'object' && 'prop' in groupDescr) {
+            prop = groupDescr.prop;
+          }
+          const value = row[prop];
+          if (!value) {
+            return value;
+          }
+          return key ? `${key}^^${value}` : `${value}`;
+        }, '');
+      };
+      getKey = getKey1 as any;
+    }
+
+    const itemsToRemove = [];
+    originalArray.forEach((item: any) => {
+      const key = getKey(item, groupBy);
+      if (key !== undefined || key !== null) {
+        itemsToRemove.push(item);
+        if (!map.has(key)) {
+          map.set(key, [item]);
+        } else {
+          map.get(key).push(item);
+        }
+      }
+    });
+    if (level > 0 && itemsToRemove.length) {
+      itemsToRemove.forEach(item => {
+        const i = originalArray.indexOf(item);
+        if (i >= 0) {
+          originalArray.splice(i, 1);
+        }
+      });
+    }
+
+    const keysDescr = [];
+    if (Array.isArray(groupBy)) {
+      groupBy.forEach(prop => {
+        const title = this.getGroupTitle(prop);
+        keysDescr.push({ title, prop });
+      });
+    } else {
+      const title = this.getGroupTitle(groupBy);
+      keysDescr.push({ title, prop: groupBy });
+    }
+    // convert map back to a simple array of objects
+    const result = Array.from(map, x => this.addGroup(x[0], x[1], level, keysDescr));
+    if (Array.isArray(groupRowsBy) && level < groupRowsBy.length - 1) {
+      result.forEach(item => {
+        item.groups = this.groupArrayBy(item.value, groupRowsBy, level + 1);
+      });
+    }
+   
+    return result;
+  }
+
+  private addGroup(key: string, value: any, _level: number,
+                   keysDescr: Array<{ title: string; prop: string; }>): IGroupedRows {
+    const keys = key ? key.toString().split('^^') : null;
+    const keysObj = [];
+    if (keys) {
+      keysDescr.forEach((descr, index) => {
+        keysObj.push({ title: descr.title, prop: descr.prop, value: keys[index] });
+      });
+    }
+    return {
+      key,
+      value,
+      level: _level,
+      keys: keysObj
+    };
+  }
+
+  private getGroupTitle(prop: string | { title: string, prop: string }) {
+    let title = prop;
+    if (typeof prop === 'string') {
+      const column = this.internalColumns.find(c => c.prop === prop);
+      title = column ? column.name : prop;
+    } else if ('title' in prop) {
+      title = prop.title;
+    }
+    return title;
   }
 
   private sortInternalRows(): void {

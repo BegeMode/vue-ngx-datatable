@@ -22,7 +22,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
         ref="table"
         class="material expandable"
         :rows="rows"
-        :groupRowsBy="['age', ['gender', 'company']]"
+        :groupRowsBy="['age', [{ title: 'Gender', prop: 'gender'}, {title: 'Firm', prop: 'company'}]]"
         columnMode="force"
         :scrollbarH="true"
         :headerHeight="50"
@@ -34,9 +34,9 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
         @group-toggle="onDetailToggle($event)">
 
         <!-- Group Header Template -->
-        <template v-slot:groupHeader="scope">
+        <!-- <template v-slot:groupHeader="scope">
           <b>{{groupTitle(scope.group, scope.groupBy)}}</b>
-        </template>
+        </template> -->
 
         <!-- Row Column Template -->
         <ngx-datatable-column name="Exp. Pay." prop="" :editable="true" :frozenLeft="true">
@@ -220,16 +220,15 @@ export default class RowGroupingComponent  extends Vue {
     console.log('Detail Toggled', event);
   }
 
-  groupTitle(group: any, groupBy: string | any[]) {
-    // if (groupBy === 'age') {
-    //   return `Age: ${group.key}`;
-    // }
+  groupTitle(group: {
+    key: string, level: number, value: any[],
+    keys: Array<{ title: string, prop: string, value: string }>
+  }) {
     let result = '';
     group.keys.forEach(gr => {
       result += `${gr.title} - ${gr.value}; `;
     });
     return result ? result : 'Age - empty';
-    // return `Genger- ${group.keys[0]}, company- ${group.keys[1]}`;
   }
 
 }
