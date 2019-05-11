@@ -8,6 +8,9 @@ const companyData = require('../../assets/data/company.json');
  */
 export class MockServerResultsService {
 
+    constructor(private timeout: number = 0) {
+    }
+
     /**
      * A method that mocks a paged server response
      * @param page The selected page
@@ -35,7 +38,12 @@ export class MockServerResultsService {
             pagedData.data.push(employee);
         }
         pagedData.page = page;
-        return Promise.resolve(pagedData);
+        let resolveFunc;
+        const promise = new Promise<PagedData<CorporateEmployee>>(
+            resolve => (resolveFunc = resolve)
+          );
+        setTimeout(() => resolveFunc(pagedData), this.timeout);
+        return promise;
     }
 
 }
