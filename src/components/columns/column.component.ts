@@ -9,7 +9,7 @@ import { TableColumnProp, TableColumn } from '../../types';
 @Component({
   template: `
     <div>
-      <slot name="header">
+      <slot name="header" v-bind="{column: column}">
       <!-- default content -->
         {{ name }}
       </slot>

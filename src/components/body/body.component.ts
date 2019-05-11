@@ -460,7 +460,7 @@ export default class DataTableBodyComponent extends Vue {
    */
   getDetailRowHeight = (row?: any, index?: any): number => {
     if (!this.rowDetail) return 0;
-    const rowHeight = this.rowDetailHeight;
+    const rowHeight = this.rowDetailHeight || this.getRowHeight(row) || 50;
     return typeof rowHeight === 'function' ? rowHeight(row, index) : Number(rowHeight);
   }
 
