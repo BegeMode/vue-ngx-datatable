@@ -39,6 +39,7 @@ import TabsDemoComponent from './basic/tabs.component';
 import LiveDataComponent from './basic/live.component';
 import InlineEditComponent from './basic/inline.component';
 import RowCssComponent from './basic/css.component';
+import FooterDemoComponent from './basic/footer.component';
 
 @Component({
   components: {
@@ -79,6 +80,7 @@ import RowCssComponent from './basic/css.component';
     'live-data-demo': LiveDataComponent,
     'inline-edit-demo': InlineEditComponent,
     'row-css-demo': RowCssComponent,
+    'footer-demo': FooterDemoComponent,
   },
   template: `
     <div :class="classObject" style="height:100%;">
@@ -215,10 +217,11 @@ import RowCssComponent from './basic/css.component';
         <live-data-demo v-if="state === 'live'"></live-data-demo>
         <inline-edit-demo v-if="state === 'inline-edit'"></inline-edit-demo>
         <row-css-demo v-if="state === 'css'"></row-css-demo>
+        <footer-demo v-if="state === 'footer'"></footer-demo>
         <!-- 
         <responsive-demo v-if="state === 'responsive'"></responsive-demo>
         <rx-demo v-if="state === 'rx'"></rx-demo>
-        <footer-demo v-if="state === 'footer'"></footer-demo> -->
+         -->
 
         <!-- Themes -->
         <!-- <basic-dark-theme-demo v-if="state === 'dark'"></basic-dark-theme-demo>

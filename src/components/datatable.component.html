@@ -84,6 +84,7 @@ v-visibility-observer
     :selectedCount="mySelected.length"
     :selectedMessage="!!selectionType && messages.selectedMessage"
     :pagerNextIcon="cssClasses.pagerNext"
+    :footerSlot="footerSlot"
     @page="onFooterPage">
   </datatable-footer>
 </div>

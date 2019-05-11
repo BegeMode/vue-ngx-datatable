@@ -46,11 +46,34 @@ export default class DataTableFooterComponent extends Vue {
   @Prop() pagerPreviousIcon: string;
   @Prop() pagerNextIcon: string;
   @Prop() totalMessage: string;
+  @Prop() footerSlot: any;
 
   @Prop({ type: Number, default: 0 }) selectedCount: number;
   @Prop() selectedMessage: string | boolean;
 
-  // @Output() page: EventEmitter<any> = new EventEmitter();
+  created() {
+    if (this.footerSlot) {
+      this.$slots.default = this.footerSlot({
+        rowCount: this.rowCount,
+        pageSize: this.pageSize, 
+        selectedCount: this.selectedCount,
+        curPage: this.curPage,
+        offset: this.offset,
+      });
+    }
+  }
+
+  beforeUpdate() {
+    if (this.footerSlot) {
+      this.$slots.default = this.footerSlot({
+        rowCount: this.rowCount,
+        pageSize: this.pageSize, 
+        selectedCount: this.selectedCount,
+        curPage: this.curPage,
+        offset: this.offset,
+      });
+    }
+  }
 
   get isVisible(): boolean {
     return (this.rowCount / this.pageSize) > 1;

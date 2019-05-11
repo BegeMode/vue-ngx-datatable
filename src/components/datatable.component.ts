@@ -332,6 +332,7 @@ export default class DatatableComponent extends Vue {
 
   groupHeaderSlot = null;
   rowDetailSlot = null;
+  footerSlot = null;
 
   private scrollbarHelper: ScrollbarHelper = new ScrollbarHelper();
   private dimensionsHelper: DimensionsHelper = new DimensionsHelper();
@@ -350,6 +351,7 @@ export default class DatatableComponent extends Vue {
     this.groupHeader = Boolean(this.groupRowsBy);
     this.groupHeaderSlot = this.$scopedSlots.groupHeader;
     this.rowDetailSlot = this.$scopedSlots.rowDetail;
+    this.footerSlot = this.$scopedSlots.footer;
     this.rowDetail = Boolean(this.rowDetailSlot);
     this.bodyComponent = this.$refs.datatableBody; // as DataTableBodyComponent;
     this.headerComponent = this.$refs.datatableHeader; //  as DataTableHeaderComponent;
