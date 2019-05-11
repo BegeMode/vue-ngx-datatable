@@ -41,6 +41,9 @@ import InlineEditComponent from './basic/inline.component';
 import RowCssComponent from './basic/css.component';
 import FooterDemoComponent from './basic/footer.component';
 import ResponsiveComponent from './basic/responsive.component.vue';
+import ServerScrollingComponent from './paging/scrolling-server.component.vue';
+import ServerPagingComponent from './paging/paging-server.component';
+import PagingScrollingNoVirtualizationComponent from './paging/paging-scrolling-novirtualization.component';
 
 @Component({
   components: {
@@ -83,6 +86,9 @@ import ResponsiveComponent from './basic/responsive.component.vue';
     'row-css-demo': RowCssComponent,
     'footer-demo': FooterDemoComponent,
     'responsive-demo': ResponsiveComponent,
+    'server-scrolling-demo': ServerScrollingComponent,
+    'server-paging-demo': ServerPagingComponent,
+    'paging-scrolling-novirtualization-demo': PagingScrollingNoVirtualizationComponent,
   },
   template: `
     <div :class="classObject" style="height:100%;">
@@ -237,9 +243,10 @@ import ResponsiveComponent from './basic/responsive.component.vue';
         <client-paging-demo v-if="state === 'client-paging'"></client-paging-demo>
         <virtual-paging-demo v-if="state === 'virtual-paging'"></virtual-paging-demo>
         <row-grouping-demo v-if="state === 'row-grouping'"></row-grouping-demo>
-        <!-- <server-paging-demo v-if="state === 'server-paging'"></server-paging-demo>
-        <paging-scrolling-novirtualization-demo v-if="state === 'paging-scrolling-novirtualization'"></paging-scrolling-novirtualization-demo>
-        <server-scrolling-demo v-if="state === 'server-scrolling'"></server-scrolling-demo>  -->
+        <server-scrolling-demo v-if="state === 'server-scrolling'"></server-scrolling-demo>
+        <server-paging-demo v-if="state === 'server-paging'"></server-paging-demo>
+        <paging-scrolling-novirtualization-demo v-if="state === 'paging-scrolling-novirtualization'">
+        </paging-scrolling-novirtualization-demo>
 
         <!-- Sorting -->
         <default-sorting-demo v-if="state === 'default-sorting'"></default-sorting-demo>

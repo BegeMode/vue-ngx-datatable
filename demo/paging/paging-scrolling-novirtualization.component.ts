@@ -5,15 +5,16 @@ import {CorporateEmployee} from './model/corporate-employee';
 import {Page} from './model/page';
 
 @Component({
+  name: 'paging-scrolling-novirtualization-demo',
   components: {
     'ngx-datatable': DatatableComponent,
   },
   template: `
     <div>
       <h3>
-        Virtual Server-side Paging
+        Server-side Paging
         <small>
-          <a href="https://github.com/begemode/vue-ngx-datatable/blob/master/demo/paging/paging-virtual.component.ts" target="_blank">
+          <a href="https://github.com/begemode/vue-ngx-datatable/blob/master/demo/paging/paging-server.component.ts" target="_blank">
             Source
           </a>
         </small>
@@ -21,31 +22,35 @@ import {Page} from './model/page';
       <ngx-datatable
         class="material"
         :rows="rows"
-        :columns="columns"
-        :columnMode="'force'"
+        :columns="[{name:'Name'},{name:'Gender'},{name:'Company'}]"
+        columnMode="force"
         :headerHeight="50"
-        :scrollbarV="true"
         :footerHeight="50"
-        :rowHeight="50"
+        rowHeight="auto"
+        :scrollbarV="true"
+        :virtualization="false"
         :externalPaging="true"
         :count="page.totalElements"
         :offset="page.pageNumber"
+        :limit="page.size"
         @page="setPage($event)">
       </ngx-datatable>
     </div>
   `
 })
-export default class VirtualPagingComponent extends Vue {
+export default class PagingScrollingNoVirtualizationComponent extends Vue {
 
   page = new Page();
   rows = new Array<CorporateEmployee>();
-  columns = [{ name: 'Name' }, { name: 'Gender' }, { name: 'Company' }];
-  cache: any = {};
-  serverResultsService: MockServerResultsService;
+  serverResultsService = new MockServerResultsService(100);
 
   created() {
-    this.serverResultsService = new MockServerResultsService();
-    this.page.pageNumber = -1;
+    this.page.pageNumber = 0;
+    this.page.size = 20;
+  }
+
+  mounted() {
+    this.setPage({ offset: 0 });
   }
 
   /**
@@ -53,31 +58,10 @@ export default class VirtualPagingComponent extends Vue {
    * @param page The page to select
    */
   async setPage(pageInfo) {
-    if (pageInfo.offset === this.page.pageNumber) {
-      return;
-    }
     this.page.pageNumber = pageInfo.offset;
-    this.page.size = pageInfo.pageSize;
-
-    // cache results
-    // if(this.cache[this.page.pageNumber]) return;
-
     const pagedData = await this.serverResultsService.getResults(this.page);
-
-    // calc start
-    const start = this.page.pageNumber * this.page.size;
-
-    // copy rows
-    const rows = [...this.rows];
-
-    // insert rows into new position
-    rows.splice(start, 0, ...pagedData.data);
-
-    // set rows to our new rows
-    this.rows = rows;
-
-    // add flag for results
-    this.cache[this.page.pageNumber] = true;
+    this.page = pagedData.page;
+    this.rows = pagedData.data;
   }
 
 }
