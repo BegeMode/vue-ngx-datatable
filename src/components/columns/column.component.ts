@@ -42,7 +42,6 @@ export default class DataTableColumnComponent extends Vue {
   @Prop() treeLevelIndent: number;
   @Prop() summaryFunc: (cells: any[]) => any;
   @Prop({ default: true }) visible: boolean;
-  // @Prop() summaryTemplate: TemplateRef<any>;
 
   // @Prop()
   // @ContentChild(DataTableColumnCellDirective, { read: TemplateRef })
@@ -91,6 +90,7 @@ export default class DataTableColumnComponent extends Vue {
     this.$set(this.column, 'summaryFunc', this.summaryFunc);
     this.$set(this.column, 'headerTemplate', this.$slots.header);
     this.$set(this.column, 'cellTemplate', this.$scopedSlots.default);
+    this.$set(this.column, 'summaryTemplate', this.$scopedSlots.summary);
     this.$set(this.column, 'visible', this.visible);
 
     // todo: select any way to pass column to datatable // this.$emit('insert-column', column);
