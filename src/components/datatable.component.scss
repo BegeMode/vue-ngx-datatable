@@ -140,6 +140,11 @@
     &:focus {
       outline: none;
     }
+
+    .datatable-body-cell-label {
+      width: 100%;
+    }
+
   }
 
   .datatable-row-left,
