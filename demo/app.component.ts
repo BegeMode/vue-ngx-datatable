@@ -44,6 +44,8 @@ import ResponsiveComponent from './basic/responsive.component.vue';
 import ServerScrollingComponent from './paging/scrolling-server.component.vue';
 import ServerPagingComponent from './paging/paging-server.component';
 import PagingScrollingNoVirtualizationComponent from './paging/paging-scrolling-novirtualization.component';
+import InlineTemplatesComponent from './templates/template-dom.component';
+import TemplateRefTemplatesComponent from './templates/template-obj.component';
 
 @Component({
   components: {
@@ -89,6 +91,8 @@ import PagingScrollingNoVirtualizationComponent from './paging/paging-scrolling-
     'server-scrolling-demo': ServerScrollingComponent,
     'server-paging-demo': ServerPagingComponent,
     'paging-scrolling-novirtualization-demo': PagingScrollingNoVirtualizationComponent,
+    'inline-templates-demo': InlineTemplatesComponent,
+    'template-ref-demo': TemplateRefTemplatesComponent,
   },
   template: `
     <div :class="classObject" style="height:100%;">
@@ -183,7 +187,7 @@ import PagingScrollingNoVirtualizationComponent from './paging/paging-scrolling-
             <h4>Templates</h4>
             <ul>
               <li><a href="#inline" @click="state='inline'">Inline</a></li>
-              <li><a href="#templateref" @click="state='templateref'">TemplateRef</a></li>
+              <!-- <li><a href="#templateref" @click="state='templateref'">TemplateRef</a></li> -->
             </ul>
           </li>
           <li>
@@ -264,8 +268,8 @@ import PagingScrollingNoVirtualizationComponent from './paging/paging-scrolling-
         <cell-selection-demo v-if="state === 'cell-selection'"></cell-selection-demo>
 
         <!-- Templates -->
-        <!-- <template-ref-demo v-if="state === 'templateref'"></template-ref-demo>
-        <inline-templates-demo v-if="state === 'inline'"></inline-templates-demo> -->
+        <!-- <template-ref-demo v-if="state === 'templateref'"></template-ref-demo> -->
+        <inline-templates-demo v-if="state === 'inline'"></inline-templates-demo>
 
         <!-- Columns -->
         <column-reorder-demo v-if="state === 'reorder'"></column-reorder-demo>
