@@ -48,6 +48,8 @@ import InlineTemplatesComponent from './templates/template-dom.component';
 import TemplateRefTemplatesComponent from './templates/template-obj.component';
 import BootstrapThemeComponent from './basic/bootstrap.component';
 import DarkThemeComponent from './basic/dark-theme.component';
+import SummaryRowServerPagingComponent from './summary/summary-row-server-paging.component';
+import SummaryRowInlineHtmlComponent from './summary/summary-row-inline-html.component';
 
 @Component({
   components: {
@@ -97,6 +99,8 @@ import DarkThemeComponent from './basic/dark-theme.component';
     'template-ref-demo': TemplateRefTemplatesComponent,
     'basic-bootstrap-theme-demo': BootstrapThemeComponent,
     'basic-dark-theme-demo': DarkThemeComponent,
+    'summary-row-server-paging-demo': SummaryRowServerPagingComponent,
+    'summary-row-inline-html': SummaryRowInlineHtmlComponent,
   },
   template: `
     <div :class="classObject" style="height:100%;">
@@ -285,11 +289,11 @@ import DarkThemeComponent from './basic/dark-theme.component';
 
         <!-- Summary row -->
         <summary-row-simple-demo v-if="state === 'simple-summary'"></summary-row-simple-demo>
-        <!-- <summary-row-custom-template-demo v-if="state === 'custom-template-summary'">
-        </summary-row-custom-template-demo>
         <summary-row-server-paging-demo v-if="state === 'paging-summary'">
         </summary-row-server-paging-demo>
-        <summary-row-inline-html v-if="state === 'inline-html-summary'"></summary-row-inline-html> -->
+        <!-- <summary-row-custom-template-demo v-if="state === 'custom-template-summary'">
+        </summary-row-custom-template-demo> -->
+        <summary-row-inline-html v-if="state === 'inline-html-summary'"></summary-row-inline-html>
       </content>
     </div>
   `

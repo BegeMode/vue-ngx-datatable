@@ -47,7 +47,7 @@ function noopSumFunc(cells: any[]): void {
     :cellColumnCssClasses="cellColumnCssClasses"
     :cellStyleObject="cellStyleObject"
     :marginCellStyle="marginCellStyle"
-    :slots="slots"
+    :slots="mySlotsFunc"
     @activate="onActivate">
   </datatable-body-row>
   `,
@@ -72,6 +72,7 @@ export default class DataTableSummaryRowComponent extends Vue {
 
   internalColumns: ISummaryColumn[] = [];
   summaryRow = {};
+  mySlotsFunc: any = null;
 
   @Watch('rows', { immediate: true }) onRowsChanged() {
     this.onChanges();  
@@ -82,7 +83,9 @@ export default class DataTableSummaryRowComponent extends Vue {
   }
 
   onChanges() {
-    if (!this.columns || !this.rows) { return; }
+    if (!this.columns || !this.rows) {
+      return;
+    }
     this.updateInternalColumns();
     this.updateValues();
   }
@@ -92,14 +95,21 @@ export default class DataTableSummaryRowComponent extends Vue {
   }
 
   private updateInternalColumns() {
-    // this.internalColumns = this.columns.map(col => ({
-    //   ...col,
-    //   cellTemplate: col.summaryTemplate
-    // }));
+    this.mySlotsFunc = this.slots;
+    const summarySlots = {};
     this.internalColumns = this.columns.map(col => {
-      col.cellTemplate = col.summaryTemplate;
+      if (col.summaryTemplate) {
+        summarySlots[col.prop] = col.summaryTemplate;
+      }
       return col;
     });
+    if (Object.keys(summarySlots).length) {
+      const slots = Object.assign({}, this.slots());
+      Object.keys(summarySlots).forEach(column => {
+        slots[column] = summarySlots[column];
+      });
+      this.mySlotsFunc = () => slots;
+    }
   }
 
   private updateValues() {
