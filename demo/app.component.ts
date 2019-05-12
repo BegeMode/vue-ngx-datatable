@@ -46,6 +46,8 @@ import ServerPagingComponent from './paging/paging-server.component';
 import PagingScrollingNoVirtualizationComponent from './paging/paging-scrolling-novirtualization.component';
 import InlineTemplatesComponent from './templates/template-dom.component';
 import TemplateRefTemplatesComponent from './templates/template-obj.component';
+import BootstrapThemeComponent from './basic/bootstrap.component';
+import DarkThemeComponent from './basic/dark-theme.component';
 
 @Component({
   components: {
@@ -93,6 +95,8 @@ import TemplateRefTemplatesComponent from './templates/template-obj.component';
     'paging-scrolling-novirtualization-demo': PagingScrollingNoVirtualizationComponent,
     'inline-templates-demo': InlineTemplatesComponent,
     'template-ref-demo': TemplateRefTemplatesComponent,
+    'basic-bootstrap-theme-demo': BootstrapThemeComponent,
+    'basic-dark-theme-demo': DarkThemeComponent,
   },
   template: `
     <div :class="classObject" style="height:100%;">
@@ -236,8 +240,8 @@ import TemplateRefTemplatesComponent from './templates/template-obj.component';
          -->
 
         <!-- Themes -->
-        <!-- <basic-dark-theme-demo v-if="state === 'dark'"></basic-dark-theme-demo>
-        <basic-bootstrap-theme-demo  v-if="state === 'bootstrap'"></basic-bootstrap-theme-demo>  -->
+        <basic-dark-theme-demo v-if="state === 'dark'"></basic-dark-theme-demo>
+        <basic-bootstrap-theme-demo  v-if="state === 'bootstrap'"></basic-bootstrap-theme-demo>
 
         <!-- Tree -->
         <full-screen-tree-demo v-if="state === 'fullscreen-tree'"></full-screen-tree-demo>
