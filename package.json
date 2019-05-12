@@ -1,5 +1,5 @@
 {
-  "name": "@begemode/ngx-datatable",
+  "name": "@begemode/vue-ngx-datatable",
   "version": "1.0.4",
   "description": "vue-ngx-datatable is a Vue.js table grid component for presenting large and complex data (clone Angular2+ ngx-datatable).",
   "main": "release/index.js",
@@ -50,10 +50,11 @@
     "url": "git+https://github.com/begemode/vue-ngx-datatable.git"
   },
   "keywords": [
-    "angularjs",
-    "angular",
+    "vuejs",
+    "vue",
+    "vue.js",
+    "typescript",
     "javascript",
-    "angular2",
     "datatable",
     "grid",
     "table"
@@ -64,15 +65,6 @@
     "url": "https://github.com/begemode/vue-ngx-datatable/issues"
   },
   "homepage": "https://github.com/begemode/vue-ngx-datatable#readme",
-  "peerDependencies": {
-    "@angular/common": "<7.0.0",
-    "@angular/compiler": "<7.0.0",
-    "@angular/core": "<7.0.0",
-    "@angular/platform-browser": "<7.0.0",
-    "@angular/platform-browser-dynamic": "<7.0.0",
-    "core-js": "^2.4.0",
-    "rxjs": "^6.0.0"
-  },
   "dependencies": {
     "mini-css-extract-plugin": "^0.4.5",
     "raw-loader": "^0.5.1",
@@ -89,7 +81,6 @@
   "devDependencies": {
     "@types/jasmine": "^2.8.16",
     "@types/node": "^8.10.47",
-    "angular2-template-loader": "^0.6.2",
     "autoprefixer": "^7.1.6",
     "clean-webpack-plugin": "^0.1.17",
     "copy-webpack-plugin": "^4.6.0",
