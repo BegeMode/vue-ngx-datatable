@@ -1,6 +1,6 @@
 {
   "name": "@begemode/ngx-datatable",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "vue-ngx-datatable is a Vue.js table grid component for presenting large and complex data (clone Angular2+ ngx-datatable).",
   "main": "release/index.js",
   "typings": "release/index.d.ts",
@@ -22,7 +22,6 @@
     "build:release": "cross-env NODE_ENV=production npm run build",
     "build:package": "cross-env NODE_ENV=package npm run build",
     "build:ts": "tsc",
-    "build:aot": "ngc",
     "build:sass": "node-sass -r build/ -o build/",
     "build:css": "postcss --use autoprefixer dist/*.css -d dist/",
     "copy:build": "cpx -v \"src/**/*\" \"build\"",
@@ -48,7 +47,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/swimlane/ngx-datatable.git"
+    "url": "git+https://github.com/begemode/vue-ngx-datatable.git"
   },
   "keywords": [
     "angularjs",
@@ -62,9 +61,9 @@
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/swimlane/ngx-datatable/issues"
+    "url": "https://github.com/begemode/vue-ngx-datatable/issues"
   },
-  "homepage": "https://github.com/swimlane/ngx-datatable#readme",
+  "homepage": "https://github.com/begemode/vue-ngx-datatable#readme",
   "peerDependencies": {
     "@angular/common": "<7.0.0",
     "@angular/compiler": "<7.0.0",

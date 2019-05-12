@@ -107,7 +107,7 @@ import SummaryRowInlineHtmlComponent from './summary/summary-row-inline-html.com
       <nav style="height:100%;overflow-y:auto;">
         <h3>vue-ngx-datatable <small>({{version}})</small></h3>
         <ul class="main-ul">
-          <li>
+          <!--<li>
             <h4>Documentation</h4>
             <ul>
               <li>
@@ -117,7 +117,7 @@ import SummaryRowInlineHtmlComponent from './summary/summary-row-inline-html.com
                 <a href="https://www.gitbook.com/download/pdf/book/swimlane/ngx-datatable" target="_black">PDF</a>
               </li>
             </ul>
-          </li>
+          </li> -->
           <li>
             <h4>Basic</h4>
             <ul>
