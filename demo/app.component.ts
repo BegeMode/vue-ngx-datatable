@@ -213,7 +213,7 @@ import SummaryRowInlineHtmlComponent from './summary/summary-row-inline-html.com
             <h4>Summary Row</h4>
             <ul>
               <li><a href="#simple-summary" @click="state='simple-summary'">Simple</a></li>
-              <li><a href="#custom-template-summary" @click="state='custom-template-summary'">Custom Template</a></li>
+              <!-- <li><a href="#custom-template-summary" @click="state='custom-template-summary'">Custom Template</a></li> -->
               <li><a href="#paging-summary" @click="state='paging-summary'">Server-side paging</a></li>
               <li><a href="#inline-html-summary" @click="state='inline-html-summary'">Inline HTML</a></li>
             </ul>
@@ -291,9 +291,9 @@ import SummaryRowInlineHtmlComponent from './summary/summary-row-inline-html.com
         <summary-row-simple-demo v-if="state === 'simple-summary'"></summary-row-simple-demo>
         <summary-row-server-paging-demo v-if="state === 'paging-summary'">
         </summary-row-server-paging-demo>
+        <summary-row-inline-html v-if="state === 'inline-html-summary'"></summary-row-inline-html>
         <!-- <summary-row-custom-template-demo v-if="state === 'custom-template-summary'">
         </summary-row-custom-template-demo> -->
-        <summary-row-inline-html v-if="state === 'inline-html-summary'"></summary-row-inline-html>
       </content>
     </div>
   `
