@@ -38,6 +38,10 @@
       flex: 1 1 auto; }
     .ngx-datatable.ngx-flex .datatable-header, .ngx-datatable.ngx-flex .datatable-footer {
       flex: none; }
+  .ngx-datatable.ngx-nowrap-text .datatable-body .datatable-body-row .datatable-body-cell .datatable-body-cell-label {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
   .ngx-datatable [hidden] {
     display: none !important; }
   .ngx-datatable .hidden-columns {
@@ -96,6 +100,9 @@
     .ngx-datatable .datatable-body-cell:focus,
     .ngx-datatable .datatable-header-cell:focus {
       outline: none; }
+    .ngx-datatable .datatable-body-cell .datatable-body-cell-label,
+    .ngx-datatable .datatable-header-cell .datatable-body-cell-label {
+      width: 100%; }
   .ngx-datatable .datatable-row-left,
   .ngx-datatable .datatable-row-right {
     z-index: 9; }
