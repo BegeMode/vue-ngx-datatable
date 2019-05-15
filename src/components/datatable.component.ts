@@ -1163,9 +1163,6 @@ export default class DatatableComponent extends Vue {
    * @param groupByIndex  the index of the column to group the data by
    */
   private groupArrayBy(originalArray: any[], groupRowsBy: any, level: number = 0): IGroupedRows[] {
-    if (!this.internalColumns) {
-      return;
-    }
     let groupBy = groupRowsBy;
     if (Array.isArray(groupRowsBy)) {
       groupBy = groupRowsBy[level];
@@ -1259,7 +1256,7 @@ export default class DatatableComponent extends Vue {
   private getGroupTitle(prop: string | { title: string, prop: string }) {
     let title = prop;
     if (typeof prop === 'string') {
-      const column = this.internalColumns.find(c => c.prop === prop);
+      const column = this.columns && this.columns.find(c => c.prop === prop);
       title = column ? column.name : prop;
     } else if ('title' in prop) {
       title = prop.title;

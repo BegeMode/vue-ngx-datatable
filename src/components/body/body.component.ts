@@ -145,6 +145,10 @@ export default class DataTableBodyComponent extends Vue {
     });
   }
 
+  @Watch('groupedRows') onGroupedRowsChanged() {
+    this.onRowsChanged();
+  }
+
   @Watch('columns', { immediate: true }) onColumnsChanged(newVal, oldVal) {
     if (newVal && oldVal && newVal.length < oldVal.length) {
       const removedColumns = oldVal.filter(col => !newVal.find(c => c.$$id === col.$$id));
