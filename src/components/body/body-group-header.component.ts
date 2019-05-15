@@ -3,15 +3,12 @@ import { IGroupedRows } from '../../types/grouped-rows';
 
 @Component({
   template: `
-      <div :style="styles">
-        <a href="#" :class="{ 'datatable-icon-right': !expanded, 'datatable-icon-down': expanded }"
-           title="Expand/Collapse Group"
-           @click="toggleExpandGroup">
-           <slot name="groupHeader" v-bind="{ group: group, expanded: expanded, level: groupLevel, groupBy: groupBy }">
-              <b>{{groupTitle}}</b>
-           </slot>  
-        </a>                          
-      </div>
+      <div :class="{ 'datatable-icon-right': !expanded, 'datatable-icon-down': expanded }" :style="styles" 
+            style="cursor: pointer;" title="Expand/Collapse Group" @click="toggleExpandGroup">
+        <slot name="groupHeader" v-bind="{ group: group, expanded: expanded, level: groupLevel, groupBy: groupBy }">
+          <b>{{groupTitle}}</b>
+        </slot>  
+      </div>                          
   `,
 })
 export default class DataTableBodyGroupHeaderComponent extends Vue {
@@ -76,14 +73,16 @@ export default class DataTableBodyGroupHeaderComponent extends Vue {
 
   get groupTitle() {
     let result = '';
-    this.group.keys.forEach(gr => {
-      if (!result) {
-        result += `${gr.title} - ${gr.value}`;
-      } else {
-        result += `; ${gr.title} - ${gr.value}`;
+    if (this.group && this.group.keys) {
+      this.group.keys.forEach(gr => {
+        if (!result) {
+          result += `${gr.title} - ${gr.value}`;
+        } else {
+          result += `; ${gr.title} - ${gr.value}`;
 
-      }
-    });
+        }
+      });
+    }
     return result;
   }
 

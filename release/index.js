@@ -1211,6 +1211,9 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
             _this.scroller = _this.$refs.scroller;
         });
     };
+    DataTableBodyComponent.prototype.onGroupedRowsChanged = function () {
+        this.onRowsChanged();
+    };
     DataTableBodyComponent.prototype.onColumnsChanged = function (newVal, oldVal) {
         if (newVal && oldVal && newVal.length < oldVal.length) {
             var removedColumns = oldVal.filter(function (col) { return !newVal.find(function (c) { return c.$$id === col.$$id; }); });
@@ -2233,6 +2236,12 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         __metadata("design:returntype", void 0)
     ], DataTableBodyComponent.prototype, "onRowsChanged", null);
     __decorate([
+        vue_property_decorator_1.Watch('groupedRows'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], DataTableBodyComponent.prototype, "onGroupedRowsChanged", null);
+    __decorate([
         vue_property_decorator_1.Watch('columns', { immediate: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Object]),
@@ -3181,9 +3190,6 @@ var DatatableComponent = /** @class */ (function (_super) {
     DatatableComponent.prototype.groupArrayBy = function (originalArray, groupRowsBy, level) {
         var _this = this;
         if (level === void 0) { level = 0; }
-        if (!this.internalColumns) {
-            return;
-        }
         var groupBy = groupRowsBy;
         if (Array.isArray(groupRowsBy)) {
             groupBy = groupRowsBy[level];
@@ -3273,7 +3279,7 @@ var DatatableComponent = /** @class */ (function (_super) {
     DatatableComponent.prototype.getGroupTitle = function (prop) {
         var title = prop;
         if (typeof prop === 'string') {
-            var column = this.internalColumns.find(function (c) { return c.prop === prop; });
+            var column = this.columns && this.columns.find(function (c) { return c.prop === prop; });
             title = column ? column.name : prop;
         }
         else if ('title' in prop) {
@@ -4265,14 +4271,16 @@ var DataTableBodyGroupHeaderComponent = /** @class */ (function (_super) {
     Object.defineProperty(DataTableBodyGroupHeaderComponent.prototype, "groupTitle", {
         get: function () {
             var result = '';
-            this.group.keys.forEach(function (gr) {
-                if (!result) {
-                    result += gr.title + " - " + gr.value;
-                }
-                else {
-                    result += "; " + gr.title + " - " + gr.value;
-                }
-            });
+            if (this.group && this.group.keys) {
+                this.group.keys.forEach(function (gr) {
+                    if (!result) {
+                        result += gr.title + " - " + gr.value;
+                    }
+                    else {
+                        result += "; " + gr.title + " - " + gr.value;
+                    }
+                });
+            }
             return result;
         },
         enumerable: true,
@@ -4324,7 +4332,7 @@ var DataTableBodyGroupHeaderComponent = /** @class */ (function (_super) {
     ], DataTableBodyGroupHeaderComponent.prototype, "groupRowsBy", void 0);
     DataTableBodyGroupHeaderComponent = __decorate([
         vue_property_decorator_1.Component({
-            template: "\n      <div :style=\"styles\">\n        <a href=\"#\" :class=\"{ 'datatable-icon-right': !expanded, 'datatable-icon-down': expanded }\"\n           title=\"Expand/Collapse Group\"\n           @click=\"toggleExpandGroup\">\n           <slot name=\"groupHeader\" v-bind=\"{ group: group, expanded: expanded, level: groupLevel, groupBy: groupBy }\">\n              <b>{{groupTitle}}</b>\n           </slot>  \n        </a>                          \n      </div>\n  ",
+            template: "\n      <div :class=\"{ 'datatable-icon-right': !expanded, 'datatable-icon-down': expanded }\" :style=\"styles\" \n            style=\"cursor: pointer;\" title=\"Expand/Collapse Group\" @click=\"toggleExpandGroup\">\n        <slot name=\"groupHeader\" v-bind=\"{ group: group, expanded: expanded, level: groupLevel, groupBy: groupBy }\">\n          <b>{{groupTitle}}</b>\n        </slot>  \n      </div>                          \n  ",
         })
     ], DataTableBodyGroupHeaderComponent);
     return DataTableBodyGroupHeaderComponent;
