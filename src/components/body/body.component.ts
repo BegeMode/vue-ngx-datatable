@@ -4,14 +4,16 @@ import { SelectionType, TableColumn, SortDirection } from '../../types';
 import ScrollerComponent from './scroller.component';
 import DataTableSelectionComponent from './selection.component';
 import ProgressBarComponent from './progress-bar.component';
-import DataTableRowWrapperComponent from './body-row-wrapper.component.vue';
-import DataTableBodyRowComponent from './body-row.component.vue';
+// import DataTableRowWrapperComponent from './body-row-wrapper.component.vue';
+// import DataTableBodyRowComponent from './body-row.component.vue';
 import DataTableSummaryRowComponent from './summary/summary-row.component';
 import { ScrollbarHelper } from '../../services/scrollbar-helper.service';
 import { ICellContext } from '../../types/cell-context.type';
 import DataTableBodyGroupHeaderComponent from './body-group-header.component';
 import DataTableBodyRowDetailComponent from './body-row-detail.component';
 import { IGroupedRows } from '../../types/grouped-rows';
+import DataTableRowWrapperComponent1 from './body-row-wrapper.component1.vue';
+import DataTableBodyRowComponent1 from './body-row.component1.vue';
 
 @Component({
   components: {
@@ -19,8 +21,10 @@ import { IGroupedRows } from '../../types/grouped-rows';
     'datatable-progress': ProgressBarComponent,
     'datatable-scroller': ScrollerComponent,
     'datatable-summary-row': DataTableSummaryRowComponent,
-    'datatable-row-wrapper': DataTableRowWrapperComponent,
-    'datatable-body-row': DataTableBodyRowComponent,
+    // 'datatable-row-wrapper': DataTableRowWrapperComponent,
+    'datatable-row-wrapper1': DataTableRowWrapperComponent1,
+    // 'datatable-body-row': DataTableBodyRowComponent,
+    'datatable-body-row1': DataTableBodyRowComponent1,
     'datatable-group-header': DataTableBodyGroupHeaderComponent,
     'datatable-row-detail': DataTableBodyRowDetailComponent,
   }
@@ -193,6 +197,10 @@ export default class DataTableBodyComponent extends Vue {
       this.myBodyHeight = 'auto';
     }
     this.recalcLayout();
+  }
+
+  get parentForWrapper() {
+    return this;
   }
 
   get bodyWidth(): string {

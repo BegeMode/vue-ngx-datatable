@@ -1,5 +1,5 @@
 /**
- * vue-data-table v"1.0.6" (https://github.com/begemode/vue-ngx-data-table)
+ * vue-data-table v"1.0.5" (https://github.com/begemode/vue-ngx-data-table)
  * Copyright 2018
  * Licensed under MIT
  */
