@@ -459,9 +459,6 @@ export default class DatatableComponent extends Vue {
 
     if (this.rows && this.groupRowsBy) {
       this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy, 0);
-      // if (this.groupedRows.length) {
-      //   this.groupedRows[0].groups = [{ key: '1111', value: this.groupedRows[0].value, level: 2 }];
-      // }
     }
 
     // recalculate sizes/etc
@@ -481,6 +478,7 @@ export default class DatatableComponent extends Vue {
         this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy);
       }
     }
+    this.recalculate();
   }
 
   /**
@@ -789,6 +787,7 @@ export default class DatatableComponent extends Vue {
   recalculatePages(): void {
     this.pageSize = this.calcPageSize();
     this.rowCount = this.calcRowCount();
+    this.$emit('row-count', this.rowCount);
   }
 
   /**

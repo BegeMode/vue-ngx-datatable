@@ -4,9 +4,9 @@ import { IGroupedRows } from '../../types/grouped-rows';
 @Component({
   template: `
       <div :class="{ 'datatable-icon-right': !expanded, 'datatable-icon-down': expanded }" :style="styles" 
-            style="cursor: pointer;" title="Expand/Collapse Group" @click="toggleExpandGroup">
+            title="Expand/Collapse Group" @click="toggleExpandGroup">
         <slot name="groupHeader" v-bind="{ group: group, expanded: expanded, level: groupLevel, groupBy: groupBy }">
-          <b>{{groupTitle}}</b>
+          <span><b>{{groupTitle}}</b></span>
         </slot>  
       </div>                          
   `,
@@ -88,7 +88,7 @@ export default class DataTableBodyGroupHeaderComponent extends Vue {
 
   get styles() {
     return {
-      'padding-left': this.groupLevel ? (this.groupLevel * 10) + 'px' : '5px'
+      'padding-left': this.groupLevel ? (this.groupLevel * 10) + 'px' : '5px',
     };
   }
 

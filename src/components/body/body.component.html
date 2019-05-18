@@ -38,7 +38,7 @@ ref="selector"
     :slots=cellSlots>
   </datatable-summary-row>
   <datatable-row-wrapper class="datatable-row-wrapper" :styleObject="getRowsStyles(group, i)"
-    v-for="(group, i) of temp" :key="rowTrackingFn(group)"
+    v-for="(group, i) of temp" :key="i"
     :groupedRows="groupedRows"
     :groupRowsBy="groupRowsBy"
     :groupLevel="0"
@@ -76,7 +76,7 @@ ref="selector"
       @activate="onActivate($event, i)">
     </datatable-body-row>
     <datatable-body-row v-else
-        v-for="(row,i) of group.value" :key="rowTrackingFn(row)"
+        v-for="(row,i) of group.value" :key="i"
         tabindex="-1"
         :group="group.value"
         :columnsByPin="columnsByPin"
