@@ -568,7 +568,7 @@ export default class DataTableBodyComponent extends Vue {
         // scrollY position would be at.  The last index would be the one
         // that shows up inside the view port the last.
         const height = parseInt(this.myBodyHeight, 0);
-        first = this.rowHeightsCache.getRowIndex(this.offsetY);
+        first = this.rowHeightsCache.getRowIndex(this.offsetY, true);
         last = this.rowHeightsCache.getRowIndex(height + this.offsetY);
       } else {
         // If virtual rows are not needed
@@ -1031,7 +1031,7 @@ export default class DataTableBodyComponent extends Vue {
 
   get cellSlots(): () => {} {
     const result = {};
-    this.columns.forEach(column => {
+    this.columns && this.columns.forEach(column => {
       if (column.cellTemplate) {
         result[column.prop] = column.cellTemplate;
       }

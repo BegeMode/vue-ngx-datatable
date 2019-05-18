@@ -36,7 +36,7 @@
           @group-toggle="listeners['group-toggle']"
           @row-contextmenu="listeners['row-contextmenu']">
           <datatable-body-row
-            v-for="(row,i) of group.value" :key="parent.rowTrackingFn(row)"
+            v-for="(row,i) of group.value" :key="i"
             tabindex="-1"
             :group="group.value"
             :columnsByPin="parent.columnsByPin"

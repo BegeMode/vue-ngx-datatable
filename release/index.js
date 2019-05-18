@@ -1,5 +1,5 @@
 /**
- * vue-data-table v"1.0.4" (https://github.com/begemode/vue-ngx-data-table)
+ * vue-data-table v"1.0.6" (https://github.com/begemode/vue-ngx-data-table)
  * Copyright 2018
  * Licensed under MIT
  */
@@ -1604,7 +1604,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
                 // scrollY position would be at.  The last index would be the one
                 // that shows up inside the view port the last.
                 var height = parseInt(this.myBodyHeight, 0);
-                first = this.rowHeightsCache.getRowIndex(this.offsetY);
+                first = this.rowHeightsCache.getRowIndex(this.offsetY, true);
                 last = this.rowHeightsCache.getRowIndex(height + this.offsetY);
             }
             else {
@@ -2030,7 +2030,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     Object.defineProperty(DataTableBodyComponent.prototype, "cellSlots", {
         get: function () {
             var result = {};
-            this.columns.forEach(function (column) {
+            this.columns && this.columns.forEach(function (column) {
                 if (column.cellTemplate) {
                     result[column.prop] = column.cellTemplate;
                 }
@@ -2498,9 +2498,6 @@ var DatatableComponent = /** @class */ (function (_super) {
         this.internalRows = utils_1.groupRowsByParents(this.internalRows, utils_1.optionalGetterForProp(this.treeFromRelation), utils_1.optionalGetterForProp(this.treeToRelation));
         if (this.rows && this.groupRowsBy) {
             this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy, 0);
-            // if (this.groupedRows.length) {
-            //   this.groupedRows[0].groups = [{ key: '1111', value: this.groupedRows[0].value, level: 2 }];
-            // }
         }
         // recalculate sizes/etc
         if (this.$el) {
@@ -2518,6 +2515,7 @@ var DatatableComponent = /** @class */ (function (_super) {
                 this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy);
             }
         }
+        this.recalculate();
     };
     /**
      * Columns to be displayed.
@@ -2850,6 +2848,7 @@ var DatatableComponent = /** @class */ (function (_super) {
     DatatableComponent.prototype.recalculatePages = function () {
         this.pageSize = this.calcPageSize();
         this.rowCount = this.calcRowCount();
+        this.$emit('row-count', this.rowCount);
     };
     /**
      * Body triggered a page event.
@@ -4289,7 +4288,7 @@ var DataTableBodyGroupHeaderComponent = /** @class */ (function (_super) {
     Object.defineProperty(DataTableBodyGroupHeaderComponent.prototype, "styles", {
         get: function () {
             return {
-                'padding-left': this.groupLevel ? (this.groupLevel * 10) + 'px' : '5px'
+                'padding-left': this.groupLevel ? (this.groupLevel * 10) + 'px' : '5px',
             };
         },
         enumerable: true,
@@ -4332,7 +4331,7 @@ var DataTableBodyGroupHeaderComponent = /** @class */ (function (_super) {
     ], DataTableBodyGroupHeaderComponent.prototype, "groupRowsBy", void 0);
     DataTableBodyGroupHeaderComponent = __decorate([
         vue_property_decorator_1.Component({
-            template: "\n      <div :class=\"{ 'datatable-icon-right': !expanded, 'datatable-icon-down': expanded }\" :style=\"styles\" \n            style=\"cursor: pointer;\" title=\"Expand/Collapse Group\" @click=\"toggleExpandGroup\">\n        <slot name=\"groupHeader\" v-bind=\"{ group: group, expanded: expanded, level: groupLevel, groupBy: groupBy }\">\n          <b>{{groupTitle}}</b>\n        </slot>  \n      </div>                          \n  ",
+            template: "\n      <div :class=\"{ 'datatable-icon-right': !expanded, 'datatable-icon-down': expanded }\" :style=\"styles\" \n            title=\"Expand/Collapse Group\" @click=\"toggleExpandGroup\">\n        <slot name=\"groupHeader\" v-bind=\"{ group: group, expanded: expanded, level: groupLevel, groupBy: groupBy }\">\n          <span><b>{{groupTitle}}</b></span>\n        </slot>  \n      </div>                          \n  ",
         })
     ], DataTableBodyGroupHeaderComponent);
     return DataTableBodyGroupHeaderComponent;
@@ -4558,7 +4557,7 @@ var render = function(_h, _vm) {
               },
               _vm._l(group.value, function(row, i) {
                 return _c("datatable-body-row", {
-                  key: _vm.parent.rowTrackingFn(row),
+                  key: i,
                   attrs: {
                     tabindex: "-1",
                     group: group.value,
@@ -4765,7 +4764,7 @@ var render = function() {
                     return _c(
                       "datatable-row-wrapper",
                       {
-                        key: _vm.rowTrackingFn(group),
+                        key: i,
                         staticClass: "datatable-row-wrapper",
                         attrs: {
                           styleObject: _vm.getRowsStyles(group, i),
@@ -4822,7 +4821,7 @@ var render = function() {
                             })
                           : _vm._l(group.value, function(row, i) {
                               return _c("datatable-body-row", {
-                                key: _vm.rowTrackingFn(row),
+                                key: i,
                                 attrs: {
                                   tabindex: "-1",
                                   group: group.value,
@@ -8907,10 +8906,15 @@ var RowHeightCache = /** @class */ (function () {
      * Given the ScrollY position i.e. sum, provide the rowIndex
      * that is present in the current view port.  Below handles edge cases.
      */
-    RowHeightCache.prototype.getRowIndex = function (scrollY) {
+    RowHeightCache.prototype.getRowIndex = function (scrollY, first) {
+        if (first === void 0) { first = false; }
         if (scrollY === 0)
             return 0;
-        return this.calcRowIndex(scrollY);
+        var result = this.calcRowIndex(scrollY);
+        if (!first) {
+            result++;
+        }
+        return result;
     };
     /**
      * When a row is expanded or rowHeight is changed, update the height.  This can
@@ -8985,7 +8989,7 @@ var RowHeightCache = /** @class */ (function () {
                 break;
             }
         }
-        return pos + 1;
+        return pos;
     };
     return RowHeightCache;
 }());
