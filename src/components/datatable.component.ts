@@ -19,9 +19,11 @@ import DataTableBodyCellComponent from './body/body-cell.component.vue';
 import VisibilityDirective from '../directives/visibility.directive';
 import { IGroupedRows } from '../types/grouped-rows';
 import { isArrayEqual } from '../utils/equal.array';
+import DataTableBodyCellComponent1 from './body/body-cell.component1.vue';
 
 Vue.component('datatable-column', DataTableColumnComponent);
-Vue.component('datatable-body-cell', DataTableBodyCellComponent);
+// Vue.component('datatable-body-cell', DataTableBodyCellComponent);
+Vue.component('datatable-body-cell1', DataTableBodyCellComponent1);
 
 @Component({
   directives: {
@@ -455,8 +457,9 @@ export default class DatatableComponent extends Vue {
       this.internalRows,
       optionalGetterForProp(this.treeFromRelation),
       optionalGetterForProp(this.treeToRelation)
-  );
-
+    );
+    
+    this.groupedRows = null;
     if (this.rows && this.groupRowsBy) {
       this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy, 0);
     }
@@ -472,6 +475,7 @@ export default class DatatableComponent extends Vue {
       return;
     }
     this.groupHeader = Boolean(this.groupRowsBy);
+    this.groupedRows = null;
     if (this.groupRowsBy) {
       if (this.rows) {
         // creates a new array with the data grouped

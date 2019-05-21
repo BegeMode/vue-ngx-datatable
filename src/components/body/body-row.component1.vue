@@ -12,7 +12,7 @@
       <!-- <div v-for="(column, ii) of colGroup.columns" :key="column.$$id">
       <span>{{row[column.prop]}}</span>
       </div>-->
-      <datatable-body-cell
+      <datatable-body-cell1
         v-for="(column, ii) of colGroup.columns"
         :key="column.$$id"
         tabIndex="-1"
@@ -20,12 +20,12 @@
         :cellColumnCssClasses="cellColumnCssClasses"
         :cellStyleObject="cellStyleObject"
         :marginCellStyle="marginCellStyle"
-        :slot="cellSlots[column.prop]"
+        :cellSlot="cellSlots[column.prop]"
         @activate="onActivate($event, ii)"
         @treeAction="onTreeAction"
         @keydown="onKeyDown"
         @mouseenter="onMouseenter"
-      ></datatable-body-cell>
+      ></datatable-body-cell1>
       <!-- <datatable-body-cell v-for="(column, ii) of colGroup.columns" :key="column.$$id"
       tabindex="-1" 
       :row="row" 
