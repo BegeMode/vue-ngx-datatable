@@ -73,8 +73,8 @@ export default class DataTableBodyRowComponent1 extends Vue {
       });
   }
 
-  onTreeAction() {
-    this.$emit('treeAction');
+  onTreeAction(event) {
+    this.$emit('tree-action', event);
   }
 
 }

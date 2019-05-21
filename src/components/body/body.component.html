@@ -73,7 +73,7 @@ ref="selector"
       :cellStyleObject="cellStyleObject"
       :marginCellStyle="marginCellStyle"
       :slots=cellSlots
-      @tree-action="onTreeAction(group)"
+      @tree-action="onTreeAction($event)"
       @activate="onActivate($event, i)">
     </datatable-body-row1>
     <datatable-body-row1 v-else
@@ -94,7 +94,7 @@ ref="selector"
         :cellStyleObject="cellStyleObject"
         :marginCellStyle="marginCellStyle"
         :slots=cellSlots
-        @tree-action="onTreeAction(row)"
+        @tree-action="onTreeAction($event)"
         @activate="onActivate($event, index)">
     </datatable-body-row1>
   </datatable-row-wrapper1>

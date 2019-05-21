@@ -390,7 +390,7 @@ export default class DataTableBodyCellComponent extends Vue {
   }
 
   onTreeAction(row: any) {
-    this.$emit('treeAction', row);
+    this.$emit('tree-action', row);
   }
 
   calcLeftMargin(column: any, row: any) {

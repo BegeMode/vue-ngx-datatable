@@ -53,7 +53,7 @@
             :cellStyleObject="parent.cellStyleObject"
             :marginCellStyle="parent.marginCellStyle"
             :slots=parent.cellSlots
-            @tree-action="parent.onTreeAction(row)"
+            @tree-action="parent.onTreeAction({row: row})"
             @activate="parent.onActivate($event, i)">
         </datatable-body-row1>
       </datatable-row-wrapper1>

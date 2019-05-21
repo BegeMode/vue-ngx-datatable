@@ -1075,7 +1075,7 @@ export default class DatatableComponent extends Vue {
     // TODO: For duplicated items this will not work
     const rowIndex = this.rows.findIndex(r =>
       r[this.treeToRelation] === event.row[this.treeToRelation]);
-    this.$emit('treeAction', {row, rowIndex});
+    this.$emit('tree-action', {row, rowIndex});
   }
 
   onColumnInsert(column: TableColumn) {

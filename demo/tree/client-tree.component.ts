@@ -26,7 +26,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
         :treeFromRelation="'manager'"
         :treeToRelation="'name'"
         :rows="rows"
-        @treeAction="onTreeAction($event)">
+        @tree-action="onTreeAction($event)">
         <ngx-datatable-column name="Name" :flexGrow="3" :isTreeColumn="true">
           <template slot-scope="scope" v-if="scope.row">
             {{scope.row.name}}

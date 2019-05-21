@@ -22,7 +22,7 @@
         :marginCellStyle="marginCellStyle"
         :cellSlot="cellSlots[column.prop]"
         @activate="onActivate($event, ii)"
-        @treeAction="onTreeAction"
+        @tree-action="onTreeAction"
         @keydown="onKeyDown"
         @mouseenter="onMouseenter"
       ></datatable-body-cell1>

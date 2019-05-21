@@ -777,8 +777,8 @@ export default class DataTableBodyComponent extends Vue {
     return row ? this.rowIndexes.get(row) || 0 : 0;
   }
 
-  onTreeAction(row: any) {
-    this.$emit('treeAction', { row });
+  onTreeAction(event) {
+    this.$emit('tree-action', event);
   }
 
   isSelect(row) {
