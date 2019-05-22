@@ -37,7 +37,7 @@ ref="selector"
     :marginCellStyle="marginCellStyle"
     :slots=cellSlots>
   </datatable-summary-row>
-  <datatable-row-wrapper1 class="datatable-row-wrapper" :styleObject="getRowsStyles(group, i)"
+  <datatable-row-wrapper class="datatable-row-wrapper" :styleObject="getRowsStyles(group, i)"
     v-for="(group, i) of temp" :key="i"
     :parent="parentForWrapper"
     :groupedRows="groupedRows"
@@ -56,7 +56,7 @@ ref="selector"
     :rowDetailSlot="rowDetailSlot"
     @group-toggle="onGroupToggle"
     @row-contextmenu="$emit('rowContextmenu')">
-    <datatable-body-row1
+    <datatable-body-row
       v-if="!groupedRows"
       tabindex="-1"
       :columnsByPin="columnsByPin"
@@ -75,8 +75,8 @@ ref="selector"
       :slots=cellSlots
       @tree-action="onTreeAction($event)"
       @activate="onActivate($event, i)">
-    </datatable-body-row1>
-    <datatable-body-row1 v-else
+    </datatable-body-row>
+    <datatable-body-row v-else
         v-for="(row, index) of group.value" :key="index"
         tabindex="-1"
         :group="group.value"
@@ -96,8 +96,8 @@ ref="selector"
         :slots=cellSlots
         @tree-action="onTreeAction($event)"
         @activate="onActivate($event, index)">
-    </datatable-body-row1>
-  </datatable-row-wrapper1>
+    </datatable-body-row>
+  </datatable-row-wrapper>
   <!-- <div v-for="(item, index) in visibleItems"   // rowStyle
       :key="keysEnabled && item.id || undefined"
       :item="item"

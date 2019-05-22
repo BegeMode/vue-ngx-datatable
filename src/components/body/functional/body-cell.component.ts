@@ -1,132 +1,106 @@
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 // import { Keys } from '../../utils';
 // import { SortDirection } from '../../types';
 // import { TableColumn } from '../../types/table-column.type';
 // import { ICellContext } from '../../types/cell-context.type';
-import { Keys } from '../../utils';
+import { Keys } from '../../../utils';
 
 export type TreeStatus = 'collapsed' | 'expanded' | 'loading' | 'disabled';
 
-@Component
-export default class DataTableBodyCellComponent1 extends Vue {
-  @Prop() context: any;
-  @Prop() cellColumnCssClasses: any;
-  @Prop() cellStyleObject: any;
-  @Prop() marginCellStyle: any;
-  @Prop() tabIndex: string;
-  @Prop() cellSlot: any;
+function getEl(props): Element {
+  if (!props.$el) {
+    props.$el = document.getElementById(`${props.context.column.prop}-${props.context.column.$$id}`);
+  }
+  return props.$el;
 
-  created() {
-    if (this.cellSlot) {
-      this.$slots.default = this.cellSlot({
-        row: this.context && this.context.row ? this.context.row : {}, 
-        rowIndex: this.context.rowIndex, 
-        group: this.context.group, 
-        expanded: this.context.expanded,
-        value: this.context.value,
-        updateCell: this.$forceUpdate.bind(this),
-      });
-    }
-  }
-
-  beforeUpdate() {
-    if (this.cellSlot) {
-      this.$slots.default = this.cellSlot({
-        row: this.context && this.context.row ? this.context.row : {}, 
-        rowIndex: this.context.rowIndex, 
-        group: this.context.group, 
-        expanded: this.context.expanded,
-        value: this.context.value,
-        updateCell: this.$forceUpdate.bind(this),
-      });
-    }
-  }
-
-  onFocus(): void {
-    this.context.isFocused = true;
-  }
-  
-  onBlur(): void {
-    this.context.isFocused = false;
-  }
-
-  onClick(event): void {
-    // props.context.isFocused = true;
-    // props.context.abcd = true;
-    this.$emit('activate', {
-      type: 'click',
-      event,
-      row: this.context.row,
-      group: this.context.group,
-      rowHeight: this.context.rowHeight,
-      column: this.context.column,
-      value: this.context.value,
-      cellElement: this.$el,
-    });
-  }
-  
-  onDblClick(event): void {
-    this.$emit('activate', {
-      type: 'dblclick',
-      event,
-      row: this.context.row,
-      group: this.context.group,
-      rowHeight: this.context.rowHeight,
-      column: this.context.column,
-      value: this.context.value,
-      cellElement: this.$el,
-    });
-  }
-  
-  onKeyDown(event): void {
-    const keyCode = event.keyCode;
-    const isTargetCell = event.target === this.$el;
-    const isAction =
-      keyCode === Keys.return ||
-      keyCode === Keys.down ||
-      keyCode === Keys.up ||
-      keyCode === Keys.left ||
-      keyCode === Keys.right;
-  
-    if (isAction && isTargetCell) {
-      event.preventDefault();
-      event.stopPropagation();
-  
-      this.$emit('activate', {
-        type: 'keydown',
-        event,
-        row: this.context.row,
-        group: this.context.group,
-        rowHeight: this.context.rowHeight,
-        column: this.context.column,
-        value: this.context.value,
-        cellElement: this.$el,
-      });
-    }
-  }
-  
-  onCheckboxChange(event): void {
-    this.$emit('activate', {
-      type: 'checkbox',
-      event,
-      row: this.context.row,
-      group: this.context.group,
-      rowHeight: this.context.rowHeight,
-      column: this.context.column,
-      value: this.context.value,
-      cellElement: this.$el,
-      treeStatus: 'collapsed'
-    });
-  }
-  
-  onTreeAction(event) {
-    this.$emit('tree-action', { event, row: this.context.row });
-  }
-
-  onMouseEnter(event) {
-    this.$emit('mouseenter', { event, row: this.context.row });
-  }
 }
+
+export default Vue.extend({
+  functional: true,
+  props: {
+    context: Object,
+    cellColumnCssClasses: Function,
+    cellStyleObject: Function,
+    marginCellStyle: Function,
+    tabIndex: String,
+  },
+  methods: {
+    onFocus(props): void {
+      props.context.isFocused = true;
+    },  
+    onBlur(props): void {
+      props.context.isFocused = false;
+    },
+    onClick(event, listeners, props): void {
+      // props.context.isFocused = true;
+      // props.context.abcd = true;
+      listeners.activate({
+        type: 'click',
+        event,
+        row: props.context.row,
+        group: props.context.group,
+        rowHeight: props.context.rowHeight,
+        column: props.context.column,
+        value: props.context.value,
+        cellElement: getEl(props),
+      });
+    },
+    onDblClick(event, listeners, props): void {
+      listeners.activate({
+        type: 'dblclick',
+        event,
+        row: props.context.row,
+        group: props.context.group,
+        rowHeight: props.context.rowHeight,
+        column: props.context.column,
+        value: props.context.value,
+        cellElement: getEl(props),
+      });
+    },
+    onKeyDown(event, listeners, props): void {
+      const keyCode = event.keyCode;
+      const isTargetCell = event.target === getEl(props);
+      const isAction =
+        keyCode === Keys.return ||
+        keyCode === Keys.down ||
+        keyCode === Keys.up ||
+        keyCode === Keys.left ||
+        keyCode === Keys.right;
+  
+      if (isAction && isTargetCell) {
+        event.preventDefault();
+        event.stopPropagation();
+  
+        listeners.activate({
+          type: 'keydown',
+          event,
+          row: props.context.row,
+          group: props.context.group,
+          rowHeight: props.context.rowHeight,
+          column: props.context.column,
+          value: props.context.value,
+          cellElement: getEl(props),
+        });
+      }
+    },
+    onCheckboxChange(event, listeners, props): void {
+      listeners.activate({
+        type: 'checkbox',
+        event,
+        row: props.context.row,
+        group: props.context.group,
+        rowHeight: props.context.rowHeight,
+        column: props.context.column,
+        value: props.context.value,
+        cellElement: getEl(props),
+        treeStatus: 'collapsed'
+      });
+    },
+    onTreeAction(event, listeners, props) {
+      listeners['tree-action']({ event, row: props.row });
+    },
+  }
+});
 
 /*@Component
 export default class DataTableBodyCellComponent extends Vue {
@@ -416,7 +390,7 @@ export default class DataTableBodyCellComponent extends Vue {
   }
 
   onTreeAction(row: any) {
-    this.$emit('treeAction', row);
+    this.$emit('tree-action', row);
   }
 
   calcLeftMargin(column: any, row: any) {

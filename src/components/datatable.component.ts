@@ -15,15 +15,13 @@ import DataTableFooterComponent from './footer/footer.component';
 import { ScrollbarHelper } from '../services/scrollbar-helper.service';
 import { DimensionsHelper } from '../services/dimensions-helper.service';
 import DataTableColumnComponent from './columns/column.component';
-import DataTableBodyCellComponent from './body/body-cell.component.vue';
 import VisibilityDirective from '../directives/visibility.directive';
 import { IGroupedRows } from '../types/grouped-rows';
 import { isArrayEqual } from '../utils/equal.array';
-import DataTableBodyCellComponent1 from './body/body-cell.component1.vue';
+import DataTableBodyCellComponent from './body/body-cell.component.vue';
 
 Vue.component('datatable-column', DataTableColumnComponent);
-// Vue.component('datatable-body-cell', DataTableBodyCellComponent);
-Vue.component('datatable-body-cell1', DataTableBodyCellComponent1);
+Vue.component('datatable-body-cell', DataTableBodyCellComponent);
 
 @Component({
   directives: {

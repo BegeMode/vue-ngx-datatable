@@ -12,8 +12,8 @@ import { ICellContext } from '../../types/cell-context.type';
 import DataTableBodyGroupHeaderComponent from './body-group-header.component';
 import DataTableBodyRowDetailComponent from './body-row-detail.component';
 import { IGroupedRows } from '../../types/grouped-rows';
-import DataTableRowWrapperComponent1 from './body-row-wrapper.component1.vue';
-import DataTableBodyRowComponent1 from './body-row.component1.vue';
+import DataTableRowWrapperComponent from './body-row-wrapper.component.vue';
+import DataTableBodyRowComponent from './body-row.component.vue';
 
 @Component({
   components: {
@@ -21,10 +21,8 @@ import DataTableBodyRowComponent1 from './body-row.component1.vue';
     'datatable-progress': ProgressBarComponent,
     'datatable-scroller': ScrollerComponent,
     'datatable-summary-row': DataTableSummaryRowComponent,
-    // 'datatable-row-wrapper': DataTableRowWrapperComponent,
-    'datatable-row-wrapper1': DataTableRowWrapperComponent1,
-    // 'datatable-body-row': DataTableBodyRowComponent,
-    'datatable-body-row1': DataTableBodyRowComponent1,
+    'datatable-row-wrapper': DataTableRowWrapperComponent,
+    'datatable-body-row': DataTableBodyRowComponent,
     'datatable-group-header': DataTableBodyGroupHeaderComponent,
     'datatable-row-detail': DataTableBodyRowDetailComponent,
   }

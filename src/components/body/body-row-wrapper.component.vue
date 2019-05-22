@@ -1,40 +1,40 @@
-<template functional>
-  <div class="datatable-row-wrapper" :style="props.styleObject">
+<template>
+  <div class="datatable-row-wrapper" :style="styleObject">
     <datatable-group-header
-      v-if="props.groupHeader" 
+      v-if="groupHeader" 
       class="datatable-group-header"
-      :style="{ 'transform': 'translate3d(' + props.offsetX + 'px, 0px, 0px)', 'backface-visibility': 'hidden', 'width': props.innerWidth, 'height': props.groupRowHeight? props.groupRowHeight + 'px': 'auto' }"
-      :group="props.row"
-      :groupLevel="props.groupLevel"
-      :groupRowsBy="props.groupRowsBy"
-      :expanded="props.expanded"
-      :groupHeaderSlot="props.groupHeaderSlot"
-      @group-toggle="listeners['group-toggle']($event)"
-      @contextmenu="listeners['row-contextmenu']($event, props.row)">
+      :style="groupHeaderStyles"
+      :group="row"
+      :groupLevel="groupLevel"
+      :groupRowsBy="groupRowsBy"
+      :expanded="expanded"
+      :groupHeaderSlot="groupHeaderSlot"
+      @group-toggle="$emit('group-toggle', $event)"
+      @contextmenu="$emit('row-contextmenu', $event, row)">
     </datatable-group-header>
-    <div v-if="(props.groupHeader && props.expanded) || !props.groupHeader">
+    <div v-if="(groupHeader && expanded) || !groupHeader">
       <slot>
         <!-- datatable-body-row here -->
       </slot>
     </div>
-    <template v-if="props.row.groups && props.expanded">
-      <datatable-row-wrapper class="datatable-row-wrapper" v-for="group of props.row.groups" :key="group.key"
-          :groupedRows="props.groupedRows"
-          :groupRowsBy="props.groupRowsBy"
+    <template v-if="row.groups && expanded">
+      <datatable-row-wrapper class="datatable-row-wrapper" v-for="group of row.groups" :key="group.key"
+          :groupedRows="groupedRows"
+          :groupRowsBy="groupRowsBy"
           :row="group"
-          :innerWidth="props.innerWidth"
-          :rowDetail="props.rowDetail"
+          :innerWidth="innerWidth"
+          :rowDetail="rowDetail"
           :groupHeader="true"
           :groupLevel="group.level"
-          :offsetX="props.offsetX"
-          :groupRowHeight="props.groupRowHeight"
-          :rowDetailHeight="props.rowDetailHeight"
+          :offsetX="offsetX"
+          :groupRowHeight="groupRowHeight"
+          :rowDetailHeight="rowDetailHeight"
           :expanded="parent.getRowExpanded(group)"
           :rowIndex="parent.getRowIndex(group)"
-          :groupHeaderSlot="props.groupHeaderSlot"
-          :rowDetailSlot="props.rowDetailSlot"
-          @group-toggle="listeners['group-toggle']"
-          @row-contextmenu="listeners['row-contextmenu']">
+          :groupHeaderSlot="groupHeaderSlot"
+          :rowDetailSlot="rowDetailSlot"
+          @group-toggle="$emit('group-toggle', $event)"
+          @row-contextmenu="$emit('row-contextmenu', $event, row)">
           <datatable-body-row
             v-for="(row,i) of group.value" :key="i"
             tabindex="-1"
@@ -53,20 +53,20 @@
             :cellStyleObject="parent.cellStyleObject"
             :marginCellStyle="parent.marginCellStyle"
             :slots=parent.cellSlots
-            @tree-action="parent.onTreeAction(row)"
+            @tree-action="parent.onTreeAction({row: row})"
             @activate="parent.onActivate($event, i)">
         </datatable-body-row>
       </datatable-row-wrapper>
     </template>
     <datatable-row-detail
-      v-if="props.rowDetail && props.expanded" 
+      v-if="rowDetail && expanded" 
       class="datatable-row-detail"
-      :style="{'height': props.rowDetailHeight + 'px'}"
-      :row="props.row"
-      :expanded="props.expanded"
-      :rowDetailSlot="props.rowDetailSlot"
-      @detail-toggle="listeners['detail-toggle']($event)"
-      @contextmenu="listeners['row-contextmenu']($event, props.row)">
+      :style="{'height': rowDetailHeight + 'px'}"
+      :row="row"
+      :expanded="expanded"
+      :rowDetailSlot="rowDetailSlot"
+      @detail-toggle="$emit('detail-toggle', $event)"
+      @contextmenu="$emit('row-contextmenu', $event, row)">
     </datatable-row-detail>
   </div>
 </template>
