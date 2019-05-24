@@ -298,8 +298,7 @@ export default class DatatableComponent extends Vue {
 
   resizeHander: any;
 
-  groupedRows: any[] = null;
-  groupedRowsTemp: any[] = null;
+  groupedRows: IGroupedRows[] = null;
 
   innerWidth: number = 0;
   pageSize: number = 0;
@@ -457,11 +456,10 @@ export default class DatatableComponent extends Vue {
     );
     
     this.groupedRows = null;
-    this.groupedRowsTemp = null;
     if (this.rows && this.groupRowsBy) {
       // this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy);
-      this.groupedRowsTemp = this.groupArrayBy(this.rows, this.groupRowsBy, 0);
-      this.internalRows = this.processGroupedRows(this.groupedRowsTemp);
+      this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy, 0);
+      this.internalRows = this.processGroupedRows(this.groupedRows);
     }
 
     // recalculate sizes/etc
@@ -503,11 +501,10 @@ export default class DatatableComponent extends Vue {
     }
     this.groupHeader = Boolean(this.groupRowsBy);
     this.groupedRows = null;
-    this.groupedRowsTemp = null;
     if (this.groupRowsBy) {
       // this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy);
-      this.groupedRowsTemp = this.groupArrayBy(this.rows, this.groupRowsBy, 0);
-      this.internalRows = this.processGroupedRows(this.groupedRowsTemp);
+      this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy, 0);
+      this.internalRows = this.processGroupedRows(this.groupedRows);
     } else {
       this.internalRows = this.rows;
     }
@@ -926,8 +923,6 @@ export default class DatatableComponent extends Vue {
     if (!this.externalPaging) {
       if (!val) return 0;
 
-      // if (this.groupedRows) {
-      //   return this.groupedRows.length;
       if (this.groupRowsBy) {
         return this.internalRows.length;
       } else if (this.treeFromRelation != null && this.treeToRelation != null) {
@@ -1100,7 +1095,7 @@ export default class DatatableComponent extends Vue {
 
   onGroupToggle(event: any) {
     event.value.__expanded = !event.value.__expanded;
-    this.internalRows = this.processGroupedRows(this.groupedRowsTemp);
+    this.internalRows = this.processGroupedRows(this.groupedRows);
     this.recalculate();
   }
 
@@ -1280,11 +1275,9 @@ export default class DatatableComponent extends Vue {
                    keysDescr: Array<{ title: string; prop: string; }>): IGroupedRows {
     const keys = key ? key.toString().split('^^') : null;
     const keysObj = [];
-    if (keys) {
-      keysDescr.forEach((descr, index) => {
-        keysObj.push({ title: descr.title, prop: descr.prop, value: keys[index] });
-      });
-    }
+    keysDescr.forEach((descr, index) => {
+      keysObj.push({ title: descr.title, prop: descr.prop, value: keys && keys.length > index ? keys[index] : '' });
+    });
     return {
       key,
       value,
@@ -1295,7 +1288,7 @@ export default class DatatableComponent extends Vue {
     };
   }
 
-  private getGroupTitle(prop: string | { title: string, prop: string }) {
+  private getGroupTitle(prop: string | { title: string, prop: string }): string {
     let title = prop;
     if (typeof prop === 'string') {
       const column = this.columns && this.columns.find(c => c.prop === prop);
@@ -1303,10 +1296,37 @@ export default class DatatableComponent extends Vue {
     } else if ('title' in prop) {
       title = prop.title;
     }
-    return title;
+    return <string>title;
   }
 
   private sortInternalRows(): void {
-    this.internalRows = sortRows(this.internalRows, this.internalColumns, this.mySorts);
+    if (this.groupedRows) {
+      this.groupedRows = this.sortGroupedRows(this.groupedRows);
+      this.internalRows = this.processGroupedRows(this.groupedRows);
+    } else {
+      this.internalRows = sortRows(this.internalRows, this.internalColumns, this.mySorts);
+    }
   }
+
+  private sortGroupedRows(groupedRows: IGroupedRows[]): IGroupedRows[] {
+    const rows = [];
+    let sortedRows: any[];
+    groupedRows.forEach(gr => {
+      const row = { __group: gr };
+      gr.keys.forEach(keyDescr => {
+        row[keyDescr.prop] = keyDescr.value;
+      });
+      rows.push(row);
+      if (gr.groups && gr.groups.length) {
+        gr.groups = this.sortGroupedRows(gr.groups);
+      }
+      if (gr.value && gr.value) {
+        gr.value = sortRows(gr.value, this.internalColumns, this.mySorts);
+      }
+    });
+    sortedRows = sortRows(rows, this.internalColumns, this.mySorts);
+    const result = sortedRows.map(r => r.__group);
+    return result;
+  }
+
 }

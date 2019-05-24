@@ -197,10 +197,6 @@ export default class DataTableBodyComponent extends Vue {
     this.recalcLayout();
   }
 
-  get parentForWrapper() {
-    return this;
-  }
-
   get bodyWidth(): string {
     if (this.scrollbarH) {
       return this.innerWidth + 'px';

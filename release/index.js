@@ -2298,7 +2298,6 @@ var DatatableComponent = /** @class */ (function (_super) {
     function DatatableComponent() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.groupedRows = null;
-        _this.groupedRowsTemp = null;
         _this.innerWidth = 0;
         _this.pageSize = 0;
         _this.bodyHeight = 0;
@@ -2428,11 +2427,10 @@ var DatatableComponent = /** @class */ (function (_super) {
         // auto group by parent on new update
         this.internalRows = utils_1.groupRowsByParents(this.internalRows, utils_1.optionalGetterForProp(this.treeFromRelation), utils_1.optionalGetterForProp(this.treeToRelation));
         this.groupedRows = null;
-        this.groupedRowsTemp = null;
         if (this.rows && this.groupRowsBy) {
             // this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy);
-            this.groupedRowsTemp = this.groupArrayBy(this.rows, this.groupRowsBy, 0);
-            this.internalRows = this.processGroupedRows(this.groupedRowsTemp);
+            this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy, 0);
+            this.internalRows = this.processGroupedRows(this.groupedRows);
         }
         // recalculate sizes/etc
         if (this.$el) {
@@ -2472,11 +2470,10 @@ var DatatableComponent = /** @class */ (function (_super) {
         }
         this.groupHeader = Boolean(this.groupRowsBy);
         this.groupedRows = null;
-        this.groupedRowsTemp = null;
         if (this.groupRowsBy) {
             // this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy);
-            this.groupedRowsTemp = this.groupArrayBy(this.rows, this.groupRowsBy, 0);
-            this.internalRows = this.processGroupedRows(this.groupedRowsTemp);
+            this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy, 0);
+            this.internalRows = this.processGroupedRows(this.groupedRows);
         }
         else {
             this.internalRows = this.rows;
@@ -2908,8 +2905,6 @@ var DatatableComponent = /** @class */ (function (_super) {
         if (!this.externalPaging) {
             if (!val)
                 return 0;
-            // if (this.groupedRows) {
-            //   return this.groupedRows.length;
             if (this.groupRowsBy) {
                 return this.internalRows.length;
             }
@@ -3063,7 +3058,7 @@ var DatatableComponent = /** @class */ (function (_super) {
     };
     DatatableComponent.prototype.onGroupToggle = function (event) {
         event.value.__expanded = !event.value.__expanded;
-        this.internalRows = this.processGroupedRows(this.groupedRowsTemp);
+        this.internalRows = this.processGroupedRows(this.groupedRows);
         this.recalculate();
     };
     /**
@@ -3236,11 +3231,9 @@ var DatatableComponent = /** @class */ (function (_super) {
     DatatableComponent.prototype.addGroup = function (key, value, _level, keysDescr) {
         var keys = key ? key.toString().split('^^') : null;
         var keysObj = [];
-        if (keys) {
-            keysDescr.forEach(function (descr, index) {
-                keysObj.push({ title: descr.title, prop: descr.prop, value: keys[index] });
-            });
-        }
+        keysDescr.forEach(function (descr, index) {
+            keysObj.push({ title: descr.title, prop: descr.prop, value: keys && keys.length > index ? keys[index] : '' });
+        });
         return {
             key: key,
             value: value,
@@ -3262,7 +3255,34 @@ var DatatableComponent = /** @class */ (function (_super) {
         return title;
     };
     DatatableComponent.prototype.sortInternalRows = function () {
-        this.internalRows = utils_1.sortRows(this.internalRows, this.internalColumns, this.mySorts);
+        if (this.groupedRows) {
+            this.groupedRows = this.sortGroupedRows(this.groupedRows);
+            this.internalRows = this.processGroupedRows(this.groupedRows);
+        }
+        else {
+            this.internalRows = utils_1.sortRows(this.internalRows, this.internalColumns, this.mySorts);
+        }
+    };
+    DatatableComponent.prototype.sortGroupedRows = function (groupedRows) {
+        var _this = this;
+        var rows = [];
+        var sortedRows;
+        groupedRows.forEach(function (gr) {
+            var row = { __group: gr };
+            gr.keys.forEach(function (keyDescr) {
+                row[keyDescr.prop] = keyDescr.value;
+            });
+            rows.push(row);
+            if (gr.groups && gr.groups.length) {
+                gr.groups = _this.sortGroupedRows(gr.groups);
+            }
+            if (gr.value && gr.value) {
+                gr.value = utils_1.sortRows(gr.value, _this.internalColumns, _this.mySorts);
+            }
+        });
+        sortedRows = utils_1.sortRows(rows, this.internalColumns, this.mySorts);
+        var result = sortedRows.map(function (r) { return r.__group; });
+        return result;
     };
     __decorate([
         vue_property_decorator_1.Prop(),

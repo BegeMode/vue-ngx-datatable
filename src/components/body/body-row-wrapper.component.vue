@@ -15,47 +15,6 @@
     <slot v-else>
       <!-- datatable-body-row here -->
     </slot>
-    <!-- <template v-if="row.groups && expanded">
-      <datatable-row-wrapper class="datatable-row-wrapper" v-for="group of row.groups" :key="group.key"
-          :groupedRows="groupedRows"
-          :groupRowsBy="groupRowsBy"
-          :row="group"
-          :innerWidth="innerWidth"
-          :rowDetail="rowDetail"
-          :groupHeader="true"
-          :groupLevel="group.level"
-          :offsetX="offsetX"
-          :groupRowHeight="groupRowHeight"
-          :rowDetailHeight="rowDetailHeight"
-          :expanded="parent.getRowExpanded(group)"
-          :rowIndex="parent.getRowIndex(group)"
-          :groupHeaderSlot="groupHeaderSlot"
-          :rowDetailSlot="rowDetailSlot"
-          @group-toggle="$emit('group-toggle', $event)"
-          @row-contextmenu="$emit('row-contextmenu', $event, row)">
-          <datatable-body-row
-            v-for="(row,i) of group.value" :key="i"
-            tabindex="-1"
-            :group="group.value"
-            :columnsByPin="parent.columnsByPin"
-            :columnGroupWidths="parent.columnGroupWidths"
-            :isSelected="parent.isSelect(row)"
-            :groupStyles="parent.getGroupStyles"
-            :groupClass="parent.getGroupClass(row)"
-            :rowStyles="parent.getRowStyles"
-            :row="row"
-            :displayCheck="parent.displayCheck"
-            :treeStatus="row.treeStatus"
-            :cellContext="parent.getCellContext"
-            :cellColumnCssClasses="parent.cellColumnCssClasses"
-            :cellStyleObject="parent.cellStyleObject"
-            :marginCellStyle="parent.marginCellStyle"
-            :slots=parent.cellSlots
-            @tree-action="parent.onTreeAction({row: row})"
-            @activate="parent.onActivate($event, i)">
-        </datatable-body-row>
-      </datatable-row-wrapper>
-    </template> -->
     <datatable-row-detail
       v-if="rowDetail && expanded" 
       class="datatable-row-detail"

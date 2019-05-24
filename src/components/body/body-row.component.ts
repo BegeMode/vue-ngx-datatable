@@ -1,10 +1,11 @@
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import { Keys } from '../../utils/keys';
+import DataTableBodyCellComponent from './body-cell.component.vue';
 
 @Component({
-  // components: {
-  //   'datatable-body-cell': DataTableBodyCellComponent,
-  // }
+  components: {
+    'datatable-body-cell': DataTableBodyCellComponent,
+  }
 })
 export default class DataTableBodyRowComponent extends Vue {
   @Prop() row: any;
@@ -23,9 +24,18 @@ export default class DataTableBodyRowComponent extends Vue {
   @Prop() marginCellStyle: any;
   @Prop() slots: any;
 
+  counter = 0; // it's need to update cells after row's changing
+
   created() {
     if (IS_DEV) {
       console.log('DataTableBodyRowComponent is created');
+    }
+  }
+
+  @Watch('row', { deep: true }) onRowChanged(newVal, oldVal) {
+    if (newVal === oldVal) {
+      // there was only row's properties changed - it's need to update cells
+      this.counter++;
     }
   }
 

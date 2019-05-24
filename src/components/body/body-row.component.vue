@@ -14,7 +14,7 @@
       </div>-->
       <datatable-body-cell
         v-for="(column, ii) of colGroup.columns"
-        :key="column.$$id"
+        :key="`${column.$$id}-${counter}`"
         tabIndex="-1"
         :context="cellContext(row, group, column)"
         :cellColumnCssClasses="cellColumnCssClasses"

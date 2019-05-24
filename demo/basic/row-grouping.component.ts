@@ -71,11 +71,12 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
           </template>                    
         </ngx-datatable-column>
 
-        <ngx-datatable-column name="Source" prop="source" :editable="false" :frozenLeft="true"></ngx-datatable-column>
-        <ngx-datatable-column name="Name" prop="name" :editable="true"></ngx-datatable-column>
-        <ngx-datatable-column name="Gender" prop="gender"></ngx-datatable-column>
-        <ngx-datatable-column name="Age" prop="age"></ngx-datatable-column>
-        <ngx-datatable-column name="Comment" prop="comment">
+        <ngx-datatable-column name="Source" prop="source" :editable="false" :sortable="true" :frozenLeft="true">
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Name" prop="name" :editable="true" :sortable="true"></ngx-datatable-column>
+        <ngx-datatable-column name="Gender" prop="gender" :sortable="true"></ngx-datatable-column>
+        <ngx-datatable-column name="Age" prop="age" :sortable="true"></ngx-datatable-column>
+        <ngx-datatable-column name="Comment" prop="comment" :sortable="true">
           <template slot-scope="scope" v-if="scope.row">           
             <input autofocus
               @blur="updateValue($event, 'comment', scope.rowIndex)"
