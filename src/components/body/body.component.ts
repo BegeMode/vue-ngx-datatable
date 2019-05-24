@@ -46,7 +46,7 @@ export default class DataTableBodyComponent extends Vue {
   @Prop() displayCheck: any;
   @Prop() trackByProp: string;
   @Prop() rowClass: any;
-  @Prop() groupedRows: any;
+  // @Prop() groupedRows: any;
   @Prop() groupExpansionDefault: boolean;
   @Prop() innerWidth: number;
   @Prop() groupRowsBy: string;
@@ -147,9 +147,9 @@ export default class DataTableBodyComponent extends Vue {
     });
   }
 
-  @Watch('groupedRows') onGroupedRowsChanged() {
-    this.onRowsChanged();
-  }
+  // @Watch('groupedRows') onGroupedRowsChanged() {
+  //   this.onRowsChanged();
+  // }
 
   @Watch('columns', { immediate: true }) onColumnsChanged(newVal, oldVal) {
     if (newVal && oldVal && newVal.length < oldVal.length) {
@@ -387,37 +387,37 @@ export default class DataTableBodyComponent extends Vue {
     // if grouprowsby has been specified treat row paging
     // parameters as group paging parameters ie if limit 10 has been
     // specified treat it as 10 groups rather than 10 rows
-    if (this.groupedRows) {
-      let maxRowsPerGroup = 3;
-      // if there is only one group set the maximum number of
-      // rows per group the same as the total number of rows
-      if (this.groupedRows.length === 1) {
-        maxRowsPerGroup = this.groupedRows[0].value.length;
-      }
-      let index = 0; 
-      while (rowIndex < last && rowIndex < this.groupedRows.length) {
-        // Add the groups into this page
-        const group = this.groupedRows[rowIndex];
-        group.value.forEach(row => this.rowIndexes.set(row, ++index));
-        temp[idx] = group;
-        idx++;
+    // if (this.groupedRows) {
+    //   let maxRowsPerGroup = 3;
+    //   // if there is only one group set the maximum number of
+    //   // rows per group the same as the total number of rows
+    //   if (this.groupedRows.length === 1) {
+    //     maxRowsPerGroup = this.groupedRows[0].value.length;
+    //   }
+    //   let index = 0; 
+    //   while (rowIndex < last && rowIndex < this.groupedRows.length) {
+    //     // Add the groups into this page
+    //     const group = this.groupedRows[rowIndex];
+    //     group.value.forEach(row => this.rowIndexes.set(row, ++index));
+    //     temp[idx] = group;
+    //     idx++;
 
-        // Group index in this context
-        rowIndex++;
-      }
-    } else {
-      while (rowIndex < last && rowIndex < this.rowCount) {
-        const row = this.rows[rowIndex];
+    //     // Group index in this context
+    //     rowIndex++;
+    //   }
+    // } else {
+    while (rowIndex < last && rowIndex < this.rowCount) {
+      const row = this.rows[rowIndex];
 
-        if (row) {
-          this.rowIndexes.set(row, rowIndex);
-          temp[idx] = row;
-        }
-
-        idx++;
-        rowIndex++;
+      if (row) {
+        this.rowIndexes.set(row, rowIndex);
+        temp[idx] = row;
       }
+
+      idx++;
+      rowIndex++;
     }
+    // }
   
     this.temp = temp;
     // console.log('updateRows first = ', first);
@@ -498,21 +498,20 @@ export default class DataTableBodyComponent extends Vue {
     const styles = {};
 
     // only add styles for the group if there is a group
-    if (this.groupedRows) {
+    if (this.groupRowsBy) {
       styles['width'] = this.columnGroupWidths.total;
     }
 
     if (this.scrollbarV && this.virtualization) {
       let idx = 0;
-      let row = rows;
-
-      if (this.groupedRows) {
-        // Get the latest row rowindex in a group
-        row = rows[rows.length - 1];
-        idx = row ? this.getRowIndex(row) : 0;
-      } else {
-        idx = this.getRowIndex(rows);
-      }
+      // let row = rows;
+      // if (this.groupedRows) {
+      //   // Get the latest row rowindex in a group
+      //   row = rows[rows.length - 1];
+      //   idx = row ? this.getRowIndex(row) : 0;
+      // } else {
+      idx = this.getRowIndex(rows);
+      // }
 
       // const pos = idx * rowHeight;
       // The position of this row would be the sum of all row heights
@@ -612,6 +611,7 @@ export default class DataTableBodyComponent extends Vue {
         rows: this.rows,
         rowHeight: this.rowHeight,
         rowDetailHeight: this.getDetailRowHeight,
+        groupRowHeight: this.groupRowHeight,
         externalVirtual: this.scrollbarV && this.externalPaging,
         rowCount: this.rowCount,
         rowIndexes: this.rowIndexes,
@@ -695,13 +695,14 @@ export default class DataTableBodyComponent extends Vue {
   }
 
   onGroupToggle($event) {
-    if ($event.type === 'group') {
-      this.toggleRowExpansion($event.value);
-    } else if ($event.type === 'all') {
-      this.toggleAllRows($event.value);
-    }
-    this.updateIndexes();
-    this.updateRows(true);
+    this.$emit('group-toggle', $event);
+    // if ($event.type === 'group') {
+    //   this.toggleRowExpansion($event.value);
+    // } else if ($event.type === 'all') {
+    //   this.toggleAllRows($event.value);
+    // }
+    // this.updateIndexes();
+    // this.updateRows(true);
   }
 
   /**
@@ -759,11 +760,11 @@ export default class DataTableBodyComponent extends Vue {
    * Returns if the row was expanded and set default row expansion when row expansion is empty
    */
   getRowExpanded(row: any): boolean {
-    if (this.rowExpansions.size === 0 && this.groupExpansionDefault && this.groupedRows) {
-      for (const group of this.groupedRows) {
-        this.initExpansions(group);
-      }
-    }
+    // if (this.rowExpansions.size === 0 && this.groupExpansionDefault && this.groupedRows) {
+    //   for (const group of this.groupedRows) {
+    //     this.initExpansions(group);
+    //   }
+    // }
     const expanded = this.rowExpansions.get(row);
     return expanded === 1;
   }

@@ -12,7 +12,7 @@ v-visibility-observer
   :scrollbarH="scrollbarH"
   :innerWidth="innerWidth"
   :offsetX="offsetX"
-  :dealsWithGroup="groupedRows"
+  :dealsWithGroup="groupRowsBy"
   :columns="internalColumns"
   :headerHeight="headerHeight"
   :reorderable="reorderable"
@@ -29,7 +29,6 @@ v-visibility-observer
 </datatable-header>
 <datatable-body ref="datatableBody"
   :groupRowsBy="groupRowsBy"
-  :groupedRows="groupedRows"
   :rows="internalRows"
   :groupExpansionDefault="groupExpansionDefault"
   :scrollbarV="scrollbarV"
@@ -66,9 +65,10 @@ v-visibility-observer
   @page="onBodyPage"
   @activate="$emit('activate', $event)"
   @rowContextmenu="onRowContextmenu"
-  @select="onBodySelect($event)"
-  @scroll="onBodyScroll($event)"
-  @tree-action="onTreeAction($event)">
+  @select="onBodySelect"
+  @scroll="onBodyScroll"
+  @group-toggle="onGroupToggle"
+  @tree-action="onTreeAction">
 </datatable-body>
 <div class="datatable-footer">
   <datatable-footer ref="datatableFooter"

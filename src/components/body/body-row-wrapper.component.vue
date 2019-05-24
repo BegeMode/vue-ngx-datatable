@@ -1,23 +1,21 @@
 <template>
   <div class="datatable-row-wrapper" :style="styleObject">
     <datatable-group-header
-      v-if="groupHeader" 
+      v-if="row.__isGroup" 
       class="datatable-group-header"
       :style="groupHeaderStyles"
       :group="row"
-      :groupLevel="groupLevel"
+      :groupLevel="row.level"
       :groupRowsBy="groupRowsBy"
-      :expanded="expanded"
+      :expanded="row.__expanded"
       :groupHeaderSlot="groupHeaderSlot"
       @group-toggle="$emit('group-toggle', $event)"
       @contextmenu="$emit('row-contextmenu', $event, row)">
     </datatable-group-header>
-    <div v-if="(groupHeader && expanded) || !groupHeader">
-      <slot>
-        <!-- datatable-body-row here -->
-      </slot>
-    </div>
-    <template v-if="row.groups && expanded">
+    <slot v-else>
+      <!-- datatable-body-row here -->
+    </slot>
+    <!-- <template v-if="row.groups && expanded">
       <datatable-row-wrapper class="datatable-row-wrapper" v-for="group of row.groups" :key="group.key"
           :groupedRows="groupedRows"
           :groupRowsBy="groupRowsBy"
@@ -57,7 +55,7 @@
             @activate="parent.onActivate($event, i)">
         </datatable-body-row>
       </datatable-row-wrapper>
-    </template>
+    </template> -->
     <datatable-row-detail
       v-if="rowDetail && expanded" 
       class="datatable-row-detail"

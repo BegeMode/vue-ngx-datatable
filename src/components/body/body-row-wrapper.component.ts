@@ -21,7 +21,7 @@ export default class DataTableRowWrapperComponent extends Vue {
   @Prop() rowDetailHeight: number;
   @Prop() groupRowHeight: number;
   @Prop() row: any;
-  @Prop() groupedRows: any[];  
+  // @Prop() groupedRows: any[];  
   @Prop() groupRowsBy: any[];
   @Prop() rowIndex: number;
   @Prop() expanded: boolean;

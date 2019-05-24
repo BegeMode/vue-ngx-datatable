@@ -28,9 +28,9 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
         :headerHeight="50"
         :footerHeight="50"
         :rowHeight="40"
-        limit="4"
+        limit="10"
         :groupExpansionDefault="true"
-        :groupRowHeight="30"
+        :groupRowHeight="40"
         @group-toggle="onDetailToggle($event)">
 
         <!-- Group Header Template -->

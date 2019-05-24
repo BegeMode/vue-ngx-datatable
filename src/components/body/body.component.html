@@ -40,7 +40,6 @@ ref="selector"
   <datatable-row-wrapper class="datatable-row-wrapper" :styleObject="getRowsStyles(group, i)"
     v-for="(group, i) of temp" :key="i"
     :parent="parentForWrapper"
-    :groupedRows="groupedRows"
     :groupRowsBy="groupRowsBy"
     :groupLevel="0"
     :row="group"
@@ -57,7 +56,6 @@ ref="selector"
     @group-toggle="onGroupToggle"
     @row-contextmenu="$emit('rowContextmenu')">
     <datatable-body-row
-      v-if="!groupedRows"
       tabindex="-1"
       :columnsByPin="columnsByPin"
       :columnGroupWidths="columnGroupWidths"
@@ -76,36 +74,7 @@ ref="selector"
       @tree-action="onTreeAction($event)"
       @activate="onActivate($event, i)">
     </datatable-body-row>
-    <datatable-body-row v-else
-        v-for="(row, index) of group.value" :key="index"
-        tabindex="-1"
-        :group="group.value"
-        :columnsByPin="columnsByPin"
-        :columnGroupWidths="columnGroupWidths"
-        :isSelected="isSelect(row)"
-        :groupStyles="getGroupStyles"
-        :groupClass="getGroupClass(row)"
-        :rowStyles="getRowStyles"
-        :row="row"
-        :displayCheck="displayCheck"
-        :treeStatus="row.treeStatus"
-        :cellContext="getCellContext"
-        :cellColumnCssClasses="cellColumnCssClasses"
-        :cellStyleObject="cellStyleObject"
-        :marginCellStyle="marginCellStyle"
-        :slots=cellSlots
-        @tree-action="onTreeAction($event)"
-        @activate="onActivate($event, index)">
-    </datatable-body-row>
   </datatable-row-wrapper>
-  <!-- <div v-for="(item, index) in visibleItems"   // rowStyle
-      :key="keysEnabled && item.id || undefined"
-      :item="item"
-      :item-index="startIndex + index"
-      class="item">
-    <span>{{item.id}}</span>
-  </div> -->
-
   <datatable-summary-row class="datatable-summary-row"
     v-if="summaryRow && summaryPosition === 'bottom'"
     :style="getBottomSummaryRowStyles"

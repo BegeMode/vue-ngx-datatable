@@ -299,6 +299,7 @@ export default class DatatableComponent extends Vue {
   resizeHander: any;
 
   groupedRows: any[] = null;
+  groupedRowsTemp: any[] = null;
 
   innerWidth: number = 0;
   pageSize: number = 0;
@@ -336,11 +337,9 @@ export default class DatatableComponent extends Vue {
 
   private scrollbarHelper: ScrollbarHelper = new ScrollbarHelper();
   private dimensionsHelper: DimensionsHelper = new DimensionsHelper();
-  // private columnChangesService: ColumnChangesService;
 
   destroyed() {
     window.removeEventListener('resize', this.resizeHander);
-    //  todo: this._subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   /**
@@ -458,8 +457,11 @@ export default class DatatableComponent extends Vue {
     );
     
     this.groupedRows = null;
+    this.groupedRowsTemp = null;
     if (this.rows && this.groupRowsBy) {
-      this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy, 0);
+      // this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy);
+      this.groupedRowsTemp = this.groupArrayBy(this.rows, this.groupRowsBy, 0);
+      this.internalRows = this.processGroupedRows(this.groupedRowsTemp);
     }
 
     // recalculate sizes/etc
@@ -468,17 +470,46 @@ export default class DatatableComponent extends Vue {
     }
   }
 
+  addRow(group: IGroupedRows, rows: any[]) {
+    // (group as any).__isGroup = true;
+    // group.__expanded = true;
+    rows.push(group);
+    if (group.value && group.__expanded) {
+      group.value.forEach(r => {
+        rows.push(r);
+      });
+    }
+    if (group.groups && group.__expanded) {
+      group.groups.forEach(gr => {
+        this.addRow(gr, rows);
+      });
+    }
+  }
+
+  processGroupedRows(groupedRows: IGroupedRows[]): any[] {
+    const rows = [];
+    if (groupedRows && groupedRows.length) {
+      // creates a new array with the data grouped
+      groupedRows.forEach(g => {
+        this.addRow(g, rows);
+      });
+    }
+    return rows;
+  }
+
   @Watch('groupRowsBy') onGroupRowsByChanged(newVal, oldVal) {
     if (isArrayEqual(newVal, oldVal)) {
       return;
     }
     this.groupHeader = Boolean(this.groupRowsBy);
     this.groupedRows = null;
+    this.groupedRowsTemp = null;
     if (this.groupRowsBy) {
-      if (this.rows) {
-        // creates a new array with the data grouped
-        this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy);
-      }
+      // this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy);
+      this.groupedRowsTemp = this.groupArrayBy(this.rows, this.groupRowsBy, 0);
+      this.internalRows = this.processGroupedRows(this.groupedRowsTemp);
+    } else {
+      this.internalRows = this.rows;
     }
     this.recalculate();
   }
@@ -895,8 +926,10 @@ export default class DatatableComponent extends Vue {
     if (!this.externalPaging) {
       if (!val) return 0;
 
-      if (this.groupedRows) {
-        return this.groupedRows.length;
+      // if (this.groupedRows) {
+      //   return this.groupedRows.length;
+      if (this.groupRowsBy) {
+        return this.internalRows.length;
       } else if (this.treeFromRelation != null && this.treeToRelation != null) {
         return this.internalRows.length;
       } else {
@@ -1063,6 +1096,12 @@ export default class DatatableComponent extends Vue {
    */
   onBodySelect(event: any): void {
     this.$emit('select', event);
+  }
+
+  onGroupToggle(event: any) {
+    event.value.__expanded = !event.value.__expanded;
+    this.internalRows = this.processGroupedRows(this.groupedRowsTemp);
+    this.recalculate();
   }
 
   /**
@@ -1250,7 +1289,9 @@ export default class DatatableComponent extends Vue {
       key,
       value,
       level: _level,
-      keys: keysObj
+      keys: keysObj,
+      __expanded: true,
+      __isGroup: true
     };
   }
 

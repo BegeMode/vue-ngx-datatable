@@ -23,14 +23,9 @@ export default class DataTableBodyRowComponent extends Vue {
   @Prop() marginCellStyle: any;
   @Prop() slots: any;
 
-  cellSlots = {};
-
   created() {
     if (IS_DEV) {
       console.log('DataTableBodyRowComponent is created');
-    }
-    if (this.slots) {
-      this.cellSlots = this.slots();
     }
   }
 

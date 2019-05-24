@@ -20,7 +20,7 @@
         :cellColumnCssClasses="cellColumnCssClasses"
         :cellStyleObject="cellStyleObject"
         :marginCellStyle="marginCellStyle"
-        :cellSlot="cellSlots[column.prop]"
+        :cellSlot="slots()[column.prop]"
         @activate="onActivate($event, ii)"
         @tree-action="onTreeAction"
         @keydown="onKeyDown"
