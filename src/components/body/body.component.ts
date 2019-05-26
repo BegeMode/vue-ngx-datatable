@@ -65,6 +65,7 @@ export default class DataTableBodyComponent extends Vue {
   @Prop({ type: [String], default: 'height' }) heightField: string;
   @Prop() groupHeaderSlot: any;
   @Prop() rowDetailSlot: any;
+  @Prop() renderTracking: boolean;
 
   scroller: any = null; // ScrollerComponent
   selector: any = null; // DataTableSelectionComponent;
@@ -94,6 +95,8 @@ export default class DataTableBodyComponent extends Vue {
   rowsChanged: boolean;
   private scrollbarHelper = new ScrollbarHelper();
   private cellContexts = new Map();
+  private renderCounter = 0;
+  private renderId = null;
 
   // ready = false;
   // startIndex = 0;
@@ -782,6 +785,28 @@ export default class DataTableBodyComponent extends Vue {
 
   onActivate(event, index) {
     this.selector && this.selector.onActivate(event, this.indexes.first + index);
+  }
+
+  onRowRendered(row: any) {
+    if (this.renderCounter === 0) {
+      console.time('render');
+    }
+    this.renderCounter++;
+    const counter = this.renderCounter;
+    clearTimeout(this.renderId);
+    this.renderId = setTimeout(() => this.checkRenderFinish(counter), 100);
+  }
+
+  checkRenderFinish(counter: number) {
+    if (counter === this.renderCounter) {
+      console.timeEnd('render');
+      this.renderCounter = 0;
+      this.$emit('rendered');
+    } else {
+      counter = this.renderCounter;
+      clearTimeout(this.renderId);
+      this.renderId = setTimeout(() => this.checkRenderFinish(counter), 100);
+    }
   }
 
   buildStylesByGroup() {

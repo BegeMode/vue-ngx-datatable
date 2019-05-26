@@ -312,6 +312,7 @@ export default class DatatableComponent extends Vue {
   // tslint:disable-next-line:variable-name
   myOffset_: number = 0;
   mySelected = [];
+  renderTracking = false;
 
   // non-reactive
   mySorts: any[];
@@ -337,6 +338,17 @@ export default class DatatableComponent extends Vue {
   private scrollbarHelper: ScrollbarHelper = new ScrollbarHelper();
   private dimensionsHelper: DimensionsHelper = new DimensionsHelper();
 
+  created() {
+    this.groupHeader = Boolean(this.groupRowsBy);
+    this.groupHeaderSlot = this.$scopedSlots.groupHeader;
+    this.rowDetailSlot = this.$scopedSlots.rowDetail;
+    this.footerSlot = this.$scopedSlots.footer;
+    this.rowDetail = Boolean(this.rowDetailSlot);
+    if (this.$listeners.rendered) {
+      this.renderTracking = true;
+    }
+  }
+
   destroyed() {
     window.removeEventListener('resize', this.resizeHander);
   }
@@ -346,17 +358,8 @@ export default class DatatableComponent extends Vue {
    * properties of a directive are initialized.
    */
   mounted(): void {
-    this.groupHeader = Boolean(this.groupRowsBy);
-    this.groupHeaderSlot = this.$scopedSlots.groupHeader;
-    this.rowDetailSlot = this.$scopedSlots.rowDetail;
-    this.footerSlot = this.$scopedSlots.footer;
-    this.rowDetail = Boolean(this.rowDetailSlot);
     this.bodyComponent = this.$refs.datatableBody; // as DataTableBodyComponent;
     this.headerComponent = this.$refs.datatableHeader; //  as DataTableHeaderComponent;
-    // this.rowDiffer = this.differs.find({}).create();
-
-    // pick up columns
-    // DataTableColumnComponent
 
     // need to call this immediatly to size
     // if the table is hidden the visibility
@@ -385,11 +388,6 @@ export default class DatatableComponent extends Vue {
       this.resizeHander = this.onWindowResize.bind(this);
       window.addEventListener('resize', this.resizeHander);
     });
-
-    // this.columnTemplates.changes.subscribe(v =>
-    //   this.translateColumns(v));
-      
-    // todo: this.listenForColumnInputChanges();
   }
 
   /**

@@ -62,13 +62,15 @@ v-visibility-observer
   :groupRowHeight="groupRowHeight"
   :groupHeaderSlot="groupHeaderSlot"
   :rowDetailSlot="rowDetailSlot"
+  :renderTracking="renderTracking"
   @page="onBodyPage"
   @activate="$emit('activate', $event)"
   @rowContextmenu="onRowContextmenu"
   @select="onBodySelect"
   @scroll="onBodyScroll"
   @group-toggle="onGroupToggle"
-  @tree-action="onTreeAction">
+  @tree-action="onTreeAction"
+  @rendered="$emit('rendered', $event)">
 </datatable-body>
 <div class="datatable-footer">
   <datatable-footer ref="datatableFooter"

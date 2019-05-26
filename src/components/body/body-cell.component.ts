@@ -15,6 +15,7 @@ export default class DataTableBodyCellComponent extends Vue {
   @Prop() marginCellStyle: any;
   @Prop() tabIndex: string;
   @Prop() cellSlot: any;
+  @Prop() renderTracking: boolean;
 
   created() {
     if (this.cellSlot) {
@@ -26,6 +27,9 @@ export default class DataTableBodyCellComponent extends Vue {
         value: this.context.value,
         updateCell: this.$forceUpdate.bind(this),
       });
+    }
+    if (this.renderTracking) {
+      this.$emit('cell-created', this.context.column);
     }
   }
 
@@ -39,6 +43,9 @@ export default class DataTableBodyCellComponent extends Vue {
         value: this.context.value,
         updateCell: this.$forceUpdate.bind(this),
       });
+    }
+    if (this.renderTracking) {
+      this.$emit('cell-updated', this.context.column);
     }
   }
 

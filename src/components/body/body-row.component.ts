@@ -1,6 +1,7 @@
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import { Keys } from '../../utils/keys';
 import DataTableBodyCellComponent from './body-cell.component.vue';
+import { TableColumn } from '../../types/table-column.type';
 
 @Component({
   components: {
@@ -23,12 +24,19 @@ export default class DataTableBodyRowComponent extends Vue {
   @Prop() cellStyleObject: any;
   @Prop() marginCellStyle: any;
   @Prop() slots: any;
+  @Prop() renderTracking: boolean;
 
   counter = 0; // it's need to update cells after row's changing
 
   created() {
-    if (IS_DEV) {
-      console.log('DataTableBodyRowComponent is created');
+    if (this.renderTracking) {
+      this.$emit('row-created', this.row);
+    }
+  }
+
+  updated() {
+    if (this.renderTracking) {
+      this.$emit('row-updated', this.row);
     }
   }
 
@@ -37,6 +45,10 @@ export default class DataTableBodyRowComponent extends Vue {
       // there was only row's properties changed - it's need to update cells
       this.counter++;
     }
+  }
+
+  onCellRendered(column: TableColumn) {
+    this.$emit('row-updated', this.row);
   }
 
   onActivate(event: any, index: number): void {

@@ -70,8 +70,11 @@ ref="selector"
       :cellStyleObject="cellStyleObject"
       :marginCellStyle="marginCellStyle"
       :slots=cellSlots
+      :renderTracking="renderTracking"
       @tree-action="onTreeAction($event)"
-      @activate="onActivate($event, i)">
+      @activate="onActivate($event, i)"
+      @row-created="onRowRendered"
+      @row-updated="onRowRendered">
     </datatable-body-row>
   </datatable-row-wrapper>
   <datatable-summary-row class="datatable-summary-row"

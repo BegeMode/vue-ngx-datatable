@@ -21,10 +21,13 @@
         :cellStyleObject="cellStyleObject"
         :marginCellStyle="marginCellStyle"
         :cellSlot="slots()[column.prop]"
+        :renderTracking="renderTracking"
         @activate="onActivate($event, ii)"
         @tree-action="onTreeAction"
         @keydown="onKeyDown"
         @mouseenter="onMouseenter"
+        @cell-created="onCellRendered"
+        @cell-updated="onCellRendered"
       ></datatable-body-cell>
       <!-- <datatable-body-cell v-for="(column, ii) of colGroup.columns" :key="column.$$id"
       tabindex="-1" 

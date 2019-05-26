@@ -25,7 +25,8 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
         :headerHeight="50"
         :footerHeight="50"
         :rowHeight="getRowHeight"
-        :scrollbarV="true">
+        :scrollbarV="true"
+        @rendered="onRendered">
         <vue-datatable-column name="Name" width="300">
           <template slot-scope="scope" v-if="scope.row">
             <strong>{{scope.row.name}}</strong>
@@ -81,6 +82,10 @@ export default class VirtualScrollComponent extends Vue {
 
   getRowHeight(row) {
     return row.height;
+  }
+
+  onRendered() {
+    //
   }
 
 }

@@ -31,6 +31,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
         limit="10"
         :groupExpansionDefault="true"
         :groupRowHeight="40"
+        @rendered="onRendered"
         @group-toggle="onDetailToggle($event)">
 
         <!-- Group Header Template -->
@@ -230,6 +231,10 @@ export default class RowGroupingComponent  extends Vue {
       result += `${gr.title} - ${gr.value}; `;
     });
     return result ? result : 'Age - empty';
+  }
+
+  onRendered() {
+    //
   }
 
 }
