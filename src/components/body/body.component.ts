@@ -57,7 +57,7 @@ export default class DataTableBodyComponent extends Vue {
   @Prop() pageSize: number;
   @Prop() limit: number;
   @Prop() rows: any[];
-  @Prop() columns: any[];
+  @Prop() columns: TableColumn[];
   @Prop() offset: number;
   @Prop() rowCount: number;
   @Prop() bodyHeight: number;
@@ -296,7 +296,11 @@ export default class DataTableBodyComponent extends Vue {
   recalculateColumns(val: any[] = this.columns): void {
     const colsByPin = columnsByPin(this.columns);
     this.columnsByPin = columnsByPinArr(this.columns);
-    this.columnGroupWidths = columnGroupWidths(colsByPin, this.columns);
+    let width = this.innerWidth;
+    if (this.scrollbarV) {
+      width = width - this.scrollbarHelper.width;
+    }
+    this.columnGroupWidths = columnGroupWidths(colsByPin, this.columns, width);
   }
 
   /**

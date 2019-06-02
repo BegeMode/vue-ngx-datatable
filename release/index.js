@@ -1,5 +1,5 @@
 /**
- * vue-data-table v"1.0.6" (https://github.com/begemode/vue-ngx-data-table)
+ * vue-data-table v"1.0.7" (https://github.com/begemode/vue-ngx-data-table)
  * Copyright 2018
  * Licensed under MIT
  */
@@ -264,6 +264,9 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
                 updateCell: this.$forceUpdate.bind(this),
             });
         }
+        if (this.renderTracking) {
+            this.$emit('cell-created', this.context.column);
+        }
     };
     DataTableBodyCellComponent.prototype.beforeUpdate = function () {
         if (this.cellSlot) {
@@ -275,6 +278,9 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
                 value: this.context.value,
                 updateCell: this.$forceUpdate.bind(this),
             });
+        }
+        if (this.renderTracking) {
+            this.$emit('cell-updated', this.context.column);
         }
     };
     DataTableBodyCellComponent.prototype.onFocus = function () {
@@ -375,6 +381,10 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
         vue_property_decorator_1.Prop(),
         __metadata("design:type", Object)
     ], DataTableBodyCellComponent.prototype, "cellSlot", void 0);
+    __decorate([
+        vue_property_decorator_1.Prop(),
+        __metadata("design:type", Boolean)
+    ], DataTableBodyCellComponent.prototype, "renderTracking", void 0);
     DataTableBodyCellComponent = __decorate([
         vue_property_decorator_1.Component
     ], DataTableBodyCellComponent);
@@ -777,10 +787,6 @@ var DataTableRowWrapperComponent = /** @class */ (function (_super) {
     });
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
-    ], DataTableRowWrapperComponent.prototype, "parent", void 0);
-    __decorate([
-        vue_property_decorator_1.Prop(),
         __metadata("design:type", Number)
     ], DataTableRowWrapperComponent.prototype, "innerWidth", void 0);
     __decorate([
@@ -887,15 +893,32 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
 var keys_1 = __webpack_require__(/*! ../../utils/keys */ "./src/utils/keys.ts");
+var body_cell_component_vue_1 = __webpack_require__(/*! ./body-cell.component.vue */ "./src/components/body/body-cell.component.vue");
 var DataTableBodyRowComponent = /** @class */ (function (_super) {
     __extends(DataTableBodyRowComponent, _super);
     function DataTableBodyRowComponent() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.counter = 0; // it's need to update cells after row's changing
+        return _this;
     }
     DataTableBodyRowComponent.prototype.created = function () {
-        if (true) {
-            console.log('DataTableBodyRowComponent is created');
+        if (this.renderTracking) {
+            this.$emit('row-created', this.row);
         }
+    };
+    DataTableBodyRowComponent.prototype.updated = function () {
+        if (this.renderTracking) {
+            this.$emit('row-updated', this.row);
+        }
+    };
+    DataTableBodyRowComponent.prototype.onRowChanged = function (newVal, oldVal) {
+        if (newVal === oldVal) {
+            // there was only row's properties changed - it's need to update cells
+            this.counter++;
+        }
+    };
+    DataTableBodyRowComponent.prototype.onCellRendered = function (column) {
+        this.$emit('row-updated', this.row);
     };
     DataTableBodyRowComponent.prototype.onActivate = function (event, index) {
         event.cellIndex = index;
@@ -992,11 +1015,21 @@ var DataTableBodyRowComponent = /** @class */ (function (_super) {
         vue_property_decorator_1.Prop(),
         __metadata("design:type", Object)
     ], DataTableBodyRowComponent.prototype, "slots", void 0);
+    __decorate([
+        vue_property_decorator_1.Prop(),
+        __metadata("design:type", Boolean)
+    ], DataTableBodyRowComponent.prototype, "renderTracking", void 0);
+    __decorate([
+        vue_property_decorator_1.Watch('row', { deep: true }),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Object, Object]),
+        __metadata("design:returntype", void 0)
+    ], DataTableBodyRowComponent.prototype, "onRowChanged", null);
     DataTableBodyRowComponent = __decorate([
         vue_property_decorator_1.Component({
-        // components: {
-        //   'datatable-body-cell': DataTableBodyCellComponent,
-        // }
+            components: {
+                'datatable-body-cell': body_cell_component_vue_1.default,
+            }
         })
     ], DataTableBodyRowComponent);
     return DataTableBodyRowComponent;
@@ -1089,6 +1122,8 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         };
         _this.scrollbarHelper = new scrollbar_helper_service_1.ScrollbarHelper();
         _this.cellContexts = new Map();
+        _this.renderCounter = 0;
+        _this.renderId = null;
         /**
          * Get the height of the detail row.
          */
@@ -1191,13 +1226,6 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         }
         this.recalcLayout();
     };
-    Object.defineProperty(DataTableBodyComponent.prototype, "parentForWrapper", {
-        get: function () {
-            return this;
-        },
-        enumerable: true,
-        configurable: true
-    });
     Object.defineProperty(DataTableBodyComponent.prototype, "bodyWidth", {
         get: function () {
             if (this.scrollbarH) {
@@ -1309,7 +1337,11 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         if (val === void 0) { val = this.columns; }
         var colsByPin = utils_1.columnsByPin(this.columns);
         this.columnsByPin = utils_1.columnsByPinArr(this.columns);
-        this.columnGroupWidths = utils_1.columnGroupWidths(colsByPin, this.columns);
+        var width = this.innerWidth;
+        if (this.scrollbarV) {
+            width = width - this.scrollbarHelper.width;
+        }
+        this.columnGroupWidths = utils_1.columnGroupWidths(colsByPin, this.columns, width);
     };
     /**
      * Updates the Y offset given a new offset.
@@ -1735,6 +1767,29 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     };
     DataTableBodyComponent.prototype.onActivate = function (event, index) {
         this.selector && this.selector.onActivate(event, this.indexes.first + index);
+    };
+    DataTableBodyComponent.prototype.onRowRendered = function (row) {
+        var _this = this;
+        if (this.renderCounter === 0) {
+            console.time('render');
+        }
+        this.renderCounter++;
+        var counter = this.renderCounter;
+        clearTimeout(this.renderId);
+        this.renderId = setTimeout(function () { return _this.checkRenderFinish(counter); }, 100);
+    };
+    DataTableBodyComponent.prototype.checkRenderFinish = function (counter) {
+        var _this = this;
+        if (counter === this.renderCounter) {
+            console.timeEnd('render');
+            this.renderCounter = 0;
+            this.$emit('rendered');
+        }
+        else {
+            counter = this.renderCounter;
+            clearTimeout(this.renderId);
+            this.renderId = setTimeout(function () { return _this.checkRenderFinish(counter); }, 100);
+        }
     };
     DataTableBodyComponent.prototype.buildStylesByGroup = function () {
         this.groupStyles['left'] = this.calcStylesByGroup('left');
@@ -2162,6 +2217,10 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         __metadata("design:type", Object)
     ], DataTableBodyComponent.prototype, "rowDetailSlot", void 0);
     __decorate([
+        vue_property_decorator_1.Prop(),
+        __metadata("design:type", Boolean)
+    ], DataTableBodyComponent.prototype, "renderTracking", void 0);
+    __decorate([
         vue_property_decorator_1.Watch('pageSize'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
@@ -2310,6 +2369,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         // tslint:disable-next-line:variable-name
         _this.myOffset_ = 0;
         _this.mySelected = [];
+        _this.renderTracking = false;
         // _columnTemplates: QueryList<DataTableColumnDirective>;
         // _subscriptions: Subscription[] = [];
         /**
@@ -2329,6 +2389,16 @@ var DatatableComponent = /** @class */ (function (_super) {
         _this.dimensionsHelper = new dimensions_helper_service_1.DimensionsHelper();
         return _this;
     }
+    DatatableComponent.prototype.created = function () {
+        this.groupHeader = Boolean(this.groupRowsBy);
+        this.groupHeaderSlot = this.$scopedSlots.groupHeader;
+        this.rowDetailSlot = this.$scopedSlots.rowDetail;
+        this.footerSlot = this.$scopedSlots.footer;
+        this.rowDetail = Boolean(this.rowDetailSlot);
+        if (this.$listeners.rendered) {
+            this.renderTracking = true;
+        }
+    };
     DatatableComponent.prototype.destroyed = function () {
         window.removeEventListener('resize', this.resizeHander);
     };
@@ -2338,16 +2408,8 @@ var DatatableComponent = /** @class */ (function (_super) {
      */
     DatatableComponent.prototype.mounted = function () {
         var _this = this;
-        this.groupHeader = Boolean(this.groupRowsBy);
-        this.groupHeaderSlot = this.$scopedSlots.groupHeader;
-        this.rowDetailSlot = this.$scopedSlots.rowDetail;
-        this.footerSlot = this.$scopedSlots.footer;
-        this.rowDetail = Boolean(this.rowDetailSlot);
         this.bodyComponent = this.$refs.datatableBody; // as DataTableBodyComponent;
         this.headerComponent = this.$refs.datatableHeader; //  as DataTableHeaderComponent;
-        // this.rowDiffer = this.differs.find({}).create();
-        // pick up columns
-        // DataTableColumnComponent
         // need to call this immediatly to size
         // if the table is hidden the visibility
         // listener will invoke this itself upon show
@@ -2374,9 +2436,6 @@ var DatatableComponent = /** @class */ (function (_super) {
             _this.resizeHander = _this.onWindowResize.bind(_this);
             window.addEventListener('resize', _this.resizeHander);
         });
-        // this.columnTemplates.changes.subscribe(v =>
-        //   this.translateColumns(v));
-        // todo: this.listenForColumnInputChanges();
     };
     /**
      * Body was scrolled typically in a `scrollbarV:true` scenario.
@@ -3369,7 +3428,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         __metadata("design:type", Boolean)
     ], DatatableComponent.prototype, "reorderable", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Boolean, default: true }),
+        vue_property_decorator_1.Prop({ type: Boolean, default: false }),
         __metadata("design:type", Boolean)
     ], DatatableComponent.prototype, "swapColumns", void 0);
     __decorate([
@@ -4607,14 +4666,15 @@ var render = function() {
         },
         _vm._l(colGroup.columns, function(column, ii) {
           return _c("datatable-body-cell", {
-            key: column.$$id,
+            key: column.$$id + "-" + _vm.counter,
             attrs: {
               tabIndex: "-1",
               context: _vm.cellContext(_vm.row, _vm.group, column),
               cellColumnCssClasses: _vm.cellColumnCssClasses,
               cellStyleObject: _vm.cellStyleObject,
               marginCellStyle: _vm.marginCellStyle,
-              cellSlot: _vm.slots()[column.prop]
+              cellSlot: _vm.slots()[column.prop],
+              renderTracking: _vm.renderTracking
             },
             on: {
               activate: function($event) {
@@ -4622,7 +4682,9 @@ var render = function() {
               },
               "tree-action": _vm.onTreeAction,
               keydown: _vm.onKeyDown,
-              mouseenter: _vm.onMouseenter
+              mouseenter: _vm.onMouseenter,
+              "cell-created": _vm.onCellRendered,
+              "cell-updated": _vm.onCellRendered
             }
           })
         }),
@@ -4723,26 +4785,25 @@ var render = function() {
                       })
                     : _vm._e(),
                   _vm._v(" "),
-                  _vm._l(_vm.temp, function(group, i) {
+                  _vm._l(_vm.temp, function(row, i) {
                     return _c(
                       "datatable-row-wrapper",
                       {
                         key: i,
                         staticClass: "datatable-row-wrapper",
                         attrs: {
-                          styleObject: _vm.getRowsStyles(group, i),
-                          parent: _vm.parentForWrapper,
+                          styleObject: _vm.getRowsStyles(row, i),
                           groupRowsBy: _vm.groupRowsBy,
                           groupLevel: 0,
-                          row: group,
+                          row: row,
                           innerWidth: _vm.innerWidth,
                           rowDetail: _vm.rowDetail,
                           groupHeader: _vm.groupHeader,
                           offsetX: _vm.offsetX,
                           groupRowHeight: _vm.groupRowHeight,
-                          rowDetailHeight: _vm.getDetailRowHeight(group[i], i),
-                          expanded: _vm.getRowExpanded(group),
-                          rowIndex: _vm.getRowIndex(group[i]),
+                          rowDetailHeight: _vm.getDetailRowHeight(row, i),
+                          expanded: _vm.getRowExpanded(row),
+                          rowIndex: _vm.getRowIndex(row),
                           groupHeaderSlot: _vm.groupHeaderSlot,
                           rowDetailSlot: _vm.rowDetailSlot
                         },
@@ -4759,18 +4820,19 @@ var render = function() {
                             tabindex: "-1",
                             columnsByPin: _vm.columnsByPin,
                             columnGroupWidths: _vm.columnGroupWidths,
-                            isSelected: _vm.isSelect(group),
+                            isSelected: _vm.isSelect(row),
                             groupStyles: _vm.getGroupStyles,
-                            groupClass: _vm.getGroupClass(group),
+                            groupClass: _vm.getGroupClass(row),
                             rowStyles: _vm.getRowStyles,
-                            row: group,
+                            row: row,
                             displayCheck: _vm.displayCheck,
-                            treeStatus: group.treeStatus,
+                            treeStatus: row.treeStatus,
                             cellContext: _vm.getCellContext,
                             cellColumnCssClasses: _vm.cellColumnCssClasses,
                             cellStyleObject: _vm.cellStyleObject,
                             marginCellStyle: _vm.marginCellStyle,
-                            slots: _vm.cellSlots
+                            slots: _vm.cellSlots,
+                            renderTracking: _vm.renderTracking
                           },
                           on: {
                             "tree-action": function($event) {
@@ -4778,7 +4840,9 @@ var render = function() {
                             },
                             activate: function($event) {
                               return _vm.onActivate($event, i)
-                            }
+                            },
+                            "row-created": _vm.onRowRendered,
+                            "row-updated": _vm.onRowRendered
                           }
                         })
                       ],
@@ -5797,7 +5861,8 @@ var render = function() {
           summaryPosition: _vm.summaryPosition,
           groupRowHeight: _vm.groupRowHeight,
           groupHeaderSlot: _vm.groupHeaderSlot,
-          rowDetailSlot: _vm.rowDetailSlot
+          rowDetailSlot: _vm.rowDetailSlot,
+          renderTracking: _vm.renderTracking
         },
         on: {
           page: _vm.onBodyPage,
@@ -5808,7 +5873,10 @@ var render = function() {
           select: _vm.onBodySelect,
           scroll: _vm.onBodyScroll,
           "group-toggle": _vm.onGroupToggle,
-          "tree-action": _vm.onTreeAction
+          "tree-action": _vm.onTreeAction,
+          rendered: function($event) {
+            return _vm.$emit("rendered", $event)
+          }
         }
       }),
       _vm._v(" "),
@@ -6590,7 +6658,7 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
     DataTableHeaderComponent.prototype.onChangedInnerWidth = function () {
         if (this.columns) {
             var colByPin = utils_1.columnsByPin(this.columns);
-            this.columnGroupWidths = utils_1.columnGroupWidths(colByPin, this.columns);
+            this.columnGroupWidths = utils_1.columnGroupWidths(colByPin, this.columns, this.innerWidth);
             this.setStylesByGroup();
         }
     };
@@ -6606,7 +6674,7 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
     DataTableHeaderComponent.prototype.onColumnsChanged = function () {
         var colsByPin = utils_1.columnsByPin(this.columns);
         this.columnsByPin = utils_1.columnsByPinArr(this.columns);
-        this.columnGroupWidths = utils_1.columnGroupWidths(colsByPin, this.columns);
+        this.columnGroupWidths = utils_1.columnGroupWidths(colsByPin, this.columns, this.innerWidth);
         this.setStylesByGroup();
     };
     DataTableHeaderComponent.prototype.onOffsetXChanged = function () {
@@ -8242,13 +8310,18 @@ exports.columnsByPin = columnsByPin;
 /**
  * Returns the widths of all group sets of a column
  */
-function columnGroupWidths(groups, all) {
-    return {
+function columnGroupWidths(groups, all, tableWidth) {
+    var result = {
         left: columnTotalWidth(groups.left),
         center: columnTotalWidth(groups.center),
         right: columnTotalWidth(groups.right),
         total: Math.floor(columnTotalWidth(all))
     };
+    if (tableWidth > result.total) {
+        result.center += tableWidth - result.total;
+        result.total = tableWidth;
+    }
+    return result;
 }
 exports.columnGroupWidths = columnGroupWidths;
 /**
