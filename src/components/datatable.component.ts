@@ -333,10 +333,17 @@ export default class DatatableComponent extends Vue {
   groupHeaderSlot = null;
   rowDetailSlot = null;
   footerSlot = null;
+  renderTracking = false;
 
   private scrollbarHelper: ScrollbarHelper = new ScrollbarHelper();
   private dimensionsHelper: DimensionsHelper = new DimensionsHelper();
   // private columnChangesService: ColumnChangesService;
+
+  created() {
+    if (this.$listeners.rendered) {
+      this.renderTracking = true;
+    }
+  }
 
   destroyed() {
     window.removeEventListener('resize', this.resizeHander);
@@ -1072,6 +1079,10 @@ export default class DatatableComponent extends Vue {
     const rowIndex = this.rows.findIndex(r =>
       r[this.treeToRelation] === event.row[this.treeToRelation]);
     this.$emit('treeAction', {row, rowIndex});
+  }
+
+  onRendered(event) {
+    this.$emit('rendered', event);
   }
 
   onColumnInsert(column: TableColumn) {

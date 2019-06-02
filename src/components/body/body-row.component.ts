@@ -77,6 +77,7 @@ export default Vue.extend({
     cellStyleObject: Function,
     marginCellStyle: Function,
     slots: Function,
+    renderTracking: Boolean,
   },
   render(createElement, { props, listeners, slots }) {
     const rowGroups = [];
@@ -137,9 +138,11 @@ export default Vue.extend({
         class: props.groupClass,
         style: props.rowStyles(props.row),
       }, rowGroups);
-    const f = listeners['row-created'] as any;
-    if (f) {
-      setTimeout(() => f(props.row));
+    if (props.renderTracking) {
+      const f = listeners['row-created'] as any;
+      if (f) {
+        setTimeout(() => f(props.row));
+      }
     }
     return rootDiv;
   },

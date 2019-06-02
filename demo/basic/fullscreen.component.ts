@@ -27,7 +27,8 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
         :rowHeight="50"
         :scrollbarV="true"
         :scrollbarH="true"
-        :rows="rows">
+        :rows="rows"
+        @rendered="onRendered">
         <vue-datatable-column name="Id" :width="80"></vue-datatable-column>
         <vue-datatable-column name="Name" :width="300">
           <span slot="header"><strong>FullName</strong></span>
@@ -88,6 +89,10 @@ export class FullScreenComponent extends Vue {
     };
 
     req.send();
+  }
+
+  onRendered(e) {
+    console.log('onRendered', e);
   }
 
 }

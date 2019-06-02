@@ -63,6 +63,7 @@ export default class DataTableBodyComponent extends Vue {
   @Prop({ type: [String], default: 'height' }) heightField: string;
   @Prop() groupHeaderSlot: any;
   @Prop() rowDetailSlot: any;
+  @Prop() renderTracking: boolean;
 
   scroller: any = null; // ScrollerComponent
   selector: any = null; // DataTableSelectionComponent;
@@ -1094,7 +1095,7 @@ export default class DataTableBodyComponent extends Vue {
     if (counter === this.renderCounter) {
       console.timeEnd('render');
       this.renderCounter = 0;
-      // this.$emit('rendered');
+      this.$emit('rendered');
     } else {
       counter = this.renderCounter;
       clearTimeout(this.renderId);
