@@ -15,10 +15,10 @@ import DataTableFooterComponent from './footer/footer.component';
 import { ScrollbarHelper } from '../services/scrollbar-helper.service';
 import { DimensionsHelper } from '../services/dimensions-helper.service';
 import DataTableColumnComponent from './columns/column.component';
-import DataTableBodyCellComponent from './body/body-cell.component.vue';
 import VisibilityDirective from '../directives/visibility.directive';
 import { IGroupedRows } from '../types/grouped-rows';
 import { isArrayEqual } from '../utils/equal.array';
+import DataTableBodyCellComponent from './body/body-cell.component.vue';
 
 Vue.component('datatable-column', DataTableColumnComponent);
 Vue.component('datatable-body-cell', DataTableBodyCellComponent);
@@ -298,7 +298,7 @@ export default class DatatableComponent extends Vue {
 
   resizeHander: any;
 
-  groupedRows: any[] = null;
+  groupedRows: IGroupedRows[] = null;
 
   innerWidth: number = 0;
   pageSize: number = 0;
@@ -312,6 +312,7 @@ export default class DatatableComponent extends Vue {
   // tslint:disable-next-line:variable-name
   myOffset_: number = 0;
   mySelected = [];
+  renderTracking = false;
 
   // non-reactive
   mySorts: any[];
@@ -336,11 +337,20 @@ export default class DatatableComponent extends Vue {
 
   private scrollbarHelper: ScrollbarHelper = new ScrollbarHelper();
   private dimensionsHelper: DimensionsHelper = new DimensionsHelper();
-  // private columnChangesService: ColumnChangesService;
+
+  created() {
+    this.groupHeader = Boolean(this.groupRowsBy);
+    this.groupHeaderSlot = this.$scopedSlots.groupHeader;
+    this.rowDetailSlot = this.$scopedSlots.rowDetail;
+    this.footerSlot = this.$scopedSlots.footer;
+    this.rowDetail = Boolean(this.rowDetailSlot);
+    if (this.$listeners.rendered) {
+      this.renderTracking = true;
+    }
+  }
 
   destroyed() {
     window.removeEventListener('resize', this.resizeHander);
-    //  todo: this._subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   /**
@@ -348,17 +358,8 @@ export default class DatatableComponent extends Vue {
    * properties of a directive are initialized.
    */
   mounted(): void {
-    this.groupHeader = Boolean(this.groupRowsBy);
-    this.groupHeaderSlot = this.$scopedSlots.groupHeader;
-    this.rowDetailSlot = this.$scopedSlots.rowDetail;
-    this.footerSlot = this.$scopedSlots.footer;
-    this.rowDetail = Boolean(this.rowDetailSlot);
     this.bodyComponent = this.$refs.datatableBody; // as DataTableBodyComponent;
     this.headerComponent = this.$refs.datatableHeader; //  as DataTableHeaderComponent;
-    // this.rowDiffer = this.differs.find({}).create();
-
-    // pick up columns
-    // DataTableColumnComponent
 
     // need to call this immediatly to size
     // if the table is hidden the visibility
@@ -387,11 +388,6 @@ export default class DatatableComponent extends Vue {
       this.resizeHander = this.onWindowResize.bind(this);
       window.addEventListener('resize', this.resizeHander);
     });
-
-    // this.columnTemplates.changes.subscribe(v =>
-    //   this.translateColumns(v));
-      
-    // todo: this.listenForColumnInputChanges();
   }
 
   /**
@@ -455,10 +451,13 @@ export default class DatatableComponent extends Vue {
       this.internalRows,
       optionalGetterForProp(this.treeFromRelation),
       optionalGetterForProp(this.treeToRelation)
-  );
-
+    );
+    
+    this.groupedRows = null;
     if (this.rows && this.groupRowsBy) {
+      // this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy);
       this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy, 0);
+      this.internalRows = this.processGroupedRows(this.groupedRows);
     }
 
     // recalculate sizes/etc
@@ -467,16 +466,45 @@ export default class DatatableComponent extends Vue {
     }
   }
 
+  addRow(group: IGroupedRows, rows: any[]) {
+    // (group as any).__isGroup = true;
+    // group.__expanded = true;
+    rows.push(group);
+    if (group.value && group.__expanded) {
+      group.value.forEach(r => {
+        rows.push(r);
+      });
+    }
+    if (group.groups && group.__expanded) {
+      group.groups.forEach(gr => {
+        this.addRow(gr, rows);
+      });
+    }
+  }
+
+  processGroupedRows(groupedRows: IGroupedRows[]): any[] {
+    const rows = [];
+    if (groupedRows && groupedRows.length) {
+      // creates a new array with the data grouped
+      groupedRows.forEach(g => {
+        this.addRow(g, rows);
+      });
+    }
+    return rows;
+  }
+
   @Watch('groupRowsBy') onGroupRowsByChanged(newVal, oldVal) {
     if (isArrayEqual(newVal, oldVal)) {
       return;
     }
     this.groupHeader = Boolean(this.groupRowsBy);
+    this.groupedRows = null;
     if (this.groupRowsBy) {
-      if (this.rows) {
-        // creates a new array with the data grouped
-        this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy);
-      }
+      // this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy);
+      this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy, 0);
+      this.internalRows = this.processGroupedRows(this.groupedRows);
+    } else {
+      this.internalRows = this.rows;
     }
     this.recalculate();
   }
@@ -893,8 +921,8 @@ export default class DatatableComponent extends Vue {
     if (!this.externalPaging) {
       if (!val) return 0;
 
-      if (this.groupedRows) {
-        return this.groupedRows.length;
+      if (this.groupRowsBy) {
+        return this.internalRows.length;
       } else if (this.treeFromRelation != null && this.treeToRelation != null) {
         return this.internalRows.length;
       } else {
@@ -1063,6 +1091,12 @@ export default class DatatableComponent extends Vue {
     this.$emit('select', event);
   }
 
+  onGroupToggle(event: any) {
+    event.value.__expanded = !event.value.__expanded;
+    this.internalRows = this.processGroupedRows(this.groupedRows);
+    this.recalculate();
+  }
+
   /**
    * A row was expanded or collapsed for tree
    */
@@ -1071,7 +1105,7 @@ export default class DatatableComponent extends Vue {
     // TODO: For duplicated items this will not work
     const rowIndex = this.rows.findIndex(r =>
       r[this.treeToRelation] === event.row[this.treeToRelation]);
-    this.$emit('treeAction', {row, rowIndex});
+    this.$emit('tree-action', {row, rowIndex});
   }
 
   onColumnInsert(column: TableColumn) {
@@ -1239,20 +1273,20 @@ export default class DatatableComponent extends Vue {
                    keysDescr: Array<{ title: string; prop: string; }>): IGroupedRows {
     const keys = key ? key.toString().split('^^') : null;
     const keysObj = [];
-    if (keys) {
-      keysDescr.forEach((descr, index) => {
-        keysObj.push({ title: descr.title, prop: descr.prop, value: keys[index] });
-      });
-    }
+    keysDescr.forEach((descr, index) => {
+      keysObj.push({ title: descr.title, prop: descr.prop, value: keys && keys.length > index ? keys[index] : '' });
+    });
     return {
       key,
       value,
       level: _level,
-      keys: keysObj
+      keys: keysObj,
+      __expanded: true,
+      __isGroup: true
     };
   }
 
-  private getGroupTitle(prop: string | { title: string, prop: string }) {
+  private getGroupTitle(prop: string | { title: string, prop: string }): string {
     let title = prop;
     if (typeof prop === 'string') {
       const column = this.columns && this.columns.find(c => c.prop === prop);
@@ -1260,10 +1294,37 @@ export default class DatatableComponent extends Vue {
     } else if ('title' in prop) {
       title = prop.title;
     }
-    return title;
+    return <string>title;
   }
 
   private sortInternalRows(): void {
-    this.internalRows = sortRows(this.internalRows, this.internalColumns, this.mySorts);
+    if (this.groupedRows) {
+      this.groupedRows = this.sortGroupedRows(this.groupedRows);
+      this.internalRows = this.processGroupedRows(this.groupedRows);
+    } else {
+      this.internalRows = sortRows(this.internalRows, this.internalColumns, this.mySorts);
+    }
   }
+
+  private sortGroupedRows(groupedRows: IGroupedRows[]): IGroupedRows[] {
+    const rows = [];
+    let sortedRows: any[];
+    groupedRows.forEach(gr => {
+      const row = { __group: gr };
+      gr.keys.forEach(keyDescr => {
+        row[keyDescr.prop] = keyDescr.value;
+      });
+      rows.push(row);
+      if (gr.groups && gr.groups.length) {
+        gr.groups = this.sortGroupedRows(gr.groups);
+      }
+      if (gr.value && gr.value) {
+        gr.value = sortRows(gr.value, this.internalColumns, this.mySorts);
+      }
+    });
+    sortedRows = sortRows(rows, this.internalColumns, this.mySorts);
+    const result = sortedRows.map(r => r.__group);
+    return result;
+  }
+
 }

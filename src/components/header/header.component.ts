@@ -90,7 +90,7 @@ export default class DataTableHeaderComponent extends Vue {
   @Watch('innerWidth', { immediate: true }) onChangedInnerWidth() {
     if (this.columns) {    
       const colByPin = columnsByPin(this.columns);
-      this.columnGroupWidths = columnGroupWidths(colByPin, this.columns);
+      this.columnGroupWidths = columnGroupWidths(colByPin, this.columns, this.innerWidth);
       this.setStylesByGroup();
     }
   }
@@ -107,7 +107,7 @@ export default class DataTableHeaderComponent extends Vue {
   @Watch('columns', { immediate: true }) onColumnsChanged() {
     const colsByPin = columnsByPin(this.columns);
     this.columnsByPin = columnsByPinArr(this.columns);
-    this.columnGroupWidths = columnGroupWidths(colsByPin, this.columns);
+    this.columnGroupWidths = columnGroupWidths(colsByPin, this.columns, this.innerWidth);
     this.setStylesByGroup();
   }
 

@@ -29,7 +29,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
         :rows="rows"
         treeFromRelation="parentId"
         treeToRelation="id"
-        @treeAction="onTreeAction($event)">
+        @tree-action="onTreeAction($event)">
         <ngx-datatable-column name="Id" :width="80"></ngx-datatable-column>
         <ngx-datatable-column
           name="Name"

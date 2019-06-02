@@ -30,7 +30,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
           <template v-slot:default="scope">
             <span
               title="Double click to edit"
-              @dblclick="dblclick(true, scope.rowIndex, 'name')"
+              @dblclick="dblclick(true, scope.rowIndex, 'name', scope.updateCell)"
               v-if="scope.row && !editing[scope.rowIndex + '-name']">
               {{scope.row.name}}
             </span>
@@ -46,7 +46,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
           <template v-slot:default="scope">
              <span
               title="Double click to edit"
-              @dblclick="dblclick(true, scope.rowIndex, 'gender')"
+              @dblclick="dblclick(true, scope.rowIndex, 'gender', scope.updateCell)"
               v-if="scope.row && !editing[scope.rowIndex + '-gender']">
               {{scope.row.gender}}
             </span>
@@ -91,8 +91,10 @@ export default class InlineEditComponent extends Vue {
     req.send();
   }
 
-  dblclick(edit, rowIndex, prop) {
+  dblclick(edit, rowIndex, prop, update) {
+    // this.editing[`${rowIndex}-${prop}`] = edit;
     this.$set(this.editing, `${rowIndex}-${prop}`, edit);
+    update();
   }
 
   updateValue(event, cell, rowIndex) {

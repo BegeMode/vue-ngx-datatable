@@ -1,14 +1,16 @@
+import { TableColumn } from '../types';
+
 /**
  * Returns the columns by pin.
  */
 export interface IColumnsByPin {
-  left: any[];
-  center: any[];
-  right: any[];
+  left: TableColumn[];
+  center: TableColumn[];
+  right: TableColumn[];
 }
 
-export function columnsByPin(cols: any[]): IColumnsByPin {
-  const ret: {left: any, center: any, right: any} = {
+export function columnsByPin(cols: TableColumn[]): IColumnsByPin {
+  const ret: {left: TableColumn[], center: TableColumn[], right: TableColumn[]} = {
     left: [],
     center: [],
     right: []
@@ -32,19 +34,24 @@ export function columnsByPin(cols: any[]): IColumnsByPin {
 /**
  * Returns the widths of all group sets of a column
  */
-export function columnGroupWidths(groups: any, all: any) {
-  return {
+export function columnGroupWidths(groups: IColumnsByPin, all: TableColumn[], tableWidth: number) {
+  const result =  {
     left: columnTotalWidth(groups.left),
     center: columnTotalWidth(groups.center),
     right: columnTotalWidth(groups.right),
     total: Math.floor(columnTotalWidth(all))
   };
+  if (tableWidth > result.total) {
+    result.center += tableWidth - result.total;
+    result.total = tableWidth;
+  }
+  return result;
 }
 
 /**
  * Calculates the total width of all columns and their groups
  */
-export function columnTotalWidth(columns: any[], prop?: string) {
+export function columnTotalWidth(columns: TableColumn[], prop?: string) {
   let totalWidth = 0;
 
   if(columns) {
@@ -61,7 +68,7 @@ export function columnTotalWidth(columns: any[], prop?: string) {
 /**
  * Calculates the total width of all columns and their groups
  */
-export function columnsTotalWidth(columns: any, prop?: any) {
+export function columnsTotalWidth(columns: TableColumn[], prop?: any) {
   let totalWidth = 0;
 
   for(const column of columns) {
@@ -72,7 +79,7 @@ export function columnsTotalWidth(columns: any, prop?: any) {
   return totalWidth;
 }
 
-export function columnsByPinArr(val: any) {
+export function columnsByPinArr(val: TableColumn[]) {
   const colsByPinArr = [];
   const colsByPin = columnsByPin(val);
 

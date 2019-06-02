@@ -101,7 +101,7 @@ export default class LiveDataComponent extends Vue {
       row[prop] = rows[newRow][prop];
       row.updated = Date.now().toString();
     }
-    this.rows = [...this.rows];
+    // this.rows = [...this.rows];
   }
 
   fetch(cb: any): void {
