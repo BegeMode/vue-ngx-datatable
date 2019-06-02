@@ -92,6 +92,8 @@ export default class DataTableBodyComponent extends Vue {
   rowsChanged: boolean;
   private scrollbarHelper = new ScrollbarHelper();
   private cellContexts = new Map();
+  private renderCounter = 0;
+  private renderId = null;
 
   // ready = false;
   // startIndex = 0;
@@ -1078,4 +1080,25 @@ export default class DataTableBodyComponent extends Vue {
     });
   }
 
+  onRowRendered(row: any) {
+    if (this.renderCounter === 0) {
+      console.time('render');
+    }
+    this.renderCounter++;
+    const counter = this.renderCounter;
+    clearTimeout(this.renderId);
+    this.renderId = setTimeout(() => this.checkRenderFinish(counter), 100);
+  }
+
+  checkRenderFinish(counter: number) {
+    if (counter === this.renderCounter) {
+      console.timeEnd('render');
+      this.renderCounter = 0;
+      // this.$emit('rendered');
+    } else {
+      counter = this.renderCounter;
+      clearTimeout(this.renderId);
+      this.renderId = setTimeout(() => this.checkRenderFinish(counter), 100);
+    }
+  }
 }

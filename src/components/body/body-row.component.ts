@@ -137,6 +137,10 @@ export default Vue.extend({
         class: props.groupClass,
         style: props.rowStyles(props.row),
       }, rowGroups);
+    const f = listeners['row-created'] as any;
+    if (f) {
+      setTimeout(() => f(props.row));
+    }
     return rootDiv;
   },
 });

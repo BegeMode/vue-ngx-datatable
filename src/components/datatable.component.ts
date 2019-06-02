@@ -159,7 +159,7 @@ export default class DatatableComponent extends Vue {
    * Swap columns on re-order columns or
    * move them.
    */
-  @Prop({ type: Boolean, default: true }) swapColumns: boolean;
+  @Prop({ type: Boolean, default: false }) swapColumns: boolean;
   /**
    * The type of sorting
    */
