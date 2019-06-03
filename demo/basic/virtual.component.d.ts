@@ -7,4 +7,5 @@ export default class VirtualScrollComponent extends Vue {
     onPage(event: any): void;
     fetch(cb: any): void;
     getRowHeight(row: any): any;
+    onRendered(): void;
 }

@@ -1,5 +1,6 @@
 import { Vue } from 'vue-property-decorator';
 import { ColumnMode, SortType, SelectionType, TableColumn } from '../types';
+import { IGroupedRows } from '../types/grouped-rows';
 export default class DatatableComponent extends Vue {
     /**
      * Template for the target marker of drag target columns.
@@ -236,7 +237,7 @@ export default class DatatableComponent extends Vue {
      */
     headerComponent: any;
     resizeHander: any;
-    groupedRows: any[];
+    groupedRows: IGroupedRows[];
     innerWidth: number;
     pageSize: number;
     bodyHeight: number;
@@ -248,6 +249,7 @@ export default class DatatableComponent extends Vue {
     mySortType: SortType;
     myOffset_: number;
     mySelected: any[];
+    renderTracking: boolean;
     mySorts: any[];
     isVisible: boolean;
     /**
@@ -263,6 +265,7 @@ export default class DatatableComponent extends Vue {
     footerSlot: any;
     private scrollbarHelper;
     private dimensionsHelper;
+    created(): void;
     destroyed(): void;
     /**
      * Lifecycle hook that is called after data-bound
@@ -299,6 +302,8 @@ export default class DatatableComponent extends Vue {
      * A row was expanded ot collapsed for tree
      */
     onRowsChanged(val: any): void;
+    addRow(group: IGroupedRows, rows: any[]): void;
+    processGroupedRows(groupedRows: IGroupedRows[]): any[];
     onGroupRowsByChanged(newVal: any, oldVal: any): void;
     /**
      * Columns to be displayed.
@@ -476,6 +481,7 @@ export default class DatatableComponent extends Vue {
      * A row was selected from body
      */
     onBodySelect(event: any): void;
+    onGroupToggle(event: any): void;
     /**
      * A row was expanded or collapsed for tree
      */
@@ -509,4 +515,5 @@ export default class DatatableComponent extends Vue {
     private addGroup;
     private getGroupTitle;
     private sortInternalRows;
+    private sortGroupedRows;
 }

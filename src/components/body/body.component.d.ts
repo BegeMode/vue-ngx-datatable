@@ -22,7 +22,6 @@ export default class DataTableBodyComponent extends Vue {
     displayCheck: any;
     trackByProp: string;
     rowClass: any;
-    groupedRows: any;
     groupExpansionDefault: boolean;
     innerWidth: number;
     groupRowsBy: string;
@@ -33,7 +32,7 @@ export default class DataTableBodyComponent extends Vue {
     pageSize: number;
     limit: number;
     rows: any[];
-    columns: any[];
+    columns: TableColumn[];
     offset: number;
     rowCount: number;
     bodyHeight: number;
@@ -41,6 +40,7 @@ export default class DataTableBodyComponent extends Vue {
     heightField: string;
     groupHeaderSlot: any;
     rowDetailSlot: any;
+    renderTracking: boolean;
     scroller: any;
     selector: any;
     rowHeightsCache: RowHeightCache;
@@ -68,6 +68,8 @@ export default class DataTableBodyComponent extends Vue {
     rowsChanged: boolean;
     private scrollbarHelper;
     private cellContexts;
+    private renderCounter;
+    private renderId;
     /**
      * Creates an instance of DataTableBodyComponent.
      */
@@ -75,7 +77,6 @@ export default class DataTableBodyComponent extends Vue {
     mounted(): void;
     onPageSize(): void;
     onRowsChanged(): void;
-    onGroupedRowsChanged(): void;
     onColumnsChanged(newVal: any, oldVal: any): void;
     onOffsetChanged(): void;
     onOffsetXChanged(): void;
@@ -222,9 +223,11 @@ export default class DataTableBodyComponent extends Vue {
      * Gets the row index given a row
      */
     getRowIndex(row: any): number;
-    onTreeAction(row: any): void;
+    onTreeAction(event: any): void;
     isSelect(row: any): any;
     onActivate(event: any, index: any): void;
+    onRowRendered(row: any): void;
+    checkRenderFinish(counter: number): void;
     buildStylesByGroup(): void;
     calcStylesByGroup(group: string): {
         width: string;

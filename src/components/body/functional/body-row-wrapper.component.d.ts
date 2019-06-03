@@ -1,5 +1,5 @@
 import { Vue } from 'vue-property-decorator';
-export default class DataTableRowWrapperComponent extends Vue {
+declare const _default: import("vue/types/vue").VueConstructor<{
     innerWidth: number;
     rowDetail: boolean;
     groupHeader: boolean;
@@ -8,13 +8,12 @@ export default class DataTableRowWrapperComponent extends Vue {
     rowDetailHeight: number;
     groupRowHeight: number;
     row: any;
-    groupRowsBy: any[];
+    groupedRows: {}[];
+    groupRowsBy: {}[];
     rowIndex: number;
     expanded: boolean;
     styleObject: any;
-    groupHeaderSlot: any;
-    rowDetailSlot: any;
-    created(): void;
-    onContextmenu($event: MouseEvent): void;
-    readonly groupHeaderStyles: any;
-}
+    groupHeaderSlot: Function;
+    rowDetailSlot: Function;
+} & Vue>;
+export default _default;

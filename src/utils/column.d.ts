@@ -1,16 +1,17 @@
+import { TableColumn } from '../types';
 /**
  * Returns the columns by pin.
  */
 export interface IColumnsByPin {
-    left: any[];
-    center: any[];
-    right: any[];
+    left: TableColumn[];
+    center: TableColumn[];
+    right: TableColumn[];
 }
-export declare function columnsByPin(cols: any[]): IColumnsByPin;
+export declare function columnsByPin(cols: TableColumn[]): IColumnsByPin;
 /**
  * Returns the widths of all group sets of a column
  */
-export declare function columnGroupWidths(groups: any, all: any): {
+export declare function columnGroupWidths(groups: IColumnsByPin, all: TableColumn[], tableWidth: number): {
     left: number;
     center: number;
     right: number;
@@ -19,9 +20,9 @@ export declare function columnGroupWidths(groups: any, all: any): {
 /**
  * Calculates the total width of all columns and their groups
  */
-export declare function columnTotalWidth(columns: any[], prop?: string): number;
+export declare function columnTotalWidth(columns: TableColumn[], prop?: string): number;
 /**
  * Calculates the total width of all columns and their groups
  */
-export declare function columnsTotalWidth(columns: any, prop?: any): number;
-export declare function columnsByPinArr(val: any): any[];
+export declare function columnsTotalWidth(columns: TableColumn[], prop?: any): number;
+export declare function columnsByPinArr(val: TableColumn[]): any[];

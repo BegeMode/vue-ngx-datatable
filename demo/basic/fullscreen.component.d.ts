@@ -5,4 +5,5 @@ export declare class FullScreenComponent extends Vue {
     columns: TableColumn[];
     created(): void;
     fetch(cb: any): void;
+    onRendered(): void;
 }

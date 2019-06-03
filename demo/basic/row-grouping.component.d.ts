@@ -22,4 +22,5 @@ export default class RowGroupingComponent extends Vue {
             value: string;
         }>;
     }): string;
+    onRendered(): void;
 }
