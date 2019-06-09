@@ -1,5 +1,5 @@
 /**
- * vue-data-table v"1.0.7" (https://github.com/begemode/vue-ngx-data-table)
+ * vue-data-table v"1.0.8" (https://github.com/begemode/vue-ngx-data-table)
  * Copyright 2018
  * Licensed under MIT
  */
@@ -6846,12 +6846,15 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
             var dragger = _a[_i];
             var elm = dragger.element;
             var left = parseInt(elm.offsetLeft.toString(), 0);
-            this.positions[dragger.dragModel.prop] = {
-                left: left,
-                right: left + parseInt(elm.offsetWidth.toString(), 0),
-                index: i++,
-                element: elm
-            };
+            var width = elm.offsetWidth;
+            if (width) {
+                this.positions[dragger.dragModel.prop] = {
+                    left: left,
+                    right: left + parseInt(width.toString(), 0),
+                    index: i++,
+                    element: elm
+                };
+            }
         }
     };
     DataTableHeaderComponent.prototype.onDragging = function (_a) {
@@ -6879,12 +6882,12 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
     DataTableHeaderComponent.prototype.onDragEnd = function (_a) {
         var element = _a.element, model = _a.model, event = _a.event;
         this.dragging = false;
-        var prevPos = this.positions[model.prop];
+        var prevPos = this.columns.findIndex(function (col) { return col.prop === model.prop; }); // this.positions[model.prop];
         var target = this.isTarget(model, event);
         if (target) {
             this.onColumnReordered({
-                prevIndex: prevPos.index,
-                newIndex: target.i,
+                prevIndex: prevPos,
+                newIndex: this.columns.findIndex(function (col) { return col.prop === target.prop; }),
                 model: model
             });
         }
@@ -6928,6 +6931,7 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
             // since we drag the inner span, we need to find it in the elements at the cursor
             if (model.prop !== prop && targets.find(function (el) { return el === pos.element; })) {
                 return { value: {
+                        prop: prop,
                         pos: pos,
                         i: i
                     } };

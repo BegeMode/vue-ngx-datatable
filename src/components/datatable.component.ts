@@ -4,7 +4,7 @@ import {
   setColumnDefaults, throttleable,
   groupRowsByParents, optionalGetterForProp, setColumnsDefaults
 } from '../utils';
-import { ColumnMode, SortType, SelectionType, TableColumn, ContextmenuType } from '../types';
+import { ColumnMode, SortType, SelectionType, TableColumn, ContextmenuType, ISortEvent } from '../types';
 import DataTableBodyComponent from './body/body.component.vue';
 // import { DatatableGroupHeaderDirective } from './body/body-group-header.directive';
 // import { DataTableColumnDirective } from './columns';
@@ -341,7 +341,7 @@ export default class DatatableComponent extends Vue {
   created() {
     this.groupHeader = Boolean(this.groupRowsBy);
     this.groupHeaderSlot = this.$scopedSlots.groupHeader;
-    this.rowDetailSlot = this.$scopedSlots.rowDetail;
+    this.rowDetailSlot = this.$slots.rowDetail || this.$scopedSlots.rowDetail;
     this.footerSlot = this.$scopedSlots.footer;
     this.rowDetail = Boolean(this.rowDetailSlot);
     if (this.$listeners.rendered) {
@@ -1019,7 +1019,7 @@ export default class DatatableComponent extends Vue {
   /**
    * The header triggered a column sort event.
    */
-  onColumnSort(event: any): void {
+  onColumnSort(event: ISortEvent): void {
     // clean selected rows
     if (this.selectAllRowsOnPage) {
       this.mySelected = [];
