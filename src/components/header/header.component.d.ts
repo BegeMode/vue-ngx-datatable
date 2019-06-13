@@ -1,5 +1,5 @@
 import { Vue } from 'vue-property-decorator';
-import { SortType, SelectionType } from '../../types';
+import { SortType, SelectionType, SortDirection, ISortPropDir } from '../../types';
 export default class DataTableHeaderComponent extends Vue {
     sortAscendingIcon: any;
     sortDescendingIcon: any;
@@ -47,7 +47,7 @@ export default class DataTableHeaderComponent extends Vue {
     onColumnResized(width: number, column: any): void;
     getColumn(index: number): any;
     onSort({ column, prevValue, newValue }: any): void;
-    calcNewSorts(column: any, prevValue: number, newValue: number): any[];
+    calcNewSorts(column: any, prevValue: SortDirection, newValue: SortDirection): ISortPropDir[];
     setStylesByGroup(): void;
     calcStylesByGroup(group: string): any;
     styleForGroup(group: any): any;

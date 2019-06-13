@@ -18,6 +18,7 @@ export default class DataTableHeaderCellComponent extends Vue {
     onSortsChanged(): void;
     created(): void;
     mounted(): void;
+    beforeUpdate(): void;
     readonly columnCssClasses: any;
     readonly name: string;
     readonly styles: {
@@ -32,4 +33,5 @@ export default class DataTableHeaderCellComponent extends Vue {
     calcSortDir(sorts: any[]): any;
     onSort(): void;
     calcSortClass(sortDir: SortDirection): string;
+    calcRealWidth(): number;
 }

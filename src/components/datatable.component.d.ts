@@ -1,5 +1,5 @@
 import { Vue } from 'vue-property-decorator';
-import { ColumnMode, SortType, SelectionType, TableColumn } from '../types';
+import { ColumnMode, SortType, SelectionType, TableColumn, ISortEvent } from '../types';
 import { IGroupedRows } from '../types/grouped-rows';
 export default class DatatableComponent extends Vue {
     /**
@@ -472,7 +472,7 @@ export default class DatatableComponent extends Vue {
     /**
      * The header triggered a column sort event.
      */
-    onColumnSort(event: any): void;
+    onColumnSort(event: ISortEvent): void;
     /**
      * Toggle all row selection
      */
