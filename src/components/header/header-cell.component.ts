@@ -23,8 +23,8 @@ import { nextSortDir } from '../../utils';
           @change="$emit('select', !allRowsSelected)"
         />
       </label>
-      <slot>
-      <!-- Default content -->
+      <slot v-bind="{ column: column }">
+        <!-- Default content -->
         <span class="datatable-header-cell-wrapper">
           <span class="datatable-header-cell-label draggable"
             @click="onSort" v-html="name">
@@ -78,19 +78,19 @@ export default class DataTableHeaderCellComponent extends Vue {
   created() {
     this.$emit('header-cell-created', this.$el);
     if (this.column.headerTemplate) {
-      this.$slots.default = this.column.headerTemplate;
+      this.$slots.default = this.column.headerTemplate({ column: this.column });
     }
   }
 
   mounted() {
     this.$emit('header-cell-mounted', this.$el);
   }
-  // updated() {
-  //   if (this.column.headerTemplate && !this.$slots.default) {
-  //     this.$slots.default = this.column.headerTemplate;
-  //     this.$forceUpdate();
-  //   }
-  // }
+
+  beforeUpdate() {
+    if (this.column.headerTemplate) {
+      this.$slots.default = this.column.headerTemplate({ column: this.column });
+    }
+  }
 
   // @Output() sort: EventEmitter<any> = new EventEmitter();
   // @Output() select: EventEmitter<any> = new EventEmitter();
@@ -139,6 +139,12 @@ export default class DataTableHeaderCellComponent extends Vue {
 
   // @HostBinding('style.height.px')
   get styles() {
+    // const width = this.calcRealWidth();
+    // if (width !== null && width < 10) {
+    //   this.column.visible = false;
+    // } else {
+    //   this.column.visible = true;
+    // }
     return {
       height: this.headerHeight + 'px',
       width: this.column.width + 'px',
@@ -206,6 +212,18 @@ export default class DataTableHeaderCellComponent extends Vue {
     } else {
       return `sort-btn`;
     }
+  }
+
+  calcRealWidth() {
+    if (!this.$el) {
+      return null;
+    }
+    let w = 0;
+    for (let i = 0; i < this.$el.children.length; i++) {
+      const el = this.$el.children[i];
+      w = Math.max(w, (el as HTMLElement).offsetWidth);
+    }
+    return w;
   }
 
 }

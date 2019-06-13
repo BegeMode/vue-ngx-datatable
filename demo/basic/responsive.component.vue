@@ -63,7 +63,7 @@
 
         <ngx-datatable-column name="Age" :flexGrow="1">
           <template v-slot:header="scope">
-            <span class="mobile-hidden">{{scope.column.name}}</span>
+            <span class="mobile-hidden"><b>{{scope.column.name}}</b></span>
           </template>
 
           <template v-slot:default="scope">

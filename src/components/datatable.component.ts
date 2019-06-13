@@ -340,10 +340,6 @@ export default class DatatableComponent extends Vue {
 
   created() {
     this.groupHeader = Boolean(this.groupRowsBy);
-    this.groupHeaderSlot = this.$scopedSlots.groupHeader;
-    this.rowDetailSlot = this.$slots.rowDetail || this.$scopedSlots.rowDetail;
-    this.footerSlot = this.$scopedSlots.footer;
-    this.rowDetail = Boolean(this.rowDetailSlot);
     if (this.$listeners.rendered) {
       this.renderTracking = true;
     }
@@ -360,7 +356,10 @@ export default class DatatableComponent extends Vue {
   mounted(): void {
     this.bodyComponent = this.$refs.datatableBody; // as DataTableBodyComponent;
     this.headerComponent = this.$refs.datatableHeader; //  as DataTableHeaderComponent;
-
+    this.groupHeaderSlot = this.$scopedSlots.groupHeader;
+    this.rowDetailSlot = this.$scopedSlots.rowDetail;
+    this.footerSlot = this.$scopedSlots.footer;
+    this.rowDetail = Boolean(this.rowDetailSlot);
     // need to call this immediatly to size
     // if the table is hidden the visibility
     // listener will invoke this itself upon show
@@ -441,11 +440,6 @@ export default class DatatableComponent extends Vue {
       this.internalRows = [...val];
     }
 
-    // auto sort on new updates
-    if (!this.externalSorting) {
-      this.sortInternalRows();
-    }
-
     // auto group by parent on new update
     this.internalRows = groupRowsByParents(
       this.internalRows,
@@ -458,6 +452,11 @@ export default class DatatableComponent extends Vue {
       // this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy);
       this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy, 0);
       this.internalRows = this.processGroupedRows(this.groupedRows);
+    }
+
+    // auto sort on new updates
+    if (!this.externalSorting) {
+      this.sortInternalRows();
     }
 
     // recalculate sizes/etc
@@ -500,11 +499,14 @@ export default class DatatableComponent extends Vue {
     this.groupHeader = Boolean(this.groupRowsBy);
     this.groupedRows = null;
     if (this.groupRowsBy) {
-      // this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy);
       this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy, 0);
       this.internalRows = this.processGroupedRows(this.groupedRows);
     } else {
       this.internalRows = this.rows;
+    }
+    // auto sort on new updates
+    if (!this.externalSorting) {
+      this.sortInternalRows();
     }
     this.recalculate();
   }
