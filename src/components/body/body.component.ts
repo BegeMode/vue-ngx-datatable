@@ -646,7 +646,7 @@ export default class DataTableBodyComponent extends Vue {
    * a part of the row object itself as we have to preserve the expanded row
    * status in case of sorting and filtering of the row set.
    */
-  toggleRowExpansion(row: any): void {
+  toggleRowExpansion(row: any): boolean {
     // Capture the row index of the first row that is visible on the viewport.
     const viewPortFirstRowIndex = this.getAdjustedViewPortIndex();
     let expanded = this.rowExpansions.get(row);
@@ -667,6 +667,7 @@ export default class DataTableBodyComponent extends Vue {
       rows: [row],
       currentIndex: viewPortFirstRowIndex
     });
+    return Boolean(expanded);
   }
 
   /**
@@ -910,6 +911,7 @@ export default class DataTableBodyComponent extends Vue {
       // sortDir: SortDirection;
       // sorts: any[];
     };
+    cellContext = (Vue as any).observable(cellContext);
     this.setCellValue(cellContext);
     this.saveContextFor(row, column, cellContext);
     return cellContext;
@@ -1079,7 +1081,13 @@ export default class DataTableBodyComponent extends Vue {
    * Toggle the expansion of the row
    */
   toggleExpandDetail(row: any): void {
-    this.toggleRowExpansion(row);
+    const expanded = this.toggleRowExpansion(row);
+    this.columns.forEach(column => {
+      const cellContext = this.cellContextFor(row, column);
+      if (cellContext) {
+        cellContext.expanded = expanded;
+      }
+    });
     this.updateIndexes();
     this.updateRows(true);
     this.$emit('detail-toggle', {

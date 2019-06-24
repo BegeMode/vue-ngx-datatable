@@ -36,7 +36,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
         @detail-toggle="onDetailToggle($event)">
 
         <!-- Row Detail Template -->
-        <template v-slot:rowDetail="scope">
+        <template slot="rowDetail" slot-scope="scope" v-if="scope.row">
           <div style="padding-left:35px;">
             <div><strong>Address</strong></div>
             <div>{{scope.row.address.city}}, {{scope.row.address.state}}</div>

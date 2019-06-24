@@ -232,9 +232,18 @@ export default class DataTableHeaderComponent extends Vue {
   }
 
   setStylesByGroup() {
-    this.styleByGroup['left'] = this.calcStylesByGroup('left');
-    this.styleByGroup['center'] = this.calcStylesByGroup('center');
-    this.styleByGroup['right'] = this.calcStylesByGroup('right');
+    const leftColumnCount = this.columnsByPin[0].columns.length;
+    if (leftColumnCount) {
+      this.styleByGroup['left'] = this.calcStylesByGroup('left');
+    }
+    const centerColumnCount = this.columnsByPin[1].columns.length;
+    if (centerColumnCount) {
+      this.styleByGroup['center'] = this.calcStylesByGroup('center');
+    }
+    const rightColumnCount = this.columnsByPin[2].columns.length;
+    if (rightColumnCount) {
+      this.styleByGroup['right'] = this.calcStylesByGroup('right');
+    }
   }
 
   calcStylesByGroup(group: string): any {
@@ -244,7 +253,6 @@ export default class DataTableHeaderComponent extends Vue {
     const styles = {
       width: `${widths[group]}px`
     };
-
     if (group === 'center') {
       translateXY(styles, offsetX * -1, 0);
     } else if (group === 'right') {
