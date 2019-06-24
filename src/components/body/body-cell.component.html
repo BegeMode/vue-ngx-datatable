@@ -24,7 +24,8 @@
       </slot>
     </template>
     <slot v-bind="{ 
-                 row: context && context.row ? context.row : {}, 
+                 row: context && context.row ? context.row : {},
+                 column: context.column,
                  rowIndex: context.rowIndex, 
                  group: context.group, 
                  expanded: context.expanded,

@@ -1,15 +1,16 @@
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 // import { Keys } from '../../utils';
 // import { SortDirection } from '../../types';
 // import { TableColumn } from '../../types/table-column.type';
 // import { ICellContext } from '../../types/cell-context.type';
 import { Keys } from '../../utils';
+import { ICellContext } from '../../types/cell-context.type';
 
 export type TreeStatus = 'collapsed' | 'expanded' | 'loading' | 'disabled';
 
 @Component
 export default class DataTableBodyCellComponent extends Vue {
-  @Prop() context: any;
+  @Prop() context: ICellContext;
   @Prop() cellColumnCssClasses: any;
   @Prop() cellStyleObject: any;
   @Prop() marginCellStyle: any;
@@ -21,6 +22,7 @@ export default class DataTableBodyCellComponent extends Vue {
     if (this.cellSlot) {
       this.$slots.default = this.cellSlot({
         row: this.context && this.context.row ? this.context.row : {}, 
+        column: this.context.column,
         rowIndex: this.context.rowIndex, 
         group: this.context.group, 
         expanded: this.context.expanded,
@@ -37,6 +39,7 @@ export default class DataTableBodyCellComponent extends Vue {
     if (this.cellSlot) {
       this.$slots.default = this.cellSlot({
         row: this.context && this.context.row ? this.context.row : {}, 
+        column: this.context.column,
         rowIndex: this.context.rowIndex, 
         group: this.context.group, 
         expanded: this.context.expanded,
