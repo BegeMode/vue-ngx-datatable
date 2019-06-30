@@ -46,7 +46,8 @@ import DraggableDirective from '../../directives/draggable.directive';
           @header-cell-mounted="onHeaderCellMounted(column, $event)"
           @dragStart="onDragStart"
           @dragEnd="onDragEnd"
-          @dragging="onDragging">
+          @dragging="onDragging"
+          @hidden-changed=onHiddenChanged($event)>
         </datatable-header-cell>
       </div>
     </div>
@@ -175,6 +176,10 @@ export default class DataTableHeaderComponent extends Vue {
     });
   }
 
+  onHiddenChanged($event) {
+    this.$emit('hidden-changed');
+  }
+
   getColumn(index: number): any {
     const leftColumnCount = this.columnsByPin[0].columns.length;
     if (index < leftColumnCount) {
@@ -232,6 +237,9 @@ export default class DataTableHeaderComponent extends Vue {
   }
 
   setStylesByGroup() {
+    if (!this.columnsByPin || !this.columnsByPin.length) {
+      return;
+    }
     const leftColumnCount = this.columnsByPin[0].columns.length;
     if (leftColumnCount) {
       this.styleByGroup['left'] = this.calcStylesByGroup('left');

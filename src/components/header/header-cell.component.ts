@@ -90,6 +90,15 @@ export default class DataTableHeaderCellComponent extends Vue {
     if (this.column.headerTemplate) {
       this.$slots.default = this.column.headerTemplate({ column: this.column });
     }
+    let hidden = false;
+    const width = this.calcRealWidth();
+    if (width !== null && width < 10) {
+      hidden = true;
+    }
+    if ((this.column as any).hidden !== hidden) {
+      (this.column as any).hidden = hidden;
+      this.$emit('hidden-changed', this.column);
+    }
   }
 
   // @Output() sort: EventEmitter<any> = new EventEmitter();

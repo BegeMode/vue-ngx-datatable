@@ -1142,6 +1142,10 @@ export default class DatatableComponent extends Vue {
   onColumnChangeVisible(column: TableColumn) {
     this.recalculateColumns();
   }
+
+  onHiddenChanged() {
+    this.recalculateColumns();
+  }
     
   /**
    * listen for changes to input bindings of all DataTableColumnDirective and
