@@ -81,12 +81,12 @@ export default class DataTableHeaderComponent extends Vue {
   };
   targetMarkerContext: any = null;
   dragEventTarget: any = null;
+  dragging = false;
+  positions: any = {};
 
   // non-reactive props
-  positions: any;
   lastDraggingIndex: number;
   draggables: any[];
-  dragging = false;
 
   @Watch('innerWidth', { immediate: true }) onChangedInnerWidth() {
     if (this.columns) {    
@@ -350,6 +350,7 @@ export default class DataTableHeaderComponent extends Vue {
     const prevPos = this.columns.findIndex(col => col.prop === model.prop); // this.positions[model.prop];
 
     const target = this.isTarget(model, event);
+    this.positions = {};
     if (target) {
       this.onColumnReordered({
         prevIndex: prevPos,

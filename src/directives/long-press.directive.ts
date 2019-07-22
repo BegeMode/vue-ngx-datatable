@@ -7,7 +7,7 @@ class LongPressController {
   id = 0;
   pressEnabled: boolean = true;
   pressModel: any;
-  duration: number = 500;
+  duration: number = 200;
   _pressing: boolean;
   _isLongPressing: boolean;
   timeout: any;
