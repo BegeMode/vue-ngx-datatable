@@ -34,4 +34,5 @@ export default class DataTableHeaderCellComponent extends Vue {
     onSort(): void;
     calcSortClass(sortDir: SortDirection): string;
     calcRealWidth(): number;
+    private hiddenDetect;
 }

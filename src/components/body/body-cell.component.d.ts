@@ -1,7 +1,8 @@
 import { Vue } from 'vue-property-decorator';
+import { ICellContext } from '../../types/cell-context.type';
 export declare type TreeStatus = 'collapsed' | 'expanded' | 'loading' | 'disabled';
 export default class DataTableBodyCellComponent extends Vue {
-    context: any;
+    context: ICellContext;
     cellColumnCssClasses: any;
     cellStyleObject: any;
     marginCellStyle: any;

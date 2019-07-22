@@ -489,6 +489,7 @@ export default class DatatableComponent extends Vue {
     onColumnInsert(column: TableColumn): void;
     onColumnRemoved(column: TableColumn): void;
     onColumnChangeVisible(column: TableColumn): void;
+    onHiddenChanged(): void;
     /**
      * listen for changes to input bindings of all DataTableColumnDirective and
      * trigger the columnTemplates.changes observable to emit

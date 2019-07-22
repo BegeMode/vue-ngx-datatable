@@ -197,7 +197,7 @@ export default class DataTableBodyComponent extends Vue {
      * a part of the row object itself as we have to preserve the expanded row
      * status in case of sorting and filtering of the row set.
      */
-    toggleRowExpansion(row: any): void;
+    toggleRowExpansion(row: any): boolean;
     /**
      * Expand/Collapse all the rows no matter what their state is.
      */

@@ -26,10 +26,10 @@ export default class DataTableHeaderComponent extends Vue {
     };
     targetMarkerContext: any;
     dragEventTarget: any;
+    dragging: boolean;
     positions: any;
     lastDraggingIndex: number;
     draggables: any[];
-    dragging: boolean;
     onChangedInnerWidth(): void;
     onHeaderHeightChanged(): void;
     onColumnsChanged(): void;
@@ -45,6 +45,7 @@ export default class DataTableHeaderComponent extends Vue {
     readonly headerWidth: string;
     isEnableDragX(column: any): any;
     onColumnResized(width: number, column: any): void;
+    onHiddenChanged($event: any): void;
     getColumn(index: number): any;
     onSort({ column, prevValue, newValue }: any): void;
     calcNewSorts(column: any, prevValue: SortDirection, newValue: SortDirection): ISortPropDir[];
