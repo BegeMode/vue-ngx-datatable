@@ -55,7 +55,10 @@ export function columnTotalWidth(columns: TableColumn[], prop?: string) {
   let totalWidth = 0;
 
   if(columns) {
-    for(const c of columns) {
+    for (const c of columns) {
+      if ((c as any).hidden) {
+        continue;
+      }
       const has = prop && c[prop];
       const width = has ? c[prop] : c.width;
       totalWidth = totalWidth + parseFloat(width);

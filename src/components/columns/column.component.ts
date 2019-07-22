@@ -105,4 +105,5 @@ export default class DataTableColumnComponent extends Vue {
     this.column.visible = newVal;
     (this.$parent as any).onColumnChangeVisible(this.column);
   }
+
 }

@@ -19,7 +19,7 @@ function getTotalFlexGrow(columns: any[]) {
  */
 export function adjustColumnWidths(allColumns: any, expectedWidth: any) {
   if (allColumns && allColumns.length) {
-    allColumns = allColumns.filter(c => c.visible);
+    allColumns = allColumns.filter(c => c.visible && !c.hidden);
   }
   const columnsWidth = columnsTotalWidth(allColumns);
   const totalFlexGrow = getTotalFlexGrow(allColumns);
@@ -115,7 +115,7 @@ export function forceFillColumnWidths(
 
   let additionWidthPerColumn = 0;
   let exceedsWindow = false;
-  let contentWidth = getContentWidth(allColumns.filter(c => c.visible), defaultColWidth);
+  let contentWidth = getContentWidth(allColumns.filter(c => c.visible && !c.hidden), defaultColWidth);
   let remainingWidth = expectedWidth - contentWidth;
   const columnsProcessed: any[] = [];
 

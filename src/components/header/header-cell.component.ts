@@ -80,6 +80,7 @@ export default class DataTableHeaderCellComponent extends Vue {
     if (this.column.headerTemplate) {
       this.$slots.default = this.column.headerTemplate({ column: this.column });
     }
+    this.hiddenDetect();
   }
 
   mounted() {
@@ -90,6 +91,7 @@ export default class DataTableHeaderCellComponent extends Vue {
     if (this.column.headerTemplate) {
       this.$slots.default = this.column.headerTemplate({ column: this.column });
     }
+    this.hiddenDetect();
   }
 
   // @Output() sort: EventEmitter<any> = new EventEmitter();
@@ -226,4 +228,15 @@ export default class DataTableHeaderCellComponent extends Vue {
     return w;
   }
 
+  private hiddenDetect() {
+    let hidden = false;
+    const width = this.calcRealWidth();
+    if (width !== null && width < 10) {
+      hidden = true;
+    }
+    if ((this.column as any).hidden !== hidden) {
+      (this.column as any).hidden = hidden;
+      this.$emit('hidden-changed', this.column);
+    }
+  }
 }
