@@ -178,6 +178,7 @@ export default class DataTableHeaderComponent extends Vue {
 
   onHiddenChanged($event) {
     this.$emit('hidden-changed');
+    this.onChangedInnerWidth();
   }
 
   getColumn(index: number): any {
