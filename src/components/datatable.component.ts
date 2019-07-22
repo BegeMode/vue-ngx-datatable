@@ -963,6 +963,7 @@ export default class DatatableComponent extends Vue {
       if (c.$$id === column.$$id) {
         idx = i;
         c.width = newValue;
+        c.canAutoResize = false;
 
         // set this so we can force the column
         // width distribution to be to this value

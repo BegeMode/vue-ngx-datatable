@@ -1,5 +1,5 @@
 /**
- * vue-data-table v"1.0.9" (https://github.com/begemode/vue-ngx-data-table)
+ * vue-data-table v"1.0.10" (https://github.com/begemode/vue-ngx-data-table)
  * Copyright 2018
  * Licensed under MIT
  */
@@ -262,6 +262,7 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
         if (this.cellSlot) {
             this.$slots.default = this.cellSlot({
                 row: this.context && this.context.row ? this.context.row : {},
+                column: this.context.column,
                 rowIndex: this.context.rowIndex,
                 group: this.context.group,
                 expanded: this.context.expanded,
@@ -277,6 +278,7 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
         if (this.cellSlot) {
             this.$slots.default = this.cellSlot({
                 row: this.context && this.context.row ? this.context.row : {},
+                column: this.context.column,
                 rowIndex: this.context.rowIndex,
                 group: this.context.group,
                 expanded: this.context.expanded,
@@ -1666,6 +1668,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
             rows: [row],
             currentIndex: viewPortFirstRowIndex
         });
+        return Boolean(expanded);
     };
     /**
      * Expand/Collapse all the rows no matter what their state is.
@@ -1889,6 +1892,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
             value: '',
             sanitizedValue: '',
         };
+        cellContext = vue_property_decorator_1.Vue.observable(cellContext);
         this.setCellValue(cellContext);
         this.saveContextFor(row, column, cellContext);
         return cellContext;
@@ -2049,7 +2053,14 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
      * Toggle the expansion of the row
      */
     DataTableBodyComponent.prototype.toggleExpandDetail = function (row) {
-        this.toggleRowExpansion(row);
+        var _this = this;
+        var expanded = this.toggleRowExpansion(row);
+        this.columns.forEach(function (column) {
+            var cellContext = _this.cellContextFor(row, column);
+            if (cellContext) {
+                cellContext.expanded = expanded;
+            }
+        });
         this.updateIndexes();
         this.updateRows(true);
         this.$emit('detail-toggle', {
@@ -3012,6 +3023,7 @@ var DatatableComponent = /** @class */ (function (_super) {
             if (c.$$id === column.$$id) {
                 idx = i;
                 c.width = newValue;
+                c.canAutoResize = false;
                 // set this so we can force the column
                 // width distribution to be to this value
                 c.$$oldWidth = newValue;
@@ -3170,6 +3182,10 @@ var DatatableComponent = /** @class */ (function (_super) {
     };
     DatatableComponent.prototype.onColumnChangeVisible = function (column) {
         this.recalculateColumns();
+    };
+    DatatableComponent.prototype.onHiddenChanged = function () {
+        this.recalculateColumns();
+        this.bodyComponent && this.bodyComponent.onInnerWidthChanged();
     };
     /**
      * listen for changes to input bindings of all DataTableColumnDirective and
@@ -4127,6 +4143,7 @@ var render = function() {
             null,
             {
               row: _vm.context && _vm.context.row ? _vm.context.row : {},
+              column: _vm.context.column,
               rowIndex: _vm.context.rowIndex,
               group: _vm.context.group,
               expanded: _vm.context.expanded,
@@ -5820,6 +5837,7 @@ var render = function() {
               resize: function($event) {
                 return _vm.onColumnResize($event)
               },
+              "hidden-changed": _vm.onHiddenChanged,
               reorder: function($event) {
                 return _vm.onColumnReorder($event)
               },
@@ -6389,6 +6407,7 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
         if (this.column.headerTemplate) {
             this.$slots.default = this.column.headerTemplate({ column: this.column });
         }
+        this.hiddenDetect();
     };
     DataTableHeaderCellComponent.prototype.mounted = function () {
         this.$emit('header-cell-mounted', this.$el);
@@ -6397,6 +6416,7 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
         if (this.column.headerTemplate) {
             this.$slots.default = this.column.headerTemplate({ column: this.column });
         }
+        this.hiddenDetect();
     };
     Object.defineProperty(DataTableHeaderCellComponent.prototype, "columnCssClasses", {
         // @Output() sort: EventEmitter<any> = new EventEmitter();
@@ -6545,6 +6565,17 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
         }
         return w;
     };
+    DataTableHeaderCellComponent.prototype.hiddenDetect = function () {
+        var hidden = false;
+        var width = this.calcRealWidth();
+        if (width !== null && width < 10) {
+            hidden = true;
+        }
+        if (this.column.hidden !== hidden) {
+            this.column.hidden = hidden;
+            this.$emit('hidden-changed', this.column);
+        }
+    };
     __decorate([
         vue_property_decorator_1.Prop(),
         __metadata("design:type", String)
@@ -6677,6 +6708,7 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
         _this.targetMarkerContext = null;
         _this.dragEventTarget = null;
         _this.dragging = false;
+        _this.positions = {};
         return _this;
     }
     DataTableHeaderComponent.prototype.onChangedInnerWidth = function () {
@@ -6762,6 +6794,10 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
             newValue: width
         });
     };
+    DataTableHeaderComponent.prototype.onHiddenChanged = function ($event) {
+        this.$emit('hidden-changed');
+        this.onChangedInnerWidth();
+    };
     DataTableHeaderComponent.prototype.getColumn = function (index) {
         var leftColumnCount = this.columnsByPin[0].columns.length;
         if (index < leftColumnCount) {
@@ -6813,9 +6849,21 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
         return sorts;
     };
     DataTableHeaderComponent.prototype.setStylesByGroup = function () {
-        this.styleByGroup['left'] = this.calcStylesByGroup('left');
-        this.styleByGroup['center'] = this.calcStylesByGroup('center');
-        this.styleByGroup['right'] = this.calcStylesByGroup('right');
+        if (!this.columnsByPin || !this.columnsByPin.length) {
+            return;
+        }
+        var leftColumnCount = this.columnsByPin[0].columns.length;
+        if (leftColumnCount) {
+            this.styleByGroup['left'] = this.calcStylesByGroup('left');
+        }
+        var centerColumnCount = this.columnsByPin[1].columns.length;
+        if (centerColumnCount) {
+            this.styleByGroup['center'] = this.calcStylesByGroup('center');
+        }
+        var rightColumnCount = this.columnsByPin[2].columns.length;
+        if (rightColumnCount) {
+            this.styleByGroup['right'] = this.calcStylesByGroup('right');
+        }
     };
     DataTableHeaderComponent.prototype.calcStylesByGroup = function (group) {
         var widths = this.columnGroupWidths;
@@ -6909,6 +6957,7 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
         this.dragging = false;
         var prevPos = this.columns.findIndex(function (col) { return col.prop === model.prop; }); // this.positions[model.prop];
         var target = this.isTarget(model, event);
+        this.positions = {};
         if (target) {
             this.onColumnReordered({
                 prevIndex: prevPos,
@@ -7064,7 +7113,7 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
                 'long-press': long_press_directive_1.default,
                 dragndrop: draggable_directive_1.default,
             },
-            template: "\n    <div :style=\"styleObject\" class=\"datatable-header-inner\">\n      <div v-for=\"colGroup of columnsByPin\" :key=\"colGroup.type\"\n        :class=\"['datatable-row-' + colGroup.type]\"\n        :style=\"styleByGroup[colGroup.type]\">\n        <datatable-header-cell class=\"datatable-header-cell\"\n          v-for=\"column of colGroup.columns\" :key=\"column.$$id\"\n          v-resizeable=\"{ resizeEnabled: column.resizeable }\"\n          v-long-press=\"{pressModel: column, pressEnabled: reorderable && column.draggable}\"\n          v-dragndrop=\"{dragEventTarget:dragEventTarget,dragModel:column,dragX:isEnableDragX(column),dragY:false}\"\n          @resize=\"onColumnResized($event, column)\"\n          @longPressStart=\"onLongPressStart($event, column)\"\n          @longPressEnd=\"onLongPressEnd($event, column)\"\n          :headerHeight=\"headerHeight\"\n          :isTarget=\"column.isTarget\"\n          :targetMarkerTemplate=\"targetMarkerTemplate\"\n          :targetMarkerContext=\"column.targetMarkerContext\"\n          :column=\"column\"\n          :sortType=\"sortType\"\n          :sorts=\"sorts\"\n          :selectionType=\"selectionType\"\n          :sortAscendingIcon=\"sortAscendingIcon\"\n          :sortDescendingIcon=\"sortDescendingIcon\"\n          :allRowsSelected=\"allRowsSelected\"\n          @sort=\"onSort($event)\"\n          @select=\"$emit('select')\"\n          @columnContextmenu=\"$emit('columnContextmenu', $event)\"\n          @header-cell-mounted=\"onHeaderCellMounted(column, $event)\"\n          @dragStart=\"onDragStart\"\n          @dragEnd=\"onDragEnd\"\n          @dragging=\"onDragging\">\n        </datatable-header-cell>\n      </div>\n    </div>\n  ",
+            template: "\n    <div :style=\"styleObject\" class=\"datatable-header-inner\">\n      <div v-for=\"colGroup of columnsByPin\" :key=\"colGroup.type\"\n        :class=\"['datatable-row-' + colGroup.type]\"\n        :style=\"styleByGroup[colGroup.type]\">\n        <datatable-header-cell class=\"datatable-header-cell\"\n          v-for=\"column of colGroup.columns\" :key=\"column.$$id\"\n          v-resizeable=\"{ resizeEnabled: column.resizeable }\"\n          v-long-press=\"{pressModel: column, pressEnabled: reorderable && column.draggable}\"\n          v-dragndrop=\"{dragEventTarget:dragEventTarget,dragModel:column,dragX:isEnableDragX(column),dragY:false}\"\n          @resize=\"onColumnResized($event, column)\"\n          @longPressStart=\"onLongPressStart($event, column)\"\n          @longPressEnd=\"onLongPressEnd($event, column)\"\n          :headerHeight=\"headerHeight\"\n          :isTarget=\"column.isTarget\"\n          :targetMarkerTemplate=\"targetMarkerTemplate\"\n          :targetMarkerContext=\"column.targetMarkerContext\"\n          :column=\"column\"\n          :sortType=\"sortType\"\n          :sorts=\"sorts\"\n          :selectionType=\"selectionType\"\n          :sortAscendingIcon=\"sortAscendingIcon\"\n          :sortDescendingIcon=\"sortDescendingIcon\"\n          :allRowsSelected=\"allRowsSelected\"\n          @sort=\"onSort($event)\"\n          @select=\"$emit('select')\"\n          @columnContextmenu=\"$emit('columnContextmenu', $event)\"\n          @header-cell-mounted=\"onHeaderCellMounted(column, $event)\"\n          @dragStart=\"onDragStart\"\n          @dragEnd=\"onDragEnd\"\n          @dragging=\"onDragging\"\n          @hidden-changed=onHiddenChanged($event)>\n        </datatable-header-cell>\n      </div>\n    </div>\n  ",
         })
     ], DataTableHeaderComponent);
     return DataTableHeaderComponent;
@@ -7218,7 +7267,7 @@ var LongPressController = /** @class */ (function () {
     function LongPressController(id, vNode, el) {
         this.id = 0;
         this.pressEnabled = true;
-        this.duration = 500;
+        this.duration = 200;
         this.mouseX = 0;
         this.mouseY = 0;
         this.vnode = null;
@@ -8361,6 +8410,9 @@ function columnTotalWidth(columns, prop) {
     if (columns) {
         for (var _i = 0, columns_1 = columns; _i < columns_1.length; _i++) {
             var c = columns_1[_i];
+            if (c.hidden) {
+                continue;
+            }
             var has = prop && c[prop];
             var width = has ? c[prop] : c.width;
             totalWidth = totalWidth + parseFloat(width);
@@ -8594,7 +8646,7 @@ function getTotalFlexGrow(columns) {
  */
 function adjustColumnWidths(allColumns, expectedWidth) {
     if (allColumns && allColumns.length) {
-        allColumns = allColumns.filter(function (c) { return c.visible; });
+        allColumns = allColumns.filter(function (c) { return c.visible && !c.hidden; });
     }
     var columnsWidth = column_1.columnsTotalWidth(allColumns);
     var totalFlexGrow = getTotalFlexGrow(allColumns);
@@ -8682,7 +8734,7 @@ function forceFillColumnWidths(allColumns, expectedWidth, startIdx, allowBleed, 
     }
     var additionWidthPerColumn = 0;
     var exceedsWindow = false;
-    var contentWidth = getContentWidth(allColumns.filter(function (c) { return c.visible; }), defaultColWidth);
+    var contentWidth = getContentWidth(allColumns.filter(function (c) { return c.visible && !c.hidden; }), defaultColWidth);
     var remainingWidth = expectedWidth - contentWidth;
     var columnsProcessed = [];
     // This loop takes care of the

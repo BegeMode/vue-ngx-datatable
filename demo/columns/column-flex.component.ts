@@ -19,12 +19,12 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
       </h3>
       <ngx-datatable
         class="material"
-        :columnMode="'flex'"
+        columnMode="flex"
         :headerHeight="50"
         :footerHeight="50"
         :rowHeight="'auto'"
         :rows="rows">
-        <ngx-datatable-column name="Name" :flexGrow="3">
+        <ngx-datatable-column name="Name" :flexGrow="3" :resizeable="true">
         </ngx-datatable-column>
         <ngx-datatable-column name="Gender" :flexGrow="1">
         </ngx-datatable-column>
