@@ -1147,6 +1147,11 @@ export default class DatatableComponent extends Vue {
   onHiddenChanged() {
     this.recalculateColumns();
     this.bodyComponent && this.bodyComponent.onInnerWidthChanged();
+    // this.$nextTick(() => {
+    //   this.recalculateColumns();
+    //   this.bodyComponent.recalculateColumns();
+    //   this.bodyComponent.buildStylesByGroup();
+    // });
   }
     
   /**

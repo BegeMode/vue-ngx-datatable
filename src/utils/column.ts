@@ -60,7 +60,7 @@ export function columnTotalWidth(columns: TableColumn[], prop?: string) {
         continue;
       }
       const has = prop && c[prop];
-      const width = has ? c[prop] : c.width;
+      const width = (c as any).hidden ? 0 : has ? c[prop] : c.width;
       totalWidth = totalWidth + parseFloat(width);
     }
   }
