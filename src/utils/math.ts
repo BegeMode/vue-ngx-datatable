@@ -98,10 +98,20 @@ export function forceFillColumnWidths(
   allowBleed: boolean,
   defaultColWidth: number = 300) {
   
+  const hiddenColumns = allColumns.filter(c => c.hidden);
+  for (const column of hiddenColumns) {
+    if(!column.$$oldWidth) {
+      column.$$oldWidth = column.width;
+    }
+    column.width = 0;
+  }
+
+  allColumns = allColumns.filter(c => c.visible && !c.hidden);
+  
   const columnsToResize = allColumns
     .slice(startIdx + 1, allColumns.length)
     .filter((c) => { 
-      return c.visible && c.canAutoResize !== false; 
+      return c.canAutoResize !== false; 
     });
   
   const averageColumnWidth = expectedWidth / columnsToResize.length;
@@ -115,7 +125,7 @@ export function forceFillColumnWidths(
 
   let additionWidthPerColumn = 0;
   let exceedsWindow = false;
-  let contentWidth = getContentWidth(allColumns.filter(c => c.visible && !c.hidden), defaultColWidth);
+  let contentWidth = getContentWidth(allColumns, defaultColWidth);
   let remainingWidth = expectedWidth - contentWidth;
   const columnsProcessed: any[] = [];
 
