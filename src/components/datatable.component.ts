@@ -343,7 +343,7 @@ export default class DatatableComponent extends Vue {
   isVisible: boolean = false;
 
   // non-reactive
-  mySorts: any[];
+  // mySorts: any[];
 
   // _columnTemplates: QueryList<DataTableColumnDirective>;
   // _subscriptions: Subscription[] = [];
@@ -585,9 +585,9 @@ export default class DatatableComponent extends Vue {
     this.myOffset_ = this.offset;
   }
 
-  @Watch('sorts', { immediate: true }) onSortsChanged() {
-    this.mySorts = this.sorts;
-  }
+  // @Watch('sorts', { immediate: true }) onSortsChanged() {
+  //   this.mySorts = this.sorts;
+  // }
 
   @Watch('selected', { immediate: true }) onSelectedChanged() {
     this.mySelected = this.selected;
@@ -1016,7 +1016,11 @@ export default class DatatableComponent extends Vue {
       });
     }
 
-    this.mySorts = event.sorts;
+    // this.mySorts = event.sorts;
+    if (Array.isArray(this.sorts) && Array.isArray(event.sorts)) {
+      this.sorts.length = 0;
+      event.sorts.forEach(item => this.sorts.push(item));
+    }
 
     // let rows = this.internalRows;
     const treeFrom = optionalGetterForProp(this.treeFromRelation);
@@ -1338,7 +1342,7 @@ export default class DatatableComponent extends Vue {
       this.groupedRows = this.sortGroupedRows(this.groupedRows);
       this.internalRows = this.processGroupedRows(this.groupedRows);
     } else {
-      this.internalRows = sortRows(this.internalRows, this.internalColumns, this.mySorts);
+      this.internalRows = sortRows(this.internalRows, this.internalColumns, this.sorts);
     }
   }
 
@@ -1355,10 +1359,10 @@ export default class DatatableComponent extends Vue {
         gr.groups = this.sortGroupedRows(gr.groups);
       }
       if (gr.value && gr.value) {
-        gr.value = sortRows(gr.value, this.internalColumns, this.mySorts);
+        gr.value = sortRows(gr.value, this.internalColumns, this.sorts);
       }
     });
-    sortedRows = sortRows(rows, this.internalColumns, this.mySorts);
+    sortedRows = sortRows(rows, this.internalColumns, this.sorts);
     const result = sortedRows.map(r => r.__group);
     return result;
   }

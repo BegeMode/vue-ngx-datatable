@@ -3,7 +3,7 @@
       <h3>
         Responsive Demo
         <small>
-          <a href="https://github.com/begemode/vue-ngx-datatable/blob/master/demo/basic/responsive.component.ts" target="_blank">
+          <a href="https://github.com/begemode/vue-ngx-datatable/blob/master/demo/basic/responsive.component.vue" target="_blank">
             Source
           </a>
         </small>
