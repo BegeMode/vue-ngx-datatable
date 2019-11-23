@@ -343,7 +343,7 @@ export default class DatatableComponent extends Vue {
   isVisible: boolean = false;
 
   // non-reactive
-  mySorts: any[];
+  // mySorts: any[];
 
   // _columnTemplates: QueryList<DataTableColumnDirective>;
   // _subscriptions: Subscription[] = [];
@@ -1171,16 +1171,6 @@ export default class DatatableComponent extends Vue {
     setTimeout(() => this.recalculateColumns(), 100);
   }
 
-  // onHiddenChanged() {
-  //   this.recalculateColumns();
-  //   this.bodyComponent && this.bodyComponent.onInnerWidthChanged();
-  //   // this.$nextTick(() => {
-  //   //   this.recalculateColumns();
-  //   //   this.bodyComponent.recalculateColumns();
-  //   //   this.bodyComponent.buildStylesByGroup();
-  //   // });
-  // }
-    
   /**
    * listen for changes to input bindings of all DataTableColumnDirective and
    * trigger the columnTemplates.changes observable to emit
