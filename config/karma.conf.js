@@ -14,11 +14,14 @@ module.exports =  function(config) {
       './config/spec-bundle.js': ['coverage', 'webpack', 'sourcemap']
     },
     webpack: testWebpackConfig({ env: 'test' }),
-    webpackMiddleware: { stats: 'errors-only'},
-    reporters: [ 'mocha', 'coverage', 'remap-coverage' ],
+    webpackMiddleware: {
+      stats: 'normal',
+      logLevel: 'trace',
+    },
+    reporters: ['mocha', 'coverage', 'remap-coverage'],
     port: 9876,
     colors: true,
-    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_LOG, // 'trace'
     autoWatch: false,
     browsers: ['Chrome'],
     customLaunchers: {
@@ -30,6 +33,9 @@ module.exports =  function(config) {
         base: 'ChromeHeadless',
         flags: ['--no-sandbox']
       }
+    },
+    mime: {
+      'text/x-typescript': ['ts', 'tsx']
     },
     coverageReporter: {
       type: 'in-memory'
