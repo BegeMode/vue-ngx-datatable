@@ -60,8 +60,8 @@ export default class DataTablePagerComponent extends Vue {
   @Prop() pagerRightArrowIcon: string;
   @Prop() pagerPreviousIcon: string;
   @Prop() pagerNextIcon: string;
-  @Prop() size: number;
-  @Prop() count: number;
+  @Prop({ type: Number, default: 0 }) size: number;
+  @Prop({ type: Number, default: 0 }) count: number;
   @Prop({ type: Number, default: 1 }) page: number;
 
   pages: any = [];
