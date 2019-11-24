@@ -1,33 +1,20 @@
-import {
-  async,
-  TestBed
-} from '@angular/core/testing';
-
-import {
-  DataTableHeaderCellComponent
-} from '.';
+import { mount, Wrapper } from '@vue/test-utils';
+import Vue from 'vue';
+import * as flushPromises from 'flush-promises';
+import DataTableHeaderCellComponent from './header-cell.component';
 
 describe('DataTableHeaderCellComponent', () => {
-  let fixture;
+  let wrapper: Wrapper<DataTableHeaderCellComponent>;
   let component: DataTableHeaderCellComponent;
   let element;
 
-  // provide our implementations or mocks to the dependency injector
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      declarations: [ 
-        DataTableHeaderCellComponent
-      ]
-    });
+  beforeEach(async () => {
+    wrapper = mount(DataTableHeaderCellComponent, { sync: false, propsData: { column: {} } });
+    await flushPromises();
+    component = wrapper.vm;
+    element = component.$el;
+    await Vue.nextTick();
   });
-
-  beforeEach(async(() => {
-    TestBed.compileComponents().then(() => {
-      fixture = TestBed.createComponent(DataTableHeaderCellComponent);
-      component = fixture.componentInstance;
-      element = fixture.nativeElement;
-    });
-  }));
 
   describe('fixture', () => {
     it('should have a component instance', () => {
