@@ -8,7 +8,6 @@ import { Component, Prop } from 'vue-property-decorator';
 
 let wrapper: Wrapper<TestFixtureComponent>;
 let component: TestFixtureComponent;
-// let page: Page;
 
 describe('DataTableFooterComponent', () => {
 
