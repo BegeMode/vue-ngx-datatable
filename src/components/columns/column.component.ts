@@ -1,9 +1,4 @@
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
-// import { DataTableColumnHeaderDirective } from './column-header.directive';
-// import { DataTableColumnCellDirective } from './column-cell.directive';
-// import {
-//   DataTableColumnCellTreeToggle
-// } from './tree.directive';
 import { TableColumnProp, TableColumn } from '../../types';
 
 @Component({
@@ -42,27 +37,6 @@ export default class DataTableColumnComponent extends Vue {
   @Prop() treeLevelIndent: number;
   @Prop() summaryFunc: (cells: any[]) => any;
   @Prop({ default: true }) visible: boolean;
-
-  // @Prop()
-  // @ContentChild(DataTableColumnCellDirective, { read: TemplateRef })
-  // cellTemplate: TemplateRef<any>;
-
-  // @Prop()
-  // @ContentChild(DataTableColumnHeaderDirective, { read: TemplateRef })
-  // headerTemplate: TemplateRef<any>;
-
-  // @Prop()
-  // @ContentChild(DataTableColumnCellTreeToggle, { read: TemplateRef })
-  // treeToggleTemplate: TemplateRef<any>;
-  // private isFirstChange = true;
-  
-  // ngOnChanges() {
-  //   if (this.isFirstChange) {
-  //     this.isFirstChange = false;
-  //   } else {
-  //     this.columnChangesService.onInputChange();
-  //   }
-  // }
 
   column: TableColumn = {};
 
