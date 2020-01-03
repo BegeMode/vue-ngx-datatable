@@ -51,13 +51,13 @@
           </template>
         </ngx-datatable-column>
 
-        <ngx-datatable-column name="Gender" :flexGrow="1">
+        <ngx-datatable-column name="Gender" :flexGrow="1" class="mobile-hidden">
           <template v-slot:header="scope">
-            <span class="mobile-hidden">{{scope.column.name}}</span>
+            <span>{{scope.column.name}}</span>
           </template>
 
           <template v-slot:default="scope">
-            <span v-if="scope.row" class="mobile-hidden">{{scope.row.gender}}</span>
+            <span v-if="scope.row">{{scope.row.gender}}</span>
           </template>
         </ngx-datatable-column>
 
@@ -141,6 +141,14 @@ export default class ResponsiveComponent extends Vue {
   }
   .mobile-hidden {
     display: none;
+  }
+  /deep/ {
+    .desktop-hidden {
+      display: initial !important;
+    }
+    .mobile-hidden {
+      display: none !important;
+    }
   }
 }
 @media screen and (min-width: 800px) {

@@ -258,4 +258,10 @@ export interface TableColumn {
    * @memberOf TableColumn
    */
   visible?: boolean;
+  /**
+   * Reference to HTMLElement
+   * @type {Element}
+   * @memberOf TableColumn
+   */
+  element?: Element;
 }

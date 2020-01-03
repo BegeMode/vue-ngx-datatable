@@ -103,6 +103,9 @@
     .ngx-datatable .datatable-body-cell .datatable-body-cell-label,
     .ngx-datatable .datatable-header-cell .datatable-body-cell-label {
       width: 100%; }
+    .ngx-datatable .datatable-body-cell-bold,
+    .ngx-datatable .datatable-header-cell-bold {
+      font-weight: bold; }
   .ngx-datatable .datatable-row-left,
   .ngx-datatable .datatable-row-right {
     z-index: 9; }
@@ -128,7 +131,8 @@
         line-height: 100%;
         vertical-align: middle;
         display: inline-block;
-        cursor: pointer; }
+        cursor: pointer;
+        font-size: 1.25rem; }
       .ngx-datatable .datatable-header .datatable-header-cell .resize-handle, .ngx-datatable .datatable-header .datatable-header-cell .resize-handle--not-resizable {
         display: inline-block;
         position: absolute;

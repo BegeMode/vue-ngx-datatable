@@ -83,8 +83,46 @@ export default class DataTableColumnComponent extends Vue {
     this.$set(this.column, 'maxWidth', this.maxWidth);
     this.$set(this.column, 'checkboxable', this.checkboxable);
     this.$set(this.column, 'headerCheckboxable', this.headerCheckboxable);
-    this.$set(this.column, 'headerClass', this.headerClass);
-    this.$set(this.column, 'cellClass', this.cellClass);
+    let headerClasses = [];
+    if (Array.isArray(this.headerClass)) {
+      headerClasses = [...this.headerClass];
+    } else if (typeof this.headerClass === 'string') {
+      headerClasses.push(this.headerClass);
+    } else if (typeof this.headerClass === 'function') {
+      const res = this.headerClass({
+        column: this.column
+      });
+      if (typeof res === 'string') {
+        headerClasses.push(res);
+      } else if (typeof res === 'object') {
+        const keys = Object.keys(res);
+        for (const key of keys) {
+          if (res[key] === true) {
+            headerClasses.push(key);
+          }
+        }
+      }
+    }
+    for (let i = 0; i < this.$el.classList.length; i++) {
+      const value = this.$el.classList[0];
+      headerClasses.push(value);
+    }
+    this.$set(this.column, 'headerClass', headerClasses);
+
+    let cellClasses = [];
+    if (Array.isArray(this.cellClass)) {
+      cellClasses = [...this.cellClass];
+    } else if (typeof this.cellClass === 'string') {
+      cellClasses.push(this.cellClass);
+    } else if (typeof this.cellClass === 'function') {
+      cellClasses.push(this.cellClass);
+    }
+    for (let i = 0; i < this.$el.classList.length; i++) {
+      const value = this.$el.classList[0];
+      cellClasses.push(value);
+    }
+    this.$set(this.column, 'cellClass', cellClasses);
+
     this.$set(this.column, 'isTreeColumn', this.isTreeColumn);
     this.$set(this.column, 'treeLevelIndent', this.treeLevelIndent);
     this.$set(this.column, 'summaryFunc', this.summaryFunc);

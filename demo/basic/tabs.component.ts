@@ -33,8 +33,8 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
         <div v-show="tab2">
           <h4>hidden Table</h4>
           <ngx-datatable
-            class='material'
-            :rows='rows'
+            class="material"
+            :rows="rows"
             columnMode="force"
             :headerHeight="50"
             :footerHeight="50"
@@ -49,7 +49,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
         <div v-if="tab3">
           <h4>v-if Table</h4>
           <ngx-datatable
-            class='material'
+            class="material"
             :rows="rows"
             columnMode="force"
             :headerHeight="50"

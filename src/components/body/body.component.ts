@@ -991,12 +991,24 @@ export default class DataTableBodyComponent extends Vue {
       // 'datatable-body-cell': true,
     };
     // let cls = 'datatable-body-cell';
+    let func = null;
     if (context.column.cellClass) {
       if (typeof context.column.cellClass === 'string') {
         // cls += ' ' + this.column.cellClass;
         result[context.column.cellClass] = true;
-      } else if(typeof context.column.cellClass === 'function') {
-        const res = context.column.cellClass({
+      } else if (Array.isArray(context.column.cellClass)) {
+        context.column.cellClass.forEach(value => {
+          if (typeof value === 'function') {
+            func = value;
+          } else {
+            result[value] = true;
+          }
+        });
+      } else if (typeof context.column.cellClass === 'function') {
+        func = context.column.cellClass;
+      }
+      if(func) {
+        const res = func({
           row: context.row,
           group: context.group,
           column: context.column,

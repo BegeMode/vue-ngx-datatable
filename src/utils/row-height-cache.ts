@@ -64,7 +64,7 @@ export class RowHeightCache {
     for (let i = 0; i < n; ++i) {
       const row = rows[i];
       let currentRowHeight;
-      if (row.__isGroup) {
+      if (row && row.__isGroup) {
         currentRowHeight = groupRowHeight;
         if (isGroupFn) {
           currentRowHeight = groupRowHeight(row);

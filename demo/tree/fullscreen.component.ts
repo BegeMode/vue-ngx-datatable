@@ -29,6 +29,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
         :rows="rows"
         treeFromRelation="parentId"
         treeToRelation="id"
+        :lazyTree="true"
         @tree-action="onTreeAction($event)">
         <ngx-datatable-column name="Id" :width="80"></ngx-datatable-column>
         <ngx-datatable-column
@@ -74,7 +75,7 @@ export default class FullScreenTreeComponent extends Vue {
     this.fetch((data) => {
       data = data.slice(1, this.lastIndex);
       this.rows = data.map((d) => {
-        d.treeStatus = 'collapsed';
+        this.$set(d, 'treeStatus', 'collapsed');
         d.parentId = null;
         return d;
       });
@@ -102,7 +103,7 @@ export default class FullScreenTreeComponent extends Vue {
       this.fetch((data) => {
         data = data.slice(this.lastIndex, this.lastIndex + 3)
           .map((d) => {
-            d.treeStatus = 'collapsed';
+            this.$set(d, 'treeStatus', 'collapsed');
             d.parentId = row.id;
             return d;
           });
