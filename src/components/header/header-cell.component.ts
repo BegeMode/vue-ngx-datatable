@@ -27,13 +27,14 @@ import { nextSortDir } from '../../utils';
         <!-- Default content -->
         <span class="datatable-header-cell-wrapper">
           <span class="datatable-header-cell-label draggable"
+            :class="cssClass"
             @click="onSort" v-html="name">
           </span>
         </span>
       </slot>
       <span
         @click="onSort"
-        :class="sortClass">
+        :class="sortCssClass">
       </span>
     </div>
   `,
@@ -80,10 +81,10 @@ export default class DataTableHeaderCellComponent extends Vue {
     if (this.column.headerTemplate) {
       this.$slots.default = this.column.headerTemplate({ column: this.column });
     }
-    this.hiddenDetect();
   }
 
   mounted() {
+    this.column.element = this.$el;
     this.$emit('header-cell-mounted', this.$el);
   }
 
@@ -91,14 +92,8 @@ export default class DataTableHeaderCellComponent extends Vue {
     if (this.column.headerTemplate) {
       this.$slots.default = this.column.headerTemplate({ column: this.column });
     }
-    this.hiddenDetect();
   }
 
-  // @Output() sort: EventEmitter<any> = new EventEmitter();
-  // @Output() select: EventEmitter<any> = new EventEmitter();
-  // @Output() columnContextmenu = new EventEmitter<{ event: MouseEvent, column: any }>(false);
-
-  // @HostBinding('class')
   get columnCssClasses(): any {
     let cls = 'datatable-header-cell';
     if (this.column) {
@@ -108,11 +103,12 @@ export default class DataTableHeaderCellComponent extends Vue {
       if (this.column.headerClass) {
         if (typeof this.column.headerClass === 'string') {
           cls += ' ' + this.column.headerClass;
+        } else if (Array.isArray(this.column.headerClass)) {
+          cls += ' ' + this.column.headerClass.join(' ');
         } else if (typeof this.column.headerClass === 'function') {
           const res = this.column.headerClass({
             column: this.column
           });
-
           if (typeof res === 'string') {
             cls += res;
           } else if (typeof res === 'object') {
@@ -155,8 +151,12 @@ export default class DataTableHeaderCellComponent extends Vue {
     };
   }
 
-  get sortClass(): string {
-    return this.calcSortClass(this.sortDir);
+  get sortCssClass(): string {
+    return this.calcSortCssClass(this.sortDir);
+  }
+
+  get cssClass(): string {
+    return this.calcCssClass(this.sortDir);
   }
 
   // @HostBinding('style.minWidth.px')
@@ -206,7 +206,7 @@ export default class DataTableHeaderCellComponent extends Vue {
     });
   }
 
-  calcSortClass(sortDir: SortDirection): string {
+  calcSortCssClass(sortDir: SortDirection): string {
     if (sortDir === SortDirection.asc) {
       return `sort-btn sort-asc ${this.sortAscendingIcon}`;
     } else if (sortDir === SortDirection.desc) {
@@ -216,27 +216,11 @@ export default class DataTableHeaderCellComponent extends Vue {
     }
   }
 
-  calcRealWidth() {
-    if (!this.$el) {
-      return null;
-    }
-    let w = 0;
-    for (let i = 0; i < this.$el.children.length; i++) {
-      const el = this.$el.children[i];
-      w = Math.max(w, (el as HTMLElement).offsetWidth);
-    }
-    return w;
-  }
-
-  private hiddenDetect() {
-    let hidden = false;
-    const width = this.calcRealWidth();
-    if (width !== null && width < 10) {
-      hidden = true;
-    }
-    if ((this.column as any).hidden !== hidden) {
-      (this.column as any).hidden = hidden;
-      this.$emit('hidden-changed', this.column);
+  calcCssClass(sortDir: SortDirection): string {
+    if (sortDir === SortDirection.asc || sortDir === SortDirection.desc) {
+      return 'datatable-header-cell-bold';
+    } else {
+      return '';
     }
   }
 }

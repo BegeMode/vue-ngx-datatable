@@ -42,7 +42,8 @@ export function optionalGetterForProp(prop: TableColumnProp): OptionalValueGette
  * @param rows
  *
  */
-export function groupRowsByParents(rows: any[], from?: OptionalValueGetter, to?: OptionalValueGetter): any[] {
+export function groupRowsByParents(rows: any[], from?: OptionalValueGetter, to?: OptionalValueGetter,
+                                   lazyTree: boolean = false): any[] {
   if (from && to) {
     const nodeById = {};
     const l = rows.length;
@@ -77,7 +78,7 @@ export function groupRowsByParents(rows: any[], from?: OptionalValueGetter, to?:
     let resolvedRows: any[] = [];
     nodeById[0].flatten(function() {
       resolvedRows = [...resolvedRows, this.row];
-    }, true);
+    }, true, lazyTree);
 
     return resolvedRows;
   } else {
@@ -102,12 +103,15 @@ class TreeNode {
     this.children = [];
   }
 
-  flatten(f: any, recursive: boolean)  {
+  flatten(f: any, recursive: boolean, lazyTree: boolean = false)  {
     if (this.row['treeStatus'] === 'expanded') {
       for (let i = 0, l = this.children.length; i < l; i++) {
         const child = this.children[i];
+        if (!lazyTree && (!child.children || !child.children.length)) {
+            child.row['treeStatus'] = 'disabled';
+        }
         f.apply(child, Array.prototype.slice.call(arguments, 2));
-        if (recursive) child.flatten.apply(child, arguments);
+        if (recursive) child.flatten.apply(child, arguments, lazyTree);
       }
     }
   }

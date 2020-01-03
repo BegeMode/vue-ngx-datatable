@@ -269,6 +269,10 @@ export default class DatatableComponent extends Vue {
    */
   @Prop() treeToRelation: string;
   /**
+   * Is the tree will be lazy loading
+   */
+  @Prop({ default: false }) lazyTree: boolean;
+  /**
    * A flag for switching summary row on / off
    */
   @Prop({ type: Boolean, default: false }) summaryRow: boolean;
@@ -313,10 +317,10 @@ export default class DatatableComponent extends Vue {
   myOffset_: number = 0;
   mySelected = [];
   renderTracking = false;
+  isVisible: boolean = false;
 
   // non-reactive
   mySorts: any[];
-  isVisible: boolean;
 
   // _columnTemplates: QueryList<DataTableColumnDirective>;
   // _subscriptions: Subscription[] = [];
@@ -444,7 +448,8 @@ export default class DatatableComponent extends Vue {
     this.internalRows = groupRowsByParents(
       this.internalRows,
       optionalGetterForProp(this.treeFromRelation),
-      optionalGetterForProp(this.treeToRelation)
+      optionalGetterForProp(this.treeToRelation),
+      this.lazyTree
     );
     
     this.groupedRows = null;
@@ -681,66 +686,6 @@ export default class DatatableComponent extends Vue {
   get scrollbarWidth(): number {
     return this.scrollbarHelper.width;
   }
-  /**
-   * Column templates gathered from `ContentChildren`
-   * if described in your markup.
-   */
-  // @ContentChildren(DataTableColumnDirective)
-  // set columnTemplates(val: QueryList<DataTableColumnDirective>) {
-  //   this._columnTemplates = val;
-  //   this.translateColumns(val);
-  // }
-
-  /**
-   * Returns the column templates.
-   */
-  // get columnTemplates(): QueryList<DataTableColumnDirective> {
-  //   return this._columnTemplates;
-  // }
-
-  /**
-   * Footer template gathered from the ContentChild
-   */
-  // @ContentChild(DatatableFooterDirective)
-  // footer: DatatableFooterDirective;
-  /**
-   * Translates the templates to the column objects
-   */
-  // translateColumns(val: any) {
-  //   if (val) {
-  //     const arr = val.toArray();
-  //     if (arr.length) {
-  //       this._internalColumns = translateTemplates(arr);
-  //       setColumnDefaults(this._internalColumns);
-  //       this.recalculateColumns();
-  //       this.sortInternalRows();
-  //       this.cd.markForCheck();
-  //     }
-  //   }
-  // }
-
-  /*
-  * Lifecycle hook that is called when Angular dirty checks a directive.
-  */
-  // ngDoCheck(): void {
-  //   if (this.rowDiffer.diff(this.rows)) {
-  //     if (!this.externalSorting) {
-  //       this.sortInternalRows();
-  //     } else {
-  //       this.internalRows = [...this.rows];
-  //     }
-
-  //     // auto group by parent on new update
-  //     this.internalRows = groupRowsByParents(
-  //       this.internalRows,
-  //       optionalGetterForProp(this.treeFromRelation),
-  //       optionalGetterForProp(this.treeToRelation)
-  //     );
-
-  //     this.recalculatePages();
-  //     this.cd.markForCheck();
-  //   }
-  // }
 
   /**
    * Recalc's the sizes of the grid.
@@ -787,6 +732,10 @@ export default class DatatableComponent extends Vue {
       forceFillColumnWidths(columns, width, forceIdx, allowBleed);
     } else if (this.myColumnMode === ColumnMode.flex) {
       adjustColumnWidths(columns, width);
+    }
+    const hiddenColumns = columns.filter(col => (col as any).hidden);
+    if (hiddenColumns.length) {
+      this.bodyComponent && this.bodyComponent.onInnerWidthChanged();
     }
 
     return columns;
@@ -1044,7 +993,8 @@ export default class DatatableComponent extends Vue {
     this.internalRows = groupRowsByParents(
       this.internalRows,
       optionalGetterForProp(this.treeFromRelation),
-      optionalGetterForProp(this.treeToRelation)
+      optionalGetterForProp(this.treeToRelation),
+      this.lazyTree
     );
 
     // Always go to first page when sorting to see the newly sorted data
@@ -1112,21 +1062,31 @@ export default class DatatableComponent extends Vue {
   }
 
   onColumnInsert(column: TableColumn) {
-    // make all props reactive
-    // column = Object.assign({}, column);
+    setColumnDefaults(column, this);
     if (!this.internalColumns) {
-      setColumnDefaults(column, this);
       this.internalColumns = [column];
-    }
-    const colIndex = this.internalColumns.findIndex(c => c.name === column.name);
-    if (colIndex < 0) {
-      setColumnDefaults(column, this);
-      this.internalColumns = [...this.internalColumns, column];
     } else {
-      const col = this.internalColumns[colIndex];
-      this.$set(col, 'headerTemplate', column.headerTemplate);
-      this.$set(col, 'cellTemplate', column.cellTemplate);
+      this.internalColumns = [...this.internalColumns, column];
     }
+    // if (!this.internalColumns) {
+    //   setColumnDefaults(column, this);
+    //   this.internalColumns = [column];
+    // }
+    // const colIndex = this.internalColumns.findIndex(c => {
+    //   if (column.prop) {
+    //     return c.prop === column.prop;
+    //   } else {
+    //     return c.name === column.name;
+    //   }
+    // });
+    // if (colIndex < 0) {
+    //   setColumnDefaults(column, this);
+    //   this.internalColumns = [...this.internalColumns, column];
+    // } else {
+    //   const col = this.internalColumns[colIndex];
+    //   this.$set(col, 'headerTemplate', column.headerTemplate);
+    //   this.$set(col, 'cellTemplate', column.cellTemplate);
+    // }
     if (this.isVisible) {
       this.recalculateColumns();
     }
@@ -1141,18 +1101,19 @@ export default class DatatableComponent extends Vue {
   }
 
   onColumnChangeVisible(column: TableColumn) {
-    this.recalculateColumns();
+    // we have to allow the cell's element to set it's width
+    setTimeout(() => this.recalculateColumns(), 100);
   }
 
-  onHiddenChanged() {
-    this.recalculateColumns();
-    this.bodyComponent && this.bodyComponent.onInnerWidthChanged();
-    // this.$nextTick(() => {
-    //   this.recalculateColumns();
-    //   this.bodyComponent.recalculateColumns();
-    //   this.bodyComponent.buildStylesByGroup();
-    // });
-  }
+  // onHiddenChanged() {
+  //   this.recalculateColumns();
+  //   this.bodyComponent && this.bodyComponent.onInnerWidthChanged();
+  //   // this.$nextTick(() => {
+  //   //   this.recalculateColumns();
+  //   //   this.bodyComponent.recalculateColumns();
+  //   //   this.bodyComponent.buildStylesByGroup();
+  //   // });
+  // }
     
   /**
    * listen for changes to input bindings of all DataTableColumnDirective and

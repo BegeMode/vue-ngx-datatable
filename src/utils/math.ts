@@ -1,4 +1,5 @@
 import { columnsByPin, columnsTotalWidth } from './column';
+import { TableColumn } from '../types';
 
 /**
  * Calculates the Total Flex Grow
@@ -17,10 +18,25 @@ function getTotalFlexGrow(columns: any[]) {
  * Adjusts the column widths.
  * Inspired by: https://github.com/facebook/fixed-data-table/blob/master/src/FixedDataTableWidthHelper.js
  */
-export function adjustColumnWidths(allColumns: any, expectedWidth: any) {
-  if (allColumns && allColumns.length) {
-    allColumns = allColumns.filter(c => c.visible && !c.hidden);
-  }
+export function adjustColumnWidths(allColumns: TableColumn[] = [], expectedWidth: any) {
+  // if (allColumns && allColumns.length) {
+  //   allColumns = allColumns.filter(c => c.visible && !c.hidden);
+  // }
+  const hiddenColumns: TableColumn[] = [];
+  allColumns.forEach(col => {
+    (col as any).hidden = false;
+    const width = calcRealWidth(col);
+    if (width !== null && width < 10) {
+      hiddenColumns.push(col);
+      (col as any).hidden = true;
+      if(!col.$$oldWidth) {
+        col.$$oldWidth = col.width;
+      }
+      col.width = 0;
+      }
+  });
+  allColumns = allColumns.filter(c => c.visible && !(c as any).hidden);
+
   const columnsWidth = columnsTotalWidth(allColumns);
   const totalFlexGrow = getTotalFlexGrow(allColumns);
   const colsByGroup = columnsByPin(allColumns);
@@ -72,6 +88,22 @@ function scaleColumns(colsByGroup: any, maxWidth: any, totalFlexGrow: any) {
   } while (remainingWidth !== 0);
 }
 
+function calcRealWidth(column: TableColumn) {
+  if (!column.element) {
+    return null;
+  }
+  let w = (column.element as HTMLElement).offsetWidth;
+  if (!w || w < 0) {
+    return w;
+  }
+  w = 0;
+  for (let i = 0; i < column.element.children.length; i++) {
+    const el = column.element.children[i];
+    w = Math.max(w, (el as HTMLElement).offsetWidth);
+  }
+  return w;
+}
+
 /**
  * Forces the width of the columns to
  * distribute equally but overflowing when necessary
@@ -92,21 +124,34 @@ function scaleColumns(colsByGroup: any, maxWidth: any, totalFlexGrow: any) {
  *    the width should use the original width; not the newly proportioned widths.
  */
 export function forceFillColumnWidths(
-  allColumns: any[],
+  allColumns: TableColumn[],
   expectedWidth: number,
   startIdx: number,
   allowBleed: boolean,
   defaultColWidth: number = 300) {
   
-  const hiddenColumns = allColumns.filter(c => c.hidden);
-  for (const column of hiddenColumns) {
-    if(!column.$$oldWidth) {
-      column.$$oldWidth = column.width;
-    }
-    column.width = 0;
-  }
+  // const hiddenColumns = allColumns.filter(c => c.hidden);
+  // for (const column of hiddenColumns) {
+  //   if(!column.$$oldWidth) {
+  //     column.$$oldWidth = column.width;
+  //   }
+  //   column.width = 0;
+  // }
+  const hiddenColumns: TableColumn[] = [];
+  allColumns.forEach(col => {
+    (col as any).hidden = false;
+    const width = calcRealWidth(col);
+    if (width !== null && width < 10) {
+      hiddenColumns.push(col);
+      (col as any).hidden = true;
+      if(!col.$$oldWidth) {
+        col.$$oldWidth = col.width;
+      }
+      col.width = 0;
+      }
+  });
 
-  allColumns = allColumns.filter(c => c.visible && !c.hidden);
+  allColumns = allColumns.filter(c => c.visible && !(c as any).hidden);
   
   const columnsToResize = allColumns
     .slice(startIdx + 1, allColumns.length)
