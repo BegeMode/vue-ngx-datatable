@@ -27,7 +27,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
         rowHeight="auto">
         <ngx-datatable-column name="Name">
           <template v-slot:header="scope">
-            Holla! {{scope.column.name}}
+            <span>Holla! {{scope.column.name}}</span>
           </template>
           <template v-slot:default="scope">
             <span v-if="scope.row">Hi: <strong>{{scope.row.name}}</strong></span>
