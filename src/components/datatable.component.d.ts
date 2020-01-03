@@ -211,6 +211,10 @@ export default class DatatableComponent extends Vue {
      */
     treeToRelation: string;
     /**
+     * Is the tree will be lazy loading
+     */
+    lazyTree: boolean;
+    /**
      * A flag for switching summary row on / off
      */
     summaryRow: boolean;
@@ -250,8 +254,8 @@ export default class DatatableComponent extends Vue {
     myOffset_: number;
     mySelected: any[];
     renderTracking: boolean;
-    mySorts: any[];
     isVisible: boolean;
+    mySorts: any[];
     /**
      * Row Detail templates gathered from the ContentChild
      */
@@ -389,19 +393,6 @@ export default class DatatableComponent extends Vue {
     readonly allRowsSelected: boolean;
     readonly scrollbarWidth: number;
     /**
-     * Column templates gathered from `ContentChildren`
-     * if described in your markup.
-     */
-    /**
-     * Returns the column templates.
-     */
-    /**
-     * Footer template gathered from the ContentChild
-     */
-    /**
-     * Translates the templates to the column objects
-     */
-    /**
      * Recalc's the sizes of the grid.
      *
      * Updated automatically on changes to:
@@ -489,7 +480,6 @@ export default class DatatableComponent extends Vue {
     onColumnInsert(column: TableColumn): void;
     onColumnRemoved(column: TableColumn): void;
     onColumnChangeVisible(column: TableColumn): void;
-    onHiddenChanged(): void;
     /**
      * listen for changes to input bindings of all DataTableColumnDirective and
      * trigger the columnTemplates.changes observable to emit

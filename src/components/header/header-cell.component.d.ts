@@ -27,12 +27,12 @@ export default class DataTableHeaderCellComponent extends Vue {
         'min-width': string;
         'max-width': string;
     };
-    readonly sortClass: string;
+    readonly sortCssClass: string;
+    readonly cssClass: string;
     readonly isCheckboxable: boolean;
     onContextmenu($event: MouseEvent): void;
     calcSortDir(sorts: any[]): any;
     onSort(): void;
-    calcSortClass(sortDir: SortDirection): string;
-    calcRealWidth(): number;
-    private hiddenDetect;
+    calcSortCssClass(sortDir: SortDirection): string;
+    calcCssClass(sortDir: SortDirection): string;
 }

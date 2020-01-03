@@ -37,4 +37,4 @@ export declare function optionalGetterForProp(prop: TableColumnProp): OptionalVa
  * @param rows
  *
  */
-export declare function groupRowsByParents(rows: any[], from?: OptionalValueGetter, to?: OptionalValueGetter): any[];
+export declare function groupRowsByParents(rows: any[], from?: OptionalValueGetter, to?: OptionalValueGetter, lazyTree?: boolean): any[];

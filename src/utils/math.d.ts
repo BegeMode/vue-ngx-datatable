@@ -1,8 +1,9 @@
+import { TableColumn } from '../types';
 /**
  * Adjusts the column widths.
  * Inspired by: https://github.com/facebook/fixed-data-table/blob/master/src/FixedDataTableWidthHelper.js
  */
-export declare function adjustColumnWidths(allColumns: any, expectedWidth: any): void;
+export declare function adjustColumnWidths(allColumns: TableColumn[], expectedWidth: any): void;
 /**
  * Forces the width of the columns to
  * distribute equally but overflowing when necessary
@@ -22,4 +23,4 @@ export declare function adjustColumnWidths(allColumns: any, expectedWidth: any):
  *  - If the grid starts off small but then becomes greater than the size ( + / - )
  *    the width should use the original width; not the newly proportioned widths.
  */
-export declare function forceFillColumnWidths(allColumns: any[], expectedWidth: number, startIdx: number, allowBleed: boolean, defaultColWidth?: number): void;
+export declare function forceFillColumnWidths(allColumns: TableColumn[], expectedWidth: number, startIdx: number, allowBleed: boolean, defaultColWidth?: number): void;
