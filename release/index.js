@@ -1,5 +1,5 @@
 /**
- * vue-data-table v"1.0.11" (https://github.com/begemode/vue-ngx-data-table)
+ * vue-data-table v"1.1.0" (https://github.com/begemode/vue-ngx-data-table)
  * Copyright 2018
  * Licensed under MIT
  */
@@ -230,7 +230,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -716,7 +716,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -881,7 +881,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -984,6 +984,10 @@ var DataTableBodyRowComponent = /** @class */ (function (_super) {
     ], DataTableBodyRowComponent.prototype, "isSelected", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
+        __metadata("design:type", Boolean)
+    ], DataTableBodyRowComponent.prototype, "isChecked", void 0);
+    __decorate([
+        vue_property_decorator_1.Prop(),
         __metadata("design:type", Object)
     ], DataTableBodyRowComponent.prototype, "rowStyles", void 0);
     __decorate([
@@ -1062,7 +1066,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -1104,6 +1108,7 @@ var body_group_header_component_1 = __webpack_require__(/*! ./body-group-header.
 var body_row_detail_component_1 = __webpack_require__(/*! ./body-row-detail.component */ "./src/components/body/body-row-detail.component.ts");
 var body_row_wrapper_component_vue_1 = __webpack_require__(/*! ./body-row-wrapper.component.vue */ "./src/components/body/body-row-wrapper.component.vue");
 var body_row_component_vue_1 = __webpack_require__(/*! ./body-row.component.vue */ "./src/components/body/body-row.component.vue");
+var check_type_1 = __webpack_require__(/*! ../../types/check.type */ "./src/types/check.type.ts");
 var DataTableBodyComponent = /** @class */ (function (_super) {
     __extends(DataTableBodyComponent, _super);
     function DataTableBodyComponent() {
@@ -1773,6 +1778,9 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     DataTableBodyComponent.prototype.isSelect = function (row) {
         return this.selector ? this.selector.getRowSelected(row) : false;
     };
+    DataTableBodyComponent.prototype.isChecked = function (row) {
+        return this.selector ? this.selector.getRowChecked(row) : false;
+    };
     DataTableBodyComponent.prototype.onActivate = function (event, index) {
         this.selector && this.selector.onActivate(event, this.indexes.first + index);
     };
@@ -1884,6 +1892,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
             column: column,
             rowHeight: this.getRowHeight(row),
             isSelected: this.isSelect(row),
+            isChecked: this.isChecked(row),
             rowIndex: this.getRowIndex(row),
             expanded: this.getRowExpanded(row),
             treeStatus: row.treeStatus,
@@ -2139,9 +2148,17 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         __metadata("design:type", String)
     ], DataTableBodyComponent.prototype, "selectionType", void 0);
     __decorate([
+        vue_property_decorator_1.Prop(),
+        __metadata("design:type", String)
+    ], DataTableBodyComponent.prototype, "checkMode", void 0);
+    __decorate([
         vue_property_decorator_1.Prop({ type: Array, default: function () { return []; } }),
         __metadata("design:type", Array)
     ], DataTableBodyComponent.prototype, "selected", void 0);
+    __decorate([
+        vue_property_decorator_1.Prop({ type: Array, default: function () { return []; } }),
+        __metadata("design:type", Array)
+    ], DataTableBodyComponent.prototype, "checked", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
         __metadata("design:type", Object)
@@ -2347,7 +2364,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -2362,6 +2379,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
@@ -2380,6 +2404,7 @@ var column_component_1 = __webpack_require__(/*! ./columns/column.component */ "
 var visibility_directive_1 = __webpack_require__(/*! ../directives/visibility.directive */ "./src/directives/visibility.directive.ts");
 var equal_array_1 = __webpack_require__(/*! ../utils/equal.array */ "./src/utils/equal.array.ts");
 var body_cell_component_vue_1 = __webpack_require__(/*! ./body/body-cell.component.vue */ "./src/components/body/body-cell.component.vue");
+var check_type_1 = __webpack_require__(/*! ../types/check.type */ "./src/types/check.type.ts");
 vue_property_decorator_1.Vue.component('datatable-column', column_component_1.default);
 vue_property_decorator_1.Vue.component('datatable-body-cell', body_cell_component_vue_1.default);
 var DatatableComponent = /** @class */ (function (_super) {
@@ -2399,6 +2424,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         // tslint:disable-next-line:variable-name
         _this.myOffset_ = 0;
         _this.mySelected = [];
+        _this.myChecked = [];
         _this.renderTracking = false;
         _this.isVisible = false;
         // _columnTemplates: QueryList<DataTableColumnDirective>;
@@ -2508,7 +2534,7 @@ var DatatableComponent = /** @class */ (function (_super) {
     // @Output() treeAction: EventEmitter<any> = new EventEmitter();
     DatatableComponent.prototype.onRowsChanged = function (val) {
         if (val) {
-            this.internalRows = val.slice();
+            this.internalRows = __spreadArrays(val);
         }
         // auto group by parent on new update
         this.internalRows = utils_1.groupRowsByParents(this.internalRows, utils_1.optionalGetterForProp(this.treeFromRelation), utils_1.optionalGetterForProp(this.treeToRelation), this.lazyTree);
@@ -2577,10 +2603,11 @@ var DatatableComponent = /** @class */ (function (_super) {
      * Columns to be displayed.
      */
     DatatableComponent.prototype.onColumnsChanged = function (newVal) {
+        var _this = this;
         if (newVal) {
             utils_1.setColumnsDefaults(newVal, this);
-            this.internalColumns = newVal.slice();
-            this.recalculateColumns();
+            this.internalColumns = __spreadArrays(newVal);
+            this.$nextTick(function () { return _this.recalculateColumns(); });
         }
     };
     /**
@@ -2615,6 +2642,9 @@ var DatatableComponent = /** @class */ (function (_super) {
     };
     DatatableComponent.prototype.onSelectedChanged = function () {
         this.mySelected = this.selected;
+    };
+    DatatableComponent.prototype.onCheckedChanged = function () {
+        this.myChecked = this.checked;
     };
     Object.defineProperty(DatatableComponent.prototype, "myOffset", {
         get: function () {
@@ -3005,7 +3035,7 @@ var DatatableComponent = /** @class */ (function (_super) {
      */
     DatatableComponent.prototype.onColumnReorder = function (_a) {
         var column = _a.column, newValue = _a.newValue, prevValue = _a.prevValue;
-        var cols = this.internalColumns.slice();
+        var cols = __spreadArrays(this.internalColumns);
         if (this.swapColumns) {
             var prevCol = cols[newValue];
             if (column.$$id === prevCol.$$id) {
@@ -3122,7 +3152,7 @@ var DatatableComponent = /** @class */ (function (_super) {
             this.internalColumns = [column];
         }
         else {
-            this.internalColumns = this.internalColumns.concat([column]);
+            this.internalColumns = __spreadArrays(this.internalColumns, [column]);
         }
         // if (!this.internalColumns) {
         //   setColumnDefaults(column, this);
@@ -3149,9 +3179,9 @@ var DatatableComponent = /** @class */ (function (_super) {
     };
     DatatableComponent.prototype.onColumnRemoved = function (column) {
         var colIndex = this.internalColumns.findIndex(function (c) { return c.name === column.name; });
-        var cols = this.internalColumns.slice();
+        var cols = __spreadArrays(this.internalColumns);
         cols.splice(colIndex, 1);
-        this.internalColumns = cols.slice();
+        this.internalColumns = __spreadArrays(cols);
         this.recalculateColumns();
     };
     DatatableComponent.prototype.onColumnChangeVisible = function (column) {
@@ -3369,6 +3399,10 @@ var DatatableComponent = /** @class */ (function (_super) {
         __metadata("design:type", Array)
     ], DatatableComponent.prototype, "selected", void 0);
     __decorate([
+        vue_property_decorator_1.Prop({ type: Array, default: function () { return []; } }),
+        __metadata("design:type", Array)
+    ], DatatableComponent.prototype, "checked", void 0);
+    __decorate([
         vue_property_decorator_1.Prop({ type: Boolean, default: false }),
         __metadata("design:type", Boolean)
     ], DatatableComponent.prototype, "scrollbarV", void 0);
@@ -3428,6 +3462,10 @@ var DatatableComponent = /** @class */ (function (_super) {
         vue_property_decorator_1.Prop(),
         __metadata("design:type", String)
     ], DatatableComponent.prototype, "selectionType", void 0);
+    __decorate([
+        vue_property_decorator_1.Prop({ default: check_type_1.CheckMode.checkIsSelect }),
+        __metadata("design:type", String)
+    ], DatatableComponent.prototype, "checkMode", void 0);
     __decorate([
         vue_property_decorator_1.Prop({ type: Boolean, default: true }),
         __metadata("design:type", Boolean)
@@ -3592,6 +3630,12 @@ var DatatableComponent = /** @class */ (function (_super) {
         __metadata("design:returntype", void 0)
     ], DatatableComponent.prototype, "onSelectedChanged", null);
     __decorate([
+        vue_property_decorator_1.Watch('checked', { immediate: true }),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], DatatableComponent.prototype, "onCheckedChanged", null);
+    __decorate([
         utils_1.throttleable(5),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
@@ -3699,7 +3743,7 @@ function normalizeComponent (
       // for template-only hot-reload because in that case the render fn doesn't
       // go through the normalizer
       options._injectStyles = hook
-      // register for functioal component in vue file
+      // register for functional component in vue file
       var originalRender = options.render
       options.render = function renderWithStyleInjection (h, context) {
         hook.call(context)
@@ -3753,7 +3797,11 @@ if(false) {}
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "default", function() { return /* binding */ addStylesClient; });
 
 // CONCATENATED MODULE: ./node_modules/vue-style-loader/lib/listToStyles.js
 /**
@@ -3785,7 +3833,6 @@ function listToStyles (parentId, list) {
 }
 
 // CONCATENATED MODULE: ./node_modules/vue-style-loader/lib/addStylesClient.js
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return addStylesClient; });
 /*
   MIT License http://www.opensource.org/licenses/mit-license.php
   Author Tobias Koppers @sokra
@@ -4020,7 +4067,12 @@ function applyToTag (styleElement, obj) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "render", function() { return /* reexport */ render; });
+__webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return /* reexport */ staticRenderFns; });
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./config/my-vue-raw-loader.js!./src/components/body/body-cell.component.html?vue&type=template&id=48c40f9f&
 var render = function() {
@@ -4072,7 +4124,7 @@ var render = function() {
             ? _c("label", { staticClass: "datatable-checkbox" }, [
                 _c("input", {
                   attrs: { type: "checkbox" },
-                  domProps: { checked: _vm.context.isSelected },
+                  domProps: { checked: _vm.context.isChecked },
                   on: { click: _vm.onCheckboxChange }
                 })
               ])
@@ -4146,8 +4198,6 @@ render._withStripped = true
 
 
 // CONCATENATED MODULE: ./src/components/body/body-cell.component.html?vue&type=template&id=48c40f9f&
-/* concated harmony reexport render */__webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* concated harmony reexport staticRenderFns */__webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 
 
 /***/ }),
@@ -4224,7 +4274,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -4384,7 +4434,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -4512,7 +4562,12 @@ component.options.__file = "src/components/body/body-row-wrapper.component.vue"
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "render", function() { return /* reexport */ render; });
+__webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return /* reexport */ staticRenderFns; });
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/components/body/body-row-wrapper.component.vue?vue&type=template&id=11b0d871&scoped=true&
 var render = function() {
@@ -4573,8 +4628,6 @@ render._withStripped = true
 
 
 // CONCATENATED MODULE: ./src/components/body/body-row-wrapper.component.vue?vue&type=template&id=11b0d871&scoped=true&
-/* concated harmony reexport render */__webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* concated harmony reexport staticRenderFns */__webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 
 
 /***/ }),
@@ -4643,7 +4696,12 @@ component.options.__file = "src/components/body/body-row.component.vue"
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "render", function() { return /* reexport */ render; });
+__webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return /* reexport */ staticRenderFns; });
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/components/body/body-row.component.vue?vue&type=template&id=0d0f71aa&
 var render = function() {
@@ -4709,8 +4767,6 @@ render._withStripped = true
 
 
 // CONCATENATED MODULE: ./src/components/body/body-row.component.vue?vue&type=template&id=0d0f71aa&
-/* concated harmony reexport render */__webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* concated harmony reexport staticRenderFns */__webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 
 
 /***/ }),
@@ -4723,7 +4779,12 @@ render._withStripped = true
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "render", function() { return /* reexport */ render; });
+__webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return /* reexport */ staticRenderFns; });
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./config/my-vue-raw-loader.js!./src/components/body/body.component.html?vue&type=template&id=0878f244&
 var render = function() {
@@ -4740,10 +4801,12 @@ var render = function() {
           ref: "selector",
           attrs: {
             selected: _vm.selected,
+            checked: _vm.checked,
             rows: _vm.rows,
             selectCheck: _vm.selectCheck,
             selectEnabled: _vm.selectEnabled,
             selectionType: _vm.selectionType,
+            checkMode: _vm.checkMode,
             rowIdentity: _vm.rowIdentity
           },
           on: {
@@ -4831,6 +4894,7 @@ var render = function() {
                             columnsByPin: _vm.columnsByPin,
                             columnGroupWidths: _vm.columnGroupWidths,
                             isSelected: _vm.isSelect(row),
+                            isChecked: _vm.isChecked(row),
                             groupStyles: _vm.getGroupStyles,
                             groupClass: _vm.getGroupClass(row),
                             rowStyles: _vm.getRowStyles,
@@ -4906,8 +4970,6 @@ render._withStripped = true
 
 
 // CONCATENATED MODULE: ./src/components/body/body.component.html?vue&type=template&id=0878f244&
-/* concated harmony reexport render */__webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* concated harmony reexport staticRenderFns */__webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 
 
 /***/ }),
@@ -4984,7 +5046,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -5032,7 +5094,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -5178,7 +5240,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -5194,10 +5256,18 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
 var utils_1 = __webpack_require__(/*! ../../utils */ "./src/utils/index.ts");
 var types_1 = __webpack_require__(/*! ../../types */ "./src/types/index.ts");
+var check_type_1 = __webpack_require__(/*! ../../types/check.type */ "./src/types/check.type.ts");
 var DataTableSelectionComponent = /** @class */ (function (_super) {
     __extends(DataTableSelectionComponent, _super);
     function DataTableSelectionComponent() {
@@ -5207,7 +5277,7 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
         var _a;
         if (!this.selectEnabled)
             return;
-        var chkbox = this.selectionType === types_1.SelectionType.checkbox;
+        var chkbox = this.selectionType === types_1.SelectionType.checkbox && this.checkMode === check_type_1.CheckMode.checkIsSelect;
         var multi = this.selectionType === types_1.SelectionType.multi;
         var multiClick = this.selectionType === types_1.SelectionType.multiClick;
         var selected = [];
@@ -5216,7 +5286,7 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
                 selected = utils_1.selectRowsBetween([], this.rows, index, this.prevIndex, this.getRowSelectedIdx.bind(this));
             }
             else if (event.ctrlKey || event.metaKey || multiClick || chkbox) {
-                selected = utils_1.selectRows(this.selected.slice(), row, this.getRowSelectedIdx.bind(this));
+                selected = utils_1.selectRows(__spreadArrays(this.selected), row, this.getRowSelectedIdx.bind(this));
             }
             else {
                 selected = utils_1.selectRows([], row, this.getRowSelectedIdx.bind(this));
@@ -5235,13 +5305,33 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
             selected: selected
         });
     };
+    DataTableSelectionComponent.prototype.checkRow = function (event, index, row) {
+        var _a;
+        if (!this.selectEnabled)
+            return;
+        var checked = [];
+        checked = utils_1.selectRows(__spreadArrays(this.checked), row, this.getRowSelectedIdx.bind(this));
+        if (typeof this.selectCheck === 'function') {
+            checked = checked.filter(this.selectCheck.bind(this));
+        }
+        this.checked.splice(0, this.checked.length);
+        (_a = this.checked).push.apply(_a, checked);
+        this.$emit('check', {
+            checked: checked
+        });
+    };
     DataTableSelectionComponent.prototype.onActivate = function (model, index) {
-        var type = model.type, event = model.event, row = model.row;
-        var chkbox = this.selectionType === types_1.SelectionType.checkbox;
-        var select = (!chkbox && (type === 'click' || type === 'dblclick')) ||
-            (chkbox && type === 'checkbox');
+        var type = model.type, event = model.event, row = model.row, column = model.column;
+        var chkbox = this.selectionType === types_1.SelectionType.checkbox && this.checkMode === check_type_1.CheckMode.checkIsSelect;
+        var select = (!chkbox && (type === 'click' || type === 'dblclick')) || (chkbox && type === 'checkbox');
+        if (this.checkMode === check_type_1.CheckMode.checkNoSelect && (column === null || column === void 0 ? void 0 : column.checkboxable)) {
+            select = false;
+        }
         if (select) {
             this.selectRow(event, index, row);
+        }
+        else if (type === 'checkbox' && this.checkMode === check_type_1.CheckMode.checkNoSelect) {
+            this.checkRow(event, index, row);
         }
         else if (type === 'keydown') {
             if (event.keyCode === utils_1.Keys.return) {
@@ -5311,6 +5401,10 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
     DataTableSelectionComponent.prototype.getRowSelected = function (row) {
         return this.getRowSelectedIdx(row, this.selected) > -1;
     };
+    DataTableSelectionComponent.prototype.getRowChecked = function (row) {
+        var arr = this.checkMode === check_type_1.CheckMode.checkIsSelect ? this.selected : this.checked;
+        return this.getRowSelectedIdx(row, arr) > -1;
+    };
     DataTableSelectionComponent.prototype.getRowSelectedIdx = function (row, selected) {
         var _this = this;
         if (!selected || !selected.length)
@@ -5331,12 +5425,20 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
     ], DataTableSelectionComponent.prototype, "selected", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
+        __metadata("design:type", Array)
+    ], DataTableSelectionComponent.prototype, "checked", void 0);
+    __decorate([
+        vue_property_decorator_1.Prop(),
         __metadata("design:type", Boolean)
     ], DataTableSelectionComponent.prototype, "selectEnabled", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
         __metadata("design:type", String)
     ], DataTableSelectionComponent.prototype, "selectionType", void 0);
+    __decorate([
+        vue_property_decorator_1.Prop(),
+        __metadata("design:type", String)
+    ], DataTableSelectionComponent.prototype, "checkMode", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
         __metadata("design:type", Object)
@@ -5373,7 +5475,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -5577,7 +5679,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -5592,6 +5694,13 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 };
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
@@ -5638,7 +5747,7 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
         this.$set(this.column, 'headerCheckboxable', this.headerCheckboxable);
         var headerClasses = [];
         if (Array.isArray(this.headerClass)) {
-            headerClasses = this.headerClass.slice();
+            headerClasses = __spreadArrays(this.headerClass);
         }
         else if (typeof this.headerClass === 'string') {
             headerClasses.push(this.headerClass);
@@ -5667,7 +5776,7 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
         this.$set(this.column, 'headerClass', headerClasses);
         var cellClasses = [];
         if (Array.isArray(this.cellClass)) {
-            cellClasses = this.cellClass.slice();
+            cellClasses = __spreadArrays(this.cellClass);
         }
         else if (typeof this.cellClass === 'string') {
             cellClasses.push(this.cellClass);
@@ -5811,7 +5920,12 @@ exports.default = DataTableColumnComponent;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+// ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, "render", function() { return /* reexport */ render; });
+__webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return /* reexport */ staticRenderFns; });
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./config/my-vue-raw-loader.js!./src/components/datatable.component.html?vue&type=template&id=3f42d2da&
 var render = function() {
@@ -5900,9 +6014,11 @@ var render = function() {
           rowDetailHeight: _vm.rowDetailHeight,
           groupHeader: _vm.groupHeader,
           selected: _vm.mySelected,
+          checked: _vm.myChecked,
           innerWidth: _vm.innerWidth,
           bodyHeight: _vm.bodyHeight,
           selectionType: _vm.selectionType,
+          checkMode: _vm.checkMode,
           emptyMessage: _vm.messages.emptyMessage,
           rowIdentity: _vm.rowIdentity,
           rowClass: _vm.rowClass,
@@ -5969,8 +6085,6 @@ render._withStripped = true
 
 
 // CONCATENATED MODULE: ./src/components/datatable.component.html?vue&type=template&id=3f42d2da&
-/* concated harmony reexport render */__webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* concated harmony reexport staticRenderFns */__webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
 
 
 /***/ }),
@@ -6066,7 +6180,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -6205,7 +6319,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -6383,7 +6497,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -6675,7 +6789,7 @@ var __extends = (this && this.__extends) || (function () {
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
             function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
         return extendStatics(d, b);
-    }
+    };
     return function (d, b) {
         extendStatics(d, b);
         function __() { this.constructor = d; }
@@ -7936,6 +8050,26 @@ var ScrollbarHelper = /** @class */ (function () {
     return ScrollbarHelper;
 }());
 exports.ScrollbarHelper = ScrollbarHelper;
+
+
+/***/ }),
+
+/***/ "./src/types/check.type.ts":
+/*!*********************************!*\
+  !*** ./src/types/check.type.ts ***!
+  \*********************************/
+/*! no static exports found */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var CheckMode;
+(function (CheckMode) {
+    CheckMode["checkIsSelect"] = "checkIsSelect";
+    CheckMode["checkNoSelect"] = "checkNoSelect";
+})(CheckMode = exports.CheckMode || (exports.CheckMode = {}));
 
 
 /***/ }),
@@ -9220,6 +9354,13 @@ exports.selectRowsBetween = selectRowsBetween;
 
 "use strict";
 
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var types_1 = __webpack_require__(/*! ../types */ "./src/types/index.ts");
 var column_prop_getters_1 = __webpack_require__(/*! ./column-prop-getters */ "./src/utils/column-prop-getters.ts");
@@ -9294,14 +9435,14 @@ function sortRows(rows, columns, dirs) {
     if (!rows)
         return [];
     if (!dirs || !dirs.length || !columns)
-        return rows.slice();
+        return __spreadArrays(rows);
     /**
      * record the row ordering of results from prior sort operations (if applicable)
      * this is necessary to guarantee stable sorting behavior
      */
     var rowToIndexMap = new Map();
     rows.forEach(function (row, index) { return rowToIndexMap.set(row, index); });
-    var temp = rows.slice();
+    var temp = __spreadArrays(rows);
     var cols = columns.reduce(function (obj, col) {
         if (col.comparator && typeof col.comparator === 'function') {
             obj[col.prop] = col.comparator;
@@ -9480,6 +9621,13 @@ exports.translateXY = translateXY;
 
 "use strict";
 
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 var column_prop_getters_1 = __webpack_require__(/*! ./column-prop-getters */ "./src/utils/column-prop-getters.ts");
 function optionalGetterForProp(prop) {
@@ -9552,7 +9700,7 @@ function groupRowsByParents(rows, from, to, lazyTree) {
         }
         var resolvedRows_1 = [];
         nodeById[0].flatten(function () {
-            resolvedRows_1 = resolvedRows_1.concat([this.row]);
+            resolvedRows_1 = __spreadArrays(resolvedRows_1, [this.row]);
         }, true, lazyTree);
         return resolvedRows_1;
     }
