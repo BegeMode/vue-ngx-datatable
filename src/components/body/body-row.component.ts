@@ -14,6 +14,7 @@ export default class DataTableBodyRowComponent extends Vue {
   @Prop() columnsByPin: any[];
   @Prop() columnGroupWidths: any;
   @Prop() isSelected: boolean;
+  @Prop() isChecked: boolean;
   @Prop() rowStyles: any;
   @Prop() groupStyles: any;
   @Prop() groupClass: string;

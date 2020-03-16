@@ -21,6 +21,7 @@ import HorzVertScrolling from './basic/scrolling.component';
 import ClientTreeComponent from './tree/client-tree.component';
 import FullScreenTreeComponent from './tree/fullscreen.component';
 import CheckboxSelectionComponent from './selection/selection-chkbox.component';
+import CheckNoSelectionComponent from './selection/selection-chkbox-checked.component';
 import MultiDisableSelectionComponent from './selection/selection-disabled.component';
 import CustomCheckboxSelectionComponent from './selection/selection-chkbox-template.component';
 import CellSelectionComponent from './selection/selection-cell.component';
@@ -72,6 +73,7 @@ import SummaryRowInlineHtmlComponent from './summary/summary-row-inline-html.com
     'client-side-tree-demo': ClientTreeComponent,
     'full-screen-tree-demo': FullScreenTreeComponent,
     'chkbox-selection-demo': CheckboxSelectionComponent,
+    'chkbox-no-selection-demo': CheckNoSelectionComponent,
     'multidisable-selection-demo': MultiDisableSelectionComponent,
     'chkbox-selection-template-demo': CustomCheckboxSelectionComponent,
     'cell-selection-demo': CellSelectionComponent,
@@ -188,6 +190,7 @@ import SummaryRowInlineHtmlComponent from './summary/summary-row-inline-html.com
               <li><a href="#multi-click-selection" @click="state='multi-click-selection'">Multi Click Row</a></li>
               <li><a href="#multidisable-selection" @click="state='multidisable-selection'">Disable Callback</a></li>
               <li><a href="#chkbox-selection" @click="state='chkbox-selection'">Checkbox</a></li>
+              <li><a href="#chkbox-no-selection" @click="state='chkbox-no-selection'">Checkbox in 'no selection rows' mode</a></li>
               <li><a href="#chkbox-selection-template" @click="state='chkbox-selection-template'">Custom Checkbox</a></li>
             </ul>
           </li>
@@ -271,6 +274,7 @@ import SummaryRowInlineHtmlComponent from './summary/summary-row-inline-html.com
         <multi-selection-demo v-if="state === 'multi-selection'"></multi-selection-demo>
         <multi-click-selection-demo v-if="state === 'multi-click-selection'"></multi-click-selection-demo>
         <chkbox-selection-demo v-if="state === 'chkbox-selection'"></chkbox-selection-demo>
+        <chkbox-no-selection-demo v-if="state === 'chkbox-no-selection'"></chkbox-no-selection-demo>
         <multidisable-selection-demo v-if="state === 'multidisable-selection'"></multidisable-selection-demo>
         <chkbox-selection-template-demo v-if="state === 'chkbox-selection-template'"></chkbox-selection-template-demo> 
         <cell-selection-demo v-if="state === 'cell-selection'"></cell-selection-demo>

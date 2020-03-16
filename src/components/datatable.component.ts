@@ -19,6 +19,7 @@ import VisibilityDirective from '../directives/visibility.directive';
 import { IGroupedRows } from '../types/grouped-rows';
 import { isArrayEqual } from '../utils/equal.array';
 import DataTableBodyCellComponent from './body/body-cell.component.vue';
+import { CheckMode } from '../types/check.type';
 
 Vue.component('datatable-column', DataTableColumnComponent);
 Vue.component('datatable-body-cell', DataTableBodyCellComponent);
@@ -70,6 +71,12 @@ export default class DatatableComponent extends Vue {
    * Default value: `[]`
    */
   @Prop({ type: Array, default: () => [] }) selected: any[];
+  /**
+   * List of row objects that should be
+   * represented as checked in the grid.
+   * Default value: `[]`
+   */
+  @Prop({ type: Array, default: () => [] }) checked: any[];
   /**
    * Enable vertical scrollbars
    */
@@ -146,10 +153,19 @@ export default class DatatableComponent extends Vue {
    *  - `multiClick`
    *  - `cell`
    *
-   * For no selection pass a `falsey`.
+   * For no selection pass a `false`.
    * Default value: `undefined`
    */
   @Prop() selectionType: SelectionType;
+  /**
+   * Type of row check type. Options are:
+   *
+   *  - `checkIsSelect`
+   *  - `checkNoSelect`
+   *
+   * Default value: `checkIsSelect`
+   */
+  @Prop({ default: CheckMode.checkIsSelect }) checkMode: CheckMode;
   /**
    * Enable/Disable ability to re-order columns
    * by dragging them.
@@ -316,6 +332,7 @@ export default class DatatableComponent extends Vue {
   // tslint:disable-next-line:variable-name
   myOffset_: number = 0;
   mySelected = [];
+  myChecked = [];
   renderTracking = false;
   isVisible: boolean = false;
 
@@ -563,6 +580,10 @@ export default class DatatableComponent extends Vue {
 
   @Watch('selected', { immediate: true }) onSelectedChanged() {
     this.mySelected = this.selected;
+  }
+
+  @Watch('checked', { immediate: true }) onCheckedChanged() {
+    this.myChecked = this.checked;
   }
 
   get myOffset(): number {
