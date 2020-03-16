@@ -14,6 +14,7 @@ import DataTableBodyRowDetailComponent from './body-row-detail.component';
 import { IGroupedRows } from '../../types/grouped-rows';
 import DataTableRowWrapperComponent from './body-row-wrapper.component.vue';
 import DataTableBodyRowComponent from './body-row.component.vue';
+import { CheckMode } from '../../types/check.type';
 
 @Component({
   components: {
@@ -37,7 +38,9 @@ export default class DataTableBodyComponent extends Vue {
   @Prop() offsetX: number;
   @Prop() emptyMessage: string;
   @Prop() selectionType: SelectionType;
+  @Prop() checkMode: CheckMode;
   @Prop({ type: Array, default: () => [] }) selected: any[];
+  @Prop({ type: Array, default: () => [] }) checked: any[];
   @Prop() rowIdentity: any;
   @Prop() rowDetail: any;
   @Prop() rowDetailHeight: number | string | ((row?: any, index?: any) => number);
@@ -788,6 +791,10 @@ export default class DataTableBodyComponent extends Vue {
     return this.selector ? this.selector.getRowSelected(row) : false;
   }
 
+  isChecked(row) {
+    return this.selector ? this.selector.getRowChecked(row) : false;
+  }
+
   onActivate(event, index) {
     this.selector && this.selector.onActivate(event, this.indexes.first + index);
   }
@@ -901,6 +908,7 @@ export default class DataTableBodyComponent extends Vue {
       column,
       rowHeight: this.getRowHeight(row),
       isSelected: this.isSelect(row),
+      isChecked: this.isChecked(row),
       rowIndex: this.getRowIndex(row),
       expanded: this.getRowExpanded(row),
       treeStatus: row.treeStatus,

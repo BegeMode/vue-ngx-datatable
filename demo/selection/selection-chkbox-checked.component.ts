@@ -10,7 +10,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
   template: `
     <div>
       <h3>
-        Checkbox Selection
+        Checkbox Selection with "check is no select" mode
         <small>
           <a href="https://github.com/begemode/vue-ngx-datatable/blob/master/demo/selection/selection-chkbox.component.ts" target="_blank">
             Source
@@ -27,17 +27,20 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
           style="width: 90%"
           class="material"
           :rows="rows"
-          :columnMode="'force'"
+          columnMode="force"
           :headerHeight="50"
           :footerHeight="50"
-          :rowHeight="'auto'"
+          rowHeight="auto"
           :limit="5"
           :selected="selected"
-          selectionType="checkbox"
+          :checked="checked"
+          selectionType="single"
+          checkMode="checkNoSelect"
           :selectAllRowsOnPage="false"
           :displayCheck="displayCheck"
           @activate="onActivate($event)"
-          @select='onSelect($event)'>
+          @select='onSelect($event)'
+          @check='onCheck($event)'>
           <ngx-datatable-column
             :width="30"
             :sortable="false"
@@ -62,13 +65,23 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
           <li v-if="!selected || !selected.length">No Selections</li>
         </ul>
       </div>
+      <div class='selected-column'>
+        <h4>Checked rows <small>({{ checked ? checked.length: 0 }})</small></h4>
+        <ul>
+          <li v-for='check of checked'>
+            {{check.name}}
+          </li>
+          <li v-if="!checked || !checked.length">No checked rows</li>
+        </ul>
+      </div>
     </div>
   `
 })
-export default class CheckboxSelectionComponent extends Vue {
+export default class CheckNoSelectionComponent extends Vue {
 
   rows = [];
   selected = [];
+  checked = [];
 
   created() {
     this.fetch((data) => {
@@ -92,6 +105,13 @@ export default class CheckboxSelectionComponent extends Vue {
 
     this.selected.splice(0, this.selected.length);
     this.selected.push(...selected);
+  }
+
+  onCheck({ checked }) {
+    console.log('Check Event', checked, this.checked);
+
+    this.checked.splice(0, this.checked.length);
+    this.checked.push(...checked);
   }
 
   onActivate(event) {

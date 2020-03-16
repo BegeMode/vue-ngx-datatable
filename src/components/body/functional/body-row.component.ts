@@ -80,26 +80,26 @@ export default Vue.extend({
   },
   render(createElement, { props, listeners, slots }) {
     const rowGroups = [];
-    props.$$id = id();
+    (props as any).$$id = id();
     props.columnsByPin.forEach((colGroup) => {
       const div = createElement(
         'div',
         {
-          key: colGroup.type,
+          key: (colGroup as any).type,
           attrs: {
-            id: `${colGroup.type}-${props.$$id}`,
+            id: `${(colGroup as any).type}-${(props as any).$$id}`,
           },
           props: {
-            key: colGroup.type,
+            key: (colGroup as any).type,
           },
-          class: 'datatable-row-group datatable-row-' + colGroup.type,
+          class: 'datatable-row-group datatable-row-' + (colGroup as any).type,
           style: props.groupStyles(colGroup),
           on: {
            keydown: onKeyDown(listeners, props),
            mouseenter: onMouseenter(listeners, props),
             // 'tree-action': listeners['tree-action']($event, props.row),
           },
-        }, colGroup.columns.map((column, index) => {
+        }, (colGroup as any).columns.map((column, index) => {
           const context = props.cellContext(props.row, props.group, column);
           return createElement(
             'datatable-body-cell',
