@@ -41,7 +41,7 @@ import DraggableDirective from '../../directives/draggable.directive';
           :sortDescendingIcon="sortDescendingIcon"
           :allRowsSelected="allRowsSelected"
           @sort="onSort($event)"
-          @select="$emit('select')"
+          @select="onSelect"
           @columnContextmenu="$emit('columnContextmenu', $event)"
           @header-cell-mounted="onHeaderCellMounted(column, $event)"
           @dragStart="onDragStart"
@@ -207,6 +207,10 @@ export default class DataTableHeaderComponent extends Vue {
       newValue
     };
     this.$emit('sort', event);
+  }
+
+  onSelect(event) {
+    this.$emit('select', event);
   }
 
   calcNewSorts(column: any, prevValue: SortDirection, newValue: SortDirection): ISortPropDir[] {

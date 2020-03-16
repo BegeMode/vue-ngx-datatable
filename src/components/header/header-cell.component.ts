@@ -19,8 +19,7 @@ import { nextSortDir } from '../../utils';
         class="datatable-checkbox">
         <input
           type="checkbox"
-          :checked="allRowsSelected"
-          @change="$emit('select', !allRowsSelected)"
+          v-model="myAllRowsSelected"
         />
       </label>
       <slot v-bind="{ column: column }">
@@ -53,6 +52,7 @@ export default class DataTableHeaderCellComponent extends Vue {
 
   sortFn = this.onSort.bind(this);
   sortDir: SortDirection = null;
+  myAllRowsSelected = false;
   // selectFn = this.select.emit.bind(this.select);
 
   cellContext: any = {
@@ -64,6 +64,7 @@ export default class DataTableHeaderCellComponent extends Vue {
   };
 
   @Watch('allRowsSelected', { immediate: true }) onAllRowsSelectedChanged() {
+    this.myAllRowsSelected = this.allRowsSelected;
     this.cellContext.allRowsSelected = this.allRowsSelected;
   }
   
@@ -74,6 +75,10 @@ export default class DataTableHeaderCellComponent extends Vue {
   @Watch('sorts', { immediate: true }) onSortsChanged() {
     this.sortDir = this.calcSortDir(this.sorts);
     this.cellContext.sortDir = this.sortDir;
+  }
+
+  @Watch('myAllRowsSelected', { immediate: true }) onMyAllRowsSelectedChanged() {
+    this.$emit('select', this.myAllRowsSelected);
   }
 
   created() {
@@ -175,9 +180,7 @@ export default class DataTableHeaderCellComponent extends Vue {
   // }
 
   get isCheckboxable(): boolean {
-    return this.column.checkboxable &&
-      this.column.headerCheckboxable &&
-      this.selectionType === SelectionType.checkbox;
+    return this.column.checkboxable && this.column.headerCheckboxable;
   }
 
   // @HostListener('contextmenu', ['$event'])

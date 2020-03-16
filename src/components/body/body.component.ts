@@ -928,6 +928,7 @@ export default class DataTableBodyComponent extends Vue {
   updateCellContext(context: ICellContext, row: any) {
     context.rowHeight = this.getRowHeight(row);
     context.isSelected = this.isSelect(row);
+    context.isChecked = this.isChecked(row);
     context.rowIndex = this.getRowIndex(row);
     context.expanded = this.getRowExpanded(row);
     context.treeStatus = row.treeStatus;
