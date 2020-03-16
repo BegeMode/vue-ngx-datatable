@@ -36,7 +36,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
           :checked="checked"
           selectionType="single"
           checkMode="checkNoSelect"
-          :selectAllRowsOnPage="false"
+          :selectAllRowsOnPage="true"
           :displayCheck="displayCheck"
           @activate="onActivate($event)"
           @select='onSelect($event)'

@@ -694,7 +694,7 @@ export default class DatatableComponent extends Vue {
   get allRowsSelected(): boolean {
     let allRowsSelected = (this.rows && this.mySelected && this.mySelected.length === this.rows.length);
 
-    if (this.selectAllRowsOnPage) {
+    if (this.selectAllRowsOnPage && this.bodyComponent) {
       const indexes = this.bodyComponent.indexes;
       const rowsOnPage = indexes.last - indexes.first;
       allRowsSelected = (this.mySelected.length === rowsOnPage);
@@ -1027,20 +1027,29 @@ export default class DatatableComponent extends Vue {
   /**
    * Toggle all row selection
    */
-  onHeaderSelect(event: any): void {
-
+  onHeaderSelect(isChecked: boolean): void {
+    let evName = 'selected';
     if (this.selectAllRowsOnPage) {
       // before we splice, chk if we currently have all selected
       const first = this.bodyComponent.indexes.first;
       const last = this.bodyComponent.indexes.last;
-      const allSelected = this.mySelected.length === (last - first);
-
-      // remove all existing either way
-      this.mySelected = [];
-
-      // do the opposite here
-      if (!allSelected) {
-        this.mySelected.push(...this.internalRows.slice(first, last));
+      if (this.checkMode === CheckMode.checkIsSelect) {
+        const allSelected = this.mySelected.length === (last - first);
+        // remove all existing either way
+        this.mySelected = [];
+        // do the opposite here
+        if (!allSelected) {
+          this.mySelected.push(...this.internalRows.slice(first, last));
+        }
+      } else {
+        evName = 'check';
+        const allChecked = this.myChecked.length === (last - first);
+        // remove all existing either way
+        this.myChecked = [];
+        // do the opposite here
+        if (isChecked && !allChecked) {
+          this.myChecked.push(...this.internalRows.slice(first, last));
+        }
       }
     } else {
       // before we splice, chk if we currently have all selected
@@ -1053,8 +1062,9 @@ export default class DatatableComponent extends Vue {
       }
     }
 
-    this.$emit('select', {
-      selected: this.mySelected
+    this.$emit(evName, {
+      selected: this.mySelected,
+      checked: this.myChecked
     });
   }
 
