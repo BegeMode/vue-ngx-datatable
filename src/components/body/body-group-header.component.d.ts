@@ -21,9 +21,9 @@ export default class DataTableBodyGroupHeaderComponent extends Vue {
      * Collapse all groups
      */
     collapseAllGroups(): void;
-    readonly groupTitle: string;
-    readonly styles: {
+    get groupTitle(): string;
+    get styles(): {
         'padding-left': string;
     };
-    readonly groupBy: any;
+    get groupBy(): any;
 }

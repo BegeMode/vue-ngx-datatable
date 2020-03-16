@@ -1,4 +1,4 @@
-declare const _default: import("vue/types/options").DirectiveOptions;
+declare const _default: import("vue").DirectiveOptions;
 /**
  * Visibility Observer Directive
  *

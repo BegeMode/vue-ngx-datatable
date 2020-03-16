@@ -4,10 +4,10 @@ export default class TemplateRefTemplatesComponent extends Vue {
     columns: any[];
     created(): void;
     fetch(cb: any): void;
-    readonly column: {
+    get column(): {
         name: string;
     };
-    readonly scope: {
+    get scope(): {
         value: string;
     };
 }

@@ -6,7 +6,7 @@ export default class SummaryRowInlineHtmlComponent extends Vue {
     summaryPosition: string;
     created(): void;
     fetch(cb: any): void;
-    readonly names: string[];
+    get names(): string[];
     summaryForGender(cells: string[]): string;
     avgAge(cells: number[]): number;
 }

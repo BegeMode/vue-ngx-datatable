@@ -14,6 +14,6 @@ export default class DataTableFooterComponent extends Vue {
     selectedMessage: string | boolean;
     created(): void;
     beforeUpdate(): void;
-    readonly isVisible: boolean;
-    readonly curPage: number;
+    get isVisible(): boolean;
+    get curPage(): number;
 }

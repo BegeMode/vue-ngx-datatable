@@ -19,17 +19,17 @@ export default class DataTableHeaderCellComponent extends Vue {
     created(): void;
     mounted(): void;
     beforeUpdate(): void;
-    readonly columnCssClasses: any;
-    readonly name: string;
-    readonly styles: {
+    get columnCssClasses(): any;
+    get name(): string;
+    get styles(): {
         height: string;
         width: string;
         'min-width': string;
         'max-width': string;
     };
-    readonly sortCssClass: string;
-    readonly cssClass: string;
-    readonly isCheckboxable: boolean;
+    get sortCssClass(): string;
+    get cssClass(): string;
+    get isCheckboxable(): boolean;
     onContextmenu($event: MouseEvent): void;
     calcSortDir(sorts: any[]): any;
     onSort(): void;

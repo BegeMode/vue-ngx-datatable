@@ -3,6 +3,7 @@ import { RowHeightCache } from '../../utils';
 import { SelectionType, TableColumn } from '../../types';
 import { ICellContext } from '../../types/cell-context.type';
 import { IGroupedRows } from '../../types/grouped-rows';
+import { CheckMode } from '../../types/check.type';
 export default class DataTableBodyComponent extends Vue {
     scrollbarV: boolean;
     scrollbarH: boolean;
@@ -13,7 +14,9 @@ export default class DataTableBodyComponent extends Vue {
     offsetX: number;
     emptyMessage: string;
     selectionType: SelectionType;
+    checkMode: CheckMode;
     selected: any[];
+    checked: any[];
     rowIdentity: any;
     rowDetail: any;
     rowDetailHeight: number | string | ((row?: any, index?: any) => number);
@@ -85,23 +88,23 @@ export default class DataTableBodyComponent extends Vue {
     onMyOffsetChanged(): void;
     onRowCountChanged(): void;
     onBodyHeightChanged(): void;
-    readonly bodyWidth: string;
-    readonly styleObject: {
+    get bodyWidth(): string;
+    get styleObject(): {
         width: string;
         height: any;
     };
     /**
      * Returns if selection is enabled.
      */
-    readonly selectEnabled: boolean;
-    readonly fixedRowHeight: boolean;
+    get selectEnabled(): boolean;
+    get fixedRowHeight(): boolean;
     /**
      * Property that would calculate the height of scroll bar
      * based on the row heights cache for virtual scroll and virtualization. Other scenarios
      * calculate scroll height automatically (as height will be undefined).
      */
-    readonly scrollHeight: number | undefined;
-    readonly scrollWidth: any;
+    get scrollHeight(): number | undefined;
+    get scrollWidth(): any;
     /**
      * Called after the constructor, initializing input properties
      */
@@ -225,6 +228,7 @@ export default class DataTableBodyComponent extends Vue {
     getRowIndex(row: any): number;
     onTreeAction(event: any): void;
     isSelect(row: any): any;
+    isChecked(row: any): any;
     onActivate(event: any, index: any): void;
     onRowRendered(row: any): void;
     checkRenderFinish(counter: number): void;
@@ -261,7 +265,7 @@ export default class DataTableBodyComponent extends Vue {
     };
     cellHeight(rowHeight: any): string | number;
     calcLeftMargin(column: any, row: any): number;
-    readonly cellSlots: () => {};
+    get cellSlots(): () => {};
     onCellFocus($event: any): void;
     /**
      * Toggle the expansion of the row

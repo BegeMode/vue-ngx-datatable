@@ -4,7 +4,7 @@ import '../src/themes/dark.scss';
 import '../src/themes/bootstrap.scss';
 export declare class AppComponent extends Vue {
     state: string;
-    readonly classObject: {
+    get classObject(): {
         dark: boolean;
     };
     version: string;

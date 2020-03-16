@@ -10,9 +10,9 @@ export declare class MockServerResultsService {
     getResults(offset: number, limit: number): Promise<PagedData<CorporateEmployee>>;
 }
 export default class ServerScrollingComponent extends Vue {
-    readonly headerHeight: number;
-    readonly rowHeight: number;
-    readonly pageLimit: number;
+    readonly headerHeight = 50;
+    readonly rowHeight = 50;
+    readonly pageLimit = 10;
     rows: CorporateEmployee[];
     isLoading: boolean;
     serverResultsService: MockServerResultsService;

@@ -42,7 +42,7 @@ export default class DataTableHeaderComponent extends Vue {
         event: any;
         model: any;
     }): void;
-    readonly headerWidth: string;
+    get headerWidth(): string;
     isEnableDragX(column: any): any;
     onColumnResized(width: number, column: any): void;
     onHiddenChanged($event: any): void;
@@ -52,7 +52,7 @@ export default class DataTableHeaderComponent extends Vue {
     setStylesByGroup(): void;
     calcStylesByGroup(group: string): any;
     styleForGroup(group: any): any;
-    readonly styleObject: {
+    get styleObject(): {
         width: string;
         height: string;
     };

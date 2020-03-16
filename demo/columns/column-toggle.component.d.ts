@@ -9,7 +9,7 @@ export default class ColumnToggleComponent extends Vue {
         name: string;
         visible: boolean;
     }[];
-    readonly columns: {
+    get columns(): {
         name: string;
         visible: boolean;
     }[];

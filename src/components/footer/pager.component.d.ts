@@ -13,9 +13,9 @@ export default class DataTablePagerComponent extends Vue {
     onSizeChanged(): void;
     onPageChanged(): void;
     created(): void;
-    readonly totalPages: number;
-    readonly canPrevious: boolean;
-    readonly canNext: boolean;
+    get totalPages(): number;
+    get canPrevious(): boolean;
+    get canNext(): boolean;
     prevPage(): void;
     nextPage(): void;
     selectPage(page: number): void;

@@ -4,7 +4,7 @@ export default class ScrollerComponent extends Vue {
     scrollbarH: boolean;
     scrollHeight: number;
     scrollWidth: number;
-    readonly styleObject: {
+    get styleObject(): {
         height: string;
         width: string;
     };

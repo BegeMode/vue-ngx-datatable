@@ -1,6 +1,7 @@
 import { Vue } from 'vue-property-decorator';
 import { ColumnMode, SortType, SelectionType, TableColumn, ISortEvent } from '../types';
 import { IGroupedRows } from '../types/grouped-rows';
+import { CheckMode } from '../types/check.type';
 export default class DatatableComponent extends Vue {
     /**
      * Template for the target marker of drag target columns.
@@ -36,6 +37,12 @@ export default class DatatableComponent extends Vue {
      * Default value: `[]`
      */
     selected: any[];
+    /**
+     * List of row objects that should be
+     * represented as checked in the grid.
+     * Default value: `[]`
+     */
+    checked: any[];
     /**
      * Enable vertical scrollbars
      */
@@ -111,10 +118,19 @@ export default class DatatableComponent extends Vue {
      *  - `multiClick`
      *  - `cell`
      *
-     * For no selection pass a `falsey`.
+     * For no selection pass a `false`.
      * Default value: `undefined`
      */
     selectionType: SelectionType;
+    /**
+     * Type of row check type. Options are:
+     *
+     *  - `checkIsSelect`
+     *  - `checkNoSelect`
+     *
+     * Default value: `checkIsSelect`
+     */
+    checkMode: CheckMode;
     /**
      * Enable/Disable ability to re-order columns
      * by dragging them.
@@ -253,6 +269,7 @@ export default class DatatableComponent extends Vue {
     mySortType: SortType;
     myOffset_: number;
     mySelected: any[];
+    myChecked: any[];
     renderTracking: boolean;
     isVisible: boolean;
     mySorts: any[];
@@ -328,56 +345,57 @@ export default class DatatableComponent extends Vue {
     onOffsetChanged(): void;
     onSortsChanged(): void;
     onSelectedChanged(): void;
-    readonly myOffset: number;
+    onCheckedChanged(): void;
+    get myOffset(): number;
     /**
      * CSS class applied if the header height if fixed height.
      */
-    readonly isFixedHeader: boolean;
+    get isFixedHeader(): boolean;
     /**
      * CSS class applied to the root element if
      * the row heights are fixed heights.
      */
-    readonly isFixedRow: boolean;
+    get isFixedRow(): boolean;
     /**
      * CSS class applied to root element if
      * vertical scrolling is enabled.
      */
-    readonly isVertScroll: boolean;
+    get isVertScroll(): boolean;
     /**
      * CSS class applied to root element if
      * virtualization is enabled.
      */
-    readonly isVirtualized: boolean;
+    get isVirtualized(): boolean;
     /**
      * CSS class applied to the root element
      * if the horziontal scrolling is enabled.
      */
-    readonly isHorScroll: boolean;
+    get isHorScroll(): boolean;
     /**
      * CSS class applied to root element is selectable.
      */
-    readonly isSelectable: boolean;
+    get isSelectable(): boolean;
     /**
      * CSS class applied to root is checkbox selection.
      */
-    readonly isCheckboxSelection: boolean;
+    get isCheckboxSelection(): boolean;
     /**
      * CSS class applied to root if cell selection.
      */
-    readonly isCellSelection: boolean;
+    get isCellSelection(): boolean;
     /**
      * CSS class applied to root if single select.
      */
-    readonly isSingleSelection: boolean;
+    get isSingleSelection(): boolean;
     /**
      * CSS class added to root element if mulit select
      */
-    readonly isMultiSelection: boolean;
+    get isMultiSelection(): boolean;
     /**
      * CSS class added to root element if mulit click select
      */
-    readonly isMultiClickSelection: boolean;
-    readonly classObject: {
+    get isMultiClickSelection(): boolean;
+    get classObject(): {
         'fixed-header': boolean;
         'fixed-row': boolean;
         'scroll-vertical': boolean;
@@ -390,8 +408,8 @@ export default class DatatableComponent extends Vue {
         'multi-selection': boolean;
         'multi-click-selection': boolean;
     };
-    readonly allRowsSelected: boolean;
-    readonly scrollbarWidth: number;
+    get allRowsSelected(): boolean;
+    get scrollbarWidth(): number;
     /**
      * Recalc's the sizes of the grid.
      *

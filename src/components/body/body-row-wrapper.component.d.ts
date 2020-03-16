@@ -16,5 +16,5 @@ export default class DataTableRowWrapperComponent extends Vue {
     rowDetailSlot: any;
     created(): void;
     onContextmenu($event: MouseEvent): void;
-    readonly groupHeaderStyles: any;
+    get groupHeaderStyles(): any;
 }

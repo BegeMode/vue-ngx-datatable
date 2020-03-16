@@ -1,5 +1,5 @@
 import { Vue } from 'vue-property-decorator';
-declare const _default: import("vue/types/vue").VueConstructor<{
+declare const _default: import("vue/types/vue").ExtendedVue<Vue, {}, {}, {}, {
     innerWidth: number;
     rowDetail: boolean;
     groupHeader: boolean;
@@ -8,12 +8,12 @@ declare const _default: import("vue/types/vue").VueConstructor<{
     rowDetailHeight: number;
     groupRowHeight: number;
     row: any;
-    groupedRows: {}[];
-    groupRowsBy: {}[];
+    groupedRows: unknown[];
+    groupRowsBy: unknown[];
     rowIndex: number;
     expanded: boolean;
     styleObject: any;
     groupHeaderSlot: Function;
     rowDetailSlot: Function;
-} & Vue>;
+}>;
 export default _default;
