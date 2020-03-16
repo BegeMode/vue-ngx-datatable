@@ -48,6 +48,7 @@ export default class DataTableHeaderComponent extends Vue {
     onHiddenChanged($event: any): void;
     getColumn(index: number): any;
     onSort({ column, prevValue, newValue }: any): void;
+    onSelect(event: any): void;
     calcNewSorts(column: any, prevValue: SortDirection, newValue: SortDirection): ISortPropDir[];
     setStylesByGroup(): void;
     calcStylesByGroup(group: string): any;

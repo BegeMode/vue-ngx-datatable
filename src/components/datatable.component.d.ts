@@ -485,7 +485,7 @@ export default class DatatableComponent extends Vue {
     /**
      * Toggle all row selection
      */
-    onHeaderSelect(event: any): void;
+    onHeaderSelect(isChecked: boolean): void;
     /**
      * A row was selected from body
      */

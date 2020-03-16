@@ -12,10 +12,12 @@ export default class DataTableHeaderCellComponent extends Vue {
     headerHeight: number;
     sortFn: any;
     sortDir: SortDirection;
+    myAllRowsSelected: boolean;
     cellContext: any;
     onAllRowsSelectedChanged(): void;
     onColumnChahged(): void;
     onSortsChanged(): void;
+    onMyAllRowsSelectedChanged(): void;
     created(): void;
     mounted(): void;
     beforeUpdate(): void;

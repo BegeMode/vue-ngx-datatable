@@ -10,6 +10,7 @@ export interface ICellContext {
     column: TableColumn;
     rowHeight: number;
     isSelected: boolean;
+    isChecked: boolean;
     rowIndex: number;
     treeStatus: TreeStatus;
     onTreeAction: () => void;
