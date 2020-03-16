@@ -9582,9 +9582,13 @@ var TreeNode = /** @class */ (function () {
                 if (!lazyTree && (!child.children || !child.children.length)) {
                     child.row['treeStatus'] = 'disabled';
                 }
+                else if (child.children && child.children.length && child.row['treeStatus'] === 'disabled') {
+                    child.row['treeStatus'] = 'collapsed';
+                }
                 f.apply(child, Array.prototype.slice.call(arguments, 2));
-                if (recursive)
+                if (recursive) {
                     child.flatten.apply(child, arguments, lazyTree);
+                }
             }
         }
     };

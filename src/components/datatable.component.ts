@@ -523,7 +523,7 @@ export default class DatatableComponent extends Vue {
     if (newVal) {
       setColumnsDefaults(newVal, this);
       this.internalColumns = [...newVal];
-      this.recalculateColumns();
+      this.$nextTick(() => this.recalculateColumns());
     }
   }
   /**
