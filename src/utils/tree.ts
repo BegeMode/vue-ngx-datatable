@@ -108,10 +108,14 @@ class TreeNode {
       for (let i = 0, l = this.children.length; i < l; i++) {
         const child = this.children[i];
         if (!lazyTree && (!child.children || !child.children.length)) {
-            child.row['treeStatus'] = 'disabled';
+          child.row['treeStatus'] = 'disabled';
+        } else if (child.children && child.children.length && child.row['treeStatus'] === 'disabled') {
+          child.row['treeStatus'] = 'collapsed';
         }
         f.apply(child, Array.prototype.slice.call(arguments, 2));
-        if (recursive) child.flatten.apply(child, arguments, lazyTree);
+        if (recursive) {
+          child.flatten.apply(child, arguments, lazyTree);
+        }
       }
     }
   }
