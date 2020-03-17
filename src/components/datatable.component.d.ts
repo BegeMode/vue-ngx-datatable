@@ -151,6 +151,11 @@ export default class DatatableComponent extends Vue {
      */
     sorts: any[];
     /**
+     * Go to first page when sorting to see the newly sorted data
+     * Default value: true
+     */
+    goToFirstAfterSort: boolean;
+    /**
      * Css class overrides
      */
     cssClasses: any;
