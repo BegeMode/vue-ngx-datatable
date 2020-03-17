@@ -1,5 +1,5 @@
 /**
- * vue-data-table v"1.1.0" (https://github.com/begemode/vue-ngx-data-table)
+ * vue-data-table v"1.1.1" (https://github.com/begemode/vue-ngx-data-table)
  * Copyright 2018
  * Licensed under MIT
  */
@@ -3088,9 +3088,11 @@ var DatatableComponent = /** @class */ (function (_super) {
         }
         // auto group by parent on new update
         this.internalRows = utils_1.groupRowsByParents(this.internalRows, utils_1.optionalGetterForProp(this.treeFromRelation), utils_1.optionalGetterForProp(this.treeToRelation), this.lazyTree);
-        // Always go to first page when sorting to see the newly sorted data
-        this.myOffset_ = 0;
-        this.bodyComponent.updateOffsetY(this.myOffset_);
+        // Go to first page when sorting to see the newly sorted data
+        if (this.goToFirstAfterSort) {
+            this.myOffset_ = 0;
+        }
+        this.bodyComponent.updateOffsetY(this.myOffset);
         this.$emit('sort', event);
     };
     /**
@@ -3497,6 +3499,10 @@ var DatatableComponent = /** @class */ (function (_super) {
         vue_property_decorator_1.Prop({ type: Array, default: function () { return []; } }),
         __metadata("design:type", Array)
     ], DatatableComponent.prototype, "sorts", void 0);
+    __decorate([
+        vue_property_decorator_1.Prop({ default: true }),
+        __metadata("design:type", Boolean)
+    ], DatatableComponent.prototype, "goToFirstAfterSort", void 0);
     __decorate([
         vue_property_decorator_1.Prop({
             type: Object,

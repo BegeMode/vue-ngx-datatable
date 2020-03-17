@@ -186,6 +186,11 @@ export default class DatatableComponent extends Vue {
    */
   @Prop({ type: Array, default: () => [] }) sorts: any[];
   /**
+   * Go to first page when sorting to see the newly sorted data
+   * Default value: true
+   */
+  @Prop({ default: true }) goToFirstAfterSort: boolean;
+  /**
    * Css class overrides
    */
   @Prop({
@@ -1018,9 +1023,11 @@ export default class DatatableComponent extends Vue {
       this.lazyTree
     );
 
-    // Always go to first page when sorting to see the newly sorted data
-    this.myOffset_ = 0;
-    this.bodyComponent.updateOffsetY(this.myOffset_);
+    // Go to first page when sorting to see the newly sorted data
+    if (this.goToFirstAfterSort) {
+      this.myOffset_ = 0;
+    }
+    this.bodyComponent.updateOffsetY(this.myOffset);
     this.$emit('sort', event);
   }
 
