@@ -697,15 +697,19 @@ export default class DatatableComponent extends Vue {
   }
 
   get allRowsSelected(): boolean {
-    let allRowsSelected = (this.rows && this.mySelected && this.mySelected.length === this.rows.length);
+    let arr = this.mySelected;
+    if (this.checkMode === CheckMode.checkNoSelect) {
+      arr = this.myChecked;
+    }
+    let allRowsSelected = (this.rows && arr && arr.length === this.rows.length);
 
     if (this.selectAllRowsOnPage && this.bodyComponent) {
       const indexes = this.bodyComponent.indexes;
       const rowsOnPage = indexes.last - indexes.first;
-      allRowsSelected = (this.mySelected.length === rowsOnPage);
+      allRowsSelected = (arr.length === rowsOnPage);
     }
 
-    return this.mySelected && this.rows &&
+    return arr && this.rows &&
       this.rows.length !== 0 && allRowsSelected;
   }
 
@@ -1035,7 +1039,7 @@ export default class DatatableComponent extends Vue {
    * Toggle all row selection
    */
   onHeaderSelect(isChecked: boolean): void {
-    let evName = 'selected';
+    let evName = 'select';
     if (this.selectAllRowsOnPage) {
       // before we splice, chk if we currently have all selected
       const first = this.bodyComponent.indexes.first;

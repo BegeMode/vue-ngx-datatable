@@ -24,7 +24,8 @@ import DatatableComponent from '../../src/components/datatable.component.vue';
         :headerHeight="50"
         :footerHeight="50"
         :rowHeight="50"
-        :scrollbarV="true">
+        :scrollbarV="true"
+        :goToFirstAfterSort="false">
       </ngx-datatable>
     </div>
   `

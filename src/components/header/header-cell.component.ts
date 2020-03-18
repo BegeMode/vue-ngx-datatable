@@ -20,6 +20,7 @@ import { nextSortDir } from '../../utils';
         <input
           type="checkbox"
           v-model="myAllRowsSelected"
+          @change="onCheckboxChange"
         />
       </label>
       <slot v-bind="{ column: column }">
@@ -77,10 +78,6 @@ export default class DataTableHeaderCellComponent extends Vue {
     this.cellContext.sortDir = this.sortDir;
   }
 
-  @Watch('myAllRowsSelected', { immediate: true }) onMyAllRowsSelectedChanged() {
-    this.$emit('select', this.myAllRowsSelected);
-  }
-
   created() {
     this.$emit('header-cell-created', this.$el);
     if (this.column.headerTemplate) {
@@ -97,6 +94,9 @@ export default class DataTableHeaderCellComponent extends Vue {
     if (this.column.headerTemplate) {
       this.$slots.default = this.column.headerTemplate({ column: this.column });
     }
+  }
+  onCheckboxChange() {
+    this.$emit('select', this.myAllRowsSelected);
   }
 
   get columnCssClasses(): any {

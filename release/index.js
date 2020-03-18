@@ -2793,13 +2793,17 @@ var DatatableComponent = /** @class */ (function (_super) {
     });
     Object.defineProperty(DatatableComponent.prototype, "allRowsSelected", {
         get: function () {
-            var allRowsSelected = (this.rows && this.mySelected && this.mySelected.length === this.rows.length);
+            var arr = this.mySelected;
+            if (this.checkMode === check_type_1.CheckMode.checkNoSelect) {
+                arr = this.myChecked;
+            }
+            var allRowsSelected = (this.rows && arr && arr.length === this.rows.length);
             if (this.selectAllRowsOnPage && this.bodyComponent) {
                 var indexes = this.bodyComponent.indexes;
                 var rowsOnPage = indexes.last - indexes.first;
-                allRowsSelected = (this.mySelected.length === rowsOnPage);
+                allRowsSelected = (arr.length === rowsOnPage);
             }
-            return this.mySelected && this.rows &&
+            return arr && this.rows &&
                 this.rows.length !== 0 && allRowsSelected;
         },
         enumerable: true,
@@ -3100,7 +3104,7 @@ var DatatableComponent = /** @class */ (function (_super) {
      */
     DatatableComponent.prototype.onHeaderSelect = function (isChecked) {
         var _a, _b, _c;
-        var evName = 'selected';
+        var evName = 'select';
         if (this.selectAllRowsOnPage) {
             // before we splice, chk if we currently have all selected
             var first = this.bodyComponent.indexes.first;
@@ -6565,9 +6569,6 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
         this.sortDir = this.calcSortDir(this.sorts);
         this.cellContext.sortDir = this.sortDir;
     };
-    DataTableHeaderCellComponent.prototype.onMyAllRowsSelectedChanged = function () {
-        this.$emit('select', this.myAllRowsSelected);
-    };
     DataTableHeaderCellComponent.prototype.created = function () {
         this.$emit('header-cell-created', this.$el);
         if (this.column.headerTemplate) {
@@ -6582,6 +6583,9 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
         if (this.column.headerTemplate) {
             this.$slots.default = this.column.headerTemplate({ column: this.column });
         }
+    };
+    DataTableHeaderCellComponent.prototype.onCheckboxChange = function () {
+        this.$emit('select', this.myAllRowsSelected);
     };
     Object.defineProperty(DataTableHeaderCellComponent.prototype, "columnCssClasses", {
         get: function () {
@@ -6785,15 +6789,9 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DataTableHeaderCellComponent.prototype, "onSortsChanged", null);
-    __decorate([
-        vue_property_decorator_1.Watch('myAllRowsSelected', { immediate: true }),
-        __metadata("design:type", Function),
-        __metadata("design:paramtypes", []),
-        __metadata("design:returntype", void 0)
-    ], DataTableHeaderCellComponent.prototype, "onMyAllRowsSelectedChanged", null);
     DataTableHeaderCellComponent = __decorate([
         vue_property_decorator_1.Component({
-            template: "\n    <div class=\"datatable-header-cell-template-wrap\" :class=\"[columnCssClasses]\" :style=\"styles\" :title=\"name\"\n          v-show=\"column.visible\"\n          @contextmenu=\"onContextmenu($event)\">\n      <slot name=\"target-marker\">\n        <!-- Default content -->\n        <div class=\"targetMarker\" v-if=\"isTarget\">\n          <div class=\"icon datatable-icon-down\"></div>\n          <div class=\"icon datatable-icon-up\"></div>\n        </div>\n      </slot>\n      <label\n        v-if=\"isCheckboxable\"\n        class=\"datatable-checkbox\">\n        <input\n          type=\"checkbox\"\n          v-model=\"myAllRowsSelected\"\n        />\n      </label>\n      <slot v-bind=\"{ column: column }\">\n        <!-- Default content -->\n        <span class=\"datatable-header-cell-wrapper\">\n          <span class=\"datatable-header-cell-label draggable\"\n            :class=\"cssClass\"\n            @click=\"onSort\" v-html=\"name\">\n          </span>\n        </span>\n      </slot>\n      <span\n        @click=\"onSort\"\n        :class=\"sortCssClass\">\n      </span>\n    </div>\n  ",
+            template: "\n    <div class=\"datatable-header-cell-template-wrap\" :class=\"[columnCssClasses]\" :style=\"styles\" :title=\"name\"\n          v-show=\"column.visible\"\n          @contextmenu=\"onContextmenu($event)\">\n      <slot name=\"target-marker\">\n        <!-- Default content -->\n        <div class=\"targetMarker\" v-if=\"isTarget\">\n          <div class=\"icon datatable-icon-down\"></div>\n          <div class=\"icon datatable-icon-up\"></div>\n        </div>\n      </slot>\n      <label\n        v-if=\"isCheckboxable\"\n        class=\"datatable-checkbox\">\n        <input\n          type=\"checkbox\"\n          v-model=\"myAllRowsSelected\"\n          @change=\"onCheckboxChange\"\n        />\n      </label>\n      <slot v-bind=\"{ column: column }\">\n        <!-- Default content -->\n        <span class=\"datatable-header-cell-wrapper\">\n          <span class=\"datatable-header-cell-label draggable\"\n            :class=\"cssClass\"\n            @click=\"onSort\" v-html=\"name\">\n          </span>\n        </span>\n      </slot>\n      <span\n        @click=\"onSort\"\n        :class=\"sortCssClass\">\n      </span>\n    </div>\n  ",
         })
     ], DataTableHeaderCellComponent);
     return DataTableHeaderCellComponent;
