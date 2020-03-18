@@ -17,10 +17,10 @@ export default class DataTableHeaderCellComponent extends Vue {
     onAllRowsSelectedChanged(): void;
     onColumnChahged(): void;
     onSortsChanged(): void;
-    onMyAllRowsSelectedChanged(): void;
     created(): void;
     mounted(): void;
     beforeUpdate(): void;
+    onCheckboxChange(): void;
     get columnCssClasses(): any;
     get name(): string;
     get styles(): {
