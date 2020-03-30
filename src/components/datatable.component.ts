@@ -1086,6 +1086,13 @@ export default class DatatableComponent extends Vue {
     this.$emit('select', event);
   }
 
+  /**
+   * A row was checked from body
+   */
+  onBodyCheck(event: any): void {
+    this.$emit('check', event);
+  }
+
   onGroupToggle(event: any) {
     event.value.__expanded = !event.value.__expanded;
     this.internalRows = this.processGroupedRows(this.groupedRows);
