@@ -1,5 +1,5 @@
 /**
- * vue-data-table v"1.1.1" (https://github.com/begemode/vue-ngx-data-table)
+ * vue-data-table v"1.1.3" (https://github.com/begemode/vue-ngx-data-table)
  * Copyright 2018
  * Licensed under MIT
  */
@@ -3150,6 +3150,12 @@ var DatatableComponent = /** @class */ (function (_super) {
     DatatableComponent.prototype.onBodySelect = function (event) {
         this.$emit('select', event);
     };
+    /**
+     * A row was checked from body
+     */
+    DatatableComponent.prototype.onBodyCheck = function (event) {
+        this.$emit('check', event);
+    };
     DatatableComponent.prototype.onGroupToggle = function (event) {
         event.value.__expanded = !event.value.__expanded;
         this.internalRows = this.processGroupedRows(this.groupedRows);
@@ -4838,6 +4844,9 @@ var render = function() {
             select: function($event) {
               return _vm.$emit("select", $event)
             },
+            check: function($event) {
+              return _vm.$emit("check", $event)
+            },
             activate: function($event) {
               return _vm.$emit("activate", $event)
             }
@@ -6064,6 +6073,7 @@ var render = function() {
           },
           rowContextmenu: _vm.onRowContextmenu,
           select: _vm.onBodySelect,
+          check: _vm.onBodyCheck,
           scroll: _vm.onBodyScroll,
           "group-toggle": _vm.onGroupToggle,
           "tree-action": _vm.onTreeAction,
