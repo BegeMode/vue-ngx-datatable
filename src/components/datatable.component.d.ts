@@ -495,6 +495,10 @@ export default class DatatableComponent extends Vue {
      * A row was selected from body
      */
     onBodySelect(event: any): void;
+    /**
+     * A row was checked from body
+     */
+    onBodyCheck(event: any): void;
     onGroupToggle(event: any): void;
     /**
      * A row was expanded or collapsed for tree
