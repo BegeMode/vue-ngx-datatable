@@ -269,6 +269,7 @@ export default class DatatableComponent extends Vue {
     rowCount: number;
     offsetX: number;
     internalRows: any[];
+    initialRows: any[];
     internalColumns: TableColumn[];
     myColumnMode: ColumnMode;
     mySortType: SortType;
