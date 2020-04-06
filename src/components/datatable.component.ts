@@ -331,6 +331,7 @@ export default class DatatableComponent extends Vue {
   rowCount: number = 0;
   offsetX: number = 0;
   internalRows: any[] = null;
+  initialRows: any[] = null;
   internalColumns: TableColumn[] = null;
   myColumnMode: ColumnMode = ColumnMode.standard;
   mySortType: SortType = SortType.single;
@@ -465,12 +466,22 @@ export default class DatatableComponent extends Vue {
     if (val) {
       this.internalRows = [...val];
     }
+    const treeFrom = optionalGetterForProp(this.treeFromRelation);
+    const treeTo = optionalGetterForProp(this.treeToRelation);
+    if (treeFrom && treeTo) {
+      this.initialRows = this.internalRows;
+    }
+
+    // auto sort on new updates
+    if (!this.externalSorting) {
+      this.sortInternalRows();
+    }
 
     // auto group by parent on new update
     this.internalRows = groupRowsByParents(
       this.internalRows,
-      optionalGetterForProp(this.treeFromRelation),
-      optionalGetterForProp(this.treeToRelation),
+      treeFrom,
+      treeTo,
       this.lazyTree
     );
     
@@ -479,11 +490,6 @@ export default class DatatableComponent extends Vue {
       // this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy);
       this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy, 0);
       this.internalRows = this.processGroupedRows(this.groupedRows);
-    }
-
-    // auto sort on new updates
-    if (!this.externalSorting) {
-      this.sortInternalRows();
     }
 
     // recalculate sizes/etc
@@ -1012,6 +1018,13 @@ export default class DatatableComponent extends Vue {
 
     this.mySorts = event.sorts;
 
+    // let rows = this.internalRows;
+    const treeFrom = optionalGetterForProp(this.treeFromRelation);
+    const treeTo = optionalGetterForProp(this.treeToRelation);
+    if (treeFrom && treeTo) {
+      this.internalRows = this.initialRows;
+    }
+
     // this could be optimized better since it will resort
     // the rows again on the 'push' detection...
     if (this.externalSorting === false) {
@@ -1022,8 +1035,8 @@ export default class DatatableComponent extends Vue {
     // auto group by parent on new update
     this.internalRows = groupRowsByParents(
       this.internalRows,
-      optionalGetterForProp(this.treeFromRelation),
-      optionalGetterForProp(this.treeToRelation),
+      treeFrom,
+      treeTo,
       this.lazyTree
     );
 

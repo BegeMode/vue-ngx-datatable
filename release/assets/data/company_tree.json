@@ -52,9 +52,23 @@
         "treeStatus": "disabled"
     },
     {
+        "name": "Robles Boyle",
+        "gender": "male",
+        "company": "Comtract",
+        "manager": "Ethel Price",
+        "treeStatus": "disabled"
+    },
+    {
         "name": "Lynda Mendoza",
         "gender": "female",
         "company": "Dogspa",
+        "manager": "Georgina Schultz",
+        "treeStatus": "disabled"
+    },
+    {
+        "name": "Bruce Strong",
+        "gender": "male",
+        "company": "Xyqag",
         "manager": "Georgina Schultz",
         "treeStatus": "disabled"
     }

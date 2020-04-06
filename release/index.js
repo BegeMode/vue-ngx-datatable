@@ -1,5 +1,5 @@
 /**
- * vue-data-table v"1.1.3" (https://github.com/begemode/vue-ngx-data-table)
+ * vue-data-table v"1.1.4" (https://github.com/begemode/vue-ngx-data-table)
  * Copyright 2018
  * Licensed under MIT
  */
@@ -2419,6 +2419,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         _this.rowCount = 0;
         _this.offsetX = 0;
         _this.internalRows = null;
+        _this.initialRows = null;
         _this.internalColumns = null;
         _this.myColumnMode = types_1.ColumnMode.standard;
         _this.mySortType = types_1.SortType.single;
@@ -2537,17 +2538,22 @@ var DatatableComponent = /** @class */ (function (_super) {
         if (val) {
             this.internalRows = __spreadArrays(val);
         }
+        var treeFrom = utils_1.optionalGetterForProp(this.treeFromRelation);
+        var treeTo = utils_1.optionalGetterForProp(this.treeToRelation);
+        if (treeFrom && treeTo) {
+            this.initialRows = this.internalRows;
+        }
+        // auto sort on new updates
+        if (!this.externalSorting) {
+            this.sortInternalRows();
+        }
         // auto group by parent on new update
-        this.internalRows = utils_1.groupRowsByParents(this.internalRows, utils_1.optionalGetterForProp(this.treeFromRelation), utils_1.optionalGetterForProp(this.treeToRelation), this.lazyTree);
+        this.internalRows = utils_1.groupRowsByParents(this.internalRows, treeFrom, treeTo, this.lazyTree);
         this.groupedRows = null;
         if (this.rows && this.groupRowsBy) {
             // this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy);
             this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy, 0);
             this.internalRows = this.processGroupedRows(this.groupedRows);
-        }
-        // auto sort on new updates
-        if (!this.externalSorting) {
-            this.sortInternalRows();
         }
         // recalculate sizes/etc
         if (this.$el) {
@@ -3084,6 +3090,12 @@ var DatatableComponent = /** @class */ (function (_super) {
             });
         }
         this.mySorts = event.sorts;
+        // let rows = this.internalRows;
+        var treeFrom = utils_1.optionalGetterForProp(this.treeFromRelation);
+        var treeTo = utils_1.optionalGetterForProp(this.treeToRelation);
+        if (treeFrom && treeTo) {
+            this.internalRows = this.initialRows;
+        }
         // this could be optimized better since it will resort
         // the rows again on the 'push' detection...
         if (this.externalSorting === false) {
@@ -3091,7 +3103,7 @@ var DatatableComponent = /** @class */ (function (_super) {
             this.sortInternalRows();
         }
         // auto group by parent on new update
-        this.internalRows = utils_1.groupRowsByParents(this.internalRows, utils_1.optionalGetterForProp(this.treeFromRelation), utils_1.optionalGetterForProp(this.treeToRelation), this.lazyTree);
+        this.internalRows = utils_1.groupRowsByParents(this.internalRows, treeFrom, treeTo, this.lazyTree);
         // Go to first page when sorting to see the newly sorted data
         if (this.goToFirstAfterSort) {
             this.myOffset_ = 0;
@@ -9713,6 +9725,9 @@ exports.optionalGetterForProp = optionalGetterForProp;
  */
 function groupRowsByParents(rows, from, to, lazyTree) {
     if (lazyTree === void 0) { lazyTree = false; }
+    if (!rows) {
+        this.rows;
+    }
     if (from && to) {
         var nodeById = {};
         var l = rows.length;
