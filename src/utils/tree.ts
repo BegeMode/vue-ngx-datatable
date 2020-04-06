@@ -44,6 +44,9 @@ export function optionalGetterForProp(prop: TableColumnProp): OptionalValueGette
  */
 export function groupRowsByParents(rows: any[], from?: OptionalValueGetter, to?: OptionalValueGetter,
                                    lazyTree: boolean = false): any[] {
+  if (!rows) {
+    this.rows;
+  }
   if (from && to) {
     const nodeById = {};
     const l = rows.length;
