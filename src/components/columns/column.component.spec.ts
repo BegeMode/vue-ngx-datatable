@@ -117,10 +117,11 @@ describe('DataTableColumnDirective', () => {
 
   describe('column #2', () => {
     let column: DataTableColumnComponent;
+    let colWrapper: Wrapper<Vue>;
 
     beforeEach(() => {
-      const wr = wrapper.find('#t2');
-      column = wr.vm as DataTableColumnComponent;
+      colWrapper = wrapper.find('#t2');
+      column = colWrapper.vm as DataTableColumnComponent;
     });
 
     it('should be found', () => {
@@ -137,7 +138,7 @@ describe('DataTableColumnDirective', () => {
     it('notifies of visible changes', async () => {
       const spy = spyOn(component, 'onColumnChangeVisible');
 
-      column.visible = false;
+      colWrapper.setProps({ visible: false });
       await column.$nextTick();
 
       expect(spy).toHaveBeenCalled();
