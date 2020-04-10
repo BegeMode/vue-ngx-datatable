@@ -85,11 +85,12 @@ describe('DatatableComponent', () => {
     component.rows = initialRows;
     component.columns = columns;
     await component.$nextTick();
-    // await flushPromises();
+    await flushPromises();
 
     // sort by `birthDate` ascending
     sortBy({ column: 1 });
     await Vue.nextTick();
+    await flushPromises();
 
     expect(textContent({ row: 1, column: 1 })).toContain('1978', 'Ascending');
     expect(textContent({ row: 2, column: 1 })).toContain('1980', 'Ascending');
@@ -98,6 +99,7 @@ describe('DatatableComponent', () => {
     // sort by `birthDate` descending
     sortBy({ column: 1 });
     await Vue.nextTick();
+    await flushPromises();
 
     expect(textContent({ row: 1, column: 1 })).toContain('1995', 'Descending');
     expect(textContent({ row: 2, column: 1 })).toContain('1980', 'Descending');
@@ -120,11 +122,12 @@ describe('DatatableComponent', () => {
     component.rows = initialRows;
     component.columns = columns;
     await Vue.nextTick();
-    // await flushPromises();
+    await flushPromises();
 
     // sort by `id` ascending
     sortBy({ column: 1 });
     await Vue.nextTick();
+    await flushPromises();
 
     expect(textContent({ row: 1, column: 1 })).toContain('5', 'Ascending');
     expect(textContent({ row: 2, column: 1 })).toContain('12', 'Ascending');
@@ -133,6 +136,7 @@ describe('DatatableComponent', () => {
     // sort by `id` descending
     sortBy({ column: 1 });
     await Vue.nextTick();
+    await flushPromises();
 
     expect(textContent({ row: 1, column: 1 })).toContain('20', 'Descending');
     expect(textContent({ row: 2, column: 1 })).toContain('12', 'Descending');
@@ -155,10 +159,12 @@ describe('DatatableComponent', () => {
     component.rows = initialRows;
     component.columns = columns;
     await Vue.nextTick();
+    await flushPromises();
 
     // sort by `product` ascending
     sortBy({ column: 1 });
     await Vue.nextTick();
+    await flushPromises();
 
     expect(textContent({ row: 1, column: 1 })).toContain('Bikes', 'Ascending');
     expect(textContent({ row: 2, column: 1 })).toContain('Computers', 'Ascending');
@@ -167,6 +173,7 @@ describe('DatatableComponent', () => {
     // sort by `product` descending
     sortBy({ column: 1 });
     await Vue.nextTick();
+    await flushPromises();
 
     expect(textContent({ row: 1, column: 1 })).toContain('Smartphones', 'Descending');
     expect(textContent({ row: 2, column: 1 })).toContain('Computers', 'Descending');
@@ -192,10 +199,12 @@ describe('DatatableComponent', () => {
     component.rows = initialRows;
     component.columns = columns;
     await Vue.nextTick();
+    await flushPromises();
 
     // sort by `product` ascending
     sortBy({ column: 1 });
     await Vue.nextTick();
+    await flushPromises();
 
     expect(textContent({ row: 1, column: 1 })).toContain('Cars', 'Ascending');
     expect(textContent({ row: 2, column: 1 })).toContain('Bikes', 'Ascending');
@@ -204,6 +213,7 @@ describe('DatatableComponent', () => {
     // sort by `product` descending
     sortBy({ column: 1 });
     await Vue.nextTick();
+    await flushPromises();
 
     expect(textContent({ row: 1, column: 1 })).toContain('Smartphones', 'Descending');
     expect(textContent({ row: 2, column: 1 })).toContain('Bikes', 'Descending');
@@ -280,16 +290,21 @@ describe('DatatableComponent', () => {
     component.rows = initialRows;
     component.columns = columns;
     await Vue.nextTick();
+    await flushPromises();
 
     // sort by `name` ascending
     sortBy({ column: 1 });
     await Vue.nextTick();
+    await flushPromises();
 
     // sort by `state` descending
     sortBy({ column: 2 });
     await Vue.nextTick();
+    await flushPromises();
+
     sortBy({ column: 2 });
     await Vue.nextTick();
+    await flushPromises();
 
     expect(textContent({ row: 1, column: 1 })).toContain('amet');
     expect(textContent({ row: 2, column: 1 })).toContain('dolor');
@@ -335,12 +350,16 @@ describe('DatatableComponent', () => {
     component.rows = initialRows;
     component.columns = columns;
     await Vue.nextTick();
+    await flushPromises();
 
     // sort by `state` descending
     sortBy({ column: 2 });
     await Vue.nextTick();
+    await flushPromises();
+
     sortBy({ column: 2 });
     await Vue.nextTick();
+    await flushPromises();
 
     // sort by `name` ascending
     sortBy({ column: 1 });
@@ -348,12 +367,16 @@ describe('DatatableComponent', () => {
     // mimic new `rows` data pushed to component
     component.rows = additionalRows;
     await Vue.nextTick();
+    await flushPromises();
 
     // sort by `state` descending
     sortBy({ column: 2 });
     await Vue.nextTick();
+    await flushPromises();
+
     sortBy({ column: 2 });
     await Vue.nextTick();
+    await flushPromises();
     
     expect(textContent({ row: 1, column: 1 })).toContain('amet');
     expect(textContent({ row: 2, column: 1 })).toContain('dolor');
@@ -385,12 +408,16 @@ describe('DatatableComponent', () => {
     component.columns = columns;
     component.offset = 1;
     await Vue.nextTick();
+    await flushPromises();
 
     // sort by `id` descending
     sortBy({ column: 1 });
     await Vue.nextTick();
+    await flushPromises();
+
     sortBy({ column: 1 });
     await Vue.nextTick();
+    await flushPromises();
 
     const datatableComponent = wrapper.find(DatatableComponent);
     expect((datatableComponent.vm as any).myOffset).toBe(0);
@@ -410,6 +437,7 @@ describe('DatatableComponent', () => {
     component.rows = initialRows;
     component.columns = columns;
     await Vue.nextTick();
+    await flushPromises();
 
     expect(textContent({ row: 1, column: 1 })).toContain('Hello');
     expect(textContent({ row: 1, column: 2 })).toContain('123');
@@ -443,6 +471,7 @@ describe('DatatableComponent With Custom Templates', () => {
     component.sorts = sorts;
 
     await component.$nextTick();
+    await flushPromises();
 
     expect(textContent({ row: 1, column: 1 })).toContain('5', 'Ascending');
     expect(textContent({ row: 2, column: 1 })).toContain('12', 'Ascending');
@@ -463,6 +492,7 @@ describe('DatatableComponent With Custom Templates', () => {
     component.columnTwoProp = 'user';
 
     await component.$nextTick();
+    await flushPromises();
 
     expect(textContent({ row: 1, column: 2 })).toContain('Sam', 'Displays user');
     expect(textContent({ row: 2, column: 2 })).toContain('Bob', 'Displays user');
