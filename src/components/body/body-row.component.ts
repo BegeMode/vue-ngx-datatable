@@ -2,6 +2,7 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import { Keys } from '../../utils/keys';
 import DataTableBodyCellComponent from './body-cell.component.vue';
 import { TableColumn } from '../../types/table-column.type';
+import { ICellContext } from 'types/cell-context.type';
 
 @Component({
   components: {
@@ -21,9 +22,9 @@ export default class DataTableBodyRowComponent extends Vue {
   @Prop() displayCheck: any; // (row: any, column?: TableColumn, value?: any) => boolean,
   @Prop() treeStatus: ({ type: string, default: 'collapsed' });
   @Prop() cellContext: any;
-  @Prop() cellColumnCssClasses: any;
-  @Prop() cellStyleObject: any;
-  @Prop() marginCellStyle: any;
+  @Prop() cellColumnCssClasses: (context: ICellContext) => Record<string, string>;
+  @Prop() cellStyleObject: (context: ICellContext) => Record<string, string | number>;
+  @Prop() marginCellStyle: (context: ICellContext) => Record<string, string>;
   @Prop() slots: any;
   @Prop() renderTracking: boolean;
 

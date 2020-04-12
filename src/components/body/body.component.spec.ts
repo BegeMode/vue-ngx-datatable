@@ -10,7 +10,6 @@ import DataTableBodyComponent from './body.component.vue';
 // import DataTableSummaryRowComponent from './summary/summary-row.component';
 // import ProgressBarComponent from './progress-bar.component';
 // import ScrollerComponent from './scroller.component';
-import { ScrollbarHelper } from '../../services/scrollbar-helper.service';
 
 let wrapper: Wrapper<DataTableBodyComponent>;
 let component: DataTableBodyComponent;
