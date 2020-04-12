@@ -991,10 +991,10 @@ export default class DataTableBodyComponent extends Vue {
     return html.replace(/<\/?[^>]+(>|$)/g, '');
   }
 
-  cellColumnCssClasses(context: ICellContext): any {
+  cellColumnCssClasses(context: ICellContext): Record<string, string> {
     if (!context) {
       // return 'datatable-body-cell';
-      return '';
+      return null;
     }
     const result = {
       // 'datatable-body-cell': true,
@@ -1052,7 +1052,7 @@ export default class DataTableBodyComponent extends Vue {
     return result;
   }
 
-  cellStyleObject(context: ICellContext) {
+  cellStyleObject(context: ICellContext): Record<string, string | number> {
     if (!context) {
       return {};
     }
@@ -1064,7 +1064,7 @@ export default class DataTableBodyComponent extends Vue {
     };
   }
 
-  marginCellStyle(context: ICellContext) {
+  marginCellStyle(context: ICellContext): Record<string, string> {
     if (!context) {
       return {};
     }

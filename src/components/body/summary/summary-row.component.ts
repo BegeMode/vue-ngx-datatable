@@ -1,5 +1,6 @@
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import DataTableBodyRowComponent from '../body-row.component.vue';
+import { ICellContext } from 'types/cell-context.type';
 
 export interface ISummaryColumn {
   summaryFunc?: (cells: any[]) => any;
@@ -64,10 +65,10 @@ export default class DataTableSummaryRowComponent extends Vue {
   @Prop() groupStyles: any;
   @Prop() groupClass: string;
   @Prop() rowStyles: any;
-  @Prop() cellContext: any;
-  @Prop() cellColumnCssClasses: any;
-  @Prop() cellStyleObject: any;
-  @Prop() marginCellStyle: any;
+  @Prop() cellContext: ICellContext;
+  @Prop() cellColumnCssClasses: (context: ICellContext) => Record<string, string>;
+  @Prop() cellStyleObject: (context: ICellContext) => Record<string, string | number>;
+  @Prop() marginCellStyle: (context: ICellContext) => Record<string, string>;
   @Prop() slots: any;
 
   internalColumns: ISummaryColumn[] = [];

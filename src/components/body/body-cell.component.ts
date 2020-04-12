@@ -11,9 +11,9 @@ export type TreeStatus = 'collapsed' | 'expanded' | 'loading' | 'disabled';
 @Component
 export default class DataTableBodyCellComponent extends Vue {
   @Prop() context: ICellContext;
-  @Prop() cellColumnCssClasses: any;
-  @Prop() cellStyleObject: any;
-  @Prop() marginCellStyle: any;
+  @Prop() cellColumnCssClasses: (context: ICellContext) => Record<string, string>;
+  @Prop() cellStyleObject: (context: ICellContext) => Record<string, string | number>;
+  @Prop() marginCellStyle: (context: ICellContext) => Record<string, string>;
   @Prop() tabIndex: string;
   @Prop() cellSlot: any;
   @Prop() renderTracking: boolean;
