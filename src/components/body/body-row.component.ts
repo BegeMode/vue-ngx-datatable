@@ -21,7 +21,7 @@ export default class DataTableBodyRowComponent extends Vue {
   @Prop() groupClass: string;
   @Prop() displayCheck: any; // (row: any, column?: TableColumn, value?: any) => boolean,
   @Prop() treeStatus: ({ type: string, default: 'collapsed' });
-  @Prop() cellContext: any;
+  @Prop() cellContext: ICellContext;
   @Prop() cellColumnCssClasses: (context: ICellContext) => Record<string, string>;
   @Prop() cellStyleObject: (context: ICellContext) => Record<string, string | number>;
   @Prop() marginCellStyle: (context: ICellContext) => Record<string, string>;
