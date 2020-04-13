@@ -1171,6 +1171,11 @@ export default class DatatableComponent extends Vue {
     setTimeout(() => this.recalculateColumns(), 100);
   }
 
+  onHiddenChanged() {
+    this.recalculateColumns();
+    this.bodyComponent && this.bodyComponent.onInnerWidthChanged();
+  }
+    
   /**
    * listen for changes to input bindings of all DataTableColumnDirective and
    * trigger the columnTemplates.changes observable to emit
