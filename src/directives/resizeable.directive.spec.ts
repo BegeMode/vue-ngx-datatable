@@ -2,7 +2,7 @@ import { Wrapper, mount } from '@vue/test-utils';
 import Vue from 'vue';
 import * as flushPromises from 'flush-promises';
 import { Component } from 'vue-property-decorator';
-import ResizeableDirective from './resizeable.directive';
+// import ResizeableDirective from './resizeable.directive';
 
 let wrapper: Wrapper<any>;
 let component: any;
