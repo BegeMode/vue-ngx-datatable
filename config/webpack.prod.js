@@ -48,10 +48,10 @@ module.exports = function(env) {
         template: 'demo/index.ejs',
         chunksSortMode: 'dependency',
         title: 'ngx-datatable',
-        googleAnalytics: {
-          trackingId: 'UA-57474611-3',
-          pageViewOnLoad: true
-        }
+        // googleAnalytics: {
+        //   trackingId: 'UA-57474611-3',
+        //   pageViewOnLoad: true
+        // }
       }),
       new CleanWebpackPlugin(['dist'], {
         root: dir(),

@@ -1,58 +1,45 @@
+// Karma configuration file, see link for more information
+// https://karma-runner.github.io/1.0/config/configuration-file.html
 const testWebpackConfig = require('./webpack.test');
 process.env.CHROME_BIN = require('puppeteer').executablePath()
 
-module.exports =  function(config) {
-  var configuration = {
+module.exports = function(config) {
+  config.set({
     basePath: '',
-    singleRun: true,
-    frameworks: ['jasmine'],
-    exclude: [],
+    frameworks: ['jasmine' /*, '@angular-devkit/build-angular'*/ ],
+    // plugins: [
+    //   require('karma-jasmine'),
+    //   require('karma-chrome-launcher'),
+    //   require('karma-jasmine-html-reporter'),
+    //   require('karma-coverage-istanbul-reporter'),
+    //   // require('@angular-devkit/build-angular/plugins/karma')
+    // ],
+    client: {
+      clearContext: false // leave Jasmine Spec Runner output visible in browser
+    },
+    coverageIstanbulReporter: {
+      dir: require('path').join(__dirname, '../coverage'),
+      reports: ['html', 'lcovonly', 'text-summary'],
+      fixWebpackSourcePaths: true
+    },
+    reporters: ['progress', 'kjhtml'],
     files: [
       { pattern: './config/spec-bundle.js', watched: false }
     ],
-    preprocessors: {
-      './config/spec-bundle.js': ['coverage', 'webpack', 'sourcemap']
-    },
     webpack: testWebpackConfig({ env: 'test' }),
     webpackMiddleware: {
       stats: 'normal',
       logLevel: 'trace',
     },
-    reporters: ['mocha', 'coverage', 'remap-coverage'],
+    preprocessors: {
+      './config/spec-bundle.js': ['coverage', 'webpack', 'sourcemap']
+    },
     port: 9876,
     colors: true,
-    logLevel: config.LOG_LOG, // 'trace'
-    autoWatch: false,
+    logLevel: config.LOG_INFO,
+    autoWatch: true,
     browsers: ['Chrome'],
-    customLaunchers: {
-      ChromeTravisCi: {
-        base: 'Chrome',
-        flags: ['--no-sandbox']
-      },
-      ChromeHeadlessNoSandbox: {
-        base: 'ChromeHeadless',
-        flags: ['--no-sandbox']
-      }
-    },
-    mime: {
-      'text/x-typescript': ['ts', 'tsx']
-    },
-    coverageReporter: {
-      type: 'in-memory'
-    },
-    remapCoverageReporter: {
-      'text-summary': null,
-      json: './coverage/coverage.json',
-      html: './coverage/html',
-      lcovonly: './coverage/lcov.info'
-    }
-  };
-
-  if (process.env.TRAVIS){
-    configuration.browsers = [
-      'ChromeTravisCi'
-    ];
-  }
-
-  config.set(configuration);
+    singleRun: false,
+    restartOnFileChange: true
+  });
 };
