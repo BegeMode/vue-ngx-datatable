@@ -24,6 +24,14 @@ import { CheckMode } from '../types/check.type';
 Vue.component('datatable-column', DataTableColumnComponent);
 Vue.component('datatable-body-cell', DataTableBodyCellComponent);
 
+interface IGroup {
+  title: string;
+  prop: string;
+  valueGetter?: (value: any) => string;
+}
+
+type GroupByField = string | IGroup;
+
 @Component({
   directives: {
     'v-visibility-observer': VisibilityDirective,
@@ -61,9 +69,9 @@ export default class DatatableComponent extends Vue {
    */
   // @Prop() groupedRows: any[];
    /**
-    * This attribute allows the user to set the name of the column to group the data with
+    * This attribute allows the user to set the names of the columns to group the data with
     */
-  @Prop() groupRowsBy: string;
+  @Prop() groupRowsBy: Array<GroupByField | Array<GroupByField>>;
   @Prop() columns: TableColumn[];
   /**
    * List of row objects that should be
@@ -1225,29 +1233,32 @@ export default class DatatableComponent extends Vue {
    * @param originalArray the original array passed via parameter
    * @param groupByIndex  the index of the column to group the data by
    */
-  private groupArrayBy(originalArray: any[], groupRowsBy: any, level: number = 0): IGroupedRows[] {
-    let groupBy = groupRowsBy;
+  private groupArrayBy(originalArray: any[], groupRowsBy: Array<GroupByField | Array<GroupByField>>, level: number = 0): IGroupedRows[] {
+    let groupBy: Array<GroupByField | Array<GroupByField>> | GroupByField | Array<GroupByField> = groupRowsBy;
     if (Array.isArray(groupRowsBy)) {
       groupBy = groupRowsBy[level];
     }
 
     // create a map to hold groups with their corresponding results
     const map = new Map();
-    let getKey = (row: any, groupDescr: string | { title: string, prop: string } | string): string => {
+    let getKey = (row: any, groupDescr: Array<GroupByField | Array<GroupByField>> | GroupByField | Array<GroupByField>): string => {
+      if (Array.isArray(groupDescr)) {
+        throw new Error('groupDescr must not be an array');
+      }
       if (typeof groupDescr === 'string') {
-        return row[groupDescr as string];
+        return row[groupDescr];
       } else if ('prop' in groupDescr) {
-        return row[groupDescr.prop];
+        return groupDescr.valueGetter ? groupDescr.valueGetter(row[groupDescr.prop]) : row[groupDescr.prop];
       }
     };
     if (Array.isArray(groupBy)) {
-      const getKey1 = (row: any, groupByArr: Array<{ title: string, prop: string } | string>): string => {
+      const getKey1 = (row: any, groupByArr: Array<GroupByField | Array<GroupByField>>): string => {
         return groupByArr.reduce((key, groupDescr) => {
           let prop = groupDescr as string;
           if (typeof groupDescr === 'object' && 'prop' in groupDescr) {
             prop = groupDescr.prop;
           }
-          const value = row[prop];
+          const value = (groupDescr as IGroup)?.valueGetter ? (groupDescr as IGroup)?.valueGetter(row[prop]) : row[prop];
           if (!value) {
             return value;
           }

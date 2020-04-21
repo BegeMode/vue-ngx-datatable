@@ -1,5 +1,5 @@
 /**
- * vue-data-table v"1.1.4" (https://github.com/begemode/vue-ngx-data-table)
+ * vue-data-table v"1.1.5" (https://github.com/begemode/vue-ngx-data-table)
  * Copyright 2018
  * Licensed under MIT
  */
@@ -7,11 +7,11 @@
 	if(typeof exports === 'object' && typeof module === 'object')
 		module.exports = factory(require("vue-property-decorator"));
 	else if(typeof define === 'function' && define.amd)
-		define("ngxDatatable", ["vue-property-decorator"], factory);
+		define("vueNgxDatatable", ["vue-property-decorator"], factory);
 	else if(typeof exports === 'object')
-		exports["ngxDatatable"] = factory(require("vue-property-decorator"));
+		exports["vueNgxDatatable"] = factory(require("vue-property-decorator"));
 	else
-		root["ngxDatatable"] = factory(root["vue-property-decorator"]);
+		root["vueNgxDatatable"] = factory(root["vue-property-decorator"]);
 })(window, function(__WEBPACK_EXTERNAL_MODULE_vue_property_decorator__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -370,15 +370,15 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
     ], DataTableBodyCellComponent.prototype, "context", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Function)
     ], DataTableBodyCellComponent.prototype, "cellColumnCssClasses", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Function)
     ], DataTableBodyCellComponent.prototype, "cellStyleObject", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Function)
     ], DataTableBodyCellComponent.prototype, "marginCellStyle", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
@@ -742,41 +742,6 @@ var DataTableRowWrapperComponent = /** @class */ (function (_super) {
     function DataTableRowWrapperComponent() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    DataTableRowWrapperComponent.prototype.created = function () {
-        // if (IS_DEV) {
-        //   console.log('DataTableRowWrapperComponent1 is created');
-        // }
-    };
-    // groupContext: any = {
-    //   group: this.row,
-    //   expanded: this.expanded,
-    //   rowIndex: this.rowIndex
-    // };
-    // rowContext: any = {
-    //   row: this.row,
-    //   expanded: this.expanded,
-    //   rowIndex: this.rowIndex
-    // };
-    // mounted() {
-    //   this.rowContext.row = this.row;
-    //   this.rowContext.rowIndex = this.rowIndex;
-    //   this.rowContext.expanded = this.expanded;
-    //   this.groupContext.row = this.row;
-    //   this.groupContext.rowIndex = this.rowIndex;
-    //   this.groupContext.expanded = this.expanded;
-    // }
-    // @Watch('row') onRowChanged() {
-    //   this.rowContext.row = this.row;
-    //   this.groupContext.row = this.row;
-    // }
-    // @Watch('rowIndex') onRowIndexChanged() {
-    //   this.rowContext.rowIndex = this.rowIndex;
-    //   this.groupContext.rowIndex = this.rowIndex;
-    // }
-    // @Watch('expanded') onExpandedChanged() {
-    //   this.groupContext.expanded = this.expanded;
-    //   this.rowContext.expanded = this.expanded;
-    // }
     DataTableRowWrapperComponent.prototype.onContextmenu = function ($event) {
         this.$emit('rowContextmenu', { event: $event, row: this.row });
     };
@@ -1012,15 +977,15 @@ var DataTableBodyRowComponent = /** @class */ (function (_super) {
     ], DataTableBodyRowComponent.prototype, "cellContext", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Function)
     ], DataTableBodyRowComponent.prototype, "cellColumnCssClasses", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Function)
     ], DataTableBodyRowComponent.prototype, "cellStyleObject", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Function)
     ], DataTableBodyRowComponent.prototype, "marginCellStyle", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
@@ -1968,7 +1933,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     DataTableBodyComponent.prototype.cellColumnCssClasses = function (context) {
         if (!context) {
             // return 'datatable-body-cell';
-            return '';
+            return null;
         }
         var result = {
         // 'datatable-body-cell': true,
@@ -2429,6 +2394,8 @@ var DatatableComponent = /** @class */ (function (_super) {
         _this.myChecked = [];
         _this.renderTracking = false;
         _this.isVisible = false;
+        // non-reactive
+        // mySorts: any[];
         // _columnTemplates: QueryList<DataTableColumnDirective>;
         // _subscriptions: Subscription[] = [];
         /**
@@ -2644,9 +2611,9 @@ var DatatableComponent = /** @class */ (function (_super) {
     DatatableComponent.prototype.onOffsetChanged = function () {
         this.myOffset_ = this.offset;
     };
-    DatatableComponent.prototype.onSortsChanged = function () {
-        this.mySorts = this.sorts;
-    };
+    // @Watch('sorts', { immediate: true }) onSortsChanged() {
+    //   this.mySorts = this.sorts;
+    // }
     DatatableComponent.prototype.onSelectedChanged = function () {
         this.mySelected = this.selected;
     };
@@ -3082,6 +3049,7 @@ var DatatableComponent = /** @class */ (function (_super) {
      * The header triggered a column sort event.
      */
     DatatableComponent.prototype.onColumnSort = function (event) {
+        var _this = this;
         // clean selected rows
         if (this.selectAllRowsOnPage) {
             this.mySelected = [];
@@ -3089,7 +3057,11 @@ var DatatableComponent = /** @class */ (function (_super) {
                 selected: this.mySelected
             });
         }
-        this.mySorts = event.sorts;
+        // this.mySorts = event.sorts;
+        if (Array.isArray(this.sorts) && Array.isArray(event.sorts)) {
+            this.sorts.length = 0;
+            event.sorts.forEach(function (item) { return _this.sorts.push(item); });
+        }
         // let rows = this.internalRows;
         var treeFrom = utils_1.optionalGetterForProp(this.treeFromRelation);
         var treeTo = utils_1.optionalGetterForProp(this.treeToRelation);
@@ -3228,15 +3200,6 @@ var DatatableComponent = /** @class */ (function (_super) {
         // we have to allow the cell's element to set it's width
         setTimeout(function () { return _this.recalculateColumns(); }, 100);
     };
-    // onHiddenChanged() {
-    //   this.recalculateColumns();
-    //   this.bodyComponent && this.bodyComponent.onInnerWidthChanged();
-    //   // this.$nextTick(() => {
-    //   //   this.recalculateColumns();
-    //   //   this.bodyComponent.recalculateColumns();
-    //   //   this.bodyComponent.buildStylesByGroup();
-    //   // });
-    // }
     /**
      * listen for changes to input bindings of all DataTableColumnDirective and
      * trigger the columnTemplates.changes observable to emit
@@ -3297,21 +3260,25 @@ var DatatableComponent = /** @class */ (function (_super) {
         // create a map to hold groups with their corresponding results
         var map = new Map();
         var getKey = function (row, groupDescr) {
+            if (Array.isArray(groupDescr)) {
+                throw new Error('groupDescr must not be an array');
+            }
             if (typeof groupDescr === 'string') {
                 return row[groupDescr];
             }
             else if ('prop' in groupDescr) {
-                return row[groupDescr.prop];
+                return groupDescr.valueGetter ? groupDescr.valueGetter(row[groupDescr.prop]) : row[groupDescr.prop];
             }
         };
         if (Array.isArray(groupBy)) {
             var getKey1 = function (row, groupByArr) {
                 return groupByArr.reduce(function (key, groupDescr) {
+                    var _a, _b;
                     var prop = groupDescr;
                     if (typeof groupDescr === 'object' && 'prop' in groupDescr) {
                         prop = groupDescr.prop;
                     }
-                    var value = row[prop];
+                    var value = ((_a = groupDescr) === null || _a === void 0 ? void 0 : _a.valueGetter) ? (_b = groupDescr) === null || _b === void 0 ? void 0 : _b.valueGetter(row[prop]) : row[prop];
                     if (!value) {
                         return value;
                     }
@@ -3393,7 +3360,7 @@ var DatatableComponent = /** @class */ (function (_super) {
             this.internalRows = this.processGroupedRows(this.groupedRows);
         }
         else {
-            this.internalRows = utils_1.sortRows(this.internalRows, this.internalColumns, this.mySorts);
+            this.internalRows = utils_1.sortRows(this.internalRows, this.internalColumns, this.sorts);
         }
     };
     DatatableComponent.prototype.sortGroupedRows = function (groupedRows) {
@@ -3410,10 +3377,10 @@ var DatatableComponent = /** @class */ (function (_super) {
                 gr.groups = _this.sortGroupedRows(gr.groups);
             }
             if (gr.value && gr.value) {
-                gr.value = utils_1.sortRows(gr.value, _this.internalColumns, _this.mySorts);
+                gr.value = utils_1.sortRows(gr.value, _this.internalColumns, _this.sorts);
             }
         });
-        sortedRows = utils_1.sortRows(rows, this.internalColumns, this.mySorts);
+        sortedRows = utils_1.sortRows(rows, this.internalColumns, this.sorts);
         var result = sortedRows.map(function (r) { return r.__group; });
         return result;
     };
@@ -3427,7 +3394,7 @@ var DatatableComponent = /** @class */ (function (_super) {
     ], DatatableComponent.prototype, "rows", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", String)
+        __metadata("design:type", Array)
     ], DatatableComponent.prototype, "groupRowsBy", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
@@ -3660,12 +3627,6 @@ var DatatableComponent = /** @class */ (function (_super) {
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DatatableComponent.prototype, "onOffsetChanged", null);
-    __decorate([
-        vue_property_decorator_1.Watch('sorts', { immediate: true }),
-        __metadata("design:type", Function),
-        __metadata("design:paramtypes", []),
-        __metadata("design:returntype", void 0)
-    ], DatatableComponent.prototype, "onSortsChanged", null);
     __decorate([
         vue_property_decorator_1.Watch('selected', { immediate: true }),
         __metadata("design:type", Function),
@@ -5668,15 +5629,15 @@ var DataTableSummaryRowComponent = /** @class */ (function (_super) {
     ], DataTableSummaryRowComponent.prototype, "cellContext", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Function)
     ], DataTableSummaryRowComponent.prototype, "cellColumnCssClasses", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Function)
     ], DataTableSummaryRowComponent.prototype, "cellStyleObject", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Function)
     ], DataTableSummaryRowComponent.prototype, "marginCellStyle", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
@@ -5754,23 +5715,6 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
     __extends(DataTableColumnComponent, _super);
     function DataTableColumnComponent() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        // @Prop()
-        // @ContentChild(DataTableColumnCellDirective, { read: TemplateRef })
-        // cellTemplate: TemplateRef<any>;
-        // @Prop()
-        // @ContentChild(DataTableColumnHeaderDirective, { read: TemplateRef })
-        // headerTemplate: TemplateRef<any>;
-        // @Prop()
-        // @ContentChild(DataTableColumnCellTreeToggle, { read: TemplateRef })
-        // treeToggleTemplate: TemplateRef<any>;
-        // private isFirstChange = true;
-        // ngOnChanges() {
-        //   if (this.isFirstChange) {
-        //     this.isFirstChange = false;
-        //   } else {
-        //     this.columnChangesService.onInputChange();
-        //   }
-        // }
         _this.column = {};
         return _this;
     }
@@ -6001,7 +5945,7 @@ var render = function() {
             ref: "datatableHeader",
             staticClass: "datatable-header",
             attrs: {
-              sorts: _vm.mySorts,
+              sorts: _vm.sorts,
               sortType: _vm.mySortType,
               scrollbarWidth: _vm.scrollbarWidth,
               scrollbarH: _vm.scrollbarH,
@@ -6487,15 +6431,15 @@ var DataTablePagerComponent = /** @class */ (function (_super) {
         __metadata("design:type", String)
     ], DataTablePagerComponent.prototype, "pagerNextIcon", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        vue_property_decorator_1.Prop({ type: Number, default: 0 }),
         __metadata("design:type", Number)
     ], DataTablePagerComponent.prototype, "size", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        vue_property_decorator_1.Prop({ type: Number, default: 0 }),
         __metadata("design:type", Number)
     ], DataTablePagerComponent.prototype, "count", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        vue_property_decorator_1.Prop({ type: Number, default: 1 }),
         __metadata("design:type", Number)
     ], DataTablePagerComponent.prototype, "page", void 0);
     __decorate([

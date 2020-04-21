@@ -22,7 +22,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
         ref="table"
         class="material expandable"
         :rows="rows"
-        :groupRowsBy="['age', [{ title: 'Gender', prop: 'gender'}, {title: 'Firm', prop: 'company'}]]"
+        :groupRowsBy="groupRowsBy"
         columnMode="force"
         :scrollbarH="true"
         :headerHeight="50"
@@ -77,6 +77,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
         <ngx-datatable-column name="Name" prop="name" :editable="true" :sortable="true"></ngx-datatable-column>
         <ngx-datatable-column name="Gender" prop="gender" :sortable="true"></ngx-datatable-column>
         <ngx-datatable-column name="Age" prop="age" :sortable="true"></ngx-datatable-column>
+        <ngx-datatable-column name="Date" prop="dt" :sortable="true"></ngx-datatable-column>
         <ngx-datatable-column name="Comment" prop="comment" :sortable="true">
           <template slot-scope="scope" v-if="scope.row">           
             <input autofocus
@@ -99,9 +100,13 @@ export default class RowGroupingComponent  extends Vue {
   
   editing = {};  
   rows = [];
+  groupRowsBy = ['age', [{ title: 'Gender', prop: 'gender' }, { title: 'Firm', prop: 'company' }, { title: 'Date', prop: 'dt', valueGetter: (dt: string) => new Date(dt).getFullYear() }]];
   
   created() {
     this.fetch((data) => {
+      data.forEach(row => {
+        row.dt = new Date().toISOString();
+      });
       this.rows = data;
     });
   }
