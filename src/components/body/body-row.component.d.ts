@@ -1,5 +1,6 @@
 import { Vue } from 'vue-property-decorator';
 import { TableColumn } from '../../types/table-column.type';
+import { ICellContext } from 'types/cell-context.type';
 export default class DataTableBodyRowComponent extends Vue {
     row: any;
     group: any[];
@@ -15,10 +16,10 @@ export default class DataTableBodyRowComponent extends Vue {
         type: string;
         default: 'collapsed';
     });
-    cellContext: any;
-    cellColumnCssClasses: any;
-    cellStyleObject: any;
-    marginCellStyle: any;
+    cellContext: ICellContext;
+    cellColumnCssClasses: (context: ICellContext) => Record<string, string>;
+    cellStyleObject: (context: ICellContext) => Record<string, string | number>;
+    marginCellStyle: (context: ICellContext) => Record<string, string>;
     slots: any;
     renderTracking: boolean;
     counter: number;

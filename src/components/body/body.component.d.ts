@@ -246,23 +246,9 @@ export default class DataTableBodyComponent extends Vue {
     setCellValue(cellContext: ICellContext): void;
     updateCellContexts(removedColumns: TableColumn[]): void;
     stripHtml(html: string): string;
-    cellColumnCssClasses(context: ICellContext): any;
-    cellStyleObject(context: ICellContext): {
-        width?: undefined;
-        minWidth?: undefined;
-        maxWidth?: undefined;
-        height?: undefined;
-    } | {
-        width: string;
-        minWidth: string;
-        maxWidth: string;
-        height: string | number;
-    };
-    marginCellStyle(context: ICellContext): {
-        'margin-left'?: undefined;
-    } | {
-        'margin-left': string;
-    };
+    cellColumnCssClasses(context: ICellContext): Record<string, string>;
+    cellStyleObject(context: ICellContext): Record<string, string | number>;
+    marginCellStyle(context: ICellContext): Record<string, string>;
     cellHeight(rowHeight: any): string | number;
     calcLeftMargin(column: any, row: any): number;
     get cellSlots(): () => {};

@@ -1,4 +1,5 @@
 import { Vue } from 'vue-property-decorator';
+import { ICellContext } from 'types/cell-context.type';
 export interface ISummaryColumn {
     summaryFunc?: (cells: any[]) => any;
     summaryTemplate?: string;
@@ -17,10 +18,10 @@ export default class DataTableSummaryRowComponent extends Vue {
     groupStyles: any;
     groupClass: string;
     rowStyles: any;
-    cellContext: any;
-    cellColumnCssClasses: any;
-    cellStyleObject: any;
-    marginCellStyle: any;
+    cellContext: ICellContext;
+    cellColumnCssClasses: (context: ICellContext) => Record<string, string>;
+    cellStyleObject: (context: ICellContext) => Record<string, string | number>;
+    marginCellStyle: (context: ICellContext) => Record<string, string>;
     slots: any;
     internalColumns: ISummaryColumn[];
     summaryRow: {};

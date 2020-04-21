@@ -6,6 +6,15 @@ export default class RowGroupingComponent extends Vue {
     groups: any[];
     editing: {};
     rows: any[];
+    groupRowsBy: (string | ({
+        title: string;
+        prop: string;
+        valueGetter?: undefined;
+    } | {
+        title: string;
+        prop: string;
+        valueGetter: (dt: string) => number;
+    })[])[];
     created(): void;
     fetch(cb: any): void;
     getGroupRowHeight(group: any, rowHeight: any): {};

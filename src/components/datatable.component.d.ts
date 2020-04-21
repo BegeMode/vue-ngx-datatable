@@ -2,6 +2,12 @@ import { Vue } from 'vue-property-decorator';
 import { ColumnMode, SortType, SelectionType, TableColumn, ISortEvent } from '../types';
 import { IGroupedRows } from '../types/grouped-rows';
 import { CheckMode } from '../types/check.type';
+interface IGroup {
+    title: string;
+    prop: string;
+    valueGetter?: (value: any) => string;
+}
+declare type GroupByField = string | IGroup;
 export default class DatatableComponent extends Vue {
     /**
      * Template for the target marker of drag target columns.
@@ -27,9 +33,9 @@ export default class DatatableComponent extends Vue {
      *  ]
      */
     /**
-     * This attribute allows the user to set the name of the column to group the data with
+     * This attribute allows the user to set the names of the columns to group the data with
      */
-    groupRowsBy: string;
+    groupRowsBy: Array<GroupByField | Array<GroupByField>>;
     columns: TableColumn[];
     /**
      * List of row objects that should be
@@ -278,7 +284,6 @@ export default class DatatableComponent extends Vue {
     myChecked: any[];
     renderTracking: boolean;
     isVisible: boolean;
-    mySorts: any[];
     /**
      * Row Detail templates gathered from the ContentChild
      */
@@ -349,7 +354,6 @@ export default class DatatableComponent extends Vue {
     onColumnModeChanged(): void;
     onSortTypeChanged(): void;
     onOffsetChanged(): void;
-    onSortsChanged(): void;
     onSelectedChanged(): void;
     onCheckedChanged(): void;
     get myOffset(): number;
@@ -536,3 +540,4 @@ export default class DatatableComponent extends Vue {
     private sortInternalRows;
     private sortGroupedRows;
 }
+export {};

@@ -3,9 +3,9 @@ import { ICellContext } from '../../types/cell-context.type';
 export declare type TreeStatus = 'collapsed' | 'expanded' | 'loading' | 'disabled';
 export default class DataTableBodyCellComponent extends Vue {
     context: ICellContext;
-    cellColumnCssClasses: any;
-    cellStyleObject: any;
-    marginCellStyle: any;
+    cellColumnCssClasses: (context: ICellContext) => Record<string, string>;
+    cellStyleObject: (context: ICellContext) => Record<string, string | number>;
+    marginCellStyle: (context: ICellContext) => Record<string, string>;
     tabIndex: string;
     cellSlot: any;
     renderTracking: boolean;
