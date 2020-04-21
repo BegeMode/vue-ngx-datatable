@@ -6,9 +6,9 @@ describe('Math function', () => {
     describe('when column expanded', () => {
       it('should resize only columns right to the resized column', () => {
         const columns = [
-          { prop: 'id', width: 250, canAutoResize: true },
-          { prop: 'name', width: 400, canAutoResize: true },
-          { prop: 'email', width: 250, canAutoResize: true }
+          { prop: 'id', width: 250, canAutoResize: true, visible: true },
+          { prop: 'name', width: 400, canAutoResize: true, visible: true },
+          { prop: 'email', width: 250, canAutoResize: true, visible: true }
         ];
 
         forceFillColumnWidths(columns, 750, 1, true); // Column 2 expanded from 250 to 400
@@ -23,9 +23,9 @@ describe('Math function', () => {
     describe('when column compressed', () => {
       it('should resize only columns right to the resized column', () => {
         const columns = [
-          { prop: 'id', width: 250, canAutoResize: true },
-          { prop: 'name', width: 180, canAutoResize: true },
-          { prop: 'email', width: 250, canAutoResize: true }
+          { prop: 'id', width: 250, canAutoResize: true, visible: true },
+          { prop: 'name', width: 180, canAutoResize: true, visible: true },
+          { prop: 'email', width: 250, canAutoResize: true, visible: true }
         ];
 
         forceFillColumnWidths(columns, 750, 1, true); // Column 2 contracted from 250 to 180

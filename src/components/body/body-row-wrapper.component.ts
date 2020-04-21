@@ -27,53 +27,11 @@ export default class DataTableRowWrapperComponent extends Vue {
   @Prop() groupHeaderSlot: any;
   @Prop() rowDetailSlot: any;
 
-  created() {
-    // if (IS_DEV) {
-    //   console.log('DataTableRowWrapperComponent1 is created');
-    // }
-  }
-
-  // groupContext: any = {
-  //   group: this.row,
-  //   expanded: this.expanded,
-  //   rowIndex: this.rowIndex
-  // };
-
-  // rowContext: any = {
-  //   row: this.row,
-  //   expanded: this.expanded,
-  //   rowIndex: this.rowIndex
-  // };
-
-  // mounted() {
-  //   this.rowContext.row = this.row;
-  //   this.rowContext.rowIndex = this.rowIndex;
-  //   this.rowContext.expanded = this.expanded;
-  //   this.groupContext.row = this.row;
-  //   this.groupContext.rowIndex = this.rowIndex;
-  //   this.groupContext.expanded = this.expanded;
-  // }
-
-  // @Watch('row') onRowChanged() {
-  //   this.rowContext.row = this.row;
-  //   this.groupContext.row = this.row;
-  // }
-
-  // @Watch('rowIndex') onRowIndexChanged() {
-  //   this.rowContext.rowIndex = this.rowIndex;
-  //   this.groupContext.rowIndex = this.rowIndex;
-  // }
-
-  // @Watch('expanded') onExpandedChanged() {
-  //   this.groupContext.expanded = this.expanded;
-  //   this.rowContext.expanded = this.expanded;
-  // }
-
   onContextmenu($event: MouseEvent): void {
     this.$emit('rowContextmenu', { event: $event, row: this.row });
   }
 
-  get groupHeaderStyles(): any {
+  get groupHeaderStyles(): Record<string, string> {
     const styles = {};
     styles['transform'] = 'translate3d(' + this.offsetX + 'px, 0px, 0px)';
     styles['backface-visibility'] = 'hidden';

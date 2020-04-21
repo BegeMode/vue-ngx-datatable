@@ -1,7 +1,3 @@
-/**
- * @author: @AngularClass
- */
-
 /*
  * When testing with webpack and ES6, we have to do some extra
  * things to get testing to work right. Because we are gonna write tests
@@ -13,30 +9,18 @@
  */
 Error.stackTraceLimit = Infinity;
 
-require('core-js/es6');
-require('core-js/es7/reflect');
+require('vue');
 
 // Typescript emit helpers polyfill
 require('ts-helpers');
 
-require('zone.js/dist/zone');
-require('zone.js/dist/long-stack-trace-zone');
-require('zone.js/dist/proxy'); // since zone.js 0.6.15
-require('zone.js/dist/sync-test');
-require('zone.js/dist/jasmine-patch'); // put here since zone.js 0.6.14
-require('zone.js/dist/async-test');
-require('zone.js/dist/fake-async-test');
+// const testing = require('@angular/core/testing');
+// const browser = require('@angular/platform-browser-dynamic/testing');
 
-// RxJS
-require('rxjs');
-
-const testing = require('@angular/core/testing');
-const browser = require('@angular/platform-browser-dynamic/testing');
-
-testing.TestBed.initTestEnvironment(
-  browser.BrowserDynamicTestingModule,
-  browser.platformBrowserDynamicTesting()
-);
+// testing.TestBed.initTestEnvironment(
+//   browser.BrowserDynamicTestingModule,
+//   browser.platformBrowserDynamicTesting()
+// );
 
 /*
  * Ok, this is kinda crazy. We can use the context method on
@@ -54,7 +38,7 @@ const testContext = require.context('../src', true, /\.spec\.ts/);
  * that will require the file and load it up here. Context will
  * loop and require those spec files here
  */
-const requireAll = function(requireContext) {
+const requireAll = function (requireContext) {
   return requireContext.keys().map(requireContext);
 }
 
