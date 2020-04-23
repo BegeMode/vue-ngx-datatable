@@ -8,7 +8,7 @@ export default class DataTableHeaderComponent extends Vue {
     dealsWithGroup: boolean;
     targetMarkerTemplate: any;
     innerWidth: number;
-    sorts: any[];
+    sorts: ISortPropDir[];
     sortType: SortType;
     allRowsSelected: boolean;
     selectionType: SelectionType;

@@ -1,5 +1,5 @@
 import { Vue } from 'vue-property-decorator';
-import { ColumnMode, SortType, SelectionType, TableColumn, ISortEvent } from '../types';
+import { ColumnMode, SortType, SelectionType, TableColumn, ISortEvent, ISortPropDir } from '../types';
 import { IGroupedRows } from '../types/grouped-rows';
 import { CheckMode } from '../types/check.type';
 interface IGroup {
@@ -155,7 +155,7 @@ export default class DatatableComponent extends Vue {
      * Array of sorted columns by property and type.
      * Default value: `[]`
      */
-    sorts: any[];
+    sorts: ISortPropDir[];
     /**
      * Go to first page when sorting to see the newly sorted data
      * Default value: true
