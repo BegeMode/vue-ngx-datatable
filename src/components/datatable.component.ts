@@ -4,7 +4,7 @@ import {
   setColumnDefaults, throttleable,
   groupRowsByParents, optionalGetterForProp, setColumnsDefaults
 } from '../utils';
-import { ColumnMode, SortType, SelectionType, TableColumn, ContextmenuType, ISortEvent } from '../types';
+import { ColumnMode, SortType, SelectionType, TableColumn, ContextmenuType, ISortEvent, ISortPropDir } from '../types';
 import DataTableBodyComponent from './body/body.component.vue';
 // import { DatatableGroupHeaderDirective } from './body/body-group-header.directive';
 // import { DataTableColumnDirective } from './columns';
@@ -192,7 +192,7 @@ export default class DatatableComponent extends Vue {
    * Array of sorted columns by property and type.
    * Default value: `[]`
    */
-  @Prop({ type: Array, default: () => [] }) sorts: any[];
+  @Prop({ type: Array, default: () => [] }) sorts: ISortPropDir[];
   /**
    * Go to first page when sorting to see the newly sorted data
    * Default value: true
@@ -1028,6 +1028,9 @@ export default class DatatableComponent extends Vue {
     if (Array.isArray(this.sorts) && Array.isArray(event.sorts)) {
       this.sorts.length = 0;
       event.sorts.forEach(item => this.sorts.push(item));
+      if (this.sorts.length === 0) {
+        this.sorts.push({ dir: null, prop: null });
+      }
     }
 
     // let rows = this.internalRows;
@@ -1241,32 +1244,32 @@ export default class DatatableComponent extends Vue {
 
     // create a map to hold groups with their corresponding results
     const map = new Map();
-    let getKey = (row: any, groupDescr: Array<GroupByField | Array<GroupByField>> | GroupByField | Array<GroupByField>): string => {
-      if (Array.isArray(groupDescr)) {
-        throw new Error('groupDescr must not be an array');
-      }
+
+    const getValue = (row: any, groupDescr: GroupByField): string => {
       if (typeof groupDescr === 'string') {
         return row[groupDescr];
       } else if ('prop' in groupDescr) {
         return groupDescr.valueGetter ? groupDescr.valueGetter(row[groupDescr.prop]) : row[groupDescr.prop];
       }
     };
-    if (Array.isArray(groupBy)) {
-      const getKey1 = (row: any, groupByArr: Array<GroupByField | Array<GroupByField>>): string => {
-        return groupByArr.reduce((key, groupDescr) => {
-          let prop = groupDescr as string;
-          if (typeof groupDescr === 'object' && 'prop' in groupDescr) {
-            prop = groupDescr.prop;
-          }
-          const value = (groupDescr as IGroup)?.valueGetter ? (groupDescr as IGroup)?.valueGetter(row[prop]) : row[prop];
-          if (!value) {
-            return value;
-          }
-          return key ? `${key}^^${value}` : `${value}`;
-        }, '');
-      };
-      getKey = getKey1 as any;
-    }
+
+    const getKey = (row: any, groupByArr: Array<GroupByField | Array<GroupByField>> | GroupByField): string => {
+      if (!Array.isArray(groupByArr)) {
+        return getValue(row, groupByArr);
+      }
+      return groupByArr.reduce((key, groupDescr) => {
+        let res = null;
+        if (Array.isArray(groupDescr)) {
+          return getKey(row, groupDescr);
+        } else {
+          res = getValue(row, groupDescr);
+        }
+        if (!res) {
+          return res;
+        }
+        return key ? `${key}^^${res}` : `${res}`;
+      }, '');
+    };
 
     const itemsToRemove = [];
     originalArray.forEach((item: any) => {

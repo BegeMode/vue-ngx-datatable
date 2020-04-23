@@ -3061,6 +3061,9 @@ var DatatableComponent = /** @class */ (function (_super) {
         if (Array.isArray(this.sorts) && Array.isArray(event.sorts)) {
             this.sorts.length = 0;
             event.sorts.forEach(function (item) { return _this.sorts.push(item); });
+            if (this.sorts.length === 0) {
+                this.sorts.push({ dir: null, prop: null });
+            }
         }
         // let rows = this.internalRows;
         var treeFrom = utils_1.optionalGetterForProp(this.treeFromRelation);
@@ -3259,10 +3262,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         }
         // create a map to hold groups with their corresponding results
         var map = new Map();
-        var getKey = function (row, groupDescr) {
-            if (Array.isArray(groupDescr)) {
-                throw new Error('groupDescr must not be an array');
-            }
+        var getValue = function (row, groupDescr) {
             if (typeof groupDescr === 'string') {
                 return row[groupDescr];
             }
@@ -3270,23 +3270,24 @@ var DatatableComponent = /** @class */ (function (_super) {
                 return groupDescr.valueGetter ? groupDescr.valueGetter(row[groupDescr.prop]) : row[groupDescr.prop];
             }
         };
-        if (Array.isArray(groupBy)) {
-            var getKey1 = function (row, groupByArr) {
-                return groupByArr.reduce(function (key, groupDescr) {
-                    var _a, _b;
-                    var prop = groupDescr;
-                    if (typeof groupDescr === 'object' && 'prop' in groupDescr) {
-                        prop = groupDescr.prop;
-                    }
-                    var value = ((_a = groupDescr) === null || _a === void 0 ? void 0 : _a.valueGetter) ? (_b = groupDescr) === null || _b === void 0 ? void 0 : _b.valueGetter(row[prop]) : row[prop];
-                    if (!value) {
-                        return value;
-                    }
-                    return key ? key + "^^" + value : "" + value;
-                }, '');
-            };
-            getKey = getKey1;
-        }
+        var getKey = function (row, groupByArr) {
+            if (!Array.isArray(groupByArr)) {
+                return getValue(row, groupByArr);
+            }
+            return groupByArr.reduce(function (key, groupDescr) {
+                var res = null;
+                if (Array.isArray(groupDescr)) {
+                    return getKey(row, groupDescr);
+                }
+                else {
+                    res = getValue(row, groupDescr);
+                }
+                if (!res) {
+                    return res;
+                }
+                return key ? key + "^^" + res : "" + res;
+            }, '');
+        };
         var itemsToRemove = [];
         originalArray.forEach(function (item) {
             var key = getKey(item, groupBy);
