@@ -1,5 +1,5 @@
 /**
- * vue-data-table v"1.1.5" (https://github.com/begemode/vue-ngx-data-table)
+ * vue-data-table v"1.1.6" (https://github.com/begemode/vue-ngx-data-table)
  * Copyright 2018
  * Licensed under MIT
  */
@@ -111,7 +111,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".ngx-datatable {\n  display: block;\n  overflow: hidden;\n  justify-content: center;\n  position: relative;\n  -webkit-transform: translate3d(0, 0, 0);\n  /**\r\n   * Vertical Scrolling Adjustments\r\n   */\n  /**\r\n   * Horizontal Scrolling Adjustments\r\n   */\n  /**\r\n   * Fixed Header Height Adjustments\r\n   */\n  /**\r\n   * Fixed row height adjustments\r\n   */\n  /**\r\n   * Shared Styles\r\n   */\n  /**\r\n   * Header Styles\r\n   */\n  /**\r\n   * Body Styles\r\n   */\n  /**\r\n   * Footer Styles\r\n   */\n}\n.ngx-datatable.ngx-flex {\n    display: flex;\n    flex-flow: column;\n    justify-content: flex-start;\n    height: 100%;\n}\n.ngx-datatable.ngx-flex .datatable-body {\n      overflow-y: auto;\n      flex: 1 1 auto;\n}\n.ngx-datatable.ngx-flex .datatable-header, .ngx-datatable.ngx-flex .datatable-footer {\n      flex: none;\n}\n.ngx-datatable.ngx-nowrap-text .datatable-body .datatable-body-row .datatable-body-cell .datatable-body-cell-label {\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n.ngx-datatable [hidden] {\n    display: none !important;\n}\n.ngx-datatable .hidden-columns {\n    visibility: hidden;\n    position: absolute;\n    z-index: -1;\n}\n.ngx-datatable *, .ngx-datatable *:before, .ngx-datatable *:after {\n    -moz-box-sizing: border-box;\n    -webkit-box-sizing: border-box;\n    box-sizing: border-box;\n}\n.ngx-datatable.scroll-vertical .datatable-body {\n    overflow-y: auto;\n}\n.ngx-datatable.scroll-vertical.virtualized .datatable-body .datatable-row-wrapper {\n    position: absolute;\n}\n.ngx-datatable.scroll-horz .datatable-body {\n    overflow-x: auto;\n    -webkit-overflow-scrolling: touch;\n}\n.ngx-datatable.fixed-header .datatable-header .datatable-header-inner {\n    white-space: nowrap;\n}\n.ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n}\n.ngx-datatable.fixed-row .datatable-scroll {\n    white-space: nowrap;\n}\n.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row {\n      white-space: nowrap;\n}\n.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-cell {\n        overflow: hidden;\n        white-space: nowrap;\n        text-overflow: ellipsis;\n}\n.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-group-cell {\n        overflow: hidden;\n        white-space: nowrap;\n        text-overflow: ellipsis;\n}\n.ngx-datatable .datatable-body-row,\n  .ngx-datatable .datatable-row-center,\n  .ngx-datatable .datatable-header-inner {\n    display: -webkit-box;\n    display: -moz-box;\n    display: -ms-flexbox;\n    display: -webkit-flex;\n    display: flex;\n    flex-direction: row;\n    -webkit-flex-flow: row;\n    -moz-flex-flow: row;\n    -ms-flex-flow: row;\n    -o-flex-flow: row;\n    flex-flow: row;\n}\n.ngx-datatable .datatable-body-cell,\n  .ngx-datatable .datatable-header-cell {\n    overflow-x: hidden;\n    vertical-align: top;\n    display: inline-block;\n    line-height: 1.625;\n}\n.ngx-datatable .datatable-body-cell:focus,\n    .ngx-datatable .datatable-header-cell:focus {\n      outline: none;\n}\n.ngx-datatable .datatable-body-cell .datatable-body-cell-label,\n    .ngx-datatable .datatable-header-cell .datatable-body-cell-label {\n      width: 100%;\n}\n.ngx-datatable .datatable-body-cell-bold,\n    .ngx-datatable .datatable-header-cell-bold {\n      font-weight: bold;\n}\n.ngx-datatable .datatable-row-left,\n  .ngx-datatable .datatable-row-right {\n    z-index: 9;\n}\n.ngx-datatable .datatable-row-left,\n  .ngx-datatable .datatable-row-center,\n  .ngx-datatable .datatable-row-group,\n  .ngx-datatable .datatable-row-right {\n    position: relative;\n}\n.ngx-datatable .datatable-header {\n    overflow: hidden;\n}\n.ngx-datatable .datatable-header .datatable-header-inner {\n      align-items: stretch;\n      -webkit-align-items: stretch;\n}\n.ngx-datatable .datatable-header .datatable-header-cell {\n      position: relative;\n      display: inline-block;\n      user-select: none;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.sortable .datatable-header-cell-wrapper {\n        cursor: pointer;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.longpress .datatable-header-cell-wrapper {\n        cursor: move;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .sort-btn {\n        line-height: 100%;\n        vertical-align: middle;\n        display: inline-block;\n        cursor: pointer;\n        font-size: 1.25rem;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .resize-handle, .ngx-datatable .datatable-header .datatable-header-cell .resize-handle--not-resizable {\n        display: inline-block;\n        position: absolute;\n        right: 0;\n        top: 0;\n        bottom: 0;\n        width: 5px;\n        padding: 0 4px;\n        visibility: hidden;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .resize-handle {\n        cursor: ew-resize;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.resizeable:hover .resize-handle {\n        visibility: visible;\n}\n.ngx-datatable .datatable-header .datatable-header-cell:hover .resize-handle--not-resizable {\n        visibility: visible;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker {\n        position: absolute;\n        top: 0;\n        bottom: 0;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker.dragFromLeft {\n          right: -13px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker.dragFromRight {\n          left: 0;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker .icon {\n          position: absolute;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker .datatable-icon-down {\n          top: 0px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker .datatable-icon-up {\n          top: 35px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .datatable-header-cell-template-wrap {\n        height: inherit;\n}\n.ngx-datatable .datatable-body {\n    position: relative;\n    z-index: 10;\n    display: block;\n}\n.ngx-datatable .datatable-body .datatable-scroll {\n      display: inline-block;\n}\n.ngx-datatable .datatable-body .datatable-row-detail {\n      overflow-y: hidden;\n}\n.ngx-datatable .datatable-body .datatable-row-wrapper {\n      display: -webkit-box;\n      display: -moz-box;\n      display: -ms-flexbox;\n      display: -webkit-flex;\n      display: flex;\n      -webkit-box-orient: vertical;\n      -webkit-box-direction: normal;\n      -webkit-flex-direction: column;\n      -moz-box-orient: vertical;\n      -moz-box-direction: normal;\n      -ms-flex-direction: column;\n      flex-direction: column;\n}\n.ngx-datatable .datatable-body .datatable-body-row {\n      outline: none;\n}\n.ngx-datatable .datatable-body .datatable-body-row > div {\n        display: -webkit-box;\n        display: -moz-box;\n        display: -ms-flexbox;\n        display: -webkit-flex;\n        display: flex;\n}\n.ngx-datatable .datatable-footer {\n    display: block;\n    width: 100%;\n    margin-top: auto;\n}\n.ngx-datatable .datatable-footer .datatable-footer-inner {\n      display: flex;\n      align-items: center;\n      width: 100%;\n}\n.ngx-datatable .datatable-footer .selected-count .page-count {\n      flex: 1 1 40%;\n}\n.ngx-datatable .datatable-footer .selected-count .datatable-pager {\n      flex: 1 1 60%;\n}\n.ngx-datatable .datatable-footer .page-count {\n      flex: 1 1 20%;\n}\n.ngx-datatable .datatable-footer .datatable-pager {\n      flex: 1 1 80%;\n      text-align: right;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager,\n      .ngx-datatable .datatable-footer .datatable-pager .pager li {\n        padding: 0;\n        margin: 0;\n        display: inline-block;\n        list-style: none;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager li, .ngx-datatable .datatable-footer .datatable-pager .pager li a {\n        outline: none;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager li a {\n        cursor: pointer;\n        display: inline-block;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager li.disabled a {\n        cursor: not-allowed;\n}\n", ""]);
+exports.push([module.i, ".ngx-datatable {\n  display: block;\n  overflow: hidden;\n  justify-content: center;\n  position: relative;\n  -webkit-transform: translate3d(0, 0, 0);\n  transform: translate3d(0, 0, 0);\n  /**\r\n   * Vertical Scrolling Adjustments\r\n   */\n  /**\r\n   * Horizontal Scrolling Adjustments\r\n   */\n  /**\r\n   * Fixed Header Height Adjustments\r\n   */\n  /**\r\n   * Fixed row height adjustments\r\n   */\n  /**\r\n   * Shared Styles\r\n   */\n  /**\r\n   * Header Styles\r\n   */\n  /**\r\n   * Body Styles\r\n   */\n  /**\r\n   * Footer Styles\r\n   */\n}\n.ngx-datatable.ngx-flex {\n    display: flex;\n    flex-flow: column;\n    justify-content: flex-start;\n    height: 100%;\n}\n.ngx-datatable.ngx-flex .datatable-body {\n      overflow-y: auto;\n      flex: 1 1 auto;\n}\n.ngx-datatable.ngx-flex .datatable-header, .ngx-datatable.ngx-flex .datatable-footer {\n      flex: none;\n}\n.ngx-datatable.ngx-nowrap-text .datatable-body .datatable-body-row .datatable-body-cell .datatable-body-cell-label {\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n.ngx-datatable [hidden] {\n    display: none !important;\n}\n.ngx-datatable .hidden-columns {\n    visibility: hidden;\n    position: absolute;\n    z-index: -1;\n}\n.ngx-datatable *, .ngx-datatable *:before, .ngx-datatable *:after {\n    -moz-box-sizing: border-box;\n    -webkit-box-sizing: border-box;\n    box-sizing: border-box;\n}\n.ngx-datatable.scroll-vertical .datatable-body {\n    overflow-y: auto;\n}\n.ngx-datatable.scroll-vertical.virtualized .datatable-body .datatable-row-wrapper {\n    position: absolute;\n}\n.ngx-datatable.scroll-horz .datatable-body {\n    overflow-x: auto;\n    -webkit-overflow-scrolling: touch;\n}\n.ngx-datatable.fixed-header .datatable-header .datatable-header-inner {\n    white-space: nowrap;\n}\n.ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n}\n.ngx-datatable.fixed-row .datatable-scroll {\n    white-space: nowrap;\n}\n.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row {\n      white-space: nowrap;\n}\n.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-cell {\n        overflow: hidden;\n        white-space: nowrap;\n        text-overflow: ellipsis;\n}\n.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-group-cell {\n        overflow: hidden;\n        white-space: nowrap;\n        text-overflow: ellipsis;\n}\n.ngx-datatable .datatable-body-row,\n  .ngx-datatable .datatable-row-center,\n  .ngx-datatable .datatable-header-inner {\n    display: -webkit-box;\n    display: -moz-box;\n    display: -ms-flexbox;\n    display: -webkit-flex;\n    display: flex;\n    flex-direction: row;\n    -webkit-flex-flow: row;\n    -moz-flex-flow: row;\n    -ms-flex-flow: row;\n    -o-flex-flow: row;\n    flex-flow: row;\n}\n.ngx-datatable .datatable-body-cell,\n  .ngx-datatable .datatable-header-cell {\n    overflow-x: hidden;\n    vertical-align: top;\n    display: inline-block;\n    line-height: 1.625;\n}\n.ngx-datatable .datatable-body-cell:focus,\n    .ngx-datatable .datatable-header-cell:focus {\n      outline: none;\n}\n.ngx-datatable .datatable-body-cell .datatable-body-cell-label,\n    .ngx-datatable .datatable-header-cell .datatable-body-cell-label {\n      width: 100%;\n}\n.ngx-datatable .datatable-body-cell-bold,\n    .ngx-datatable .datatable-header-cell-bold {\n      font-weight: bold;\n}\n.ngx-datatable .datatable-row-left,\n  .ngx-datatable .datatable-row-right {\n    z-index: 9;\n}\n.ngx-datatable .datatable-row-left,\n  .ngx-datatable .datatable-row-center,\n  .ngx-datatable .datatable-row-group,\n  .ngx-datatable .datatable-row-right {\n    position: relative;\n}\n.ngx-datatable .datatable-header {\n    overflow: hidden;\n}\n.ngx-datatable .datatable-header .datatable-header-inner {\n      align-items: stretch;\n      -webkit-align-items: stretch;\n}\n.ngx-datatable .datatable-header .datatable-header-cell {\n      position: relative;\n      display: inline-block;\n      user-select: none;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.sortable .datatable-header-cell-wrapper {\n        cursor: pointer;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.longpress .datatable-header-cell-wrapper {\n        cursor: move;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .sort-btn::before {\n        line-height: 100%;\n        vertical-align: middle;\n        display: inline-block;\n        cursor: pointer;\n        font-size: 1.25rem;\n        margin-right: -7px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .resize-handle, .ngx-datatable .datatable-header .datatable-header-cell .resize-handle--not-resizable {\n        display: inline-block;\n        position: absolute;\n        right: 0;\n        top: 0;\n        bottom: 0;\n        width: 5px;\n        padding: 0 4px;\n        visibility: hidden;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .resize-handle {\n        cursor: ew-resize;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.resizeable:hover .resize-handle {\n        visibility: visible;\n}\n.ngx-datatable .datatable-header .datatable-header-cell:hover .resize-handle--not-resizable {\n        visibility: visible;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker {\n        position: absolute;\n        top: 0;\n        bottom: 0;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker.dragFromLeft {\n          right: -13px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker.dragFromRight {\n          left: 0;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker .icon {\n          position: absolute;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker .datatable-icon-down {\n          top: 0px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker .datatable-icon-up {\n          top: 35px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .datatable-header-cell-template-wrap {\n        height: inherit;\n}\n.ngx-datatable .datatable-body {\n    position: relative;\n    z-index: 10;\n    display: block;\n}\n.ngx-datatable .datatable-body .datatable-scroll {\n      display: inline-block;\n}\n.ngx-datatable .datatable-body .datatable-row-detail {\n      overflow-y: hidden;\n}\n.ngx-datatable .datatable-body .datatable-row-wrapper {\n      display: -webkit-box;\n      display: -moz-box;\n      display: -ms-flexbox;\n      display: -webkit-flex;\n      display: flex;\n      -webkit-box-orient: vertical;\n      -webkit-box-direction: normal;\n      -webkit-flex-direction: column;\n      -moz-box-orient: vertical;\n      -moz-box-direction: normal;\n      -ms-flex-direction: column;\n      flex-direction: column;\n}\n.ngx-datatable .datatable-body .datatable-body-row {\n      outline: none;\n}\n.ngx-datatable .datatable-body .datatable-body-row > div {\n        display: -webkit-box;\n        display: -moz-box;\n        display: -ms-flexbox;\n        display: -webkit-flex;\n        display: flex;\n}\n.ngx-datatable .datatable-footer {\n    display: block;\n    width: 100%;\n    margin-top: auto;\n}\n.ngx-datatable .datatable-footer .datatable-footer-inner {\n      display: flex;\n      align-items: center;\n      width: 100%;\n}\n.ngx-datatable .datatable-footer .selected-count .page-count {\n      flex: 1 1 40%;\n}\n.ngx-datatable .datatable-footer .selected-count .datatable-pager {\n      flex: 1 1 60%;\n}\n.ngx-datatable .datatable-footer .page-count {\n      flex: 1 1 20%;\n}\n.ngx-datatable .datatable-footer .datatable-pager {\n      flex: 1 1 80%;\n      text-align: right;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager,\n      .ngx-datatable .datatable-footer .datatable-pager .pager li {\n        padding: 0;\n        margin: 0;\n        display: inline-block;\n        list-style: none;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager li, .ngx-datatable .datatable-footer .datatable-pager .pager li a {\n        outline: none;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager li a {\n        cursor: pointer;\n        display: inline-block;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager li.disabled a {\n        cursor: not-allowed;\n}\n", ""]);
 
 
 
@@ -325,11 +325,13 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
     DataTableBodyCellComponent.prototype.onKeyDown = function (event) {
         var keyCode = event.keyCode;
         var isTargetCell = event.target === this.$el;
-        var isAction = keyCode === utils_1.Keys.return ||
-            keyCode === utils_1.Keys.down ||
-            keyCode === utils_1.Keys.up ||
-            keyCode === utils_1.Keys.left ||
-            keyCode === utils_1.Keys.right;
+        var isAction = keyCode === utils_1.Keys.return; /* ||
+        keyCode === Keys.down ||
+        keyCode === Keys.up ||
+        keyCode === Keys.left ||
+        keyCode === Keys.right ||
+        keyCode === Keys.pageUp ||
+        keyCode === Keys.pageDown; */
         if (isAction && isTargetCell) {
             event.preventDefault();
             event.stopPropagation();
@@ -742,6 +744,12 @@ var DataTableRowWrapperComponent = /** @class */ (function (_super) {
     function DataTableRowWrapperComponent() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    DataTableRowWrapperComponent.prototype.mounted = function () {
+        this.$emit('set-row-element', this.$el);
+    };
+    DataTableRowWrapperComponent.prototype.updated = function () {
+        this.$emit('set-row-element', this.$el);
+    };
     DataTableRowWrapperComponent.prototype.onContextmenu = function ($event) {
         this.$emit('rowContextmenu', { event: $event, row: this.row });
     };
@@ -889,6 +897,9 @@ var DataTableBodyRowComponent = /** @class */ (function (_super) {
             this.counter++;
         }
     };
+    DataTableBodyRowComponent.prototype.onRefreshChanged = function () {
+        console.log('onRefreshChanged');
+    };
     DataTableBodyRowComponent.prototype.onCellRendered = function (column) {
         this.$emit('row-updated', this.row);
     };
@@ -904,7 +915,9 @@ var DataTableBodyRowComponent = /** @class */ (function (_super) {
             keyCode === keys_1.Keys.down ||
             keyCode === keys_1.Keys.up ||
             keyCode === keys_1.Keys.left ||
-            keyCode === keys_1.Keys.right;
+            keyCode === keys_1.Keys.right ||
+            keyCode === keys_1.Keys.pageUp ||
+            keyCode === keys_1.Keys.pageDown;
         if (isAction && isTargetRow) {
             event.preventDefault();
             event.stopPropagation();
@@ -996,11 +1009,21 @@ var DataTableBodyRowComponent = /** @class */ (function (_super) {
         __metadata("design:type", Boolean)
     ], DataTableBodyRowComponent.prototype, "renderTracking", void 0);
     __decorate([
+        vue_property_decorator_1.Prop(),
+        __metadata("design:type", Number)
+    ], DataTableBodyRowComponent.prototype, "refresh", void 0);
+    __decorate([
         vue_property_decorator_1.Watch('row', { deep: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Object]),
         __metadata("design:returntype", void 0)
     ], DataTableBodyRowComponent.prototype, "onRowChanged", null);
+    __decorate([
+        vue_property_decorator_1.Watch('refresh'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], DataTableBodyRowComponent.prototype, "onRefreshChanged", null);
     DataTableBodyRowComponent = __decorate([
         vue_property_decorator_1.Component({
             components: {
@@ -1097,6 +1120,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
             center: {},
             right: {}
         };
+        _this.refreshCounters = {};
         _this.scrollbarHelper = new scrollbar_helper_service_1.ScrollbarHelper();
         _this.cellContexts = new Map();
         _this.renderCounter = 0;
@@ -1142,7 +1166,6 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
                 return idx;
             }
         };
-        this.myBodyHeight = this.bodyHeight;
     };
     DataTableBodyComponent.prototype.mounted = function () {
         this.selector = this.$refs.selector;
@@ -1153,10 +1176,12 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     };
     DataTableBodyComponent.prototype.onRowsChanged = function () {
         var _this = this;
+        var _a;
         // this.updateVisibleItems(true);
         this.rowsChanged = true;
         this.rowExpansions.clear();
-        this.recalcLayout();
+        var updateOffset = ((_a = this.rows) === null || _a === void 0 ? void 0 : _a.length) && this.offset && this.offsetY === 0;
+        this.recalcLayout(updateOffset);
         this.$nextTick(function () {
             _this.scroller = _this.$refs.scroller;
         });
@@ -1164,6 +1189,10 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     // @Watch('groupedRows') onGroupedRowsChanged() {
     //   this.onRowsChanged();
     // }
+    DataTableBodyComponent.prototype.onSelectedChanged = function () {
+        // this.mySelected = [...this.selected];
+        this.mySelected = this.selected;
+    };
     DataTableBodyComponent.prototype.onColumnsChanged = function (newVal, oldVal) {
         if (newVal && oldVal && newVal.length < oldVal.length) {
             var removedColumns = oldVal.filter(function (col) { return !newVal.find(function (c) { return c.$$id === col.$$id; }); });
@@ -1195,13 +1224,19 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     };
     DataTableBodyComponent.prototype.onBodyHeightChanged = function () {
         this.myBodyHeight = this.bodyHeight;
-        if (this.scrollbarV) {
-            this.myBodyHeight += 'px';
+        if (this.myBodyHeight === -1) {
+            this.myBodyHeight = '0px';
+            return;
         }
         else {
-            this.myBodyHeight = 'auto';
+            if (this.scrollbarV) {
+                this.myBodyHeight += 'px';
+            }
+            else {
+                this.myBodyHeight = 'auto';
+            }
+            this.recalcLayout();
         }
-        this.recalcLayout();
     };
     Object.defineProperty(DataTableBodyComponent.prototype, "bodyWidth", {
         get: function () {
@@ -1272,36 +1307,6 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
-    // todo: subscribe to this.rowDetail.toggle & this.groupHeader.toggle
-    /**
-     * Called after the constructor, initializing input properties
-     */
-    // ngOnInit(): void {
-    //   if (this.rowDetail) {
-    //     this.listener = this.rowDetail.toggle
-    //       .subscribe(({ type, value }: { type: string, value: any }) => {
-    //         if (type === 'row') this.toggleRowExpansion(value);
-    //         if (type === 'all') this.toggleAllRows(value);
-    //         // Refresh rows after toggle
-    //         // Fixes #883
-    //         this.updateIndexes();
-    //         this.updateRows();
-    //         this.cd.markForCheck();
-    //       });
-    //   }
-    //   if (this.groupHeader) {
-    //     this.listener = this.groupHeader.toggle
-    //       .subscribe(({ type, value }: { type: string, value: any }) => {
-    //         if (type === 'group') this.toggleRowExpansion(value);
-    //         if (type === 'all') this.toggleAllRows(value);
-    //         // Refresh rows after toggle
-    //         // Fixes #883
-    //         this.updateIndexes();
-    //         this.updateRows();
-    //         this.cd.markForCheck();
-    //       });
-    //   }
-    // }
     /**
      * Called once, before the instance is destroyed.
      */
@@ -1309,6 +1314,21 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         // todo
         // if (this.rowDetail) this.listener.unsubscribe();
         // if (this.groupHeader) this.listener.unsubscribe();
+    };
+    DataTableBodyComponent.prototype.reset = function () {
+        this.offsetX = 0;
+        this.offsetY = 0;
+    };
+    DataTableBodyComponent.prototype.onSelect = function (event) {
+        // if (Array.isArray(event.selected)) {
+        //   event.selected.forEach(row => {
+        //     if (!this.refreshCounters[event.index]) {
+        //       this.$set(this.refreshCounters, event.index, 0);
+        //     }
+        //     this.refreshCounters[event.index]++;
+        //   });
+        // }
+        this.$emit('select', event);
     };
     DataTableBodyComponent.prototype.recalculateColumns = function (val) {
         if (val === void 0) { val = this.columns; }
@@ -1323,19 +1343,29 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     /**
      * Updates the Y offset given a new offset.
      */
-    DataTableBodyComponent.prototype.updateOffsetY = function (offset) {
+    DataTableBodyComponent.prototype.updateOffsetY = function (offset, fromPager) {
+        if (fromPager === void 0) { fromPager = false; }
         // scroller is missing on empty table
         if (!this.scroller)
             return;
+        var offsetY = 0;
         if (this.scrollbarV && this.virtualization && offset) {
             // First get the row Index that we need to move to.
             var rowIndex = this.pageSize * offset;
-            offset = this.rowHeightsCache.query(rowIndex - 1);
+            offsetY = this.rowHeightsCache.query(rowIndex - 1);
         }
         else if (this.scrollbarV && !this.virtualization) {
-            offset = 0;
+            offsetY = 0;
         }
-        this.scroller.setOffset(offset || 0);
+        if (offset && !offsetY) {
+            return 0;
+        }
+        this.scroller.setOffset(offsetY || 0, fromPager);
+        return offsetY || 0;
+    };
+    DataTableBodyComponent.prototype.onScrollSetup = function (event) {
+        this.offsetX = event.scrollXPos;
+        this.offsetY = event.scrollYPos;
     };
     /**
      * Body was scrolled, this is mainly useful for
@@ -1357,22 +1387,27 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         this.myOffsetX = scrollXPos;
         this.$nextTick(function () {
             _this.updateIndexes();
-            _this.updatePage(event.direction);
+            _this.updatePage(event.direction, event.fromPager);
             _this.updateRows();
         });
     };
     /**
      * Updates the page given a direction.
      */
-    DataTableBodyComponent.prototype.updatePage = function (direction) {
+    DataTableBodyComponent.prototype.updatePage = function (direction, fromPager) {
         var offset = this.indexes.first / this.pageSize;
-        if (direction === 'up') {
+        if (fromPager) {
             offset = Math.ceil(offset);
         }
-        else if (direction === 'down') {
-            offset = Math.floor(offset);
+        else {
+            if (direction === 'up') {
+                offset = Math.ceil(offset);
+            }
+            else if (direction === 'down') {
+                offset = Math.floor(offset);
+            }
         }
-        if (direction !== undefined && !isNaN(offset)) {
+        if (!fromPager && ['up', 'down'].includes(direction) && !isNaN(offset)) {
             this.$emit('page', { offset: offset });
         }
     };
@@ -1481,12 +1516,12 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
      * case the positionY of the translate3d for row2 would be the sum of all the
      * heights of the rows before it (i.e. row0 and row1).
      *
-     * @param {*} rows The row that needs to be placed in the 2D space.
+     * @param {*} row The row that needs to be placed in the 2D space.
      * @returns {*} Returns the CSS3 style to be applied
      *
      * @memberOf DataTableBodyComponent
      */
-    DataTableBodyComponent.prototype.getRowsStyles = function (rows) {
+    DataTableBodyComponent.prototype.getRowWrapperStyles = function (row) {
         var styles = {};
         // only add styles for the group if there is a group
         if (this.groupRowsBy) {
@@ -1500,7 +1535,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
             //   row = rows[rows.length - 1];
             //   idx = row ? this.getRowIndex(row) : 0;
             // } else {
-            idx = this.getRowIndex(rows);
+            idx = this.getRowIndex(row);
             // }
             // const pos = idx * rowHeight;
             // The position of this row would be the sum of all row heights
@@ -1517,6 +1552,10 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
             utils_1.translateXY(styles, 0, pos);
         }
         return styles;
+    };
+    DataTableBodyComponent.prototype.getRowOffsetY = function (index) {
+        var result = this.rowHeightsCache.queryWithHeight(index);
+        return result;
     };
     /**
      * Calculate bottom summary row offset for scrollbar mode.
@@ -1539,10 +1578,9 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     /**
      * Hides the loading indicator
      */
-    DataTableBodyComponent.prototype.hideIndicator = function () {
-        var _this = this;
-        setTimeout(function () { return _this.loadingIndicator = false; }, 500);
-    };
+    // hideIndicator(): void {
+    //   setTimeout(() => this.loadingIndicator = false, 500);
+    // }
     /**
      * Updates the index of the rows in the viewport
      */
@@ -1663,6 +1701,9 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
             currentIndex: viewPortFirstRowIndex
         });
     };
+    DataTableBodyComponent.prototype.onSetRowElement = function (row, element) {
+        // this.rowEl.set(this.rowIdentity(row), element);
+    };
     DataTableBodyComponent.prototype.onGroupToggle = function ($event) {
         this.$emit('group-toggle', $event);
         // if ($event.type === 'group') {
@@ -1676,12 +1717,19 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     /**
      * Recalculates the table
      */
-    DataTableBodyComponent.prototype.recalcLayout = function () {
+    DataTableBodyComponent.prototype.recalcLayout = function (updateOffset) {
         var _this = this;
+        if (updateOffset === void 0) { updateOffset = false; }
         this.refreshRowHeightCache();
+        if (updateOffset) {
+            this.offsetY = this.updateOffsetY(this.offset, true);
+        }
         this.updateIndexes();
         this.$nextTick(function () {
             _this.updateRows();
+            if (updateOffset) {
+                _this.updateOffsetY(_this.offset, true);
+            }
         });
     };
     /**
@@ -1814,6 +1862,12 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
             width: this.columnGroupWidths.total + 'px',
         };
     };
+    DataTableBodyComponent.prototype.treeStatus = function (row) {
+        if (!row) {
+            return null;
+        }
+        return row.treeStatus;
+    };
     DataTableBodyComponent.prototype.getGroupClass = function (row) {
         var cls = 'datatable-body-row';
         if (this.isSelect(row))
@@ -1860,7 +1914,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
             isChecked: this.isChecked(row),
             rowIndex: this.getRowIndex(row),
             expanded: this.getRowExpanded(row),
-            treeStatus: row.treeStatus,
+            treeStatus: this.treeStatus(row),
             onTreeAction: null,
             isFocused: false,
             value: '',
@@ -1877,7 +1931,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         context.isChecked = this.isChecked(row);
         context.rowIndex = this.getRowIndex(row);
         context.expanded = this.getRowExpanded(row);
-        context.treeStatus = row.treeStatus;
+        context.treeStatus = this.treeStatus(row);
     };
     DataTableBodyComponent.prototype.cellContextFor = function (row, column) {
         var rowId = this.rowIdentity(row);
@@ -2246,6 +2300,12 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         __metadata("design:returntype", void 0)
     ], DataTableBodyComponent.prototype, "onRowsChanged", null);
     __decorate([
+        vue_property_decorator_1.Watch('selected', { immediate: true }),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], DataTableBodyComponent.prototype, "onSelectedChanged", null);
+    __decorate([
         vue_property_decorator_1.Watch('columns', { immediate: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Object, Object]),
@@ -2288,7 +2348,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         __metadata("design:returntype", void 0)
     ], DataTableBodyComponent.prototype, "onRowCountChanged", null);
     __decorate([
-        vue_property_decorator_1.Watch('bodyHeight'),
+        vue_property_decorator_1.Watch('bodyHeight', { immediate: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
@@ -2337,6 +2397,17 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -2388,8 +2459,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         _this.internalColumns = null;
         _this.myColumnMode = types_1.ColumnMode.standard;
         _this.mySortType = types_1.SortType.single;
-        // tslint:disable-next-line:variable-name
-        _this.myOffset_ = 0;
+        _this.innerOffset = 0; // page number after scrolling
         _this.mySelected = [];
         _this.myChecked = [];
         _this.renderTracking = false;
@@ -2422,7 +2492,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         }
     };
     DatatableComponent.prototype.destroyed = function () {
-        window.removeEventListener('resize', this.resizeHander);
+        window.removeEventListener('resize', this.resizeHandler);
     };
     /**
      * Lifecycle hook that is called after data-bound
@@ -2456,11 +2526,11 @@ var DatatableComponent = /** @class */ (function (_super) {
                     count: _this.count,
                     pageSize: _this.pageSize,
                     limit: _this.limit,
-                    offset: 0
+                    offset: _this.innerOffset
                 });
             }
-            _this.resizeHander = _this.onWindowResize.bind(_this);
-            window.addEventListener('resize', _this.resizeHander);
+            _this.resizeHandler = _this.onWindowResize.bind(_this);
+            window.addEventListener('resize', _this.resizeHandler);
         });
     };
     /**
@@ -2609,11 +2679,13 @@ var DatatableComponent = /** @class */ (function (_super) {
         }
     };
     DatatableComponent.prototype.onOffsetChanged = function () {
-        this.myOffset_ = this.offset;
+        if (this.innerOffset !== this.offset) {
+            this.innerOffset = this.offset;
+            if ( /* this.externalPager && */this.innerOffset >= 0) {
+                this.onFooterPage({ page: this.offset + 1 });
+            }
+        }
     };
-    // @Watch('sorts', { immediate: true }) onSortsChanged() {
-    //   this.mySorts = this.sorts;
-    // }
     DatatableComponent.prototype.onSelectedChanged = function () {
         this.mySelected = this.selected;
     };
@@ -2622,7 +2694,10 @@ var DatatableComponent = /** @class */ (function (_super) {
     };
     Object.defineProperty(DatatableComponent.prototype, "myOffset", {
         get: function () {
-            return Math.max(Math.min(this.myOffset_, Math.ceil(this.rowCount / this.pageSize) - 1), 0);
+            if (this.rowCount) {
+                return Math.max(Math.min(this.innerOffset, Math.ceil(this.rowCount / this.pageSize) - 1), 0);
+            }
+            return this.innerOffset;
         },
         enumerable: true,
         configurable: true
@@ -2773,7 +2848,10 @@ var DatatableComponent = /** @class */ (function (_super) {
             var allRowsSelected = (this.rows && arr && arr.length === this.rows.length);
             if (this.selectAllRowsOnPage && this.bodyComponent) {
                 var indexes = this.bodyComponent.indexes;
-                var rowsOnPage = indexes.last - indexes.first;
+                var rowsOnPage = this.rows.length;
+                if (this.limit && !this.scrollbarV && !this.virtualization) {
+                    rowsOnPage = indexes.last - indexes.first;
+                }
                 allRowsSelected = (arr.length === rowsOnPage);
             }
             return arr && this.rows &&
@@ -2789,6 +2867,17 @@ var DatatableComponent = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    DatatableComponent.prototype.reset = function () {
+        var _a;
+        (_a = this.bodyComponent) === null || _a === void 0 ? void 0 : _a.reset();
+    };
+    DatatableComponent.prototype.adjust = function () {
+        var _this = this;
+        this.bodyHeight = -1;
+        setTimeout(function () {
+            _this.recalculateDims();
+        });
+    };
     /**
      * Recalc's the sizes of the grid.
      *
@@ -2807,7 +2896,6 @@ var DatatableComponent = /** @class */ (function (_super) {
     /**
      * Window resize handler to update sizes.
      */
-    // @HostListener('window:resize')
     DatatableComponent.prototype.onWindowResize = function () {
         this.recalculate();
     };
@@ -2874,15 +2962,15 @@ var DatatableComponent = /** @class */ (function (_super) {
         if (this.externalPaging && !this.virtualization) {
             return;
         }
-        if (this.myOffset_ === offset) {
+        if (this.innerOffset === offset) {
             return;
         }
-        this.myOffset_ = offset;
+        this.innerOffset = offset;
         this.$emit('page', {
             count: this.count,
             pageSize: this.pageSize,
             limit: this.limit,
-            offset: this.myOffset_,
+            offset: this.innerOffset,
         });
     };
     /**
@@ -2897,15 +2985,16 @@ var DatatableComponent = /** @class */ (function (_super) {
      * The footer triggered a page event.
      */
     DatatableComponent.prototype.onFooterPage = function (event) {
-        this.myOffset_ = event.page - 1;
-        this.bodyComponent.updateOffsetY(this.myOffset_);
+        var _a;
+        this.innerOffset = event.page - 1;
+        (_a = this.bodyComponent) === null || _a === void 0 ? void 0 : _a.updateOffsetY(this.innerOffset, true);
         this.$emit('page', {
             count: this.count,
             pageSize: this.pageSize,
             limit: this.limit,
-            offset: this.myOffset_
+            offset: this.innerOffset
         });
-        if (this.selectAllRowsOnPage) {
+        if (this.selectAllRowsOnPage && !this.scrollbarV && this.limit) {
             this.mySelected = [];
             this.$emit('select', {
                 selected: this.mySelected
@@ -3050,6 +3139,7 @@ var DatatableComponent = /** @class */ (function (_super) {
      */
     DatatableComponent.prototype.onColumnSort = function (event) {
         var _this = this;
+        var _a;
         // clean selected rows
         if (this.selectAllRowsOnPage) {
             this.mySelected = [];
@@ -3081,16 +3171,16 @@ var DatatableComponent = /** @class */ (function (_super) {
         this.internalRows = utils_1.groupRowsByParents(this.internalRows, treeFrom, treeTo, this.lazyTree);
         // Go to first page when sorting to see the newly sorted data
         if (this.goToFirstAfterSort) {
-            this.myOffset_ = 0;
+            this.innerOffset = 0;
         }
-        this.bodyComponent.updateOffsetY(this.myOffset);
-        this.$emit('sort', event);
+        this.bodyComponent.updateOffsetY(this.myOffset, true);
+        this.$emit('sort', __assign(__assign({}, event), { sorts: (_a = event === null || event === void 0 ? void 0 : event.sorts) === null || _a === void 0 ? void 0 : _a.filter(function (s) { return s.prop; }) }));
     };
     /**
      * Toggle all row selection
      */
     DatatableComponent.prototype.onHeaderSelect = function (isChecked) {
-        var _a, _b, _c;
+        var _a, _b, _c, _d;
         var evName = 'select';
         if (this.selectAllRowsOnPage) {
             // before we splice, chk if we currently have all selected
@@ -3108,11 +3198,19 @@ var DatatableComponent = /** @class */ (function (_super) {
             else {
                 evName = 'check';
                 var allChecked = this.myChecked.length === (last - first);
+                if (this.scrollbarV && this.virtualization && !this.limit) {
+                    allChecked = this.myChecked.length === this.internalRows.length;
+                }
                 // remove all existing either way
                 this.myChecked = [];
                 // do the opposite here
                 if (isChecked && !allChecked) {
-                    (_b = this.myChecked).push.apply(_b, this.internalRows.slice(first, last));
+                    if (this.scrollbarV && this.virtualization) {
+                        (_b = this.myChecked).push.apply(_b, this.internalRows);
+                    }
+                    else {
+                        (_c = this.myChecked).push.apply(_c, this.internalRows.slice(first, last));
+                    }
                 }
             }
         }
@@ -3123,7 +3221,7 @@ var DatatableComponent = /** @class */ (function (_super) {
             this.mySelected = [];
             // do the opposite here
             if (!allSelected) {
-                (_c = this.mySelected).push.apply(_c, this.rows);
+                (_d = this.mySelected).push.apply(_d, this.rows);
             }
         }
         this.$emit(evName, {
@@ -3445,6 +3543,10 @@ var DatatableComponent = /** @class */ (function (_super) {
         vue_property_decorator_1.Prop({ type: Boolean, default: false }),
         __metadata("design:type", Boolean)
     ], DatatableComponent.prototype, "externalPaging", void 0);
+    __decorate([
+        vue_property_decorator_1.Prop({ type: Boolean, default: false }),
+        __metadata("design:type", Boolean)
+    ], DatatableComponent.prototype, "externalPager", void 0);
     __decorate([
         vue_property_decorator_1.Prop({ type: Boolean, default: false }),
         __metadata("design:type", Boolean)
@@ -4583,7 +4685,7 @@ var render = function() {
     "div",
     { staticClass: "datatable-row-wrapper", style: _vm.styleObject },
     [
-      _vm.row.__isGroup
+      _vm.row && _vm.row.__isGroup
         ? _c("datatable-group-header", {
             staticClass: "datatable-group-header",
             style: _vm.groupHeaderStyles,
@@ -4805,19 +4907,19 @@ var render = function() {
         {
           ref: "selector",
           attrs: {
-            selected: _vm.selected,
+            selected: _vm.mySelected,
             checked: _vm.checked,
             rows: _vm.rows,
+            pageSize: _vm.pageSize,
             selectCheck: _vm.selectCheck,
             selectEnabled: _vm.selectEnabled,
             selectionType: _vm.selectionType,
             checkMode: _vm.checkMode,
-            rowIdentity: _vm.rowIdentity
+            rowIdentity: _vm.rowIdentity,
+            scroller: _vm.scroller
           },
           on: {
-            select: function($event) {
-              return _vm.$emit("select", $event)
-            },
+            select: _vm.onSelect,
             check: function($event) {
               return _vm.$emit("check", $event)
             },
@@ -4829,136 +4931,137 @@ var render = function() {
         [
           _vm.loadingIndicator ? _c("datatable-progress") : _vm._e(),
           _vm._v(" "),
-          _vm.rows && _vm.rows.length
-            ? _c(
-                "datatable-scroller",
-                {
-                  ref: "scroller",
-                  attrs: {
-                    scrollbarV: _vm.scrollbarV,
-                    scrollbarH: _vm.scrollbarH,
-                    scrollHeight: _vm.scrollHeight,
-                    scrollWidth: _vm.scrollWidth
-                  },
-                  on: { scroll: _vm.onBodyScroll }
-                },
-                [
-                  _vm.summaryRow && _vm.summaryPosition === "top"
-                    ? _c("datatable-summary-row", {
-                        staticClass: "datatable-summary-row",
-                        attrs: {
-                          rowHeight: _vm.summaryHeight,
-                          offsetX: _vm.offsetX,
-                          innerWidth: _vm.innerWidth,
-                          rows: _vm.rows,
-                          columns: _vm.columns,
-                          columnsByPin: _vm.columnsByPin,
-                          columnGroupWidths: _vm.columnGroupWidths,
-                          groupStyles: _vm.getGroupStyles,
-                          groupClass: _vm.getGroupClass("center"),
-                          rowStyles: _vm.getRowStyles,
-                          cellContext: _vm.getCellContext,
-                          cellColumnCssClasses: _vm.cellColumnCssClasses,
-                          cellStyleObject: _vm.cellStyleObject,
-                          marginCellStyle: _vm.marginCellStyle,
-                          slots: _vm.cellSlots
-                        }
-                      })
-                    : _vm._e(),
-                  _vm._v(" "),
-                  _vm._l(_vm.temp, function(row, i) {
-                    return _c(
-                      "datatable-row-wrapper",
-                      {
-                        key: i,
-                        staticClass: "datatable-row-wrapper",
-                        attrs: {
-                          styleObject: _vm.getRowsStyles(row, i),
-                          groupRowsBy: _vm.groupRowsBy,
-                          groupLevel: 0,
-                          row: row,
-                          innerWidth: _vm.innerWidth,
-                          rowDetail: _vm.rowDetail,
-                          groupHeader: _vm.groupHeader,
-                          offsetX: _vm.offsetX,
-                          groupRowHeight: _vm.groupRowHeight,
-                          rowDetailHeight: _vm.getDetailRowHeight(row, i),
-                          expanded: _vm.getRowExpanded(row),
-                          rowIndex: _vm.getRowIndex(row),
-                          groupHeaderSlot: _vm.groupHeaderSlot,
-                          rowDetailSlot: _vm.rowDetailSlot
-                        },
-                        on: {
-                          "group-toggle": _vm.onGroupToggle,
-                          "row-contextmenu": function($event) {
-                            return _vm.$emit("rowContextmenu")
-                          }
-                        }
+          _c(
+            "datatable-scroller",
+            {
+              ref: "scroller",
+              attrs: {
+                scrollbarV: _vm.scrollbarV,
+                scrollbarH: _vm.scrollbarH,
+                scrollHeight: _vm.scrollHeight,
+                scrollWidth: _vm.scrollWidth
+              },
+              on: { setup: _vm.onScrollSetup, scroll: _vm.onBodyScroll }
+            },
+            [
+              _vm.summaryRow && _vm.summaryPosition === "top"
+                ? _c("datatable-summary-row", {
+                    staticClass: "datatable-summary-row",
+                    attrs: {
+                      rowHeight: _vm.summaryHeight,
+                      offsetX: _vm.offsetX,
+                      innerWidth: _vm.innerWidth,
+                      rows: _vm.rows,
+                      columns: _vm.columns,
+                      columnsByPin: _vm.columnsByPin,
+                      columnGroupWidths: _vm.columnGroupWidths,
+                      groupStyles: _vm.getGroupStyles,
+                      groupClass: _vm.getGroupClass("center"),
+                      rowStyles: _vm.getRowStyles,
+                      cellContext: _vm.getCellContext,
+                      cellColumnCssClasses: _vm.cellColumnCssClasses,
+                      cellStyleObject: _vm.cellStyleObject,
+                      marginCellStyle: _vm.marginCellStyle,
+                      slots: _vm.cellSlots
+                    }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              _vm._l(_vm.temp, function(row, i) {
+                return _c(
+                  "datatable-row-wrapper",
+                  {
+                    key: i,
+                    attrs: {
+                      styleObject: _vm.getRowWrapperStyles(row, i),
+                      groupRowsBy: _vm.groupRowsBy,
+                      groupLevel: 0,
+                      row: row,
+                      innerWidth: _vm.innerWidth,
+                      rowDetail: _vm.rowDetail,
+                      groupHeader: _vm.groupHeader,
+                      offsetX: _vm.offsetX,
+                      groupRowHeight: _vm.groupRowHeight,
+                      rowDetailHeight: _vm.getDetailRowHeight(row, i),
+                      expanded: _vm.getRowExpanded(row),
+                      rowIndex: _vm.getRowIndex(row),
+                      groupHeaderSlot: _vm.groupHeaderSlot,
+                      rowDetailSlot: _vm.rowDetailSlot
+                    },
+                    on: {
+                      "set-row-element": function($event) {
+                        return _vm.onSetRowElement(row, $event)
                       },
-                      [
-                        _c("datatable-body-row", {
-                          attrs: {
-                            tabindex: "-1",
-                            columnsByPin: _vm.columnsByPin,
-                            columnGroupWidths: _vm.columnGroupWidths,
-                            isSelected: _vm.isSelect(row),
-                            isChecked: _vm.isChecked(row),
-                            groupStyles: _vm.getGroupStyles,
-                            groupClass: _vm.getGroupClass(row),
-                            rowStyles: _vm.getRowStyles,
-                            row: row,
-                            displayCheck: _vm.displayCheck,
-                            treeStatus: row.treeStatus,
-                            cellContext: _vm.getCellContext,
-                            cellColumnCssClasses: _vm.cellColumnCssClasses,
-                            cellStyleObject: _vm.cellStyleObject,
-                            marginCellStyle: _vm.marginCellStyle,
-                            slots: _vm.cellSlots,
-                            renderTracking: _vm.renderTracking
-                          },
-                          on: {
-                            "tree-action": function($event) {
-                              return _vm.onTreeAction($event)
-                            },
-                            activate: function($event) {
-                              return _vm.onActivate($event, i)
-                            },
-                            "row-created": _vm.onRowRendered,
-                            "row-updated": _vm.onRowRendered
-                          }
-                        })
-                      ],
-                      1
-                    )
-                  }),
-                  _vm._v(" "),
-                  _vm.summaryRow && _vm.summaryPosition === "bottom"
-                    ? _c("datatable-summary-row", {
-                        staticClass: "datatable-summary-row",
-                        style: _vm.getBottomSummaryRowStyles,
-                        attrs: {
-                          rowHeight: _vm.summaryHeight,
-                          offsetX: _vm.offsetX,
-                          innerWidth: _vm.innerWidth,
-                          rows: _vm.rows,
-                          columns: _vm.columns,
-                          columnsByPin: _vm.columnsByPin,
-                          columnGroupWidths: _vm.columnGroupWidths,
-                          groupStyles: _vm.getGroupStyles,
-                          groupClass: _vm.getGroupClass("center"),
-                          rowStyles: _vm.getRowStyles,
-                          cellContext: _vm.getCellContext,
-                          cellColumnCssClasses: _vm.cellColumnCssClasses,
-                          cellStyleObject: _vm.cellStyleObject,
-                          marginCellStyle: _vm.marginCellStyle,
-                          slots: _vm.cellSlots
-                        }
-                      })
-                    : _vm._e()
-                ],
-                2
-              )
-            : _vm._e(),
+                      "group-toggle": _vm.onGroupToggle,
+                      "row-contextmenu": function($event) {
+                        return _vm.$emit("rowContextmenu")
+                      }
+                    }
+                  },
+                  [
+                    _c("datatable-body-row", {
+                      attrs: {
+                        tabindex: "-1",
+                        columnsByPin: _vm.columnsByPin,
+                        columnGroupWidths: _vm.columnGroupWidths,
+                        isSelected: _vm.isSelect(row),
+                        isChecked: _vm.isChecked(row),
+                        groupStyles: _vm.getGroupStyles,
+                        groupClass: _vm.getGroupClass(row),
+                        rowStyles: _vm.getRowStyles,
+                        row: row,
+                        refresh: _vm.refreshCounters[i],
+                        displayCheck: _vm.displayCheck,
+                        treeStatus: _vm.treeStatus(row),
+                        cellContext: _vm.getCellContext,
+                        cellColumnCssClasses: _vm.cellColumnCssClasses,
+                        cellStyleObject: _vm.cellStyleObject,
+                        marginCellStyle: _vm.marginCellStyle,
+                        slots: _vm.cellSlots,
+                        renderTracking: _vm.renderTracking
+                      },
+                      on: {
+                        "tree-action": function($event) {
+                          return _vm.onTreeAction($event)
+                        },
+                        activate: function($event) {
+                          return _vm.onActivate($event, i)
+                        },
+                        "row-created": _vm.onRowRendered,
+                        "row-updated": _vm.onRowRendered
+                      }
+                    })
+                  ],
+                  1
+                )
+              }),
+              _vm._v(" "),
+              _vm.summaryRow && _vm.summaryPosition === "bottom"
+                ? _c("datatable-summary-row", {
+                    staticClass: "datatable-summary-row",
+                    style: _vm.getBottomSummaryRowStyles,
+                    attrs: {
+                      rowHeight: _vm.summaryHeight,
+                      offsetX: _vm.offsetX,
+                      innerWidth: _vm.innerWidth,
+                      rows: _vm.rows,
+                      columns: _vm.columns,
+                      columnsByPin: _vm.columnsByPin,
+                      columnGroupWidths: _vm.columnGroupWidths,
+                      groupStyles: _vm.getGroupStyles,
+                      groupClass: _vm.getGroupClass("center"),
+                      rowStyles: _vm.getRowStyles,
+                      cellContext: _vm.getCellContext,
+                      cellColumnCssClasses: _vm.cellColumnCssClasses,
+                      cellStyleObject: _vm.cellStyleObject,
+                      marginCellStyle: _vm.marginCellStyle,
+                      slots: _vm.cellSlots
+                    }
+                  })
+                : _vm._e()
+            ],
+            2
+          ),
           _vm._v(" "),
           (!_vm.rows || !_vm.rows.length) && !_vm.loadingIndicator
             ? _c("div", {
@@ -5124,7 +5227,7 @@ var ScrollerComponent = /** @class */ (function (_super) {
     __extends(ScrollerComponent, _super);
     function ScrollerComponent() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        // @Output() scroll: EventEmitter<any> = new EventEmitter();
+        _this.fromPager = true;
         _this.scrollYPos = 0;
         _this.scrollXPos = 0;
         _this.prevScrollYPos = 0;
@@ -5142,41 +5245,68 @@ var ScrollerComponent = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    ScrollerComponent.prototype.created = function () {
+        this.$emit('setup', {
+            scrollYPos: this.scrollYPos,
+            scrollXPos: this.scrollXPos
+        });
+    };
     ScrollerComponent.prototype.mounted = function () {
+        var _this = this;
         // manual bind so we don't always listen
         if (this.scrollbarV || this.scrollbarH) {
             // const renderer = this.renderer;
             this.parentElement = this.$el.closest('.datatable-body');
             // .parentElement; //  renderer.parentNode(renderer.parentNode(this.element));
-            this.parentElement.addEventListener('scroll', this.onScrolled.bind(this), {
+            this.onScrollListener = this.onScrolled.bind(this);
+            this.parentElement.addEventListener('scroll', this.onScrollListener, {
                 passive: true,
+            });
+            this.onInitScrollHandler = this.onInitScroll.bind(this);
+            'mousedown DOMMouseScroll mousewheel wheel touchstart keyup'.split(' ').forEach(function (event) {
+                _this.parentElement.addEventListener(event, _this.onInitScrollHandler);
             });
         }
     };
     ScrollerComponent.prototype.destroyed = function () {
+        var _this = this;
         if (this.scrollbarV || this.scrollbarH) {
-            this.parentElement.removeEventListener('scroll', this.onScrolled.bind(this));
+            this.parentElement.removeEventListener('scroll', this.onScrollListener);
+            'mousedown DOMMouseScroll mousewheel wheel touchstart keyup'.split(' ').forEach(function (event) {
+                _this.parentElement.removeEventListener(event, _this.onInitScrollHandler);
+            });
         }
     };
-    ScrollerComponent.prototype.setOffset = function (offsetY) {
+    ScrollerComponent.prototype.setOffset = function (offsetY, fromPager) {
+        if (fromPager === void 0) { fromPager = false; }
         if (this.parentElement) {
+            this.fromPager = fromPager;
             this.parentElement.scrollTop = offsetY;
         }
     };
+    ScrollerComponent.prototype.incOffset = function (offsetY) {
+        if (this.parentElement) {
+            this.parentElement.scrollTop += offsetY;
+        }
+    };
+    ScrollerComponent.prototype.onInitScroll = function () {
+        this.fromPager = false;
+    };
     ScrollerComponent.prototype.onScrolled = function (event) {
+        var _this = this;
         if (this.scrollbarV || this.scrollbarH) {
             if (!this.scrollDirty) {
                 this.scrollDirty = true;
-                var dom = event.currentTarget;
-                // requestAnimationFrame(() => {
-                this.scrollYPos = dom.scrollTop;
-                this.scrollXPos = dom.scrollLeft;
-                this.updateOffset();
-                this.scrollDirty = false;
-                // });
+                var dom_1 = event.currentTarget;
+                requestAnimationFrame(function () {
+                    _this.scrollYPos = dom_1.scrollTop;
+                    _this.scrollXPos = dom_1.scrollLeft;
+                    _this.updateOffset();
+                    _this.scrollDirty = false;
+                });
             }
             else {
-                console.log(('this.scrollDirty is true'));
+                console.log('this.scrollDirty is true');
             }
         }
     };
@@ -5198,7 +5328,8 @@ var ScrollerComponent = /** @class */ (function (_super) {
             this.$emit('scroll', {
                 direction: direction,
                 scrollYPos: this.scrollYPos,
-                scrollXPos: this.scrollXPos
+                scrollXPos: this.scrollXPos,
+                fromPager: this.fromPager
             });
         }
         this.prevScrollYPos = this.scrollYPos;
@@ -5281,6 +5412,12 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
     function DataTableSelectionComponent() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
+    DataTableSelectionComponent.prototype.mounted = function () {
+        this.bodyRect = this.$parent.$el.getBoundingClientRect();
+    };
+    DataTableSelectionComponent.prototype.updated = function () {
+        this.bodyRect = this.$parent.$el.getBoundingClientRect();
+    };
     DataTableSelectionComponent.prototype.selectRow = function (event, index, row) {
         var _a;
         if (!this.selectEnabled)
@@ -5303,14 +5440,15 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
         else {
             selected = utils_1.selectRows([], row, this.getRowSelectedIdx.bind(this));
         }
+        this.prevIndex = index;
         if (typeof this.selectCheck === 'function') {
             selected = selected.filter(this.selectCheck.bind(this));
         }
         this.selected.splice(0, this.selected.length);
         (_a = this.selected).push.apply(_a, selected);
-        this.prevIndex = index;
         this.$emit('select', {
-            selected: selected
+            selected: selected,
+            index: index
         });
     };
     DataTableSelectionComponent.prototype.checkRow = function (event, index, row) {
@@ -5318,7 +5456,13 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
         if (!this.selectEnabled)
             return;
         var checked = [];
-        checked = utils_1.selectRows(__spreadArrays(this.checked), row, this.getRowSelectedIdx.bind(this));
+        if (event.shiftKey) {
+            checked = utils_1.selectRowsBetween([], this.rows, index, this.prevIndex, this.getRowSelectedIdx.bind(this));
+        }
+        else {
+            checked = utils_1.selectRows(__spreadArrays(this.checked), row, this.getRowSelectedIdx.bind(this));
+        }
+        this.prevIndex = index;
         if (typeof this.selectCheck === 'function') {
             checked = checked.filter(this.selectCheck.bind(this));
         }
@@ -5356,24 +5500,118 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
         var shouldFocus = keyCode === utils_1.Keys.up ||
             keyCode === utils_1.Keys.down ||
             keyCode === utils_1.Keys.right ||
-            keyCode === utils_1.Keys.left;
+            keyCode === utils_1.Keys.left ||
+            keyCode === utils_1.Keys.pageUp ||
+            keyCode === utils_1.Keys.pageDown;
         if (shouldFocus) {
             var isCellSelection = this.selectionType === types_1.SelectionType.cell;
             if (!model.cellElement || !isCellSelection) {
-                this.focusRow(model.rowElement, keyCode);
+                this.focusRow(keyCode);
             }
             else if (isCellSelection) {
                 this.focusCell(model.cellElement, model.rowElement, keyCode, model.cellIndex);
             }
         }
     };
-    DataTableSelectionComponent.prototype.focusRow = function (rowElement, keyCode) {
-        var nextRowElement = this.getPrevNextRow(rowElement, keyCode);
-        if (nextRowElement)
-            nextRowElement.focus();
+    DataTableSelectionComponent.prototype.focusRow = function (keyCode) {
+        var _this = this;
+        var index = 0;
+        if (keyCode === utils_1.Keys.up) {
+            if (this.prevIndex - 1 < 0) {
+                return;
+            }
+            index = this.prevIndex - 1;
+        }
+        else if (keyCode === utils_1.Keys.down) {
+            if (this.prevIndex + 1 >= this.rows.length) {
+                return;
+            }
+            index = this.prevIndex + 1;
+        }
+        else if (keyCode === utils_1.Keys.pageUp) {
+            index = this.prevIndex - this.pageSize;
+            index = index < 0 ? 0 : index;
+        }
+        else if (keyCode === utils_1.Keys.pageDown) {
+            index = this.prevIndex + this.pageSize;
+            index = index >= this.rows.length ? this.rows.length - 1 : index;
+        }
+        var nextRow = this.rows[index];
+        if (!nextRow) {
+            return;
+        }
+        setTimeout(function () { return _this.selectRow({ shiftKey: false, ctrlKey: false }, index, nextRow); });
+        var _a = this.$parent.getRowOffsetY(index), offsetY = _a.offsetY, height = _a.height;
+        var h = 0;
+        if ([utils_1.Keys.down, utils_1.Keys.pageDown].includes(keyCode)) {
+            h = offsetY - this.bodyRect.height;
+        }
+        else if ([utils_1.Keys.up, utils_1.Keys.pageUp].includes(keyCode)) {
+            h = (offsetY - height) - this.scroller.scrollYPos;
+        }
+        if (h > 0 && [utils_1.Keys.down, utils_1.Keys.pageDown].includes(keyCode)) {
+            this.scroller.setOffset(h);
+        }
+        else if (h < 0 && [utils_1.Keys.up, utils_1.Keys.pageUp].includes(keyCode)) {
+            this.scroller.incOffset(h);
+        }
+        // const { el: rowElement, height } = (this.$parent as any).getRowElementAndHeight(this.rows[this.prevIndex]);
+        // if (!rowElement) {
+        //   return;
+        // }
+        // const nextRowElement = this.getPrevNextRowElement(rowElement, keyCode);
+        // // const nextRowElement = this.getPrevNextRow(rowElement, keyCode);
+        // if (nextRowElement) {
+        //   // nextRowElement.focus();
+        //   let index = this.prevIndex;
+        //   if (keyCode === Keys.up) {
+        //     if (this.prevIndex - 1 < 0) {
+        //       return;
+        //     } 
+        //     index = this.prevIndex - 1;
+        //   } else if (keyCode === Keys.down) {
+        //     if (this.prevIndex + 1 >= this.rows.length) {
+        //       return;
+        //     }
+        //     index = this.prevIndex + 1
+        //   }
+        //   const row = this.rows[index];
+        //   this.selectRow({ shiftKey: false, ctrlKey: false } as any, index, row);
+        //   const bodyRect = this.$parent.$el.getBoundingClientRect();
+        //   const rowRect = nextRowElement.getBoundingClientRect();
+        //   const top = rowRect.top - bodyRect.top;
+        //   let h = 0;
+        //   if (keyCode === Keys.down) {
+        //     h = (top + height) - bodyRect.height;
+        //   } else if (keyCode === Keys.up) {
+        //     h = top;
+        //   }
+        //   // console.log('before incOffset', h, bodyRect, rowRect, nextRowElement);
+        //   if (h > 0 && keyCode === Keys.down) {
+        //     // console.log('incOffset', h + 5);
+        //     (this.scroller as any).incOffset(h + 5);
+        //   } else if (h < 0 && keyCode === Keys.up) {
+        //     (this.scroller as any).incOffset(h);
+        //   }
+        //   // (this.$el as any).focus();
+        //   (nextRowElement as any).focus();
+        // }
+    };
+    DataTableSelectionComponent.prototype.getPrevNextRowElement = function (rowElement, keyCode) {
+        if (rowElement) {
+            var focusElement = void 0;
+            if (keyCode === utils_1.Keys.up) {
+                focusElement = rowElement.previousElementSibling;
+            }
+            else if (keyCode === utils_1.Keys.down) {
+                focusElement = rowElement.nextElementSibling;
+            }
+            return focusElement;
+        }
     };
     DataTableSelectionComponent.prototype.getPrevNextRow = function (rowElement, keyCode) {
         var parentElement = rowElement.parentElement;
+        // const parentElement = rowElement.closest('.datatable-row-wrapper');
         if (parentElement) {
             var focusElement = void 0;
             if (keyCode === utils_1.Keys.up) {
@@ -5382,6 +5620,7 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
             else if (keyCode === utils_1.Keys.down) {
                 focusElement = parentElement.nextElementSibling;
             }
+            // return focusElement;
             if (focusElement && focusElement.children.length) {
                 return focusElement.children[0];
             }
@@ -5455,6 +5694,14 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
         vue_property_decorator_1.Prop(),
         __metadata("design:type", Object)
     ], DataTableSelectionComponent.prototype, "selectCheck", void 0);
+    __decorate([
+        vue_property_decorator_1.Prop(),
+        __metadata("design:type", Object)
+    ], DataTableSelectionComponent.prototype, "scroller", void 0);
+    __decorate([
+        vue_property_decorator_1.Prop(),
+        __metadata("design:type", Number)
+    ], DataTableSelectionComponent.prototype, "pageSize", void 0);
     DataTableSelectionComponent = __decorate([
         vue_property_decorator_1.Component({
             template: "\n    <div id=\"selector\">\n      <slot>\n        selection\n      </slot>\n    </div>\n  ",
@@ -5727,7 +5974,6 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
         this.$set(this.column, 'flexGrow', this.flexGrow);
         this.$set(this.column, 'resizeable', this.resizeable);
         this.$set(this.column, 'comparator', this.comparator);
-        // column.pipe = this.pipe;
         this.$set(this.column, 'sortable', this.sortable);
         this.$set(this.column, 'draggable', this.draggable);
         this.$set(this.column, 'canAutoResize', this.canAutoResize);
@@ -5796,6 +6042,9 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
     DataTableColumnComponent.prototype.onVisibleChanged = function (newVal) {
         this.column.visible = newVal;
         this.$parent.onColumnChangeVisible(this.column);
+    };
+    DataTableColumnComponent.prototype.onWidthChanged = function () {
+        this.$emit('update-width', this.column.width);
     };
     __decorate([
         vue_property_decorator_1.Prop(),
@@ -5891,6 +6140,12 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
         __metadata("design:paramtypes", [Object]),
         __metadata("design:returntype", void 0)
     ], DataTableColumnComponent.prototype, "onVisibleChanged", null);
+    __decorate([
+        vue_property_decorator_1.Watch('column.width'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], DataTableColumnComponent.prototype, "onWidthChanged", null);
     DataTableColumnComponent = __decorate([
         vue_property_decorator_1.Component({
             template: "\n    <div>\n      <slot name=\"header\" v-bind=\"{column: column}\">\n      <!-- default content -->\n        {{ name }}\n      </slot>\n      <!-- default slot for cell -->\n      <slot>\n      </slot>\n    </div>"
@@ -6042,7 +6297,10 @@ var render = function() {
       _vm._v(" "),
       _c(
         "div",
-        { staticClass: "datatable-footer" },
+        {
+          staticClass: "datatable-footer",
+          class: { "datatable-footer-border": Boolean(_vm.footerHeight) }
+        },
         [
           _vm.footerHeight
             ? _c("datatable-footer", {
@@ -6516,6 +6774,7 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
         _this.sortFn = _this.onSort.bind(_this);
         _this.sortDir = null;
         _this.myAllRowsSelected = false;
+        _this.sortOrder = '';
         // selectFn = this.select.emit.bind(this.select);
         _this.cellContext = {
             column: _this.column,
@@ -6665,12 +6924,21 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
     };
     DataTableHeaderCellComponent.prototype.calcSortDir = function (sorts) {
         var _this = this;
+        this.sortOrder = '';
         if (sorts && this.column) {
-            var sort = sorts.find(function (s) {
-                return s.prop === _this.column.prop;
+            var sortOrder_1 = '';
+            var sort = sorts.filter(function (s) { return s.prop; }).find(function (s, index) {
+                if (s.prop === _this.column.prop) {
+                    sortOrder_1 = (index + 1).toString();
+                    return true;
+                }
             });
-            if (sort)
+            if (sort) {
+                if (this.sortType === types_1.SortType.multi) {
+                    this.sortOrder = sortOrder_1;
+                }
                 return sort.dir;
+            }
         }
     };
     DataTableHeaderCellComponent.prototype.onSort = function () {
@@ -6758,7 +7026,7 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
     ], DataTableHeaderCellComponent.prototype, "onSortsChanged", null);
     DataTableHeaderCellComponent = __decorate([
         vue_property_decorator_1.Component({
-            template: "\n    <div class=\"datatable-header-cell-template-wrap\" :class=\"[columnCssClasses]\" :style=\"styles\" :title=\"name\"\n          v-show=\"column.visible\"\n          @contextmenu=\"onContextmenu($event)\">\n      <slot name=\"target-marker\">\n        <!-- Default content -->\n        <div class=\"targetMarker\" v-if=\"isTarget\">\n          <div class=\"icon datatable-icon-down\"></div>\n          <div class=\"icon datatable-icon-up\"></div>\n        </div>\n      </slot>\n      <label\n        v-if=\"isCheckboxable\"\n        class=\"datatable-checkbox\">\n        <input\n          type=\"checkbox\"\n          v-model=\"myAllRowsSelected\"\n          @change=\"onCheckboxChange\"\n        />\n      </label>\n      <slot v-bind=\"{ column: column }\">\n        <!-- Default content -->\n        <span class=\"datatable-header-cell-wrapper\">\n          <span class=\"datatable-header-cell-label draggable\"\n            :class=\"cssClass\"\n            @click=\"onSort\" v-html=\"name\">\n          </span>\n        </span>\n      </slot>\n      <span\n        @click=\"onSort\"\n        :class=\"sortCssClass\">\n      </span>\n    </div>\n  ",
+            template: "\n    <div class=\"datatable-header-cell-template-wrap\" :class=\"[columnCssClasses]\" :style=\"styles\" :title=\"name\"\n          v-show=\"column.visible\"\n          @contextmenu=\"onContextmenu($event)\">\n      <slot name=\"target-marker\">\n        <!-- Default content -->\n        <div class=\"targetMarker\" v-if=\"isTarget\">\n          <div class=\"icon datatable-icon-down\"></div>\n          <div class=\"icon datatable-icon-up\"></div>\n        </div>\n      </slot>\n      <label\n        v-if=\"isCheckboxable\"\n        class=\"datatable-checkbox\">\n        <input\n          type=\"checkbox\"\n          v-model=\"myAllRowsSelected\"\n          @change=\"onCheckboxChange\"\n        />\n      </label>\n      <slot v-bind=\"{ column: column }\">\n        <!-- Default content -->\n        <span class=\"datatable-header-cell-wrapper\">\n          <span class=\"datatable-header-cell-label draggable\"\n            :class=\"cssClass\"\n            @click=\"onSort\" v-html=\"name\">\n          </span>\n        </span>\n      </slot>\n      <span :class=\"sortCssClass\" @click=\"onSort\">\n        {{sortOrder}}\n      </span>\n    </div>\n  ",
         })
     ], DataTableHeaderCellComponent);
     return DataTableHeaderCellComponent;
@@ -8761,6 +9029,8 @@ var Keys;
     Keys[Keys["escape"] = 27] = "escape";
     Keys[Keys["left"] = 37] = "left";
     Keys[Keys["right"] = 39] = "right";
+    Keys[Keys["pageUp"] = 33] = "pageUp";
+    Keys[Keys["pageDown"] = 34] = "pageDown";
 })(Keys = exports.Keys || (exports.Keys = {}));
 
 
@@ -9154,7 +9424,7 @@ var RowHeightCache = /** @class */ (function () {
         this.heights = new Array(n);
         for (var i = 0; i < n; ++i) {
             // this.treeArray[i] = 0;
-            this.heights[i] = 0;
+            this.heights[i] = null;
         }
         var accumulator = 0;
         for (var i = 0; i < n; ++i) {
@@ -9236,10 +9506,21 @@ var RowHeightCache = /** @class */ (function () {
      * Range Sum query from 1 to the rowIndex
      */
     RowHeightCache.prototype.query = function (atIndex) {
+        var _a;
         if (atIndex < 0) {
             return 0;
         }
-        return this.heights[atIndex].accumulator;
+        return (_a = this.heights[atIndex]) === null || _a === void 0 ? void 0 : _a.accumulator;
+    };
+    RowHeightCache.prototype.queryWithHeight = function (atIndex) {
+        if (atIndex < 0) {
+            return null;
+        }
+        var result = this.heights[atIndex];
+        if (!result) {
+            return null;
+        }
+        return { offsetY: result.accumulator, height: result.height };
     };
     // query(atIndex: number): number {
     //   if (!this.treeArray.length) {
@@ -9688,6 +9969,7 @@ function groupRowsByParents(rows, from, to, lazyTree) {
         for (var i = 0; i < l; i++) { // make TreeNode objects for each item
             nodeById[to(rows[i])] = new TreeNode(rows[i]);
         }
+        var notResolvedNodes = [];
         for (var i = 0; i < l; i++) { // link all TreeNode objects
             node = nodeById[to(rows[i])];
             var parent_1 = 0;
@@ -9696,9 +9978,29 @@ function groupRowsByParents(rows, from, to, lazyTree) {
                 parent_1 = fromValue;
             }
             node.parent = nodeById[parent_1];
-            node.row['level'] = node.parent.row['level'] + 1;
-            node.parent.children.push(node);
+            if (node.parent.row['level'] === null || node.parent.row['level'] === undefined) {
+                notResolvedNodes.push(node);
+            }
+            else {
+                node.row['level'] = node.parent.row['level'] + 1;
+                node.parent.children.push(node);
+            }
         }
+        var temp = [];
+        do {
+            temp.length = 0;
+            while (notResolvedNodes.length) {
+                node = notResolvedNodes.pop();
+                if (node.parent.row['level'] === null || node.parent.row['level'] === undefined) {
+                    temp.push(node);
+                }
+                else {
+                    node.row['level'] = node.parent.row['level'] + 1;
+                    node.parent.children.push(node);
+                }
+            }
+            notResolvedNodes = temp;
+        } while (notResolvedNodes.length);
         var resolvedRows_1 = [];
         nodeById[0].flatten(function () {
             resolvedRows_1 = __spreadArrays(resolvedRows_1, [this.row]);

@@ -75,7 +75,7 @@ v-visibility-observer
   @tree-action="onTreeAction"
   @rendered="$emit('rendered', $event)">
 </datatable-body>
-<div class="datatable-footer">
+<div class="datatable-footer" :class="{ 'datatable-footer-border': Boolean(footerHeight) }">
   <datatable-footer ref="datatableFooter"
     v-if="footerHeight"
     :rowCount="rowCount"

@@ -128,6 +128,10 @@ export default class DatatableComponent extends Vue {
    */
   @Prop({ type: Boolean, default: false }) externalPaging: boolean;
   /**
+   * If the table should use external page switcher
+   */
+  @Prop({ type: Boolean, default: false }) externalPager: boolean;
+  /**
    * If the table should use external sorting or
    * the built-in basic sorting.
    */
@@ -329,7 +333,7 @@ export default class DatatableComponent extends Vue {
    */
   headerComponent: any; // DataTableHeaderComponent;
 
-  resizeHander: any;
+  resizeHandler: any;
 
   groupedRows: IGroupedRows[] = null;
 
@@ -343,8 +347,7 @@ export default class DatatableComponent extends Vue {
   internalColumns: TableColumn[] = null;
   myColumnMode: ColumnMode = ColumnMode.standard;
   mySortType: SortType = SortType.single;
-  // tslint:disable-next-line:variable-name
-  myOffset_: number = 0;
+  innerOffset: number = 0; // page number after scrolling
   mySelected = [];
   myChecked = [];
   renderTracking = false;
@@ -381,7 +384,7 @@ export default class DatatableComponent extends Vue {
   }
 
   destroyed() {
-    window.removeEventListener('resize', this.resizeHander);
+    window.removeEventListener('resize', this.resizeHandler);
   }
 
   /**
@@ -416,11 +419,11 @@ export default class DatatableComponent extends Vue {
           count: this.count,
           pageSize: this.pageSize,
           limit: this.limit,
-          offset: 0
+          offset: this.innerOffset
         });
       }
-      this.resizeHander = this.onWindowResize.bind(this);
-      window.addEventListener('resize', this.resizeHander);
+      this.resizeHandler = this.onWindowResize.bind(this);
+      window.addEventListener('resize', this.resizeHandler);
     });
   }
 
@@ -590,12 +593,13 @@ export default class DatatableComponent extends Vue {
   }
 
   @Watch('offset', { immediate: true }) onOffsetChanged() {
-    this.myOffset_ = this.offset;
+    if (this.innerOffset !== this.offset) {
+      this.innerOffset = this.offset;
+      if (this.externalPager && this.innerOffset >= 0) {
+        this.onFooterPage({ page: this.offset + 1 });
+      }
+    }
   }
-
-  // @Watch('sorts', { immediate: true }) onSortsChanged() {
-  //   this.mySorts = this.sorts;
-  // }
 
   @Watch('selected', { immediate: true }) onSelectedChanged() {
     this.mySelected = this.selected;
@@ -606,7 +610,10 @@ export default class DatatableComponent extends Vue {
   }
 
   get myOffset(): number {
-    return Math.max(Math.min(this.myOffset_, Math.ceil(this.rowCount / this.pageSize) - 1), 0);
+    if (this.rowCount) {
+      return Math.max(Math.min(this.innerOffset, Math.ceil(this.rowCount / this.pageSize) - 1), 0);
+    }
+    return this.innerOffset;
   }
 
   /**
@@ -719,7 +726,10 @@ export default class DatatableComponent extends Vue {
 
     if (this.selectAllRowsOnPage && this.bodyComponent) {
       const indexes = this.bodyComponent.indexes;
-      const rowsOnPage = indexes.last - indexes.first;
+      let rowsOnPage = this.rows.length;
+      if (this.limit && !this.scrollbarV && !this.virtualization) {
+        rowsOnPage = indexes.last - indexes.first;
+      }
       allRowsSelected = (arr.length === rowsOnPage);
     }
 
@@ -729,6 +739,17 @@ export default class DatatableComponent extends Vue {
 
   get scrollbarWidth(): number {
     return this.scrollbarHelper.width;
+  }
+
+  reset() {
+    this.bodyComponent?.reset();
+  }
+
+  adjust(): void {
+    this.bodyHeight = -1;
+    setTimeout(() => {
+      this.recalculateDims();
+    });
   }
 
   /**
@@ -750,7 +771,6 @@ export default class DatatableComponent extends Vue {
   /**
    * Window resize handler to update sizes.
    */
-  // @HostListener('window:resize')
   @throttleable(5)
   onWindowResize(): void {
     this.recalculate();
@@ -825,17 +845,17 @@ export default class DatatableComponent extends Vue {
       return;
     }
 
-    if (this.myOffset_ === offset) {
+    if (this.innerOffset === offset) {
       return;
     }
     
-    this.myOffset_ = offset;
+    this.innerOffset = offset;
 
     this.$emit('page', {
       count: this.count,
       pageSize: this.pageSize,
       limit: this.limit,
-      offset: this.myOffset_,
+      offset: this.innerOffset,
     });
   }
 
@@ -851,18 +871,18 @@ export default class DatatableComponent extends Vue {
   /**
    * The footer triggered a page event.
    */
-  onFooterPage(event: any) {
-    this.myOffset_ = event.page - 1;
-    this.bodyComponent.updateOffsetY(this.myOffset_);
+  onFooterPage(event: { page: number }) {
+    this.innerOffset = event.page - 1;
+    this.bodyComponent?.updateOffsetY(this.innerOffset, true);
 
     this.$emit('page', {
       count: this.count,
       pageSize: this.pageSize,
       limit: this.limit,
-      offset: this.myOffset_
+      offset: this.innerOffset
     });
 
-    if (this.selectAllRowsOnPage) {
+    if (this.selectAllRowsOnPage && !this.scrollbarV && this.limit) {
       this.mySelected = [];
       this.$emit('select', {
         selected: this.mySelected
@@ -924,7 +944,6 @@ export default class DatatableComponent extends Vue {
         return val.length;
       }
     }
-
     return this.count;
   }
 
@@ -1057,10 +1076,10 @@ export default class DatatableComponent extends Vue {
 
     // Go to first page when sorting to see the newly sorted data
     if (this.goToFirstAfterSort) {
-      this.myOffset_ = 0;
+      this.innerOffset = 0;
     }
-    this.bodyComponent.updateOffsetY(this.myOffset);
-    this.$emit('sort', event);
+    this.bodyComponent.updateOffsetY(this.myOffset, true);
+    this.$emit('sort', { ...event, sorts: event?.sorts?.filter(s => s.prop) });
   }
 
   /**
@@ -1082,12 +1101,19 @@ export default class DatatableComponent extends Vue {
         }
       } else {
         evName = 'check';
-        const allChecked = this.myChecked.length === (last - first);
+        let allChecked = this.myChecked.length === (last - first);
+        if (this.scrollbarV && this.virtualization && !this.limit) {
+          allChecked = this.myChecked.length === this.internalRows.length;
+        }
         // remove all existing either way
         this.myChecked = [];
         // do the opposite here
         if (isChecked && !allChecked) {
-          this.myChecked.push(...this.internalRows.slice(first, last));
+          if (this.scrollbarV && this.virtualization) {
+            this.myChecked.push(...this.internalRows);
+          } else {
+            this.myChecked.push(...this.internalRows.slice(first, last));
+          }
         }
       }
     } else {

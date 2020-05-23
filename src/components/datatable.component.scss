@@ -4,6 +4,7 @@
   justify-content: center;
   position: relative;
   -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 
   &.ngx-flex {
     display: flex;
@@ -190,12 +191,13 @@
         cursor: move;
       }
 
-      .sort-btn {
+      .sort-btn::before {
         line-height: 100%;
         vertical-align: middle;
         display: inline-block;
         cursor: pointer;
         font-size: 1.25rem;
+        margin-right: -7px
       }
 
       .resize-handle, .resize-handle--not-resizable {

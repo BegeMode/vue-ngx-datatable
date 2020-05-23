@@ -27,6 +27,7 @@ export default class DataTableBodyRowComponent extends Vue {
   @Prop() marginCellStyle: (context: ICellContext) => Record<string, string>;
   @Prop() slots: any;
   @Prop() renderTracking: boolean;
+  @Prop() refresh: number;
 
   counter = 0; // it's need to update cells after row's changing
 
@@ -49,6 +50,10 @@ export default class DataTableBodyRowComponent extends Vue {
     }
   }
 
+  @Watch('refresh') onRefreshChanged() {
+    console.log('onRefreshChanged');
+  }
+
   onCellRendered(column: TableColumn) {
     this.$emit('row-updated', this.row);
   }
@@ -68,7 +73,9 @@ export default class DataTableBodyRowComponent extends Vue {
       keyCode === Keys.down ||
       keyCode === Keys.up ||
       keyCode === Keys.left ||
-      keyCode === Keys.right;
+      keyCode === Keys.right ||
+      keyCode === Keys.pageUp ||
+      keyCode === Keys.pageDown;
 
     if (isAction && isTargetRow) {
       event.preventDefault();

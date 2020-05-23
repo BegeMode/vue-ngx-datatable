@@ -65,7 +65,7 @@ export function groupRowsByParents(rows: any[], from?: OptionalValueGetter, to?:
     for (let i = 0; i < l; i++) {  // make TreeNode objects for each item
       nodeById[ to(rows[i]) ] = new TreeNode(rows[i]);
     }
-
+    let notResolvedNodes = []; 
     for (let i = 0; i < l; i++) {  // link all TreeNode objects
       node = nodeById[ to(rows[i]) ];
       let parent = 0;
@@ -73,10 +73,28 @@ export function groupRowsByParents(rows: any[], from?: OptionalValueGetter, to?:
       if (!!fromValue && (uniqIDs.indexOf(fromValue) > -1)) {
         parent = fromValue;
       }
-      node.parent = nodeById[ parent ];
-      node.row['level'] = node.parent.row['level'] + 1;
-      node.parent.children.push(node);
+      node.parent = nodeById[parent];
+      if (node.parent.row['level'] === null || node.parent.row['level'] === undefined) {
+        notResolvedNodes.push(node);
+      } else {
+        node.row['level'] = node.parent.row['level'] + 1;
+        node.parent.children.push(node);
+      }
     }
+    const temp = [];
+    do {
+      temp.length = 0;
+      while (notResolvedNodes.length) {
+        node = notResolvedNodes.pop();
+        if (node.parent.row['level'] === null || node.parent.row['level'] === undefined) {
+          temp.push(node);
+        } else {
+          node.row['level'] = node.parent.row['level'] + 1;
+          node.parent.children.push(node);
+        }
+      }
+      notResolvedNodes = temp;
+    } while (notResolvedNodes.length);
 
     let resolvedRows: any[] = [];
     nodeById[0].flatten(function() {

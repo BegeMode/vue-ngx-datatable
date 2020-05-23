@@ -23,14 +23,14 @@ import DatatableComponent from '../../src/components/datatable.component.vue';
         <ngx-datatable
           class="material"
           :rows="rows"
-          :columnMode="'force'"
+          columnMode="force"
           :columns="columns"
           :headerHeight="50"
           :footerHeight="50"
-          :rowHeight="'auto'"
-          :limit="5"
+          :rowHeight="50"
+          :scrollbarV="true"
           :selected="selected"
-          :selectionType="'single'"
+          selectionType="single"
           @activate="onActivate($event)"
           @select='onSelect($event)'>
         </ngx-datatable>
@@ -79,11 +79,11 @@ export default class SingleSelectionComponent extends Vue {
   }
 
   onSelect({ selected }) {
-    console.log('Select Event', selected, this.selected);
+    // console.log('Select Event', selected, this.selected);
   }
 
   onActivate(event) {
-    console.log('Activate Event', event);
+    // console.log('Activate Event', event);
   }
 
 }

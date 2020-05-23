@@ -1,7 +1,7 @@
 <template>
   <div class="datatable-row-wrapper" :style="styleObject">
     <datatable-group-header
-      v-if="row.__isGroup" 
+      v-if="row && row.__isGroup" 
       class="datatable-group-header"
       :style="groupHeaderStyles"
       :group="row"

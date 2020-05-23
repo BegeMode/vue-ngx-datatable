@@ -18,13 +18,14 @@ import DatatableComponent from '../../src/components/datatable.component.vue';
       <ngx-datatable
         class="material selection-cell"
         :rows="rows"
-        :columnMode="'force'"
+        columnMode="force"
         :columns="columns"
         :headerHeight="50"
         :footerHeight="50"
         :rowHeight="50"
         :selected="selected"
-        :selectionType="'cell'"
+        :scrollbarV="true"
+        selectionType="cell"
         @select="onSelect($event)"
         @activate="onActivate($event)">
       </ngx-datatable>

@@ -1,26 +1,28 @@
 <div :style="styleObject" class="datatable-body">
 <datatable-selection
 ref="selector"
-:selected="selected"
+:selected="mySelected"
 :checked="checked"
 :rows="rows"
+:pageSize="pageSize"
 :selectCheck="selectCheck"
 :selectEnabled="selectEnabled"
 :selectionType="selectionType"
 :checkMode="checkMode"
 :rowIdentity="rowIdentity"
-@select="$emit('select', $event)"
+:scroller="scroller"
+@select="onSelect"
 @check="$emit('check', $event)"
 @activate="$emit('activate', $event)">
 <datatable-progress
   v-if="loadingIndicator">
 </datatable-progress>
 <datatable-scroller ref="scroller"
-  v-if="rows && rows.length"
   :scrollbarV="scrollbarV"
   :scrollbarH="scrollbarH"
   :scrollHeight="scrollHeight"
   :scrollWidth="scrollWidth"
+  @setup="onScrollSetup"
   @scroll="onBodyScroll">
   <datatable-summary-row class="datatable-summary-row"
     v-if="summaryRow && summaryPosition === 'top'"
@@ -40,7 +42,7 @@ ref="selector"
     :marginCellStyle="marginCellStyle"
     :slots=cellSlots>
   </datatable-summary-row>
-  <datatable-row-wrapper class="datatable-row-wrapper" :styleObject="getRowsStyles(row, i)"
+  <datatable-row-wrapper :styleObject="getRowWrapperStyles(row, i)"
     v-for="(row, i) of temp" :key="i"
     :groupRowsBy="groupRowsBy"
     :groupLevel="0"
@@ -67,13 +69,14 @@ ref="selector"
       :groupClass="getGroupClass(row)"
       :rowStyles="getRowStyles"
       :row="row"
+      :refresh="refreshCounters[i]"
       :displayCheck="displayCheck"
-      :treeStatus="row.treeStatus"
+      :treeStatus="treeStatus(row)"
       :cellContext="getCellContext"
       :cellColumnCssClasses="cellColumnCssClasses"
       :cellStyleObject="cellStyleObject"
       :marginCellStyle="marginCellStyle"
-      :slots=cellSlots
+      :slots="cellSlots"
       :renderTracking="renderTracking"
       @tree-action="onTreeAction($event)"
       @activate="onActivate($event, i)"

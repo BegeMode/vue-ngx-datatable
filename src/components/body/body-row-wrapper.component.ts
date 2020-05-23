@@ -27,6 +27,14 @@ export default class DataTableRowWrapperComponent extends Vue {
   @Prop() groupHeaderSlot: any;
   @Prop() rowDetailSlot: any;
 
+  mounted() {
+    this.$emit('set-row-element', this.$el);
+  }
+
+  updated() {
+    this.$emit('set-row-element', this.$el);
+  }
+
   onContextmenu($event: MouseEvent): void {
     this.$emit('rowContextmenu', { event: $event, row: this.row });
   }

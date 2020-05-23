@@ -16,8 +16,8 @@ export class MockServerResultsService {
      * @param page The selected page
      * @returns {any} An observable containing the employee data
      */
-    public getResults(page: Page): Promise<PagedData<CorporateEmployee>> {
-        return this.getPagedData(page);
+    public getResults(page: Page, timeout: number = 0): Promise<PagedData<CorporateEmployee>> {
+        return this.getPagedData(page, timeout);
     }
 
     /**
@@ -25,7 +25,10 @@ export class MockServerResultsService {
      * @param page The page data used to get the selected data from companyData
      * @returns {PagedData<CorporateEmployee>} An array of the selected data and page
      */
-    private getPagedData(page: Page): Promise<PagedData<CorporateEmployee>> {
+    private async getPagedData(page: Page, timeout: number = 0): Promise<PagedData<CorporateEmployee>> {
+        if (timeout) {
+            await this.delay(timeout);
+        }
         const pagedData = new PagedData<CorporateEmployee>();
         page.totalElements = companyData.length;
         page.totalPages = page.totalElements / page.size;
@@ -43,6 +46,13 @@ export class MockServerResultsService {
             resolve => (resolveFunc = resolve)
           );
         setTimeout(() => resolveFunc(pagedData), this.timeout);
+        return promise;
+    }
+
+    private delay(timeout: number): Promise<{}> {
+        let resolveFunc;
+        const promise = new Promise(resolve => (resolveFunc = resolve));
+        setTimeout(() => resolveFunc(), timeout);
         return promise;
     }
 

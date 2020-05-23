@@ -1,5 +1,5 @@
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
-import { SortDirection, SortType, SelectionType, TableColumn } from '../../types';
+import { SortDirection, SortType, SelectionType, TableColumn, ISortPropDir } from '../../types';
 import { nextSortDir } from '../../utils';
 
 @Component({
@@ -32,9 +32,8 @@ import { nextSortDir } from '../../utils';
           </span>
         </span>
       </slot>
-      <span
-        @click="onSort"
-        :class="sortCssClass">
+      <span :class="sortCssClass" @click="onSort">
+        {{sortOrder}}
       </span>
     </div>
   `,
@@ -48,12 +47,13 @@ export default class DataTableHeaderCellComponent extends Vue {
   @Prop() allRowsSelected: boolean;
   @Prop() selectionType: SelectionType;
   @Prop() column: TableColumn;
-  @Prop() sorts: any[];
+  @Prop() sorts: ISortPropDir[];
   @Prop() headerHeight: number;
 
   sortFn = this.onSort.bind(this);
   sortDir: SortDirection = null;
   myAllRowsSelected = false;
+  sortOrder = '';
   // selectFn = this.select.emit.bind(this.select);
 
   cellContext: any = {
@@ -188,13 +188,22 @@ export default class DataTableHeaderCellComponent extends Vue {
     this.$emit('columnContextmenu', { event: $event, column: this.column });
   }
 
-  calcSortDir(sorts: any[]): any {
+  calcSortDir(sorts: ISortPropDir[]): SortDirection {
+    this.sortOrder = '';
     if (sorts && this.column) {
-      const sort = sorts.find((s: any) => {
-        return s.prop === this.column.prop;
+      let sortOrder = '';
+      const sort = sorts.filter(s => s.prop).find((s: ISortPropDir, index) => {
+        if (s.prop === this.column.prop) {
+          sortOrder = (index + 1).toString();
+          return true;
+        }
       });
-
-      if (sort) return sort.dir;
+      if (sort) {
+        if (this.sortType === SortType.multi) {
+          this.sortOrder = sortOrder;
+        }
+        return sort.dir;
+      } 
     }
   }
 

@@ -4,6 +4,7 @@
   justify-content: center;
   position: relative;
   -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
   /**
    * Vertical Scrolling Adjustments
    */
@@ -127,12 +128,13 @@
         cursor: pointer; }
       .ngx-datatable .datatable-header .datatable-header-cell.longpress .datatable-header-cell-wrapper {
         cursor: move; }
-      .ngx-datatable .datatable-header .datatable-header-cell .sort-btn {
+      .ngx-datatable .datatable-header .datatable-header-cell .sort-btn::before {
         line-height: 100%;
         vertical-align: middle;
         display: inline-block;
         cursor: pointer;
-        font-size: 1.25rem; }
+        font-size: 1.25rem;
+        margin-right: -7px; }
       .ngx-datatable .datatable-header .datatable-header-cell .resize-handle, .ngx-datatable .datatable-header .datatable-header-cell .resize-handle--not-resizable {
         display: inline-block;
         position: absolute;

@@ -15,7 +15,7 @@ export class RowHeightCache {
    * height instead of the detail row height.
    */
   // private treeArray: number[] = [];
-  private heights = [];
+  private heights: Array<{ accumulator: number; height: number }> = [];
 
   /**
    * Clear the Tree array.
@@ -56,7 +56,7 @@ export class RowHeightCache {
 
     for(let i = 0; i < n; ++i) {
       // this.treeArray[i] = 0;
-      this.heights[i] = 0;
+      this.heights[i] = null;
     }
 
     let accumulator = 0;
@@ -149,7 +149,18 @@ export class RowHeightCache {
     if (atIndex < 0) {
       return 0;
     }
-    return this.heights[atIndex].accumulator;
+    return this.heights[atIndex]?.accumulator;
+  }
+
+  queryWithHeight(atIndex: number): { offsetY: number; height: number } {
+    if (atIndex < 0) {
+      return null;
+    }
+    const result = this.heights[atIndex];
+    if (!result) {
+      return null;
+    }
+    return { offsetY: result.accumulator, height: result.height };
   }
 
   // query(atIndex: number): number {

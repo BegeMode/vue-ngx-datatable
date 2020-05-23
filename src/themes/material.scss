@@ -28,6 +28,7 @@
 			&.active:focus .datatable-row-group {
 				background-color: #2041EF;
         color: #FFF;
+				outline: 1px dotted black;
 			}
     }
   }
@@ -46,7 +47,7 @@
 			&:focus .datatable-row-group, &:focus .datatable-row-group .datatable-tree-button {
 				background-color: #ddd;
 			}
-    }
+		}
   }
 
 	&.cell-selection {
@@ -241,53 +242,56 @@
 	    }
 	  }
 
-		.progress-linear {
-		  display: block;
-		  position: relative;
-		  width: 100%;
-		  height: 5px;
-		  padding: 0;
-		  margin: 0;
-      position: absolute;
+    .progress-linear {
+      display: block;
+      position: sticky;
+      width: 100%;
+      height: 5px;
+      padding: 0;
+      margin: 0;
+      top: 0;
 
-			.ngx-container {
-			  display: block;
-			  position: relative;
-			  overflow: hidden;
-			  width: 100%;
-			  height: 5px;
-			  -webkit-transform: translate(0,0) scale(1,1);
-			  transform: translate(0,0) scale(1,1);
-			  background-color: rgb(170,209,249);
+      .ngx-container {
+        display: block;
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        height: 5px;
+        -webkit-transform: translate(0, 0) scale(1, 1);
+        transform: translate(0, 0) scale(1, 1);
+        background-color: rgb(170, 209, 249);
 
-				.ngx-bar {
-				  transition: all .2s linear;
-				  -webkit-animation: query .8s infinite cubic-bezier(.39,.575,.565,1);
-				  animation: query .8s infinite cubic-bezier(.39,.575,.565,1);
+        .ngx-bar {
+          transition: all 0.2s linear;
+          -webkit-animation: query 0.8s infinite cubic-bezier(0.39, 0.575, 0.565, 1);
+          animation: query 0.8s infinite cubic-bezier(0.39, 0.575, 0.565, 1);
 
-				  transition: -webkit-transform .2s linear;
-				  transition: transform .2s linear;
-				  background-color: rgb(16,108,200);
+          transition: -webkit-transform 0.2s linear;
+          transition: transform 0.2s linear;
+          background-color: rgb(16, 108, 200);
 
-				  position: absolute;
-				  left: 0;
-				  top: 0;
-				  bottom: 0;
-				  width: 100%;
-				  height: 5px;
-				}
-			}
-		}
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 100%;
+          height: 5px;
+        }
+      }
+    }
 	}
 
 	/**
 	 * Footer Styles
 	 */
 	.datatable-footer {
-		border-top: 1px solid rgba(0, 0, 0, 0.12);
 		font-size: 12px;
     font-weight: 400;
-    color: rgba(0,0,0,.54);
+		color: rgba(0,0,0,.54);
+		
+		&.datatable-footer-border {
+			border-top: 1px solid rgba(0, 0, 0, 0.12);
+		}
 
 		.page-count{
 			line-height: 50px;

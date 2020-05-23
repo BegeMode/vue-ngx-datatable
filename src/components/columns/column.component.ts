@@ -48,7 +48,6 @@ export default class DataTableColumnComponent extends Vue {
     this.$set(this.column, 'flexGrow', this.flexGrow);
     this.$set(this.column, 'resizeable', this.resizeable);
     this.$set(this.column, 'comparator', this.comparator);
-    // column.pipe = this.pipe;
     this.$set(this.column, 'sortable', this.sortable);
     this.$set(this.column, 'draggable', this.draggable);
     this.$set(this.column, 'canAutoResize', this.canAutoResize);
@@ -116,6 +115,10 @@ export default class DataTableColumnComponent extends Vue {
   @Watch('visible') onVisibleChanged(newVal) {
     this.column.visible = newVal;
     (this.$parent as any).onColumnChangeVisible(this.column);
+  }
+
+  @Watch('column.width') onWidthChanged() {
+    this.$emit('update-width', this.column.width);
   }
 
 }

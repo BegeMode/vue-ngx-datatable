@@ -92,11 +92,13 @@ export default class DataTableBodyCellComponent extends Vue {
     const keyCode = event.keyCode;
     const isTargetCell = event.target === this.$el;
     const isAction =
-      keyCode === Keys.return ||
+      keyCode === Keys.return;/* ||
       keyCode === Keys.down ||
       keyCode === Keys.up ||
       keyCode === Keys.left ||
-      keyCode === Keys.right;
+      keyCode === Keys.right ||
+      keyCode === Keys.pageUp ||
+      keyCode === Keys.pageDown; */
   
     if (isAction && isTargetCell) {
       event.preventDefault();
