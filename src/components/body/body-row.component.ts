@@ -2,7 +2,7 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import { Keys } from '../../utils/keys';
 import DataTableBodyCellComponent from './body-cell.component.vue';
 import { TableColumn } from '../../types/table-column.type';
-import { ICellContext } from 'types/cell-context.type';
+import { IRowContext } from 'types/row-context.type';
 
 @Component({
   components: {
@@ -11,25 +11,19 @@ import { ICellContext } from 'types/cell-context.type';
 })
 export default class DataTableBodyRowComponent extends Vue {
   @Prop() row: any;
+  @Prop() rowContext: IRowContext;
   @Prop() group: any[];
   @Prop() columnsByPin: any[];
   @Prop() columnGroupWidths: any;
-  @Prop() isSelected: boolean;
-  @Prop() isChecked: boolean;
-  @Prop() rowStyles: any;
   @Prop() groupStyles: any;
   @Prop() groupClass: string;
   @Prop() displayCheck: any; // (row: any, column?: TableColumn, value?: any) => boolean,
-  @Prop() treeStatus: ({ type: string, default: 'collapsed' });
-  @Prop() cellContext: ICellContext;
-  @Prop() cellColumnCssClasses: (context: ICellContext) => Record<string, string>;
-  @Prop() cellStyleObject: (context: ICellContext) => Record<string, string | number>;
-  @Prop() marginCellStyle: (context: ICellContext) => Record<string, string>;
   @Prop() slots: any;
   @Prop() renderTracking: boolean;
-  @Prop() refresh: number;
 
   counter = 0; // it's need to update cells after row's changing
+  isFocused: boolean = false;
+
 
   created() {
     if (this.renderTracking) {
@@ -43,19 +37,25 @@ export default class DataTableBodyRowComponent extends Vue {
     }
   }
 
-  @Watch('row', { deep: true }) onRowChanged(newVal, oldVal) {
-    if (newVal === oldVal) {
-      // there was only row's properties changed - it's need to update cells
-      this.counter++;
-    }
-  }
-
-  @Watch('refresh') onRefreshChanged() {
-    console.log('onRefreshChanged');
-  }
+  // @Watch('row', { deep: true }) onRowChanged(newVal, oldVal) {
+  //   if (newVal === oldVal) {
+  //     // there was only row's properties changed - it's need to update cells
+  //     this.counter++;
+  //   }
+  // }
 
   onCellRendered(column: TableColumn) {
     this.$emit('row-updated', this.row);
+  }
+
+  onFocus() {
+    this.isFocused = true;
+    console.log('row onFocus', this.rowContext.rowIndex);
+  }
+
+  onBlur() {
+    this.isFocused = false;
+    console.log('row onBlur', this.rowContext.rowIndex);
   }
 
   onActivate(event: any, index: number): void {
@@ -65,6 +65,7 @@ export default class DataTableBodyRowComponent extends Vue {
   }
 
   onKeyDown(event: KeyboardEvent): void {
+    console.log('row onKeyDown=================');
     const keyCode = event.keyCode;
     const isTargetRow = event.target === this.$el;
 
@@ -85,6 +86,7 @@ export default class DataTableBodyRowComponent extends Vue {
         type: 'keydown',
         event,
         row: this.row,
+        rowIndex: this.rowContext.rowIndex,
         rowElement: this.$el
       });
     }
@@ -101,6 +103,18 @@ export default class DataTableBodyRowComponent extends Vue {
 
   onTreeAction(event) {
     this.$emit('tree-action', event);
+  }
+
+  get styles(): object {
+    if (this.rowContext) {
+      return {
+        width: this.columnGroupWidths.total + 'px',
+        height: this.rowContext.rowHeight + 'px',
+      };
+    }
+    return {
+      width: this.columnGroupWidths.total + 'px',
+    };
   }
 
 }

@@ -1,5 +1,5 @@
 <template>
-  <div class="datatable-row-wrapper" :style="styleObject">
+  <div class="datatable-row-wrapper" :style="styleObject" tabindex="-1">
     <datatable-group-header
       v-if="row && row.__isGroup" 
       class="datatable-group-header"

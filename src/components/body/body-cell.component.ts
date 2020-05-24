@@ -2,62 +2,99 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 // import { Keys } from '../../utils';
 // import { SortDirection } from '../../types';
 // import { TableColumn } from '../../types/table-column.type';
-// import { ICellContext } from '../../types/cell-context.type';
 import { Keys } from '../../utils';
-import { ICellContext } from '../../types/cell-context.type';
+import { IRowContext } from '../../types/row-context.type';
+import { SortDirection, TableColumn } from 'types';
 
 export type TreeStatus = 'collapsed' | 'expanded' | 'loading' | 'disabled';
 
 @Component
 export default class DataTableBodyCellComponent extends Vue {
-  @Prop() context: ICellContext;
-  @Prop() cellColumnCssClasses: (context: ICellContext) => Record<string, string>;
-  @Prop() cellStyleObject: (context: ICellContext) => Record<string, string | number>;
-  @Prop() marginCellStyle: (context: ICellContext) => Record<string, string>;
+  @Prop() column: TableColumn;
+  @Prop() rowContext: IRowContext;
   @Prop() tabIndex: string;
   @Prop() cellSlot: any;
   @Prop() renderTracking: boolean;
+  @Prop() displayCheck: (row: any, column?: TableColumn, value?: any) => boolean;
+
+  sanitizedValue: any = null;
+  value: any = null;
+  // sortDir: SortDirection = null;
+  isFocused: boolean = false;
+  // activateFn = this.activate.emit.bind(this.activate); todo
+
+  @Watch('rowContext.row', { deep: true, immediate: true }) onRowChanged() {
+    this.checkValueUpdates();
+  }
 
   created() {
     if (this.cellSlot) {
       this.$slots.default = this.cellSlot({
-        row: this.context && this.context.row ? this.context.row : {}, 
-        column: this.context.column,
-        rowIndex: this.context.rowIndex, 
-        group: this.context.group, 
-        expanded: this.context.expanded,
-        value: this.context.value,
+        row: this.rowContext?.row ?? {}, 
+        column: this.column,
+        rowIndex: this.rowContext.rowIndex, 
+        group: this.rowContext.group, 
+        expanded: this.rowContext.expanded,
+        value: this.value,
         updateCell: this.$forceUpdate.bind(this),
       });
     }
     if (this.renderTracking) {
-      this.$emit('cell-created', this.context.column);
+      this.$emit('cell-created', this.column);
     }
   }
 
   beforeUpdate() {
     if (this.cellSlot) {
       this.$slots.default = this.cellSlot({
-        row: this.context && this.context.row ? this.context.row : {}, 
-        column: this.context.column,
-        rowIndex: this.context.rowIndex, 
-        group: this.context.group, 
-        expanded: this.context.expanded,
-        value: this.context.value,
-        updateCell: this.$forceUpdate.bind(this),
+        row: this.rowContext?.row ?? {}, 
+        column: this.column,
+        rowIndex: this.rowContext.rowIndex, 
+        group: this.rowContext.group, 
+        expanded: this.rowContext.expanded,
+        value: this.value,
       });
     }
     if (this.renderTracking) {
-      this.$emit('cell-updated', this.context.column);
+      this.$emit('cell-updated', this.column);
     }
   }
 
+  checkValueUpdates(): void {
+    let value = '';
+
+    if (!this.rowContext || !this.column) {
+      value = '';
+    } else {
+      // todo: make transform by vue filters
+      // const val = this.column.$$valueGetter(this.row, this.column.prop);
+      // const userPipe: PipeTransform = this.column.pipe;
+
+      // if (userPipe) {
+      //   value = userPipe.transform(val);
+      // } else if (value !== undefined) {
+      //   value = val;
+      // }
+      value = this.column.$$valueGetter(this.rowContext.row, this.column.prop);
+    }
+
+    if(this.value !== value) {
+      this.value = value;
+      this.sanitizedValue = value !== null && value !== undefined ? this.stripHtml(value) : value;
+    }
+  }
+
+  stripHtml(html: string): string {
+    if(!html.replace) return html;
+    return html.replace(/<\/?[^>]+(>|$)/g, '');
+  }
+
   onFocus(): void {
-    this.context.isFocused = true;
+    this.isFocused = true;
   }
   
   onBlur(): void {
-    this.context.isFocused = false;
+    this.isFocused = false;
   }
 
   onClick(event): void {
@@ -66,11 +103,11 @@ export default class DataTableBodyCellComponent extends Vue {
     this.$emit('activate', {
       type: 'click',
       event,
-      row: this.context.row,
-      group: this.context.group,
-      rowHeight: this.context.rowHeight,
-      column: this.context.column,
-      value: this.context.value,
+      row: this.rowContext.row,
+      group: this.rowContext.group,
+      rowHeight: this.rowContext.rowHeight,
+      column: this.column,
+      value: this.value,
       cellElement: this.$el,
     });
   }
@@ -79,26 +116,27 @@ export default class DataTableBodyCellComponent extends Vue {
     this.$emit('activate', {
       type: 'dblclick',
       event,
-      row: this.context.row,
-      group: this.context.group,
-      rowHeight: this.context.rowHeight,
-      column: this.context.column,
-      value: this.context.value,
+      row: this.rowContext.row,
+      group: this.rowContext.group,
+      rowHeight: this.rowContext.rowHeight,
+      column: this.column,
+      value: this.value,
       cellElement: this.$el,
     });
   }
   
   onKeyDown(event): void {
+    console.log('cell onKeyDown=================');
     const keyCode = event.keyCode;
     const isTargetCell = event.target === this.$el;
-    const isAction =
-      keyCode === Keys.return;/* ||
+    const isAction = 
+      keyCode === Keys.return ||
       keyCode === Keys.down ||
       keyCode === Keys.up ||
       keyCode === Keys.left ||
       keyCode === Keys.right ||
       keyCode === Keys.pageUp ||
-      keyCode === Keys.pageDown; */
+      keyCode === Keys.pageDown;
   
     if (isAction && isTargetCell) {
       event.preventDefault();
@@ -107,11 +145,12 @@ export default class DataTableBodyCellComponent extends Vue {
       this.$emit('activate', {
         type: 'keydown',
         event,
-        row: this.context.row,
-        group: this.context.group,
-        rowHeight: this.context.rowHeight,
-        column: this.context.column,
-        value: this.context.value,
+        row: this.rowContext.row,
+        rowIndex: this.rowContext.rowIndex,
+        group: this.rowContext.group,
+        rowHeight: this.rowContext.rowHeight,
+        column: this.column,
+        value: this.value,
         cellElement: this.$el,
       });
     }
@@ -121,22 +160,103 @@ export default class DataTableBodyCellComponent extends Vue {
     this.$emit('activate', {
       type: 'checkbox',
       event,
-      row: this.context.row,
-      group: this.context.group,
-      rowHeight: this.context.rowHeight,
-      column: this.context.column,
-      value: this.context.value,
+      row: this.rowContext.row,
+      group: this.rowContext.group,
+      rowHeight: this.rowContext.rowHeight,
+      column: this.column,
+      value: this.value,
       cellElement: this.$el,
-      treeStatus: 'collapsed'
+      treeStatus: this.rowContext.treeStatus,
     });
   }
   
   onTreeAction(event) {
-    this.$emit('tree-action', { event, row: this.context.row });
+    this.$emit('tree-action', { event, row: this.rowContext.row });
   }
 
   onMouseEnter(event) {
-    this.$emit('mouseenter', { event, row: this.context.row });
+    this.$emit('mouseenter', { event, row: this.rowContext.row });
+  }
+
+  get cssClasses(): Record<string, string | number> {
+    if (!this.rowContext) {
+      return null;
+    }
+    const result = {
+    };
+    let func = null;
+    if (this.column.cellClass) {
+      if (typeof this.column.cellClass === 'string') {
+        result[this.column.cellClass] = true;
+      } else if (Array.isArray(this.column.cellClass)) {
+        this.column.cellClass.forEach(value => {
+          if (typeof value === 'function') {
+            func = value;
+          } else {
+            result[value] = true;
+          }
+        });
+      } else if (typeof this.column.cellClass === 'function') {
+        func = this.column.cellClass;
+      }
+      if(func) {
+        const res = func({
+          row: this.rowContext?.row,
+          group: this.rowContext?.group,
+          column: this.column,
+          value: this.value,
+          rowHeight: this.rowContext?.rowHeight,
+        });
+
+        if (typeof res === 'string') {
+          result[res] = true;
+        } else if (typeof res === 'object') {
+          const keys = Object.keys(res);
+          for (const k of keys) {
+            if (res[k] === true) {
+              result[` ${k}`] = true;
+            }
+          }
+        }
+      }
+    }
+    // result['sort-active'] = !this.sortDir;
+    result['active'] = this.isFocused;
+    // result['sort-asc'] = this.sortDir === SortDirection.asc;
+    // result['sort-desc'] = this.sortDir === SortDirection.desc;
+    return result;
+  }
+
+  get styles(): Record<string, string | number> {
+    if (!this.rowContext) {
+      return {};
+    }
+    return {
+      width: this.column.width + 'px',
+      minWidth: this.column.minWidth + 'px',
+      maxWidth: this.column.maxWidth + 'px',
+      height: this.rowContext.rowHeight + 'px', // this.cellHeight(this.rowContext.rowHeight),
+    };
+  }
+
+  get marginCellStyle(): Record<string, string> {
+    if (!this.rowContext) {
+      return {};
+    }
+    return {
+      'margin-left': this.calcLeftMargin(this.column, this.rowContext.row) + 'px',
+    };
+  }
+
+  cellHeight(rowHeight: number): string | number {
+    const height = rowHeight;
+    if (isNaN(height)) return height;
+    return height + 'px';
+  }
+
+  calcLeftMargin(column: TableColumn, row: any) {
+    const levelIndent = column.treeLevelIndent != null ? column.treeLevelIndent : 50;
+    return column.isTreeColumn ? row.level * levelIndent : 0;
   }
 }
 

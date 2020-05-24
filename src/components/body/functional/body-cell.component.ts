@@ -2,7 +2,6 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 // import { Keys } from '../../utils';
 // import { SortDirection } from '../../types';
 // import { TableColumn } from '../../types/table-column.type';
-// import { ICellContext } from '../../types/cell-context.type';
 import { Keys } from '../../../utils';
 
 export type TreeStatus = 'collapsed' | 'expanded' | 'loading' | 'disabled';

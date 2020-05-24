@@ -595,7 +595,7 @@ export default class DatatableComponent extends Vue {
   @Watch('offset', { immediate: true }) onOffsetChanged() {
     if (this.innerOffset !== this.offset) {
       this.innerOffset = this.offset;
-      if (this.externalPager && this.innerOffset >= 0) {
+      if (/* this.externalPager && */ this.innerOffset >= 0) {
         this.onFooterPage({ page: this.offset + 1 });
       }
     }
@@ -685,6 +685,10 @@ export default class DatatableComponent extends Vue {
    */
   get isSingleSelection(): boolean {
     return this.selectionType === SelectionType.single;
+  }
+
+  get isSingleFocusSelection(): boolean {
+    return this.selectionType === SelectionType.singleFocus;
   }
 
   /**

@@ -8,6 +8,7 @@ export interface Model {
   type: string; 
   event: MouseEvent | KeyboardEvent;
   row: any;
+  rowIndex: number;
   rowElement: any;
   cellElement: any;
   cellIndex: number;
@@ -123,7 +124,6 @@ export default class DataTableSelectionComponent extends Vue {
     if (this.checkMode === CheckMode.checkNoSelect && column?.checkboxable) {
       select = false;
     }
-  
     if (select) {
       this.selectRow(event, index, row);
     } else if (type === 'checkbox' && this.checkMode === CheckMode.checkNoSelect) { 
@@ -153,14 +153,56 @@ export default class DataTableSelectionComponent extends Vue {
         this.selectionType === SelectionType.cell;
 
       if (!model.cellElement || !isCellSelection) {
-        this.focusRow(keyCode);
+        this.focusRow(model, keyCode);
       } else if (isCellSelection) {
         this.focusCell(model.cellElement, model.rowElement, keyCode, model.cellIndex);
       }
     }
   }
 
-  focusRow(keyCode: number): void {
+  async focusRow(model: Model, keyCode: number): Promise<void> {
+    // let index = 0;
+    // if (keyCode === Keys.up) {
+    //   if (model.rowIndex - 1 < 0) {
+    //     return;
+    //   }
+    //   index = model.rowIndex - 1;
+    // } else if (keyCode === Keys.down) {
+    //   if (model.rowIndex + 1 >= this.rows.length) {
+    //     return;
+    //   }
+    //   index = model.rowIndex + 1;
+    // } else if (keyCode === Keys.pageUp) {
+    //   index = model.rowIndex - this.pageSize;
+    //   index = index < 0 ? 0 : index;
+    // } else if (keyCode === Keys.pageDown) {
+    //   index = model.rowIndex + this.pageSize;
+    //   index = index >= this.rows.length ? this.rows.length - 1 : index;
+    // }
+    // const nextRow = this.rows[index];
+    // if (!nextRow) {
+    //   return;
+    // }
+    // const { offsetY, height } = (this.$parent as any).getRowOffsetY(index);
+    // let h = 0;
+    // if ([Keys.down, Keys.pageDown].includes(keyCode)) {
+    //   h = offsetY - this.bodyRect.height;
+    // } else if ([Keys.up, Keys.pageUp].includes(keyCode)) {
+    //   h = (offsetY - height) - (this.scroller as any).scrollYPos;
+    // }
+    // if (h > 0 && [Keys.down, Keys.pageDown].includes(keyCode)) {
+    //   (this.scroller as any).setOffset(h);
+    // } else if (h < 0 && [Keys.up, Keys.pageUp].includes(keyCode)) {
+    //   (this.scroller as any).incOffset(h);
+    // }
+    // await this.$nextTick();
+    const nextRowElement = this.getPrevNextRow(model.rowElement, keyCode);
+    if (nextRowElement) {
+      nextRowElement.focus();
+    }
+  }
+
+  focusRow1(keyCode: number): void {
     let index = 0;
     if (keyCode === Keys.up) {
       if (this.prevIndex - 1 < 0) {
@@ -253,6 +295,23 @@ export default class DataTableSelectionComponent extends Vue {
   }
 
   getPrevNextRow(rowElement: any, keyCode: number): any {
+    const parentElement = rowElement.parentElement;
+
+    if (parentElement) {
+      let focusElement: HTMLElement;
+      if (keyCode === Keys.up) {
+        focusElement = parentElement.previousElementSibling;
+      } else if (keyCode === Keys.down) {
+        focusElement = parentElement.nextElementSibling;
+      }
+
+      if (focusElement && focusElement.children.length) {
+        return focusElement.children[0];
+      }
+    }
+  }
+
+  getPrevNextRow1(rowElement: any, keyCode: number): any {
     const parentElement = rowElement.parentElement;
     // const parentElement = rowElement.closest('.datatable-row-wrapper');
 

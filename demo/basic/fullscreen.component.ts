@@ -21,68 +21,73 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
       <ngx-datatable
         class="material fullscreen"
         style="top: 52px"
-        :columnMode="'force'"
+        :columns="columns"
+        columnMode="standard"
         :headerHeight="50"
-        :footerHeight="0"
+        :footerHeight="50"
         :rowHeight="50"
         :scrollbarV="true"
         :scrollbarH="true"
         :rows="rows"
         @rendered="onRendered">
-        <vue-datatable-column name="Id" :width="80"></vue-datatable-column>
+        <!-- <vue-datatable-column name="Id" :width="80"></vue-datatable-column>
         <vue-datatable-column name="Name" :width="300">
-          <span slot="header"><strong>FullName</strong></span>
+          <span slot="header"><strong>FullName</strong></span> -->
           <!-- <template slot-scope="scope" v-if="scope.row">
             <span style="margin-left: 10px"><i>{{ scope.row.name }}</i></span>
           </template> -->
-        </vue-datatable-column>
+        <!-- </vue-datatable-column>
         <vue-datatable-column name="Gender"></vue-datatable-column>
         <vue-datatable-column name="Age"></vue-datatable-column>
         <vue-datatable-column name="City" :width="300" prop="address.city"></vue-datatable-column>
-        <vue-datatable-column name="State" :width="300" prop="address.state"></vue-datatable-column>
+        <vue-datatable-column name="State" :width="300" prop="address.state"></vue-datatable-column> -->
       </ngx-datatable>
     </div>
   `
 })
 export class FullScreenComponent extends Vue {
   rows = [];
-  columns: TableColumn[] = [
-    {
-      name: 'Id',
-      width: 80,
-    },
-    {
-      name: 'Name',
-      width: 300,
-    },
-    {
-      name: 'Gender',
-      // width: 150,
-    },
-    {
-      name: 'Age',
-      width: 150,
-    },
-    {
-      name: 'City',
-      width: 300,
-      prop: 'address.city',
-    },
-    {
-      name: 'State',
-      width: 300,
-      prop: 'address.state',
-    },
-  ];
+  columns: TableColumn[] = [];
+  //   {
+  //     name: 'Id',
+  //     width: 80,
+  //   },
+  //   {
+  //     name: 'Name',
+  //     width: 300,
+  //   },
+  //   {
+  //     name: 'Gender',
+  //     // width: 150,
+  //   },
+  //   {
+  //     name: 'Age',
+  //     width: 150,
+  //   },
+  //   {
+  //     name: 'City',
+  //     width: 300,
+  //     prop: 'address.city',
+  //   },
+  //   {
+  //     name: 'State',
+  //     width: 300,
+  //     prop: 'address.state',
+  //   },
+  // ];
   created() {
     this.fetch((data) => {
-      this.rows = data;
+      data.cols.forEach(col => {
+        this.columns.push({ name: col, prop: col });
+      });
+      this.rows = data.data;
     });
   }
 
   fetch(cb) {
     const req = new XMLHttpRequest();
-    req.open('GET', `assets/data/100k.json`);
+    // req.open('GET', `assets/data/100k.json`);
+    req.open('GET', `assets/data/columns20.json`);
 
     req.onload = () => {
       cb(JSON.parse(req.response));

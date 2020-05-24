@@ -1,22 +1,25 @@
-<div :id="`${context.column.prop}-${context.column.$$id}`" class="datatable-body-cell" :style="cellStyleObject(context)"
-  v-show="context.column.visible"
-  :tabindex="tabIndex" :class="cellColumnCssClasses(context)"
-  @dblclick="onDblClick" @click="onClick"
-  @keydown="onKeyDown" @mouseenter="onMouseEnter"
+<div :id="`${column.prop}-${column.$$id}`" class="datatable-body-cell" :style="styles"
+  v-show="column.visible"
+  :tabindex="tabIndex" 
+  :class="cssClasses"
+  @dblclick="onDblClick" 
+  @click="onClick"
+  @keydown="onKeyDown" 
+  @mouseenter="onMouseEnter"
   @focus="onFocus" @blur="onBlur">
-  <div class="datatable-body-cell-label" :style="marginCellStyle(context)">
-    <label v-if="context.column.checkboxable && (!context.displayCheck || context.displayCheck(context.row, context.column, context.value))"
+  <div class="datatable-body-cell-label" :style="column.isTreeColumn ? marginCellStyle: null">
+    <label v-if="column.checkboxable && (!displayCheck || displayCheck(rowContext.row, column, value))"
       class="datatable-checkbox">
-      <input type="checkbox" :checked="context.isChecked" @click="onCheckboxChange" />
+      <input type="checkbox" :checked="rowContext.isChecked" @click="onCheckboxChange" />
     </label>
-    <template v-if="context.column.isTreeColumn">
-      <button v-if="!context.column.treeToggleTemplate" class="datatable-tree-button" :disabled="context.row.treeStatus==='disabled'"
+    <template v-if="column.isTreeColumn">
+      <button v-if="!column.treeToggleTemplate" class="datatable-tree-button" :disabled="rowContext.treeStatus==='disabled'"
         @click="onTreeAction">
         <span>
-          <i v-if="context.row.treeStatus==='loading'" class="icon datatable-icon-collapse"></i>
-          <i v-else-if="context.row.treeStatus==='collapsed'" class="icon datatable-icon-right"></i>
-          <i v-else-if="context.row.treeStatus==='expanded'" class="icon datatable-icon-down"></i> 
-          <!-- || context.treeStatus==='disabled' -->
+          <i v-if="rowContext.row.treeStatus==='loading'" class="icon datatable-icon-collapse"></i>
+          <i v-else-if="rowContext.treeStatus==='collapsed'" class="icon datatable-icon-right"></i>
+          <i v-else-if="rowContext.treeStatus==='expanded'" class="icon datatable-icon-down"></i> 
+          <!-- || rowContext.treeStatus==='disabled' -->
           <i v-else class="icon icon-disabled datatable-icon-down"></i> 
         </span>
       </button>
@@ -24,13 +27,13 @@
       </slot>
     </template>
     <slot v-bind="{ 
-                 row: context && context.row ? context.row : {},
-                 column: context.column,
-                 rowIndex: context.rowIndex, 
-                 group: context.group, 
-                 expanded: context.expanded,
-                 value: context.value }">
-      <span :title="context.sanitizedValue" v-html="context.value"></span>
+                 row: rowContext.row ? rowContext.row : {},
+                 column: column,
+                 rowIndex: rowContext.rowIndex, 
+                 group: rowContext.group, 
+                 expanded: rowContext.expanded,
+                 value: value }">
+      <span :title="sanitizedValue" v-html="value"></span>
     </slot>
   </div>
 </div>

@@ -1,6 +1,6 @@
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import DataTableBodyRowComponent from '../body-row.component.vue';
-import { ICellContext } from 'types/cell-context.type';
+import { IRowContext } from 'types/row-context.type';
 
 export interface ISummaryColumn {
   summaryFunc?: (cells: any[]) => any;
@@ -40,14 +40,11 @@ function noopSumFunc(cells: any[]): void {
     :columnsByPin="columnsByPin"
     :columnGroupWidths="columnGroupWidths"
     :groupStyles="groupStyles"
-    :groupClass="groupClass"
-    :rowStyles="rowStyles"
+    :groupClass="groupClass(rowContext.row, -1)"
+    :rowContext="myRowContext"
+    :slots="cellSlots"
+    :renderTracking="renderTracking"
     :row="summaryRow"
-    :rowIndex="-1"
-    :cellContext="cellContext"
-    :cellColumnCssClasses="cellColumnCssClasses"
-    :cellStyleObject="cellStyleObject"
-    :marginCellStyle="marginCellStyle"
     :slots="mySlotsFunc"
     @activate="onActivate">
   </datatable-body-row>
@@ -64,16 +61,12 @@ export default class DataTableSummaryRowComponent extends Vue {
   @Prop() columnGroupWidths: any;
   @Prop() groupStyles: any;
   @Prop() groupClass: string;
-  @Prop() rowStyles: any;
-  @Prop() cellContext: ICellContext;
-  @Prop() cellColumnCssClasses: (context: ICellContext) => Record<string, string>;
-  @Prop() cellStyleObject: (context: ICellContext) => Record<string, string | number>;
-  @Prop() marginCellStyle: (context: ICellContext) => Record<string, string>;
   @Prop() slots: any;
 
   internalColumns: ISummaryColumn[] = [];
   summaryRow = {};
   mySlotsFunc: any = null;
+  myRowContext: IRowContext= null;
 
   @Watch('rows', { immediate: true }) onRowsChanged() {
     this.onChanges();  
@@ -128,7 +121,8 @@ export default class DataTableSummaryRowComponent extends Vue {
       this.summaryRow[col.prop] = col.filter ?
         col.filter(sumFunc(cellsFromSingleColumn)) :
         sumFunc(cellsFromSingleColumn);
-    });
+      });
+    this.myRowContext = { row: this.summaryRow, rowIndex: -1, expanded: false, isChecked: false, isSelected: false, rowHeight: this.rowHeight, treeStatus: null };
   }
 
   private getSummaryFunction(column: ISummaryColumn): (a: any[]) => any {
