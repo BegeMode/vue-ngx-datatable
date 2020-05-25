@@ -35,6 +35,9 @@ export default class DataTableBodyRowComponent extends Vue {
     if (this.renderTracking) {
       this.$emit('row-updated', this.row);
     }
+    if (this.isFocused) {
+      (this.$el as HTMLElement).focus();
+    }
   }
 
   // @Watch('row', { deep: true }) onRowChanged(newVal, oldVal) {
@@ -50,12 +53,10 @@ export default class DataTableBodyRowComponent extends Vue {
 
   onFocus() {
     this.isFocused = true;
-    console.log('row onFocus', this.rowContext.rowIndex);
   }
 
   onBlur() {
     this.isFocused = false;
-    console.log('row onBlur', this.rowContext.rowIndex);
   }
 
   onActivate(event: any, index: number): void {
@@ -65,7 +66,6 @@ export default class DataTableBodyRowComponent extends Vue {
   }
 
   onKeyDown(event: KeyboardEvent): void {
-    console.log('row onKeyDown=================');
     const keyCode = event.keyCode;
     const isTargetRow = event.target === this.$el;
 
@@ -73,8 +73,6 @@ export default class DataTableBodyRowComponent extends Vue {
       keyCode === Keys.return ||
       keyCode === Keys.down ||
       keyCode === Keys.up ||
-      keyCode === Keys.left ||
-      keyCode === Keys.right ||
       keyCode === Keys.pageUp ||
       keyCode === Keys.pageDown;
 

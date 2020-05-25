@@ -1,5 +1,5 @@
 <template>
-  <div id="row-group" :class="groupClass" :style="styles" :tabIndex="rowContext.rowIndex" @focus="onFocus" @blur="onBlur">
+  <div id="row-group" :class="groupClass" :style="styles" :tabIndex="-1" @focus="onFocus" @blur="onBlur" @keydown="onKeyDown">
     <div
       class="datatable-row-group"
       v-for="colGroup of columnsByPin"
@@ -21,7 +21,6 @@
         :renderTracking="renderTracking"
         :displayCheck="displayCheck" 
         @activate="onActivate($event, ii)"
-        @keydown="onKeyDown"
         @tree-action="onTreeAction"
         @mouseenter="onMouseenter"
         @cell-created="onCellRendered"

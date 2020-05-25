@@ -1,5 +1,5 @@
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
-import { translateXY, columnsByPin, columnGroupWidths, RowHeightCache, columnsByPinArr, throttleable, throttle } from '../../utils';
+import { translateXY, columnsByPin, columnGroupWidths, RowHeightCache, columnsByPinArr, throttle } from '../../utils';
 import { SelectionType, TableColumn, SortDirection } from '../../types';
 import ScrollerComponent from './scroller.component';
 import DataTableSelectionComponent from './selection.component';
@@ -337,7 +337,7 @@ export default class DataTableBodyComponent extends Vue {
     this.offsetY = scrollYPos;
     this.myOffsetX = scrollXPos;
     this.$nextTick(() => {
-      this.updateIndexes();
+      this.updateIndexes(event.direction);
       this.updatePage(event.direction, event.fromPager);
       this.updateRows();
     });
@@ -552,7 +552,10 @@ export default class DataTableBodyComponent extends Vue {
   }
 
   getRowOffsetY(index: number): { offsetY: number; height: number } {
-    const result = this.rowHeightsCache.queryWithHeight(index);
+    let result = this.rowHeightsCache.queryWithHeight(index);
+    if (!result) {
+      result = { height: 0, offsetY: 0 };
+    }
     return result;
   }
 
@@ -588,7 +591,7 @@ export default class DataTableBodyComponent extends Vue {
   /**
    * Updates the index of the rows in the viewport
    */
-  updateIndexes(): void {
+  updateIndexes(direction?: string): void {
     let first = 0;
     let last = 0;
 
@@ -614,7 +617,9 @@ export default class DataTableBodyComponent extends Vue {
       }
       last = Math.min((first + this.pageSize), this.rowCount);
     }
-
+    if (direction === 'down') {
+      first = first === 0 ? 0 : first + 1;
+    }
     this.indexes = { first, last };
   }
 
@@ -731,7 +736,6 @@ export default class DataTableBodyComponent extends Vue {
   /**
    * Recalculates the table
    */
-  @throttleable(500)
   recalcLayout(updateOffset: boolean = false): void {
     this.refreshRowHeightCache();
     if (updateOffset) {

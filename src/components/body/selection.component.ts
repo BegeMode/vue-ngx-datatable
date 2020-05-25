@@ -161,44 +161,55 @@ export default class DataTableSelectionComponent extends Vue {
   }
 
   async focusRow(model: Model, keyCode: number): Promise<void> {
-    // let index = 0;
-    // if (keyCode === Keys.up) {
-    //   if (model.rowIndex - 1 < 0) {
-    //     return;
-    //   }
-    //   index = model.rowIndex - 1;
-    // } else if (keyCode === Keys.down) {
-    //   if (model.rowIndex + 1 >= this.rows.length) {
-    //     return;
-    //   }
-    //   index = model.rowIndex + 1;
-    // } else if (keyCode === Keys.pageUp) {
-    //   index = model.rowIndex - this.pageSize;
-    //   index = index < 0 ? 0 : index;
-    // } else if (keyCode === Keys.pageDown) {
-    //   index = model.rowIndex + this.pageSize;
-    //   index = index >= this.rows.length ? this.rows.length - 1 : index;
-    // }
-    // const nextRow = this.rows[index];
-    // if (!nextRow) {
-    //   return;
-    // }
-    // const { offsetY, height } = (this.$parent as any).getRowOffsetY(index);
-    // let h = 0;
-    // if ([Keys.down, Keys.pageDown].includes(keyCode)) {
-    //   h = offsetY - this.bodyRect.height;
-    // } else if ([Keys.up, Keys.pageUp].includes(keyCode)) {
-    //   h = (offsetY - height) - (this.scroller as any).scrollYPos;
-    // }
-    // if (h > 0 && [Keys.down, Keys.pageDown].includes(keyCode)) {
-    //   (this.scroller as any).setOffset(h);
-    // } else if (h < 0 && [Keys.up, Keys.pageUp].includes(keyCode)) {
-    //   (this.scroller as any).incOffset(h);
-    // }
-    // await this.$nextTick();
     const nextRowElement = this.getPrevNextRow(model.rowElement, keyCode);
-    if (nextRowElement) {
-      nextRowElement.focus();
+    let index = 0;
+    if (keyCode === Keys.up) {
+      if (model.rowIndex - 1 < 0) {
+        return;
+      }
+      index = model.rowIndex - 1;
+    } else if (keyCode === Keys.down) {
+      if (model.rowIndex + 1 >= this.rows.length) {
+        return;
+      }
+      index = model.rowIndex + 1;
+    } else if (keyCode === Keys.pageUp) {
+      index = model.rowIndex - this.pageSize;
+      index = index < 0 ? 0 : index;
+    } else if (keyCode === Keys.pageDown) {
+      index = model.rowIndex + this.pageSize;
+      index = index >= this.rows.length ? this.rows.length - 1 : index;
+    }
+    const { offsetY, height } = (this.$parent as any).getRowOffsetY(index);
+    if (!height) {
+      if (nextRowElement) {
+        nextRowElement.focus();
+      }
+      return;
+    }
+    let scrolled = false;
+    let h = 0;
+    if ([Keys.down, Keys.pageDown].includes(keyCode)) {
+      h = (offsetY + height) - (this.$parent.$el.scrollTop + this.bodyRect.height);
+    } else if ([Keys.up, Keys.pageUp].includes(keyCode)) {
+      h = (offsetY - height) - this.$parent.$el.scrollTop;
+    }
+    if (h > 0 && [Keys.down, Keys.pageDown].includes(keyCode)) {
+      (this.scroller as any).incOffset(h);
+      // scrolled = model.rowIndex === this.rows.length - 2 ? false : true;
+    } else if (h < 0 && [Keys.up, Keys.pageUp].includes(keyCode)) {
+      (this.scroller as any).incOffset(h);
+      scrolled = model.rowIndex === 1 ? false : true;
+    } else if (h === 0 && [Keys.up, Keys.pageUp].includes(keyCode) && [0,1,2].includes(model.rowIndex)) {
+      (this.scroller as any).setOffset(h);
+      // scrolled = true;
+    }
+    if (scrolled) {
+      model.rowElement.focus();
+    } else {
+      if (nextRowElement) {
+        nextRowElement.focus();
+      }
     }
   }
 
