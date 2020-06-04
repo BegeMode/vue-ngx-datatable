@@ -16,7 +16,7 @@ export default class DataTableBodyRowComponent extends Vue {
   @Prop() columnsByPin: any[];
   @Prop() columnGroupWidths: any;
   @Prop() groupStyles: any;
-  @Prop() groupClass: string;
+  @Prop() rowClass: (row: any, rowIndex: number) => string | string;
   @Prop() displayCheck: any; // (row: any, column?: TableColumn, value?: any) => boolean,
   @Prop() slots: any;
   @Prop() renderTracking: boolean;
@@ -113,6 +113,30 @@ export default class DataTableBodyRowComponent extends Vue {
     return {
       width: this.columnGroupWidths.total + 'px',
     };
+  }
+
+  get cssClasses(): string {
+    let cls = '';
+    if (this.rowContext?.isSelected) {
+      cls += ' active';
+    }
+    if (this.rowContext?.rowIndex % 2 !== 0) {
+      cls += ' datatable-row-odd';
+    } else {
+      cls += ' datatable-row-even';
+    }
+    if (typeof this.rowClass === 'function') {
+      const res = this.rowClass(this.rowContext.row, this.rowContext.rowIndex);
+      if (typeof res === 'string') {
+        cls += ` ${res}`;
+      } else if (typeof res === 'object') {
+        const keys = Object.keys(res);
+        for (const k of keys) {
+          if (res[k] === true) cls += ` ${k}`;
+        }
+      }
+    }
+    return cls;
   }
 
 }

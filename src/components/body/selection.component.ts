@@ -180,7 +180,7 @@ export default class DataTableSelectionComponent extends Vue {
       index = model.rowIndex + this.pageSize;
       index = index >= this.rows.length ? this.rows.length - 1 : index;
     }
-    const { offsetY, height } = (this.$parent as any).getRowOffsetY(index);
+    const { offsetY, height } = (this.$parent as any).getRowOffsetY(index + 1);
     if (!height) {
       if (nextRowElement) {
         nextRowElement.focus();

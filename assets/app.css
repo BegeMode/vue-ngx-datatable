@@ -217,7 +217,7 @@ select {
 }
 
 .is-gender {
-  background: blue;
+  background: blue !important;
   color: white;
 }
 

@@ -40,10 +40,7 @@ function noopSumFunc(cells: any[]): void {
     :columnsByPin="columnsByPin"
     :columnGroupWidths="columnGroupWidths"
     :groupStyles="groupStyles"
-    :groupClass="groupClass(rowContext.row, -1)"
     :rowContext="myRowContext"
-    :slots="cellSlots"
-    :renderTracking="renderTracking"
     :row="summaryRow"
     :slots="mySlotsFunc"
     @activate="onActivate">

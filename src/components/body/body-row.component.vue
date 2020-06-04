@@ -1,5 +1,12 @@
 <template>
-  <div id="row-group" :class="groupClass" :style="styles" :tabIndex="-1" @focus="onFocus" @blur="onBlur" @keydown="onKeyDown">
+  <div id="row-group" class="datatable-body-row" 
+      :class="cssClasses" 
+      :style="styles" 
+      :tabIndex="-1" 
+      @focus="onFocus" 
+      @blur="onBlur" 
+      @keydown="onKeyDown"
+  >
     <div
       class="datatable-row-group"
       v-for="colGroup of columnsByPin"

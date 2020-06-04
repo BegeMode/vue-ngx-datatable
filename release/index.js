@@ -1,5 +1,5 @@
 /**
- * vue-data-table v"1.1.6" (https://github.com/begemode/vue-ngx-data-table)
+ * vue-data-table v"1.1.7" (https://github.com/begemode/vue-ngx-data-table)
  * Copyright 2018
  * Licensed under MIT
  */
@@ -251,50 +251,85 @@ var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */
 // import { Keys } from '../../utils';
 // import { SortDirection } from '../../types';
 // import { TableColumn } from '../../types/table-column.type';
-// import { ICellContext } from '../../types/cell-context.type';
 var utils_1 = __webpack_require__(/*! ../../utils */ "./src/utils/index.ts");
 var DataTableBodyCellComponent = /** @class */ (function (_super) {
     __extends(DataTableBodyCellComponent, _super);
     function DataTableBodyCellComponent() {
-        return _super !== null && _super.apply(this, arguments) || this;
+        var _this = _super !== null && _super.apply(this, arguments) || this;
+        _this.sanitizedValue = null;
+        _this.value = null;
+        // sortDir: SortDirection = null;
+        _this.isFocused = false;
+        return _this;
     }
+    // activateFn = this.activate.emit.bind(this.activate); todo
+    DataTableBodyCellComponent.prototype.onRowChanged = function () {
+        this.checkValueUpdates();
+    };
     DataTableBodyCellComponent.prototype.created = function () {
+        var _a, _b;
         if (this.cellSlot) {
             this.$slots.default = this.cellSlot({
-                row: this.context && this.context.row ? this.context.row : {},
-                column: this.context.column,
-                rowIndex: this.context.rowIndex,
-                group: this.context.group,
-                expanded: this.context.expanded,
-                value: this.context.value,
+                row: (_b = (_a = this.rowContext) === null || _a === void 0 ? void 0 : _a.row) !== null && _b !== void 0 ? _b : {},
+                column: this.column,
+                rowIndex: this.rowContext.rowIndex,
+                group: this.rowContext.group,
+                expanded: this.rowContext.expanded,
+                value: this.value,
                 updateCell: this.$forceUpdate.bind(this),
             });
         }
         if (this.renderTracking) {
-            this.$emit('cell-created', this.context.column);
+            this.$emit('cell-created', this.column);
         }
     };
     DataTableBodyCellComponent.prototype.beforeUpdate = function () {
+        var _a, _b;
         if (this.cellSlot) {
             this.$slots.default = this.cellSlot({
-                row: this.context && this.context.row ? this.context.row : {},
-                column: this.context.column,
-                rowIndex: this.context.rowIndex,
-                group: this.context.group,
-                expanded: this.context.expanded,
-                value: this.context.value,
-                updateCell: this.$forceUpdate.bind(this),
+                row: (_b = (_a = this.rowContext) === null || _a === void 0 ? void 0 : _a.row) !== null && _b !== void 0 ? _b : {},
+                column: this.column,
+                rowIndex: this.rowContext.rowIndex,
+                group: this.rowContext.group,
+                expanded: this.rowContext.expanded,
+                value: this.value,
             });
         }
         if (this.renderTracking) {
-            this.$emit('cell-updated', this.context.column);
+            this.$emit('cell-updated', this.column);
         }
     };
+    DataTableBodyCellComponent.prototype.checkValueUpdates = function () {
+        var value = '';
+        if (!this.rowContext || !this.column) {
+            value = '';
+        }
+        else {
+            // todo: make transform by vue filters
+            // const val = this.column.$$valueGetter(this.row, this.column.prop);
+            // const userPipe: PipeTransform = this.column.pipe;
+            // if (userPipe) {
+            //   value = userPipe.transform(val);
+            // } else if (value !== undefined) {
+            //   value = val;
+            // }
+            value = this.column.$$valueGetter(this.rowContext.row, this.column.prop);
+        }
+        if (this.value !== value) {
+            this.value = value;
+            this.sanitizedValue = value !== null && value !== undefined ? this.stripHtml(value) : value;
+        }
+    };
+    DataTableBodyCellComponent.prototype.stripHtml = function (html) {
+        if (!html.replace)
+            return html;
+        return html.replace(/<\/?[^>]+(>|$)/g, '');
+    };
     DataTableBodyCellComponent.prototype.onFocus = function () {
-        this.context.isFocused = true;
+        this.isFocused = true;
     };
     DataTableBodyCellComponent.prototype.onBlur = function () {
-        this.context.isFocused = false;
+        this.isFocused = false;
     };
     DataTableBodyCellComponent.prototype.onClick = function (event) {
         // props.context.isFocused = true;
@@ -302,11 +337,11 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
         this.$emit('activate', {
             type: 'click',
             event: event,
-            row: this.context.row,
-            group: this.context.group,
-            rowHeight: this.context.rowHeight,
-            column: this.context.column,
-            value: this.context.value,
+            row: this.rowContext.row,
+            group: this.rowContext.group,
+            rowHeight: this.rowContext.rowHeight,
+            column: this.column,
+            value: this.value,
             cellElement: this.$el,
         });
     };
@@ -314,35 +349,37 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
         this.$emit('activate', {
             type: 'dblclick',
             event: event,
-            row: this.context.row,
-            group: this.context.group,
-            rowHeight: this.context.rowHeight,
-            column: this.context.column,
-            value: this.context.value,
+            row: this.rowContext.row,
+            group: this.rowContext.group,
+            rowHeight: this.rowContext.rowHeight,
+            column: this.column,
+            value: this.value,
             cellElement: this.$el,
         });
     };
     DataTableBodyCellComponent.prototype.onKeyDown = function (event) {
+        console.log('cell onKeyDown=================');
         var keyCode = event.keyCode;
         var isTargetCell = event.target === this.$el;
-        var isAction = keyCode === utils_1.Keys.return; /* ||
-        keyCode === Keys.down ||
-        keyCode === Keys.up ||
-        keyCode === Keys.left ||
-        keyCode === Keys.right ||
-        keyCode === Keys.pageUp ||
-        keyCode === Keys.pageDown; */
+        var isAction = keyCode === utils_1.Keys.return ||
+            keyCode === utils_1.Keys.down ||
+            keyCode === utils_1.Keys.up ||
+            keyCode === utils_1.Keys.left ||
+            keyCode === utils_1.Keys.right ||
+            keyCode === utils_1.Keys.pageUp ||
+            keyCode === utils_1.Keys.pageDown;
         if (isAction && isTargetCell) {
             event.preventDefault();
             event.stopPropagation();
             this.$emit('activate', {
                 type: 'keydown',
                 event: event,
-                row: this.context.row,
-                group: this.context.group,
-                rowHeight: this.context.rowHeight,
-                column: this.context.column,
-                value: this.context.value,
+                row: this.rowContext.row,
+                rowIndex: this.rowContext.rowIndex,
+                group: this.rowContext.group,
+                rowHeight: this.rowContext.rowHeight,
+                column: this.column,
+                value: this.value,
                 cellElement: this.$el,
             });
         }
@@ -351,37 +388,122 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
         this.$emit('activate', {
             type: 'checkbox',
             event: event,
-            row: this.context.row,
-            group: this.context.group,
-            rowHeight: this.context.rowHeight,
-            column: this.context.column,
-            value: this.context.value,
+            row: this.rowContext.row,
+            group: this.rowContext.group,
+            rowHeight: this.rowContext.rowHeight,
+            column: this.column,
+            value: this.value,
             cellElement: this.$el,
-            treeStatus: 'collapsed'
+            treeStatus: this.rowContext.treeStatus,
         });
     };
     DataTableBodyCellComponent.prototype.onTreeAction = function (event) {
-        this.$emit('tree-action', { event: event, row: this.context.row });
+        this.$emit('tree-action', { event: event, row: this.rowContext.row });
     };
     DataTableBodyCellComponent.prototype.onMouseEnter = function (event) {
-        this.$emit('mouseenter', { event: event, row: this.context.row });
+        this.$emit('mouseenter', { event: event, row: this.rowContext.row });
+    };
+    Object.defineProperty(DataTableBodyCellComponent.prototype, "cssClasses", {
+        get: function () {
+            var _a, _b, _c;
+            if (!this.rowContext) {
+                return null;
+            }
+            var result = {};
+            var func = null;
+            if (this.column.cellClass) {
+                if (typeof this.column.cellClass === 'string') {
+                    result[this.column.cellClass] = true;
+                }
+                else if (Array.isArray(this.column.cellClass)) {
+                    this.column.cellClass.forEach(function (value) {
+                        if (typeof value === 'function') {
+                            func = value;
+                        }
+                        else {
+                            result[value] = true;
+                        }
+                    });
+                }
+                else if (typeof this.column.cellClass === 'function') {
+                    func = this.column.cellClass;
+                }
+                if (func) {
+                    var res = func({
+                        row: (_a = this.rowContext) === null || _a === void 0 ? void 0 : _a.row,
+                        group: (_b = this.rowContext) === null || _b === void 0 ? void 0 : _b.group,
+                        column: this.column,
+                        value: this.value,
+                        rowHeight: (_c = this.rowContext) === null || _c === void 0 ? void 0 : _c.rowHeight,
+                    });
+                    if (typeof res === 'string') {
+                        result[res] = true;
+                    }
+                    else if (typeof res === 'object') {
+                        var keys = Object.keys(res);
+                        for (var _i = 0, keys_1 = keys; _i < keys_1.length; _i++) {
+                            var k = keys_1[_i];
+                            if (res[k] === true) {
+                                result[" " + k] = true;
+                            }
+                        }
+                    }
+                }
+            }
+            // result['sort-active'] = !this.sortDir;
+            result['active'] = this.isFocused;
+            // result['sort-asc'] = this.sortDir === SortDirection.asc;
+            // result['sort-desc'] = this.sortDir === SortDirection.desc;
+            return result;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DataTableBodyCellComponent.prototype, "styles", {
+        get: function () {
+            if (!this.rowContext) {
+                return {};
+            }
+            return {
+                width: this.column.width + 'px',
+                minWidth: this.column.minWidth + 'px',
+                maxWidth: this.column.maxWidth + 'px',
+                height: this.rowContext.rowHeight + 'px',
+            };
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DataTableBodyCellComponent.prototype, "marginCellStyle", {
+        get: function () {
+            if (!this.rowContext) {
+                return {};
+            }
+            return {
+                'margin-left': this.calcLeftMargin(this.column, this.rowContext.row) + 'px',
+            };
+        },
+        enumerable: true,
+        configurable: true
+    });
+    DataTableBodyCellComponent.prototype.cellHeight = function (rowHeight) {
+        var height = rowHeight;
+        if (isNaN(height))
+            return height;
+        return height + 'px';
+    };
+    DataTableBodyCellComponent.prototype.calcLeftMargin = function (column, row) {
+        var levelIndent = column.treeLevelIndent != null ? column.treeLevelIndent : 50;
+        return column.isTreeColumn ? row.level * levelIndent : 0;
     };
     __decorate([
         vue_property_decorator_1.Prop(),
         __metadata("design:type", Object)
-    ], DataTableBodyCellComponent.prototype, "context", void 0);
+    ], DataTableBodyCellComponent.prototype, "column", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Function)
-    ], DataTableBodyCellComponent.prototype, "cellColumnCssClasses", void 0);
-    __decorate([
-        vue_property_decorator_1.Prop(),
-        __metadata("design:type", Function)
-    ], DataTableBodyCellComponent.prototype, "cellStyleObject", void 0);
-    __decorate([
-        vue_property_decorator_1.Prop(),
-        __metadata("design:type", Function)
-    ], DataTableBodyCellComponent.prototype, "marginCellStyle", void 0);
+        __metadata("design:type", Object)
+    ], DataTableBodyCellComponent.prototype, "rowContext", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
         __metadata("design:type", String)
@@ -394,6 +516,16 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
         vue_property_decorator_1.Prop(),
         __metadata("design:type", Boolean)
     ], DataTableBodyCellComponent.prototype, "renderTracking", void 0);
+    __decorate([
+        vue_property_decorator_1.Prop(),
+        __metadata("design:type", Function)
+    ], DataTableBodyCellComponent.prototype, "displayCheck", void 0);
+    __decorate([
+        vue_property_decorator_1.Watch('rowContext.row', { deep: true, immediate: true }),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], DataTableBodyCellComponent.prototype, "onRowChanged", null);
     DataTableBodyCellComponent = __decorate([
         vue_property_decorator_1.Component
     ], DataTableBodyCellComponent);
@@ -879,6 +1011,7 @@ var DataTableBodyRowComponent = /** @class */ (function (_super) {
     function DataTableBodyRowComponent() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.counter = 0; // it's need to update cells after row's changing
+        _this.isFocused = false;
         return _this;
     }
     DataTableBodyRowComponent.prototype.created = function () {
@@ -890,18 +1023,24 @@ var DataTableBodyRowComponent = /** @class */ (function (_super) {
         if (this.renderTracking) {
             this.$emit('row-updated', this.row);
         }
-    };
-    DataTableBodyRowComponent.prototype.onRowChanged = function (newVal, oldVal) {
-        if (newVal === oldVal) {
-            // there was only row's properties changed - it's need to update cells
-            this.counter++;
+        if (this.isFocused) {
+            this.$el.focus();
         }
     };
-    DataTableBodyRowComponent.prototype.onRefreshChanged = function () {
-        console.log('onRefreshChanged');
-    };
+    // @Watch('row', { deep: true }) onRowChanged(newVal, oldVal) {
+    //   if (newVal === oldVal) {
+    //     // there was only row's properties changed - it's need to update cells
+    //     this.counter++;
+    //   }
+    // }
     DataTableBodyRowComponent.prototype.onCellRendered = function (column) {
         this.$emit('row-updated', this.row);
+    };
+    DataTableBodyRowComponent.prototype.onFocus = function () {
+        this.isFocused = true;
+    };
+    DataTableBodyRowComponent.prototype.onBlur = function () {
+        this.isFocused = false;
     };
     DataTableBodyRowComponent.prototype.onActivate = function (event, index) {
         event.cellIndex = index;
@@ -914,8 +1053,6 @@ var DataTableBodyRowComponent = /** @class */ (function (_super) {
         var isAction = keyCode === keys_1.Keys.return ||
             keyCode === keys_1.Keys.down ||
             keyCode === keys_1.Keys.up ||
-            keyCode === keys_1.Keys.left ||
-            keyCode === keys_1.Keys.right ||
             keyCode === keys_1.Keys.pageUp ||
             keyCode === keys_1.Keys.pageDown;
         if (isAction && isTargetRow) {
@@ -925,6 +1062,7 @@ var DataTableBodyRowComponent = /** @class */ (function (_super) {
                 type: 'keydown',
                 event: event,
                 row: this.row,
+                rowIndex: this.rowContext.rowIndex,
                 rowElement: this.$el
             });
         }
@@ -940,10 +1078,29 @@ var DataTableBodyRowComponent = /** @class */ (function (_super) {
     DataTableBodyRowComponent.prototype.onTreeAction = function (event) {
         this.$emit('tree-action', event);
     };
+    Object.defineProperty(DataTableBodyRowComponent.prototype, "styles", {
+        get: function () {
+            if (this.rowContext) {
+                return {
+                    width: this.columnGroupWidths.total + 'px',
+                    height: this.rowContext.rowHeight + 'px',
+                };
+            }
+            return {
+                width: this.columnGroupWidths.total + 'px',
+            };
+        },
+        enumerable: true,
+        configurable: true
+    });
     __decorate([
         vue_property_decorator_1.Prop(),
         __metadata("design:type", Object)
     ], DataTableBodyRowComponent.prototype, "row", void 0);
+    __decorate([
+        vue_property_decorator_1.Prop(),
+        __metadata("design:type", Object)
+    ], DataTableBodyRowComponent.prototype, "rowContext", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
         __metadata("design:type", Array)
@@ -956,18 +1113,6 @@ var DataTableBodyRowComponent = /** @class */ (function (_super) {
         vue_property_decorator_1.Prop(),
         __metadata("design:type", Object)
     ], DataTableBodyRowComponent.prototype, "columnGroupWidths", void 0);
-    __decorate([
-        vue_property_decorator_1.Prop(),
-        __metadata("design:type", Boolean)
-    ], DataTableBodyRowComponent.prototype, "isSelected", void 0);
-    __decorate([
-        vue_property_decorator_1.Prop(),
-        __metadata("design:type", Boolean)
-    ], DataTableBodyRowComponent.prototype, "isChecked", void 0);
-    __decorate([
-        vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
-    ], DataTableBodyRowComponent.prototype, "rowStyles", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
         __metadata("design:type", Object)
@@ -983,47 +1128,11 @@ var DataTableBodyRowComponent = /** @class */ (function (_super) {
     __decorate([
         vue_property_decorator_1.Prop(),
         __metadata("design:type", Object)
-    ], DataTableBodyRowComponent.prototype, "treeStatus", void 0);
-    __decorate([
-        vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
-    ], DataTableBodyRowComponent.prototype, "cellContext", void 0);
-    __decorate([
-        vue_property_decorator_1.Prop(),
-        __metadata("design:type", Function)
-    ], DataTableBodyRowComponent.prototype, "cellColumnCssClasses", void 0);
-    __decorate([
-        vue_property_decorator_1.Prop(),
-        __metadata("design:type", Function)
-    ], DataTableBodyRowComponent.prototype, "cellStyleObject", void 0);
-    __decorate([
-        vue_property_decorator_1.Prop(),
-        __metadata("design:type", Function)
-    ], DataTableBodyRowComponent.prototype, "marginCellStyle", void 0);
-    __decorate([
-        vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
     ], DataTableBodyRowComponent.prototype, "slots", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
         __metadata("design:type", Boolean)
     ], DataTableBodyRowComponent.prototype, "renderTracking", void 0);
-    __decorate([
-        vue_property_decorator_1.Prop(),
-        __metadata("design:type", Number)
-    ], DataTableBodyRowComponent.prototype, "refresh", void 0);
-    __decorate([
-        vue_property_decorator_1.Watch('row', { deep: true }),
-        __metadata("design:type", Function),
-        __metadata("design:paramtypes", [Object, Object]),
-        __metadata("design:returntype", void 0)
-    ], DataTableBodyRowComponent.prototype, "onRowChanged", null);
-    __decorate([
-        vue_property_decorator_1.Watch('refresh'),
-        __metadata("design:type", Function),
-        __metadata("design:paramtypes", []),
-        __metadata("design:returntype", void 0)
-    ], DataTableBodyRowComponent.prototype, "onRefreshChanged", null);
     DataTableBodyRowComponent = __decorate([
         vue_property_decorator_1.Component({
             components: {
@@ -1104,7 +1213,6 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         _this.scroller = null; // ScrollerComponent
         _this.selector = null; // DataTableSelectionComponent;
         _this.rowHeightsCache = new utils_1.RowHeightCache();
-        _this.temp = [];
         _this.offsetY = 0;
         _this.myOffset = 0;
         _this.myOffsetX = 0;
@@ -1120,17 +1228,18 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
             center: {},
             right: {}
         };
-        _this.refreshCounters = {};
+        _this.onBodyScrollHandler = utils_1.throttle(_this.onBodyScroll.bind(_this), 10, { trailing: true });
+        _this.rowContexts = [];
         _this.scrollbarHelper = new scrollbar_helper_service_1.ScrollbarHelper();
-        _this.cellContexts = new Map();
         _this.renderCounter = 0;
         _this.renderId = null;
         /**
          * Get the height of the detail row.
          */
         _this.getDetailRowHeight = function (row, index) {
-            if (!_this.rowDetail)
+            if (!_this.rowDetail) {
                 return 0;
+            }
             var rowHeight = _this.rowDetailHeight || _this.getRowHeight(row) || 50;
             return typeof rowHeight === 'function' ? rowHeight(row, index) : Number(rowHeight);
         };
@@ -1194,12 +1303,6 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         this.mySelected = this.selected;
     };
     DataTableBodyComponent.prototype.onColumnsChanged = function (newVal, oldVal) {
-        if (newVal && oldVal && newVal.length < oldVal.length) {
-            var removedColumns = oldVal.filter(function (col) { return !newVal.find(function (c) { return c.$$id === col.$$id; }); });
-            if (removedColumns) {
-                this.updateCellContexts(removedColumns);
-            }
-        }
         this.recalculateColumns();
         this.buildStylesByGroup();
     };
@@ -1270,6 +1373,13 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(DataTableBodyComponent.prototype, "checkEnabled", {
+        get: function () {
+            return this.checkMode === check_type_1.CheckMode.checkNoSelect;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(DataTableBodyComponent.prototype, "fixedRowHeight", {
         get: function () {
             if (this.rowHeight && typeof this.rowHeight === 'number') {
@@ -1320,14 +1430,6 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         this.offsetY = 0;
     };
     DataTableBodyComponent.prototype.onSelect = function (event) {
-        // if (Array.isArray(event.selected)) {
-        //   event.selected.forEach(row => {
-        //     if (!this.refreshCounters[event.index]) {
-        //       this.$set(this.refreshCounters, event.index, 0);
-        //     }
-        //     this.refreshCounters[event.index]++;
-        //   });
-        // }
         this.$emit('select', event);
     };
     DataTableBodyComponent.prototype.recalculateColumns = function (val) {
@@ -1386,7 +1488,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         this.offsetY = scrollYPos;
         this.myOffsetX = scrollXPos;
         this.$nextTick(function () {
-            _this.updateIndexes();
+            _this.updateIndexes(event.direction);
             _this.updatePage(event.direction, event.fromPager);
             _this.updateRows();
         });
@@ -1431,7 +1533,6 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         // }
         var rowIndex = first;
         var idx = 0;
-        var temp = [];
         this.rowIndexes.clear();
         // if grouprowsby has been specified treat row paging
         // parameters as group paging parameters ie if limit 10 has been
@@ -1454,17 +1555,39 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         //     rowIndex++;
         //   }
         // } else {
+        var temp = [];
+        var rowContext;
         while (rowIndex < last && rowIndex < this.rowCount) {
             var row = this.rows[rowIndex];
             if (row) {
                 this.rowIndexes.set(row, rowIndex);
-                temp[idx] = row;
+                rowContext = this.rowContexts[idx];
+                if (!rowContext) {
+                    rowContext = {};
+                }
+                rowContext.row = row;
+                rowContext.rowIndex = rowIndex;
+                rowContext.rowHeight = this.getRowHeight(row);
+                rowContext.isSelected = this.isSelect(row);
+                rowContext.isChecked = this.isChecked(row);
+                rowContext.expanded = this.getRowExpanded(row);
+                rowContext.treeStatus = this.treeStatus(row);
+                temp[idx] = rowContext;
+                // temp[idx] = {
+                //   row,
+                //   rowIndex,
+                //   rowHeight: this.getRowHeight(row),
+                //   isSelected: this.isSelect(row),
+                //   isChecked: this.isChecked(row),
+                //   expanded: this.getRowExpanded(row),
+                //   treeStatus: this.treeStatus(row)
+                // };
+                idx++;
             }
-            idx++;
             rowIndex++;
         }
         // }
-        this.temp = temp;
+        this.rowContexts = temp;
         // console.log('updateRows first = ', first);
     };
     /**
@@ -1521,7 +1644,10 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
      *
      * @memberOf DataTableBodyComponent
      */
-    DataTableBodyComponent.prototype.getRowWrapperStyles = function (row) {
+    DataTableBodyComponent.prototype.getRowWrapperStyles = function (rowContext) {
+        if (!rowContext) {
+            return null;
+        }
         var styles = {};
         // only add styles for the group if there is a group
         if (this.groupRowsBy) {
@@ -1535,7 +1661,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
             //   row = rows[rows.length - 1];
             //   idx = row ? this.getRowIndex(row) : 0;
             // } else {
-            idx = this.getRowIndex(row);
+            idx = rowContext.rowIndex;
             // }
             // const pos = idx * rowHeight;
             // The position of this row would be the sum of all row heights
@@ -1555,6 +1681,9 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     };
     DataTableBodyComponent.prototype.getRowOffsetY = function (index) {
         var result = this.rowHeightsCache.queryWithHeight(index);
+        if (!result) {
+            result = { height: 0, offsetY: 0 };
+        }
         return result;
     };
     /**
@@ -1584,7 +1713,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     /**
      * Updates the index of the rows in the viewport
      */
-    DataTableBodyComponent.prototype.updateIndexes = function () {
+    DataTableBodyComponent.prototype.updateIndexes = function (direction) {
         var first = 0;
         var last = 0;
         if (this.scrollbarV && !this.limit) {
@@ -1610,6 +1739,9 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
                 first = Math.max(this.myOffset * this.pageSize, 0);
             }
             last = Math.min((first + this.pageSize), this.rowCount);
+        }
+        if (direction === 'down') {
+            first = first === 0 ? 0 : first + 1;
         }
         this.indexes = { first: first, last: last };
     };
@@ -1658,22 +1790,20 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
      * a part of the row object itself as we have to preserve the expanded row
      * status in case of sorting and filtering of the row set.
      */
-    DataTableBodyComponent.prototype.toggleRowExpansion = function (row) {
+    DataTableBodyComponent.prototype.toggleRowExpansion = function (rowContext) {
         // Capture the row index of the first row that is visible on the viewport.
         var viewPortFirstRowIndex = this.getAdjustedViewPortIndex();
-        var expanded = this.rowExpansions.get(row);
+        var expanded = Number(rowContext.expanded);
         // If the rowDetailHeight is auto --> only in case of non-virtualized scroll
         if (this.scrollbarV && this.virtualization) {
-            var rowDetailHeight = this.getDetailRowHeight(row) * (expanded ? -1 : 1);
-            // const idx = this.rowIndexes.get(row) || 0;
-            var idx = this.getRowIndex(row);
-            this.rowHeightsCache.update(idx, rowDetailHeight);
+            var rowDetailHeight = this.getDetailRowHeight(rowContext.row) * (expanded ? -1 : 1);
+            this.rowHeightsCache.update(rowContext.rowIndex, rowDetailHeight);
         }
         // Update the toggled row and update thive nevere heights in the cache.
         expanded = expanded ^= 1;
-        this.rowExpansions.set(row, expanded);
+        this.rowExpansions.set(rowContext.row, expanded);
         this.$emit('detail-toggle', {
-            rows: [row],
+            rows: [rowContext.row],
             currentIndex: viewPortFirstRowIndex
         });
         return Boolean(expanded);
@@ -1700,9 +1830,6 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
             rows: this.rows,
             currentIndex: viewPortFirstRowIndex
         });
-    };
-    DataTableBodyComponent.prototype.onSetRowElement = function (row, element) {
-        // this.rowEl.set(this.rowIdentity(row), element);
     };
     DataTableBodyComponent.prototype.onGroupToggle = function ($event) {
         this.$emit('group-toggle', $event);
@@ -1776,6 +1903,9 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         //     this.initExpansions(group);
         //   }
         // }
+        if (!this.rowDetail) {
+            return false;
+        }
         var expanded = this.rowExpansions.get(row);
         return expanded === 1;
     };
@@ -1789,9 +1919,15 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         this.$emit('tree-action', event);
     };
     DataTableBodyComponent.prototype.isSelect = function (row) {
+        if (!this.selectEnabled) {
+            return false;
+        }
         return this.selector ? this.selector.getRowSelected(row) : false;
     };
     DataTableBodyComponent.prototype.isChecked = function (row) {
+        if (!this.checkEnabled) {
+            return false;
+        }
         return this.selector ? this.selector.getRowChecked(row) : false;
     };
     DataTableBodyComponent.prototype.onActivate = function (event, index) {
@@ -1843,17 +1979,6 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         }
         return styles;
     };
-    DataTableBodyComponent.prototype.getRowStyles = function (row) {
-        if (row) {
-            return {
-                width: this.columnGroupWidths.total + 'px',
-                height: this.getRowHeight(row) + 'px',
-            };
-        }
-        return {
-            width: this.columnGroupWidths.total + 'px',
-        };
-    };
     DataTableBodyComponent.prototype.getGroupStyles = function (colGroup) {
         if (colGroup && colGroup.type) {
             return __assign({ width: this.columnGroupWidths.total + 'px' }, this.groupStyles[colGroup.type]);
@@ -1868,11 +1993,10 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         }
         return row.treeStatus;
     };
-    DataTableBodyComponent.prototype.getGroupClass = function (row) {
+    DataTableBodyComponent.prototype.getGroupClass = function (row, rowIndex) {
         var cls = 'datatable-body-row';
         if (this.isSelect(row))
             cls += ' active';
-        var rowIndex = this.getRowIndex(row);
         if (rowIndex % 2 !== 0) {
             cls += ' datatable-row-odd';
         }
@@ -1880,7 +2004,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
             cls += ' datatable-row-even';
         }
         if (this.rowClass) {
-            var res = this.rowClass(row);
+            var res = this.rowClass(row, rowIndex);
             if (typeof res === 'string') {
                 cls += " " + res;
             }
@@ -1894,187 +2018,6 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
             }
         }
         return cls;
-    };
-    DataTableBodyComponent.prototype.getCellContext = function (row, group, column) {
-        var cellContext = this.cellContextFor(row, column);
-        if (cellContext) {
-            this.updateCellContext(cellContext, row);
-            this.setCellValue(cellContext);
-            return cellContext;
-        }
-        cellContext = {
-            onCheckboxChangeFn: null,
-            activateFn: null,
-            displayCheck: this.displayCheck,
-            row: row,
-            group: group,
-            column: column,
-            rowHeight: this.getRowHeight(row),
-            isSelected: this.isSelect(row),
-            isChecked: this.isChecked(row),
-            rowIndex: this.getRowIndex(row),
-            expanded: this.getRowExpanded(row),
-            treeStatus: this.treeStatus(row),
-            onTreeAction: null,
-            isFocused: false,
-            value: '',
-            sanitizedValue: '',
-        };
-        cellContext = vue_property_decorator_1.Vue.observable(cellContext);
-        this.setCellValue(cellContext);
-        this.saveContextFor(row, column, cellContext);
-        return cellContext;
-    };
-    DataTableBodyComponent.prototype.updateCellContext = function (context, row) {
-        context.rowHeight = this.getRowHeight(row);
-        context.isSelected = this.isSelect(row);
-        context.isChecked = this.isChecked(row);
-        context.rowIndex = this.getRowIndex(row);
-        context.expanded = this.getRowExpanded(row);
-        context.treeStatus = this.treeStatus(row);
-    };
-    DataTableBodyComponent.prototype.cellContextFor = function (row, column) {
-        var rowId = this.rowIdentity(row);
-        var colId = column.$$id;
-        var cols = this.cellContexts.get(rowId);
-        if (cols) {
-            return cols[colId];
-        }
-        return null;
-    };
-    DataTableBodyComponent.prototype.saveContextFor = function (row, column, cellContext) {
-        var rowId = this.rowIdentity(row);
-        var colId = column.$$id;
-        var cols = this.cellContexts.get(rowId);
-        if (!cols) {
-            cols = {};
-        }
-        cols[colId] = cellContext;
-        this.cellContexts.set(rowId, cols);
-    };
-    DataTableBodyComponent.prototype.setCellValue = function (cellContext) {
-        var value = '';
-        if (!cellContext.row || !cellContext.column) {
-            value = '';
-        }
-        else {
-            // todo: make transform by vue filters
-            // const val = this.column.$$valueGetter(this.row, this.column.prop);
-            // const userPipe: PipeTransform = this.column.pipe;
-            // if (userPipe) {
-            //   value = userPipe.transform(val);
-            // } else if (value !== undefined) {
-            //   value = val;
-            // }
-            value = cellContext.column.$$valueGetter(cellContext.row, cellContext.column.prop);
-        }
-        if (cellContext.value !== value) {
-            cellContext.value = value;
-            cellContext.sanitizedValue = value !== null && value !== undefined ? this.stripHtml(value) : value;
-        }
-    };
-    DataTableBodyComponent.prototype.updateCellContexts = function (removedColumns) {
-        var values = Array.from(this.cellContexts.values());
-        values.forEach(function (value) {
-            removedColumns.forEach(function (removed) { return delete value[removed.$$id]; });
-        });
-    };
-    DataTableBodyComponent.prototype.stripHtml = function (html) {
-        if (!html.replace)
-            return html;
-        return html.replace(/<\/?[^>]+(>|$)/g, '');
-    };
-    DataTableBodyComponent.prototype.cellColumnCssClasses = function (context) {
-        if (!context) {
-            // return 'datatable-body-cell';
-            return null;
-        }
-        var result = {
-        // 'datatable-body-cell': true,
-        };
-        // let cls = 'datatable-body-cell';
-        var func = null;
-        if (context.column.cellClass) {
-            if (typeof context.column.cellClass === 'string') {
-                // cls += ' ' + this.column.cellClass;
-                result[context.column.cellClass] = true;
-            }
-            else if (Array.isArray(context.column.cellClass)) {
-                context.column.cellClass.forEach(function (value) {
-                    if (typeof value === 'function') {
-                        func = value;
-                    }
-                    else {
-                        result[value] = true;
-                    }
-                });
-            }
-            else if (typeof context.column.cellClass === 'function') {
-                func = context.column.cellClass;
-            }
-            if (func) {
-                var res = func({
-                    row: context.row,
-                    group: context.group,
-                    column: context.column,
-                    value: context.value,
-                    rowHeight: context.rowHeight,
-                });
-                if (typeof res === 'string') {
-                    // cls += res;
-                    result[res] = true;
-                }
-                else if (typeof res === 'object') {
-                    var keys = Object.keys(res);
-                    for (var _i = 0, keys_2 = keys; _i < keys_2.length; _i++) {
-                        var k = keys_2[_i];
-                        if (res[k] === true) {
-                            // cls += ` ${k}`;
-                            result[" " + k] = true;
-                        }
-                    }
-                }
-            }
-        }
-        result['sort-active'] = !context.sortDir;
-        result['active'] = context.isFocused;
-        result['sort-asc'] = context.sortDir === types_1.SortDirection.asc;
-        result['sort-desc'] = context.sortDir === types_1.SortDirection.desc;
-        // if (!this.sortDir) cls += ' sort-active';
-        // if (this.isFocused) cls += ' active';
-        // if (this.sortDir === SortDirection.asc) cls += ' sort-asc';
-        // if (this.sortDir === SortDirection.desc) cls += ' sort-desc';
-        // return cls;
-        return result;
-    };
-    DataTableBodyComponent.prototype.cellStyleObject = function (context) {
-        if (!context) {
-            return {};
-        }
-        return {
-            width: context.column.width + 'px',
-            minWidth: context.column.minWidth + 'px',
-            maxWidth: context.column.maxWidth + 'px',
-            height: this.cellHeight(context.rowHeight),
-        };
-    };
-    DataTableBodyComponent.prototype.marginCellStyle = function (context) {
-        if (!context) {
-            return {};
-        }
-        return {
-            'margin-left': this.calcLeftMargin(context.column, context.row) + 'px',
-        };
-    };
-    DataTableBodyComponent.prototype.cellHeight = function (rowHeight) {
-        var height = rowHeight;
-        if (isNaN(height))
-            return height;
-        return height + 'px';
-    };
-    DataTableBodyComponent.prototype.calcLeftMargin = function (column, row) {
-        var levelIndent = column.treeLevelIndent != null ? column.treeLevelIndent : 50;
-        return column.isTreeColumn ? row.level * levelIndent : 0;
     };
     Object.defineProperty(DataTableBodyComponent.prototype, "cellSlots", {
         get: function () {
@@ -2096,14 +2039,11 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
      * Toggle the expansion of the row
      */
     DataTableBodyComponent.prototype.toggleExpandDetail = function (row) {
-        var _this = this;
-        var expanded = this.toggleRowExpansion(row);
-        this.columns.forEach(function (column) {
-            var cellContext = _this.cellContextFor(row, column);
-            if (cellContext) {
-                cellContext.expanded = expanded;
-            }
-        });
+        var rowContext = this.rowContexts.find(function (c) { return c.row === row; });
+        if (!rowContext) {
+            throw new Error("row context is not found for row " + row);
+        }
+        rowContext.expanded = this.toggleRowExpansion(row);
         this.updateIndexes();
         this.updateRows(true);
         this.$emit('detail-toggle', {
@@ -2181,11 +2121,11 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     ], DataTableBodyComponent.prototype, "checked", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Function)
     ], DataTableBodyComponent.prototype, "rowIdentity", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Boolean)
     ], DataTableBodyComponent.prototype, "rowDetail", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
@@ -2796,6 +2736,13 @@ var DatatableComponent = /** @class */ (function (_super) {
          */
         get: function () {
             return this.selectionType === types_1.SelectionType.single;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(DatatableComponent.prototype, "isSingleFocusSelection", {
+        get: function () {
+            return this.selectionType === types_1.SelectionType.singleFocus;
         },
         enumerable: true,
         configurable: true
@@ -4193,15 +4140,15 @@ var render = function() {
         {
           name: "show",
           rawName: "v-show",
-          value: _vm.context.column.visible,
-          expression: "context.column.visible"
+          value: _vm.column.visible,
+          expression: "column.visible"
         }
       ],
       staticClass: "datatable-body-cell",
-      class: _vm.cellColumnCssClasses(_vm.context),
-      style: _vm.cellStyleObject(_vm.context),
+      class: _vm.cssClasses,
+      style: _vm.styles,
       attrs: {
-        id: _vm.context.column.prop + "-" + _vm.context.column.$$id,
+        id: _vm.column.prop + "-" + _vm.column.$$id,
         tabindex: _vm.tabIndex
       },
       on: {
@@ -4218,48 +4165,44 @@ var render = function() {
         "div",
         {
           staticClass: "datatable-body-cell-label",
-          style: _vm.marginCellStyle(_vm.context)
+          style: _vm.column.isTreeColumn ? _vm.marginCellStyle : null
         },
         [
-          _vm.context.column.checkboxable &&
-          (!_vm.context.displayCheck ||
-            _vm.context.displayCheck(
-              _vm.context.row,
-              _vm.context.column,
-              _vm.context.value
-            ))
+          _vm.column.checkboxable &&
+          (!_vm.displayCheck ||
+            _vm.displayCheck(_vm.rowContext.row, _vm.column, _vm.value))
             ? _c("label", { staticClass: "datatable-checkbox" }, [
                 _c("input", {
                   attrs: { type: "checkbox" },
-                  domProps: { checked: _vm.context.isChecked },
+                  domProps: { checked: _vm.rowContext.isChecked },
                   on: { click: _vm.onCheckboxChange }
                 })
               ])
             : _vm._e(),
           _vm._v(" "),
-          _vm.context.column.isTreeColumn
+          _vm.column.isTreeColumn
             ? [
-                !_vm.context.column.treeToggleTemplate
+                !_vm.column.treeToggleTemplate
                   ? _c(
                       "button",
                       {
                         staticClass: "datatable-tree-button",
                         attrs: {
-                          disabled: _vm.context.row.treeStatus === "disabled"
+                          disabled: _vm.rowContext.treeStatus === "disabled"
                         },
                         on: { click: _vm.onTreeAction }
                       },
                       [
                         _c("span", [
-                          _vm.context.row.treeStatus === "loading"
+                          _vm.rowContext.row.treeStatus === "loading"
                             ? _c("i", {
                                 staticClass: "icon datatable-icon-collapse"
                               })
-                            : _vm.context.row.treeStatus === "collapsed"
+                            : _vm.rowContext.treeStatus === "collapsed"
                             ? _c("i", {
                                 staticClass: "icon datatable-icon-right"
                               })
-                            : _vm.context.row.treeStatus === "expanded"
+                            : _vm.rowContext.treeStatus === "expanded"
                             ? _c("i", {
                                 staticClass: "icon datatable-icon-down"
                               })
@@ -4280,18 +4223,18 @@ var render = function() {
             "default",
             [
               _c("span", {
-                attrs: { title: _vm.context.sanitizedValue },
-                domProps: { innerHTML: _vm._s(_vm.context.value) }
+                attrs: { title: _vm.sanitizedValue },
+                domProps: { innerHTML: _vm._s(_vm.value) }
               })
             ],
             null,
             {
-              row: _vm.context && _vm.context.row ? _vm.context.row : {},
-              column: _vm.context.column,
-              rowIndex: _vm.context.rowIndex,
-              group: _vm.context.group,
-              expanded: _vm.context.expanded,
-              value: _vm.context.value
+              row: _vm.rowContext.row ? _vm.rowContext.row : {},
+              column: _vm.column,
+              rowIndex: _vm.rowContext.rowIndex,
+              group: _vm.rowContext.group,
+              expanded: _vm.rowContext.expanded,
+              value: _vm.value
             }
           )
         ],
@@ -4683,7 +4626,11 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c(
     "div",
-    { staticClass: "datatable-row-wrapper", style: _vm.styleObject },
+    {
+      staticClass: "datatable-row-wrapper",
+      style: _vm.styleObject,
+      attrs: { tabindex: "-1" }
+    },
     [
       _vm.row && _vm.row.__isGroup
         ? _c("datatable-group-header", {
@@ -4819,10 +4766,11 @@ var render = function() {
     "div",
     {
       class: _vm.groupClass,
-      style: _vm.rowStyles(_vm.row),
-      attrs: { id: "row-group" }
+      style: _vm.styles,
+      attrs: { id: "row-group", tabIndex: -1 },
+      on: { focus: _vm.onFocus, blur: _vm.onBlur, keydown: _vm.onKeyDown }
     },
-    _vm._l(_vm.columnsByPin, function(colGroup, i) {
+    _vm._l(_vm.columnsByPin, function(colGroup) {
       return _c(
         "div",
         {
@@ -4831,9 +4779,6 @@ var render = function() {
           class: "datatable-row-" + colGroup.type,
           style: _vm.groupStyles(colGroup),
           on: {
-            keydown: function($event) {
-              return _vm.$emit("keydown", _vm.row)
-            },
             mouseenter: function($event) {
               return _vm.$emit("activate", _vm.row)
             }
@@ -4844,19 +4789,17 @@ var render = function() {
             key: column.$$id + "-" + _vm.counter,
             attrs: {
               tabIndex: "-1",
-              context: _vm.cellContext(_vm.row, _vm.group, column),
-              cellColumnCssClasses: _vm.cellColumnCssClasses,
-              cellStyleObject: _vm.cellStyleObject,
-              marginCellStyle: _vm.marginCellStyle,
+              rowContext: _vm.rowContext,
+              column: column,
               cellSlot: _vm.slots()[column.prop],
-              renderTracking: _vm.renderTracking
+              renderTracking: _vm.renderTracking,
+              displayCheck: _vm.displayCheck
             },
             on: {
               activate: function($event) {
                 return _vm.onActivate($event, ii)
               },
               "tree-action": _vm.onTreeAction,
-              keydown: _vm.onKeyDown,
               mouseenter: _vm.onMouseenter,
               "cell-created": _vm.onCellRendered,
               "cell-updated": _vm.onCellRendered
@@ -4956,42 +4899,34 @@ var render = function() {
                       columnsByPin: _vm.columnsByPin,
                       columnGroupWidths: _vm.columnGroupWidths,
                       groupStyles: _vm.getGroupStyles,
-                      groupClass: _vm.getGroupClass("center"),
-                      rowStyles: _vm.getRowStyles,
-                      cellContext: _vm.getCellContext,
-                      cellColumnCssClasses: _vm.cellColumnCssClasses,
-                      cellStyleObject: _vm.cellStyleObject,
-                      marginCellStyle: _vm.marginCellStyle,
+                      groupClass: _vm.getGroupClass,
                       slots: _vm.cellSlots
                     }
                   })
                 : _vm._e(),
               _vm._v(" "),
-              _vm._l(_vm.temp, function(row, i) {
+              _vm._l(_vm.rowContexts, function(rowContext, i) {
                 return _c(
                   "datatable-row-wrapper",
                   {
                     key: i,
                     attrs: {
-                      styleObject: _vm.getRowWrapperStyles(row, i),
+                      styleObject: _vm.getRowWrapperStyles(rowContext),
                       groupRowsBy: _vm.groupRowsBy,
                       groupLevel: 0,
-                      row: row,
+                      row: rowContext.row,
                       innerWidth: _vm.innerWidth,
                       rowDetail: _vm.rowDetail,
                       groupHeader: _vm.groupHeader,
                       offsetX: _vm.offsetX,
                       groupRowHeight: _vm.groupRowHeight,
-                      rowDetailHeight: _vm.getDetailRowHeight(row, i),
-                      expanded: _vm.getRowExpanded(row),
-                      rowIndex: _vm.getRowIndex(row),
+                      rowDetailHeight: _vm.getDetailRowHeight(rowContext.row),
+                      expanded: rowContext.expanded,
+                      rowIndex: rowContext.rowIndex,
                       groupHeaderSlot: _vm.groupHeaderSlot,
                       rowDetailSlot: _vm.rowDetailSlot
                     },
                     on: {
-                      "set-row-element": function($event) {
-                        return _vm.onSetRowElement(row, $event)
-                      },
                       "group-toggle": _vm.onGroupToggle,
                       "row-contextmenu": function($event) {
                         return _vm.$emit("rowContextmenu")
@@ -5004,19 +4939,14 @@ var render = function() {
                         tabindex: "-1",
                         columnsByPin: _vm.columnsByPin,
                         columnGroupWidths: _vm.columnGroupWidths,
-                        isSelected: _vm.isSelect(row),
-                        isChecked: _vm.isChecked(row),
                         groupStyles: _vm.getGroupStyles,
-                        groupClass: _vm.getGroupClass(row),
-                        rowStyles: _vm.getRowStyles,
-                        row: row,
-                        refresh: _vm.refreshCounters[i],
+                        groupClass: _vm.getGroupClass(
+                          rowContext.row,
+                          rowContext.rowIndex
+                        ),
+                        row: rowContext.row,
+                        rowContext: rowContext,
                         displayCheck: _vm.displayCheck,
-                        treeStatus: _vm.treeStatus(row),
-                        cellContext: _vm.getCellContext,
-                        cellColumnCssClasses: _vm.cellColumnCssClasses,
-                        cellStyleObject: _vm.cellStyleObject,
-                        marginCellStyle: _vm.marginCellStyle,
                         slots: _vm.cellSlots,
                         renderTracking: _vm.renderTracking
                       },
@@ -5049,12 +4979,7 @@ var render = function() {
                       columnsByPin: _vm.columnsByPin,
                       columnGroupWidths: _vm.columnGroupWidths,
                       groupStyles: _vm.getGroupStyles,
-                      groupClass: _vm.getGroupClass("center"),
-                      rowStyles: _vm.getRowStyles,
-                      cellContext: _vm.getCellContext,
-                      cellColumnCssClasses: _vm.cellColumnCssClasses,
-                      cellStyleObject: _vm.cellStyleObject,
-                      marginCellStyle: _vm.marginCellStyle,
+                      groupClass: _vm.getGroupClass,
                       slots: _vm.cellSlots
                     }
                   })
@@ -5395,6 +5320,42 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 var __spreadArrays = (this && this.__spreadArrays) || function () {
     for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
     for (var r = Array(s), k = 0, i = 0; i < il; i++)
@@ -5506,14 +5467,79 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
         if (shouldFocus) {
             var isCellSelection = this.selectionType === types_1.SelectionType.cell;
             if (!model.cellElement || !isCellSelection) {
-                this.focusRow(keyCode);
+                this.focusRow(model, keyCode);
             }
             else if (isCellSelection) {
                 this.focusCell(model.cellElement, model.rowElement, keyCode, model.cellIndex);
             }
         }
     };
-    DataTableSelectionComponent.prototype.focusRow = function (keyCode) {
+    DataTableSelectionComponent.prototype.focusRow = function (model, keyCode) {
+        return __awaiter(this, void 0, void 0, function () {
+            var nextRowElement, index, _a, offsetY, height, scrolled, h;
+            return __generator(this, function (_b) {
+                nextRowElement = this.getPrevNextRow(model.rowElement, keyCode);
+                index = 0;
+                if (keyCode === utils_1.Keys.up) {
+                    if (model.rowIndex - 1 < 0) {
+                        return [2 /*return*/];
+                    }
+                    index = model.rowIndex - 1;
+                }
+                else if (keyCode === utils_1.Keys.down) {
+                    if (model.rowIndex + 1 >= this.rows.length) {
+                        return [2 /*return*/];
+                    }
+                    index = model.rowIndex + 1;
+                }
+                else if (keyCode === utils_1.Keys.pageUp) {
+                    index = model.rowIndex - this.pageSize;
+                    index = index < 0 ? 0 : index;
+                }
+                else if (keyCode === utils_1.Keys.pageDown) {
+                    index = model.rowIndex + this.pageSize;
+                    index = index >= this.rows.length ? this.rows.length - 1 : index;
+                }
+                _a = this.$parent.getRowOffsetY(index), offsetY = _a.offsetY, height = _a.height;
+                if (!height) {
+                    if (nextRowElement) {
+                        nextRowElement.focus();
+                    }
+                    return [2 /*return*/];
+                }
+                scrolled = false;
+                h = 0;
+                if ([utils_1.Keys.down, utils_1.Keys.pageDown].includes(keyCode)) {
+                    h = (offsetY + height) - (this.$parent.$el.scrollTop + this.bodyRect.height);
+                }
+                else if ([utils_1.Keys.up, utils_1.Keys.pageUp].includes(keyCode)) {
+                    h = (offsetY - height) - this.$parent.$el.scrollTop;
+                }
+                if (h > 0 && [utils_1.Keys.down, utils_1.Keys.pageDown].includes(keyCode)) {
+                    this.scroller.incOffset(h);
+                    // scrolled = model.rowIndex === this.rows.length - 2 ? false : true;
+                }
+                else if (h < 0 && [utils_1.Keys.up, utils_1.Keys.pageUp].includes(keyCode)) {
+                    this.scroller.incOffset(h);
+                    scrolled = model.rowIndex === 1 ? false : true;
+                }
+                else if (h === 0 && [utils_1.Keys.up, utils_1.Keys.pageUp].includes(keyCode) && [0, 1, 2].includes(model.rowIndex)) {
+                    this.scroller.setOffset(h);
+                    // scrolled = true;
+                }
+                if (scrolled) {
+                    model.rowElement.focus();
+                }
+                else {
+                    if (nextRowElement) {
+                        nextRowElement.focus();
+                    }
+                }
+                return [2 /*return*/];
+            });
+        });
+    };
+    DataTableSelectionComponent.prototype.focusRow1 = function (keyCode) {
         var _this = this;
         var index = 0;
         if (keyCode === utils_1.Keys.up) {
@@ -5610,6 +5636,21 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
         }
     };
     DataTableSelectionComponent.prototype.getPrevNextRow = function (rowElement, keyCode) {
+        var parentElement = rowElement.parentElement;
+        if (parentElement) {
+            var focusElement = void 0;
+            if (keyCode === utils_1.Keys.up) {
+                focusElement = parentElement.previousElementSibling;
+            }
+            else if (keyCode === utils_1.Keys.down) {
+                focusElement = parentElement.nextElementSibling;
+            }
+            if (focusElement && focusElement.children.length) {
+                return focusElement.children[0];
+            }
+        }
+    };
+    DataTableSelectionComponent.prototype.getPrevNextRow1 = function (rowElement, keyCode) {
         var parentElement = rowElement.parentElement;
         // const parentElement = rowElement.closest('.datatable-row-wrapper');
         if (parentElement) {
@@ -5769,6 +5810,7 @@ var DataTableSummaryRowComponent = /** @class */ (function (_super) {
         _this.internalColumns = [];
         _this.summaryRow = {};
         _this.mySlotsFunc = null;
+        _this.myRowContext = null;
         return _this;
     }
     DataTableSummaryRowComponent.prototype.onRowsChanged = function () {
@@ -5819,6 +5861,7 @@ var DataTableSummaryRowComponent = /** @class */ (function (_super) {
                 col.filter(sumFunc(cellsFromSingleColumn)) :
                 sumFunc(cellsFromSingleColumn);
         });
+        this.myRowContext = { row: this.summaryRow, rowIndex: -1, expanded: false, isChecked: false, isSelected: false, rowHeight: this.rowHeight, treeStatus: null };
     };
     DataTableSummaryRowComponent.prototype.getSummaryFunction = function (column) {
         if (column.summaryFunc === undefined) {
@@ -5870,26 +5913,6 @@ var DataTableSummaryRowComponent = /** @class */ (function (_super) {
     __decorate([
         vue_property_decorator_1.Prop(),
         __metadata("design:type", Object)
-    ], DataTableSummaryRowComponent.prototype, "rowStyles", void 0);
-    __decorate([
-        vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
-    ], DataTableSummaryRowComponent.prototype, "cellContext", void 0);
-    __decorate([
-        vue_property_decorator_1.Prop(),
-        __metadata("design:type", Function)
-    ], DataTableSummaryRowComponent.prototype, "cellColumnCssClasses", void 0);
-    __decorate([
-        vue_property_decorator_1.Prop(),
-        __metadata("design:type", Function)
-    ], DataTableSummaryRowComponent.prototype, "cellStyleObject", void 0);
-    __decorate([
-        vue_property_decorator_1.Prop(),
-        __metadata("design:type", Function)
-    ], DataTableSummaryRowComponent.prototype, "marginCellStyle", void 0);
-    __decorate([
-        vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
     ], DataTableSummaryRowComponent.prototype, "slots", void 0);
     __decorate([
         vue_property_decorator_1.Watch('rows', { immediate: true }),
@@ -5908,7 +5931,7 @@ var DataTableSummaryRowComponent = /** @class */ (function (_super) {
             components: {
                 'datatable-body-row': body_row_component_vue_1.default,
             },
-            template: "\n  <datatable-body-row\n    v-if=\"summaryRow && internalColumns\"\n    tabindex=\"-1\"\n    :columnsByPin=\"columnsByPin\"\n    :columnGroupWidths=\"columnGroupWidths\"\n    :groupStyles=\"groupStyles\"\n    :groupClass=\"groupClass\"\n    :rowStyles=\"rowStyles\"\n    :row=\"summaryRow\"\n    :rowIndex=\"-1\"\n    :cellContext=\"cellContext\"\n    :cellColumnCssClasses=\"cellColumnCssClasses\"\n    :cellStyleObject=\"cellStyleObject\"\n    :marginCellStyle=\"marginCellStyle\"\n    :slots=\"mySlotsFunc\"\n    @activate=\"onActivate\">\n  </datatable-body-row>\n  ",
+            template: "\n  <datatable-body-row\n    v-if=\"summaryRow && internalColumns\"\n    tabindex=\"-1\"\n    :columnsByPin=\"columnsByPin\"\n    :columnGroupWidths=\"columnGroupWidths\"\n    :groupStyles=\"groupStyles\"\n    :groupClass=\"groupClass(rowContext.row, -1)\"\n    :rowContext=\"myRowContext\"\n    :slots=\"cellSlots\"\n    :renderTracking=\"renderTracking\"\n    :row=\"summaryRow\"\n    :slots=\"mySlotsFunc\"\n    @activate=\"onActivate\">\n  </datatable-body-row>\n  ",
         })
     ], DataTableSummaryRowComponent);
     return DataTableSummaryRowComponent;
@@ -8439,6 +8462,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var SelectionType;
 (function (SelectionType) {
     SelectionType["single"] = "single";
+    SelectionType["singleFocus"] = "singleFocus";
     SelectionType["multi"] = "multi";
     SelectionType["multiClick"] = "multiClick";
     SelectionType["cell"] = "cell";

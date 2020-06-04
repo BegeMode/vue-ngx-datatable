@@ -53,6 +53,7 @@ export default class DataTableBodyCellComponent extends Vue {
         group: this.rowContext.group, 
         expanded: this.rowContext.expanded,
         value: this.value,
+        updateCell: this.$forceUpdate.bind(this),
       });
     }
     if (this.renderTracking) {
@@ -126,7 +127,6 @@ export default class DataTableBodyCellComponent extends Vue {
   }
   
   onKeyDown(event): void {
-    console.log('cell onKeyDown=================');
     const keyCode = event.keyCode;
     const isTargetCell = event.target === this.$el;
     const isAction = 
@@ -246,6 +246,10 @@ export default class DataTableBodyCellComponent extends Vue {
     return {
       'margin-left': this.calcLeftMargin(this.column, this.rowContext.row) + 'px',
     };
+  }
+
+  get isCheckboxable(): boolean {
+    return this.column.checkboxable && (!this.displayCheck || this.displayCheck(this.rowContext.row, this.column, this.value));
   }
 
   cellHeight(rowHeight: number): string | number {

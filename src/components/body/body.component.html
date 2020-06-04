@@ -1,7 +1,7 @@
 <div :style="styleObject" class="datatable-body">
 <datatable-selection
 ref="selector"
-:selected="mySelected"
+:selected="selected"
 :checked="checked"
 :rows="rows"
 :pageSize="pageSize"
@@ -34,7 +34,6 @@ ref="selector"
     :columnsByPin="columnsByPin"
     :columnGroupWidths="columnGroupWidths"
     :groupStyles="getGroupStyles"
-    :groupClass="getGroupClass"
     :slots=cellSlots>
   </datatable-summary-row>
   <datatable-row-wrapper 
@@ -60,7 +59,7 @@ ref="selector"
       :columnsByPin="columnsByPin"
       :columnGroupWidths="columnGroupWidths"
       :groupStyles="getGroupStyles"
-      :groupClass="getGroupClass(rowContext.row, rowContext.rowIndex)"
+      :rowClass="rowClass"
       :row="rowContext.row"
       :rowContext="rowContext"
       :displayCheck="displayCheck"
@@ -83,7 +82,6 @@ ref="selector"
     :columnsByPin="columnsByPin"
     :columnGroupWidths="columnGroupWidths"
     :groupStyles="getGroupStyles"
-    :groupClass="getGroupClass"
     :slots=cellSlots>
   </datatable-summary-row>
 </datatable-scroller>

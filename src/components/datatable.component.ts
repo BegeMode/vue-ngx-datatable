@@ -251,7 +251,7 @@ export default class DatatableComponent extends Vue {
    *  [rowClass]="'first second'"
    *  [rowClass]="{ 'first': true, 'second': true, 'third': false }"
    */
-  @Prop() rowClass: any;
+  @Prop() rowClass: (row: any, rowIndex: number) => string | string;
   /**
    * A boolean/function you can use to check whether you want
    * to select a particular row based on a criteria. Example:
@@ -1092,7 +1092,7 @@ export default class DatatableComponent extends Vue {
   onHeaderSelect(isChecked: boolean): void {
     let evName = 'select';
     if (this.selectAllRowsOnPage) {
-      // before we splice, chk if we currently have all selected
+      // before we splice, check if we currently have all selected
       const first = this.bodyComponent.indexes.first;
       const last = this.bodyComponent.indexes.last;
       if (this.checkMode === CheckMode.checkIsSelect) {
@@ -1121,13 +1121,21 @@ export default class DatatableComponent extends Vue {
         }
       }
     } else {
-      // before we splice, chk if we currently have all selected
-      const allSelected = this.mySelected.length === this.rows.length;
-      // remove all existing either way
-      this.mySelected = [];
-      // do the opposite here
-      if (!allSelected) {
-        this.mySelected.push(...this.rows);
+      if (this.checkMode === CheckMode.checkIsSelect) {
+        // before we splice, chk if we currently have all selected
+        const allSelected = this.mySelected.length === this.rows.length;
+        // remove all existing either way
+        this.mySelected = [];
+        // do the opposite here
+        if (!allSelected) {
+          this.mySelected.push(...this.rows);
+        }
+      } else {
+        const allChecked = this.myChecked.length === this.rows.length;
+        this.myChecked = [];
+        if (!allChecked) {
+          this.myChecked.push(...this.rows);
+        }
       }
     }
 

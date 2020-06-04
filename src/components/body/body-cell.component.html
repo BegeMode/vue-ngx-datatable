@@ -8,7 +8,7 @@
   @mouseenter="onMouseEnter"
   @focus="onFocus" @blur="onBlur">
   <div class="datatable-body-cell-label" :style="column.isTreeColumn ? marginCellStyle: null">
-    <label v-if="column.checkboxable && (!displayCheck || displayCheck(rowContext.row, column, value))"
+    <label v-if="isCheckboxable"
       class="datatable-checkbox">
       <input type="checkbox" :checked="rowContext.isChecked" @click="onCheckboxChange" />
     </label>
