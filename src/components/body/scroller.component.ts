@@ -1,14 +1,13 @@
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component({
   template: `
-  <div class="datatable-scroll" :style="styleObject">
-    <slot></slot>
-  </div>
+    <div class="datatable-scroll" :style="styleObject">
+      <slot></slot>
+    </div>
   `,
 })
 export default class ScrollerComponent extends Vue {
-
   @Prop({ type: Boolean, default: false }) scrollbarV: boolean;
   @Prop({ type: Boolean, default: false }) scrollbarH: boolean;
   @Prop() scrollHeight: number;
@@ -16,26 +15,26 @@ export default class ScrollerComponent extends Vue {
 
   fromPager = true;
 
-  get styleObject() {
+  get styleObject(): Record<string, unknown> {
     return {
-      height: this.scrollHeight + 'px',
-      width: this.scrollWidth + 'px',
+      height: `${this.scrollHeight}px`,
+      width: `${this.scrollWidth}px`,
     };
   }
 
-  scrollYPos: number = 0;
-  scrollXPos: number = 0;
-  prevScrollYPos: number = 0;
-  prevScrollXPos: number = 0;
-  parentElement: any;
+  scrollYPos = 0;
+  scrollXPos = 0;
+  prevScrollYPos = 0;
+  prevScrollXPos = 0;
+  parentElement: Element;
   onScrollListener: (event: MouseEvent) => void;
   onInitScrollHandler: () => void;
   scrollDirty = false;
 
-  created() {
+  created(): void {
     this.$emit('setup', {
       scrollYPos: this.scrollYPos,
-      scrollXPos: this.scrollXPos
+      scrollXPos: this.scrollXPos,
     });
   }
 
@@ -45,11 +44,11 @@ export default class ScrollerComponent extends Vue {
       // const renderer = this.renderer;
       this.parentElement = this.$el.closest('.datatable-body');
       // .parentElement; //  renderer.parentNode(renderer.parentNode(this.element));
-      this.onScrollListener = this.onScrolled.bind(this);
+      this.onScrollListener = this.onScrolled.bind(this) as (event: MouseEvent) => void;
       this.parentElement.addEventListener('scroll', this.onScrollListener, {
         passive: true,
       });
-      this.onInitScrollHandler = this.onInitScroll.bind(this);
+      this.onInitScrollHandler = this.onInitScroll.bind(this) as () => void;
       'mousedown DOMMouseScroll mousewheel wheel touchstart keyup'.split(' ').forEach(event => {
         this.parentElement.addEventListener(event, this.onInitScrollHandler, {
           passive: true,
@@ -80,7 +79,7 @@ export default class ScrollerComponent extends Vue {
     }
   }
 
-  onInitScroll() {
+  onInitScroll(): void {
     this.fromPager = false;
   }
 
@@ -96,6 +95,7 @@ export default class ScrollerComponent extends Vue {
           this.scrollDirty = false;
         });
       } else {
+        // eslint-disable-next-line no-console
         console.log('this.scrollDirty is true');
       }
     }
@@ -117,11 +117,10 @@ export default class ScrollerComponent extends Vue {
         direction,
         scrollYPos: this.scrollYPos,
         scrollXPos: this.scrollXPos,
-        fromPager: this.fromPager
+        fromPager: this.fromPager,
       });
     }
     this.prevScrollYPos = this.scrollYPos;
     this.prevScrollXPos = this.scrollXPos;
   }
-
 }

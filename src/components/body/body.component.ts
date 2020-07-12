@@ -20,7 +20,7 @@ import DataTableRowWrapperComponent from './body-row-wrapper.component.vue';
 import DataTableBodyRowComponent from './body-row.component.vue';
 import ProgressBarComponent from './progress-bar.component';
 import ScrollerComponent from './scroller.component';
-import DataTableSelectionComponent from './selection.component';
+import DataTableSelectionComponent, { Model } from './selection.component';
 // import DataTableRowWrapperComponent from './body-row-wrapper.component.vue';
 // import DataTableBodyRowComponent from './body-row.component.vue';
 import DataTableSummaryRowComponent from './summary/summary-row.component';
@@ -85,7 +85,7 @@ export default class DataTableBodyComponent extends Vue {
   offsetY = 0;
   myOffset = 0;
   myOffsetX = 0;
-  indexes = { first: 0, last: 0 };
+  indexes: { first: number; last: number } = { first: 0, last: 0 };
   columnGroupWidths: IColumnsWidth = null;
   columnGroupWidthsWithoutGroup = null;
   rowIndexes = new Map<Record<string, unknown>, number>();
@@ -887,9 +887,9 @@ export default class DataTableBodyComponent extends Vue {
     return this.selector ? this.selector.getRowChecked(row) : false;
   }
 
-  onActivate(event: any, index: number): void {
+  onActivate(model: Model, index: number): void {
     if (this.selector) {
-      this.selector.onActivate(event, this.indexes.first + index);
+      this.selector.onActivate(model, this.indexes.first + index);
     }
   }
 
@@ -986,7 +986,7 @@ export default class DataTableBodyComponent extends Vue {
     return () => result;
   }
 
-  onCellFocus($event: any): void {
+  onCellFocus($event: Event): void {
     // eslint-disable-next-line no-console
     console.log('onCellFocus($event)');
   }

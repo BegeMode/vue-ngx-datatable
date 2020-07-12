@@ -1,16 +1,18 @@
-import { Component, Vue, Prop } from 'vue-property-decorator';
-import { Keys, selectRows, selectRowsBetween } from '../../utils';
+import DataTableBodyComponent from 'components/body/body.component';
+import ScrollerComponent from 'components/body/scroller.component';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 import { SelectionType, TableColumn } from '../../types';
 import { CheckMode } from '../../types/check.type';
+import { Keys, selectRows, selectRowsBetween } from '../../utils';
 // import { MouseEvent, KeyboardEvent } from '../../events';
 
 export interface Model {
-  type: string; 
+  type: string;
   event: MouseEvent | KeyboardEvent;
-  row: any;
+  row: Record<string, unknown>;
   rowIndex: number;
-  rowElement: any;
-  cellElement: any;
+  rowElement: Element;
+  cellElement: Element;
   cellIndex: number;
   column?: TableColumn;
 }
@@ -25,37 +27,33 @@ export interface Model {
   `,
 })
 export default class DataTableSelectionComponent extends Vue {
-
-  @Prop() rows: any[];
-  @Prop() selected: any[];
-  @Prop() checked: any[];
+  @Prop() rows: Record<string, unknown>[];
+  @Prop() selected: Record<string, unknown>[];
+  @Prop() checked: Record<string, unknown>[];
   @Prop() selectEnabled: boolean;
   @Prop() selectionType: SelectionType;
   @Prop() checkMode: CheckMode;
-  @Prop() rowIdentity: any;
-  @Prop() selectCheck: any;
-  @Prop() scroller: any;
+  @Prop() rowIdentity: (row: Record<string, unknown>) => string | number;
+  @Prop() selectCheck: () => void;
+  @Prop() scroller: ScrollerComponent;
   @Prop() pageSize: number;
   @Prop() bodyHeight: number;
 
   prevIndex: number;
 
-  selectRow(event: KeyboardEvent | MouseEvent, index: number, row: any): void {
-    if (!this.selectEnabled) return;
+  selectRow(event: KeyboardEvent | MouseEvent, index: number, row: Record<string, unknown>): void {
+    if (!this.selectEnabled) {
+      return;
+    }
 
     const chkbox = this.selectionType === SelectionType.checkbox && this.checkMode === CheckMode.checkIsSelect;
     const multi = this.selectionType === SelectionType.multi;
     const multiClick = this.selectionType === SelectionType.multiClick;
-    let selected: any[] = [];
+    let selected: Record<string, unknown>[] = [];
 
     if (multi || chkbox || multiClick) {
       if (event.shiftKey) {
-        selected = selectRowsBetween(
-          [],
-          this.rows,
-          index,
-          this.prevIndex,
-          this.getRowSelectedIdx.bind(this));
+        selected = selectRowsBetween([], this.rows, index, this.prevIndex, this.getRowSelectedIdx.bind(this));
       } else if (event.ctrlKey || event.metaKey || multiClick || chkbox) {
         selected = selectRows([...this.selected], row, this.getRowSelectedIdx.bind(this));
       } else {
@@ -74,21 +72,17 @@ export default class DataTableSelectionComponent extends Vue {
 
     this.$emit('select', {
       selected,
-      index
+      index,
     });
   }
 
-  checkRow(event: KeyboardEvent | MouseEvent, index: number, row: any): void {
-    if (!this.selectEnabled) return;
-
-    let checked: any[] = [];
+  checkRow(event: KeyboardEvent | MouseEvent, index: number, row: Record<string, unknown>): void {
+    if (!this.selectEnabled) {
+      return;
+    }
+    let checked: Record<string, unknown>[] = [];
     if (event.shiftKey) {
-      checked = selectRowsBetween(
-        [],
-        this.rows,
-        index,
-        this.prevIndex,
-        this.getRowSelectedIdx.bind(this));
+      checked = selectRowsBetween([], this.rows, index, this.prevIndex, this.getRowSelectedIdx.bind(this));
     } else {
       checked = selectRows([...this.checked], row, this.getRowSelectedIdx.bind(this));
     }
@@ -102,7 +96,7 @@ export default class DataTableSelectionComponent extends Vue {
     this.checked.push(...checked);
 
     this.$emit('check', {
-      checked
+      checked,
     });
   }
 
@@ -115,7 +109,7 @@ export default class DataTableSelectionComponent extends Vue {
     }
     if (select) {
       this.selectRow(event, index, row);
-    } else if (type === 'checkbox' && this.checkMode === CheckMode.checkNoSelect) { 
+    } else if (type === 'checkbox' && this.checkMode === CheckMode.checkNoSelect) {
       this.checkRow(event, index, row);
     } else if (type === 'keydown') {
       if ((<KeyboardEvent>event).keyCode === Keys.return) {
@@ -138,8 +132,7 @@ export default class DataTableSelectionComponent extends Vue {
       keyCode === Keys.pageDown;
 
     if (shouldFocus) {
-      const isCellSelection =
-        this.selectionType === SelectionType.cell;
+      const isCellSelection = this.selectionType === SelectionType.cell;
 
       if (!model.cellElement || !isCellSelection) {
         this.focusRow(model, keyCode);
@@ -149,7 +142,7 @@ export default class DataTableSelectionComponent extends Vue {
     }
   }
 
-  async focusRow(model: Model, keyCode: number): Promise<void> {
+  focusRow(model: Model, keyCode: number): void {
     const nextRowElement = this.getPrevNextRow(model.rowElement, keyCode);
     let index = 0;
     if (keyCode === Keys.up) {
@@ -169,36 +162,34 @@ export default class DataTableSelectionComponent extends Vue {
       index = model.rowIndex + this.pageSize;
       index = index >= this.rows.length ? this.rows.length - 1 : index;
     }
-    const { offsetY, height } = (this.$parent as any).getRowOffsetY(index + 1);
+    const { offsetY, height } = (this.$parent as DataTableBodyComponent).getRowOffsetY(index + 1);
     if (!height) {
       if (nextRowElement) {
-        nextRowElement.focus();
+        (nextRowElement as HTMLElement).focus();
       }
       return;
     }
     let scrolled = false;
     let h = 0;
     if ([Keys.down, Keys.pageDown].includes(keyCode)) {
-      h = (offsetY + height) - (this.$parent.$el.scrollTop + this.bodyHeight);
+      h = offsetY + height - (this.$parent.$el.scrollTop + this.bodyHeight);
     } else if ([Keys.up, Keys.pageUp].includes(keyCode)) {
-      h = (offsetY - height) - this.$parent.$el.scrollTop;
+      h = offsetY - height - this.$parent.$el.scrollTop;
     }
     if (h > 0 && [Keys.down, Keys.pageDown].includes(keyCode)) {
-      (this.scroller as any).incOffset(h);
+      this.scroller.incOffset(h);
       // scrolled = model.rowIndex === this.rows.length - 2 ? false : true;
     } else if (h < 0 && [Keys.up, Keys.pageUp].includes(keyCode)) {
-      (this.scroller as any).incOffset(h);
-      scrolled = model.rowIndex === 1 ? false : true;
-    } else if (h === 0 && [Keys.up, Keys.pageUp].includes(keyCode) && [0,1,2].includes(model.rowIndex)) {
-      (this.scroller as any).setOffset(h);
+      this.scroller.incOffset(h);
+      scrolled = model.rowIndex !== 1;
+    } else if (h === 0 && [Keys.up, Keys.pageUp].includes(keyCode) && [0, 1, 2].includes(model.rowIndex)) {
+      this.scroller.setOffset(h);
       // scrolled = true;
     }
     if (scrolled) {
-      model.rowElement.focus();
-    } else {
-      if (nextRowElement) {
-        nextRowElement.focus();
-      }
+      (model.rowElement as HTMLElement).focus();
+    } else if (nextRowElement) {
+      (nextRowElement as HTMLElement).focus();
     }
   }
 
@@ -213,7 +204,7 @@ export default class DataTableSelectionComponent extends Vue {
       if (this.prevIndex + 1 >= this.rows.length) {
         return;
       }
-      index = this.prevIndex + 1
+      index = this.prevIndex + 1;
     } else if (keyCode === Keys.pageUp) {
       index = this.prevIndex - this.pageSize;
       index = index < 0 ? 0 : index;
@@ -226,17 +217,17 @@ export default class DataTableSelectionComponent extends Vue {
       return;
     }
     setTimeout(() => this.selectRow({ shiftKey: false, ctrlKey: false } as any, index, nextRow));
-    const { offsetY, height } = (this.$parent as any).getRowOffsetY(index);
+    const { offsetY, height } = (this.$parent as DataTableBodyComponent).getRowOffsetY(index);
     let h = 0;
     if ([Keys.down, Keys.pageDown].includes(keyCode)) {
       h = offsetY - this.bodyHeight;
     } else if ([Keys.up, Keys.pageUp].includes(keyCode)) {
-      h = (offsetY - height) - (this.scroller as any).scrollYPos;
+      h = offsetY - height - this.scroller.scrollYPos;
     }
     if (h > 0 && [Keys.down, Keys.pageDown].includes(keyCode)) {
-      (this.scroller as any).setOffset(h);
+      this.scroller.setOffset(h);
     } else if (h < 0 && [Keys.up, Keys.pageUp].includes(keyCode)) {
-      (this.scroller as any).incOffset(h);
+      this.scroller.incOffset(h);
     }
 
     // const { el: rowElement, height } = (this.$parent as any).getRowElementAndHeight(this.rows[this.prevIndex]);
@@ -251,7 +242,7 @@ export default class DataTableSelectionComponent extends Vue {
     //   if (keyCode === Keys.up) {
     //     if (this.prevIndex - 1 < 0) {
     //       return;
-    //     } 
+    //     }
     //     index = this.prevIndex - 1;
     //   } else if (keyCode === Keys.down) {
     //     if (this.prevIndex + 1 >= this.rows.length) {
@@ -294,11 +285,11 @@ export default class DataTableSelectionComponent extends Vue {
     }
   }
 
-  getPrevNextRow(rowElement: any, keyCode: number): any {
+  getPrevNextRow(rowElement: Element, keyCode: number): Element {
     const parentElement = rowElement.parentElement;
 
     if (parentElement) {
-      let focusElement: HTMLElement;
+      let focusElement: Element;
       if (keyCode === Keys.up) {
         focusElement = parentElement.previousElementSibling;
       } else if (keyCode === Keys.down) {
@@ -311,12 +302,12 @@ export default class DataTableSelectionComponent extends Vue {
     }
   }
 
-  getPrevNextRow1(rowElement: any, keyCode: number): any {
+  getPrevNextRow1(rowElement: Element, keyCode: number): any {
     const parentElement = rowElement.parentElement;
     // const parentElement = rowElement.closest('.datatable-row-wrapper');
 
     if (parentElement) {
-      let focusElement: HTMLElement;
+      let focusElement: Element;
       if (keyCode === Keys.up) {
         focusElement = parentElement.previousElementSibling;
       } else if (keyCode === Keys.down) {
@@ -329,8 +320,8 @@ export default class DataTableSelectionComponent extends Vue {
     }
   }
 
-  focusCell(cellElement: any, rowElement: any, keyCode: number, cellIndex: number): void {
-    let nextCellElement: HTMLElement;
+  focusCell(cellElement: Element, rowElement: Element, keyCode: number, cellIndex: number): void {
+    let nextCellElement: Element;
 
     if (keyCode === Keys.left) {
       nextCellElement = cellElement.previousElementSibling;
@@ -340,27 +331,32 @@ export default class DataTableSelectionComponent extends Vue {
       const nextRowElement = this.getPrevNextRow(rowElement, keyCode);
       if (nextRowElement) {
         const children = nextRowElement.getElementsByClassName('datatable-body-cell');
-        if (children.length) nextCellElement = children[cellIndex];
+        if (children.length) {
+          nextCellElement = children[cellIndex];
+        }
       }
     }
 
-    if (nextCellElement) nextCellElement.focus();
+    if (nextCellElement) {
+      (nextCellElement as HTMLElement).focus();
+    }
   }
 
-  getRowSelected(row: any): boolean {
+  getRowSelected(row: Record<string, unknown>): boolean {
     return this.getRowSelectedIdx(row, this.selected) > -1;
   }
 
-  getRowChecked(row: any): boolean {
+  getRowChecked(row: Record<string, unknown>): boolean {
     const arr = this.checkMode === CheckMode.checkIsSelect ? this.selected : this.checked;
     return this.getRowSelectedIdx(row, arr) > -1;
   }
 
-  getRowSelectedIdx(row: any, selected: any[]): number {
-    if (!selected || !selected.length) return -1;
-
+  getRowSelectedIdx(row: Record<string, unknown>, selected: Record<string, unknown>[]): number {
+    if (!selected || !selected.length) {
+      return -1;
+    }
     const rowId = this.rowIdentity(row);
-    return selected.findIndex((r) => {
+    return selected.findIndex(r => {
       const id = this.rowIdentity(r);
       return id === rowId;
     });

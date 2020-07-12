@@ -1,19 +1,27 @@
 // import { PipeTransform } from '@angular/core';
+import { SortDirection } from 'types/sort-direction.type';
 import { ValueGetter } from '../utils/column-prop-getters';
+
+export type TComparator = (
+  propA: string,
+  propB: string,
+  row: Record<string, unknown>,
+  row1: Record<string, unknown>,
+  dir: SortDirection
+) => number;
 
 /**
  * Column property that indicates how to retrieve this column's
  * value from a row.
  * 'a.deep.value', 'normalprop', 0 (numeric)
  */
-export type TableColumnProp = string|number;
+export type TableColumnProp = string | number;
 
 /**
  * Column Type
  * @type {object}
  */
 export interface TableColumn {
-
   /**
    * Internal unique id
    *
@@ -111,7 +119,7 @@ export interface TableColumn {
    * @type {*}
    * @memberOf TableColumn
    */
-  comparator?: any;
+  comparator?: TComparator;
 
   /**
    * Custom pipe transforms
@@ -196,7 +204,7 @@ export interface TableColumn {
    *
    * @memberOf TableColumn
    */
-  cellClass?: string | ((data: any) => string|any);
+  cellClass?: string | string[] | ((data: Record<string, unknown>) => string | Record<string, unknown>);
 
   /**
    * CSS classes for the header
@@ -204,7 +212,7 @@ export interface TableColumn {
    *
    * @memberOf TableColumn
    */
-  headerClass?: string | ((data: any) => string|any);
+  headerClass?: string | ((data: any) => string);
 
   /**
    * Header checkbox enabled
@@ -224,7 +232,7 @@ export interface TableColumn {
 
   /**
    * Width of the tree level indent
-   * 
+   *
    * @type {number}
    * @memberOf TableColumn
    */
@@ -264,4 +272,10 @@ export interface TableColumn {
    * @memberOf TableColumn
    */
   element?: Element;
+  /**
+   * Is column temporary hidden?
+   * @type {boolean}
+   * @memberOf TableColumn
+   */
+  hidden?: boolean;
 }
