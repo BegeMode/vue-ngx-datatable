@@ -65,6 +65,9 @@ export default class DataTableHeaderCellComponent extends Vue {
   };
 
   @Watch('allRowsSelected', { immediate: true }) onAllRowsSelectedChanged() {
+    if (!this.isCheckboxable) {
+      return;
+    }
     this.myAllRowsSelected = this.allRowsSelected;
     this.cellContext.allRowsSelected = this.allRowsSelected;
   }

@@ -99,12 +99,9 @@ export class RowHeightCache {
    * Given the ScrollY position i.e. sum, provide the rowIndex
    * that is present in the current view port.  Below handles edge cases.
    */
-  getRowIndex(scrollY: number, first: boolean = false): number {
+  getRowIndex(scrollY: number): number {
     if(scrollY === 0) return 0;
     let result = this.calcRowIndex(scrollY);
-    if (!first) {
-      result++;
-    }
     return result;
   }
 

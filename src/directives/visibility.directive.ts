@@ -32,7 +32,7 @@ class VisibilityController {
     }
   }
 
-  runCheck(): void {
+  runCheck(timeout: number): void {
     const check = () => {
       clearTimeout(this.timeout);
       // https://davidwalsh.name/offsetheight-visibility
@@ -43,7 +43,7 @@ class VisibilityController {
       } else {
         this.onVisibilityChange(false);
       }
-      this.timeout = setTimeout(check.bind(this), 100);
+      this.timeout = setTimeout(check.bind(this), timeout);
     };
     this.timeout = setTimeout(check.bind(this));
   }
@@ -74,7 +74,9 @@ export default Vue.directive('visibility-observer', {
   bind(el, binding, vnode) {
     const ctrl = new VisibilityController(vnode, el);
     el.__visibility__ = ctrl;
-    ctrl.runCheck();
+    if (binding?.value?.on) {
+      ctrl.runCheck(binding?.value?.timeout ?? 1000);
+    }
   },
   unbind(el: any) {
     const ctrl = el.__visibility__;

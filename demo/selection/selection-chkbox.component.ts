@@ -34,7 +34,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
           :limit="5"
           :selected="selected"
           selectionType="checkbox"
-          :selectAllRowsOnPage="false"
+          :selectAllRowsOnPage="true"
           :displayCheck="displayCheck"
           @activate="onActivate($event)"
           @select='onSelect($event)'>

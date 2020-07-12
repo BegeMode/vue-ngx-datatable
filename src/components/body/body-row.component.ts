@@ -2,7 +2,7 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import { Keys } from '../../utils/keys';
 import DataTableBodyCellComponent from './body-cell.component.vue';
 import { TableColumn } from '../../types/table-column.type';
-import { ICellContext } from 'types/cell-context.type';
+import { IRowContext } from 'types/row-context.type';
 
 @Component({
   components: {
@@ -11,25 +11,19 @@ import { ICellContext } from 'types/cell-context.type';
 })
 export default class DataTableBodyRowComponent extends Vue {
   @Prop() row: any;
+  @Prop() rowContext: IRowContext;
   @Prop() group: any[];
   @Prop() columnsByPin: any[];
   @Prop() columnGroupWidths: any;
-  @Prop() isSelected: boolean;
-  @Prop() isChecked: boolean;
-  @Prop() rowStyles: any;
   @Prop() groupStyles: any;
-  @Prop() groupClass: string;
+  @Prop() rowClass: (row: any, rowIndex: number) => string | string;
   @Prop() displayCheck: any; // (row: any, column?: TableColumn, value?: any) => boolean,
-  @Prop() treeStatus: ({ type: string, default: 'collapsed' });
-  @Prop() cellContext: ICellContext;
-  @Prop() cellColumnCssClasses: (context: ICellContext) => Record<string, string>;
-  @Prop() cellStyleObject: (context: ICellContext) => Record<string, string | number>;
-  @Prop() marginCellStyle: (context: ICellContext) => Record<string, string>;
   @Prop() slots: any;
   @Prop() renderTracking: boolean;
-  @Prop() refresh: number;
 
   counter = 0; // it's need to update cells after row's changing
+  isFocused: boolean = false;
+
 
   created() {
     if (this.renderTracking) {
@@ -41,21 +35,28 @@ export default class DataTableBodyRowComponent extends Vue {
     if (this.renderTracking) {
       this.$emit('row-updated', this.row);
     }
-  }
-
-  @Watch('row', { deep: true }) onRowChanged(newVal, oldVal) {
-    if (newVal === oldVal) {
-      // there was only row's properties changed - it's need to update cells
-      this.counter++;
+    if (this.isFocused) {
+      (this.$el as HTMLElement).focus();
     }
   }
 
-  @Watch('refresh') onRefreshChanged() {
-    console.log('onRefreshChanged');
-  }
+  // @Watch('row', { deep: true }) onRowChanged(newVal, oldVal) {
+  //   if (newVal === oldVal) {
+  //     // there was only row's properties changed - it's need to update cells
+  //     this.counter++;
+  //   }
+  // }
 
   onCellRendered(column: TableColumn) {
     this.$emit('row-updated', this.row);
+  }
+
+  onFocus() {
+    this.isFocused = true;
+  }
+
+  onBlur() {
+    this.isFocused = false;
   }
 
   onActivate(event: any, index: number): void {
@@ -72,8 +73,6 @@ export default class DataTableBodyRowComponent extends Vue {
       keyCode === Keys.return ||
       keyCode === Keys.down ||
       keyCode === Keys.up ||
-      keyCode === Keys.left ||
-      keyCode === Keys.right ||
       keyCode === Keys.pageUp ||
       keyCode === Keys.pageDown;
 
@@ -85,6 +84,7 @@ export default class DataTableBodyRowComponent extends Vue {
         type: 'keydown',
         event,
         row: this.row,
+        rowIndex: this.rowContext.rowIndex,
         rowElement: this.$el
       });
     }
@@ -101,6 +101,42 @@ export default class DataTableBodyRowComponent extends Vue {
 
   onTreeAction(event) {
     this.$emit('tree-action', event);
+  }
+
+  get styles(): object {
+    if (this.rowContext) {
+      return {
+        width: this.columnGroupWidths.total + 'px',
+        height: this.rowContext.rowHeight + 'px',
+      };
+    }
+    return {
+      width: this.columnGroupWidths.total + 'px',
+    };
+  }
+
+  get cssClasses(): string {
+    let cls = '';
+    if (this.rowContext?.isSelected) {
+      cls += ' active';
+    }
+    if (this.rowContext?.rowIndex % 2 !== 0) {
+      cls += ' datatable-row-odd';
+    } else {
+      cls += ' datatable-row-even';
+    }
+    if (typeof this.rowClass === 'function') {
+      const res = this.rowClass(this.rowContext.row, this.rowContext.rowIndex);
+      if (typeof res === 'string') {
+        cls += ` ${res}`;
+      } else if (typeof res === 'object') {
+        const keys = Object.keys(res);
+        for (const k of keys) {
+          if (res[k] === true) cls += ` ${k}`;
+        }
+      }
+    }
+    return cls;
   }
 
 }

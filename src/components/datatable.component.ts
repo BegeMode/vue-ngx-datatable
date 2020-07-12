@@ -44,6 +44,8 @@ type GroupByField = string | IGroup;
   }
 })
 export default class DatatableComponent extends Vue {
+  @Prop({ default: false }) visibilityCheck: boolean;
+  @Prop({ default: 1000 }) visibilityCheckTimeout: number;
   /**
    * Template for the target marker of drag target columns.
    */
@@ -251,7 +253,7 @@ export default class DatatableComponent extends Vue {
    *  [rowClass]="'first second'"
    *  [rowClass]="{ 'first': true, 'second': true, 'third': false }"
    */
-  @Prop() rowClass: any;
+  @Prop() rowClass: (row: any, rowIndex: number) => string | string;
   /**
    * A boolean/function you can use to check whether you want
    * to select a particular row based on a criteria. Example:
@@ -472,7 +474,11 @@ export default class DatatableComponent extends Vue {
    * A row was expanded ot collapsed for tree
    */
   // @Output() treeAction: EventEmitter<any> = new EventEmitter();
-  
+
+  // @Watch('sorts', { immediate: true }) onSortsChanged() {
+  //   ...
+  // }
+
   @Watch('rows', { immediate: true }) onRowsChanged(val: any) {
     if (val) {
       this.internalRows = [...val];
@@ -595,7 +601,7 @@ export default class DatatableComponent extends Vue {
   @Watch('offset', { immediate: true }) onOffsetChanged() {
     if (this.innerOffset !== this.offset) {
       this.innerOffset = this.offset;
-      if (this.externalPager && this.innerOffset >= 0) {
+      if (/* this.externalPager && */ this.innerOffset >= 0) {
         this.onFooterPage({ page: this.offset + 1 });
       }
     }
@@ -685,6 +691,10 @@ export default class DatatableComponent extends Vue {
    */
   get isSingleSelection(): boolean {
     return this.selectionType === SelectionType.single;
+  }
+
+  get isSingleFocusSelection(): boolean {
+    return this.selectionType === SelectionType.singleFocus;
   }
 
   /**
@@ -1088,7 +1098,7 @@ export default class DatatableComponent extends Vue {
   onHeaderSelect(isChecked: boolean): void {
     let evName = 'select';
     if (this.selectAllRowsOnPage) {
-      // before we splice, chk if we currently have all selected
+      // before we splice, check if we currently have all selected
       const first = this.bodyComponent.indexes.first;
       const last = this.bodyComponent.indexes.last;
       if (this.checkMode === CheckMode.checkIsSelect) {
@@ -1117,13 +1127,21 @@ export default class DatatableComponent extends Vue {
         }
       }
     } else {
-      // before we splice, chk if we currently have all selected
-      const allSelected = this.mySelected.length === this.rows.length;
-      // remove all existing either way
-      this.mySelected = [];
-      // do the opposite here
-      if (!allSelected) {
-        this.mySelected.push(...this.rows);
+      if (this.checkMode === CheckMode.checkIsSelect) {
+        // before we splice, chk if we currently have all selected
+        const allSelected = this.mySelected.length === this.rows.length;
+        // remove all existing either way
+        this.mySelected = [];
+        // do the opposite here
+        if (!allSelected) {
+          this.mySelected.push(...this.rows);
+        }
+      } else {
+        const allChecked = this.myChecked.length === this.rows.length;
+        this.myChecked = [];
+        if (!allChecked) {
+          this.myChecked.push(...this.rows);
+        }
       }
     }
 
@@ -1255,6 +1273,14 @@ export default class DatatableComponent extends Vue {
       value: false
     });
   }
+
+  /**
+   * Is the row visible in the current page
+   */
+  isRowVisible(row: any): boolean {
+    return this.bodyComponent?.isRowVisible(row);
+  }
+
 
   /**
    * Creates a map with the data grouped by the user choice of grouping index

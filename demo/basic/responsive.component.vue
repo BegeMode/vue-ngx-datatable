@@ -15,6 +15,7 @@
         :headerHeight="50"
         :footerHeight="50"
         :rowHeight="50"
+        rowDetailHeight="50"
         :scrollbarV="true"
         :rows='rows'
         @page="onPage($event)">

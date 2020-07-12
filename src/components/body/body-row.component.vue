@@ -1,12 +1,18 @@
 <template>
-  <div id="row-group" :class="groupClass" :style="rowStyles(row)">
+  <div id="row-group" class="datatable-body-row" 
+      :class="cssClasses" 
+      :style="styles" 
+      :tabIndex="-1" 
+      @focus="onFocus" 
+      @blur="onBlur" 
+      @keydown="onKeyDown"
+  >
     <div
       class="datatable-row-group"
-      v-for="(colGroup, i) of columnsByPin"
+      v-for="colGroup of columnsByPin"
       :key="colGroup.type"
       :class="'datatable-row-' + colGroup.type"
       :style="groupStyles(colGroup)"
-      @keydown="$emit('keydown', row)"
       @mouseenter="$emit('activate', row)"
     >
       <!-- <div v-for="(column, ii) of colGroup.columns" :key="column.$$id">
@@ -16,15 +22,13 @@
         v-for="(column, ii) of colGroup.columns"
         :key="`${column.$$id}-${counter}`"
         tabIndex="-1"
-        :context="cellContext(row, group, column)"
-        :cellColumnCssClasses="cellColumnCssClasses"
-        :cellStyleObject="cellStyleObject"
-        :marginCellStyle="marginCellStyle"
+        :rowContext="rowContext"
+        :column="column"
         :cellSlot="slots()[column.prop]"
         :renderTracking="renderTracking"
+        :displayCheck="displayCheck" 
         @activate="onActivate($event, ii)"
         @tree-action="onTreeAction"
-        @keydown="onKeyDown"
         @mouseenter="onMouseenter"
         @cell-created="onCellRendered"
         @cell-updated="onCellRendered"

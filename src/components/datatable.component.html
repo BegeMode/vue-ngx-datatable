@@ -1,5 +1,5 @@
 <div class="ngx-datatable"
-v-visibility-observer
+v-visibility-observer="{ on: visibilityCheck, timeout: visibilityCheckTimeout }"
 :class="classObject"
 @visible="onVisible" 
 @insert-column="onColumnInsert">
