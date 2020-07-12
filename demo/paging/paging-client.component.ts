@@ -23,7 +23,7 @@ import DatatableComponent from '../../src/components/datatable.component.vue';
         :columnMode="'force'"
         :headerHeight="50"
         :footerHeight="50"
-        :rowHeight="'auto'"
+        rowHeight="auto"
         :limit="30">
       </ngx-datatable>
       </div>

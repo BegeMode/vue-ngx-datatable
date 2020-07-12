@@ -143,13 +143,19 @@ export default class DataTableBodyComponent extends Vue {
     this.recalcLayout();
   }
 
-  @Watch('rows', { immediate: true }) onRowsChanged() {
+  @Watch('rows', { immediate: true }) async onRowsChanged() {
     this.rowsChanged = true;
     this.rowExpansions.clear();
     // const updateOffset = this.rows && this.rows.length && this.offset || (!this.offset && this.offsetY);
     const updateOffset = this.rows && this.rows.length && ((this.offset && !this.offsetY) || (!this.offset && this.offsetY));
     if (updateOffset) {
       this.updateOffsetY(this.offset, true);
+      await this.$nextTick();
+      if (this.offset && !this.offsetY) {
+        // if offsetY wasn't set, try one more time
+        this.updateOffsetY(this.offset, true);
+        await this.$nextTick();
+      }
     }
     this.recalcLayout();
     // this.$nextTick(() => {
@@ -201,9 +207,11 @@ export default class DataTableBodyComponent extends Vue {
     this.buildStylesByGroup();
   }
 
-  // @Watch('myOffset') onMyOffsetChanged() {
-  //   this.recalcLayout(true);
-  // }
+  @Watch('myOffset') onMyOffsetChanged() {
+    if (this.limit) {
+      this.recalcLayout();
+    }
+  }
 
   @Watch('rowCount') onRowCountChanged() {
     this.recalcLayout();
