@@ -27,4 +27,5 @@ export default class DataTableColumnComponent extends Vue {
     mounted(): void;
     destroyed(): void;
     onVisibleChanged(newVal: any): void;
+    onWidthChanged(): void;
 }

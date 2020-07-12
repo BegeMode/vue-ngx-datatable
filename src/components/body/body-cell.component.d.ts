@@ -1,16 +1,22 @@
 import { Vue } from 'vue-property-decorator';
-import { ICellContext } from '../../types/cell-context.type';
+import { IRowContext } from '../../types/row-context.type';
+import { TableColumn } from 'types';
 export declare type TreeStatus = 'collapsed' | 'expanded' | 'loading' | 'disabled';
 export default class DataTableBodyCellComponent extends Vue {
-    context: ICellContext;
-    cellColumnCssClasses: (context: ICellContext) => Record<string, string>;
-    cellStyleObject: (context: ICellContext) => Record<string, string | number>;
-    marginCellStyle: (context: ICellContext) => Record<string, string>;
+    column: TableColumn;
+    rowContext: IRowContext;
     tabIndex: string;
     cellSlot: any;
     renderTracking: boolean;
+    displayCheck: (row: any, column?: TableColumn, value?: any) => boolean;
+    sanitizedValue: any;
+    value: any;
+    isFocused: boolean;
+    onRowChanged(): void;
     created(): void;
     beforeUpdate(): void;
+    checkValueUpdates(): void;
+    stripHtml(html: string): string;
     onFocus(): void;
     onBlur(): void;
     onClick(event: any): void;
@@ -19,4 +25,10 @@ export default class DataTableBodyCellComponent extends Vue {
     onCheckboxChange(event: any): void;
     onTreeAction(event: any): void;
     onMouseEnter(event: any): void;
+    get cssClasses(): Record<string, string | number>;
+    get styles(): Record<string, string | number>;
+    get marginCellStyle(): Record<string, string>;
+    get isCheckboxable(): boolean;
+    cellHeight(rowHeight: number): string | number;
+    calcLeftMargin(column: TableColumn, row: any): number;
 }

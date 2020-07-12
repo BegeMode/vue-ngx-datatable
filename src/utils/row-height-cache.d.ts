@@ -30,7 +30,7 @@ export declare class RowHeightCache {
      * Given the ScrollY position i.e. sum, provide the rowIndex
      * that is present in the current view port.  Below handles edge cases.
      */
-    getRowIndex(scrollY: number, first?: boolean): number;
+    getRowIndex(scrollY: number): number;
     /**
      * When a row is expanded or rowHeight is changed, update the height.  This can
      * be utilized in future when Angular Data table supports dynamic row heights.
@@ -40,6 +40,10 @@ export declare class RowHeightCache {
      * Range Sum query from 1 to the rowIndex
      */
     query(atIndex: number): number;
+    queryWithHeight(atIndex: number): {
+        offsetY: number;
+        height: number;
+    };
     /**
      * Find the total height between 2 row indexes
      */

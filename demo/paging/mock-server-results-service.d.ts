@@ -12,11 +12,12 @@ export declare class MockServerResultsService {
      * @param page The selected page
      * @returns {any} An observable containing the employee data
      */
-    getResults(page: Page): Promise<PagedData<CorporateEmployee>>;
+    getResults(page: Page, timeout?: number): Promise<PagedData<CorporateEmployee>>;
     /**
      * Package companyData into a PagedData object based on the selected Page
      * @param page The page data used to get the selected data from companyData
      * @returns {PagedData<CorporateEmployee>} An array of the selected data and page
      */
     private getPagedData;
+    private delay;
 }

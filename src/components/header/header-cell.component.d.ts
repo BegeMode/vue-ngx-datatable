@@ -1,5 +1,5 @@
 import { Vue } from 'vue-property-decorator';
-import { SortDirection, SortType, SelectionType, TableColumn } from '../../types';
+import { SortDirection, SortType, SelectionType, TableColumn, ISortPropDir } from '../../types';
 export default class DataTableHeaderCellComponent extends Vue {
     sortType: SortType;
     sortAscendingIcon: string;
@@ -8,11 +8,12 @@ export default class DataTableHeaderCellComponent extends Vue {
     allRowsSelected: boolean;
     selectionType: SelectionType;
     column: TableColumn;
-    sorts: any[];
+    sorts: ISortPropDir[];
     headerHeight: number;
     sortFn: any;
     sortDir: SortDirection;
     myAllRowsSelected: boolean;
+    sortOrder: string;
     cellContext: any;
     onAllRowsSelectedChanged(): void;
     onColumnChahged(): void;
@@ -33,7 +34,7 @@ export default class DataTableHeaderCellComponent extends Vue {
     get cssClass(): string;
     get isCheckboxable(): boolean;
     onContextmenu($event: MouseEvent): void;
-    calcSortDir(sorts: any[]): any;
+    calcSortDir(sorts: ISortPropDir[]): SortDirection;
     onSort(): void;
     calcSortCssClass(sortDir: SortDirection): string;
     calcCssClass(sortDir: SortDirection): string;

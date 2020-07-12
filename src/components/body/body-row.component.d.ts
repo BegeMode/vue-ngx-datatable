@@ -1,34 +1,28 @@
 import { Vue } from 'vue-property-decorator';
 import { TableColumn } from '../../types/table-column.type';
-import { ICellContext } from 'types/cell-context.type';
+import { IRowContext } from 'types/row-context.type';
 export default class DataTableBodyRowComponent extends Vue {
     row: any;
+    rowContext: IRowContext;
     group: any[];
     columnsByPin: any[];
     columnGroupWidths: any;
-    isSelected: boolean;
-    isChecked: boolean;
-    rowStyles: any;
     groupStyles: any;
-    groupClass: string;
+    rowClass: (row: any, rowIndex: number) => string | string;
     displayCheck: any;
-    treeStatus: ({
-        type: string;
-        default: 'collapsed';
-    });
-    cellContext: ICellContext;
-    cellColumnCssClasses: (context: ICellContext) => Record<string, string>;
-    cellStyleObject: (context: ICellContext) => Record<string, string | number>;
-    marginCellStyle: (context: ICellContext) => Record<string, string>;
     slots: any;
     renderTracking: boolean;
     counter: number;
+    isFocused: boolean;
     created(): void;
     updated(): void;
-    onRowChanged(newVal: any, oldVal: any): void;
     onCellRendered(column: TableColumn): void;
+    onFocus(): void;
+    onBlur(): void;
     onActivate(event: any, index: number): void;
     onKeyDown(event: KeyboardEvent): void;
     onMouseenter(event: any): void;
     onTreeAction(event: any): void;
+    get styles(): object;
+    get cssClasses(): string;
 }

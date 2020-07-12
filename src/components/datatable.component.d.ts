@@ -9,6 +9,8 @@ interface IGroup {
 }
 declare type GroupByField = string | IGroup;
 export default class DatatableComponent extends Vue {
+    visibilityCheck: boolean;
+    visibilityCheckTimeout: number;
     /**
      * Template for the target marker of drag target columns.
      */
@@ -90,6 +92,10 @@ export default class DatatableComponent extends Vue {
      * otherwise its assumed that all data is preloaded.
      */
     externalPaging: boolean;
+    /**
+     * If the table should use external page switcher
+     */
+    externalPager: boolean;
     /**
      * If the table should use external sorting or
      * the built-in basic sorting.
@@ -187,7 +193,7 @@ export default class DatatableComponent extends Vue {
      *  [rowClass]="'first second'"
      *  [rowClass]="{ 'first': true, 'second': true, 'third': false }"
      */
-    rowClass: any;
+    rowClass: (row: any, rowIndex: number) => string | string;
     /**
      * A boolean/function you can use to check whether you want
      * to select a particular row based on a criteria. Example:
@@ -267,7 +273,7 @@ export default class DatatableComponent extends Vue {
      * @memberOf DatatableComponent
      */
     headerComponent: any;
-    resizeHander: any;
+    resizeHandler: any;
     groupedRows: IGroupedRows[];
     innerWidth: number;
     pageSize: number;
@@ -279,7 +285,7 @@ export default class DatatableComponent extends Vue {
     internalColumns: TableColumn[];
     myColumnMode: ColumnMode;
     mySortType: SortType;
-    myOffset_: number;
+    innerOffset: number;
     mySelected: any[];
     myChecked: any[];
     renderTracking: boolean;
@@ -397,6 +403,7 @@ export default class DatatableComponent extends Vue {
      * CSS class applied to root if single select.
      */
     get isSingleSelection(): boolean;
+    get isSingleFocusSelection(): boolean;
     /**
      * CSS class added to root element if mulit select
      */
@@ -420,6 +427,8 @@ export default class DatatableComponent extends Vue {
     };
     get allRowsSelected(): boolean;
     get scrollbarWidth(): number;
+    reset(): void;
+    adjust(): void;
     /**
      * Recalc's the sizes of the grid.
      *
@@ -462,7 +471,9 @@ export default class DatatableComponent extends Vue {
     /**
      * The footer triggered a page event.
      */
-    onFooterPage(event: any): void;
+    onFooterPage(event: {
+        page: number;
+    }): void;
     onVisible(visible: boolean): void;
     /**
      * Recalculates the sizes of the page
@@ -528,6 +539,10 @@ export default class DatatableComponent extends Vue {
      * Collapse all the rows.
      */
     collapseAllDetails(): void;
+    /**
+     * Is the row visible in the current page
+     */
+    isRowVisible(row: any): boolean;
     /**
      * Creates a map with the data grouped by the user choice of grouping index
      *

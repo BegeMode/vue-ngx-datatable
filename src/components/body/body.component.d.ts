@@ -1,7 +1,7 @@
 import { Vue } from 'vue-property-decorator';
 import { RowHeightCache } from '../../utils';
 import { SelectionType, TableColumn } from '../../types';
-import { ICellContext } from '../../types/cell-context.type';
+import { IRowContext } from '../../types/row-context.type';
 import { IGroupedRows } from '../../types/grouped-rows';
 import { CheckMode } from '../../types/check.type';
 export default class DataTableBodyComponent extends Vue {
@@ -17,14 +17,14 @@ export default class DataTableBodyComponent extends Vue {
     checkMode: CheckMode;
     selected: any[];
     checked: any[];
-    rowIdentity: any;
-    rowDetail: any;
+    rowIdentity: (row: any) => any;
+    rowDetail: boolean;
     rowDetailHeight: number | string | ((row?: any, index?: any) => number);
     groupHeader: any;
     selectCheck: any;
     displayCheck: any;
     trackByProp: string;
-    rowClass: any;
+    rowClass: (row: any, rowIndex: number) => string | string;
     groupExpansionDefault: boolean;
     innerWidth: number;
     groupRowsBy: string;
@@ -47,7 +47,6 @@ export default class DataTableBodyComponent extends Vue {
     scroller: any;
     selector: any;
     rowHeightsCache: RowHeightCache;
-    temp: any[];
     offsetY: number;
     myOffset: number;
     myOffsetX: number;
@@ -63,14 +62,15 @@ export default class DataTableBodyComponent extends Vue {
         center: {};
         right: {};
     };
+    onBodyScrollHandler: (this: any) => any;
     rowTrackingFn: any;
     listener: any;
     lastFirst: number;
     lastLast: number;
     lastRowCount: number;
     rowsChanged: boolean;
+    rowContexts: Array<IRowContext>;
     private scrollbarHelper;
-    private cellContexts;
     private renderCounter;
     private renderId;
     /**
@@ -79,7 +79,9 @@ export default class DataTableBodyComponent extends Vue {
     created(): void;
     mounted(): void;
     onPageSize(): void;
-    onRowsChanged(): void;
+    onRowsChanged(): Promise<void>;
+    onSelectedChanged(): Promise<void>;
+    onCheckedChanged(): Promise<void>;
     onColumnsChanged(newVal: any, oldVal: any): void;
     onOffsetChanged(): void;
     onOffsetXChanged(): void;
@@ -97,6 +99,8 @@ export default class DataTableBodyComponent extends Vue {
      * Returns if selection is enabled.
      */
     get selectEnabled(): boolean;
+    get checkEnabled(): boolean;
+    get isUseRowHeightCache(): boolean;
     get fixedRowHeight(): boolean;
     /**
      * Property that would calculate the height of scroll bar
@@ -106,26 +110,37 @@ export default class DataTableBodyComponent extends Vue {
     get scrollHeight(): number | undefined;
     get scrollWidth(): any;
     /**
-     * Called after the constructor, initializing input properties
-     */
-    /**
      * Called once, before the instance is destroyed.
      */
     destroyed(): void;
+    reset(): void;
+    onSelect(event: {
+        selected: Array<any>;
+        index: number;
+    }): void;
     recalculateColumns(val?: any[]): void;
     /**
      * Updates the Y offset given a new offset.
      */
-    updateOffsetY(offset?: number): void;
+    updateOffsetY(offset?: number, fromPager?: boolean): number;
+    onScrollSetup(event: {
+        scrollYPos: number;
+        scrollXPos: number;
+    }): void;
     /**
      * Body was scrolled, this is mainly useful for
      * when a user is server-side pagination via virtual scroll.
      */
-    onBodyScroll(event: any): void;
+    onBodyScroll(event: {
+        direction: string;
+        scrollYPos: number;
+        scrollXPos: number;
+        fromPager: boolean;
+    }): void;
     /**
      * Updates the page given a direction.
      */
-    updatePage(direction: string): void;
+    updatePage(direction: string, fromPager: boolean): void;
     /**
      * Updates the rows in the view port
      */
@@ -161,12 +176,16 @@ export default class DataTableBodyComponent extends Vue {
      * case the positionY of the translate3d for row2 would be the sum of all the
      * heights of the rows before it (i.e. row0 and row1).
      *
-     * @param {*} rows The row that needs to be placed in the 2D space.
+     * @param {*} row The row that needs to be placed in the 2D space.
      * @returns {*} Returns the CSS3 style to be applied
      *
      * @memberOf DataTableBodyComponent
      */
-    getRowsStyles(rows: any): any;
+    getRowWrapperStyles(rowContext: IRowContext): Record<string, string>;
+    getRowOffsetY(index: number): {
+        offsetY: number;
+        height: number;
+    };
     /**
      * Calculate bottom summary row offset for scrollbar mode.
      * For more information about cache and offset calculation
@@ -180,11 +199,10 @@ export default class DataTableBodyComponent extends Vue {
     /**
      * Hides the loading indicator
      */
-    hideIndicator(): void;
     /**
      * Updates the index of the rows in the viewport
      */
-    updateIndexes(): void;
+    updateIndexes(direction?: string): void;
     /**
      * Refreshes the full Row Height cache.  Should be used
      * when the entire row array state has changed.
@@ -200,7 +218,7 @@ export default class DataTableBodyComponent extends Vue {
      * a part of the row object itself as we have to preserve the expanded row
      * status in case of sorting and filtering of the row set.
      */
-    toggleRowExpansion(row: any): boolean;
+    toggleRowExpansion(rowContext: IRowContext): boolean;
     /**
      * Expand/Collapse all the rows no matter what their state is.
      */
@@ -236,21 +254,11 @@ export default class DataTableBodyComponent extends Vue {
     calcStylesByGroup(group: string): {
         width: string;
     };
-    getRowStyles(row: any): object;
-    getGroupStyles(colGroup: any): object;
-    getGroupClass(row: any): string;
-    getCellContext(row: any, group: any, column: any): ICellContext;
-    updateCellContext(context: ICellContext, row: any): void;
-    cellContextFor(row: any, column: any): ICellContext;
-    saveContextFor(row: any, column: any, cellContext: ICellContext): void;
-    setCellValue(cellContext: ICellContext): void;
-    updateCellContexts(removedColumns: TableColumn[]): void;
-    stripHtml(html: string): string;
-    cellColumnCssClasses(context: ICellContext): Record<string, string>;
-    cellStyleObject(context: ICellContext): Record<string, string | number>;
-    marginCellStyle(context: ICellContext): Record<string, string>;
-    cellHeight(rowHeight: any): string | number;
-    calcLeftMargin(column: any, row: any): number;
+    getGroupStyles(colGroup: {
+        type: string;
+    }): Record<string, string | number>;
+    treeStatus(row: any): any;
+    isRowVisible(row: any): boolean;
     get cellSlots(): () => {};
     onCellFocus($event: any): void;
     /**

@@ -1,7 +1,7 @@
 import { Vue } from 'vue-property-decorator';
-import { MockServerResultsService } from './mock-server-results-service';
-import { CorporateEmployee } from './model/corporate-employee';
-export default class VirtualPagingComponent extends Vue {
+import { CorporateEmployee } from '../../demo/paging/model/corporate-employee';
+import { MockServerResultsService } from '../../demo/paging/mock-server-results-service';
+export default class DynamicHeightComponent extends Vue {
     page: any;
     rows: Array<CorporateEmployee>;
     columns: {
@@ -18,4 +18,5 @@ export default class VirtualPagingComponent extends Vue {
      * @param page The page to select
      */
     setPage(pageInfo: any): Promise<void>;
+    getRowHeight(row: any): any;
 }

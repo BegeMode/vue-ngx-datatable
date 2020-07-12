@@ -4,6 +4,7 @@ export default class ScrollerComponent extends Vue {
     scrollbarH: boolean;
     scrollHeight: number;
     scrollWidth: number;
+    fromPager: boolean;
     get styleObject(): {
         height: string;
         width: string;
@@ -13,11 +14,15 @@ export default class ScrollerComponent extends Vue {
     prevScrollYPos: number;
     prevScrollXPos: number;
     parentElement: any;
-    onScrollListener: any;
+    onScrollListener: (event: MouseEvent) => void;
+    onInitScrollHandler: () => void;
     scrollDirty: boolean;
+    created(): void;
     mounted(): void;
-    destroyed(): void;
-    setOffset(offsetY: number): void;
+    beforeDestroy(): void;
+    setOffset(offsetY: number, fromPager?: boolean): void;
+    incOffset(offsetY: number): void;
+    onInitScroll(): void;
     onScrolled(event: MouseEvent): void;
     updateOffset(): void;
 }

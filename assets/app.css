@@ -48,7 +48,7 @@ body {
 }
 
 
-input[type=text] {
+input[type="text"] {
   font-size: 14px;
   display: block;
   background: transparent;
@@ -217,7 +217,7 @@ select {
 }
 
 .is-gender {
-  background: blue;
+  background: blue !important;
   color: white;
 }
 
