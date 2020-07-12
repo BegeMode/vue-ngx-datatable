@@ -1,0 +1,4 @@
+**/*.js
+coverage
+demo
+src/components/body/functional

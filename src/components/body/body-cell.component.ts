@@ -1,10 +1,7 @@
-import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
-// import { Keys } from '../../utils';
-// import { SortDirection } from '../../types';
-// import { TableColumn } from '../../types/table-column.type';
+import { TableColumn } from 'types';
+import { IRowContext } from 'types/row-context.type';
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import { Keys } from '../../utils';
-import { IRowContext } from '../../types/row-context.type';
-import { SortDirection, TableColumn } from 'types';
 
 export type TreeStatus = 'collapsed' | 'expanded' | 'loading' | 'disabled';
 
@@ -20,7 +17,7 @@ export default class DataTableBodyCellComponent extends Vue {
   sanitizedValue: any = null;
   value: any = null;
   // sortDir: SortDirection = null;
-  isFocused: boolean = false;
+  isFocused = false;
   // activateFn = this.activate.emit.bind(this.activate); todo
 
   @Watch('rowContext.row', { deep: true, immediate: true }) onRowChanged() {

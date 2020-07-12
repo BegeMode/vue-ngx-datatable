@@ -1,5 +1,11 @@
 import { TableColumn } from '../types';
 
+export interface IColumnsWidth {
+  left: number;
+  center: number;
+  right: number;
+  total: number;
+}
 /**
  * Returns the columns by pin.
  */
@@ -34,8 +40,8 @@ export function columnsByPin(cols: TableColumn[]): IColumnsByPin {
 /**
  * Returns the widths of all group sets of a column
  */
-export function columnGroupWidths(groups: IColumnsByPin, all: TableColumn[], tableWidth: number) {
-  const result =  {
+export function columnGroupWidths(groups: IColumnsByPin, all: TableColumn[], tableWidth: number): IColumnsWidth {
+  const result = {
     left: columnTotalWidth(groups.left),
     center: columnTotalWidth(groups.center),
     right: columnTotalWidth(groups.right),

@@ -172,7 +172,7 @@ export interface TableColumn {
    * @type {*}
    * @memberOf TableColumn
    */
-  cellTemplate?: any;
+  cellTemplate?: () => void;
 
   /**
    * Header template ref
@@ -189,7 +189,7 @@ export interface TableColumn {
    * @memberOf TableColumn
    */
   treeToggleTemplate?: any;
- 
+
   /**
    * CSS Classes for the cell
    *

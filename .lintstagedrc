@@ -1,0 +1,15 @@
+{
+"*.{json,md,html}": [
+   "prettier --write"
+ ],
+  "*.*css": [
+   "npm run lint-css"
+ ],
+ "*.ts": [
+   "npm run lint-typedef",
+   "npm run lint"
+ ],
+ "*.vue": [
+   "npm run lint"
+ ]
+}

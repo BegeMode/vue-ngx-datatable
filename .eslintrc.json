@@ -1,0 +1,277 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "es2017": true
+  },
+  "extends": [
+    "eslint:recommended",
+    // "plugin:sonarjs/recommended",
+    "plugin:promise/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended-requiring-type-checking",
+    "prettier/vue",
+    // "plugin:vue/recommended",
+    "prettier/@typescript-eslint", // Uses eslint-config-prettier to disable ESLint rules from @typescript-eslint/eslint-plugin that would conflict with prettier
+    "plugin:prettier/recommended" // Enables eslint-plugin-prettier and eslint-config-prettier. This will display prettier errors as ESLint errors. Make sure this is always the last configuration in the extends array.    
+  ],
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    "parser": "@typescript-eslint/parser",
+    "project": "tsconfig.json",
+    "tsconfigRootDir": ".",
+    "extraFileExtensions": [".vue", ".html"]
+  },
+  // Плагин с наборами правил для TypeScript
+  "plugins": ["@typescript-eslint", "simple-import-sort", "optimize-regex", "promise", "vue"/*, "sonarjs" */ ],
+  "rules": {
+    "prettier/prettier":  ["error", {
+     "endOfLine": "auto",
+     "arrowParens": "avoid",
+     "printWidth": 120
+   }],
+    "no-shadow": [
+      "error",
+      {
+        "builtinGlobals": false
+      }
+    ],
+    "no-duplicate-imports": [
+      "error",
+      {
+        "includeExports": true
+      }
+    ],
+    "no-template-curly-in-string": "error",
+    "block-scoped-var": "error",
+    "curly": [
+      "error",
+      "all"
+    ],
+    "eqeqeq": "error",
+    "max-classes-per-file": [
+      "error",
+      1
+    ],
+    "no-alert": "error",
+    "no-console": "error",
+    "no-else-return": [
+      "error",
+      {
+        "allowElseIf": false
+      }
+    ],
+    "no-implicit-coercion": "error",
+    "no-labels": "error",
+    "no-lone-blocks": "error",
+    "no-multi-spaces": "error",
+    "no-new": "error",
+    "no-new-func": "error",
+    "no-new-wrappers": "error",
+    "no-return-await": "error",
+    "no-self-compare": "error",
+    "no-sequences": "error",
+    "no-throw-literal": "error",
+    "no-unused-expressions": "error",
+    "no-useless-call": "error",
+    "no-useless-concat": "error",
+    "no-useless-return": "error",
+    "prefer-promise-reject-errors": "error",
+    "radix": "error",
+    "no-undefined": "error",
+    "array-bracket-newline": [
+      "off",
+      {
+        "multiline": true
+      }
+    ],
+    "comma-dangle": "off",
+    "comma-style": "error",
+    "eol-last": "error",
+    "key-spacing": "error",
+    "keyword-spacing": "error",
+    "new-parens": "error",
+    "no-bitwise": "warn",
+    "no-lonely-if": "warn",
+    "no-multiple-empty-lines": "error",
+    "no-nested-ternary": "error",
+    "no-new-object": "error",
+    "no-tabs": [
+      "error",
+      {
+        "allowIndentationTabs": true
+      }
+    ],
+    "no-trailing-spaces": "error",
+    "no-unneeded-ternary": "error",
+    "no-whitespace-before-property": "error",
+    "object-curly-newline": "error",
+    "object-curly-spacing": [
+      "error",
+      "always"
+    ],
+    "semi-spacing": "error",
+    "space-before-blocks": "error",
+    "space-before-function-paren": [
+      "error",
+      {
+        "anonymous": "always",
+        "named": "never",
+        "asyncArrow": "always"
+      }
+    ],
+    "space-in-parens": "error",
+    "space-infix-ops": "error",
+    "space-unary-ops": "error",
+    "spaced-comment": [
+      "error",
+      "always"
+    ],
+    "switch-colon-spacing": "error",
+    "arrow-body-style": [
+      "error",
+      "as-needed"
+    ],
+    "arrow-parens": [
+      "error",
+      "as-needed"
+    ],
+    "arrow-spacing": "error",
+    "no-useless-computed-key": "error",
+    "no-useless-rename": "error",
+    "object-shorthand": [
+      "error",
+      "always"
+    ],
+    "prefer-arrow-callback": "warn",
+    "prefer-destructuring": "off",
+    "rest-spread-spacing": [
+      "error",
+      "never"
+    ],
+    "sort-imports": "off",
+    "template-curly-spacing": "error",
+    "optimize-regex/optimize-regex": "warn",
+    "@typescript-eslint/no-extra-parens": [
+      "off"
+    ],
+    "@typescript-eslint/semi": [
+      "error",
+      "always"
+    ],
+    "@typescript-eslint/member-delimiter-style": [
+      "error",
+      {
+        "multiline": {
+          "delimiter": "semi"
+        }
+      }
+    ],
+    "@typescript-eslint/member-ordering": "warn",
+    "@typescript-eslint/no-magic-numbers": [
+      "off",
+      {
+        "ignoreNumericLiteralTypes": true,
+        "ignoreEnums": true,
+        "enforceConst": true,
+        "ignoreReadonlyClassProperties": true,
+        "ignore": [
+          0,
+          1,
+          24,
+          60,
+          1000
+        ]
+      }
+    ],
+    "@typescript-eslint/brace-style": [
+      "error",
+      "1tbs"
+    ],
+    "@typescript-eslint/indent": [
+      "off",
+      2
+    ],
+    "@typescript-eslint/quotes": [
+      "error",
+      "single",
+      {
+        "avoidEscape": true
+      }
+    ],
+    "@typescript-eslint/func-call-spacing": [
+      "error",
+      "never"
+    ],
+    "@typescript-eslint/no-useless-constructor": "error",
+    "@typescript-eslint/prefer-for-of": "warn",
+    "@typescript-eslint/no-parameter-properties": "off",
+    "@typescript-eslint/no-unnecessary-type-arguments": "warn",
+    "@typescript-eslint/prefer-function-type": "warn",
+    "@typescript-eslint/prefer-readonly": "warn",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/naming-convention": [
+      "error",
+      { "selector": "variableLike", "format": ["camelCase"] }
+    ],
+    "@typescript-eslint/explicit-function-return-type": [
+      "off",
+      {
+        "allowExpressions": true
+      }
+    ],
+    "@typescript-eslint/prefer-nullish-coalescing": "warn",
+    "@typescript-eslint/interface-name-prefix": "off",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^",
+        "varsIgnorePattern": "^$"
+      }
+    ],
+    "@typescript-eslint/no-use-before-define": "off",
+    "simple-import-sort/sort": [
+      "error",
+      {
+        // The default grouping, but with no blank lines.
+        "groups": [["^\\u0000", "^@?\\w", "^[^.]", "^\\."]]
+      }
+    ],
+    "no-case-declarations": "off",
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      {
+        "checksVoidReturn": false
+      }
+    ],
+    "promise/catch-or-return": [
+      "error",
+      {
+        "allowFinally": true
+      }
+    ],
+    "vue/html-self-closing": "off",
+    "@typescript-eslint/typedef": [
+      "error",
+      {
+        "arrayDestructuring": false,
+        "arrowParameter": false,
+        "memberVariableDeclaration": false,
+        "objectDestructuring": false,
+        "parameter": true,
+        "propertyDeclaration": true,
+        "variableDeclaration": false,
+        "variableDeclarationIgnoreFunction": true
+      }
+    ],
+    "@typescript-eslint/no-inferrable-types": [
+      "error",
+      {
+        "ignoreParameters": true
+      }
+    ]
+    // "sonarjs/prefer-immediate-return": "false"
+  }
+  
+}
