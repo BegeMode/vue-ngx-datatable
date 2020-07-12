@@ -36,20 +36,9 @@ export default class DataTableSelectionComponent extends Vue {
   @Prop() selectCheck: any;
   @Prop() scroller: any;
   @Prop() pageSize: number;
-
-  // @Output() activate: EventEmitter<any> = new EventEmitter();
-  // @Output() select: EventEmitter<any> = new EventEmitter();
+  @Prop() bodyHeight: number;
 
   prevIndex: number;
-  bodyRect: DOMRect;
-
-  mounted() {
-    this.bodyRect = this.$parent.$el.getBoundingClientRect();
-  }
-
-  updated() {
-    this.bodyRect = this.$parent.$el.getBoundingClientRect();
-  }
 
   selectRow(event: KeyboardEvent | MouseEvent, index: number, row: any): void {
     if (!this.selectEnabled) return;
@@ -190,7 +179,7 @@ export default class DataTableSelectionComponent extends Vue {
     let scrolled = false;
     let h = 0;
     if ([Keys.down, Keys.pageDown].includes(keyCode)) {
-      h = (offsetY + height) - (this.$parent.$el.scrollTop + this.bodyRect.height);
+      h = (offsetY + height) - (this.$parent.$el.scrollTop + this.bodyHeight);
     } else if ([Keys.up, Keys.pageUp].includes(keyCode)) {
       h = (offsetY - height) - this.$parent.$el.scrollTop;
     }
@@ -240,7 +229,7 @@ export default class DataTableSelectionComponent extends Vue {
     const { offsetY, height } = (this.$parent as any).getRowOffsetY(index);
     let h = 0;
     if ([Keys.down, Keys.pageDown].includes(keyCode)) {
-      h = offsetY - this.bodyRect.height;
+      h = offsetY - this.bodyHeight;
     } else if ([Keys.up, Keys.pageUp].includes(keyCode)) {
       h = (offsetY - height) - (this.scroller as any).scrollYPos;
     }

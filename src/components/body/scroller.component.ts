@@ -51,12 +51,14 @@ export default class ScrollerComponent extends Vue {
       });
       this.onInitScrollHandler = this.onInitScroll.bind(this);
       'mousedown DOMMouseScroll mousewheel wheel touchstart keyup'.split(' ').forEach(event => {
-        this.parentElement.addEventListener(event, this.onInitScrollHandler);
+        this.parentElement.addEventListener(event, this.onInitScrollHandler, {
+          passive: true,
+        });
       });
     }
   }
 
-  destroyed(): void {
+  beforeDestroy(): void {
     if (this.scrollbarV || this.scrollbarH) {
       this.parentElement.removeEventListener('scroll', this.onScrollListener);
       'mousedown DOMMouseScroll mousewheel wheel touchstart keyup'.split(' ').forEach(event => {

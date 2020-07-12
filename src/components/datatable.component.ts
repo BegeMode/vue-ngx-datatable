@@ -44,6 +44,8 @@ type GroupByField = string | IGroup;
   }
 })
 export default class DatatableComponent extends Vue {
+  @Prop({ default: false }) visibilityCheck: boolean;
+  @Prop({ default: 1000 }) visibilityCheckTimeout: number;
   /**
    * Template for the target marker of drag target columns.
    */
@@ -472,7 +474,11 @@ export default class DatatableComponent extends Vue {
    * A row was expanded ot collapsed for tree
    */
   // @Output() treeAction: EventEmitter<any> = new EventEmitter();
-  
+
+  // @Watch('sorts', { immediate: true }) onSortsChanged() {
+  //   ...
+  // }
+
   @Watch('rows', { immediate: true }) onRowsChanged(val: any) {
     if (val) {
       this.internalRows = [...val];
@@ -1267,6 +1273,14 @@ export default class DatatableComponent extends Vue {
       value: false
     });
   }
+
+  /**
+   * Is the row visible in the current page
+   */
+  isRowVisible(row: any): boolean {
+    return this.bodyComponent?.isRowVisible(row);
+  }
+
 
   /**
    * Creates a map with the data grouped by the user choice of grouping index

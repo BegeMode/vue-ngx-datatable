@@ -43,7 +43,7 @@ export default class DataTableRowWrapperComponent extends Vue {
     const styles = {};
     styles['transform'] = 'translate3d(' + this.offsetX + 'px, 0px, 0px)';
     styles['backface-visibility'] = 'hidden';
-    styles['width'] = this.innerWidth;
+    styles['width'] = this.innerWidth || '100%';
     styles['height'] = this.groupRowHeight ? this.groupRowHeight + 'px' : 'auto';
     return styles; 
   }

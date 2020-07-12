@@ -56,7 +56,7 @@ export function orderByComparator(a: any, b: any): number {
  */
 export function sortRows(rows: any[], columns: any[], dirs: ISortPropDir[]): any[] {
   if(!rows) return [];
-  if(!dirs || !dirs.length || !columns) return [...rows];
+  if(!dirs || !dirs.length) return [...rows];
 
   /**
    * record the row ordering of results from prior sort operations (if applicable)
@@ -66,12 +66,15 @@ export function sortRows(rows: any[], columns: any[], dirs: ISortPropDir[]): any
   rows.forEach((row, index) => rowToIndexMap.set(row, index));
   
   const temp = [...rows];
-  const cols = columns.reduce((obj, col) => {
-    if(col.comparator && typeof col.comparator === 'function') {
-      obj[col.prop] = col.comparator;
-    }
-    return obj;
-  }, {});
+  let cols = [];
+  if (columns) {
+    cols = columns.reduce((obj, col) => {
+      if (col.comparator && typeof col.comparator === 'function') {
+        obj[col.prop] = col.comparator;
+      }
+      return obj;
+    }, {});
+  }
 
   // cache valueGetter and compareFn so that they
   // do not need to be looked-up in the sort function body

@@ -29,7 +29,8 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
         :scrollbarV="true"
         :scrollbarH="true"
         :rows="rows"
-        @rendered="onRendered">
+        @rendered="onRendered"
+        >
         <!-- <vue-datatable-column name="Id" :width="80"></vue-datatable-column>
         <vue-datatable-column name="Name" :width="300">
           <span slot="header"><strong>FullName</strong></span> -->

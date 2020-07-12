@@ -233,8 +233,8 @@ export default class DataTableBodyCellComponent extends Vue {
     }
     return {
       width: this.column.width + 'px',
-      minWidth: this.column.minWidth + 'px',
-      maxWidth: this.column.maxWidth + 'px',
+      minWidth: this.column.minWidth ? this.column.minWidth + 'px' : undefined,
+      maxWidth: this.column.maxWidth ? this.column.maxWidth + 'px' : undefined,
       height: this.rowContext.rowHeight + 'px', // this.cellHeight(this.rowContext.rowHeight),
     };
   }

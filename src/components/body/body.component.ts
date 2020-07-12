@@ -144,14 +144,20 @@ export default class DataTableBodyComponent extends Vue {
   }
 
   @Watch('rows', { immediate: true }) onRowsChanged() {
-    // this.updateVisibleItems(true);
     this.rowsChanged = true;
     this.rowExpansions.clear();
-    const updateOffset = this.rows?.length && this.offset && this.offsetY === 0;
-    this.recalcLayout(updateOffset);
-    this.$nextTick(() => {
-      this.scroller = this.$refs.scroller;
-    });
+    // const updateOffset = this.rows && this.rows.length && this.offset || (!this.offset && this.offsetY);
+    const updateOffset = this.rows && this.rows.length && ((this.offset && !this.offsetY) || (!this.offset && this.offsetY));
+    if (updateOffset) {
+      this.updateOffsetY(this.offset, true);
+    }
+    this.recalcLayout();
+    // this.$nextTick(() => {
+    //   this.scroller = this.$refs.scroller;
+    //   if (updateOffset) {
+    //     this.updateOffsetY(this.offset, true);
+    //   }
+    // });
   }
 
   // @Watch('groupedRows') onGroupedRowsChanged() {
@@ -166,7 +172,8 @@ export default class DataTableBodyComponent extends Vue {
     });
   }
 
-  @Watch('checked', { deep : true }) onCheckedChanged() {
+  @Watch('checked', { deep : true }) async onCheckedChanged() {
+    await this.$nextTick();
     this.rowContexts.forEach(rowContext => {
       rowContext.isChecked = this.isChecked(rowContext.row);
     });
@@ -194,9 +201,9 @@ export default class DataTableBodyComponent extends Vue {
     this.buildStylesByGroup();
   }
 
-  @Watch('myOffset') onMyOffsetChanged() {
-    this.recalcLayout();
-  }
+  // @Watch('myOffset') onMyOffsetChanged() {
+  //   this.recalcLayout(true);
+  // }
 
   @Watch('rowCount') onRowCountChanged() {
     this.recalcLayout();
@@ -244,7 +251,7 @@ export default class DataTableBodyComponent extends Vue {
   }
 
   get isUseRowHeightCache(): boolean {
-    if (this.fixedRowHeight && !this.rowDetailHeight && !this.groupRowHeight || ((this.scrollbarV && !this.virtualization) || !this.scrollbarV)) {
+    if (this.fixedRowHeight && !this.rowDetailHeight && !this.groupRowsBy || ((this.scrollbarV && !this.virtualization) || !this.scrollbarV)) {
       return false;
     }
     return true;
@@ -393,8 +400,10 @@ export default class DataTableBodyComponent extends Vue {
       return;
     }
     this.rowsChanged = false;
-    this.lastFirst = first;
-    this.lastLast = last;
+    if (this.rows?.length) {
+      this.lastFirst = first;
+      this.lastLast = last;
+    }
     this.lastRowCount = this.rowCount;
     // if (!this.pagination) {
     //   first = Math.max(0, first - 20);
@@ -541,7 +550,7 @@ export default class DataTableBodyComponent extends Vue {
     const styles = {};
     // only add styles for the group if there is a group
     if (this.groupRowsBy) {
-      styles['width'] = this.columnGroupWidths.total;
+      styles['width'] = '100%';// this.columnGroupWidths.total + 'px';
     }
 
     if (this.scrollbarV && this.virtualization) {
@@ -776,18 +785,10 @@ export default class DataTableBodyComponent extends Vue {
   /**
    * Recalculates the table
    */
-  recalcLayout(updateOffset: boolean = false): void {
+  recalcLayout(): void {
     this.refreshRowHeightCache();
-    if (updateOffset) {
-      this.offsetY = this.updateOffsetY(this.offset, true);
-    }
     this.updateIndexes();
-    this.$nextTick(() => {
-      this.updateRows();
-      if (updateOffset) {
-        this.updateOffsetY(this.offset, true);
-      }
-    });
+    this.updateRows();
   }
 
   /**
@@ -938,6 +939,20 @@ export default class DataTableBodyComponent extends Vue {
       return null;
     }
     return row.treeStatus;
+  }
+
+  isRowVisible(row: any): boolean {
+    const rowContext = this.rowContexts.find(c => c.row === row);
+    if (!rowContext) {
+      return false;
+    }
+    let rowOffsetY;
+    if (this.isUseRowHeightCache) {
+      rowOffsetY = this.rowHeightsCache.query(rowContext.rowIndex);
+    } else {
+      rowOffsetY = (this.rowHeight as number) * rowContext.rowIndex;
+    }
+    return rowOffsetY >= this.offsetY && rowOffsetY <= (this.offsetY + this.bodyHeight);
   }
 
   get cellSlots(): () => {} {

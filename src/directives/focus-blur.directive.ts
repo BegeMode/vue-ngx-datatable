@@ -16,5 +16,14 @@ export default Vue.directive('focus-blur', {
     el.addEventListener('input', (e) => {
       console.log('received NATIVE(input) - event value:', e.target);
     });
-  }
+  },
+  // unbind(el) {
+  //   el.removeEventListener('blur', (e) => {
+  //     console.log('received NATIVE(blur) - event value:', e.target);
+  //   }, true);  // <======================================================= IMPORTANT
+    
+  //   el.removeEventListener('input', (e) => {
+  //     console.log('received NATIVE(input) - event value:', e.target);
+  //   });
+  // }
 });
