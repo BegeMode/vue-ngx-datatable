@@ -1359,19 +1359,32 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         this.recalcLayout();
     };
     DataTableBodyComponent.prototype.onRowsChanged = function () {
-        this.rowsChanged = true;
-        this.rowExpansions.clear();
-        var updateOffset = this.rows && this.rows.length && ((this.offset && !this.offsetY) || (!this.offset && this.offsetY));
-        if (updateOffset) {
-            this.updateOffsetY(this.offset, true);
-        }
-        this.recalcLayout();
-        // this.$nextTick(() => {
-        //   this.scroller = this.$refs.scroller;
-        //   if (updateOffset) {
-        //     this.updateOffsetY(this.offset, true);
-        //   }
-        // });
+        return __awaiter(this, void 0, void 0, function () {
+            var updateOffset;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        this.rowsChanged = true;
+                        this.rowExpansions.clear();
+                        updateOffset = this.rows && this.rows.length && ((this.offset && !this.offsetY) || (!this.offset && this.offsetY));
+                        if (!updateOffset) return [3 /*break*/, 3];
+                        this.updateOffsetY(this.offset, true);
+                        return [4 /*yield*/, this.$nextTick()];
+                    case 1:
+                        _a.sent();
+                        if (!(this.offset && !this.offsetY)) return [3 /*break*/, 3];
+                        // if offsetY wasn't set, try one more time
+                        this.updateOffsetY(this.offset, true);
+                        return [4 /*yield*/, this.$nextTick()];
+                    case 2:
+                        _a.sent();
+                        _a.label = 3;
+                    case 3:
+                        this.recalcLayout();
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
     // @Watch('groupedRows') onGroupedRowsChanged() {
     //   this.onRowsChanged();
@@ -1426,9 +1439,11 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         this.recalculateColumns();
         this.buildStylesByGroup();
     };
-    // @Watch('myOffset') onMyOffsetChanged() {
-    //   this.recalcLayout(true);
-    // }
+    DataTableBodyComponent.prototype.onMyOffsetChanged = function () {
+        if (this.limit) {
+            this.recalcLayout();
+        }
+    };
     DataTableBodyComponent.prototype.onRowCountChanged = function () {
         this.recalcLayout();
     };
@@ -2364,7 +2379,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         vue_property_decorator_1.Watch('rows', { immediate: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
-        __metadata("design:returntype", void 0)
+        __metadata("design:returntype", Promise)
     ], DataTableBodyComponent.prototype, "onRowsChanged", null);
     __decorate([
         vue_property_decorator_1.Watch('selected', { deep: true }),
@@ -2408,6 +2423,12 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DataTableBodyComponent.prototype, "onInnerWidthChanged", null);
+    __decorate([
+        vue_property_decorator_1.Watch('myOffset'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], DataTableBodyComponent.prototype, "onMyOffsetChanged", null);
     __decorate([
         vue_property_decorator_1.Watch('rowCount'),
         __metadata("design:type", Function),
