@@ -44,8 +44,8 @@ export default class DataTableBodyComponent extends Vue {
   @Prop() scrollbarH: boolean;
   @Prop() loadingIndicator: boolean;
   @Prop() externalPaging: boolean;
-  @Prop() rowHeight: number | ((row?: any) => number);
-  @Prop() groupRowHeight: number | string;
+  @Prop() rowHeight: (row: Record<string, unknown>, index?: number) => number | number;
+  @Prop() groupRowHeight: (row: Record<string, unknown>, index?: number) => number | number;
   @Prop() offsetX: number;
   @Prop() emptyMessage: string;
   @Prop() selectionType: SelectionType;
@@ -344,7 +344,7 @@ export default class DataTableBodyComponent extends Vue {
     if (this.scrollbarV && this.virtualization && offset) {
       // First get the row Index that we need to move to.
       const rowIndex = this.pageSize * offset;
-      if (this.isUseRowHeightCache) {
+      if (this.isUseRowHeightCache || typeof this.rowHeight === 'function') {
         offsetY = this.rowHeightsCache.query(rowIndex - 1);
       } else {
         offsetY = rowIndex * (this.rowHeight as number);
@@ -598,7 +598,7 @@ export default class DataTableBodyComponent extends Vue {
   }
 
   getRowOffsetY(index: number): { offsetY: number; height: number } {
-    if (this.isUseRowHeightCache) {
+    if (this.isUseRowHeightCache || typeof this.rowHeight === 'function') {
       let result = this.rowHeightsCache.queryWithHeight(index);
       if (!result) {
         result = { height: 0, offsetY: 0 };
@@ -627,7 +627,7 @@ export default class DataTableBodyComponent extends Vue {
 
     const styles = { position: 'absolute' };
     let pos = 0;
-    if (this.isUseRowHeightCache) {
+    if (this.isUseRowHeightCache || typeof this.rowHeight === 'function') {
       pos = this.rowHeightsCache.query(this.rows.length - 1);
     } else {
       pos = (this.rowHeight as number) * (this.rowCount - 1);
@@ -658,7 +658,7 @@ export default class DataTableBodyComponent extends Vue {
         // scrollY position would be at.  The last index would be the one
         // that shows up inside the view port the last.
         const height = parseInt(this.myBodyHeight.toString(), 10);
-        if (this.isUseRowHeightCache) {
+        if (this.isUseRowHeightCache || typeof this.rowHeight === 'function') {
           first = this.rowHeightsCache.getRowIndex(this.offsetY);
           last = this.rowHeightsCache.getRowIndex(height + this.offsetY) + 1;
         } else {
@@ -723,7 +723,7 @@ export default class DataTableBodyComponent extends Vue {
     const viewPortFirstRowIndex = this.indexes.first;
 
     let offsetScroll;
-    if (this.isUseRowHeightCache) {
+    if (this.isUseRowHeightCache || typeof this.rowHeight === 'function') {
       offsetScroll = this.rowHeightsCache.query(viewPortFirstRowIndex);
       return offsetScroll <= this.offsetY ? Math.max(0, viewPortFirstRowIndex - 1) : viewPortFirstRowIndex;
     }
@@ -968,7 +968,7 @@ export default class DataTableBodyComponent extends Vue {
       return false;
     }
     let rowOffsetY;
-    if (this.isUseRowHeightCache) {
+    if (this.isUseRowHeightCache || typeof this.rowHeight === 'function') {
       rowOffsetY = this.rowHeightsCache.query(rowContext.rowIndex);
     } else {
       rowOffsetY = (this.rowHeight as number) * rowContext.rowIndex;

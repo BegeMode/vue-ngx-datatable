@@ -1,3 +1,5 @@
+import { IGroupedRows } from 'types/grouped-rows';
+
 /**
  * This object contains the cache of the various row heights that are present inside
  * the data table.   Its based on Fenwick tree data structure that helps with
@@ -7,8 +9,18 @@
  * https://github.com/mikolalysenko/fenwick-tree
  *
  */
-export class RowHeightCache {
+interface IRowsHeightCache {
+  rows: Record<string, unknown>[];
+  rowHeight: (row: Record<string, unknown>, index?: number) => number | number;
+  rowDetailHeight: (row: Record<string, unknown>, index?: number) => number | number;
+  groupRowHeight: (row: Record<string, unknown>, index?: number) => number | number;
+  externalVirtual: boolean;
+  rowCount: number;
+  rowIndexes: Map<Record<string, unknown>, number>;
+  rowExpansions: Map<Record<string, unknown> | IGroupedRows, boolean>;
+}
 
+export class RowHeightCache {
   /**
    * Tree Array stores the cumulative information of the row heights to perform efficient
    * range queries and updates.  Currently the tree is initialized to the base row
@@ -32,29 +44,34 @@ export class RowHeightCache {
    * @param rowHeight The row height.
    * @param rowDetailHeight The detail row height.
    */
-  initCache(details: any): void {
-    const { rows, rowHeight, rowDetailHeight, groupRowHeight,
-            externalVirtual, rowCount, rowIndexes, rowExpansions } = details;
-    const isFn = typeof rowHeight === 'function';
-    const isDetailFn = typeof rowDetailHeight === 'function';
-    const isGroupFn = typeof groupRowHeight === 'function';
+  initCache(details: IRowsHeightCache): void {
+    const {
+      rows,
+      rowHeight,
+      rowDetailHeight,
+      groupRowHeight,
+      externalVirtual,
+      rowCount,
+      rowIndexes,
+      rowExpansions,
+    } = details;
 
-    if (!isFn && isNaN(rowHeight)) {
+    if (typeof rowHeight !== 'function' && isNaN(rowHeight)) {
       throw new Error(`Row Height cache initialization failed. Please ensure that 'rowHeight' is a
-        valid number or function value: (${rowHeight}) when 'scrollbarV' is enabled.`);
+        valid number or function value: (${rowHeight as number}) when 'scrollbarV' is enabled.`);
     }
 
     // Add this additional guard in case rowDetailHeight is set to 'auto' as it wont work.
-    if (!isDetailFn && isNaN(rowDetailHeight)) {
+    if (typeof rowDetailHeight !== 'function' && isNaN(rowDetailHeight)) {
       throw new Error(`Row Height cache initialization failed. Please ensure that 'rowDetailHeight' is a
-        valid number or function value: (${rowDetailHeight}) when 'scrollbarV' is enabled.`);
+        valid number or function value: (${rowDetailHeight as number}) when 'scrollbarV' is enabled.`);
     }
 
     const n = externalVirtual ? rowCount : rows.length;
     // this.treeArray = new Array(n);
-    this.heights = new Array(n);
+    this.heights = new Array<{ accumulator: number; height: number }>(n);
 
-    for(let i = 0; i < n; ++i) {
+    for (let i = 0; i < n; ++i) {
       // this.treeArray[i] = 0;
       this.heights[i] = null;
     }
@@ -63,31 +80,30 @@ export class RowHeightCache {
 
     for (let i = 0; i < n; ++i) {
       const row = rows[i];
-      let currentRowHeight;
+      let currentRowHeight: number;
       if (row && row.__isGroup) {
-        currentRowHeight = groupRowHeight;
-        if (isGroupFn) {
+        if (typeof groupRowHeight === 'function') {
           currentRowHeight = groupRowHeight(row);
+        } else {
+          currentRowHeight = groupRowHeight;
         }
+      } else if (typeof rowHeight === 'function') {
+        currentRowHeight = rowHeight(row);
       } else {
         currentRowHeight = rowHeight;
-        if (isFn) {
-          currentRowHeight = rowHeight(row);
-        }
       }
 
       // Add the detail row height to the already expanded rows.
       // This is useful for the table that goes through a filter or sort.
       const expanded = rowExpansions.get(row);
-      if(row && expanded === 1) {
-        if(isDetailFn) {
+      if (row && expanded) {
+        if (typeof rowDetailHeight === 'function') {
           const index = rowIndexes.get(row);
           currentRowHeight += rowDetailHeight(row, index);
         } else {
           currentRowHeight += rowDetailHeight;
         }
       }
-
       // this.updateTree(i, currentRowHeight);
       accumulator += currentRowHeight;
       this.heights[i] = { accumulator, height: currentRowHeight };
@@ -100,8 +116,10 @@ export class RowHeightCache {
    * that is present in the current view port.  Below handles edge cases.
    */
   getRowIndex(scrollY: number): number {
-    if(scrollY === 0) return 0;
-    let result = this.calcRowIndex(scrollY);
+    if (scrollY === 0) {
+      return 0;
+    }
+    const result = this.calcRowIndex(scrollY);
     return result;
   }
 
@@ -118,7 +136,7 @@ export class RowHeightCache {
 
     const n = this.heights.length;
 
-    while(atRowIndex < n) {
+    while (atRowIndex < n) {
       this.heights[atRowIndex].accumulator += byRowHeight;
       atRowIndex++;
     }
@@ -188,8 +206,10 @@ export class RowHeightCache {
    * that is present in the current view port.
    */
   private calcRowIndex(sum: number): number {
-    if (!this.heights.length) return 0;
-    
+    if (!this.heights.length) {
+      return 0;
+    }
+
     if (this.heights[this.heights.length - 1].accumulator < sum) {
       return this.heights.length;
     }
@@ -269,5 +289,4 @@ export class RowHeightCache {
   //   }
   //   return heights;
   // }
-
 }
