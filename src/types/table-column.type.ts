@@ -278,4 +278,16 @@ export interface TableColumn {
    * @memberOf TableColumn
    */
   hidden?: boolean;
+  /**
+   * Is column dragging now?
+   * @type {boolean}
+   * @memberOf TableColumn
+   */
+  dragging?: boolean;
+  /**
+   * Dragging marker css classes
+   * @type {object}
+   * @memberOf TableColumn
+   */
+  targetMarkerContext?: { class: string };
 }

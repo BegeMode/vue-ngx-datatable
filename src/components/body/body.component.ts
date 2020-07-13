@@ -9,6 +9,7 @@ import {
   columnGroupWidths,
   columnsByPin,
   columnsByPinArr,
+  IColumnsByPinRecord,
   IColumnsWidth,
   RowHeightCache,
   throttle,
@@ -91,7 +92,7 @@ export default class DataTableBodyComponent extends Vue {
   rowIndexes = new Map<Record<string, unknown>, number>();
   rowExpansions = new Map<Record<string, unknown> | IGroupedRows, boolean>();
   myBodyHeight: number | string = null;
-  columnsByPin = null;
+  columnsByPin: IColumnsByPinRecord[] = null;
   groupStyles = {
     left: {},
     center: {},

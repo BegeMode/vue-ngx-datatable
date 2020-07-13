@@ -2,9 +2,23 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import DraggableDirective from '../../directives/draggable.directive';
 import LongPressDirective from '../../directives/long-press.directive';
 import ResizeableDirective from '../../directives/resizeable.directive';
-import { ISortEvent, ISortPropDir, SelectionType, SortDirection, SortType } from '../../types';
-import { columnGroupWidths, columnsByPin, columnsByPinArr, translateXY } from '../../utils';
+import { ISortEvent, ISortPropDir, SelectionType, SortDirection, SortType, TableColumn } from '../../types';
+import {
+  columnGroupWidths,
+  columnsByPin,
+  columnsByPinArr,
+  IColumnsByPinRecord,
+  IColumnsWidth,
+  translateXY,
+} from '../../utils';
 import DataTableHeaderCellComponent from './header-cell.component';
+
+interface IDragPosition {
+  left: number;
+  right: number;
+  index: number;
+  element: HTMLElement;
+}
 
 @Component({
   components: {
@@ -29,7 +43,7 @@ import DataTableHeaderCellComponent from './header-cell.component';
           :key="column.$$id"
           v-resizeable="{ resizeEnabled: column.resizeable }"
           v-long-press="{pressModel: column, pressEnabled: reorderable && column.draggable}"
-          v-dragndrop="{dragEventTarget:dragEventTarget,dragModel:column,dragX:isEnableDragX(column),dragY:false}"
+          v-dragndrop="{dragEvent:dragEvent,dragModel:column,dragX:isEnableDragX(column),dragY:false}"
           @resize="onColumnResized($event, column)"
           @longPressStart="onLongPressStart($event, column)"
           @longPressEnd="onLongPressEnd($event, column)"
@@ -59,8 +73,8 @@ import DataTableHeaderCellComponent from './header-cell.component';
   `,
 })
 export default class DataTableHeaderComponent extends Vue {
-  @Prop() sortAscendingIcon: any;
-  @Prop() sortDescendingIcon: any;
+  @Prop() sortAscendingIcon: string;
+  @Prop() sortDescendingIcon: string;
   @Prop() scrollbarWidth: number;
   @Prop() scrollbarH: boolean;
   @Prop() dealsWithGroup: boolean;
@@ -71,28 +85,28 @@ export default class DataTableHeaderComponent extends Vue {
   @Prop() allRowsSelected: boolean;
   @Prop() selectionType: SelectionType;
   @Prop() reorderable: boolean;
-  @Prop() headerHeight: any;
-  @Prop() columns: any[];
+  @Prop() headerHeight: string | number;
+  @Prop() columns: TableColumn[];
   @Prop() offsetX: number;
 
-  columnsByPin: any = null;
-  columnGroupWidths: any = null;
+  columnsByPin: IColumnsByPinRecord[] = null;
+  columnGroupWidths: IColumnsWidth = null;
   myHeaderHeight = 'auto';
   styleByGroup = {
     left: {},
     center: {},
     right: {},
   };
-  targetMarkerContext: any = null;
-  dragEventTarget: any = null;
+  targetMarkerContext: { class: string } = null;
+  dragEvent: MouseEvent = null;
   dragging = false;
-  positions: any = {};
+  positions: Record<string, IDragPosition> = {};
 
   // non-reactive props
   lastDraggingIndex: number;
-  draggables: any[];
+  draggables: Array<{ dragModel: TableColumn; element: HTMLElement }>;
 
-  @Watch('innerWidth', { immediate: true }) onChangedInnerWidth() {
+  @Watch('innerWidth', { immediate: true }) onChangedInnerWidth(): void {
     if (this.columns) {
       const colByPin = columnsByPin(this.columns);
       this.columnGroupWidths = columnGroupWidths(colByPin, this.columns, this.innerWidth);
@@ -101,7 +115,7 @@ export default class DataTableHeaderComponent extends Vue {
   }
 
   // @HostBinding('style.height')
-  @Watch('headerHeight', { immediate: true }) onHeaderHeightChanged() {
+  @Watch('headerHeight', { immediate: true }) onHeaderHeightChanged(): void {
     if (this.headerHeight !== 'auto') {
       this.myHeaderHeight = `${this.headerHeight}px`;
     } else {
@@ -109,14 +123,14 @@ export default class DataTableHeaderComponent extends Vue {
     }
   }
 
-  @Watch('columns', { immediate: true }) onColumnsChanged() {
+  @Watch('columns', { immediate: true }) onColumnsChanged(): void {
     const colsByPin = columnsByPin(this.columns);
     this.columnsByPin = columnsByPinArr(this.columns);
     this.columnGroupWidths = columnGroupWidths(colsByPin, this.columns, this.innerWidth);
     this.setStylesByGroup();
   }
 
-  @Watch('offsetX') onOffsetXChanged() {
+  @Watch('offsetX') onOffsetXChanged(): void {
     this.setStylesByGroup();
   }
 
@@ -126,13 +140,13 @@ export default class DataTableHeaderComponent extends Vue {
   // @Output() select: EventEmitter<any> = new EventEmitter();
   // @Output() columnContextmenu = new EventEmitter<{ event: MouseEvent, column: any }>(false);
 
-  onLongPressStart({ event, model }: { event: any; model: any }) {
+  onLongPressStart({ event, model }: { event: MouseEvent; model: { dragging: boolean } }): void {
     model.dragging = true;
-    this.dragEventTarget = event;
+    this.dragEvent = event;
   }
 
-  onLongPressEnd({ event, model }: { event: any; model: any }) {
-    this.dragEventTarget = event;
+  onLongPressEnd({ event, model }: { event: MouseEvent; model: TableColumn }): void {
+    this.dragEvent = event;
 
     // delay resetting so sort can be
     // prevented if we were dragging
@@ -149,12 +163,12 @@ export default class DataTableHeaderComponent extends Vue {
   // @HostBinding('style.width')
   get headerWidth(): string {
     if (this.scrollbarH) {
-      return this.innerWidth + 'px';
+      return `${this.innerWidth}px`;
     }
     return '100%';
   }
 
-  isEnableDragX(column) {
+  isEnableDragX(column: TableColumn): boolean {
     return this.reorderable && column.draggable && column.dragging;
   }
 
@@ -166,7 +180,7 @@ export default class DataTableHeaderComponent extends Vue {
   //   return column.$$id;
   // }
 
-  onColumnResized(width: number, column: any): void {
+  onColumnResized(width: number, column: TableColumn): void {
     // column: DataTableColumnDirective
     if (width <= column.minWidth) {
       width = column.minWidth;
@@ -181,12 +195,12 @@ export default class DataTableHeaderComponent extends Vue {
     });
   }
 
-  onHiddenChanged($event) {
+  onHiddenChanged(): void {
     this.$emit('hidden-changed');
     this.onChangedInnerWidth();
   }
 
-  getColumn(index: number): any {
+  getColumn(index: number): TableColumn {
     const leftColumnCount = this.columnsByPin[0].columns.length;
     if (index < leftColumnCount) {
       return this.columnsByPin[0].columns[index];
@@ -200,7 +214,15 @@ export default class DataTableHeaderComponent extends Vue {
     return this.columnsByPin[2].columns[index - leftColumnCount - centerColumnCount];
   }
 
-  onSort({ column, prevValue, newValue }: any): void {
+  onSort({
+    column,
+    prevValue,
+    newValue,
+  }: {
+    column: TableColumn;
+    prevValue: SortDirection;
+    newValue: SortDirection;
+  }): void {
     // if we are dragging don't sort!
     if (column.dragging) {
       return;
@@ -216,11 +238,11 @@ export default class DataTableHeaderComponent extends Vue {
     this.$emit('sort', event);
   }
 
-  onSelect(event) {
+  onSelect(event: Event): void {
     this.$emit('select', event);
   }
 
-  calcNewSorts(column: any, prevValue: SortDirection, newValue: SortDirection): ISortPropDir[] {
+  calcNewSorts(column: TableColumn, prevValue: SortDirection, newValue: SortDirection): ISortPropDir[] {
     let idx = 0;
 
     if (!this.sorts) {
@@ -235,7 +257,7 @@ export default class DataTableHeaderComponent extends Vue {
       return s;
     });
 
-    if (newValue === undefined) {
+    if (!newValue) {
       sorts.splice(idx, 1);
     } else if (prevValue) {
       sorts[idx].dir = newValue;
@@ -250,7 +272,7 @@ export default class DataTableHeaderComponent extends Vue {
     return sorts;
   }
 
-  setStylesByGroup() {
+  setStylesByGroup(): void {
     if (!this.columnsByPin || !this.columnsByPin.length) {
       return;
     }
@@ -268,7 +290,7 @@ export default class DataTableHeaderComponent extends Vue {
     }
   }
 
-  calcStylesByGroup(group: string): any {
+  calcStylesByGroup(group: keyof IColumnsWidth): Record<string, string | number> {
     const widths = this.columnGroupWidths;
     const offsetX = this.offsetX;
 
@@ -280,27 +302,26 @@ export default class DataTableHeaderComponent extends Vue {
     } else if (group === 'right') {
       const totalDiff = widths.total - this.innerWidth;
       let offset = totalDiff * -1;
-      if (this.scrollbarWidth !== undefined && this.scrollbarWidth !== null) {
+      if (this.scrollbarWidth) {
         offset -= this.scrollbarWidth;
       }
       translateXY(styles, offset, 0);
     }
-
     return styles;
   }
 
-  styleForGroup(group: any) {
+  styleForGroup(group: IColumnsByPinRecord): Record<string, string | number> {
     return this.styleByGroup[group.type];
   }
 
-  get styleObject() {
+  get styleObject(): Record<string, string | number> {
     return {
-      width: this.headerWidth ? this.headerWidth : this.columnGroupWidths.total + 'px',
+      width: this.headerWidth ? this.headerWidth : `${this.columnGroupWidths.total}px`,
       height: this.myHeaderHeight,
     };
   }
 
-  onHeaderCellMounted(column, element) {
+  onHeaderCellMounted(column: TableColumn, element: HTMLElement): void {
     if (!this.draggables) {
       this.draggables = [];
     }
@@ -317,18 +338,18 @@ export default class DataTableHeaderComponent extends Vue {
 
     let i = 0;
     this.draggables.sort((a, b) => {
-      const left = parseInt(a.element.offsetLeft.toString(), 0);
-      const left1 = parseInt(b.element.offsetLeft.toString(), 0);
+      const left = parseInt(a.element.offsetLeft.toString(), 10);
+      const left1 = parseInt(b.element.offsetLeft.toString(), 10);
       return left - left1;
     });
     for (const dragger of this.draggables) {
       const elm = dragger.element;
-      const left = parseInt(elm.offsetLeft.toString(), 0);
+      const left = parseInt(elm.offsetLeft.toString(), 10);
       const width = elm.offsetWidth;
       if (width) {
         this.positions[dragger.dragModel.prop] = {
           left,
-          right: left + parseInt(width.toString(), 0),
+          right: left + parseInt(width.toString(), 10),
           index: i++,
           element: elm,
         };
@@ -336,7 +357,7 @@ export default class DataTableHeaderComponent extends Vue {
     }
   }
 
-  onDragging({ element, model, event }: any): void {
+  onDragging({ element, model, event }: { element: HTMLElement; model: TableColumn; event: MouseEvent }): void {
     const prevPos = this.positions[model.prop];
     const target = this.isTarget(model, event);
 
@@ -358,7 +379,7 @@ export default class DataTableHeaderComponent extends Vue {
     }
   }
 
-  onDragEnd({ element, model, event }: any): void {
+  onDragEnd({ element, model, event }: { element: HTMLElement; model: TableColumn; event: MouseEvent }): void {
     this.dragging = false;
     const prevPos = this.columns.findIndex(col => col.prop === model.prop); // this.positions[model.prop];
 
@@ -371,14 +392,15 @@ export default class DataTableHeaderComponent extends Vue {
         model,
       });
     }
+    // eslint-disable-next-line no-undefined
     this.lastDraggingIndex = undefined;
     element.style.left = 'auto';
   }
 
-  onColumnReordered({ prevIndex, newIndex, model }: any): void {
+  onColumnReordered({ prevIndex, newIndex, model }: { prevIndex: number; newIndex: number; model: TableColumn }): void {
     const column = this.getColumn(newIndex);
     column.isTarget = false;
-    column.targetMarkerContext = undefined;
+    column.targetMarkerContext = null;
     this.$emit('reorder', {
       column: model,
       prevValue: prevIndex,
@@ -386,11 +408,19 @@ export default class DataTableHeaderComponent extends Vue {
     });
   }
 
-  onTargetChanged({ prevIndex, newIndex, initialIndex }: any): void {
+  onTargetChanged({
+    prevIndex,
+    newIndex,
+    initialIndex,
+  }: {
+    prevIndex: number;
+    newIndex?: number;
+    initialIndex: number;
+  }): void {
     if (prevIndex || prevIndex === 0) {
       const oldColumn = this.getColumn(prevIndex);
       oldColumn.isTarget = false;
-      oldColumn.targetMarkerContext = undefined;
+      oldColumn.targetMarkerContext = null;
     }
     if (newIndex || newIndex === 0) {
       const newColumn = this.getColumn(newIndex);
@@ -404,7 +434,14 @@ export default class DataTableHeaderComponent extends Vue {
     }
   }
 
-  isTarget(model: any, event: any): any {
+  isTarget(
+    model: TableColumn,
+    event: MouseEvent
+  ): {
+    prop: string;
+    pos: IDragPosition;
+    i: number;
+  } {
     let i = 0;
     const x = event.x || event.clientX;
     const y = event.y || event.clientY;
@@ -413,9 +450,8 @@ export default class DataTableHeaderComponent extends Vue {
     for (const prop in this.positions) {
       // current column position which throws event.
       const pos = this.positions[prop];
-
       // since we drag the inner span, we need to find it in the elements at the cursor
-      if (model.prop !== prop && targets.find((el: any) => el === pos.element)) {
+      if (model.prop !== prop && targets.find((el: HTMLElement) => el === pos.element)) {
         return {
           prop,
           pos,

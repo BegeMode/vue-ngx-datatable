@@ -6,6 +6,12 @@ export interface IColumnsWidth {
   right: number;
   total: number;
 }
+
+export interface IColumnsByPinRecord {
+  type: 'left' | 'center' | 'right';
+  columns: TableColumn[];
+}
+
 /**
  * Returns the columns by pin.
  */
@@ -93,9 +99,7 @@ export function columnsTotalWidth(columns: TableColumn[] /* , prop?: any */): nu
   return totalWidth;
 }
 
-export function columnsByPinArr(
-  val: TableColumn[]
-): Array<{ type: 'left' | 'center' | 'right'; columns: TableColumn[] }> {
+export function columnsByPinArr(val: TableColumn[]): Array<IColumnsByPinRecord> {
   const colsByPinArr: Array<{ type: 'left' | 'center' | 'right'; columns: TableColumn[] }> = [];
   const colsByPin = columnsByPin(val);
 
