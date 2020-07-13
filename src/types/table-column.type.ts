@@ -1,5 +1,6 @@
 // import { PipeTransform } from '@angular/core';
 import { SortDirection } from 'types/sort-direction.type';
+import { VNode } from 'vue/types/umd';
 import { ValueGetter } from '../utils/column-prop-getters';
 
 export type TComparator = (
@@ -188,7 +189,7 @@ export interface TableColumn {
    * @type {*}
    * @memberOf TableColumn
    */
-  headerTemplate?: any;
+  headerTemplate?: (arg: Record<string, unknown>) => VNode[];
 
   /**
    * Tree toggle template ref
