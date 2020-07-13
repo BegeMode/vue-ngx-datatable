@@ -1,10 +1,12 @@
-import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
-import DataTableBodyRowComponent from '../body-row.component.vue';
 import { IRowContext } from 'types/row-context.type';
+import { IColumnsByPinRecord, IColumnsWidth } from 'utils';
+import { VNode } from 'vue';
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import DataTableBodyRowComponent from '../body-row.component.vue';
 
 export interface ISummaryColumn {
   summaryFunc?: (cells: any[]) => any;
-  summaryTemplate?: string; // TemplateRef<any>;
+  summaryTemplate?: (arg?: Record<string, unknown>) => VNode[];
   cellTemplate?: string;
 
   prop: string;
@@ -12,8 +14,8 @@ export interface ISummaryColumn {
   filter?: (...args) => string;
 }
 
-function defaultSumFunc(cells: any[]): any {
-  const cellsWithValues = cells.filter(cell => !!cell);
+function defaultSumFunc(cells: any[]): number {
+  const cellsWithValues = cells.filter(cell => Boolean(cell));
 
   if (!cellsWithValues.length) {
     return null;
@@ -22,6 +24,7 @@ function defaultSumFunc(cells: any[]): any {
     return null;
   }
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/restrict-plus-operands
   return cellsWithValues.reduce((res, cell) => res + cell);
 }
 
@@ -34,46 +37,47 @@ function noopSumFunc(cells: any[]): void {
     'datatable-body-row': DataTableBodyRowComponent,
   },
   template: `
-  <datatable-body-row
-    v-if="summaryRow && internalColumns"
-    tabindex="-1"
-    :columnsByPin="columnsByPin"
-    :columnGroupWidths="columnGroupWidths"
-    :groupStyles="groupStyles"
-    :rowContext="myRowContext"
-    :row="summaryRow"
-    :slots="mySlotsFunc"
-    @activate="onActivate">
-  </datatable-body-row>
+    <datatable-body-row
+      v-if="summaryRow && internalColumns"
+      tabindex="-1"
+      :columnsByPin="columnsByPin"
+      :columnGroupWidths="columnGroupWidths"
+      :groupStyles="groupStyles"
+      :rowContext="myRowContext"
+      :row="summaryRow"
+      :slots="mySlotsFunc"
+      @activate="onActivate"
+    >
+    </datatable-body-row>
   `,
 })
 export default class DataTableSummaryRowComponent extends Vue {
-  @Prop() rows: any[];
+  @Prop() rows: Record<string, unknown>[];
   @Prop() columns: ISummaryColumn[];
   @Prop() rowHeight: number;
   @Prop() offsetX: number;
   @Prop() innerWidth: number;
 
-  @Prop() columnsByPin: any[];
-  @Prop() columnGroupWidths: any;
-  @Prop() groupStyles: any;
+  @Prop() columnsByPin: IColumnsByPinRecord[];
+  @Prop() columnGroupWidths: IColumnsWidth;
+  @Prop() groupStyles: Record<string, string | number>;
   @Prop() groupClass: string;
-  @Prop() slots: any;
+  @Prop() slots: () => Record<string, (arg?: Record<string, unknown>) => VNode[]>;
 
   internalColumns: ISummaryColumn[] = [];
-  summaryRow = {};
-  mySlotsFunc: any = null;
-  myRowContext: IRowContext= null;
+  summaryRow: Record<string, unknown> = {};
+  mySlotsFunc: () => Record<string, (arg?: Record<string, unknown>) => VNode[]> = null;
+  myRowContext: IRowContext = null;
 
-  @Watch('rows', { immediate: true }) onRowsChanged() {
-    this.onChanges();  
+  @Watch('rows', { immediate: true }) onRowsChanged(): void {
+    this.onChanges();
   }
 
-  @Watch('columns') onColumnsChanged() {
-    this.onChanges();  
+  @Watch('columns') onColumnsChanged(): void {
+    this.onChanges();
   }
 
-  onChanges() {
+  onChanges(): void {
     if (!this.columns || !this.rows) {
       return;
     }
@@ -81,13 +85,13 @@ export default class DataTableSummaryRowComponent extends Vue {
     this.updateValues();
   }
 
-  onActivate(event) {
+  onActivate(event: Event): void {
     this.$emit('summary-activate', event, this.summaryRow);
   }
 
   private updateInternalColumns() {
     this.mySlotsFunc = this.slots;
-    const summarySlots = {};
+    const summarySlots: Record<string, (arg?: Record<string, unknown>) => VNode[]> = {};
     this.internalColumns = this.columns.map(col => {
       if (col.summaryTemplate) {
         summarySlots[col.prop] = col.summaryTemplate;
@@ -109,26 +113,35 @@ export default class DataTableSummaryRowComponent extends Vue {
     this.columns
       .filter(col => !col.summaryTemplate)
       .forEach(col => {
-      const cellsFromSingleColumn = this.rows.map(row => row[col.prop]);
-      const sumFunc = this.getSummaryFunction(col);
+        const cellsFromSingleColumn = this.rows.map(row => row[col.prop]);
+        const sumFunc = this.getSummaryFunction(col);
 
-      // this.summaryRow[col.prop] = col.pipe ?
-      //   col.pipe.transform(sumFunc(cellsFromSingleColumn)) :
-      //   sumFunc(cellsFromSingleColumn);
-      this.summaryRow[col.prop] = col.filter ?
-        col.filter(sumFunc(cellsFromSingleColumn)) :
-        sumFunc(cellsFromSingleColumn);
+        // this.summaryRow[col.prop] = col.pipe ?
+        //   col.pipe.transform(sumFunc(cellsFromSingleColumn)) :
+        //   sumFunc(cellsFromSingleColumn);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        this.summaryRow[col.prop] = col.filter
+          ? col.filter(sumFunc(cellsFromSingleColumn))
+          : sumFunc(cellsFromSingleColumn);
       });
-    this.myRowContext = { row: this.summaryRow, rowIndex: -1, expanded: false, isChecked: false, isSelected: false, rowHeight: this.rowHeight, treeStatus: null };
+    this.myRowContext = {
+      row: this.summaryRow,
+      rowIndex: -1,
+      expanded: false,
+      isChecked: false,
+      isSelected: false,
+      rowHeight: this.rowHeight,
+      treeStatus: null,
+    };
   }
 
   private getSummaryFunction(column: ISummaryColumn): (a: any[]) => any {
-    if (column.summaryFunc === undefined) {
+    if (!column.summaryFunc) {
       return defaultSumFunc;
-    } else if (column.summaryFunc === null) {
-      return noopSumFunc;
-    } else {
-      return column.summaryFunc;
     }
+    if (column.summaryFunc === null) {
+      return noopSumFunc;
+    }
+    return column.summaryFunc;
   }
 }

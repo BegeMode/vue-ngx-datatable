@@ -1,4 +1,5 @@
 import { TreeStatus } from 'components/body/body-cell.component';
+import { VNode } from 'vue';
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import { ScrollbarHelper } from '../../services/scrollbar-helper.service';
 import { SelectionType, TableColumn } from '../../types';
@@ -975,7 +976,7 @@ export default class DataTableBodyComponent extends Vue {
     return rowOffsetY >= this.offsetY && rowOffsetY <= this.offsetY + this.bodyHeight;
   }
 
-  get cellSlots(): () => Record<string, unknown> {
+  get cellSlots(): () => Record<string, (arg?: Record<string, unknown>) => VNode[]> {
     const result = {};
     if (this.columns) {
       this.columns.forEach(column => {
