@@ -268,14 +268,18 @@ export default class DataTableBodyComponent extends Vue {
   }
 
   get isUseRowHeightCache(): boolean {
-    if (
-      (this.fixedRowHeight && !this.rowDetailHeight && !this.groupRowsBy) ||
-      (this.scrollbarV && !this.virtualization) ||
-      !this.scrollbarV
-    ) {
-      return false;
+    if (typeof this.rowHeight === 'function') {
+      return true;
     }
-    return true;
+    return false;
+    // if (
+    //   (this.fixedRowHeight && !this.rowDetailHeight && !this.groupRowsBy) ||
+    //   (this.scrollbarV && !this.virtualization) ||
+    //   !this.scrollbarV
+    // ) {
+    //   return false;
+    // }
+    // return true;
   }
 
   get fixedRowHeight(): boolean {

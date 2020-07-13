@@ -38,6 +38,8 @@ interface IGroup {
 
 type GroupByField = string | IGroup;
 
+type TRowHeightFunc = (row: Record<string, unknown>, index?: number) => number;
+
 @Component({
   directives: {
     'v-visibility-observer': VisibilityDirective,
@@ -104,7 +106,7 @@ export default class DatatableComponent extends Vue {
    * The row height; which is necessary
    * to calculate the height for the lazy rendering.
    */
-  @Prop() rowHeight: number | string;
+  @Prop({ default: 'auto' }) rowHeight: TRowHeightFunc | number | string;
   /**
    * The group row height
    */
@@ -625,6 +627,13 @@ export default class DatatableComponent extends Vue {
     return rows;
   }
 
+  get myRowHeight(): number | TRowHeightFunc {
+    if (typeof this.rowHeight === 'string') {
+      return this.rowHeight === 'auto' ? 50 : Number(this.rowHeight);
+    }
+    return this.rowHeight;
+  }
+
   get myOffset(): number {
     if (this.rowCount) {
       return Math.max(Math.min(this.innerOffset, Math.ceil(this.rowCount / this.pageSize) - 1), 0);
@@ -645,8 +654,12 @@ export default class DatatableComponent extends Vue {
    * the row heights are fixed heights.
    */
   get isFixedRow(): boolean {
-    const rowHeight: number | string = this.rowHeight;
-    return typeof rowHeight === 'string' ? rowHeight !== 'auto' : true;
+    if (typeof this.rowHeight === 'function') {
+      return false;
+    }
+    return true;
+    // const rowHeight: number | string = this.rowHeight;
+    // return typeof rowHeight === 'string' ? rowHeight !== 'auto' : true;
   }
 
   /**
@@ -918,7 +931,7 @@ export default class DatatableComponent extends Vue {
     // This is because an expanded row is still considered to be a child of
     // the original row.  Hence calculation would use rowHeight only.
     if (this.scrollbarV && this.virtualization) {
-      let rowHeight = 30;
+      let rowHeight = 50;
       if (typeof this.rowHeight === 'number') {
         rowHeight = this.rowHeight;
       }

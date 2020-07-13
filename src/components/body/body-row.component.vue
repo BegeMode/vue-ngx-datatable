@@ -1,11 +1,13 @@
 <template>
-  <div id="row-group" class="datatable-body-row" 
-      :class="cssClasses" 
-      :style="styles" 
-      :tabIndex="-1" 
-      @focus="onFocus" 
-      @blur="onBlur" 
-      @keydown="onKeyDown"
+  <div
+    id="row-group"
+    class="datatable-body-row"
+    :class="cssClasses"
+    :style="styles"
+    :tabIndex="-1"
+    @focus="onFocus"
+    @blur="onBlur"
+    @keydown="onKeyDown"
   >
     <div
       class="datatable-row-group"
@@ -26,7 +28,7 @@
         :column="column"
         :cellSlot="slots()[column.prop]"
         :renderTracking="renderTracking"
-        :displayCheck="displayCheck" 
+        :displayCheck="displayCheck"
         @activate="onActivate($event, ii)"
         @tree-action="onTreeAction"
         @mouseenter="onMouseenter"
@@ -34,15 +36,15 @@
         @cell-updated="onCellRendered"
       ></datatable-body-cell>
       <!-- <datatable-body-cell v-for="(column, ii) of colGroup.columns" :key="column.$$id"
-      tabindex="-1" 
-      :row="row" 
+      tabindex="-1"
+      :row="row"
       :group="group"
-      :expanded="expanded" 
-      :isSelected="isSelected" 
-      :rowIndex="rowIndex" 
-      :column="column" 
+      :expanded="expanded"
+      :isSelected="isSelected"
+      :rowIndex="rowIndex"
+      :column="column"
       :rowHeight="rowHeight"
-      :displayCheck="displayCheck" 
+      :displayCheck="displayCheck"
       :treeStatus="treeStatus">
       </datatable-body-cell>-->
     </div>
