@@ -1,4 +1,5 @@
 import { TreeStatus } from 'components/body/body-cell.component';
+import { TGroupByField } from 'components/datatable.component';
 import { VNode } from 'vue';
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import { ScrollbarHelper } from '../../services/scrollbar-helper.service';
@@ -63,7 +64,7 @@ export default class DataTableBodyComponent extends Vue {
   // @Prop() groupedRows: any;
   @Prop() groupExpansionDefault: boolean;
   @Prop() innerWidth: number;
-  @Prop() groupRowsBy: string;
+  @Prop() groupRowsBy: Array<TGroupByField | Array<TGroupByField>>;
   @Prop() virtualization: boolean;
   @Prop() summaryRow: boolean;
   @Prop() summaryPosition: string;

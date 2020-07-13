@@ -1,4 +1,6 @@
-import { Vue, Prop, Component } from 'vue-property-decorator';
+import { TGroupByField } from 'components/datatable.component';
+import { VNode } from 'vue';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 import DataTableBodyGroupHeaderComponent from './body-group-header.component';
 import DataTableBodyRowDetailComponent from './body-row-detail.component';
 import DataTableBodyRowComponent from './body-row.component.vue';
@@ -19,19 +21,19 @@ export default class DataTableRowWrapperComponent extends Vue {
   @Prop() offsetX: number;
   @Prop() rowDetailHeight: number;
   @Prop() groupRowHeight: number;
-  @Prop() row: any;
-  @Prop() groupRowsBy: any[];
+  @Prop() row: Record<string, unknown>;
+  @Prop() groupRowsBy: Array<TGroupByField | Array<TGroupByField>>;
   @Prop() rowIndex: number;
   @Prop() expanded: boolean;
-  @Prop() styleObject: any;
-  @Prop() groupHeaderSlot: any;
-  @Prop() rowDetailSlot: any;
+  @Prop() styleObject: Record<string, string>;
+  @Prop() groupHeaderSlot: (obj: Record<string, unknown>) => VNode[];
+  @Prop() rowDetailSlot: (obj: Record<string, unknown>) => VNode[];
 
-  mounted() {
+  mounted(): void {
     this.$emit('set-row-element', this.$el);
   }
 
-  updated() {
+  updated(): void {
     this.$emit('set-row-element', this.$el);
   }
 
@@ -41,10 +43,10 @@ export default class DataTableRowWrapperComponent extends Vue {
 
   get groupHeaderStyles(): Record<string, string> {
     const styles = {};
-    styles['transform'] = 'translate3d(' + this.offsetX + 'px, 0px, 0px)';
+    styles['transform'] = `translate3d(${this.offsetX}px, 0px, 0px)'`;
     styles['backface-visibility'] = 'hidden';
     styles['width'] = this.innerWidth || '100%';
-    styles['height'] = this.groupRowHeight ? this.groupRowHeight + 'px' : 'auto';
-    return styles; 
+    styles['height'] = this.groupRowHeight ? `${this.groupRowHeight}px` : 'auto';
+    return styles;
   }
 }

@@ -1,42 +1,50 @@
-import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
+import { TGroupByField } from 'components/datatable.component';
+import { VNode } from 'vue';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 import { IGroupedRows } from '../../types/grouped-rows';
 
 @Component({
   template: `
-      <div :class="{ 'datatable-icon-right': !expanded, 'datatable-icon-down': expanded }" :style="styles" 
-            title="Expand/Collapse Group" @click="toggleExpandGroup">
-        <slot name="groupHeader" v-bind="{ group: group, expanded: expanded, level: groupLevel, groupBy: groupBy }">
-          <span><b>{{groupTitle}}</b></span>
-        </slot>  
-      </div>                          
+    <div
+      :class="{ 'datatable-icon-right': !expanded, 'datatable-icon-down': expanded }"
+      :style="styles"
+      title="Expand/Collapse Group"
+      @click="toggleExpandGroup"
+    >
+      <slot name="groupHeader" v-bind="{ group: group, expanded: expanded, level: groupLevel, groupBy: groupBy }">
+        <span
+          ><b>{{ groupTitle }}</b></span
+        >
+      </slot>
+    </div>
   `,
 })
 export default class DataTableBodyGroupHeaderComponent extends Vue {
-  @Prop({ default: 0 }) rowHeight: (number | ((group?: any, index?: number) => number));
+  @Prop({ default: 0 }) rowHeight: number | ((group?: any, index?: number) => number);
   @Prop() group: IGroupedRows;
   @Prop() expanded: boolean;
-  @Prop() groupHeaderSlot: any;
+  @Prop() groupHeaderSlot: (obj: Record<string, unknown>) => VNode[];
   @Prop() groupLevel: number;
-  @Prop() groupRowsBy: string | any[];
- 
-  created() {
+  @Prop() groupRowsBy: Array<TGroupByField | Array<TGroupByField>>;
+
+  created(): void {
     if (this.groupHeaderSlot) {
       this.$slots.groupHeader = this.groupHeaderSlot({
         group: this.group,
         expanded: this.expanded,
         level: this.groupLevel,
-        groupBy: this.groupBy
+        groupBy: this.groupBy,
       });
     }
   }
 
-  beforeUpdate() {
+  beforeUpdate(): void {
     if (this.groupHeaderSlot) {
       this.$slots.groupHeader = this.groupHeaderSlot({
         group: this.group,
         expanded: this.expanded,
         level: this.groupLevel,
-        groupBy: this.groupBy
+        groupBy: this.groupBy,
       });
     }
   }
@@ -47,7 +55,7 @@ export default class DataTableBodyGroupHeaderComponent extends Vue {
   toggleExpandGroup(): void {
     this.$emit('group-toggle', {
       type: 'group',
-      value: this.group
+      value: this.group,
     });
   }
 
@@ -57,7 +65,7 @@ export default class DataTableBodyGroupHeaderComponent extends Vue {
   expandAllGroups(): void {
     this.$emit('group-toggle', {
       type: 'all',
-      value: true
+      value: true,
     });
   }
 
@@ -67,11 +75,11 @@ export default class DataTableBodyGroupHeaderComponent extends Vue {
   collapseAllGroups(): void {
     this.$emit('group-toggle', {
       type: 'all',
-      value: false
+      value: false,
     });
   }
 
-  get groupTitle() {
+  get groupTitle(): string {
     let result = '';
     if (this.group && this.group.keys) {
       this.group.keys.forEach(gr => {
@@ -79,22 +87,20 @@ export default class DataTableBodyGroupHeaderComponent extends Vue {
           result += `${gr.title} - ${gr.value}`;
         } else {
           result += `; ${gr.title} - ${gr.value}`;
-
         }
       });
     }
     return result;
   }
 
-  get styles() {
+  get styles(): Record<string, string> {
     return {
-      'padding-left': this.groupLevel ? (this.groupLevel * 10) + 'px' : '5px',
+      'padding-left': this.groupLevel ? `${this.groupLevel * 10}px` : '5px',
     };
   }
 
-  get groupBy() {
-    if (this.groupLevel !== undefined && this.groupLevel !== null
-      && Array.isArray(this.groupRowsBy) && this.groupRowsBy.length - 1 >= this.groupLevel) {
+  get groupBy(): TGroupByField | Array<TGroupByField> {
+    if (this.groupLevel && Array.isArray(this.groupRowsBy) && this.groupRowsBy.length - 1 >= this.groupLevel) {
       return this.groupRowsBy[this.groupLevel];
     }
     return null;

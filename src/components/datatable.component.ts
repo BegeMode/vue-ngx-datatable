@@ -36,7 +36,7 @@ interface IGroup {
   valueGetter?: (value: any) => string;
 }
 
-type GroupByField = string | IGroup;
+export type TGroupByField = string | IGroup;
 
 type TRowHeightFunc = (row: Record<string, unknown>, index?: number) => number;
 
@@ -80,7 +80,7 @@ export default class DatatableComponent extends Vue {
   /**
    * This attribute allows the user to set the names of the columns to group the data with
    */
-  @Prop() groupRowsBy: Array<GroupByField | Array<GroupByField>>;
+  @Prop() groupRowsBy: Array<TGroupByField | Array<TGroupByField>>;
   @Prop() columns: TableColumn[];
   /**
    * List of row objects that should be
@@ -416,8 +416,8 @@ export default class DatatableComponent extends Vue {
   }
 
   @Watch('groupRowsBy') onGroupRowsByChanged(
-    newVal: Array<GroupByField | Array<GroupByField>>,
-    oldVal: Array<GroupByField | Array<GroupByField>>
+    newVal: Array<TGroupByField | Array<TGroupByField>>,
+    oldVal: Array<TGroupByField | Array<TGroupByField>>
   ): void {
     if (isArrayEqual(newVal, oldVal)) {
       return;
@@ -1297,10 +1297,10 @@ export default class DatatableComponent extends Vue {
    */
   private groupArrayBy(
     originalArray: Record<string, unknown>[],
-    groupRowsBy: Array<GroupByField | Array<GroupByField>>,
+    groupRowsBy: Array<TGroupByField | Array<TGroupByField>>,
     level: number = 0
   ): IGroupedRows[] {
-    let groupBy: Array<GroupByField | Array<GroupByField>> | GroupByField | Array<GroupByField> = groupRowsBy;
+    let groupBy: Array<TGroupByField | Array<TGroupByField>> | TGroupByField | Array<TGroupByField> = groupRowsBy;
     if (Array.isArray(groupRowsBy)) {
       groupBy = groupRowsBy[level];
     }
@@ -1308,7 +1308,7 @@ export default class DatatableComponent extends Vue {
     // create a map to hold groups with their corresponding results
     const map = new Map<string, Record<string, string>[]>();
 
-    const getValue = (row: Record<string, string>, groupDescr: GroupByField): string => {
+    const getValue = (row: Record<string, string>, groupDescr: TGroupByField): string => {
       if (typeof groupDescr === 'string') {
         return row[groupDescr];
       }
@@ -1319,7 +1319,7 @@ export default class DatatableComponent extends Vue {
 
     const getKey = (
       row: Record<string, string>,
-      groupByArr: Array<GroupByField | Array<GroupByField>> | GroupByField
+      groupByArr: Array<TGroupByField | Array<TGroupByField>> | TGroupByField
     ): string => {
       if (!Array.isArray(groupByArr)) {
         return getValue(row, groupByArr);
