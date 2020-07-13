@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
 import * as flushPromises from 'flush-promises';
-import { Component, Prop } from 'vue-property-decorator';
+import Vue from 'vue';
+import { VueConstructor } from 'vue/types/umd';
+import DataTableBody from './body.component';
 import DataTableBodyComponent from './body.component.vue';
 // import DataTableBodyRowComponent from './body-row.component';
 // import DataTableRowWrapperComponent from './body-row-wrapper.component';
@@ -12,22 +14,22 @@ import DataTableBodyComponent from './body.component.vue';
 // import ScrollerComponent from './scroller.component';
 
 let wrapper: Wrapper<DataTableBodyComponent>;
-let component: DataTableBodyComponent;
+let component: DataTableBody;
 
-async function setupTest(componentClass) {
+async function setupTest(componentClass: VueConstructor) {
   try {
     wrapper = mount(componentClass, { sync: false });
     // await Vue.nextTick();
     await flushPromises();
-    component = wrapper.vm;
+    component = wrapper.vm as DataTableBody;
     await Vue.nextTick();
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error(e);
   }
 }
 
 describe('DataTableBodyComponent', () => {
-
   beforeEach(async () => {
     await setupTest(DataTableBodyComponent);
   });
@@ -52,7 +54,7 @@ describe('DataTableBodyComponent', () => {
           { num: 7 },
           { num: 8 },
           { num: 9 },
-          { num: 10 }
+          { num: 10 },
         ],
         pageSize: 10,
         offset: 1,
@@ -60,8 +62,8 @@ describe('DataTableBodyComponent', () => {
       });
       await component.$nextTick();
       const expectedIndexes = { first: 10, last: 20 };
-      (component as any).updateIndexes();
-      expect((component as any).indexes).toEqual(expectedIndexes);
+      component.updateIndexes();
+      expect(component.indexes).toEqual(expectedIndexes);
     });
 
     it('should have correct indexes for normal paging with rows < pageSize', async () => {
@@ -70,12 +72,12 @@ describe('DataTableBodyComponent', () => {
         rows: [{ num: 1 }, { num: 2 }, { num: 3 }, { num: 4 }],
         pageSize: 5,
         offset: 1,
-        rowCount: 9
+        rowCount: 9,
       });
       await component.$nextTick();
       const expectedIndexes = { first: 5, last: 9 };
-      (component as any).updateIndexes();
-      expect((component as any).indexes).toEqual(expectedIndexes);
+      component.updateIndexes();
+      expect(component.indexes).toEqual(expectedIndexes);
     });
 
     it('should have correct indexes for external paging with rows > pageSize', async () => {
@@ -91,16 +93,16 @@ describe('DataTableBodyComponent', () => {
           { num: 7 },
           { num: 8 },
           { num: 9 },
-          { num: 10 }
+          { num: 10 },
         ],
         pageSize: 10,
         offset: 1,
-        rowCount: 20
+        rowCount: 20,
       });
       await component.$nextTick();
       const expectedIndexes = { first: 0, last: 10 };
-      (component as any).updateIndexes();
-      expect((component as any).indexes).toEqual(expectedIndexes);
+      component.updateIndexes();
+      expect(component.indexes).toEqual(expectedIndexes);
     });
 
     it('should have correct indexes for external paging with rows < pageSize', async () => {
@@ -109,18 +111,18 @@ describe('DataTableBodyComponent', () => {
         rows: [{ num: 1 }, { num: 2 }, { num: 3 }, { num: 4 }],
         pageSize: 5,
         offset: 1,
-        rowCount: 9
+        rowCount: 9,
       });
       await component.$nextTick();
       const expectedIndexes = { first: 0, last: 5 };
-      (component as any).updateIndexes();
-      expect((component as any).indexes).toEqual(expectedIndexes);
+      component.updateIndexes();
+      expect(component.indexes).toEqual(expectedIndexes);
     });
   });
 
   describe('Summary row', () => {
     it('should not return custom styles for a bottom summary row if a scrollbar mode is off', () => {
-      const styles = (component as any).getBottomSummaryRowStyles();
+      const styles = component.getBottomSummaryRowStyles();
       expect(styles).toBeFalsy();
     });
 
@@ -129,10 +131,10 @@ describe('DataTableBodyComponent', () => {
         rowHeight: 50,
         scrollbarV: true,
         virtualization: true,
-        rows: [{ num: 1 }, { num: 2 }, { num: 3 }, { num: 4 }]
+        rows: [{ num: 1 }, { num: 2 }, { num: 3 }, { num: 4 }],
       });
       await component.$nextTick();
-      const styles = (component as any).getBottomSummaryRowStyles();
+      const styles = component.getBottomSummaryRowStyles();
       expect(styles).toBeDefined();
     });
   });

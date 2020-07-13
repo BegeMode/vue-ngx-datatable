@@ -1,47 +1,50 @@
 import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
 import * as flushPromises from 'flush-promises';
-import DataTableBodyCellComponent from './body-cell.component.vue';
-
-import { numericIndexGetter } from '../../utils/column-prop-getters';
-import { setColumnDefaults } from '../../utils/column-helper';
+import Vue from 'vue';
+import { VueConstructor } from 'vue/types/umd';
 import { TableColumn } from '../../types/table-column.type';
+import { setColumnDefaults } from '../../utils/column-helper';
+import { numericIndexGetter } from '../../utils/column-prop-getters';
+import DataTableBodyCellComponent from './body-cell.component.vue';
 
 let wrapper: Wrapper<DataTableBodyCellComponent>;
 let component: DataTableBodyCellComponent;
 
-async function setupTest(componentClass) {
+async function setupTest(componentClass: VueConstructor) {
   try {
     wrapper = mount(componentClass, {
       sync: false,
       propsData: {
-        cellColumnCssClasses: (context) => {},
-        cellStyleObject: (context) => {},
-        marginCellStyle: (context) => {},
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        cellColumnCssClasses: () => {},
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        cellStyleObject: () => {},
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        marginCellStyle: () => {},
         context: {
           row: [],
           column: { visible: true },
-        }
-      }
+        },
+      },
     });
     // await Vue.nextTick();
     await flushPromises();
     component = wrapper.vm;
     await Vue.nextTick();
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error(e);
   }
 }
 
 describe('DataTableBodyCellComponent', () => {
-
   beforeEach(async () => {
     await setupTest(DataTableBodyCellComponent);
   });
 
   describe('fixture', () => {
-    it('should have a component instance', () => {
-      expect(component).toBeTruthy();
+    it('should have a component instance', async () => {
+      await expect(component).toBeTruthy();
     });
   });
 
@@ -53,18 +56,20 @@ describe('DataTableBodyCellComponent', () => {
       // users should never set columns on DataTableBodyCellComponent directly
       // setColumnDefaults will be run on columns before they are set on BodyCellComponent
       setColumnDefaults(columns[0], wrapper.vm);
-      expect(columns[0].$$valueGetter).toBe(numericIndexGetter);
+      await expect(columns[0].$$valueGetter).toBe(numericIndexGetter);
 
       wrapper.setProps({
-        cellColumnCssClasses: (context) => {},
+        // eslint-disable-next-line @typescript-eslint/no-empty-function
+        cellColumnCssClasses: () => {},
         context: {
           row: ['Hello'],
           column: columns[0],
-          value: 'Hello'
-        }
+          value: 'Hello',
+        },
       });
       await component.$nextTick();
-      expect((component as any).context.value).toEqual('Hello');
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      await expect((component as any).context.value).toEqual('Hello');
     });
   });
 });
