@@ -491,6 +491,10 @@ export default class DatatableComponent extends Vue {
     this.myChecked = this.checked;
   }
 
+  @Watch('sorts') onSortsChanged(): void {
+    this.onColumnSort({ sorts: this.sorts });
+  }
+
   /**
    * Window resize handler to update sizes.
    */
@@ -595,10 +599,6 @@ export default class DatatableComponent extends Vue {
    * A row was expanded ot collapsed for tree
    */
   // @Output() treeAction: EventEmitter<any> = new EventEmitter();
-
-  // @Watch('sorts', { immediate: true }) onSortsChanged() {
-  //   ...
-  // }
 
   addRow(group: IGroupedRows, rows: Array<IGroupedRows | Record<string, unknown>>): void {
     // (group as any).__isGroup = true;
