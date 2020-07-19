@@ -1696,32 +1696,32 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         //   }
         // } else {
         var temp = [];
-        var rowContext;
+        // let rowContext: IRowContext;
         while (rowIndex < last && rowIndex < this.rowCount) {
             var row = this.rows[rowIndex];
             if (row) {
                 this.rowIndexes.set(row, rowIndex);
-                rowContext = this.rowContexts[idx];
-                if (!rowContext) {
-                    rowContext = {};
-                }
-                rowContext.row = row;
-                rowContext.rowIndex = rowIndex;
-                rowContext.rowHeight = this.getRowHeight(row);
-                rowContext.isSelected = this.isSelect(row);
-                rowContext.isChecked = this.isChecked(row);
-                rowContext.expanded = this.getRowExpanded(row);
-                rowContext.treeStatus = this.treeStatus(row);
-                temp[idx] = rowContext;
-                // temp[idx] = {
-                //   row,
-                //   rowIndex,
-                //   rowHeight: this.getRowHeight(row),
-                //   isSelected: this.isSelect(row),
-                //   isChecked: this.isChecked(row),
-                //   expanded: this.getRowExpanded(row),
-                //   treeStatus: this.treeStatus(row)
-                // };
+                // rowContext = this.rowContexts[idx];
+                // if (!rowContext) {
+                //   rowContext = {} as any;
+                // }
+                // rowContext.row = row;
+                // rowContext.rowIndex = rowIndex;
+                // rowContext.rowHeight = this.getRowHeight(row);
+                // rowContext.isSelected = this.isSelect(row);
+                // rowContext.isChecked = this.isChecked(row);
+                // rowContext.expanded = this.getRowExpanded(row);
+                // rowContext.treeStatus = this.treeStatus(row);
+                // temp[idx] = rowContext;
+                temp[idx] = {
+                    row: row,
+                    rowIndex: rowIndex,
+                    rowHeight: this.getRowHeight(row),
+                    isSelected: this.isSelect(row),
+                    isChecked: this.isChecked(row),
+                    expanded: this.getRowExpanded(row),
+                    treeStatus: this.treeStatus(row)
+                };
                 idx++;
             }
             rowIndex++;
@@ -2659,9 +2659,9 @@ var DatatableComponent = /** @class */ (function (_super) {
      * A row was expanded ot collapsed for tree
      */
     // @Output() treeAction: EventEmitter<any> = new EventEmitter();
-    // @Watch('sorts', { immediate: true }) onSortsChanged() {
-    //   ...
-    // }
+    DatatableComponent.prototype.onSortsChanged = function () {
+        this.sortRows();
+    };
     DatatableComponent.prototype.onRowsChanged = function (val) {
         if (val) {
             this.internalRows = __spreadArrays(val);
@@ -3254,6 +3254,15 @@ var DatatableComponent = /** @class */ (function (_super) {
             }
         }
         // let rows = this.internalRows;
+        this.sortRows();
+        // Go to first page when sorting to see the newly sorted data
+        if (this.goToFirstAfterSort) {
+            this.innerOffset = 0;
+        }
+        this.bodyComponent.updateOffsetY(this.myOffset, true);
+        this.$emit('sort', __assign(__assign({}, event), { sorts: (_a = event === null || event === void 0 ? void 0 : event.sorts) === null || _a === void 0 ? void 0 : _a.filter(function (s) { return s.prop; }) }));
+    };
+    DatatableComponent.prototype.sortRows = function () {
         var treeFrom = utils_1.optionalGetterForProp(this.treeFromRelation);
         var treeTo = utils_1.optionalGetterForProp(this.treeToRelation);
         if (treeFrom && treeTo) {
@@ -3267,12 +3276,6 @@ var DatatableComponent = /** @class */ (function (_super) {
         }
         // auto group by parent on new update
         this.internalRows = utils_1.groupRowsByParents(this.internalRows, treeFrom, treeTo, this.lazyTree);
-        // Go to first page when sorting to see the newly sorted data
-        if (this.goToFirstAfterSort) {
-            this.innerOffset = 0;
-        }
-        this.bodyComponent.updateOffsetY(this.myOffset, true);
-        this.$emit('sort', __assign(__assign({}, event), { sorts: (_a = event === null || event === void 0 ? void 0 : event.sorts) === null || _a === void 0 ? void 0 : _a.filter(function (s) { return s.prop; }) }));
     };
     /**
      * Toggle all row selection
@@ -3804,6 +3807,12 @@ var DatatableComponent = /** @class */ (function (_super) {
         vue_property_decorator_1.Prop({ type: String, default: 'top' }),
         __metadata("design:type", String)
     ], DatatableComponent.prototype, "summaryPosition", void 0);
+    __decorate([
+        vue_property_decorator_1.Watch('sorts'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], DatatableComponent.prototype, "onSortsChanged", null);
     __decorate([
         vue_property_decorator_1.Watch('rows', { immediate: true }),
         __metadata("design:type", Function),

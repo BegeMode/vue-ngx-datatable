@@ -8,7 +8,7 @@ export interface ISortPropDir {
 
 export interface ISortEvent {
   sorts: ISortPropDir[];
-  column: TableColumn;
-  prevValue: SortDirection;
-  newValue: SortDirection;
+  column?: TableColumn;
+  prevValue?: SortDirection;
+  newValue?: SortDirection;
 }
