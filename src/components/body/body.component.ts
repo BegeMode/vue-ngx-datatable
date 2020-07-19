@@ -444,32 +444,32 @@ export default class DataTableBodyComponent extends Vue {
     //   }
     // } else {
     let temp: Array<IRowContext> = [];
-    let rowContext: IRowContext;
+    // let rowContext: IRowContext;
     while (rowIndex < last && rowIndex < this.rowCount) {
       const row = this.rows[rowIndex];
       if (row) {
         this.rowIndexes.set(row, rowIndex);
-        rowContext = this.rowContexts[idx];
-        if (!rowContext) {
-          rowContext = {} as any;
-        }
-        rowContext.row = row;
-        rowContext.rowIndex = rowIndex;
-        rowContext.rowHeight = this.getRowHeight(row);
-        rowContext.isSelected = this.isSelect(row);
-        rowContext.isChecked = this.isChecked(row);
-        rowContext.expanded = this.getRowExpanded(row);
-        rowContext.treeStatus = this.treeStatus(row);
-        temp[idx] = rowContext;
-        // temp[idx] = {
-        //   row,
-        //   rowIndex,
-        //   rowHeight: this.getRowHeight(row),
-        //   isSelected: this.isSelect(row),
-        //   isChecked: this.isChecked(row),
-        //   expanded: this.getRowExpanded(row),
-        //   treeStatus: this.treeStatus(row)
-        // };
+        // rowContext = this.rowContexts[idx];
+        // if (!rowContext) {
+        //   rowContext = {} as any;
+        // }
+        // rowContext.row = row;
+        // rowContext.rowIndex = rowIndex;
+        // rowContext.rowHeight = this.getRowHeight(row);
+        // rowContext.isSelected = this.isSelect(row);
+        // rowContext.isChecked = this.isChecked(row);
+        // rowContext.expanded = this.getRowExpanded(row);
+        // rowContext.treeStatus = this.treeStatus(row);
+        // temp[idx] = rowContext;
+        temp[idx] = {
+          row,
+          rowIndex,
+          rowHeight: this.getRowHeight(row),
+          isSelected: this.isSelect(row),
+          isChecked: this.isChecked(row),
+          expanded: this.getRowExpanded(row),
+          treeStatus: this.treeStatus(row)
+        };
         idx++;
       }
       rowIndex++;

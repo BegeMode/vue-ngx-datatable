@@ -475,9 +475,9 @@ export default class DatatableComponent extends Vue {
    */
   // @Output() treeAction: EventEmitter<any> = new EventEmitter();
 
-  // @Watch('sorts', { immediate: true }) onSortsChanged() {
-  //   ...
-  // }
+  @Watch('sorts') onSortsChanged(): void {
+    this.sortRows();
+  }
 
   @Watch('rows', { immediate: true }) onRowsChanged(val: any) {
     if (val) {
@@ -1063,6 +1063,17 @@ export default class DatatableComponent extends Vue {
     }
 
     // let rows = this.internalRows;
+    this.sortRows();
+
+    // Go to first page when sorting to see the newly sorted data
+    if (this.goToFirstAfterSort) {
+      this.innerOffset = 0;
+    }
+    this.bodyComponent.updateOffsetY(this.myOffset, true);
+    this.$emit('sort', { ...event, sorts: event?.sorts?.filter(s => s.prop) });
+  }
+
+  private sortRows() {
     const treeFrom = optionalGetterForProp(this.treeFromRelation);
     const treeTo = optionalGetterForProp(this.treeToRelation);
     if (treeFrom && treeTo) {
@@ -1083,13 +1094,6 @@ export default class DatatableComponent extends Vue {
       treeTo,
       this.lazyTree
     );
-
-    // Go to first page when sorting to see the newly sorted data
-    if (this.goToFirstAfterSort) {
-      this.innerOffset = 0;
-    }
-    this.bodyComponent.updateOffsetY(this.myOffset, true);
-    this.$emit('sort', { ...event, sorts: event?.sorts?.filter(s => s.prop) });
   }
 
   /**
