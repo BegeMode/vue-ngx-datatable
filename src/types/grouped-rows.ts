@@ -5,5 +5,5 @@ export interface IGroupedRows {
   __expanded: boolean;
   value: any[];
   groups?: IGroupedRows[];
-  keys?: Array<{ title: string, prop: string, value: string}>;
+  keys?: Array<{ title: string; prop: string; value: string }>;
 }

@@ -492,7 +492,7 @@ export default class DatatableComponent extends Vue {
   }
 
   @Watch('sorts') onSortsChanged(): void {
-    this.onColumnSort({ sorts: this.sorts });
+    this.innerSortRows();
   }
 
   /**
@@ -1079,21 +1079,7 @@ export default class DatatableComponent extends Vue {
     }
 
     // let rows = this.internalRows;
-    const treeFrom = optionalGetterForProp(this.treeFromRelation);
-    const treeTo = optionalGetterForProp(this.treeToRelation);
-    if (treeFrom && treeTo) {
-      this.internalRows = this.initialRows;
-    }
-
-    // this could be optimized better since it will resort
-    // the rows again on the 'push' detection...
-    if (this.externalSorting === false) {
-      // don't use normal setter so we don't resort
-      this.sortInternalRows();
-    }
-
-    // auto group by parent on new update
-    this.internalRows = groupRowsByParents(this.internalRows, treeFrom, treeTo, this.lazyTree);
+    this.innerSortRows();
 
     // Go to first page when sorting to see the newly sorted data
     if (this.goToFirstAfterSort) {
@@ -1287,6 +1273,24 @@ export default class DatatableComponent extends Vue {
    */
   isRowVisible(row: Record<string, unknown>): boolean {
     return this.bodyComponent?.isRowVisible(row);
+  }
+
+  private innerSortRows(): void {
+    const treeFrom = optionalGetterForProp(this.treeFromRelation);
+    const treeTo = optionalGetterForProp(this.treeToRelation);
+    if (treeFrom && treeTo) {
+      this.internalRows = this.initialRows;
+    }
+
+    // this could be optimized better since it will resort
+    // the rows again on the 'push' detection...
+    if (this.externalSorting === false) {
+      // don't use normal setter so we don't resort
+      this.sortInternalRows();
+    }
+
+    // auto group by parent on new update
+    this.internalRows = groupRowsByParents(this.internalRows, treeFrom, treeTo, this.lazyTree);
   }
 
   /**

@@ -1,14 +1,14 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { forceFillColumnWidths } from './math';
 
 describe('Math function', () => {
-
   describe('forceFillColumnWidths', () => {
     describe('when column expanded', () => {
       it('should resize only columns right to the resized column', () => {
         const columns = [
           { prop: 'id', width: 250, canAutoResize: true, visible: true },
           { prop: 'name', width: 400, canAutoResize: true, visible: true },
-          { prop: 'email', width: 250, canAutoResize: true, visible: true }
+          { prop: 'email', width: 250, canAutoResize: true, visible: true },
         ];
 
         forceFillColumnWidths(columns, 750, 1, true); // Column 2 expanded from 250 to 400
@@ -16,7 +16,6 @@ describe('Math function', () => {
         expect(columns[0].width).toBe(250); // Not changed
         expect(columns[1].width).toBe(400);
         expect(columns[2].width).toBe(250);
-
       });
     });
 
@@ -25,7 +24,7 @@ describe('Math function', () => {
         const columns = [
           { prop: 'id', width: 250, canAutoResize: true, visible: true },
           { prop: 'name', width: 180, canAutoResize: true, visible: true },
-          { prop: 'email', width: 250, canAutoResize: true, visible: true }
+          { prop: 'email', width: 250, canAutoResize: true, visible: true },
         ];
 
         forceFillColumnWidths(columns, 750, 1, true); // Column 2 contracted from 250 to 180
@@ -33,9 +32,7 @@ describe('Math function', () => {
         expect(columns[0].width).toBe(250); // Not changed
         expect(columns[1].width).toBe(180);
         expect(columns[2].width).toBe(320);
-
       });
     });
-
   });
 });

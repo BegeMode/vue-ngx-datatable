@@ -101,6 +101,7 @@ export default class DataTableBodyComponent extends Vue {
     right: {},
   };
 
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   onBodyScrollHandler = throttle(this.onBodyScroll.bind(this), 10, { trailing: true });
 
   rowTrackingFn: any;
@@ -485,7 +486,7 @@ export default class DataTableBodyComponent extends Vue {
           isSelected: this.isSelect(row),
           isChecked: this.isChecked(row),
           expanded: this.getRowExpanded(row),
-          treeStatus: this.treeStatus(row)
+          treeStatus: this.treeStatus(row),
         };
         idx++;
       }

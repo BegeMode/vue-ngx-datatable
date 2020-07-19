@@ -1,4 +1,4 @@
-export function checkVisibility(element: any, callback: any) {
+export function checkVisibility(element: HTMLElement, callback: () => void): void {
   let timeout: any;
 
   function check() {
