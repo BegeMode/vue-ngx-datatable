@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
 import * as flushPromises from 'flush-promises';
-import DataTableColumnComponent from './column.component';
+import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
+import { VueConstructor } from 'vue/types/umd';
 import { TableColumn } from '../../types';
+import DataTableColumnComponent from './column.component';
 
 let counter = 0;
 
@@ -13,17 +15,17 @@ let counter = 0;
   },
   name: 'test-fixture-component',
   template: `
-   <div>
-    <ngx-datatable-column id="t1"></ngx-datatable-column>
-    <ngx-datatable-column id="t2" :name="columnName">
-      <!-- <ng-template></ng-template>
+    <div>
+      <ngx-datatable-column id="t1"></ngx-datatable-column>
+      <ngx-datatable-column id="t2" :name="columnName">
+        <!-- <ng-template></ng-template>
       <ng-template></ng-template> -->
-    </ngx-datatable-column>
-   </div> 
-  `
+      </ngx-datatable-column>
+    </div>
+  `,
 })
 class TestFixtureComponent extends Vue {
-  columnName: string = '';
+  columnName = '';
 
   onColumnInsert(column: TableColumn) {
     counter++;
@@ -36,15 +38,16 @@ class TestFixtureComponent extends Vue {
   }
 }
 
-async function setupTest(componentClass) {
+async function setupTest(componentClass: VueConstructor) {
   try {
     counter = 0;
-    wrapper = mount(componentClass, { sync: false });
+    wrapper = mount(componentClass, { sync: false }) as Wrapper<TestFixtureComponent>;
     // await Vue.nextTick();
     await flushPromises();
     component = wrapper.vm;
     await Vue.nextTick();
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error(e);
   }
 }
@@ -53,7 +56,6 @@ let wrapper: Wrapper<TestFixtureComponent>;
 let component: TestFixtureComponent;
 
 describe('DataTableColumnDirective', () => {
-
   // beforeEach(() => {
   //   TestBed.configureTestingModule({
   //     declarations: [DataTableColumnDirective, TestFixtureComponent],
@@ -73,7 +75,6 @@ describe('DataTableColumnDirective', () => {
   });
 
   describe('fixture', () => {
-
     it('should have a component instance', () => {
       expect(component).toBeTruthy();
     });
@@ -81,7 +82,6 @@ describe('DataTableColumnDirective', () => {
     it('should be twice called onColumnInsert', () => {
       expect(counter).toEqual(2);
     });
-
   });
 
   describe('column #1', () => {
@@ -154,6 +154,5 @@ describe('DataTableColumnDirective', () => {
       expect(spy).toHaveBeenCalled();
       expect(spy).toHaveBeenCalledWith(column.column);
     });
-
   });
 });
