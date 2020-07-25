@@ -3,20 +3,19 @@
  * http://stackoverflow.com/a/13382873/888165
  */
 export class ScrollbarHelper {
-
   width: number;
-  private document: any;
+  private readonly document: Document;
 
   constructor() {
     this.document = window.document;
-    this.width =  this.getWidth();
+    this.width = this.getWidth();
   }
 
   getWidth(): number {
-    const outer = this.document.createElement('div');
+    const outer: HTMLElement = this.document.createElement('div');
     outer.style.visibility = 'hidden';
     outer.style.width = '100px';
-    outer.style.msOverflowStyle = 'scrollbar';
+    outer.style['msOverflowStyle'] = 'scrollbar';
     this.document.body.appendChild(outer);
 
     const widthNoScroll = outer.offsetWidth;
@@ -31,5 +30,4 @@ export class ScrollbarHelper {
 
     return widthNoScroll - widthWithScroll;
   }
-
 }

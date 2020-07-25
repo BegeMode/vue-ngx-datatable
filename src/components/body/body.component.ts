@@ -51,9 +51,9 @@ export default class DataTableBodyComponent extends Vue {
   @Prop() emptyMessage: string;
   @Prop() selectionType: SelectionType;
   @Prop() checkMode: CheckMode;
-  @Prop({ type: Array, default: () => [] }) selected: any[];
-  @Prop({ type: Array, default: () => [] }) checked: any[];
-  @Prop() rowIdentity: (row: any) => any;
+  @Prop({ type: Array, default: () => [] }) selected: Record<string, unknown>[];
+  @Prop({ type: Array, default: () => [] }) checked: Record<string, unknown>[];
+  @Prop() rowIdentity: (row: Record<string, unknown>) => any;
   @Prop() rowDetail: boolean;
   @Prop() rowDetailHeight: number | string | ((row?: any, index?: any) => number);
   @Prop() groupHeader: any;
@@ -663,7 +663,7 @@ export default class DataTableBodyComponent extends Vue {
         // Calculation of the first and last indexes will be based on where the
         // scrollY position would be at.  The last index would be the one
         // that shows up inside the view port the last.
-        const height = parseInt(this.myBodyHeight.toString(), 10);
+        const height = parseInt(this.myBodyHeight?.toString(), 10);
         if (this.isUseRowHeightCache || typeof this.rowHeight === 'function') {
           first = this.rowHeightsCache.getRowIndex(this.offsetY);
           last = this.rowHeightsCache.getRowIndex(height + this.offsetY) + 1;

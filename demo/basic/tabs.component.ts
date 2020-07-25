@@ -34,6 +34,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
           <h4>hidden Table</h4>
           <ngx-datatable
             class="material"
+            :visibilityCheck="true"
             :rows="rows"
             columnMode="force"
             :headerHeight="50"

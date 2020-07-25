@@ -23,7 +23,7 @@ module.exports = function(env) {
         {
           enforce: 'pre',
           test: /\.ts$/,
-          loader: 'tslint-loader',
+          loader: 'eslint-loader',
           exclude: /(node_modules|release|dist|demo)/
         },
         {
