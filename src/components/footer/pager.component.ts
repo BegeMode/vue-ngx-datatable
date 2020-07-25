@@ -1,23 +1,20 @@
-import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+
+export interface IPage {
+  number: number;
+  text: string;
+}
 
 @Component({
   template: `
     <ul class="pager">
       <li :class="{ disabled: !canPrevious }">
-        <a
-          role="button"
-          aria-label="go to first page"
-          href="javascript:void(0)"
-          @click="selectPage(1)">
+        <a role="button" aria-label="go to first page" href="javascript:void(0)" @click="selectPage(1)">
           <i :class="pagerPreviousIcon"></i>
         </a>
       </li>
       <li :class="{ disabled: !canPrevious }">
-        <a
-          role="button"
-          aria-label="go to previous page"
-          href="javascript:void(0)"
-          @click="prevPage">
+        <a role="button" aria-label="go to previous page" href="javascript:void(0)" @click="prevPage">
           <i :class="pagerLeftArrowIcon"></i>
         </a>
       </li>
@@ -26,28 +23,19 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
         aria-label="'page ' + pg.number"
         class="pages"
         v-for="pg of pages"
-        :class="{ active: pg.number === myPage }">
-        <a
-          href="javascript:void(0)"
-          @click="selectPage(pg.number)">
-          {{pg.text}}
+        :class="{ active: pg.number === myPage }"
+      >
+        <a href="javascript:void(0)" @click="selectPage(pg.number)">
+          {{ pg.text }}
         </a>
       </li>
       <li :class="{ disabled: !canNext }">
-        <a
-          role="button"
-          aria-label="go to next page"
-          href="javascript:void(0)"
-          @click="nextPage">
+        <a role="button" aria-label="go to next page" href="javascript:void(0)" @click="nextPage">
           <i :class="pagerRightArrowIcon"></i>
         </a>
       </li>
       <li :class="{ disabled: !canNext }">
-        <a
-          role="button"
-          aria-label="go to last page"
-          href="javascript:void(0)"
-          @click="selectPage(totalPages)">
+        <a role="button" aria-label="go to last page" href="javascript:void(0)" @click="selectPage(totalPages)">
           <i :class="pagerNextIcon"></i>
         </a>
       </li>
@@ -55,7 +43,6 @@ import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
   `,
 })
 export default class DataTablePagerComponent extends Vue {
-
   @Prop() pagerLeftArrowIcon: string;
   @Prop() pagerRightArrowIcon: string;
   @Prop() pagerPreviousIcon: string;
@@ -65,22 +52,22 @@ export default class DataTablePagerComponent extends Vue {
   @Prop({ type: Number, default: 1 }) page: number;
 
   pages: any = [];
-  myPage: number = 0;
+  myPage = 0;
 
-  @Watch('count') onCountChanged() {
+  @Watch('count') onCountChanged(): void {
     this.pages = this.calcPages();
   }
 
-  @Watch('size') onSizeChanged() {
+  @Watch('size') onSizeChanged(): void {
     this.pages = this.calcPages();
   }
 
-  @Watch('page') onPageChanged() {
+  @Watch('page') onPageChanged(): void {
     this.myPage = this.page;
     this.pages = this.calcPages();
   }
 
-  created() {
+  created(): void {
     this.myPage = this.page;
     this.pages = this.calcPages();
   }
@@ -113,13 +100,13 @@ export default class DataTablePagerComponent extends Vue {
       this.myPage = page;
 
       this.$emit('change-page', {
-        page
+        page,
       });
     }
   }
 
-  calcPages(page?: number): any[] {
-    const pages = [];
+  calcPages(page?: number): IPage[] {
+    const pages: IPage[] = [];
     let startPage = 1;
     let endPage = this.totalPages;
     const maxSize = 5;
@@ -143,11 +130,9 @@ export default class DataTablePagerComponent extends Vue {
     for (let num = startPage; num <= endPage; num++) {
       pages.push({
         number: num,
-        text: <string><any>num
+        text: String(num),
       });
     }
-
     return pages;
   }
-
 }
