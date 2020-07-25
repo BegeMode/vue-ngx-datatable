@@ -1,25 +1,27 @@
-import { Wrapper, mount } from '@vue/test-utils';
-import Vue from 'vue';
+/* eslint-disable @typescript-eslint/no-floating-promises */
+import { mount, Wrapper } from '@vue/test-utils';
 import * as flushPromises from 'flush-promises';
+import Vue, { VueConstructor } from 'vue';
 import { Component } from 'vue-property-decorator';
 // import ResizeableDirective from './resizeable.directive';
 
 let wrapper: Wrapper<any>;
 let component: any;
-let resizeable = jasmine.createSpy();
+const resizeable = jasmine.createSpy();
 
-async function setupTest(componentClass) {
+async function setupTest(componentClass: VueConstructor) {
   try {
     wrapper = mount(componentClass, {
       directives: {
-        'resizeable': resizeable
-      }
-    })
+        resizeable,
+      },
+    });
     // await Vue.nextTick();
     await flushPromises();
-    component = wrapper.vm;
+    component = wrapper.vm as Vue;
     await Vue.nextTick();
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error(e);
   }
 }
@@ -28,12 +30,11 @@ async function setupTest(componentClass) {
   name: 'test-fixture-component',
   template: `
     <div v-resizeable></div>
-  `
+  `,
 })
 class TestFixtureComponent extends Vue {}
 
 describe('ResizeableDirective', () => {
-
   beforeEach(async () => {
     await setupTest(TestFixtureComponent);
   });

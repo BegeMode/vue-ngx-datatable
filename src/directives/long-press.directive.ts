@@ -1,31 +1,34 @@
-import { Vue } from 'vue-property-decorator';
+import { TableColumn } from 'types';
 import { VNode } from 'vue';
+import { Vue } from 'vue-property-decorator';
+import { DirectiveBinding } from 'vue/types/options';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 let _id = 0;
 
 class LongPressController {
   id = 0;
-  pressEnabled: boolean = true;
-  pressModel: any;
-  duration: number = 200;
+  pressEnabled = true;
+  pressModel: TableColumn;
+  duration = 200;
   _pressing: boolean;
   _isLongPressing: boolean;
   timeout: any;
-  mouseX: number = 0;
-  mouseY: number = 0;
+  mouseX = 0;
+  mouseY = 0;
   vnode: VNode = null;
   element: HTMLElement = null;
-  handleUp = null;
-  handleDown = null;
-  handleMove = null;
+  handleUp: (event: MouseEvent) => void = null;
+  handleDown: (event: MouseEvent) => void = null;
+  handleMove: (event: MouseEvent) => void = null;
 
-  constructor(id, vNode: VNode, el) {
+  constructor(id: number, vNode: VNode, el: HTMLElement) {
     this.id = id;
     this.vnode = vNode;
     this.element = el;
-    this.handleDown = this.onMouseDown.bind(this);
-    this.handleUp = this.onMouseUp.bind(this);
-    this.handleMove = this.onMouseMove.bind(this);
+    this.handleDown = this.onMouseDown.bind(this) as (event: MouseEvent) => void;
+    this.handleUp = this.onMouseUp.bind(this) as (event: MouseEvent) => void;
+    this.handleMove = this.onMouseMove.bind(this) as (event: MouseEvent) => void;
     el.addEventListener('mousedown', this.handleDown);
   }
 
@@ -33,10 +36,14 @@ class LongPressController {
     document.removeEventListener('mousemove', this.handleMove);
     document.removeEventListener('mouseup', this.handleUp);
   }
-  
+
   set pressing(value: boolean) {
     this._pressing = value;
-    value ? this.element.classList.add('press') : this.element.classList.remove('press');
+    if (value) {
+      this.element.classList.add('press');
+    } else {
+      this.element.classList.remove('press');
+    }
   }
 
   get pressing(): boolean {
@@ -46,8 +53,11 @@ class LongPressController {
   set isLongPressing(value: boolean) {
     this._isLongPressing = value;
     // console.log('set isLongPressing, id, value', this.id, value);
-
-    value ? this.element.classList.add('longpress') : this.element.classList.remove('longpress');
+    if (value) {
+      this.element.classList.add('longpress');
+    } else {
+      this.element.classList.remove('longpress');
+    }
   }
 
   get isLongPressing(): boolean {
@@ -56,11 +66,15 @@ class LongPressController {
 
   private onMouseDown(event: MouseEvent): void {
     // don't do right/middle clicks
-    if (event.which !== 1 || !this.pressEnabled) return;
+    if (event.which !== 1 || !this.pressEnabled) {
+      return;
+    }
 
     // don't start drag if its on resize handle
-    const target = (<HTMLElement>event.target);
-    if (target.classList.contains('resize-handle')) return;
+    const target = <HTMLElement>event.target;
+    if (target.classList.contains('resize-handle')) {
+      return;
+    }
 
     this.mouseX = event.clientX;
     this.mouseY = event.clientY;
@@ -74,7 +88,7 @@ class LongPressController {
       this.isLongPressing = true;
       this.emit('longPressStart', {
         event,
-        model: this.pressModel
+        model: this.pressModel,
       });
 
       document.addEventListener('mousemove', this.handleMove);
@@ -108,7 +122,7 @@ class LongPressController {
       this.timeout = setTimeout(() => {
         this.emit('longPressing', {
           event,
-          model: this.pressModel
+          model: this.pressModel,
         });
         this.loop(event);
       }, 50);
@@ -123,153 +137,49 @@ class LongPressController {
       this.pressing = false;
 
       this.emit('longPressEnd', {
-        model: this.pressModel
+        model: this.pressModel,
       });
     }
   }
 
-  private emit(name, data) {
-    const handlers = (this.vnode.data && this.vnode.data.on) ||
-      (this.vnode.componentOptions && this.vnode.componentOptions.listeners);
-  
+  private emit(name: string, data: any) {
+    const handlers =
+      (this.vnode.data && this.vnode.data.on) || (this.vnode.componentOptions && this.vnode.componentOptions.listeners);
     if (handlers && handlers[name]) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
       handlers[name].fns(data);
     }
   }
 }
 
+interface IDirValue {
+  pressModel: TableColumn;
+  pressEnabled: boolean;
+  duration?: number;
+}
+
+export interface IHasLongPressController extends HTMLElement {
+  __longpress__: LongPressController;
+}
+
 export default Vue.directive('long-press', {
-  bind(el, binding, vnode) {
+  bind(el: HTMLElement, binding: DirectiveBinding, vnode: VNode) {
     const ctrl = new LongPressController(_id++, vnode, el);
-    if (binding.value.pressEnabled !== undefined && binding.value.pressEnabled !== null) {
-      ctrl.pressEnabled = binding.value.pressEnabled;
+    const value = binding.value as IDirValue;
+    // eslint-disable-next-line no-undefined
+    if (value.pressEnabled !== undefined && value.pressEnabled !== null) {
+      ctrl.pressEnabled = value.pressEnabled;
     }
-    if (binding.value.duration !== undefined && binding.value.duration !== null) {
-      ctrl.duration = binding.value.duration;
+    // eslint-disable-next-line no-undefined
+    if (value.duration !== undefined && value.duration !== null) {
+      ctrl.duration = value.duration;
     }
-    ctrl.pressModel = binding.value.pressModel;
-    el.__longpress__ = ctrl;
+    ctrl.pressModel = value.pressModel;
+    (el as IHasLongPressController).__longpress__ = ctrl;
   },
   unbind(el: any) {
-    const ctrl: LongPressController = el.__longpress__;
+    const ctrl: LongPressController = (el as IHasLongPressController).__longpress__;
     ctrl.element.removeEventListener('mousedown', ctrl.handleDown);
     ctrl.unsubscribe();
   },
 });
-
-/*
-@Directive({ selector: '[long-press]' })
-export class LongPressDirective implements OnDestroy {
-
-  @Input() pressEnabled: boolean = true;
-  @Input() pressModel: any;
-  @Input() duration: number = 500;
-
-  @Output() longPressStart: EventEmitter<any> = new EventEmitter();
-  @Output() longPressing: EventEmitter<any> = new EventEmitter();
-  @Output() longPressEnd: EventEmitter<any> = new EventEmitter();
-
-  pressing: boolean;
-  isLongPressing: boolean;
-  timeout: any;
-  mouseX: number = 0;
-  mouseY: number = 0;
-
-  subscription: Subscription;
-
-  @HostBinding('class.press')
-  get press(): boolean { return this.pressing; }
-
-  @HostBinding('class.longpress')
-  get isLongPress(): boolean {
-    return this.isLongPressing;
-  }
-
-  @HostListener('mousedown', ['$event'])
-  onMouseDown(event: MouseEvent): void {
-    // don't do right/middle clicks
-    if (event.which !== 1 || !this.pressEnabled) return;
-
-    // don't start drag if its on resize handle
-    const target = (<HTMLElement>event.target);
-    if (target.classList.contains('resize-handle')) return;
-
-    this.mouseX = event.clientX;
-    this.mouseY = event.clientY;
-
-    this.pressing = true;
-    this.isLongPressing = false;
-
-    const mouseup = fromEvent(document, 'mouseup');
-    this.subscription = mouseup.subscribe((ev: MouseEvent) => this.onMouseup());
-
-    this.timeout = setTimeout(() => {
-      this.isLongPressing = true;
-      this.longPressStart.emit({
-        event,
-        model: this.pressModel
-      });
-
-      this.subscription.add(
-        fromEvent(document, 'mousemove')
-          .pipe(takeUntil(mouseup))
-          .subscribe((mouseEvent: MouseEvent) => this.onMouseMove(mouseEvent))
-      );
-
-      this.loop(event);
-    }, this.duration);
-
-    this.loop(event);
-  }
-
-  onMouseMove(event: MouseEvent): void {
-    if (this.pressing && !this.isLongPressing) {
-      const xThres = Math.abs(event.clientX - this.mouseX) > 10;
-      const yThres = Math.abs(event.clientY - this.mouseY) > 10;
-
-      if (xThres || yThres) {
-        this.endPress();
-      }
-    }
-  }
-
-  loop(event: MouseEvent): void {
-    if (this.isLongPressing) {
-      this.timeout = setTimeout(() => {
-        this.longPressing.emit({
-          event,
-          model: this.pressModel
-        });
-        this.loop(event);
-      }, 50);
-    }
-  }
-
-  endPress(): void {
-    clearTimeout(this.timeout);
-    this.isLongPressing = false;
-    this.pressing = false;
-    this._destroySubscription();
-
-    this.longPressEnd.emit({
-      model: this.pressModel
-    });
-  }
-
-  onMouseup(): void {
-    this.endPress();
-  }
-
-  ngOnDestroy(): void {
-    this._destroySubscription();
-  }
-
-  private _destroySubscription(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-      this.subscription = undefined;
-    }
-  }
-
-}
-*/

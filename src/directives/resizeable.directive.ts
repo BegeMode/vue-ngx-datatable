@@ -1,6 +1,8 @@
-import { Vue } from 'vue-property-decorator';
 import { VNode } from 'vue';
+import { Vue } from 'vue-property-decorator';
+import { DirectiveBinding } from 'vue/types/options';
 
+// eslint-disable-next-line @typescript-eslint/naming-convention
 let _id = 0;
 
 class ResizeableDirectiveController {
@@ -9,20 +11,20 @@ class ResizeableDirectiveController {
   maxWidth = 0;
   resizing = false;
   element: HTMLElement = null;
-  handleUp = null;
-  handleDown = null;
-  handleMove = null;
+  handleUp: (event: MouseEvent) => void = null;
+  handleDown: (event: MouseEvent) => void = null;
+  handleMove: (event: MouseEvent) => void = null;
   vnode: VNode = null;
   id = 0;
 
-  constructor(id, vNode: VNode, el) {
+  constructor(id: number, vNode: VNode, el: HTMLElement) {
     this.id = id;
     this.vnode = vNode;
     this.element = el;
-    this.handleDown = this.onMouseDown.bind(this);
-    this.handleUp = this.onMouseUp.bind(this);
+    this.handleDown = this.onMouseDown.bind(this) as (event: MouseEvent) => void;
+    this.handleUp = this.onMouseUp.bind(this) as (event: MouseEvent) => void;
   }
-  
+
   private onMouseUp() {
     document.removeEventListener('mousemove', this.handleMove);
     if (this.resizing) {
@@ -33,7 +35,7 @@ class ResizeableDirectiveController {
   }
 
   private onMouseDown(event: MouseEvent): void {
-    const isHandle = (<HTMLElement>(event.target)).classList.contains('resize-handle');
+    const isHandle = (<HTMLElement>event.target).classList.contains('resize-handle');
     const initialWidth = this.element.clientWidth;
     const mouseDownScreenX = event.screenX;
 
@@ -60,37 +62,48 @@ class ResizeableDirectiveController {
     }
   }
 
-  private emit(vnode, name, data) {
-    const handlers = (vnode.data && vnode.data.on) ||
-      (vnode.componentOptions && vnode.componentOptions.listeners);
-  
+  private emit(vnode: VNode, name: string, data: any) {
+    const handlers = (vnode.data && vnode.data.on) || (vnode.componentOptions && vnode.componentOptions.listeners);
     if (handlers && handlers[name]) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
       handlers[name].fns(data);
     }
   }
 }
 
+interface IDirValue {
+  resizeEnabled: boolean;
+  minWidth?: number;
+  maxWidth?: number;
+}
+
+export interface IHasResizeableDirectiveController extends HTMLElement {
+  __resizeable__: ResizeableDirectiveController;
+}
+
 export default Vue.directive('resizeable', {
   resizing: false,
-  bind(el, binding, vnode) {
+  bind(el: HTMLElement, binding: DirectiveBinding, vnode: VNode) {
     const ctrl = new ResizeableDirectiveController(_id++, vnode, el);
-    if (binding.value.resizeEnabled !== undefined && binding.value.resizeEnabled !== null) {
-      ctrl.resizeEnabled = binding.value.resizeEnabled;
+    const value = binding.value as IDirValue;
+    // eslint-disable-next-line no-undefined
+    if (value.resizeEnabled !== undefined && value.resizeEnabled !== null) {
+      ctrl.resizeEnabled = value.resizeEnabled;
     }
-    ctrl.minWidth = binding.value.minWidth;
-    ctrl.maxWidth = binding.value.maxWidth;
-    el.__resizeable__ = ctrl;
+    ctrl.minWidth = value.minWidth;
+    ctrl.maxWidth = value.maxWidth;
+    (el as IHasResizeableDirectiveController).__resizeable__ = ctrl;
     document.addEventListener('mouseup', ctrl.handleUp);
     el.addEventListener('mousedown', ctrl.handleDown);
   },
-  unbind(el: any) {
-    const ctrl = el.__resizeable__;
+  unbind(el: HTMLElement) {
+    const ctrl = (el as IHasResizeableDirectiveController).__resizeable__;
     document.removeEventListener('mouseup', ctrl.handleUp);
     el.removeEventListener('mousedown', ctrl.handleDown);
   },
-  inserted(el: any) {
+  inserted(el: HTMLElement) {
     const node = document.createElement('span');
-    const ctrl = el.__resizeable__;
+    const ctrl = (el as IHasResizeableDirectiveController).__resizeable__;
     if (ctrl.resizeEnabled) {
       node.classList.add('resize-handle');
     } else {
@@ -99,92 +112,3 @@ export default Vue.directive('resizeable', {
     el.appendChild(node);
   },
 });
-
-/*@Directive({
-  selector: '[resizeable]',
-  host: {
-    '[class.resizeable]': 'resizeEnabled'
-  }
-})
-export class ResizeableDirective implements OnDestroy, AfterViewInit {
-
-  @Input() resizeEnabled: boolean = true;
-  @Input() minWidth: number;
-  @Input() maxWidth: number;
-
-  @Output() resize: EventEmitter<any> = new EventEmitter();
-
-  element: HTMLElement;
-  subscription: Subscription;
-  resizing: boolean = false;
-
-  constructor(element: ElementRef, private renderer: Renderer2) {
-    this.element = element.nativeElement;
-  }
-
-  ngAfterViewInit(): void {
-    const renderer2 = this.renderer;
-    const node = renderer2.createElement('span');
-    if (this.resizeEnabled) {
-      renderer2.addClass(node, 'resize-handle');
-    } else {
-      renderer2.addClass(node, 'resize-handle--not-resizable');
-    }
-    renderer2.appendChild(this.element, node);
-  }
-
-  ngOnDestroy(): void {
-    this._destroySubscription();
-  }
-
-  onMouseup(): void {
-    this.resizing = false;
-
-    if (this.subscription && !this.subscription.closed) {
-      this._destroySubscription();
-      this.resize.emit(this.element.clientWidth);
-    }
-  }
-
-  @HostListener('mousedown', ['$event'])
-  onMousedown(event: MouseEvent): void {
-    const isHandle = (<HTMLElement>(event.target)).classList.contains('resize-handle');
-    const initialWidth = this.element.clientWidth;
-    const mouseDownScreenX = event.screenX;
-
-    if (isHandle) {
-      event.stopPropagation();
-      this.resizing = true;
-
-      const mouseup = fromEvent(document, 'mouseup');
-      this.subscription = mouseup
-        .subscribe((ev: MouseEvent) => this.onMouseup());
-
-      const mouseMoveSub = fromEvent(document, 'mousemove')
-        .pipe(takeUntil(mouseup))
-        .subscribe((e: MouseEvent) => this.move(e, initialWidth, mouseDownScreenX));
-
-      this.subscription.add(mouseMoveSub);
-    }
-  }
-
-  move(event: MouseEvent, initialWidth: number, mouseDownScreenX: number): void {
-    const movementX = event.screenX - mouseDownScreenX;
-    const newWidth = initialWidth + movementX;
-
-    const overMinWidth = !this.minWidth || newWidth >= this.minWidth;
-    const underMaxWidth = !this.maxWidth || newWidth <= this.maxWidth;
-
-    if (overMinWidth && underMaxWidth) {
-      this.element.style.width = `${newWidth}px`;
-    }
-  }
-
-  private _destroySubscription() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-      this.subscription = undefined;
-    }
-  }
-
-}*/
