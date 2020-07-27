@@ -904,6 +904,24 @@ var DataTableRowWrapperComponent = /** @class */ (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(DataTableRowWrapperComponent.prototype, "rowId", {
+        get: function () {
+            if (!this.row) {
+                return null;
+            }
+            if (this.rowIdentity) {
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                var result = this.rowIdentity(this.row);
+                if (typeof result === 'object') {
+                    return null;
+                }
+                return result;
+            }
+            return null;
+        },
+        enumerable: true,
+        configurable: true
+    });
     __decorate([
         vue_property_decorator_1.Prop(),
         __metadata("design:type", Number)
@@ -936,6 +954,10 @@ var DataTableRowWrapperComponent = /** @class */ (function (_super) {
         vue_property_decorator_1.Prop(),
         __metadata("design:type", Object)
     ], DataTableRowWrapperComponent.prototype, "row", void 0);
+    __decorate([
+        vue_property_decorator_1.Prop(),
+        __metadata("design:type", Function)
+    ], DataTableRowWrapperComponent.prototype, "rowIdentity", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
         __metadata("design:type", Array)
@@ -4811,7 +4833,7 @@ var render = function() {
     {
       staticClass: "datatable-row-wrapper",
       style: _vm.styleObject,
-      attrs: { tabindex: "-1" }
+      attrs: { tabindex: "-1", "data-test-id": _vm.rowId }
     },
     [
       _vm.row && _vm.row.__isGroup
@@ -5098,6 +5120,7 @@ var render = function() {
                       groupRowsBy: _vm.groupRowsBy,
                       groupLevel: 0,
                       row: rowContext.row,
+                      rowIdentity: _vm.rowIdentity,
                       innerWidth: _vm.innerWidth,
                       rowDetail: _vm.rowDetail,
                       groupHeader: _vm.groupHeader,

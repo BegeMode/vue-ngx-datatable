@@ -20,6 +20,7 @@ export default class DataTableRowWrapperComponent extends Vue {
   @Prop() rowDetailHeight: number;
   @Prop() groupRowHeight: number;
   @Prop() row: any;
+  @Prop() rowIdentity: (row: Record<string, unknown>) => any;
   @Prop() groupRowsBy: any[];
   @Prop() rowIndex: number;
   @Prop() expanded: boolean;
@@ -46,5 +47,20 @@ export default class DataTableRowWrapperComponent extends Vue {
     styles['width'] = this.innerWidth || '100%';
     styles['height'] = this.groupRowHeight ? this.groupRowHeight + 'px' : 'auto';
     return styles; 
+  }
+
+  get rowId(): any {
+    if (!this.row) {
+      return null;
+    }
+    if (this.rowIdentity) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+      const result = this.rowIdentity(this.row);
+      if (typeof result === 'object') {
+        return null;
+      }
+      return result;
+    }
+    return null;
   }
 }
