@@ -26,6 +26,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
         :headerHeight="50"
         :footerHeight="50"
         :rowHeight="50"
+        :rowIdentity="rowIdentity"
         :scrollbarV="true"
         :scrollbarH="true"
         :rows="rows"
@@ -101,4 +102,10 @@ export class FullScreenComponent extends Vue {
     //
   }
 
+  rowIdentity(row: any): number | string {
+    if (!row) {
+      return null;
+    }
+    return row.Id;
+  }
 }

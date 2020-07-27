@@ -1,5 +1,4 @@
 import { TGroupByField } from 'components/datatable.component';
-import { id } from 'utils';
 import { VNode } from 'vue';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import DataTableBodyGroupHeaderComponent from './body-group-header.component';
@@ -54,15 +53,16 @@ export default class DataTableRowWrapperComponent extends Vue {
 
   get rowId(): any {
     if (!this.row) {
-      return 0;
+      return null;
     }
     if (this.rowIdentity) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const result = this.rowIdentity(this.row);
       if (typeof result === 'object') {
-        return id();
+        return null;
       }
+      return result;
     }
-    return id();
+    return null;
   }
 }
