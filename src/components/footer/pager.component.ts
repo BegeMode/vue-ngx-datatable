@@ -73,8 +73,17 @@ export default class DataTablePagerComponent extends Vue {
   }
 
   get totalPages(): number {
-    const count = this.size < 1 ? 1 : Math.ceil(this.count / this.size);
-    return Math.max(count || 0, 1);
+    // const count = this.size < 1 ? 1 : Math.ceil(this.count / this.size);
+    if (this.size < 1) {
+      return 1;
+    }
+    let result = Math.ceil(this.count / this.size);
+    const newCount = Math.floor(this.count / this.size) * this.size;
+    if (this.count - newCount === 1) {
+      // correct page's number if last page contnains one row
+      result--;
+    }
+    return Math.max(result || 0, 1);
   }
 
   // @Output() change: EventEmitter<any> = new EventEmitter();

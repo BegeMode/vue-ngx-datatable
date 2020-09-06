@@ -61,6 +61,7 @@ export default class DataTableRowWrapperComponent extends Vue {
       if (typeof result === 'object') {
         return null;
       }
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       return result;
     }
     return null;

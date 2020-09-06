@@ -935,7 +935,7 @@ export default class DatatableComponent extends Vue {
       if (typeof this.rowHeight === 'number') {
         rowHeight = this.rowHeight;
       }
-      const size = Math.ceil(this.bodyHeight / rowHeight);
+      const size = Math.floor(this.bodyHeight / rowHeight);
       return Math.max(size, 0);
     }
 
