@@ -1,16 +1,16 @@
+/* eslint-disable max-classes-per-file */
 import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
 import * as flushPromises from 'flush-promises';
-import DataTablePagerComponent from './pager.component';
-import DataTableFooterComponent from './footer.component';
-import { addMatchers } from '../../../test';
+import Vue, { VueConstructor } from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
+import { addMatchers } from '../../../test';
+import DataTableFooterComponent from './footer.component';
+import DataTablePagerComponent from './pager.component';
 
 let wrapper: Wrapper<TestFixtureComponent>;
 let component: TestFixtureComponent;
 
 describe('DataTableFooterComponent', () => {
-
   beforeAll(addMatchers);
 
   describe('div.datatable-footer-inner', () => {
@@ -18,19 +18,19 @@ describe('DataTableFooterComponent', () => {
       await setupTest(TestFixtureComponent);
     });
 
-    it(`should have a height`, async () => {
+    it('should have a height', async () => {
       wrapper.setProps({
-        footerHeight: 123
+        footerHeight: 123,
       });
       await component.$nextTick();
       const footer = wrapper.find(DataTableFooterComponent);
-      expect((footer.vm.$el as HTMLElement).style.height).toEqual('123px');
+      void expect((footer.vm.$el as HTMLElement).style.height).toEqual('123px');
     });
 
     it('should have `.selected-count` class when selectedMessage is set', async () => {
       wrapper.setProps({
         selectedMessage: 'selected',
-        selectedCount: 1
+        selectedCount: 1,
       });
       await component.$nextTick();
       const footer = wrapper.find(DataTableFooterComponent);
@@ -40,7 +40,7 @@ describe('DataTableFooterComponent', () => {
     it('should not have `.selected-count` class if selectedMessage is not set', async () => {
       wrapper.setProps({
         selectedMessage: null,
-        selectedCount: 1
+        selectedCount: 1,
       });
       await component.$nextTick();
       const footer = wrapper.find(DataTableFooterComponent);
@@ -55,7 +55,7 @@ describe('DataTableFooterComponent', () => {
 
     it('should not render a template', () => {
       const footer = wrapper.find(DataTableFooterComponent);
-      expect(footer.vm.$el.querySelector('#template-list')).toBeNull();
+      void expect(footer.vm.$el.querySelector('#template-list')).toBeNull();
     });
 
     it('should display the selected count and total if selectedMessage set', async () => {
@@ -63,30 +63,30 @@ describe('DataTableFooterComponent', () => {
         selectedMessage: 'selected',
         selectedCount: 7,
         rowCount: 10,
-        totalMessage: 'total'
+        totalMessage: 'total',
       });
       await component.$nextTick();
       const footer = wrapper.find(DataTableFooterComponent);
-      expect((footer.vm.$el as HTMLElement).innerText).toContain('7 selected /');
-      expect((footer.vm.$el as HTMLElement).innerText).toContain('10 total');
+      void expect((footer.vm.$el as HTMLElement).innerText).toContain('7 selected /');
+      void expect((footer.vm.$el as HTMLElement).innerText).toContain('10 total');
     });
 
     it('should display only the total if selectedMessage is not set', async () => {
       wrapper.setProps({
         selectedMessage: null,
         rowCount: 100,
-        totalMessage: 'total'
+        totalMessage: 'total',
       });
       await component.$nextTick();
       const footer = wrapper.find(DataTableFooterComponent);
-      expect((footer.vm.$el as HTMLElement).innerText).not.toContain('selected /');
-      expect((footer.vm.$el as HTMLElement).innerText).toContain('100 total');
+      void expect((footer.vm.$el as HTMLElement).innerText).not.toContain('selected /');
+      void expect((footer.vm.$el as HTMLElement).innerText).toContain('100 total');
     });
 
     it('should render a DataTablePagerComponent', () => {
       const pager = wrapper.find(DataTablePagerComponent);
-      expect(pager).not.toBeNull();
-      expect(pager.vm).not.toBeNull();
+      void expect(pager).not.toBeNull();
+      void expect(pager.vm).not.toBeNull();
     });
 
     it('should propagate page change events upward from the DataTablePagerComponent', async () => {
@@ -108,82 +108,82 @@ describe('DataTableFooterComponent', () => {
       await component.$nextTick();
 
       const pager = wrapper.find(DataTablePagerComponent);
-      expect((pager.vm as any).pagerLeftArrowIcon).toBe(component.pagerLeftArrowIcon);
+      void expect((pager.vm as DataTablePagerComponent).pagerLeftArrowIcon).toBe(component.pagerLeftArrowIcon);
     });
 
     it('should bind to DataTablePagerComponent pagerRightArrowIcon input', async () => {
       wrapper.setProps({
-        pagerRightArrowIcon: 'pager-right-arrow-icon'
+        pagerRightArrowIcon: 'pager-right-arrow-icon',
       });
       await component.$nextTick();
 
       const pager = wrapper.find(DataTablePagerComponent);
-      expect((pager.vm as any).pagerRightArrowIcon).toBe(component.pagerRightArrowIcon);
+      void expect((pager.vm as DataTablePagerComponent).pagerRightArrowIcon).toBe(component.pagerRightArrowIcon);
     });
 
     it('should bind to DataTablePagerComponent pagerNextIcon input', async () => {
       wrapper.setProps({
-        pagerNextIcon: 'pager-next-icon'
+        pagerNextIcon: 'pager-next-icon',
       });
       await component.$nextTick();
 
       const pager = wrapper.find(DataTablePagerComponent);
-      expect((pager.vm as any).pagerNextIcon).toBe(component.pagerNextIcon);
+      void expect((pager.vm as DataTablePagerComponent).pagerNextIcon).toBe(component.pagerNextIcon);
     });
 
     it('should bind to DataTablePagerComponent pagerPreviousIcon input', async () => {
       wrapper.setProps({
-        pagerPreviousIcon: 'pager-previous-icon'
+        pagerPreviousIcon: 'pager-previous-icon',
       });
       await component.$nextTick();
 
       const pager = wrapper.find(DataTablePagerComponent);
-      expect((pager.vm as any).pagerPreviousIcon).toBe(component.pagerPreviousIcon);
+      void expect((pager.vm as DataTablePagerComponent).pagerPreviousIcon).toBe(component.pagerPreviousIcon);
     });
 
     it('should bind to DataTablePagerComponent size input', async () => {
       wrapper.setProps({
-        pageSize: 4
+        pageSize: 4,
       });
       await component.$nextTick();
 
       const pager = wrapper.find(DataTablePagerComponent);
-      expect((pager.vm as any).size).toBe(component.pageSize);
+      void expect((pager.vm as DataTablePagerComponent).size).toBe(component.pageSize);
     });
 
     it('should bind to DataTablePagerComponent count input', async () => {
       wrapper.setProps({
-        pageSize: 4
+        pageSize: 4,
       });
       await component.$nextTick();
       const pager = wrapper.find(DataTablePagerComponent);
-      expect((pager.vm as any).count).toBe(component.rowCount);
+      void expect((pager.vm as DataTablePagerComponent).count).toBe(component.rowCount);
     });
 
     it('should bind to DataTablePagerComponent page input', async () => {
       wrapper.setProps({
-        offset: 200
+        offset: 200,
       });
       await component.$nextTick();
       const pager = wrapper.find(DataTablePagerComponent);
-      expect((pager.vm as any).page).toBe(201);
+      void expect((pager.vm as DataTablePagerComponent).page).toBe(201);
     });
 
     it('should show & hide the DataTablePagerComponent', async () => {
       wrapper.setProps({
         rowCount: 200,
-        pageSize: 5
-        });
+        pageSize: 5,
+      });
       await component.$nextTick();
       const pager = wrapper.find(DataTablePagerComponent);
-      expect((pager.vm.$el as HTMLElement).hidden).toBe(false, 'DataTablePagerComponent should be hidden');
+      void expect((pager.vm.$el as HTMLElement).hidden).toBe(false, 'DataTablePagerComponent should be hidden');
 
       wrapper.setProps({
         rowCount: 1,
-        pageSize: 2
-        });
+        pageSize: 2,
+      });
       await component.$nextTick();
-      expect((pager.vm.$el as HTMLElement).hidden).toBe(true, 'DataTablePagerComponent should not be hidden');
+      void expect((pager.vm.$el as HTMLElement).hidden).toBe(true, 'DataTablePagerComponent should not be hidden');
     });
   });
 
@@ -191,12 +191,12 @@ describe('DataTableFooterComponent', () => {
     beforeEach(async () => {
       await setupTest(TestFixtureTemplateComponent);
     });
-    
+
     it('should not render div.page-count or DatatablePagerComponent', async () => {
       const footer = wrapper.find(DataTableFooterComponent);
       footer.vm.$forceUpdate();
       await footer.vm.$nextTick();
-      expect((footer.vm.$el as HTMLElement).querySelector('.page-count')).toBeNull();
+      void expect((footer.vm.$el as HTMLElement).querySelector('.page-count')).toBeNull();
     });
 
     it('should render the template', async () => {
@@ -204,7 +204,7 @@ describe('DataTableFooterComponent', () => {
       footer.vm.$forceUpdate();
       await footer.vm.$nextTick();
 
-      expect(footer.find('#template-list')).not.toBeNull();
+      void expect(footer.find('#template-list')).not.toBeNull();
     });
 
     it('should give the template proper context', async () => {
@@ -212,8 +212,8 @@ describe('DataTableFooterComponent', () => {
         rowCount: 12,
         pageSize: 1,
         selectedCount: 4,
-        offset: 0
-        });
+        offset: 0,
+      });
       await component.$nextTick();
       const footer = wrapper.find(DataTableFooterComponent);
       footer.vm.$forceUpdate();
@@ -239,29 +239,29 @@ describe('DataTableFooterComponent', () => {
     'datatable-footer': DataTableFooterComponent,
   },
   template: `
-   <div>
-    <datatable-footer
-      :rowCount="rowCount"
-      :pageSize="pageSize"
-      :offset="offset"
-      :footerHeight="footerHeight"
-      :totalMessage="totalMessage"
-      :pagerLeftArrowIcon="pagerLeftArrowIcon"
-      :pagerRightArrowIcon="pagerRightArrowIcon"
-      :pagerPreviousIcon="pagerPreviousIcon"
-      :selectedCount="selectedCount"
-      :selectedMessage="selectedMessage"
-      :pagerNextIcon="pagerNextIcon"
-      :footerSlot="footerSlot"
-      @page="onPageEvent($event)"
-    >
-    </datatable-footer>
-    <slot name="footer"></slot>
-   </div>
-  `
+    <div>
+      <datatable-footer
+        :rowCount="rowCount"
+        :pageSize="pageSize"
+        :offset="offset"
+        :footerHeight="footerHeight"
+        :totalMessage="totalMessage"
+        :pagerLeftArrowIcon="pagerLeftArrowIcon"
+        :pagerRightArrowIcon="pagerRightArrowIcon"
+        :pagerPreviousIcon="pagerPreviousIcon"
+        :selectedCount="selectedCount"
+        :selectedMessage="selectedMessage"
+        :pagerNextIcon="pagerNextIcon"
+        :footerSlot="footerSlot"
+        @page="onPageEvent($event)"
+      >
+      </datatable-footer>
+      <slot name="footer"></slot>
+    </div>
+  `,
 })
 class TestFixtureComponent extends Vue {
-  @Prop({ type: Number, default: 0 }) footerHeight: number = 0;
+  @Prop({ type: Number, default: 0 }) footerHeight = 0;
   @Prop({ type: Number, default: 100 }) rowCount;
   @Prop({ type: Number, default: 1 }) pageSize;
   @Prop({ type: Number, default: 0 }) offset;
@@ -272,7 +272,7 @@ class TestFixtureComponent extends Vue {
   @Prop({ type: String, default: '' }) totalMessage: string;
   @Prop({ type: Number, default: 0 }) selectedCount: number;
   @Prop({ type: String, default: '' }) selectedMessage: string;
-  
+
   footerSlot: any = null;
 
   mounted() {
@@ -283,6 +283,7 @@ class TestFixtureComponent extends Vue {
   }
 
   onPageEvent() {
+    // eslint-disable-next-line no-useless-return
     return;
   }
 }
@@ -292,35 +293,35 @@ class TestFixtureComponent extends Vue {
     fixture: TestFixtureComponent,
   },
   template: `
-   <div>
-    <fixture
-      :rowCount="rowCount"
-      :pageSize="pageSize"
-      :offset="offset"
-      :footerHeight="footerHeight"
-      :totalMessage="totalMessage"
-      :pagerLeftArrowIcon="pagerLeftArrowIcon"
-      :pagerRightArrowIcon="pagerRightArrowIcon"
-      :pagerPreviousIcon="pagerPreviousIcon"
-      :selectedCount="selectedCount"
-      :selectedMessage="selectedMessage"
-      :pagerNextIcon="pagerNextIcon"
-    >
-      <template v-slot:footer="scope">
-        <ul v-if="scope" id="template-list">
-          <li>rowCount {{ scope.rowCount }}</li>
-          <li>pageSize {{ scope.pageSize }}</li>
-          <li>selectedCount {{ scope.selectedCount }}</li>
-          <li>curPage {{ scope.curPage }}</li>
-          <li>offset {{ scope.offset }}</li>
-        </ul>
-      </template>
-    </fixture>
+    <div>
+      <fixture
+        :rowCount="rowCount"
+        :pageSize="pageSize"
+        :offset="offset"
+        :footerHeight="footerHeight"
+        :totalMessage="totalMessage"
+        :pagerLeftArrowIcon="pagerLeftArrowIcon"
+        :pagerRightArrowIcon="pagerRightArrowIcon"
+        :pagerPreviousIcon="pagerPreviousIcon"
+        :selectedCount="selectedCount"
+        :selectedMessage="selectedMessage"
+        :pagerNextIcon="pagerNextIcon"
+      >
+        <template v-slot:footer="scope">
+          <ul v-if="scope" id="template-list">
+            <li>rowCount {{ scope.rowCount }}</li>
+            <li>pageSize {{ scope.pageSize }}</li>
+            <li>selectedCount {{ scope.selectedCount }}</li>
+            <li>curPage {{ scope.curPage }}</li>
+            <li>offset {{ scope.offset }}</li>
+          </ul>
+        </template>
+      </fixture>
     </div>
-  `
+  `,
 })
 class TestFixtureTemplateComponent extends Vue {
-  @Prop({ type: Number, default: 0 }) footerHeight: number = 0;
+  @Prop({ type: Number, default: 0 }) footerHeight = 0;
   @Prop({ type: Number, default: 100 }) rowCount;
   @Prop({ type: Number, default: 1 }) pageSize;
   @Prop({ type: Number, default: 0 }) offset;
@@ -331,17 +332,17 @@ class TestFixtureTemplateComponent extends Vue {
   @Prop({ type: String, default: '' }) totalMessage: string;
   @Prop({ type: Number, default: 0 }) selectedCount: number;
   @Prop({ type: String, default: '' }) selectedMessage: string;
- 
 }
 
-async function setupTest(componentClass) {
+async function setupTest(componentClass: VueConstructor) {
   try {
-    wrapper = mount(componentClass, { sync: false });
+    wrapper = mount(componentClass, { sync: false }) as Wrapper<TestFixtureComponent>;
     // await Vue.nextTick();
     await flushPromises();
     component = wrapper.vm;
     await Vue.nextTick();
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error(e);
   }
 }

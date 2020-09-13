@@ -20,9 +20,7 @@ export interface Model {
 @Component({
   template: `
     <div id="selector">
-      <slot>
-        selection
-      </slot>
+      <slot> selection </slot>
     </div>
   `,
 })

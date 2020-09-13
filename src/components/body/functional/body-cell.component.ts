@@ -11,7 +11,6 @@ function getEl(props): Element {
     props.$el = document.getElementById(`${props.context.column.prop}-${props.context.column.$$id}`);
   }
   return props.$el;
-
 }
 
 export default Vue.extend({
@@ -26,7 +25,7 @@ export default Vue.extend({
   methods: {
     onFocus(props): void {
       props.context.isFocused = true;
-    },  
+    },
     onBlur(props): void {
       props.context.isFocused = false;
     },
@@ -65,11 +64,11 @@ export default Vue.extend({
         keyCode === Keys.up ||
         keyCode === Keys.left ||
         keyCode === Keys.right;
-  
+
       if (isAction && isTargetCell) {
         event.preventDefault();
         event.stopPropagation();
-  
+
         listeners.activate({
           type: 'keydown',
           event,
@@ -92,13 +91,13 @@ export default Vue.extend({
         column: props.context.column,
         value: props.context.value,
         cellElement: getEl(props),
-        treeStatus: 'collapsed'
+        treeStatus: 'collapsed',
       });
     },
     onTreeAction(event, listeners, props) {
       listeners['tree-action']({ event, row: props.row });
     },
-  }
+  },
 });
 
 /*@Component

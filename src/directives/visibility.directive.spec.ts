@@ -29,9 +29,7 @@ async function setupTest(componentClass: VueConstructor) {
 
 @Component({
   name: 'test-fixture-component',
-  template: `
-    <div v-visibility-observer @visible="onVisible" style="width:100px;height:100px;"></div>
-  `,
+  template: ' <div v-visibility-observer @visible="onVisible" style="width:100px;height:100px;"></div> ',
 })
 class TestFixtureComponent extends Vue {
   onVisible() {

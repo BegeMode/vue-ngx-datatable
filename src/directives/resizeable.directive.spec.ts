@@ -28,9 +28,7 @@ async function setupTest(componentClass: VueConstructor) {
 
 @Component({
   name: 'test-fixture-component',
-  template: `
-    <div v-resizeable></div>
-  `,
+  template: ' <div v-resizeable></div> ',
 })
 class TestFixtureComponent extends Vue {}
 

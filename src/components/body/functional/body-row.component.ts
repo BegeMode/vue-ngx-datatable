@@ -13,16 +13,16 @@ function getEl(props): Element {
     props.$el = document.getElementById(props.$$id);
   }
   return props.$el;
-
 }
 
 function onMouseenter(listeners, props): (e) => void {
-  return (event) => listeners.activate({
-    type: 'mouseenter',
-    event,
-    row: props.row,
-    rowElement: getEl(props),
-  });
+  return event =>
+    listeners.activate({
+      type: 'mouseenter',
+      event,
+      row: props.row,
+      rowElement: getEl(props),
+    });
 }
 
 function onKeyDown(listeners, props): (e) => void {
@@ -41,22 +41,24 @@ function onKeyDown(listeners, props): (e) => void {
       event.preventDefault();
       event.stopPropagation();
 
-      return () => listeners.activate({
-        type: 'keydown',
-        event,
-        row: props.row,
-        rowElement: getEl(props),
-      });
+      return () =>
+        listeners.activate({
+          type: 'keydown',
+          event,
+          row: props.row,
+          rowElement: getEl(props),
+        });
     }
   };
 }
 
 function onTreeAction(listeners, props): (e) => void {
-  return (event) => listeners['tree-action']({
-    type: 'mouseenter',
-    event,
-    row: props.row,
-  });
+  return event =>
+    listeners['tree-action']({
+      type: 'mouseenter',
+      event,
+      row: props.row,
+    });
 }
 
 export default Vue.extend({
@@ -71,7 +73,7 @@ export default Vue.extend({
     groupStyles: Function,
     groupClass: String,
     displayCheck: Function, // (row: any, column?: TableColumn, value?: any) => boolean,
-    treeStatus: ({ type: String, default: 'collapsed' }),
+    treeStatus: { type: String, default: 'collapsed' },
     cellContext: Function,
     cellColumnCssClasses: Function,
     cellStyleObject: Function,
@@ -81,7 +83,7 @@ export default Vue.extend({
   render(createElement, { props, listeners, slots }) {
     const rowGroups = [];
     (props as any).$$id = id();
-    props.columnsByPin.forEach((colGroup) => {
+    props.columnsByPin.forEach(colGroup => {
       const div = createElement(
         'div',
         {
@@ -95,35 +97,33 @@ export default Vue.extend({
           class: 'datatable-row-group datatable-row-' + (colGroup as any).type,
           style: props.groupStyles(colGroup),
           on: {
-           keydown: onKeyDown(listeners, props),
-           mouseenter: onMouseenter(listeners, props),
+            keydown: onKeyDown(listeners, props),
+            mouseenter: onMouseenter(listeners, props),
             // 'tree-action': listeners['tree-action']($event, props.row),
           },
-        }, (colGroup as any).columns.map((column, index) => {
+        },
+        (colGroup as any).columns.map((column, index) => {
           const context = props.cellContext(props.row, props.group, column);
-          return createElement(
-            'datatable-body-cell',
-            {
+          return createElement('datatable-body-cell', {
+            key: column.$$id,
+            props: {
               key: column.$$id,
-              props: {
-                key: column.$$id,
-                context,
-                cellColumnCssClasses: props.cellColumnCssClasses,
-                cellStyleObject: props.cellStyleObject,
-                marginCellStyle: props.marginCellStyle,
-                tabIndex: '-1' // context.rowIndex ? `${context.rowIndex}${index}` : `${index}`,
-              },
-              scopedSlots: {
-                [column.prop]: props.slots()[column.prop]
-              },
-              on: {
-                'tree-action': onTreeAction(listeners, props),
-                activate: listeners.activate,
-                keydown: onKeyDown(listeners, props),
-                mouseenter: onMouseenter(listeners, props),
-              },
-            }
-          );
+              context,
+              cellColumnCssClasses: props.cellColumnCssClasses,
+              cellStyleObject: props.cellStyleObject,
+              marginCellStyle: props.marginCellStyle,
+              tabIndex: '-1', // context.rowIndex ? `${context.rowIndex}${index}` : `${index}`,
+            },
+            scopedSlots: {
+              [column.prop]: props.slots()[column.prop],
+            },
+            on: {
+              'tree-action': onTreeAction(listeners, props),
+              activate: listeners.activate,
+              keydown: onKeyDown(listeners, props),
+              mouseenter: onMouseenter(listeners, props),
+            },
+          });
         })
       );
       rowGroups.push(div);
@@ -132,11 +132,13 @@ export default Vue.extend({
       'div',
       {
         attrs: {
-          id: 'row-group'
+          id: 'row-group',
         },
         class: props.groupClass,
         style: props.rowStyles(props.row),
-      }, rowGroups);
+      },
+      rowGroups
+    );
     return rootDiv;
   },
 });

@@ -20,9 +20,7 @@ let component: TestFixtureComponent | TestFixtureComponentWithCustomTemplates;
   components: {
     'ngx-datatable': DatatableComponent,
   },
-  template: `
-    <ngx-datatable :columns="columns" :rows="rows" :sorts="sorts"> </ngx-datatable>
-  `,
+  template: ' <ngx-datatable :columns="columns" :rows="rows" :sorts="sorts"> </ngx-datatable> ',
 })
 class TestFixtureComponent extends Vue {
   columns: TableColumn[] = [];

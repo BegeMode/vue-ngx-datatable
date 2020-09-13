@@ -119,8 +119,7 @@ export function groupRowsByParents(
     let resolvedRows: any[] = [];
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     nodeById[0].flatten(
-      // eslint-disable-next-line space-before-function-paren
-      function() {
+      function () {
         resolvedRows = [...resolvedRows, this.row];
       },
       true,

@@ -24,9 +24,7 @@ async function setupTest(componentClass: VueConstructor) {
 
 @Component({
   name: 'test-fixture-component',
-  template: `
-    <div v-long-press="{ pressModel: {}, pressEnabled: false }"></div>
-  `,
+  template: ' <div v-long-press="{ pressModel: {}, pressEnabled: false }"></div> ',
 })
 class TestFixtureComponent extends Vue {}
 
