@@ -1,7 +1,6 @@
 import { mount, Wrapper } from '@vue/test-utils';
 import * as flushPromises from 'flush-promises';
-import Vue from 'vue';
-import { VueConstructor } from 'vue/types/umd';
+import Vue, { VueConstructor } from 'vue';
 import { TableColumn } from '../../types/table-column.type';
 import { setColumnDefaults } from '../../utils/column-helper';
 import { numericIndexGetter } from '../../utils/column-prop-getters';
@@ -15,18 +14,17 @@ async function setupTest(componentClass: VueConstructor) {
     wrapper = mount(componentClass, {
       sync: false,
       propsData: {
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        cellColumnCssClasses: () => {},
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        cellStyleObject: () => {},
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        marginCellStyle: () => {},
-        context: {
-          row: [],
-          column: { visible: true },
+        column: {
+          visible: true,
+          isTreeColumn: false,
+          treeToggleTemplate: false,
+          $$valueGetter: () => 'test',
+        },
+        rowContext: {
+          treeStatus: 'disabled',
         },
       },
-    });
+    }) as Wrapper<DataTableBodyCellComponent>;
     // await Vue.nextTick();
     await flushPromises();
     component = wrapper.vm;
@@ -52,24 +50,21 @@ describe('DataTableBodyCellComponent', () => {
     // verify there wasn't a mistake where the falsey 0 value
     // resulted in a code path for missing column prop
     it('should get value from zero-index prop', async () => {
-      const columns: TableColumn[] = [{ name: 'First Column', prop: 0 }];
+      const columns: TableColumn[] = [{ name: 'First Column', prop: 0, value: 'Hello' }];
       // users should never set columns on DataTableBodyCellComponent directly
       // setColumnDefaults will be run on columns before they are set on BodyCellComponent
       setColumnDefaults(columns[0], wrapper.vm);
       await expect(columns[0].$$valueGetter).toBe(numericIndexGetter);
 
-      wrapper.setProps({
-        // eslint-disable-next-line @typescript-eslint/no-empty-function
-        cellColumnCssClasses: () => {},
+      void wrapper.setProps({
+        column: columns[0],
         context: {
           row: ['Hello'],
-          column: columns[0],
-          value: 'Hello',
         },
       });
       await component.$nextTick();
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      await expect((component as any).context.value).toEqual('Hello');
+      await expect((component as any).column.value).toEqual('Hello');
     });
   });
 });

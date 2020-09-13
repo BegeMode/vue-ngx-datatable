@@ -18,7 +18,11 @@ let component: DataTableBody;
 
 async function setupTest(componentClass: VueConstructor) {
   try {
-    wrapper = mount(componentClass, { sync: false });
+    wrapper = mount(componentClass, {
+      propsData: {
+        innerWidth: 1000,
+      },
+    });
     // await Vue.nextTick();
     await flushPromises();
     component = wrapper.vm as DataTableBody;
