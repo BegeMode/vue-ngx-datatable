@@ -119,7 +119,7 @@ export default class DataTableColumnComponent extends Vue {
     (this.$parent as DatatableComponent).onColumnInsert(this.column);
   }
 
-  destroyed(): void {
+  beforeDestroy(): void {
     (this.$parent as DatatableComponent).onColumnRemoved(this.column);
   }
 }

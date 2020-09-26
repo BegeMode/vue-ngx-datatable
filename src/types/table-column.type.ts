@@ -105,6 +105,13 @@ export interface TableColumn {
    * @memberOf TableColumn
    */
   width?: number;
+  /**
+   * The real calculated width of the column, in pixels
+   *
+   * @type {number}
+   * @memberOf TableColumn
+   */
+  realWidth?: number;
 
   /**
    * Can the column be resized

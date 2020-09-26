@@ -78,8 +78,8 @@ export default class DataTableBodyComponent extends Vue {
   @Prop() bodyHeight: number;
   @Prop({ type: [Number, String], default: null }) minItemHeight: number | string;
   @Prop({ type: [String], default: 'height' }) heightField: string;
-  @Prop() groupHeaderSlot: any;
-  @Prop() rowDetailSlot: any;
+  @Prop() groupHeaderSlot: (obj: Record<string, unknown>) => VNode[];
+  @Prop() rowDetailSlot: (obj: Record<string, unknown>) => VNode[];
   @Prop() renderTracking: boolean;
 
   scroller: ScrollerComponent = null; // ScrollerComponent
@@ -270,7 +270,7 @@ export default class DataTableBodyComponent extends Vue {
   }
 
   get isUseRowHeightCache(): boolean {
-    if (typeof this.rowHeight === 'function') {
+    if (typeof this.rowHeight === 'function' || this.rowDetailHeight || this.groupRowsBy) {
       return true;
     }
     return false;
@@ -866,7 +866,7 @@ export default class DataTableBodyComponent extends Vue {
     if (!this.rowDetail) {
       return false;
     }
-    const expanded = this.rowExpansions.get(row);
+    const expanded = Boolean(this.rowExpansions.get(row));
     return expanded;
   }
 

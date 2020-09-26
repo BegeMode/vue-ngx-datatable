@@ -17,7 +17,7 @@ export function emptyStringGetter(): string {
  * If prop == null, returns the emptyStringGetter.
  */
 export function getterForProp(prop: TableColumnProp): ValueGetter {
-  if (prop === null) {
+  if (!prop) {
     return emptyStringGetter;
   }
 

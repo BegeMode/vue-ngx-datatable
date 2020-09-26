@@ -11,13 +11,12 @@
 
     .datatable-header-cell {
       text-align: left;
-      padding: .5rem 1.2rem;
+      padding: 0.5rem 1.2rem;
       font-weight: bold;
 
       .datatable-header-cell-label {
         line-height: 24px;
       }
-
     }
   }
 
@@ -29,14 +28,14 @@
 
       .datatable-body-cell {
         text-align: left;
-        padding: .5rem 1.2rem;
+        padding: 0.5rem 1.2rem;
         vertical-align: top;
       }
 
       &:hover {
         background: #171b24;
         transition-property: background;
-        transition-duration: .3s;
+        transition-duration: 0.3s;
         transition-timing-function: linear;
       }
 
@@ -46,7 +45,7 @@
 
       &.active {
         background-color: #1483ff;
-        color: #FFF;
+        color: #fff;
       }
     }
   }
@@ -63,7 +62,7 @@
     }
 
     .datatable-pager {
-			margin: 0 10px;
+      margin: 0 10px;
       vertical-align: top;
 
       ul {
@@ -78,42 +77,42 @@
             }
           }
         }
-			}
+      }
 
-			a {
-				height: 22px;
-				min-width: 24px;
-				line-height: 22px;
-				padding: 0;
-				border-radius: 3px;
-				margin: 0 3px;
-				text-align: center;
-				vertical-align: top;
-				text-decoration: none;
-		    vertical-align: bottom;
+      a {
+        height: 22px;
+        min-width: 24px;
+        line-height: 22px;
+        padding: 0;
+        border-radius: 3px;
+        margin: 0 3px;
+        text-align: center;
+        vertical-align: top;
+        text-decoration: none;
+        vertical-align: bottom;
         color: #72809b;
-			}
+      }
 
-			.datatable-icon-left,
-			.datatable-icon-skip,
-			.datatable-icon-right,
-			.datatable-icon-prev {
+      .datatable-icon-left,
+      .datatable-icon-skip,
+      .datatable-icon-right,
+      .datatable-icon-prev {
         font-size: 18px;
         line-height: 27px;
-				padding:0 3px;
-			}
-		}
+        padding: 0 3px;
+      }
+    }
   }
 
   .datatable-summary-row.datatable-body-row {
+    background-color: #14171f;
+
+    &:hover {
       background-color: #14171f;
+    }
 
-      &:hover {
-        background-color: #14171f;
-      }
-
-      .datatable-body-cell {
-	font-weight: bold;
-      }
+    .datatable-body-cell {
+      font-weight: bold;
+    }
   }
 }

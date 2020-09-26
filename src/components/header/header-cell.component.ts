@@ -52,12 +52,14 @@ export default class DataTableHeaderCellComponent extends Vue {
   // selectFn = this.select.emit.bind(this.select);
 
   cellContext = {
-    column: this.column,
+    column: null,
     sortDir: this.sortDir,
     sortFn: this.sortFn,
-    allRowsSelected: this.allRowsSelected,
+    allRowsSelected: false,
     // selectFn: this.selectFn
   };
+
+  resizeObserver?: ResizeObserver;
 
   @Watch('allRowsSelected', { immediate: true }) onAllRowsSelectedChanged(): void {
     if (!this.isCheckboxable) {
@@ -77,6 +79,8 @@ export default class DataTableHeaderCellComponent extends Vue {
   }
 
   created(): void {
+    this.cellContext.column = this.column;
+    this.cellContext.allRowsSelected = this.allRowsSelected;
     this.$emit('header-cell-created', this.$el);
     if (this.column.headerTemplate) {
       this.$slots.default = this.column.headerTemplate({ column: this.column });
@@ -86,6 +90,16 @@ export default class DataTableHeaderCellComponent extends Vue {
   mounted(): void {
     this.column.element = this.$el;
     this.$emit('header-cell-mounted', this.$el);
+    if ((window as Window).ResizeObserver) {
+      this.resizeObserver = new (window as Window).ResizeObserver(entries => {
+        if (entries.length && entries[0].contentRect) {
+          this.column.realWidth = Math.max(this.$el.clientWidth, entries[0].contentRect.width);
+        } else {
+          this.column.realWidth = this.$el.clientWidth;
+        }
+      });
+      this.resizeObserver.observe(this.$el);
+    }
   }
 
   beforeUpdate(): void {
@@ -93,6 +107,27 @@ export default class DataTableHeaderCellComponent extends Vue {
       this.$slots.default = this.column.headerTemplate({ column: this.column });
     }
   }
+
+  updated(): void {
+    if ((window as Window).ResizeObserver) {
+      this.resizeObserver.unobserve(this.$el);
+      this.resizeObserver = new (window as Window).ResizeObserver(entries => {
+        if (entries.length && entries[0].contentRect) {
+          this.column.realWidth = Math.max(this.$el.clientWidth, entries[0].contentRect.width);
+        } else {
+          this.column.realWidth = this.$el.clientWidth;
+        }
+      });
+      this.resizeObserver.observe(this.$el);
+    }
+  }
+
+  beforeDestroy(): void {
+    if (this.resizeObserver) {
+      this.resizeObserver.unobserve(this.$el);
+    }
+  }
+
   onCheckboxChange(): void {
     this.$emit('select', this.myAllRowsSelected);
   }

@@ -111,7 +111,8 @@ $datatable-summary-row-background-hover: #ddd !default;
       }
 
       &:focus,
-      &:focus .datatable-row-group, &:focus .datatable-row-group .datatable-tree-button {
+      &:focus .datatable-row-group,
+      &:focus .datatable-row-group .datatable-tree-button {
         background-color: $ngx-datatable-default-background-focus;
       }
     }
@@ -128,7 +129,8 @@ $datatable-summary-row-background-hover: #ddd !default;
       }
 
       &:focus,
-      &:focus .datatable-row-group, &:focus .datatable-row-group .datatable-tree-button {  
+      &:focus .datatable-row-group,
+      &:focus .datatable-row-group .datatable-tree-button {
         background-color: $ngx-datatable-cellselection-background-focus;
       }
 
@@ -263,8 +265,8 @@ $datatable-summary-row-background-hover: #ddd !default;
       border-bottom: solid 1px $datatable-group-header-border-bottom-color;
       border-top: solid 1px $datatable-group-header-border-top-color;
       display: flex;
-			align-items: center;
-			cursor: pointer;
+      align-items: center;
+      cursor: pointer;
     }
 
     .datatable-body-row {
@@ -285,21 +287,21 @@ $datatable-summary-row-background-hover: #ddd !default;
         .datatable-body-cell-label {
           display: inline-flex;
         }
-  
+
         .datatable-tree-button {
           border: none;
           background-color: white;
           outline: none;
-           & .icon {
-             font-size: 1.5rem;
-           }
-           & .icon-disabled {
-             color: rgba(255, 255, 255, 0);
-           }
+          & .icon {
+            font-size: 1.5rem;
+          }
+          & .icon-disabled {
+            color: rgba(255, 255, 255, 0);
+          }
         }
       }
 
-    .datatable-body-group-cell {
+      .datatable-body-group-cell {
         text-align: left;
         padding: 0.8rem 1.2rem;
         vertical-align: top;
@@ -358,8 +360,8 @@ $datatable-summary-row-background-hover: #ddd !default;
     font-weight: 400;
     color: $datatable-footer-cell-color;
     &.datatable-footer-border {
-			border-top: 1px solid $datatable-footer-border-top-color;
-		}
+      border-top: 1px solid $datatable-footer-border-top-color;
+    }
 
     .page-count {
       line-height: 50px;
@@ -390,7 +392,7 @@ $datatable-summary-row-background-hover: #ddd !default;
         line-height: 22px;
         padding: 0 6px;
         border-radius: 3px;
-        margin: 6px 3px;
+        // margin: 6px 3px;
         text-align: center;
         vertical-align: top;
         color: $datatable-pager-color;
