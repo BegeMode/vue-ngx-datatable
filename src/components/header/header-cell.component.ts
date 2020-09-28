@@ -92,6 +92,9 @@ export default class DataTableHeaderCellComponent extends Vue {
     this.$emit('header-cell-mounted', this.$el);
     if ((window as Window).ResizeObserver) {
       this.resizeObserver = new (window as Window).ResizeObserver(entries => {
+        if (!this.column) {
+          return;
+        }
         if (entries.length && entries[0].contentRect) {
           this.column.realWidth = Math.max(this.$el.clientWidth, entries[0].contentRect.width);
         } else {
@@ -99,6 +102,8 @@ export default class DataTableHeaderCellComponent extends Vue {
         }
       });
       this.resizeObserver.observe(this.$el);
+    } else {
+      this.column.realWidth = this.$el.clientWidth;
     }
   }
 
@@ -112,6 +117,9 @@ export default class DataTableHeaderCellComponent extends Vue {
     if ((window as Window).ResizeObserver) {
       this.resizeObserver.unobserve(this.$el);
       this.resizeObserver = new (window as Window).ResizeObserver(entries => {
+        if (!this.column) {
+          return;
+        }
         if (entries.length && entries[0].contentRect) {
           this.column.realWidth = Math.max(this.$el.clientWidth, entries[0].contentRect.width);
         } else {
@@ -119,10 +127,15 @@ export default class DataTableHeaderCellComponent extends Vue {
         }
       });
       this.resizeObserver.observe(this.$el);
+    } else {
+      this.column.realWidth = this.$el.clientWidth;
     }
   }
 
   beforeDestroy(): void {
+    if (this.column) {
+      this.column.element = null;
+    }
     if (this.resizeObserver) {
       this.resizeObserver.unobserve(this.$el);
     }

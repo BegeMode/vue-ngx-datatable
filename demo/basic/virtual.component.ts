@@ -34,8 +34,8 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
         </vue-datatable-column>
         <vue-datatable-column name="Gender" width="300">
           <template slot-scope="scope" v-if="scope.row">
-            <strong>{{scope.row.name}}</strong>
-            <i v-html="scope.row.name"></i> and <i>{{scope.row.gender}}</i>
+            <!-- <strong>{{scope.row.name}}</strong> -->
+            <i v-html="scope.row.name"></i>&nbsp;and&nbsp;<i>{{scope.row.gender}}</i>
           </template>
         </vue-datatable-column>
         <vue-datatable-column name="Row Height" prop="height" width="80">
