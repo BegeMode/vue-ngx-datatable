@@ -193,48 +193,49 @@ export default class DataTableBodyCellComponent extends Vue {
     this.$emit('mouseenter', { event, row: this.rowContext.row });
   }
 
-  get cssClasses(): Record<string, string | number> {
+  get cssClasses(): Record<string, boolean> {
     if (!this.rowContext) {
       return null;
     }
-    const result = {};
-    let func: (data: Record<string, unknown>) => string | Record<string, unknown> = null;
+    const result: Record<string, boolean> = {};
+    let func: (data: Record<string, unknown>) => string | Record<string, unknown>;
     if (this.column.cellClass) {
-      if (typeof this.column.cellClass === 'string') {
-        result[this.column.cellClass] = true;
-      } else if (Array.isArray(this.column.cellClass)) {
-        this.column.cellClass.forEach(value => {
-          // if (typeof value === 'function') {
-          //   func = value;
-          // } else {
-          result[value] = true;
-          // }
-        });
-      } else if (typeof this.column.cellClass === 'function') {
-        func = this.column.cellClass;
+      let cssClass = this.column.cellClass;
+      if (!Array.isArray(cssClass)) {
+        cssClass = [cssClass];
       }
-      if (func) {
-        const res = func({
-          row: this.rowContext?.row,
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          group: this.rowContext?.group,
-          column: this.column,
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          value: this.value,
-          rowHeight: this.rowContext?.rowHeight,
-        });
+      (cssClass as Array<(data: Record<string, unknown>) => string | Record<string, unknown>>).forEach(value => {
+        func = null;
+        if (typeof value === 'string') {
+          result[value] = true;
+        } else if (Array.isArray(value)) {
+          (value as Array<string>).forEach(val => {
+            result[val] = true;
+          });
+        } else if (typeof value === 'function') {
+          func = value;
+        }
+        if (func) {
+          const res = func({
+            row: this.rowContext?.row,
+            group: this.rowContext?.group,
+            column: this.column,
+            value: this.value,
+            rowHeight: this.rowContext?.rowHeight,
+          });
 
-        if (typeof res === 'string') {
-          result[res] = true;
-        } else if (typeof res === 'object') {
-          const keys = Object.keys(res);
-          for (const k of keys) {
-            if (res[k] === true) {
-              result[` ${k}`] = true;
+          if (typeof res === 'string') {
+            result[res] = true;
+          } else if (typeof res === 'object') {
+            const keys = Object.keys(res);
+            for (const k of keys) {
+              if (res[k] === true) {
+                result[` ${k}`] = true;
+              }
             }
           }
         }
-      }
+      });
     }
     // result['sort-active'] = !this.sortDir;
     result['active'] = this.isFocused;

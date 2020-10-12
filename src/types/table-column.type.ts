@@ -212,7 +212,11 @@ export interface TableColumn {
    *
    * @memberOf TableColumn
    */
-  cellClass?: string | string[] | ((data: Record<string, unknown>) => string | Record<string, unknown>);
+  cellClass?:
+    | string
+    | Array<string>
+    | ((data: Record<string, unknown>) => string | Record<string, unknown>)
+    | Array<string | Array<string> | ((data: Record<string, unknown>) => string | Record<string, unknown>)>;
 
   /**
    * CSS classes for the header

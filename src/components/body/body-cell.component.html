@@ -1,38 +1,47 @@
-<div :id="`${column.prop}-${column.$$id}`" class="datatable-body-cell" :style="styles"
-  v-show="column.visible"
-  :tabindex="tabIndex" 
+<div
+  :id="`${column.prop}-${column.$$id}`"
+  class="datatable-body-cell"
   :class="cssClasses"
-  @dblclick="onDblClick" 
+  :style="styles"
+  :tabindex="tabIndex"
+  v-show="column.visible"
+  @dblclick="onDblClick"
   @click="onClick"
-  @keydown="onKeyDown" 
+  @keydown="onKeyDown"
   @mouseenter="onMouseEnter"
-  @focus="onFocus" @blur="onBlur">
+  @focus="onFocus"
+  @blur="onBlur"
+>
   <div class="datatable-body-cell-label" :style="column.isTreeColumn ? marginCellStyle: null">
-    <label v-if="isCheckboxable"
-      class="datatable-checkbox">
+    <label v-if="isCheckboxable" class="datatable-checkbox">
       <input type="checkbox" :checked="rowContext.isChecked" @click="onCheckboxChange" />
     </label>
     <template v-if="column.isTreeColumn">
-      <button v-if="!column.treeToggleTemplate" class="datatable-tree-button" :disabled="rowContext.treeStatus==='disabled'"
-        @click="onTreeAction">
+      <button
+        v-if="!column.treeToggleTemplate"
+        class="datatable-tree-button"
+        :disabled="rowContext.treeStatus==='disabled'"
+        @click="onTreeAction"
+      >
         <span>
           <i v-if="rowContext.row.treeStatus==='loading'" class="icon datatable-icon-collapse"></i>
           <i v-else-if="rowContext.treeStatus==='collapsed'" class="icon datatable-icon-right"></i>
-          <i v-else-if="rowContext.treeStatus==='expanded'" class="icon datatable-icon-down"></i> 
+          <i v-else-if="rowContext.treeStatus==='expanded'" class="icon datatable-icon-down"></i>
           <!-- || rowContext.treeStatus==='disabled' -->
-          <i v-else class="icon icon-disabled datatable-icon-down"></i> 
+          <i v-else class="icon icon-disabled datatable-icon-down"></i>
         </span>
       </button>
-      <slot name="tree-toggle">
-      </slot>
+      <slot name="tree-toggle"> </slot>
     </template>
-    <slot v-bind="{ 
+    <slot
+      v-bind="{ 
                  row: rowContext.row ? rowContext.row : {},
                  column: column,
                  rowIndex: rowContext.rowIndex, 
                  group: rowContext.group, 
                  expanded: rowContext.expanded,
-                 value: value }">
+                 value: value }"
+    >
       <span :title="sanitizedValue" v-html="value"></span>
     </slot>
   </div>

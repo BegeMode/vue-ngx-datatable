@@ -32,7 +32,11 @@ export default class DataTableColumnComponent extends Vue {
   @Prop() checkboxable: boolean;
   @Prop() headerCheckboxable: boolean;
   @Prop() headerClass: string | ((data: { column: TableColumn }) => string | Record<string, unknown>);
-  @Prop() cellClass: string | ((data: any) => string | any);
+  @Prop() cellClass:
+    | string
+    | Array<string>
+    | ((data: Record<string, unknown>) => string | Record<string, unknown>)
+    | Array<string | Array<string> | ((data: Record<string, unknown>) => string | Record<string, unknown>)>;
   @Prop() isTreeColumn: boolean;
   @Prop() treeLevelIndent: number;
   @Prop() summaryFunc: (cells: any[]) => any;
