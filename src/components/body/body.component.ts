@@ -462,9 +462,13 @@ export default class DataTableBodyComponent extends Vue {
     // } else {
     const temp: Array<IRowContext> = [];
     // let rowContext: IRowContext;
+    let group;
     while (rowIndex < last && rowIndex < this.rowCount) {
       const row = this.rows[rowIndex];
       if (row) {
+        if (row.__isGroup) {
+          group = row;
+        }
         this.rowIndexes.set(row, rowIndex);
         // rowContext = this.rowContexts[idx];
         // if (!rowContext) {
@@ -487,6 +491,7 @@ export default class DataTableBodyComponent extends Vue {
           isChecked: this.isChecked(row),
           expanded: this.getRowExpanded(row),
           treeStatus: this.treeStatus(row),
+          group: group as IGroupedRows,
         };
         idx++;
       }

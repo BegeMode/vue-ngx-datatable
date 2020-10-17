@@ -184,7 +184,7 @@ export default class DataTableSelectionComponent extends Vue {
       this.scroller.setOffset(h);
       // scrolled = true;
     }
-    if (scrolled) {
+    if (scrolled || [Keys.left, Keys.right].includes(keyCode)) {
       (model.rowElement as HTMLElement).focus();
     } else if (nextRowElement) {
       (nextRowElement as HTMLElement).focus();

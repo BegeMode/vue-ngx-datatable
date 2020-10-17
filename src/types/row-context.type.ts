@@ -1,9 +1,10 @@
+import { IGroupedRows } from 'types/grouped-rows';
 import { TreeStatus } from '../components/body/body-cell.component';
 
 export interface IRowContext {
   activateFn?: () => void;
   row: Record<string, unknown>;
-  group?: any;
+  group?: IGroupedRows;
   rowHeight: number;
   isSelected: boolean;
   isChecked: boolean;
