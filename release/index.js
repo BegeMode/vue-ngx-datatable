@@ -1,5 +1,5 @@
 /**
- * vue-data-table v"1.1.8" (https://github.com/begemode/vue-ngx-data-table)
+ * vue-data-table v"1.2.0" (https://github.com/begemode/vue-ngx-data-table)
  * Copyright 2018
  * Licensed under MIT
  */
@@ -111,7 +111,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".ngx-datatable {\n  display: block;\n  overflow: hidden;\n  justify-content: center;\n  position: relative;\n  -webkit-transform: translate3d(0, 0, 0);\n  transform: translate3d(0, 0, 0);\n  /**\r\n   * Vertical Scrolling Adjustments\r\n   */\n  /**\r\n   * Horizontal Scrolling Adjustments\r\n   */\n  /**\r\n   * Fixed Header Height Adjustments\r\n   */\n  /**\r\n   * Fixed row height adjustments\r\n   */\n  /**\r\n   * Shared Styles\r\n   */\n  /**\r\n   * Header Styles\r\n   */\n  /**\r\n   * Body Styles\r\n   */\n  /**\r\n   * Footer Styles\r\n   */\n}\n.ngx-datatable.ngx-flex {\n    display: flex;\n    flex-flow: column;\n    justify-content: flex-start;\n    height: 100%;\n}\n.ngx-datatable.ngx-flex .datatable-body {\n      overflow-y: auto;\n      flex: 1 1 auto;\n}\n.ngx-datatable.ngx-flex .datatable-header, .ngx-datatable.ngx-flex .datatable-footer {\n      flex: none;\n}\n.ngx-datatable.ngx-nowrap-text .datatable-body .datatable-body-row .datatable-body-cell .datatable-body-cell-label {\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n.ngx-datatable [hidden] {\n    display: none !important;\n}\n.ngx-datatable .hidden-columns {\n    visibility: hidden;\n    position: absolute;\n    z-index: -1;\n}\n.ngx-datatable *, .ngx-datatable *:before, .ngx-datatable *:after {\n    -moz-box-sizing: border-box;\n    -webkit-box-sizing: border-box;\n    box-sizing: border-box;\n}\n.ngx-datatable.scroll-vertical .datatable-body {\n    overflow-y: auto;\n}\n.ngx-datatable.scroll-vertical.virtualized .datatable-body .datatable-row-wrapper {\n    position: absolute;\n}\n.ngx-datatable.scroll-horz .datatable-body {\n    overflow-x: auto;\n    -webkit-overflow-scrolling: touch;\n}\n.ngx-datatable.fixed-header .datatable-header .datatable-header-inner {\n    white-space: nowrap;\n}\n.ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n}\n.ngx-datatable.fixed-row .datatable-scroll {\n    white-space: nowrap;\n}\n.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row {\n      white-space: nowrap;\n}\n.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-cell {\n        overflow: hidden;\n        white-space: nowrap;\n        text-overflow: ellipsis;\n}\n.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-group-cell {\n        overflow: hidden;\n        white-space: nowrap;\n        text-overflow: ellipsis;\n}\n.ngx-datatable .datatable-body-row,\n  .ngx-datatable .datatable-row-center,\n  .ngx-datatable .datatable-header-inner {\n    display: -webkit-box;\n    display: -moz-box;\n    display: -ms-flexbox;\n    display: -webkit-flex;\n    display: flex;\n    flex-direction: row;\n    -webkit-flex-flow: row;\n    -moz-flex-flow: row;\n    -ms-flex-flow: row;\n    -o-flex-flow: row;\n    flex-flow: row;\n}\n.ngx-datatable .datatable-body-cell,\n  .ngx-datatable .datatable-header-cell {\n    overflow-x: hidden;\n    vertical-align: top;\n    display: inline-block;\n    line-height: 1.625;\n}\n.ngx-datatable .datatable-body-cell:focus,\n    .ngx-datatable .datatable-header-cell:focus {\n      outline: none;\n}\n.ngx-datatable .datatable-body-cell .datatable-body-cell-label,\n    .ngx-datatable .datatable-header-cell .datatable-body-cell-label {\n      width: 100%;\n}\n.ngx-datatable .datatable-body-cell-bold,\n    .ngx-datatable .datatable-header-cell-bold {\n      font-weight: bold;\n}\n.ngx-datatable .datatable-row-left,\n  .ngx-datatable .datatable-row-right {\n    z-index: 9;\n}\n.ngx-datatable .datatable-row-left,\n  .ngx-datatable .datatable-row-center,\n  .ngx-datatable .datatable-row-group,\n  .ngx-datatable .datatable-row-right {\n    position: relative;\n}\n.ngx-datatable .datatable-header {\n    overflow: hidden;\n}\n.ngx-datatable .datatable-header .datatable-header-inner {\n      align-items: stretch;\n      -webkit-align-items: stretch;\n}\n.ngx-datatable .datatable-header .datatable-header-cell {\n      position: relative;\n      display: inline-block;\n      user-select: none;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.sortable .datatable-header-cell-wrapper {\n        cursor: pointer;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.longpress .datatable-header-cell-wrapper {\n        cursor: move;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .sort-btn::before {\n        line-height: 100%;\n        vertical-align: middle;\n        display: inline-block;\n        cursor: pointer;\n        font-size: 1.25rem;\n        margin-right: -7px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .resize-handle, .ngx-datatable .datatable-header .datatable-header-cell .resize-handle--not-resizable {\n        display: inline-block;\n        position: absolute;\n        right: 0;\n        top: 0;\n        bottom: 0;\n        width: 5px;\n        padding: 0 4px;\n        visibility: hidden;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .resize-handle {\n        cursor: ew-resize;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.resizeable:hover .resize-handle {\n        visibility: visible;\n}\n.ngx-datatable .datatable-header .datatable-header-cell:hover .resize-handle--not-resizable {\n        visibility: visible;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker {\n        position: absolute;\n        top: 0;\n        bottom: 0;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker.dragFromLeft {\n          right: -13px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker.dragFromRight {\n          left: 0;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker .icon {\n          position: absolute;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker .datatable-icon-down {\n          top: 0px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker .datatable-icon-up {\n          top: 35px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .datatable-header-cell-template-wrap {\n        height: inherit;\n}\n.ngx-datatable .datatable-body {\n    position: relative;\n    z-index: 10;\n    display: block;\n}\n.ngx-datatable .datatable-body .datatable-scroll {\n      display: inline-block;\n}\n.ngx-datatable .datatable-body .datatable-row-detail {\n      overflow-y: hidden;\n}\n.ngx-datatable .datatable-body .datatable-row-wrapper {\n      display: -webkit-box;\n      display: -moz-box;\n      display: -ms-flexbox;\n      display: -webkit-flex;\n      display: flex;\n      -webkit-box-orient: vertical;\n      -webkit-box-direction: normal;\n      -webkit-flex-direction: column;\n      -moz-box-orient: vertical;\n      -moz-box-direction: normal;\n      -ms-flex-direction: column;\n      flex-direction: column;\n}\n.ngx-datatable .datatable-body .datatable-body-row {\n      outline: none;\n}\n.ngx-datatable .datatable-body .datatable-body-row > div {\n        display: -webkit-box;\n        display: -moz-box;\n        display: -ms-flexbox;\n        display: -webkit-flex;\n        display: flex;\n}\n.ngx-datatable .datatable-footer {\n    display: block;\n    width: 100%;\n    margin-top: auto;\n}\n.ngx-datatable .datatable-footer .datatable-footer-inner {\n      display: flex;\n      align-items: center;\n      width: 100%;\n}\n.ngx-datatable .datatable-footer .selected-count .page-count {\n      flex: 1 1 40%;\n}\n.ngx-datatable .datatable-footer .selected-count .datatable-pager {\n      flex: 1 1 60%;\n}\n.ngx-datatable .datatable-footer .page-count {\n      flex: 1 1 20%;\n}\n.ngx-datatable .datatable-footer .datatable-pager {\n      flex: 1 1 80%;\n      text-align: right;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager,\n      .ngx-datatable .datatable-footer .datatable-pager .pager li {\n        padding: 0;\n        margin: 0;\n        display: inline-block;\n        list-style: none;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager li, .ngx-datatable .datatable-footer .datatable-pager .pager li a {\n        outline: none;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager li a {\n        cursor: pointer;\n        display: inline-block;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager li.disabled a {\n        cursor: not-allowed;\n}\n", ""]);
+exports.push([module.i, ".ngx-datatable {\n  display: block;\n  overflow: hidden;\n  justify-content: center;\n  position: relative;\n  -webkit-transform: translate3d(0, 0, 0);\n  transform: translate3d(0, 0, 0);\n  /**\r\n   * Vertical Scrolling Adjustments\r\n   */\n  /**\r\n   * Horizontal Scrolling Adjustments\r\n   */\n  /**\r\n   * Fixed Header Height Adjustments\r\n   */\n  /**\r\n   * Fixed row height adjustments\r\n   */\n  /**\r\n   * Shared Styles\r\n   */\n  /**\r\n   * Header Styles\r\n   */\n  /**\r\n   * Body Styles\r\n   */\n  /**\r\n   * Footer Styles\r\n   */\n}\n.ngx-datatable.ngx-flex {\n    display: flex;\n    flex-flow: column;\n    justify-content: flex-start;\n    height: 100%;\n}\n.ngx-datatable.ngx-flex .datatable-body {\n      overflow-y: auto;\n      flex: 1 1 auto;\n}\n.ngx-datatable.ngx-flex .datatable-header,\n    .ngx-datatable.ngx-flex .datatable-footer {\n      flex: none;\n}\n.ngx-datatable.ngx-nowrap-text .datatable-body .datatable-body-row .datatable-body-cell .datatable-body-cell-label {\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n.ngx-datatable [hidden] {\n    display: none !important;\n}\n.ngx-datatable .hidden-columns {\n    visibility: hidden;\n    position: absolute;\n    z-index: -1;\n}\n.ngx-datatable *,\n  .ngx-datatable *:before,\n  .ngx-datatable *:after {\n    -moz-box-sizing: border-box;\n    -webkit-box-sizing: border-box;\n    box-sizing: border-box;\n}\n.ngx-datatable.scroll-vertical .datatable-body {\n    overflow-y: auto;\n}\n.ngx-datatable.scroll-vertical.virtualized .datatable-body .datatable-row-wrapper {\n    position: absolute;\n}\n.ngx-datatable.scroll-horz .datatable-body {\n    overflow-x: auto;\n    -webkit-overflow-scrolling: touch;\n}\n.ngx-datatable.fixed-header .datatable-header .datatable-header-inner {\n    white-space: nowrap;\n}\n.ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n}\n.ngx-datatable.fixed-row .datatable-scroll {\n    white-space: nowrap;\n}\n.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row {\n      white-space: nowrap;\n}\n.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-cell {\n        overflow: hidden;\n        white-space: nowrap;\n        text-overflow: ellipsis;\n}\n.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-group-cell {\n        overflow: hidden;\n        white-space: nowrap;\n        text-overflow: ellipsis;\n}\n.ngx-datatable .datatable-body-row,\n  .ngx-datatable .datatable-row-center,\n  .ngx-datatable .datatable-header-inner {\n    display: -webkit-box;\n    display: -moz-box;\n    display: -ms-flexbox;\n    display: -webkit-flex;\n    display: flex;\n    flex-direction: row;\n    -webkit-flex-flow: row;\n    -moz-flex-flow: row;\n    -ms-flex-flow: row;\n    -o-flex-flow: row;\n    flex-flow: row;\n}\n.ngx-datatable .datatable-body-cell,\n  .ngx-datatable .datatable-header-cell {\n    overflow-x: hidden;\n    vertical-align: top;\n    display: inline-block;\n    line-height: 1.625;\n}\n.ngx-datatable .datatable-body-cell:focus,\n    .ngx-datatable .datatable-header-cell:focus {\n      outline: none;\n}\n.ngx-datatable .datatable-body-cell .datatable-body-cell-label,\n    .ngx-datatable .datatable-header-cell .datatable-body-cell-label {\n      width: 100%;\n}\n.ngx-datatable .datatable-body-cell-bold,\n    .ngx-datatable .datatable-header-cell-bold {\n      font-weight: bold;\n}\n.ngx-datatable .datatable-row-left,\n  .ngx-datatable .datatable-row-right {\n    z-index: 9;\n}\n.ngx-datatable .datatable-row-left,\n  .ngx-datatable .datatable-row-center,\n  .ngx-datatable .datatable-row-group,\n  .ngx-datatable .datatable-row-right {\n    position: relative;\n}\n.ngx-datatable .datatable-header {\n    overflow: hidden;\n}\n.ngx-datatable .datatable-header .datatable-header-inner {\n      align-items: stretch;\n      -webkit-align-items: stretch;\n}\n.ngx-datatable .datatable-header .datatable-header-cell {\n      position: relative;\n      display: inline-block;\n      user-select: none;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.sortable .datatable-header-cell-wrapper {\n        cursor: pointer;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.longpress .datatable-header-cell-wrapper {\n        cursor: move;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .sort-btn::before {\n        line-height: 100%;\n        vertical-align: middle;\n        display: inline-block;\n        cursor: pointer;\n        font-size: 1.25rem;\n        margin-right: -7px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .resize-handle,\n      .ngx-datatable .datatable-header .datatable-header-cell .resize-handle--not-resizable {\n        display: inline-block;\n        position: absolute;\n        right: 0;\n        top: 0;\n        bottom: 0;\n        width: 5px;\n        padding: 0 4px;\n        visibility: hidden;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .resize-handle {\n        cursor: ew-resize;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.resizeable:hover .resize-handle {\n        visibility: visible;\n}\n.ngx-datatable .datatable-header .datatable-header-cell:hover .resize-handle--not-resizable {\n        visibility: visible;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker {\n        position: absolute;\n        top: 0;\n        bottom: 0;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker.dragFromLeft {\n          right: -13px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker.dragFromRight {\n          left: 0;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker .icon {\n          position: absolute;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker .datatable-icon-down {\n          top: 0px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker .datatable-icon-up {\n          top: 35px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .datatable-header-cell-template-wrap {\n        height: inherit;\n}\n.ngx-datatable .datatable-body {\n    position: relative;\n    z-index: 10;\n    display: block;\n}\n.ngx-datatable .datatable-body .datatable-scroll {\n      display: inline-block;\n}\n.ngx-datatable .datatable-body .datatable-row-detail {\n      overflow-y: hidden;\n}\n.ngx-datatable .datatable-body .datatable-row-wrapper {\n      display: -webkit-box;\n      display: -moz-box;\n      display: -ms-flexbox;\n      display: -webkit-flex;\n      display: flex;\n      -webkit-box-orient: vertical;\n      -webkit-box-direction: normal;\n      -webkit-flex-direction: column;\n      -moz-box-orient: vertical;\n      -moz-box-direction: normal;\n      -ms-flex-direction: column;\n      flex-direction: column;\n}\n.ngx-datatable .datatable-body .datatable-body-row {\n      outline: none;\n}\n.ngx-datatable .datatable-body .datatable-body-row > div {\n        display: -webkit-box;\n        display: -moz-box;\n        display: -ms-flexbox;\n        display: -webkit-flex;\n        display: flex;\n}\n.ngx-datatable .datatable-footer {\n    display: block;\n    width: 100%;\n    margin-top: auto;\n}\n.ngx-datatable .datatable-footer .datatable-footer-inner {\n      display: flex;\n      align-items: center;\n      width: 100%;\n}\n.ngx-datatable .datatable-footer .selected-count .page-count {\n      flex: 1 1 40%;\n}\n.ngx-datatable .datatable-footer .selected-count .datatable-pager {\n      flex: 1 1 60%;\n}\n.ngx-datatable .datatable-footer .page-count {\n      flex: 1 1 20%;\n}\n.ngx-datatable .datatable-footer .datatable-pager {\n      flex: 1 1 80%;\n      text-align: right;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager,\n      .ngx-datatable .datatable-footer .datatable-pager .pager li {\n        padding: 0;\n        margin: 0;\n        display: inline-block;\n        list-style: none;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager li,\n      .ngx-datatable .datatable-footer .datatable-pager .pager li a {\n        outline: none;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager li a {\n        cursor: pointer;\n        display: inline-block;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager li.disabled a {\n        cursor: not-allowed;\n}\n", ""]);
 
 
 
@@ -214,10 +214,10 @@ function toComment(sourceMap) {
 
 /***/ }),
 
-/***/ "./node_modules/ts-loader/index.js?!./node_modules/tslint-loader/index.js!./src/components/body/body-cell.component.ts?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************!*\
-  !*** ./node_modules/ts-loader??ref--4!./node_modules/tslint-loader!./src/components/body/body-cell.component.ts?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************/
+/***/ "./node_modules/ts-loader/index.js?!./node_modules/eslint-loader/dist/cjs.js!./src/components/body/body-cell.component.ts?vue&type=script&lang=js&":
+/*!*******************************************************************************************************************************************************!*\
+  !*** ./node_modules/ts-loader??ref--4!./node_modules/eslint-loader/dist/cjs.js!./src/components/body/body-cell.component.ts?vue&type=script&lang=js& ***!
+  \*******************************************************************************************************************************************************/
 /*! no static exports found */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -248,9 +248,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
-// import { Keys } from '../../utils';
-// import { SortDirection } from '../../types';
-// import { TableColumn } from '../../types/table-column.type';
 var utils_1 = __webpack_require__(/*! ../../utils */ "./src/utils/index.ts");
 var DataTableBodyCellComponent = /** @class */ (function (_super) {
     __extends(DataTableBodyCellComponent, _super);
@@ -273,9 +270,12 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
                 row: (_b = (_a = this.rowContext) === null || _a === void 0 ? void 0 : _a.row) !== null && _b !== void 0 ? _b : {},
                 column: this.column,
                 rowIndex: this.rowContext.rowIndex,
-                group: this.rowContext.group,
                 expanded: this.rowContext.expanded,
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                group: this.rowContext.group,
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                 value: this.value,
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                 updateCell: this.$forceUpdate.bind(this),
             });
         }
@@ -290,9 +290,12 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
                 row: (_b = (_a = this.rowContext) === null || _a === void 0 ? void 0 : _a.row) !== null && _b !== void 0 ? _b : {},
                 column: this.column,
                 rowIndex: this.rowContext.rowIndex,
-                group: this.rowContext.group,
                 expanded: this.rowContext.expanded,
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                group: this.rowContext.group,
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                 value: this.value,
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                 updateCell: this.$forceUpdate.bind(this),
             });
         }
@@ -314,16 +317,19 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
             // } else if (value !== undefined) {
             //   value = val;
             // }
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             value = this.column.$$valueGetter(this.rowContext.row, this.column.prop);
         }
         if (this.value !== value) {
             this.value = value;
+            // eslint-disable-next-line no-undefined
             this.sanitizedValue = value !== null && value !== undefined ? this.stripHtml(value) : value;
         }
     };
     DataTableBodyCellComponent.prototype.stripHtml = function (html) {
-        if (!html.replace)
+        if (!html.replace) {
             return html;
+        }
         return html.replace(/<\/?[^>]+(>|$)/g, '');
     };
     DataTableBodyCellComponent.prototype.onFocus = function () {
@@ -339,11 +345,13 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
             type: 'click',
             event: event,
             row: this.rowContext.row,
-            group: this.rowContext.group,
             rowHeight: this.rowContext.rowHeight,
             column: this.column,
-            value: this.value,
             cellElement: this.$el,
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            value: this.value,
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            group: this.rowContext.group,
         });
     };
     DataTableBodyCellComponent.prototype.onDblClick = function (event) {
@@ -351,11 +359,13 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
             type: 'dblclick',
             event: event,
             row: this.rowContext.row,
-            group: this.rowContext.group,
             rowHeight: this.rowContext.rowHeight,
             column: this.column,
-            value: this.value,
             cellElement: this.$el,
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            value: this.value,
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            group: this.rowContext.group,
         });
     };
     DataTableBodyCellComponent.prototype.onKeyDown = function (event) {
@@ -376,11 +386,13 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
                 event: event,
                 row: this.rowContext.row,
                 rowIndex: this.rowContext.rowIndex,
-                group: this.rowContext.group,
                 rowHeight: this.rowContext.rowHeight,
                 column: this.column,
-                value: this.value,
                 cellElement: this.$el,
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                value: this.value,
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                group: this.rowContext.group,
             });
         }
     };
@@ -389,12 +401,14 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
             type: 'checkbox',
             event: event,
             row: this.rowContext.row,
-            group: this.rowContext.group,
             rowHeight: this.rowContext.rowHeight,
             column: this.column,
-            value: this.value,
             cellElement: this.$el,
             treeStatus: this.rowContext.treeStatus,
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            value: this.value,
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            group: this.rowContext.group,
         });
     };
     DataTableBodyCellComponent.prototype.onTreeAction = function (event) {
@@ -405,50 +419,53 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
     };
     Object.defineProperty(DataTableBodyCellComponent.prototype, "cssClasses", {
         get: function () {
-            var _a, _b, _c;
+            var _this = this;
             if (!this.rowContext) {
                 return null;
             }
             var result = {};
-            var func = null;
+            var func;
             if (this.column.cellClass) {
-                if (typeof this.column.cellClass === 'string') {
-                    result[this.column.cellClass] = true;
+                var cssClass = this.column.cellClass;
+                if (!Array.isArray(cssClass)) {
+                    cssClass = [cssClass];
                 }
-                else if (Array.isArray(this.column.cellClass)) {
-                    this.column.cellClass.forEach(function (value) {
-                        if (typeof value === 'function') {
-                            func = value;
-                        }
-                        else {
-                            result[value] = true;
-                        }
-                    });
-                }
-                else if (typeof this.column.cellClass === 'function') {
-                    func = this.column.cellClass;
-                }
-                if (func) {
-                    var res = func({
-                        row: (_a = this.rowContext) === null || _a === void 0 ? void 0 : _a.row,
-                        group: (_b = this.rowContext) === null || _b === void 0 ? void 0 : _b.group,
-                        column: this.column,
-                        value: this.value,
-                        rowHeight: (_c = this.rowContext) === null || _c === void 0 ? void 0 : _c.rowHeight,
-                    });
-                    if (typeof res === 'string') {
-                        result[res] = true;
+                cssClass.forEach(function (value) {
+                    var _a, _b, _c;
+                    func = null;
+                    if (typeof value === 'string') {
+                        result[value] = true;
                     }
-                    else if (typeof res === 'object') {
-                        var keys = Object.keys(res);
-                        for (var _i = 0, keys_1 = keys; _i < keys_1.length; _i++) {
-                            var k = keys_1[_i];
-                            if (res[k] === true) {
-                                result[" " + k] = true;
+                    else if (Array.isArray(value)) {
+                        value.forEach(function (val) {
+                            result[val] = true;
+                        });
+                    }
+                    else if (typeof value === 'function') {
+                        func = value;
+                    }
+                    if (func) {
+                        var res = func({
+                            row: (_a = _this.rowContext) === null || _a === void 0 ? void 0 : _a.row,
+                            group: (_b = _this.rowContext) === null || _b === void 0 ? void 0 : _b.group,
+                            column: _this.column,
+                            value: _this.value,
+                            rowHeight: (_c = _this.rowContext) === null || _c === void 0 ? void 0 : _c.rowHeight,
+                        });
+                        if (typeof res === 'string') {
+                            result[res] = true;
+                        }
+                        else if (typeof res === 'object') {
+                            var keys = Object.keys(res);
+                            for (var _i = 0, keys_1 = keys; _i < keys_1.length; _i++) {
+                                var k = keys_1[_i];
+                                if (res[k] === true) {
+                                    result[" " + k] = true;
+                                }
                             }
                         }
                     }
-                }
+                });
             }
             // result['sort-active'] = !this.sortDir;
             result['active'] = this.isFocused;
@@ -456,7 +473,7 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
             // result['sort-desc'] = this.sortDir === SortDirection.desc;
             return result;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DataTableBodyCellComponent.prototype, "styles", {
@@ -465,13 +482,15 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
                 return {};
             }
             return {
-                width: this.column.width + 'px',
-                minWidth: this.column.minWidth ? this.column.minWidth + 'px' : undefined,
-                maxWidth: this.column.maxWidth ? this.column.maxWidth + 'px' : undefined,
-                height: this.rowContext.rowHeight + 'px',
+                width: this.column.width + "px",
+                // eslint-disable-next-line no-undefined
+                minWidth: this.column.minWidth ? this.column.minWidth + "px" : undefined,
+                // eslint-disable-next-line no-undefined
+                maxWidth: this.column.maxWidth ? this.column.maxWidth + "px" : undefined,
+                height: this.rowContext.rowHeight + "px",
             };
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DataTableBodyCellComponent.prototype, "marginCellStyle", {
@@ -480,27 +499,29 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
                 return {};
             }
             return {
-                'margin-left': this.calcLeftMargin(this.column, this.rowContext.row) + 'px',
+                'margin-left': this.calcLeftMargin(this.column, this.rowContext.row) + "px",
             };
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DataTableBodyCellComponent.prototype, "isCheckboxable", {
         get: function () {
-            return this.column.checkboxable && (!this.displayCheck || this.displayCheck(this.rowContext.row, this.column, this.value));
+            return (this.column.checkboxable &&
+                (!this.displayCheck || this.displayCheck(this.rowContext.row, this.column, this.value)));
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     DataTableBodyCellComponent.prototype.cellHeight = function (rowHeight) {
         var height = rowHeight;
-        if (isNaN(height))
+        if (isNaN(height)) {
             return height;
-        return height + 'px';
+        }
+        return height + "px";
     };
     DataTableBodyCellComponent.prototype.calcLeftMargin = function (column, row) {
-        var levelIndent = column.treeLevelIndent != null ? column.treeLevelIndent : 50;
+        var levelIndent = column.treeLevelIndent !== null ? column.treeLevelIndent : 50;
         return column.isTreeColumn ? row.level * levelIndent : 0;
     };
     __decorate([
@@ -517,7 +538,7 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
     ], DataTableBodyCellComponent.prototype, "tabIndex", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Function)
     ], DataTableBodyCellComponent.prototype, "cellSlot", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
@@ -539,312 +560,14 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
     return DataTableBodyCellComponent;
 }(vue_property_decorator_1.Vue));
 exports.default = DataTableBodyCellComponent;
-/*@Component
-export default class DataTableBodyCellComponent extends Vue {
-  @Prop() displayCheck: (row: any, column?: TableColumn, value?: any) => boolean;
-  @Prop() group: any;
-  @Prop() rowHeight: number;
-  @Prop() isSelected: boolean;
-  @Prop() expanded: boolean;
-  @Prop() rowIndex: number;
-  @Prop() column: TableColumn;
-  @Prop() row: any;
-  @Prop() sorts: any[];
-  @Prop() treeStatus: TreeStatus;
-
-  sanitizedValue: any = null;
-  value: any = null;
-  sortDir: SortDirection = null;
-  isFocused: boolean = false;
-  // activateFn = this.activate.emit.bind(this.activate); todo
-
-  cellContext: any = {
-    onCheckboxChangeFn: this.onCheckboxChange,
-    // activateFn: this.activateFn,  todo
-    row: this.row,
-    group: this.group,
-    value: this.value,
-    column: this.column,
-    rowHeight: this.rowHeight,
-    isSelected: this.isSelected,
-    rowIndex: this.rowIndex,
-    treeStatus: this.treeStatus,
-    onTreeAction: this.onTreeAction.bind(this),
-  };
-
-  private _treeStatus: TreeStatus = 'collapsed';
-
-  @Watch('group') onGroupChanged() {
-    this.cellContext.group = this.group;
-    this.checkValueUpdates();
-  }
-
-  @Watch('rowHeight') onRowHeightChanged() {
-    this.cellContext.rowHeight = this.rowHeight;
-    this.checkValueUpdates();
-  }
-
-  @Watch('isSelected') onIsSelectedChanged() {
-    this.cellContext.isSelected = this.isSelected;
-  }
-
-  @Watch('expanded') onExpandedChanged() {
-    this.cellContext.expanded = this.expanded;
-  }
-
-  @Watch('rowIndex') onRowIndexChanged() {
-    this.cellContext.rowIndex = this.rowIndex;
-    this.checkValueUpdates();
-  }
-
-  @Watch('column', { immediate: true }) onColumnChanged() {
-    this.cellContext.column = this.column;
-    if (this.column.cellTemplate) {
-      this.$slots.default = this.column.cellTemplate({ row: this.row });
-    }
-    this.checkValueUpdates();
-  }
-
-  @Watch('row') onRowChanged() {
-    this.cellContext.row = this.row;
-    this.checkValueUpdates();
-  }
-
-  @Watch('sorts') onSortsChanged() {
-    this.calcSortDir = this.calcSortDir(this.sorts);
-  }
-
-  @Watch('treeStatus') onTreeStatusChanged(status: TreeStatus) {
-    if (status !== 'collapsed' &&
-        status !== 'expanded' &&
-        status !== 'loading' &&
-        status !== 'disabled') {
-      this._treeStatus = 'collapsed';
-    } else {
-      this._treeStatus = status;
-    }
-    this.cellContext.treeStatus = this._treeStatus;
-    this.checkValueUpdates();
-  }
-
-  // @Output() activate: EventEmitter<any> = new EventEmitter();
-  // @Output() treeAction: EventEmitter<any> = new EventEmitter();
-
-  // @ViewChild('cellTemplate', { read: ViewContainerRef }) cellTemplate: ViewContainerRef;
-
-  created() {
-    this.cellContext.group = this.group;
-    this.cellContext.rowHeight = this.rowHeight;
-    this.cellContext.isSelected = this.isSelected;
-    this.cellContext.expanded = this.expanded;
-    this.cellContext.rowIndex = this.rowIndex;
-    this.cellContext.column = this.column;
-    this.cellContext.row = this.row;
-    this.cellContext.treeStatus = this._treeStatus;
-  }
-
-  get columnCssClasses(): any {
-    const result = {
-      'datatable-body-cell': true,
-    };
-    // let cls = 'datatable-body-cell';
-    if (this.column.cellClass) {
-      if (typeof this.column.cellClass === 'string') {
-        // cls += ' ' + this.column.cellClass;
-        result[this.column.cellClass] = true;
-      } else if(typeof this.column.cellClass === 'function') {
-        const res = this.column.cellClass({
-          row: this.row,
-          group: this.group,
-          column: this.column,
-          value: this.value ,
-          rowHeight: this.rowHeight
-        });
-
-        if (typeof res === 'string') {
-          // cls += res;
-          result[res] = true;
-        } else if (typeof res === 'object') {
-          const keys = Object.keys(res);
-          for (const k of keys) {
-            if (res[k] === true) {
-              // cls += ` ${k}`;
-              result[` ${k}`] = true;
-            }
-          }
-        }
-      }
-    }
-    result['sort-active'] = !this.sortDir;
-    result['active'] = !this.isFocused;
-    result['sort-asc'] = this.sortDir === SortDirection.asc;
-    result['sort-desc'] = this.sortDir === SortDirection.desc;
-    // if (!this.sortDir) cls += ' sort-active';
-    // if (this.isFocused) cls += ' active';
-    // if (this.sortDir === SortDirection.asc) cls += ' sort-asc';
-    // if (this.sortDir === SortDirection.desc) cls += ' sort-desc';
-    // return cls;
-    return result;
-  }
-
-  get styleObject() {
-    return {
-      width: this.column.width + 'px',
-      minWidth: this.column.minWidth + 'px',
-      maxWidth: this.column.maxWidth + 'px',
-      height: this.height,
-      'margin-left': this.calcLeftMargin(this.column, this.row) + 'px',
-    };
-  }
-
-  get height(): string | number {
-    const height = this.rowHeight;
-    if (isNaN(height)) return height;
-    return height + 'px';
-  }
-
-  destroyed(): void {
-    // todo
-    // if (this.cellTemplate) {
-    //   this.cellTemplate.clear();
-    // }
-  }
-
-  checkValueUpdates(): void {
-    let value = '';
-
-    if (!this.row || !this.column) {
-      value = '';
-    } else {
-      // todo: make transform by vue filters
-      // const val = this.column.$$valueGetter(this.row, this.column.prop);
-      // const userPipe: PipeTransform = this.column.pipe;
-
-      // if (userPipe) {
-      //   value = userPipe.transform(val);
-      // } else if (value !== undefined) {
-      //   value = val;
-      // }
-      value = this.column.$$valueGetter(this.row, this.column.prop);
-    }
-
-    if(this.value !== value) {
-      this.value = value;
-      this.cellContext.value = value;
-      this.sanitizedValue = value !== null && value !== undefined ? this.stripHtml(value) : value;
-    }
-  }
-
-  onFocus(): void {
-    this.isFocused = true;
-  }
-
-  onBlur(): void {
-    this.isFocused = false;
-  }
-
-  onClick(event: MouseEvent): void {
-    this.$emit('activate', {
-      type: 'click',
-      event,
-      row: this.row,
-      group: this.group,
-      rowHeight: this.rowHeight,
-      column: this.column,
-      value: this.value,
-      cellElement: this.$el
-    });
-  }
-
-  onDblClick(event: MouseEvent): void {
-    this.$emit('activate', {
-      type: 'dblclick',
-      event,
-      row: this.row,
-      group: this.group,
-      rowHeight: this.rowHeight,
-      column: this.column,
-      value: this.value,
-      cellElement: this.$el
-    });
-  }
-
-  onKeyDown(event: KeyboardEvent): void {
-    const keyCode = event.keyCode;
-    const isTargetCell = event.target === this.$el;
-
-    const isAction =
-      keyCode === Keys.return ||
-      keyCode === Keys.down ||
-      keyCode === Keys.up ||
-      keyCode === Keys.left ||
-      keyCode === Keys.right;
-
-    if (isAction && isTargetCell) {
-      event.preventDefault();
-      event.stopPropagation();
-
-      this.$emit('activate', {
-        type: 'keydown',
-        event,
-        row: this.row,
-        group: this.group,
-        rowHeight: this.rowHeight,
-        column: this.column,
-        value: this.value,
-        cellElement: this.$el
-      });
-    }
-  }
-
-  onCheckboxChange(event: any): void {
-    this.$emit('activate', {
-      type: 'checkbox',
-      event,
-      row: this.row,
-      group: this.group,
-      rowHeight: this.rowHeight,
-      column: this.column,
-      value: this.value,
-      cellElement: this.$el,
-      treeStatus: 'collapsed'
-    });
-  }
-
-  calcSortDir(sorts: any[]): any {
-    if (!sorts) return;
-
-    const sort = sorts.find((s: any) => {
-      return s.prop === this.column.prop;
-    });
-
-    if (sort) return sort.dir;
-  }
-
-  stripHtml(html: string): string {
-    if(!html.replace) return html;
-    return html.replace(/<\/?[^>]+(>|$)/g, '');
-  }
-
-  onTreeAction(row: any) {
-    this.$emit('treeAction', row);
-  }
-
-  calcLeftMargin(column: any, row: any) {
-    const levelIndent = column.treeLevelIndent != null ? column.treeLevelIndent : 50;
-    return column.isTreeColumn ? row.level * levelIndent : 0;
-  }
-
-}
-*/
 
 
 /***/ }),
 
-/***/ "./node_modules/ts-loader/index.js?!./node_modules/tslint-loader/index.js!./src/components/body/body-row-wrapper.component.ts?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************!*\
-  !*** ./node_modules/ts-loader??ref--4!./node_modules/tslint-loader!./src/components/body/body-row-wrapper.component.ts?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************/
+/***/ "./node_modules/ts-loader/index.js?!./node_modules/eslint-loader/dist/cjs.js!./src/components/body/body-row-wrapper.component.ts?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************!*\
+  !*** ./node_modules/ts-loader??ref--4!./node_modules/eslint-loader/dist/cjs.js!./src/components/body/body-row-wrapper.component.ts?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************/
 /*! no static exports found */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -895,13 +618,32 @@ var DataTableRowWrapperComponent = /** @class */ (function (_super) {
     Object.defineProperty(DataTableRowWrapperComponent.prototype, "groupHeaderStyles", {
         get: function () {
             var styles = {};
-            styles['transform'] = 'translate3d(' + this.offsetX + 'px, 0px, 0px)';
+            styles['transform'] = "translate3d(" + this.offsetX + "px, 0px, 0px)'";
             styles['backface-visibility'] = 'hidden';
             styles['width'] = this.innerWidth || '100%';
-            styles['height'] = this.groupRowHeight ? this.groupRowHeight + 'px' : 'auto';
+            styles['height'] = this.groupRowHeight ? this.groupRowHeight + "px" : 'auto';
             return styles;
         },
-        enumerable: true,
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(DataTableRowWrapperComponent.prototype, "rowId", {
+        get: function () {
+            if (!this.row) {
+                return null;
+            }
+            if (this.rowIdentity) {
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                var result = this.rowIdentity(this.row);
+                if (typeof result === 'object') {
+                    return null;
+                }
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+                return result;
+            }
+            return null;
+        },
+        enumerable: false,
         configurable: true
     });
     __decorate([
@@ -938,6 +680,10 @@ var DataTableRowWrapperComponent = /** @class */ (function (_super) {
     ], DataTableRowWrapperComponent.prototype, "row", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
+        __metadata("design:type", Function)
+    ], DataTableRowWrapperComponent.prototype, "rowIdentity", void 0);
+    __decorate([
+        vue_property_decorator_1.Prop(),
         __metadata("design:type", Array)
     ], DataTableRowWrapperComponent.prototype, "groupRowsBy", void 0);
     __decorate([
@@ -954,11 +700,11 @@ var DataTableRowWrapperComponent = /** @class */ (function (_super) {
     ], DataTableRowWrapperComponent.prototype, "styleObject", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Function)
     ], DataTableRowWrapperComponent.prototype, "groupHeaderSlot", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Function)
     ], DataTableRowWrapperComponent.prototype, "rowDetailSlot", void 0);
     DataTableRowWrapperComponent = __decorate([
         vue_property_decorator_1.Component({
@@ -977,10 +723,10 @@ exports.default = DataTableRowWrapperComponent;
 
 /***/ }),
 
-/***/ "./node_modules/ts-loader/index.js?!./node_modules/tslint-loader/index.js!./src/components/body/body-row.component.ts?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************!*\
-  !*** ./node_modules/ts-loader??ref--4!./node_modules/tslint-loader!./src/components/body/body-row.component.ts?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************************************/
+/***/ "./node_modules/ts-loader/index.js?!./node_modules/eslint-loader/dist/cjs.js!./src/components/body/body-row.component.ts?vue&type=script&lang=js&":
+/*!******************************************************************************************************************************************************!*\
+  !*** ./node_modules/ts-loader??ref--4!./node_modules/eslint-loader/dist/cjs.js!./src/components/body/body-row.component.ts?vue&type=script&lang=js& ***!
+  \******************************************************************************************************************************************************/
 /*! no static exports found */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1070,7 +816,7 @@ var DataTableBodyRowComponent = /** @class */ (function (_super) {
                 event: event,
                 row: this.row,
                 rowIndex: this.rowContext.rowIndex,
-                rowElement: this.$el
+                rowElement: this.$el,
             });
         }
     };
@@ -1079,7 +825,7 @@ var DataTableBodyRowComponent = /** @class */ (function (_super) {
             type: 'mouseenter',
             event: event,
             row: this.row,
-            rowElement: this.$el
+            rowElement: this.$el,
         });
     };
     DataTableBodyRowComponent.prototype.onTreeAction = function (event) {
@@ -1089,15 +835,15 @@ var DataTableBodyRowComponent = /** @class */ (function (_super) {
         get: function () {
             if (this.rowContext) {
                 return {
-                    width: this.columnGroupWidths.total + 'px',
-                    height: this.rowContext.rowHeight + 'px',
+                    width: this.columnGroupWidths.total + "px",
+                    height: this.rowContext.rowHeight + "px",
                 };
             }
             return {
-                width: this.columnGroupWidths.total + 'px',
+                width: this.columnGroupWidths.total + "px",
             };
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DataTableBodyRowComponent.prototype, "cssClasses", {
@@ -1122,14 +868,15 @@ var DataTableBodyRowComponent = /** @class */ (function (_super) {
                     var keys = Object.keys(res);
                     for (var _i = 0, keys_2 = keys; _i < keys_2.length; _i++) {
                         var k = keys_2[_i];
-                        if (res[k] === true)
+                        if (res[k] === true) {
                             cls += " " + k;
+                        }
                     }
                 }
             }
             return cls;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     __decorate([
@@ -1140,10 +887,6 @@ var DataTableBodyRowComponent = /** @class */ (function (_super) {
         vue_property_decorator_1.Prop(),
         __metadata("design:type", Object)
     ], DataTableBodyRowComponent.prototype, "rowContext", void 0);
-    __decorate([
-        vue_property_decorator_1.Prop(),
-        __metadata("design:type", Array)
-    ], DataTableBodyRowComponent.prototype, "group", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
         __metadata("design:type", Array)
@@ -1162,11 +905,11 @@ var DataTableBodyRowComponent = /** @class */ (function (_super) {
     ], DataTableBodyRowComponent.prototype, "rowClass", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Function)
     ], DataTableBodyRowComponent.prototype, "displayCheck", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Function)
     ], DataTableBodyRowComponent.prototype, "slots", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
@@ -1176,7 +919,7 @@ var DataTableBodyRowComponent = /** @class */ (function (_super) {
         vue_property_decorator_1.Component({
             components: {
                 'datatable-body-cell': body_cell_component_vue_1.default,
-            }
+            },
         })
     ], DataTableBodyRowComponent);
     return DataTableBodyRowComponent;
@@ -1186,10 +929,10 @@ exports.default = DataTableBodyRowComponent;
 
 /***/ }),
 
-/***/ "./node_modules/ts-loader/index.js?!./node_modules/tslint-loader/index.js!./src/components/body/body.component.ts?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************!*\
-  !*** ./node_modules/ts-loader??ref--4!./node_modules/tslint-loader!./src/components/body/body.component.ts?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************/
+/***/ "./node_modules/ts-loader/index.js?!./node_modules/eslint-loader/dist/cjs.js!./src/components/body/body.component.ts?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************!*\
+  !*** ./node_modules/ts-loader??ref--4!./node_modules/eslint-loader/dist/cjs.js!./src/components/body/body.component.ts?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************/
 /*! no static exports found */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -1267,20 +1010,20 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
-var utils_1 = __webpack_require__(/*! ../../utils */ "./src/utils/index.ts");
-var types_1 = __webpack_require__(/*! ../../types */ "./src/types/index.ts");
-var scroller_component_1 = __webpack_require__(/*! ./scroller.component */ "./src/components/body/scroller.component.ts");
-var selection_component_1 = __webpack_require__(/*! ./selection.component */ "./src/components/body/selection.component.ts");
-var progress_bar_component_1 = __webpack_require__(/*! ./progress-bar.component */ "./src/components/body/progress-bar.component.ts");
-// import DataTableRowWrapperComponent from './body-row-wrapper.component.vue';
-// import DataTableBodyRowComponent from './body-row.component.vue';
-var summary_row_component_1 = __webpack_require__(/*! ./summary/summary-row.component */ "./src/components/body/summary/summary-row.component.ts");
 var scrollbar_helper_service_1 = __webpack_require__(/*! ../../services/scrollbar-helper.service */ "./src/services/scrollbar-helper.service.ts");
+var types_1 = __webpack_require__(/*! ../../types */ "./src/types/index.ts");
+var check_type_1 = __webpack_require__(/*! ../../types/check.type */ "./src/types/check.type.ts");
+var utils_1 = __webpack_require__(/*! ../../utils */ "./src/utils/index.ts");
 var body_group_header_component_1 = __webpack_require__(/*! ./body-group-header.component */ "./src/components/body/body-group-header.component.ts");
 var body_row_detail_component_1 = __webpack_require__(/*! ./body-row-detail.component */ "./src/components/body/body-row-detail.component.ts");
 var body_row_wrapper_component_vue_1 = __webpack_require__(/*! ./body-row-wrapper.component.vue */ "./src/components/body/body-row-wrapper.component.vue");
 var body_row_component_vue_1 = __webpack_require__(/*! ./body-row.component.vue */ "./src/components/body/body-row.component.vue");
-var check_type_1 = __webpack_require__(/*! ../../types/check.type */ "./src/types/check.type.ts");
+var progress_bar_component_1 = __webpack_require__(/*! ./progress-bar.component */ "./src/components/body/progress-bar.component.ts");
+var scroller_component_1 = __webpack_require__(/*! ./scroller.component */ "./src/components/body/scroller.component.ts");
+var selection_component_1 = __webpack_require__(/*! ./selection.component */ "./src/components/body/selection.component.ts");
+// import DataTableRowWrapperComponent from './body-row-wrapper.component.vue';
+// import DataTableBodyRowComponent from './body-row.component.vue';
+var summary_row_component_1 = __webpack_require__(/*! ./summary/summary-row.component */ "./src/components/body/summary/summary-row.component.ts");
 var DataTableBodyComponent = /** @class */ (function (_super) {
     __extends(DataTableBodyComponent, _super);
     function DataTableBodyComponent() {
@@ -1291,7 +1034,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         _this.offsetY = 0;
         _this.myOffset = 0;
         _this.myOffsetX = 0;
-        _this.indexes = {};
+        _this.indexes = { first: 0, last: 0 };
         _this.columnGroupWidths = null;
         _this.columnGroupWidthsWithoutGroup = null;
         _this.rowIndexes = new Map();
@@ -1301,8 +1044,9 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         _this.groupStyles = {
             left: {},
             center: {},
-            right: {}
+            right: {},
         };
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         _this.onBodyScrollHandler = utils_1.throttle(_this.onBodyScroll.bind(_this), 10, { trailing: true });
         _this.rowContexts = [];
         _this.scrollbarHelper = new scrollbar_helper_service_1.ScrollbarHelper();
@@ -1335,26 +1079,6 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     // @Output() detailToggle: EventEmitter<any> = new EventEmitter();
     // @Output() rowContextmenu = new EventEmitter<{ event: MouseEvent, row: any }>(false);
     // @Output() treeAction: EventEmitter<any> = new EventEmitter();
-    /**
-     * Creates an instance of DataTableBodyComponent.
-     */
-    DataTableBodyComponent.prototype.created = function () {
-        var _this = this;
-        // declare fn here so we can get access to the `this` property
-        this.rowTrackingFn = function (row) {
-            var idx = _this.getRowIndex(row);
-            if (_this.trackByProp) {
-                return idx + "-" + _this.trackByProp;
-            }
-            else {
-                return idx;
-            }
-        };
-    };
-    DataTableBodyComponent.prototype.mounted = function () {
-        this.selector = this.$refs.selector;
-        this.scroller = this.$refs.scroller;
-    };
     DataTableBodyComponent.prototype.onPageSize = function () {
         this.recalcLayout();
     };
@@ -1422,7 +1146,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
             });
         });
     };
-    DataTableBodyComponent.prototype.onColumnsChanged = function (newVal, oldVal) {
+    DataTableBodyComponent.prototype.onColumnsChanged = function () {
         this.recalculateColumns();
         this.buildStylesByGroup();
     };
@@ -1453,36 +1177,50 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
             this.myBodyHeight = '0px';
             return;
         }
-        else {
-            if (this.scrollbarV) {
-                this.myBodyHeight += 'px';
-            }
-            else {
-                this.myBodyHeight = 'auto';
-            }
-            this.recalcLayout();
+        if (this.scrollbarV) {
+            this.myBodyHeight = this.myBodyHeight.toString() + 'px';
         }
+        else {
+            this.myBodyHeight = 'auto';
+        }
+        this.recalcLayout();
+    };
+    /**
+     * Creates an instance of DataTableBodyComponent.
+     */
+    DataTableBodyComponent.prototype.created = function () {
+        var _this = this;
+        // declare fn here so we can get access to the `this` property
+        this.rowTrackingFn = function (row) {
+            var idx = _this.getRowIndex(row);
+            if (_this.trackByProp) {
+                return idx + "-" + _this.trackByProp;
+            }
+            return idx;
+        };
+    };
+    DataTableBodyComponent.prototype.mounted = function () {
+        this.selector = this.$refs.selector;
+        this.scroller = this.$refs.scroller;
     };
     Object.defineProperty(DataTableBodyComponent.prototype, "bodyWidth", {
         get: function () {
             if (this.scrollbarH) {
-                return this.innerWidth + 'px';
+                return this.innerWidth + "px";
             }
-            else {
-                return '100%';
-            }
+            return '100%';
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DataTableBodyComponent.prototype, "styleObject", {
         get: function () {
             return {
                 width: this.bodyWidth ? this.bodyWidth : 'auto',
-                height: this.myBodyHeight ? this.myBodyHeight : 'auto',
+                height: this.myBodyHeight ? this.myBodyHeight.toString() : 'auto',
             };
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DataTableBodyComponent.prototype, "selectEnabled", {
@@ -1490,26 +1228,34 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
          * Returns if selection is enabled.
          */
         get: function () {
-            return !!this.selectionType;
+            return Boolean(this.selectionType);
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DataTableBodyComponent.prototype, "checkEnabled", {
         get: function () {
             return this.checkMode === check_type_1.CheckMode.checkNoSelect || this.selectionType === types_1.SelectionType.checkbox;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DataTableBodyComponent.prototype, "isUseRowHeightCache", {
         get: function () {
-            if (this.fixedRowHeight && !this.rowDetailHeight && !this.groupRowsBy || ((this.scrollbarV && !this.virtualization) || !this.scrollbarV)) {
-                return false;
+            if (typeof this.rowHeight === 'function' || this.rowDetailHeight || this.groupRowsBy) {
+                return true;
             }
-            return true;
+            return false;
+            // if (
+            //   (this.fixedRowHeight && !this.rowDetailHeight && !this.groupRowsBy) ||
+            //   (this.scrollbarV && !this.virtualization) ||
+            //   !this.scrollbarV
+            // ) {
+            //   return false;
+            // }
+            // return true;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DataTableBodyComponent.prototype, "fixedRowHeight", {
@@ -1519,7 +1265,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
             }
             return false;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DataTableBodyComponent.prototype, "scrollHeight", {
@@ -1536,17 +1282,15 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
                 }
                 return this.rowHeightsCache.query(this.rowCount - 1);
             }
-            // avoid TS7030: Not all code paths return a value.
-            return undefined;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DataTableBodyComponent.prototype, "scrollWidth", {
         get: function () {
-            return this.columnGroupWidths ? this.columnGroupWidths.total : 'auto';
+            return this.columnGroupWidths ? this.columnGroupWidths.total.toString() : 'auto';
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     /**
@@ -1580,13 +1324,14 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     DataTableBodyComponent.prototype.updateOffsetY = function (offset, fromPager) {
         if (fromPager === void 0) { fromPager = false; }
         // scroller is missing on empty table
-        if (!this.scroller)
+        if (!this.scroller) {
             return;
+        }
         var offsetY = 0;
         if (this.scrollbarV && this.virtualization && offset) {
             // First get the row Index that we need to move to.
             var rowIndex = this.pageSize * offset;
-            if (this.isUseRowHeightCache) {
+            if (this.isUseRowHeightCache || typeof this.rowHeight === 'function') {
                 offsetY = this.rowHeightsCache.query(rowIndex - 1);
             }
             else {
@@ -1616,10 +1361,11 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         var scrollXPos = event.scrollXPos;
         // if scroll change, trigger update
         // this is mainly used for header cell positions
-        if (this.offsetY !== scrollYPos || this.myOffsetX !== scrollXPos) { // Math.abs(scrollYPos - this.offsetY) > 50
+        if (this.offsetY !== scrollYPos || this.myOffsetX !== scrollXPos) {
+            // Math.abs(scrollYPos - this.offsetY) > 50
             this.$emit('scroll', {
                 offsetY: scrollYPos,
-                offsetX: scrollXPos
+                offsetX: scrollXPos,
             });
         }
         this.offsetY = scrollYPos;
@@ -1638,13 +1384,11 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         if (fromPager) {
             offset = Math.ceil(offset);
         }
-        else {
-            if (direction === 'up') {
-                offset = Math.ceil(offset);
-            }
-            else if (direction === 'down') {
-                offset = Math.floor(offset);
-            }
+        else if (direction === 'up') {
+            offset = Math.ceil(offset);
+        }
+        else if (direction === 'down') {
+            offset = Math.floor(offset);
         }
         if (!fromPager && ['up', 'down'].includes(direction) && !isNaN(offset)) {
             this.$emit('page', { offset: offset });
@@ -1654,8 +1398,8 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
      * Updates the rows in the view port
      */
     DataTableBodyComponent.prototype.updateRows = function (force) {
-        if (force === void 0) { force = false; }
         var _a;
+        if (force === void 0) { force = false; }
         var _b = this.indexes, first = _b.first, last = _b.last;
         if (!force && !this.rowsChanged && this.lastFirst === first && this.lastLast === last) {
             // console.log('this.lastFirst === first');
@@ -1684,7 +1428,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         //   if (this.groupedRows.length === 1) {
         //     maxRowsPerGroup = this.groupedRows[0].value.length;
         //   }
-        //   let index = 0; 
+        //   let index = 0;
         //   while (rowIndex < last && rowIndex < this.groupedRows.length) {
         //     // Add the groups into this page
         //     const group = this.groupedRows[rowIndex];
@@ -1696,32 +1440,38 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         //   }
         // } else {
         var temp = [];
-        var rowContext;
+        // let rowContext: IRowContext;
+        var group;
         while (rowIndex < last && rowIndex < this.rowCount) {
             var row = this.rows[rowIndex];
             if (row) {
-                this.rowIndexes.set(row, rowIndex);
-                rowContext = this.rowContexts[idx];
-                if (!rowContext) {
-                    rowContext = {};
+                if (row.__isGroup) {
+                    group = row;
                 }
-                rowContext.row = row;
-                rowContext.rowIndex = rowIndex;
-                rowContext.rowHeight = this.getRowHeight(row);
-                rowContext.isSelected = this.isSelect(row);
-                rowContext.isChecked = this.isChecked(row);
-                rowContext.expanded = this.getRowExpanded(row);
-                rowContext.treeStatus = this.treeStatus(row);
-                temp[idx] = rowContext;
-                // temp[idx] = {
-                //   row,
-                //   rowIndex,
-                //   rowHeight: this.getRowHeight(row),
-                //   isSelected: this.isSelect(row),
-                //   isChecked: this.isChecked(row),
-                //   expanded: this.getRowExpanded(row),
-                //   treeStatus: this.treeStatus(row)
-                // };
+                this.rowIndexes.set(row, rowIndex);
+                // rowContext = this.rowContexts[idx];
+                // if (!rowContext) {
+                //   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                //   rowContext = {} as any;
+                // }
+                // rowContext.row = row;
+                // rowContext.rowIndex = rowIndex;
+                // rowContext.rowHeight = this.getRowHeight(row);
+                // rowContext.isSelected = this.isSelect(row);
+                // rowContext.isChecked = this.isChecked(row);
+                // rowContext.expanded = this.getRowExpanded(row);
+                // rowContext.treeStatus = this.treeStatus(row);
+                // temp[idx] = rowContext;
+                temp[idx] = {
+                    row: row,
+                    rowIndex: rowIndex,
+                    rowHeight: this.getRowHeight(row),
+                    isSelected: this.isSelect(row),
+                    isChecked: this.isChecked(row),
+                    expanded: this.getRowExpanded(row),
+                    treeStatus: this.treeStatus(row),
+                    group: group,
+                };
                 idx++;
             }
             rowIndex++;
@@ -1745,9 +1495,10 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
      */
     DataTableBodyComponent.prototype.getGroupHeight = function (group) {
         var rowHeight = 0;
-        if (group.value) {
-            for (var index = 0; index < group.value.length; index++) {
-                rowHeight += this.getRowAndDetailHeight(group.value[index]);
+        if (Array.isArray(group.value)) {
+            for (var _i = 0, _a = group.value; _i < _a.length; _i++) {
+                var value = _a[_i];
+                rowHeight += this.getRowAndDetailHeight(value);
             }
         }
         return rowHeight;
@@ -1759,7 +1510,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         var rowHeight = this.getRowHeight(row);
         var expanded = this.rowExpansions.get(row);
         // Adding detail row height if its expanded.
-        if (expanded === 1) {
+        if (expanded) {
             rowHeight += this.getDetailRowHeight(row);
         }
         return rowHeight;
@@ -1820,19 +1571,17 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         return styles;
     };
     DataTableBodyComponent.prototype.getRowOffsetY = function (index) {
-        if (this.isUseRowHeightCache) {
+        if (this.isUseRowHeightCache || typeof this.rowHeight === 'function') {
             var result = this.rowHeightsCache.queryWithHeight(index);
             if (!result) {
                 result = { height: 0, offsetY: 0 };
             }
             return result;
         }
-        else {
-            return {
-                offsetY: this.rowHeight * index,
-                height: this.rowHeight
-            };
-        }
+        return {
+            offsetY: this.rowHeight * index,
+            height: this.rowHeight,
+        };
     };
     /**
      * Calculate bottom summary row offset for scrollbar mode.
@@ -1849,7 +1598,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         }
         var styles = { position: 'absolute' };
         var pos = 0;
-        if (this.isUseRowHeightCache) {
+        if (this.isUseRowHeightCache || typeof this.rowHeight === 'function') {
             pos = this.rowHeightsCache.query(this.rows.length - 1);
         }
         else {
@@ -1868,6 +1617,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
      * Updates the index of the rows in the viewport
      */
     DataTableBodyComponent.prototype.updateIndexes = function (direction) {
+        var _a;
         var first = 0;
         var last = 0;
         if (this.scrollbarV && !this.limit) {
@@ -1875,8 +1625,8 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
                 // Calculation of the first and last indexes will be based on where the
                 // scrollY position would be at.  The last index would be the one
                 // that shows up inside the view port the last.
-                var height = parseInt(this.myBodyHeight, 0);
-                if (this.isUseRowHeightCache) {
+                var height = parseInt((_a = this.myBodyHeight) === null || _a === void 0 ? void 0 : _a.toString(), 10);
+                if (this.isUseRowHeightCache || typeof this.rowHeight === 'function') {
                     first = this.rowHeightsCache.getRowIndex(this.offsetY);
                     last = this.rowHeightsCache.getRowIndex(height + this.offsetY) + 1;
                 }
@@ -1898,7 +1648,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
             if (!this.externalPaging) {
                 first = Math.max(this.myOffset * this.pageSize, 0);
             }
-            last = Math.min((first + this.pageSize), this.rowCount);
+            last = Math.min(first + this.pageSize, this.rowCount);
         }
         // if (direction === 'down') {
         //   last = last === this.rowCount ? last : last + 1;
@@ -1927,7 +1677,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
                 externalVirtual: this.scrollbarV && this.externalPaging,
                 rowCount: this.rowCount,
                 rowIndexes: this.rowIndexes,
-                rowExpansions: this.rowExpansions
+                rowExpansions: this.rowExpansions,
             });
         }
     };
@@ -1940,7 +1690,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         // first index.
         var viewPortFirstRowIndex = this.indexes.first;
         var offsetScroll;
-        if (this.isUseRowHeightCache) {
+        if (this.isUseRowHeightCache || typeof this.rowHeight === 'function') {
             offsetScroll = this.rowHeightsCache.query(viewPortFirstRowIndex);
             return offsetScroll <= this.offsetY ? Math.max(0, viewPortFirstRowIndex - 1) : viewPortFirstRowIndex;
         }
@@ -1957,14 +1707,14 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     DataTableBodyComponent.prototype.toggleRowExpansion = function (rowContext) {
         // Capture the row index of the first row that is visible on the viewport.
         // const viewPortFirstRowIndex = this.getAdjustedViewPortIndex();
-        var expanded = Number(rowContext.expanded);
+        var expanded = rowContext.expanded;
         // If the rowDetailHeight is auto --> only in case of non-virtualized scroll
         if (this.isUseRowHeightCache) {
             var rowDetailHeight = this.getDetailRowHeight(rowContext.row) * (expanded ? -1 : 1);
             this.rowHeightsCache.update(rowContext.rowIndex, rowDetailHeight);
         }
         // Update the toggled row and update thive nevere heights in the cache.
-        expanded = expanded ^= 1;
+        expanded = !expanded;
         this.rowExpansions.set(rowContext.row, expanded);
         this.$emit('detail-toggle', {
             rows: [rowContext.row],
@@ -1978,7 +1728,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     DataTableBodyComponent.prototype.toggleAllRows = function (expanded) {
         // clear prev expansions
         this.rowExpansions.clear();
-        var rowExpanded = expanded ? 1 : 0;
+        var rowExpanded = Boolean(expanded);
         // Capture the row index of the first row that is visible on the viewport.
         var viewPortFirstRowIndex = this.getAdjustedViewPortIndex();
         for (var _i = 0, _a = this.rows; _i < _a.length; _i++) {
@@ -1992,9 +1742,10 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         // Emit all rows that have been expanded.
         this.$emit('detail-toggle', {
             rows: this.rows,
-            currentIndex: viewPortFirstRowIndex
+            currentIndex: viewPortFirstRowIndex,
         });
     };
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     DataTableBodyComponent.prototype.onGroupToggle = function ($event) {
         this.$emit('group-toggle', $event);
         // if ($event.type === 'group') {
@@ -2040,7 +1791,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     //   return styles;
     // }
     DataTableBodyComponent.prototype.initExpansions = function (group) {
-        this.rowExpansions.set(group, 1);
+        this.rowExpansions.set(group, true);
         if (group.groups) {
             for (var _i = 0, _a = group.groups; _i < _a.length; _i++) {
                 var gr = _a[_i];
@@ -2060,8 +1811,8 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         if (!this.rowDetail) {
             return false;
         }
-        var expanded = this.rowExpansions.get(row);
-        return expanded === 1;
+        var expanded = Boolean(this.rowExpansions.get(row));
+        return expanded;
     };
     /**
      * Gets the row index given a row
@@ -2084,12 +1835,15 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         }
         return this.selector ? this.selector.getRowChecked(row) : false;
     };
-    DataTableBodyComponent.prototype.onActivate = function (event, index) {
-        this.selector && this.selector.onActivate(event, this.indexes.first + index);
+    DataTableBodyComponent.prototype.onActivate = function (model, index) {
+        if (this.selector) {
+            this.selector.onActivate(model, this.indexes.first + index);
+        }
     };
     DataTableBodyComponent.prototype.onRowRendered = function (row) {
         var _this = this;
         if (this.renderCounter === 0) {
+            // eslint-disable-next-line no-console
             console.time('render');
         }
         this.renderCounter++;
@@ -2100,6 +1854,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     DataTableBodyComponent.prototype.checkRenderFinish = function (counter) {
         var _this = this;
         if (counter === this.renderCounter) {
+            // eslint-disable-next-line no-console
             console.timeEnd('render');
             this.renderCounter = 0;
             this.$emit('rendered');
@@ -2119,13 +1874,13 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         var widths = this.columnGroupWidths;
         var offsetX = this.myOffsetX;
         var styles = {
-            width: widths[group] + "px"
+            width: widths[group] + "px",
         };
         if (group === 'left') {
             utils_1.translateXY(styles, offsetX, 0);
         }
         else if (group === 'right') {
-            var bodyWidth = parseInt(this.innerWidth + '', 0);
+            var bodyWidth = parseInt(this.innerWidth.toString(), 10);
             var totalDiff = widths.total - bodyWidth;
             var offsetDiff = totalDiff - offsetX;
             var offset = (offsetDiff + this.scrollbarHelper.width) * -1;
@@ -2135,10 +1890,10 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     };
     DataTableBodyComponent.prototype.getGroupStyles = function (colGroup) {
         if (colGroup && colGroup.type) {
-            return __assign({ width: this.columnGroupWidths.total + 'px' }, this.groupStyles[colGroup.type]);
+            return __assign({ width: this.columnGroupWidths.total + "px" }, this.groupStyles[colGroup.type]);
         }
         return {
-            width: this.columnGroupWidths.total + 'px',
+            width: this.columnGroupWidths.total + "px",
         };
     };
     DataTableBodyComponent.prototype.treeStatus = function (row) {
@@ -2153,28 +1908,31 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
             return false;
         }
         var rowOffsetY;
-        if (this.isUseRowHeightCache) {
+        if (this.isUseRowHeightCache || typeof this.rowHeight === 'function') {
             rowOffsetY = this.rowHeightsCache.query(rowContext.rowIndex);
         }
         else {
             rowOffsetY = this.rowHeight * rowContext.rowIndex;
         }
-        return rowOffsetY >= this.offsetY && rowOffsetY <= (this.offsetY + this.bodyHeight);
+        return rowOffsetY >= this.offsetY && rowOffsetY <= this.offsetY + this.bodyHeight;
     };
     Object.defineProperty(DataTableBodyComponent.prototype, "cellSlots", {
         get: function () {
             var result = {};
-            this.columns && this.columns.forEach(function (column) {
-                if (column.cellTemplate) {
-                    result[column.prop] = column.cellTemplate;
-                }
-            });
+            if (this.columns) {
+                this.columns.forEach(function (column) {
+                    if (column.cellTemplate) {
+                        result[column.prop] = column.cellTemplate;
+                    }
+                });
+            }
             return function () { return result; };
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     DataTableBodyComponent.prototype.onCellFocus = function ($event) {
+        // eslint-disable-next-line no-console
         console.log('onCellFocus($event)');
     };
     /**
@@ -2183,14 +1941,14 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     DataTableBodyComponent.prototype.toggleExpandDetail = function (row) {
         var rowContext = this.rowContexts.find(function (c) { return c.row === row; });
         if (!rowContext) {
-            throw new Error("row context is not found for row " + row);
+            throw new Error('row context is not found');
         }
         rowContext.expanded = this.toggleRowExpansion(rowContext);
         this.updateIndexes();
         this.updateRows(true);
         this.$emit('detail-toggle', {
             type: 'row',
-            value: row
+            value: row,
         });
     };
     /**
@@ -2200,7 +1958,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         this.toggleAllRows(true);
         this.$emit('detail-toggle', {
             type: 'all',
-            value: true
+            value: true,
         });
     };
     /**
@@ -2210,7 +1968,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         this.toggleAllRows(false);
         this.$emit('detail-toggle', {
             type: 'all',
-            value: false
+            value: false,
         });
     };
     __decorate([
@@ -2231,11 +1989,11 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     ], DataTableBodyComponent.prototype, "externalPaging", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Function)
     ], DataTableBodyComponent.prototype, "rowHeight", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Function)
     ], DataTableBodyComponent.prototype, "groupRowHeight", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
@@ -2303,7 +2061,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     ], DataTableBodyComponent.prototype, "innerWidth", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", String)
+        __metadata("design:type", Array)
     ], DataTableBodyComponent.prototype, "groupRowsBy", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
@@ -2359,11 +2117,11 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     ], DataTableBodyComponent.prototype, "heightField", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Function)
     ], DataTableBodyComponent.prototype, "groupHeaderSlot", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Function)
     ], DataTableBodyComponent.prototype, "rowDetailSlot", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
@@ -2396,7 +2154,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     __decorate([
         vue_property_decorator_1.Watch('columns', { immediate: true }),
         __metadata("design:type", Function),
-        __metadata("design:paramtypes", [Object, Object]),
+        __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DataTableBodyComponent.prototype, "onColumnsChanged", null);
     __decorate([
@@ -2452,7 +2210,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
                 'datatable-body-row': body_row_component_vue_1.default,
                 'datatable-group-header': body_group_header_component_1.default,
                 'datatable-row-detail': body_row_detail_component_1.default,
-            }
+            },
         })
     ], DataTableBodyComponent);
     return DataTableBodyComponent;
@@ -2462,10 +2220,10 @@ exports.default = DataTableBodyComponent;
 
 /***/ }),
 
-/***/ "./node_modules/ts-loader/index.js?!./node_modules/tslint-loader/index.js!./src/components/datatable.component.ts?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************!*\
-  !*** ./node_modules/ts-loader??ref--4!./node_modules/tslint-loader!./src/components/datatable.component.ts?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************/
+/***/ "./node_modules/ts-loader/index.js?!./node_modules/eslint-loader/dist/cjs.js!./src/components/datatable.component.ts?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************!*\
+  !*** ./node_modules/ts-loader??ref--4!./node_modules/eslint-loader/dist/cjs.js!./src/components/datatable.component.ts?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************/
 /*! no static exports found */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports, __webpack_require__) {
@@ -2514,22 +2272,22 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
-var utils_1 = __webpack_require__(/*! ../utils */ "./src/utils/index.ts");
+var visibility_directive_1 = __webpack_require__(/*! ../directives/visibility.directive */ "./src/directives/visibility.directive.ts");
+var dimensions_helper_service_1 = __webpack_require__(/*! ../services/dimensions-helper.service */ "./src/services/dimensions-helper.service.ts");
+var scrollbar_helper_service_1 = __webpack_require__(/*! ../services/scrollbar-helper.service */ "./src/services/scrollbar-helper.service.ts");
 var types_1 = __webpack_require__(/*! ../types */ "./src/types/index.ts");
+var check_type_1 = __webpack_require__(/*! ../types/check.type */ "./src/types/check.type.ts");
+var utils_1 = __webpack_require__(/*! ../utils */ "./src/utils/index.ts");
+var equal_array_1 = __webpack_require__(/*! ../utils/equal.array */ "./src/utils/equal.array.ts");
+var body_cell_component_vue_1 = __webpack_require__(/*! ./body/body-cell.component.vue */ "./src/components/body/body-cell.component.vue");
 var body_component_vue_1 = __webpack_require__(/*! ./body/body.component.vue */ "./src/components/body/body.component.vue");
+var column_component_1 = __webpack_require__(/*! ./columns/column.component */ "./src/components/columns/column.component.ts");
+var footer_component_1 = __webpack_require__(/*! ./footer/footer.component */ "./src/components/footer/footer.component.ts");
 // import { DatatableGroupHeaderDirective } from './body/body-group-header.directive';
 // import { DataTableColumnDirective } from './columns';
 // import { DatatableRowDetailDirective } from './row-detail';
 // import { DatatableFooterDirective } from './footer';
 var header_component_1 = __webpack_require__(/*! ./header/header.component */ "./src/components/header/header.component.ts");
-var footer_component_1 = __webpack_require__(/*! ./footer/footer.component */ "./src/components/footer/footer.component.ts");
-var scrollbar_helper_service_1 = __webpack_require__(/*! ../services/scrollbar-helper.service */ "./src/services/scrollbar-helper.service.ts");
-var dimensions_helper_service_1 = __webpack_require__(/*! ../services/dimensions-helper.service */ "./src/services/dimensions-helper.service.ts");
-var column_component_1 = __webpack_require__(/*! ./columns/column.component */ "./src/components/columns/column.component.ts");
-var visibility_directive_1 = __webpack_require__(/*! ../directives/visibility.directive */ "./src/directives/visibility.directive.ts");
-var equal_array_1 = __webpack_require__(/*! ../utils/equal.array */ "./src/utils/equal.array.ts");
-var body_cell_component_vue_1 = __webpack_require__(/*! ./body/body-cell.component.vue */ "./src/components/body/body-cell.component.vue");
-var check_type_1 = __webpack_require__(/*! ../types/check.type */ "./src/types/check.type.ts");
 vue_property_decorator_1.Vue.component('datatable-column', column_component_1.default);
 vue_property_decorator_1.Vue.component('datatable-body-cell', body_cell_component_vue_1.default);
 var DatatableComponent = /** @class */ (function (_super) {
@@ -2573,95 +2331,6 @@ var DatatableComponent = /** @class */ (function (_super) {
         _this.dimensionsHelper = new dimensions_helper_service_1.DimensionsHelper();
         return _this;
     }
-    DatatableComponent.prototype.created = function () {
-        this.groupHeader = Boolean(this.groupRowsBy);
-        if (this.$listeners.rendered) {
-            this.renderTracking = true;
-        }
-    };
-    DatatableComponent.prototype.destroyed = function () {
-        window.removeEventListener('resize', this.resizeHandler);
-    };
-    /**
-     * Lifecycle hook that is called after data-bound
-     * properties of a directive are initialized.
-     */
-    DatatableComponent.prototype.mounted = function () {
-        var _this = this;
-        this.bodyComponent = this.$refs.datatableBody; // as DataTableBodyComponent;
-        this.headerComponent = this.$refs.datatableHeader; //  as DataTableHeaderComponent;
-        this.groupHeaderSlot = this.$scopedSlots.groupHeader;
-        this.rowDetailSlot = this.$scopedSlots.rowDetail;
-        this.footerSlot = this.$scopedSlots.footer;
-        this.rowDetail = Boolean(this.rowDetailSlot);
-        // need to call this immediatly to size
-        // if the table is hidden the visibility
-        // listener will invoke this itself upon show
-        this.recalculate();
-        if (!this.externalSorting) {
-            this.sortInternalRows();
-        }
-        // this has to be done to prevent the change detection
-        // tree from freaking out because we are readjusting
-        if (typeof requestAnimationFrame === 'undefined') {
-            return;
-        }
-        requestAnimationFrame(function () {
-            _this.recalculate();
-            // emit page for virtual server-side kickoff
-            if (_this.externalPaging && _this.scrollbarV) {
-                _this.$emit('page', {
-                    count: _this.count,
-                    pageSize: _this.pageSize,
-                    limit: _this.limit,
-                    offset: _this.innerOffset
-                });
-            }
-            _this.resizeHandler = _this.onWindowResize.bind(_this);
-            window.addEventListener('resize', _this.resizeHandler);
-        });
-    };
-    /**
-     * Body was scrolled typically in a `scrollbarV:true` scenario.
-     */
-    // @Output() scroll: EventEmitter<any> = new EventEmitter();
-    /**
-     * A cell or row was focused via keyboard or mouse click.
-     */
-    // @Output() activate: EventEmitter<any> = new EventEmitter();
-    /**
-     * A cell or row was selected.
-     */
-    // @Output() select: EventEmitter<any> = new EventEmitter();
-    /**
-     * Column sort was invoked.
-     */
-    // @Output() sort: EventEmitter<any> = new EventEmitter();
-    /**
-     * The table was paged either triggered by the pager or the body scroll.
-     */
-    // @Output() page: EventEmitter<any> = new EventEmitter();
-    /**
-     * Columns were re-ordered.
-     */
-    // @Output() reorder: EventEmitter<any> = new EventEmitter();
-    /**
-     * Column was resized.
-     */
-    // @Output() resize: EventEmitter<any> = new EventEmitter();
-    /**
-     * The context menu was invoked on the table.
-     * type indicates whether the header or the body was clicked.
-     * content contains either the column or the row that was clicked.
-     */
-    // @Output() tableContextmenu = new EventEmitter<{ event: MouseEvent, type: ContextmenuType, content: any }>(false);
-    /**
-     * A row was expanded ot collapsed for tree
-     */
-    // @Output() treeAction: EventEmitter<any> = new EventEmitter();
-    // @Watch('sorts', { immediate: true }) onSortsChanged() {
-    //   ...
-    // }
     DatatableComponent.prototype.onRowsChanged = function (val) {
         if (val) {
             this.internalRows = __spreadArrays(val);
@@ -2687,33 +2356,6 @@ var DatatableComponent = /** @class */ (function (_super) {
         if (this.$el) {
             this.recalculate();
         }
-    };
-    DatatableComponent.prototype.addRow = function (group, rows) {
-        var _this = this;
-        // (group as any).__isGroup = true;
-        // group.__expanded = true;
-        rows.push(group);
-        if (group.value && group.__expanded) {
-            group.value.forEach(function (r) {
-                rows.push(r);
-            });
-        }
-        if (group.groups && group.__expanded) {
-            group.groups.forEach(function (gr) {
-                _this.addRow(gr, rows);
-            });
-        }
-    };
-    DatatableComponent.prototype.processGroupedRows = function (groupedRows) {
-        var _this = this;
-        var rows = [];
-        if (groupedRows && groupedRows.length) {
-            // creates a new array with the data grouped
-            groupedRows.forEach(function (g) {
-                _this.addRow(g, rows);
-            });
-        }
-        return rows;
     };
     DatatableComponent.prototype.onGroupRowsByChanged = function (newVal, oldVal) {
         if (equal_array_1.isArrayEqual(newVal, oldVal)) {
@@ -2783,6 +2425,138 @@ var DatatableComponent = /** @class */ (function (_super) {
     DatatableComponent.prototype.onCheckedChanged = function () {
         this.myChecked = this.checked;
     };
+    DatatableComponent.prototype.onSortsChanged = function () {
+        this.innerSortRows();
+    };
+    /**
+     * Window resize handler to update sizes.
+     */
+    DatatableComponent.prototype.onWindowResize = function () {
+        this.recalculate();
+    };
+    DatatableComponent.prototype.created = function () {
+        this.groupHeader = Boolean(this.groupRowsBy);
+        if (this.$listeners.rendered) {
+            this.renderTracking = true;
+        }
+    };
+    DatatableComponent.prototype.beforeDestroy = function () {
+        window.removeEventListener('resize', this.resizeHandler);
+    };
+    /**
+     * Lifecycle hook that is called after data-bound
+     * properties of a directive are initialized.
+     */
+    DatatableComponent.prototype.mounted = function () {
+        var _this = this;
+        this.bodyComponent = this.$refs.datatableBody;
+        this.headerComponent = this.$refs.datatableHeader;
+        this.groupHeaderSlot = this.$scopedSlots.groupHeader;
+        this.rowDetailSlot = this.$scopedSlots.rowDetail;
+        this.footerSlot = this.$scopedSlots.footer;
+        this.rowDetail = Boolean(this.rowDetailSlot);
+        // need to call this immediatly to size
+        // if the table is hidden the visibility
+        // listener will invoke this itself upon show
+        this.recalculate();
+        if (!this.externalSorting) {
+            this.sortInternalRows();
+        }
+        // this has to be done to prevent the change detection
+        // tree from freaking out because we are readjusting
+        if (typeof requestAnimationFrame === 'undefined') {
+            return;
+        }
+        requestAnimationFrame(function () {
+            _this.recalculate();
+            // emit page for virtual server-side kickoff
+            if (_this.externalPaging && _this.scrollbarV) {
+                _this.$emit('page', {
+                    count: _this.count,
+                    pageSize: _this.pageSize,
+                    limit: _this.limit,
+                    offset: _this.innerOffset,
+                });
+            }
+            _this.resizeHandler = _this.onWindowResize.bind(_this);
+            window.addEventListener('resize', _this.resizeHandler);
+        });
+    };
+    /**
+     * Body was scrolled typically in a `scrollbarV:true` scenario.
+     */
+    // @Output() scroll: EventEmitter<any> = new EventEmitter();
+    /**
+     * A cell or row was focused via keyboard or mouse click.
+     */
+    // @Output() activate: EventEmitter<any> = new EventEmitter();
+    /**
+     * A cell or row was selected.
+     */
+    // @Output() select: EventEmitter<any> = new EventEmitter();
+    /**
+     * Column sort was invoked.
+     */
+    // @Output() sort: EventEmitter<any> = new EventEmitter();
+    /**
+     * The table was paged either triggered by the pager or the body scroll.
+     */
+    // @Output() page: EventEmitter<any> = new EventEmitter();
+    /**
+     * Columns were re-ordered.
+     */
+    // @Output() reorder: EventEmitter<any> = new EventEmitter();
+    /**
+     * Column was resized.
+     */
+    // @Output() resize: EventEmitter<any> = new EventEmitter();
+    /**
+     * The context menu was invoked on the table.
+     * type indicates whether the header or the body was clicked.
+     * content contains either the column or the row that was clicked.
+     */
+    // @Output() tableContextmenu = new EventEmitter<{ event: MouseEvent, type: ContextmenuType, content: any }>(false);
+    /**
+     * A row was expanded ot collapsed for tree
+     */
+    // @Output() treeAction: EventEmitter<any> = new EventEmitter();
+    DatatableComponent.prototype.addRow = function (group, rows) {
+        var _this = this;
+        // (group as any).__isGroup = true;
+        // group.__expanded = true;
+        rows.push(group);
+        if (group.rows && group.__expanded) {
+            group.rows.forEach(function (r) {
+                rows.push(r);
+            });
+        }
+        if (group.groups && group.__expanded) {
+            group.groups.forEach(function (gr) {
+                _this.addRow(gr, rows);
+            });
+        }
+    };
+    DatatableComponent.prototype.processGroupedRows = function (groupedRows) {
+        var _this = this;
+        var rows = [];
+        if (groupedRows && groupedRows.length) {
+            // creates a new array with the data grouped
+            groupedRows.forEach(function (g) {
+                _this.addRow(g, rows);
+            });
+        }
+        return rows;
+    };
+    Object.defineProperty(DatatableComponent.prototype, "myRowHeight", {
+        get: function () {
+            if (typeof this.rowHeight === 'string') {
+                return this.rowHeight === 'auto' ? 50 : Number(this.rowHeight);
+            }
+            return this.rowHeight;
+        },
+        enumerable: false,
+        configurable: true
+    });
     Object.defineProperty(DatatableComponent.prototype, "myOffset", {
         get: function () {
             if (this.rowCount) {
@@ -2790,7 +2564,7 @@ var DatatableComponent = /** @class */ (function (_super) {
             }
             return this.innerOffset;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DatatableComponent.prototype, "isFixedHeader", {
@@ -2799,10 +2573,9 @@ var DatatableComponent = /** @class */ (function (_super) {
          */
         get: function () {
             var headerHeight = this.headerHeight;
-            return (typeof headerHeight === 'string') ?
-                headerHeight !== 'auto' : true;
+            return typeof headerHeight === 'string' ? headerHeight !== 'auto' : true;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DatatableComponent.prototype, "isFixedRow", {
@@ -2811,11 +2584,14 @@ var DatatableComponent = /** @class */ (function (_super) {
          * the row heights are fixed heights.
          */
         get: function () {
-            var rowHeight = this.rowHeight;
-            return (typeof rowHeight === 'string') ?
-                rowHeight !== 'auto' : true;
+            if (typeof this.rowHeight === 'function') {
+                return false;
+            }
+            return true;
+            // const rowHeight: number | string = this.rowHeight;
+            // return typeof rowHeight === 'string' ? rowHeight !== 'auto' : true;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DatatableComponent.prototype, "isVertScroll", {
@@ -2826,7 +2602,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         get: function () {
             return this.scrollbarV;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DatatableComponent.prototype, "isVirtualized", {
@@ -2837,7 +2613,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         get: function () {
             return this.virtualization;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DatatableComponent.prototype, "isHorScroll", {
@@ -2848,7 +2624,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         get: function () {
             return this.scrollbarH;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DatatableComponent.prototype, "isSelectable", {
@@ -2856,9 +2632,10 @@ var DatatableComponent = /** @class */ (function (_super) {
          * CSS class applied to root element is selectable.
          */
         get: function () {
+            // eslint-disable-next-line no-undefined
             return this.selectionType !== undefined;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DatatableComponent.prototype, "isCheckboxSelection", {
@@ -2868,7 +2645,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         get: function () {
             return this.selectionType === types_1.SelectionType.checkbox;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DatatableComponent.prototype, "isCellSelection", {
@@ -2878,7 +2655,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         get: function () {
             return this.selectionType === types_1.SelectionType.cell;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DatatableComponent.prototype, "isSingleSelection", {
@@ -2888,14 +2665,14 @@ var DatatableComponent = /** @class */ (function (_super) {
         get: function () {
             return this.selectionType === types_1.SelectionType.single;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DatatableComponent.prototype, "isSingleFocusSelection", {
         get: function () {
             return this.selectionType === types_1.SelectionType.singleFocus;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DatatableComponent.prototype, "isMultiSelection", {
@@ -2905,7 +2682,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         get: function () {
             return this.selectionType === types_1.SelectionType.multi;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DatatableComponent.prototype, "isMultiClickSelection", {
@@ -2915,7 +2692,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         get: function () {
             return this.selectionType === types_1.SelectionType.multiClick;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DatatableComponent.prototype, "classObject", {
@@ -2934,7 +2711,7 @@ var DatatableComponent = /** @class */ (function (_super) {
                 'multi-click-selection': this.isMultiClickSelection,
             };
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DatatableComponent.prototype, "allRowsSelected", {
@@ -2943,31 +2720,29 @@ var DatatableComponent = /** @class */ (function (_super) {
             if (this.checkMode === check_type_1.CheckMode.checkNoSelect) {
                 arr = this.myChecked;
             }
-            var allRowsSelected = (this.rows && arr && arr.length === this.rows.length);
+            var allRowsSelected = this.rows && arr && arr.length === this.rows.length;
             if (this.selectAllRowsOnPage && this.bodyComponent) {
                 var indexes = this.bodyComponent.indexes;
                 var rowsOnPage = this.rows.length;
                 if (this.limit && !this.scrollbarV && !this.virtualization) {
                     rowsOnPage = indexes.last - indexes.first;
                 }
-                allRowsSelected = (arr.length === rowsOnPage);
+                allRowsSelected = arr.length === rowsOnPage;
             }
-            return arr && this.rows &&
-                this.rows.length !== 0 && allRowsSelected;
+            return arr && this.rows && this.rows.length !== 0 && allRowsSelected;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DatatableComponent.prototype, "scrollbarWidth", {
         get: function () {
             return this.scrollbarHelper.width;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     DatatableComponent.prototype.reset = function () {
-        var _a;
-        (_a = this.bodyComponent) === null || _a === void 0 ? void 0 : _a.reset();
+        this.bodyComponent.reset();
     };
     DatatableComponent.prototype.adjust = function () {
         var _this = this;
@@ -2992,12 +2767,6 @@ var DatatableComponent = /** @class */ (function (_super) {
         this.recalculateColumns();
     };
     /**
-     * Window resize handler to update sizes.
-     */
-    DatatableComponent.prototype.onWindowResize = function () {
-        this.recalculate();
-    };
-    /**
      * Recalulcates the column widths based on column width
      * distribution mode and scrollbar offsets.
      */
@@ -3005,8 +2774,9 @@ var DatatableComponent = /** @class */ (function (_super) {
         if (columns === void 0) { columns = this.internalColumns; }
         if (forceIdx === void 0) { forceIdx = -1; }
         if (allowBleed === void 0) { allowBleed = this.scrollbarH; }
-        if (!columns)
-            return undefined;
+        if (!columns) {
+            return null;
+        }
         var width = this.innerWidth;
         if (this.scrollbarV) {
             width = width - this.scrollbarHelper.width;
@@ -3018,8 +2788,8 @@ var DatatableComponent = /** @class */ (function (_super) {
             utils_1.adjustColumnWidths(columns, width);
         }
         var hiddenColumns = columns.filter(function (col) { return col.hidden; });
-        if (hiddenColumns.length) {
-            this.bodyComponent && this.bodyComponent.onInnerWidthChanged();
+        if (hiddenColumns.length && this.bodyComponent) {
+            this.bodyComponent.onInnerWidthChanged();
         }
         return columns;
     };
@@ -3033,10 +2803,12 @@ var DatatableComponent = /** @class */ (function (_super) {
         this.innerWidth = Math.floor(dims.width);
         if (this.scrollbarV) {
             var height = dims.height;
-            if (this.headerHeight)
+            if (this.headerHeight) {
                 height = height - this.headerHeight;
-            if (this.footerHeight)
+            }
+            if (this.footerHeight) {
                 height = height - this.footerHeight;
+            }
             this.bodyHeight = height;
         }
         this.recalculatePages();
@@ -3054,8 +2826,8 @@ var DatatableComponent = /** @class */ (function (_super) {
      */
     DatatableComponent.prototype.onBodyPage = function (_a) {
         var offset = _a.offset;
-        // Avoid pagination caming from body events like scroll when the table 
-        // has no virtualization and the external paging is enable. 
+        // Avoid pagination caming from body events like scroll when the table
+        // has no virtualization and the external paging is enable.
         // This means, let's the developer handle pagination by my him(her) self
         if (this.externalPaging && !this.virtualization) {
             return;
@@ -3083,19 +2855,18 @@ var DatatableComponent = /** @class */ (function (_super) {
      * The footer triggered a page event.
      */
     DatatableComponent.prototype.onFooterPage = function (event) {
-        var _a;
         this.innerOffset = event.page - 1;
-        (_a = this.bodyComponent) === null || _a === void 0 ? void 0 : _a.updateOffsetY(this.innerOffset, true);
+        this.bodyComponent.updateOffsetY(this.innerOffset, true);
         this.$emit('page', {
             count: this.count,
             pageSize: this.pageSize,
             limit: this.limit,
-            offset: this.innerOffset
+            offset: this.innerOffset,
         });
         if (this.selectAllRowsOnPage && !this.scrollbarV && this.limit) {
             this.mySelected = [];
             this.$emit('select', {
-                selected: this.mySelected
+                selected: this.mySelected,
             });
         }
     };
@@ -3116,15 +2887,16 @@ var DatatableComponent = /** @class */ (function (_super) {
         // This is because an expanded row is still considered to be a child of
         // the original row.  Hence calculation would use rowHeight only.
         if (this.scrollbarV && this.virtualization) {
-            var rowHeight = 30;
+            var rowHeight = 50;
             if (typeof this.rowHeight === 'number') {
                 rowHeight = this.rowHeight;
             }
-            var size = Math.ceil(this.bodyHeight / rowHeight);
+            var size = Math.floor(this.bodyHeight / rowHeight);
             return Math.max(size, 0);
         }
         // if limit is passed, we are paging
-        if (this.limit !== undefined) {
+        // eslint-disable-next-line no-undefined
+        if (this.limit !== undefined && this.limit !== null) {
             return Number(this.limit);
         }
         // otherwise use row length
@@ -3140,17 +2912,16 @@ var DatatableComponent = /** @class */ (function (_super) {
     DatatableComponent.prototype.calcRowCount = function (val) {
         if (val === void 0) { val = this.rows; }
         if (!this.externalPaging) {
-            if (!val)
+            if (!val) {
                 return 0;
+            }
             if (this.groupRowsBy) {
                 return this.internalRows.length;
             }
-            else if (this.treeFromRelation != null && this.treeToRelation != null) {
+            if (this.treeFromRelation !== null && this.treeToRelation !== null) {
                 return this.internalRows.length;
             }
-            else {
-                return val.length;
-            }
+            return val.length;
         }
         return this.count;
     };
@@ -3174,6 +2945,7 @@ var DatatableComponent = /** @class */ (function (_super) {
     DatatableComponent.prototype.onColumnResize = function (_a) {
         var column = _a.column, newValue = _a.newValue;
         /* Safari/iOS 10.2 workaround */
+        // eslint-disable-next-line no-undefined
         if (column === undefined) {
             return;
         }
@@ -3192,7 +2964,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         this.recalculateColumns(this.internalColumns, idx);
         this.$emit('resize', {
             column: column,
-            newValue: newValue
+            newValue: newValue,
         });
     };
     /**
@@ -3209,27 +2981,25 @@ var DatatableComponent = /** @class */ (function (_super) {
             cols[newValue] = column;
             cols[prevValue] = prevCol;
         }
+        else if (newValue > prevValue) {
+            var movedCol = cols[prevValue];
+            for (var i = prevValue; i < newValue; i++) {
+                cols[i] = cols[i + 1];
+            }
+            cols[newValue] = movedCol;
+        }
         else {
-            if (newValue > prevValue) {
-                var movedCol = cols[prevValue];
-                for (var i = prevValue; i < newValue; i++) {
-                    cols[i] = cols[i + 1];
-                }
-                cols[newValue] = movedCol;
+            var movedCol = cols[prevValue];
+            for (var i = prevValue; i > newValue; i--) {
+                cols[i] = cols[i - 1];
             }
-            else {
-                var movedCol = cols[prevValue];
-                for (var i = prevValue; i > newValue; i--) {
-                    cols[i] = cols[i - 1];
-                }
-                cols[newValue] = movedCol;
-            }
+            cols[newValue] = movedCol;
         }
         this.internalColumns = cols;
         this.$emit('reorder', {
             column: column,
             newValue: newValue,
-            prevValue: prevValue
+            prevValue: prevValue,
         });
     };
     /**
@@ -3242,7 +3012,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         if (this.selectAllRowsOnPage) {
             this.mySelected = [];
             this.$emit('select', {
-                selected: this.mySelected
+                selected: this.mySelected,
             });
         }
         // this.mySorts = event.sorts;
@@ -3254,19 +3024,7 @@ var DatatableComponent = /** @class */ (function (_super) {
             }
         }
         // let rows = this.internalRows;
-        var treeFrom = utils_1.optionalGetterForProp(this.treeFromRelation);
-        var treeTo = utils_1.optionalGetterForProp(this.treeToRelation);
-        if (treeFrom && treeTo) {
-            this.internalRows = this.initialRows;
-        }
-        // this could be optimized better since it will resort
-        // the rows again on the 'push' detection...
-        if (this.externalSorting === false) {
-            // don't use normal setter so we don't resort
-            this.sortInternalRows();
-        }
-        // auto group by parent on new update
-        this.internalRows = utils_1.groupRowsByParents(this.internalRows, treeFrom, treeTo, this.lazyTree);
+        this.innerSortRows();
         // Go to first page when sorting to see the newly sorted data
         if (this.goToFirstAfterSort) {
             this.innerOffset = 0;
@@ -3285,7 +3043,7 @@ var DatatableComponent = /** @class */ (function (_super) {
             var first = this.bodyComponent.indexes.first;
             var last = this.bodyComponent.indexes.last;
             if (this.checkMode === check_type_1.CheckMode.checkIsSelect) {
-                var allSelected = this.mySelected.length === (last - first);
+                var allSelected = this.mySelected.length === last - first;
                 // remove all existing either way
                 this.mySelected = [];
                 // do the opposite here
@@ -3295,7 +3053,7 @@ var DatatableComponent = /** @class */ (function (_super) {
             }
             else {
                 evName = 'check';
-                var allChecked = this.myChecked.length === (last - first);
+                var allChecked = this.myChecked.length === last - first;
                 if (this.scrollbarV && this.virtualization && !this.limit) {
                     allChecked = this.myChecked.length === this.internalRows.length;
                 }
@@ -3312,28 +3070,26 @@ var DatatableComponent = /** @class */ (function (_super) {
                 }
             }
         }
-        else {
-            if (this.checkMode === check_type_1.CheckMode.checkIsSelect) {
-                // before we splice, chk if we currently have all selected
-                var allSelected = this.mySelected.length === this.rows.length;
-                // remove all existing either way
-                this.mySelected = [];
-                // do the opposite here
-                if (!allSelected) {
-                    (_d = this.mySelected).push.apply(_d, this.rows);
-                }
+        else if (this.checkMode === check_type_1.CheckMode.checkIsSelect) {
+            // before we splice, chk if we currently have all selected
+            var allSelected = this.mySelected.length === this.rows.length;
+            // remove all existing either way
+            this.mySelected = [];
+            // do the opposite here
+            if (!allSelected) {
+                (_d = this.mySelected).push.apply(_d, this.rows);
             }
-            else {
-                var allChecked = this.myChecked.length === this.rows.length;
-                this.myChecked = [];
-                if (!allChecked) {
-                    (_e = this.myChecked).push.apply(_e, this.rows);
-                }
+        }
+        else {
+            var allChecked = this.myChecked.length === this.rows.length;
+            this.myChecked = [];
+            if (!allChecked) {
+                (_e = this.myChecked).push.apply(_e, this.rows);
             }
         }
         this.$emit(evName, {
             selected: this.mySelected,
-            checked: this.myChecked
+            checked: this.myChecked,
         });
     };
     /**
@@ -3360,9 +3116,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         var _this = this;
         var row = event.row;
         // TODO: For duplicated items this will not work
-        var rowIndex = this.rows.findIndex(function (r) {
-            return r[_this.treeToRelation] === event.row[_this.treeToRelation];
-        });
+        var rowIndex = this.rows.findIndex(function (r) { return r[_this.treeToRelation] === event.row[_this.treeToRelation]; });
         this.$emit('tree-action', { row: row, rowIndex: rowIndex });
     };
     DatatableComponent.prototype.onColumnInsert = function (column) {
@@ -3429,7 +3183,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         this.bodyComponent.toggleExpandDetail(row);
         this.$emit('detail-toggle', {
             type: 'row',
-            value: row
+            value: row,
         });
     };
     /**
@@ -3439,7 +3193,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         this.bodyComponent.expandAllDetails();
         this.$emit('detail-toggle', {
             type: 'all',
-            value: true
+            value: true,
         });
     };
     /**
@@ -3449,7 +3203,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         this.bodyComponent.collapseAllDetails();
         this.$emit('detail-toggle', {
             type: 'all',
-            value: false
+            value: false,
         });
     };
     /**
@@ -3458,6 +3212,21 @@ var DatatableComponent = /** @class */ (function (_super) {
     DatatableComponent.prototype.isRowVisible = function (row) {
         var _a;
         return (_a = this.bodyComponent) === null || _a === void 0 ? void 0 : _a.isRowVisible(row);
+    };
+    DatatableComponent.prototype.innerSortRows = function () {
+        var treeFrom = utils_1.optionalGetterForProp(this.treeFromRelation);
+        var treeTo = utils_1.optionalGetterForProp(this.treeToRelation);
+        if (treeFrom && treeTo) {
+            this.internalRows = this.initialRows;
+        }
+        // this could be optimized better since it will resort
+        // the rows again on the 'push' detection...
+        if (this.externalSorting === false) {
+            // don't use normal setter so we don't resort
+            this.sortInternalRows();
+        }
+        // auto group by parent on new update
+        this.internalRows = utils_1.groupRowsByParents(this.internalRows, treeFrom, treeTo, this.lazyTree);
     };
     /**
      * Creates a map with the data grouped by the user choice of grouping index
@@ -3478,7 +3247,7 @@ var DatatableComponent = /** @class */ (function (_super) {
             if (typeof groupDescr === 'string') {
                 return row[groupDescr];
             }
-            else if ('prop' in groupDescr) {
+            if ('prop' in groupDescr) {
                 return groupDescr.valueGetter ? groupDescr.valueGetter(row[groupDescr.prop]) : row[groupDescr.prop];
             }
         };
@@ -3486,23 +3255,25 @@ var DatatableComponent = /** @class */ (function (_super) {
             if (!Array.isArray(groupByArr)) {
                 return getValue(row, groupByArr);
             }
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
             return groupByArr.reduce(function (key, groupDescr) {
                 var res = null;
                 if (Array.isArray(groupDescr)) {
                     return getKey(row, groupDescr);
                 }
-                else {
-                    res = getValue(row, groupDescr);
-                }
+                res = getValue(row, groupDescr);
                 if (!res) {
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
                     return res;
                 }
+                // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                 return key ? key + "^^" + res : "" + res;
             }, '');
         };
         var itemsToRemove = [];
         originalArray.forEach(function (item) {
             var key = getKey(item, groupBy);
+            // eslint-disable-next-line no-undefined
             if (key !== undefined || key !== null) {
                 itemsToRemove.push(item);
                 if (!map.has(key)) {
@@ -3536,12 +3307,12 @@ var DatatableComponent = /** @class */ (function (_super) {
         var result = Array.from(map, function (x) { return _this.addGroup(x[0], x[1], level, keysDescr); });
         if (Array.isArray(groupRowsBy) && level < groupRowsBy.length - 1) {
             result.forEach(function (item) {
-                item.groups = _this.groupArrayBy(item.value, groupRowsBy, level + 1);
+                item.groups = _this.groupArrayBy(item.rows, groupRowsBy, level + 1);
             });
         }
         return result;
     };
-    DatatableComponent.prototype.addGroup = function (key, value, _level, keysDescr) {
+    DatatableComponent.prototype.addGroup = function (key, value, level1, keysDescr) {
         var keys = key ? key.toString().split('^^') : null;
         var keysObj = [];
         keysDescr.forEach(function (descr, index) {
@@ -3549,11 +3320,11 @@ var DatatableComponent = /** @class */ (function (_super) {
         });
         return {
             key: key,
-            value: value,
-            level: _level,
+            rows: value,
+            level: level1,
             keys: keysObj,
             __expanded: true,
-            __isGroup: true
+            __isGroup: true,
         };
     };
     DatatableComponent.prototype.getGroupTitle = function (prop) {
@@ -3579,7 +3350,6 @@ var DatatableComponent = /** @class */ (function (_super) {
     DatatableComponent.prototype.sortGroupedRows = function (groupedRows) {
         var _this = this;
         var rows = [];
-        var sortedRows;
         groupedRows.forEach(function (gr) {
             var row = { __group: gr };
             gr.keys.forEach(function (keyDescr) {
@@ -3589,11 +3359,11 @@ var DatatableComponent = /** @class */ (function (_super) {
             if (gr.groups && gr.groups.length) {
                 gr.groups = _this.sortGroupedRows(gr.groups);
             }
-            if (gr.value && gr.value) {
-                gr.value = utils_1.sortRows(gr.value, _this.internalColumns, _this.sorts);
+            if (gr.rows && gr.rows) {
+                gr.rows = utils_1.sortRows(gr.rows, _this.internalColumns, _this.sorts);
             }
         });
-        sortedRows = utils_1.sortRows(rows, this.internalColumns, this.sorts);
+        var sortedRows = utils_1.sortRows(rows, this.internalColumns, this.sorts);
         var result = sortedRows.map(function (r) { return r.__group; });
         return result;
     };
@@ -3611,7 +3381,7 @@ var DatatableComponent = /** @class */ (function (_super) {
     ], DatatableComponent.prototype, "targetMarkerTemplate", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Array)
     ], DatatableComponent.prototype, "rows", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
@@ -3638,7 +3408,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         __metadata("design:type", Boolean)
     ], DatatableComponent.prototype, "scrollbarH", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        vue_property_decorator_1.Prop({ default: 'auto' }),
         __metadata("design:type", Object)
     ], DatatableComponent.prototype, "rowHeight", void 0);
     __decorate([
@@ -3720,36 +3490,32 @@ var DatatableComponent = /** @class */ (function (_super) {
     __decorate([
         vue_property_decorator_1.Prop({
             type: Object,
-            default: function () {
-                return {
-                    sortAscending: 'datatable-icon-up',
-                    sortDescending: 'datatable-icon-down',
-                    pagerLeftArrow: 'datatable-icon-left',
-                    pagerRightArrow: 'datatable-icon-right',
-                    pagerPrevious: 'datatable-icon-prev',
-                    pagerNext: 'datatable-icon-skip'
-                };
-            }
+            default: function () { return ({
+                sortAscending: 'datatable-icon-up',
+                sortDescending: 'datatable-icon-down',
+                pagerLeftArrow: 'datatable-icon-left',
+                pagerRightArrow: 'datatable-icon-right',
+                pagerPrevious: 'datatable-icon-prev',
+                pagerNext: 'datatable-icon-skip',
+            }); },
         }),
         __metadata("design:type", Object)
     ], DatatableComponent.prototype, "cssClasses", void 0);
     __decorate([
         vue_property_decorator_1.Prop({
             type: Object,
-            default: function () {
-                return {
-                    emptyMessage: 'No data to display',
-                    // Footer total message
-                    totalMessage: 'total',
-                    // Footer selected message
-                    selectedMessage: 'selected'
-                };
-            }
+            default: function () { return ({
+                emptyMessage: 'No data to display',
+                // Footer total message
+                totalMessage: 'total',
+                // Footer selected message
+                selectedMessage: 'selected',
+            }); },
         }),
         __metadata("design:type", Object)
     ], DatatableComponent.prototype, "messages", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Function, default: (function (x) { return x; }) }),
+        vue_property_decorator_1.Prop({ type: Function, default: function (x) { return x; } }),
         __metadata("design:type", Function)
     ], DatatableComponent.prototype, "rowIdentity", void 0);
     __decorate([
@@ -3807,19 +3573,20 @@ var DatatableComponent = /** @class */ (function (_super) {
     __decorate([
         vue_property_decorator_1.Watch('rows', { immediate: true }),
         __metadata("design:type", Function),
-        __metadata("design:paramtypes", [Object]),
+        __metadata("design:paramtypes", [Array]),
         __metadata("design:returntype", void 0)
     ], DatatableComponent.prototype, "onRowsChanged", null);
     __decorate([
         vue_property_decorator_1.Watch('groupRowsBy'),
         __metadata("design:type", Function),
-        __metadata("design:paramtypes", [Object, Object]),
+        __metadata("design:paramtypes", [Array,
+            Array]),
         __metadata("design:returntype", void 0)
     ], DatatableComponent.prototype, "onGroupRowsByChanged", null);
     __decorate([
         vue_property_decorator_1.Watch('columns', { immediate: true }),
         __metadata("design:type", Function),
-        __metadata("design:paramtypes", [Object]),
+        __metadata("design:paramtypes", [Array]),
         __metadata("design:returntype", void 0)
     ], DatatableComponent.prototype, "onColumnsChanged", null);
     __decorate([
@@ -3865,6 +3632,12 @@ var DatatableComponent = /** @class */ (function (_super) {
         __metadata("design:returntype", void 0)
     ], DatatableComponent.prototype, "onCheckedChanged", null);
     __decorate([
+        vue_property_decorator_1.Watch('sorts'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], DatatableComponent.prototype, "onSortsChanged", null);
+    __decorate([
         utils_1.throttleable(5),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
@@ -3879,7 +3652,7 @@ var DatatableComponent = /** @class */ (function (_super) {
                 'datatable-header': header_component_1.default,
                 'datatable-body': body_component_vue_1.default,
                 'datatable-footer': footer_component_1.default,
-            }
+            },
         })
     ], DatatableComponent);
     return DatatableComponent;
@@ -3963,7 +3736,12 @@ function normalizeComponent (
     options._ssrRegister = hook
   } else if (injectStyles) {
     hook = shadowMode
-      ? function () { injectStyles.call(this, this.$root.$options.shadowRoot) }
+      ? function () {
+        injectStyles.call(
+          this,
+          (options.functional ? this.parent : this).$root.$options.shadowRoot
+        )
+      }
       : injectStyles
   }
 
@@ -4435,10 +4213,10 @@ render._withStripped = true
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/ts-loader??ref--4!../../../node_modules/tslint-loader!./body-cell.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js?!./node_modules/tslint-loader/index.js!./src/components/body/body-cell.component.ts?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/ts-loader??ref--4!../../../node_modules/eslint-loader/dist/cjs.js!./body-cell.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js?!./node_modules/eslint-loader/dist/cjs.js!./src/components/body/body-cell.component.ts?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -4454,7 +4232,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _body_cell_component_html_vue_type_template_id_48c40f9f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./body-cell.component.html?vue&type=template&id=48c40f9f& */ "./src/components/body/body-cell.component.html?vue&type=template&id=48c40f9f&");
 /* harmony import */ var _body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./body-cell.component.ts?vue&type=script&lang=js& */ "./src/components/body/body-cell.component.ts?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -4526,7 +4304,7 @@ var DataTableBodyGroupHeaderComponent = /** @class */ (function (_super) {
                 group: this.group,
                 expanded: this.expanded,
                 level: this.groupLevel,
-                groupBy: this.groupBy
+                groupBy: this.groupBy,
             });
         }
     };
@@ -4536,7 +4314,7 @@ var DataTableBodyGroupHeaderComponent = /** @class */ (function (_super) {
                 group: this.group,
                 expanded: this.expanded,
                 level: this.groupLevel,
-                groupBy: this.groupBy
+                groupBy: this.groupBy,
             });
         }
     };
@@ -4546,7 +4324,7 @@ var DataTableBodyGroupHeaderComponent = /** @class */ (function (_super) {
     DataTableBodyGroupHeaderComponent.prototype.toggleExpandGroup = function () {
         this.$emit('group-toggle', {
             type: 'group',
-            value: this.group
+            value: this.group,
         });
     };
     /**
@@ -4555,7 +4333,7 @@ var DataTableBodyGroupHeaderComponent = /** @class */ (function (_super) {
     DataTableBodyGroupHeaderComponent.prototype.expandAllGroups = function () {
         this.$emit('group-toggle', {
             type: 'all',
-            value: true
+            value: true,
         });
     };
     /**
@@ -4564,7 +4342,7 @@ var DataTableBodyGroupHeaderComponent = /** @class */ (function (_super) {
     DataTableBodyGroupHeaderComponent.prototype.collapseAllGroups = function () {
         this.$emit('group-toggle', {
             type: 'all',
-            value: false
+            value: false,
         });
     };
     Object.defineProperty(DataTableBodyGroupHeaderComponent.prototype, "groupTitle", {
@@ -4582,27 +4360,26 @@ var DataTableBodyGroupHeaderComponent = /** @class */ (function (_super) {
             }
             return result;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DataTableBodyGroupHeaderComponent.prototype, "styles", {
         get: function () {
             return {
-                'padding-left': this.groupLevel ? (this.groupLevel * 10) + 'px' : '5px',
+                'padding-left': this.groupLevel ? this.groupLevel * 10 + "px" : '5px',
             };
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DataTableBodyGroupHeaderComponent.prototype, "groupBy", {
         get: function () {
-            if (this.groupLevel !== undefined && this.groupLevel !== null
-                && Array.isArray(this.groupRowsBy) && this.groupRowsBy.length - 1 >= this.groupLevel) {
+            if (this.groupLevel && Array.isArray(this.groupRowsBy) && this.groupRowsBy.length - 1 >= this.groupLevel) {
                 return this.groupRowsBy[this.groupLevel];
             }
             return null;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     __decorate([
@@ -4619,7 +4396,7 @@ var DataTableBodyGroupHeaderComponent = /** @class */ (function (_super) {
     ], DataTableBodyGroupHeaderComponent.prototype, "expanded", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Function)
     ], DataTableBodyGroupHeaderComponent.prototype, "groupHeaderSlot", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
@@ -4627,11 +4404,11 @@ var DataTableBodyGroupHeaderComponent = /** @class */ (function (_super) {
     ], DataTableBodyGroupHeaderComponent.prototype, "groupLevel", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Array)
     ], DataTableBodyGroupHeaderComponent.prototype, "groupRowsBy", void 0);
     DataTableBodyGroupHeaderComponent = __decorate([
         vue_property_decorator_1.Component({
-            template: "\n      <div :class=\"{ 'datatable-icon-right': !expanded, 'datatable-icon-down': expanded }\" :style=\"styles\" \n            title=\"Expand/Collapse Group\" @click=\"toggleExpandGroup\">\n        <slot name=\"groupHeader\" v-bind=\"{ group: group, expanded: expanded, level: groupLevel, groupBy: groupBy }\">\n          <span><b>{{groupTitle}}</b></span>\n        </slot>  \n      </div>                          \n  ",
+            template: "\n    <div\n      :class=\"{ 'datatable-icon-right': !expanded, 'datatable-icon-down': expanded }\"\n      :style=\"styles\"\n      title=\"Expand/Collapse Group\"\n      @click=\"toggleExpandGroup\"\n    >\n      <slot name=\"groupHeader\" v-bind=\"{ group: group, expanded: expanded, level: groupLevel, groupBy: groupBy }\">\n        <span\n          ><b>{{ groupTitle }}</b></span\n        >\n      </slot>\n    </div>\n  ",
         })
     ], DataTableBodyGroupHeaderComponent);
     return DataTableBodyGroupHeaderComponent;
@@ -4707,11 +4484,11 @@ var DataTableBodyRowDetailComponent = /** @class */ (function (_super) {
     ], DataTableBodyRowDetailComponent.prototype, "expanded", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Function)
     ], DataTableBodyRowDetailComponent.prototype, "rowDetailSlot", void 0);
     DataTableBodyRowDetailComponent = __decorate([
         vue_property_decorator_1.Component({
-            template: "\n      <div style=\"padding-left:5px;\">\n           <slot name=\"rowDetail\" v-bind=\"{ row: row, expanded: expanded }\">\n             <h3>detail row info</h3>\n           </slot>  \n      </div>\n  ",
+            template: "\n    <div style=\"padding-left:5px;\">\n      <slot name=\"rowDetail\" v-bind=\"{ row: row, expanded: expanded }\">\n        <h3>detail row info</h3>\n      </slot>\n    </div>\n  ",
         })
     ], DataTableBodyRowDetailComponent);
     return DataTableBodyRowDetailComponent;
@@ -4731,10 +4508,10 @@ exports.default = DataTableBodyRowDetailComponent;
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/ts-loader??ref--4!../../../node_modules/tslint-loader!./body-row-wrapper.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js?!./node_modules/tslint-loader/index.js!./src/components/body/body-row-wrapper.component.ts?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/ts-loader??ref--4!../../../node_modules/eslint-loader/dist/cjs.js!./body-row-wrapper.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js?!./node_modules/eslint-loader/dist/cjs.js!./src/components/body/body-row-wrapper.component.ts?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -4750,7 +4527,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _body_row_wrapper_component_vue_vue_type_template_id_11b0d871_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./body-row-wrapper.component.vue?vue&type=template&id=11b0d871&scoped=true& */ "./src/components/body/body-row-wrapper.component.vue?vue&type=template&id=11b0d871&scoped=true&");
 /* harmony import */ var _body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./body-row-wrapper.component.ts?vue&type=script&lang=js& */ "./src/components/body/body-row-wrapper.component.ts?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -4802,7 +4579,7 @@ var render = function() {
     {
       staticClass: "datatable-row-wrapper",
       style: _vm.styleObject,
-      attrs: { tabindex: "-1" }
+      attrs: { tabindex: "-1", "data-test-id": _vm.rowId }
     },
     [
       _vm.row && _vm.row.__isGroup
@@ -4869,10 +4646,10 @@ render._withStripped = true
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/ts-loader??ref--4!../../../node_modules/tslint-loader!./body-row.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js?!./node_modules/tslint-loader/index.js!./src/components/body/body-row.component.ts?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/ts-loader??ref--4!../../../node_modules/eslint-loader/dist/cjs.js!./body-row.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js?!./node_modules/eslint-loader/dist/cjs.js!./src/components/body/body-row.component.ts?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -4888,7 +4665,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _body_row_component_vue_vue_type_template_id_0d0f71aa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./body-row.component.vue?vue&type=template&id=0d0f71aa& */ "./src/components/body/body-row.component.vue?vue&type=template&id=0d0f71aa&");
 /* harmony import */ var _body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./body-row.component.ts?vue&type=script&lang=js& */ "./src/components/body/body-row.component.ts?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -5089,6 +4866,7 @@ var render = function() {
                       groupRowsBy: _vm.groupRowsBy,
                       groupLevel: 0,
                       row: rowContext.row,
+                      rowIdentity: _vm.rowIdentity,
                       innerWidth: _vm.innerWidth,
                       rowDetail: _vm.rowDetail,
                       groupHeader: _vm.groupHeader,
@@ -5190,10 +4968,10 @@ render._withStripped = true
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/ts-loader??ref--4!../../../node_modules/tslint-loader!./body.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js?!./node_modules/tslint-loader/index.js!./src/components/body/body.component.ts?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/ts-loader??ref--4!../../../node_modules/eslint-loader/dist/cjs.js!./body.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js?!./node_modules/eslint-loader/dist/cjs.js!./src/components/body/body.component.ts?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -5209,7 +4987,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _body_component_html_vue_type_template_id_0878f244___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./body.component.html?vue&type=template&id=0878f244& */ "./src/components/body/body.component.html?vue&type=template&id=0878f244&");
 /* harmony import */ var _body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./body.component.ts?vue&type=script&lang=js& */ "./src/components/body/body.component.ts?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -5333,17 +5111,17 @@ var ScrollerComponent = /** @class */ (function (_super) {
     Object.defineProperty(ScrollerComponent.prototype, "styleObject", {
         get: function () {
             return {
-                height: this.scrollHeight + 'px',
-                width: this.scrollWidth + 'px',
+                height: this.scrollHeight + "px",
+                width: this.scrollWidth + "px",
             };
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     ScrollerComponent.prototype.created = function () {
         this.$emit('setup', {
             scrollYPos: this.scrollYPos,
-            scrollXPos: this.scrollXPos
+            scrollXPos: this.scrollXPos,
         });
     };
     ScrollerComponent.prototype.mounted = function () {
@@ -5403,6 +5181,7 @@ var ScrollerComponent = /** @class */ (function (_super) {
                 });
             }
             else {
+                // eslint-disable-next-line no-console
                 console.log('this.scrollDirty is true');
             }
         }
@@ -5426,7 +5205,7 @@ var ScrollerComponent = /** @class */ (function (_super) {
                 direction: direction,
                 scrollYPos: this.scrollYPos,
                 scrollXPos: this.scrollXPos,
-                fromPager: this.fromPager
+                fromPager: this.fromPager,
             });
         }
         this.prevScrollYPos = this.scrollYPos;
@@ -5450,7 +5229,7 @@ var ScrollerComponent = /** @class */ (function (_super) {
     ], ScrollerComponent.prototype, "scrollWidth", void 0);
     ScrollerComponent = __decorate([
         vue_property_decorator_1.Component({
-            template: "\n  <div class=\"datatable-scroll\" :style=\"styleObject\">\n    <slot></slot>\n  </div>\n  ",
+            template: "\n    <div class=\"datatable-scroll\" :style=\"styleObject\">\n      <slot></slot>\n    </div>\n  ",
         })
     ], ScrollerComponent);
     return ScrollerComponent;
@@ -5492,42 +5271,6 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
 var __spreadArrays = (this && this.__spreadArrays) || function () {
     for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
     for (var r = Array(s), k = 0, i = 0; i < il; i++)
@@ -5536,10 +5279,11 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var scroller_component_1 = __webpack_require__(/*! components/body/scroller.component */ "./src/components/body/scroller.component.ts");
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
-var utils_1 = __webpack_require__(/*! ../../utils */ "./src/utils/index.ts");
 var types_1 = __webpack_require__(/*! ../../types */ "./src/types/index.ts");
 var check_type_1 = __webpack_require__(/*! ../../types/check.type */ "./src/types/check.type.ts");
+var utils_1 = __webpack_require__(/*! ../../utils */ "./src/utils/index.ts");
 var DataTableSelectionComponent = /** @class */ (function (_super) {
     __extends(DataTableSelectionComponent, _super);
     function DataTableSelectionComponent() {
@@ -5547,8 +5291,9 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
     }
     DataTableSelectionComponent.prototype.selectRow = function (event, index, row) {
         var _a;
-        if (!this.selectEnabled)
+        if (!this.selectEnabled) {
             return;
+        }
         var chkbox = this.selectionType === types_1.SelectionType.checkbox && this.checkMode === check_type_1.CheckMode.checkIsSelect;
         var multi = this.selectionType === types_1.SelectionType.multi;
         var multiClick = this.selectionType === types_1.SelectionType.multiClick;
@@ -5575,13 +5320,14 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
         (_a = this.selected).push.apply(_a, selected);
         this.$emit('select', {
             selected: selected,
-            index: index
+            index: index,
         });
     };
     DataTableSelectionComponent.prototype.checkRow = function (event, index, row) {
         var _a;
-        if (!this.selectEnabled)
+        if (!this.selectEnabled) {
             return;
+        }
         var checked = [];
         if (event.shiftKey) {
             checked = utils_1.selectRowsBetween([], this.rows, index, this.prevIndex, this.getRowSelectedIdx.bind(this));
@@ -5596,7 +5342,7 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
         this.checked.splice(0, this.checked.length);
         (_a = this.checked).push.apply(_a, checked);
         this.$emit('check', {
-            checked: checked
+            checked: checked,
         });
     };
     DataTableSelectionComponent.prototype.onActivate = function (model, index) {
@@ -5641,69 +5387,61 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
         }
     };
     DataTableSelectionComponent.prototype.focusRow = function (model, keyCode) {
-        return __awaiter(this, void 0, void 0, function () {
-            var nextRowElement, index, _a, offsetY, height, scrolled, h;
-            return __generator(this, function (_b) {
-                nextRowElement = this.getPrevNextRow(model.rowElement, keyCode);
-                index = 0;
-                if (keyCode === utils_1.Keys.up) {
-                    if (model.rowIndex - 1 < 0) {
-                        return [2 /*return*/];
-                    }
-                    index = model.rowIndex - 1;
-                }
-                else if (keyCode === utils_1.Keys.down) {
-                    if (model.rowIndex + 1 >= this.rows.length) {
-                        return [2 /*return*/];
-                    }
-                    index = model.rowIndex + 1;
-                }
-                else if (keyCode === utils_1.Keys.pageUp) {
-                    index = model.rowIndex - this.pageSize;
-                    index = index < 0 ? 0 : index;
-                }
-                else if (keyCode === utils_1.Keys.pageDown) {
-                    index = model.rowIndex + this.pageSize;
-                    index = index >= this.rows.length ? this.rows.length - 1 : index;
-                }
-                _a = this.$parent.getRowOffsetY(index + 1), offsetY = _a.offsetY, height = _a.height;
-                if (!height) {
-                    if (nextRowElement) {
-                        nextRowElement.focus();
-                    }
-                    return [2 /*return*/];
-                }
-                scrolled = false;
-                h = 0;
-                if ([utils_1.Keys.down, utils_1.Keys.pageDown].includes(keyCode)) {
-                    h = (offsetY + height) - (this.$parent.$el.scrollTop + this.bodyHeight);
-                }
-                else if ([utils_1.Keys.up, utils_1.Keys.pageUp].includes(keyCode)) {
-                    h = (offsetY - height) - this.$parent.$el.scrollTop;
-                }
-                if (h > 0 && [utils_1.Keys.down, utils_1.Keys.pageDown].includes(keyCode)) {
-                    this.scroller.incOffset(h);
-                    // scrolled = model.rowIndex === this.rows.length - 2 ? false : true;
-                }
-                else if (h < 0 && [utils_1.Keys.up, utils_1.Keys.pageUp].includes(keyCode)) {
-                    this.scroller.incOffset(h);
-                    scrolled = model.rowIndex === 1 ? false : true;
-                }
-                else if (h === 0 && [utils_1.Keys.up, utils_1.Keys.pageUp].includes(keyCode) && [0, 1, 2].includes(model.rowIndex)) {
-                    this.scroller.setOffset(h);
-                    // scrolled = true;
-                }
-                if (scrolled) {
-                    model.rowElement.focus();
-                }
-                else {
-                    if (nextRowElement) {
-                        nextRowElement.focus();
-                    }
-                }
-                return [2 /*return*/];
-            });
-        });
+        var nextRowElement = this.getPrevNextRow(model.rowElement, keyCode);
+        var index = 0;
+        if (keyCode === utils_1.Keys.up) {
+            if (model.rowIndex - 1 < 0) {
+                return;
+            }
+            index = model.rowIndex - 1;
+        }
+        else if (keyCode === utils_1.Keys.down) {
+            if (model.rowIndex + 1 >= this.rows.length) {
+                return;
+            }
+            index = model.rowIndex + 1;
+        }
+        else if (keyCode === utils_1.Keys.pageUp) {
+            index = model.rowIndex - this.pageSize;
+            index = index < 0 ? 0 : index;
+        }
+        else if (keyCode === utils_1.Keys.pageDown) {
+            index = model.rowIndex + this.pageSize;
+            index = index >= this.rows.length ? this.rows.length - 1 : index;
+        }
+        var _a = this.$parent.getRowOffsetY(index + 1), offsetY = _a.offsetY, height = _a.height;
+        if (!height) {
+            if (nextRowElement) {
+                nextRowElement.focus();
+            }
+            return;
+        }
+        var scrolled = false;
+        var h = 0;
+        if ([utils_1.Keys.down, utils_1.Keys.pageDown].includes(keyCode)) {
+            h = offsetY + height - (this.$parent.$el.scrollTop + this.bodyHeight);
+        }
+        else if ([utils_1.Keys.up, utils_1.Keys.pageUp].includes(keyCode)) {
+            h = offsetY - height - this.$parent.$el.scrollTop;
+        }
+        if (h > 0 && [utils_1.Keys.down, utils_1.Keys.pageDown].includes(keyCode)) {
+            this.scroller.incOffset(h);
+            // scrolled = model.rowIndex === this.rows.length - 2 ? false : true;
+        }
+        else if (h < 0 && [utils_1.Keys.up, utils_1.Keys.pageUp].includes(keyCode)) {
+            this.scroller.incOffset(h);
+            scrolled = model.rowIndex !== 1;
+        }
+        else if (h === 0 && [utils_1.Keys.up, utils_1.Keys.pageUp].includes(keyCode) && [0, 1, 2].includes(model.rowIndex)) {
+            this.scroller.setOffset(h);
+            // scrolled = true;
+        }
+        if (scrolled || [utils_1.Keys.left, utils_1.Keys.right].includes(keyCode)) {
+            model.rowElement.focus();
+        }
+        else if (nextRowElement) {
+            nextRowElement.focus();
+        }
     };
     DataTableSelectionComponent.prototype.focusRow1 = function (keyCode) {
         var _this = this;
@@ -5739,7 +5477,7 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
             h = offsetY - this.bodyHeight;
         }
         else if ([utils_1.Keys.up, utils_1.Keys.pageUp].includes(keyCode)) {
-            h = (offsetY - height) - this.scroller.scrollYPos;
+            h = offsetY - height - this.scroller.scrollYPos;
         }
         if (h > 0 && [utils_1.Keys.down, utils_1.Keys.pageDown].includes(keyCode)) {
             this.scroller.setOffset(h);
@@ -5759,7 +5497,7 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
         //   if (keyCode === Keys.up) {
         //     if (this.prevIndex - 1 < 0) {
         //       return;
-        //     } 
+        //     }
         //     index = this.prevIndex - 1;
         //   } else if (keyCode === Keys.down) {
         //     if (this.prevIndex + 1 >= this.rows.length) {
@@ -5845,12 +5583,14 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
             var nextRowElement = this.getPrevNextRow(rowElement, keyCode);
             if (nextRowElement) {
                 var children = nextRowElement.getElementsByClassName('datatable-body-cell');
-                if (children.length)
+                if (children.length) {
                     nextCellElement = children[cellIndex];
+                }
             }
         }
-        if (nextCellElement)
+        if (nextCellElement) {
             nextCellElement.focus();
+        }
     };
     DataTableSelectionComponent.prototype.getRowSelected = function (row) {
         return this.getRowSelectedIdx(row, this.selected) > -1;
@@ -5861,8 +5601,9 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
     };
     DataTableSelectionComponent.prototype.getRowSelectedIdx = function (row, selected) {
         var _this = this;
-        if (!selected || !selected.length)
+        if (!selected || !selected.length) {
             return -1;
+        }
         var rowId = this.rowIdentity(row);
         return selected.findIndex(function (r) {
             var id = _this.rowIdentity(r);
@@ -5895,15 +5636,15 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
     ], DataTableSelectionComponent.prototype, "checkMode", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Function)
     ], DataTableSelectionComponent.prototype, "rowIdentity", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Function)
     ], DataTableSelectionComponent.prototype, "selectCheck", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", scroller_component_1.default)
     ], DataTableSelectionComponent.prototype, "scroller", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
@@ -5915,7 +5656,7 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
     ], DataTableSelectionComponent.prototype, "bodyHeight", void 0);
     DataTableSelectionComponent = __decorate([
         vue_property_decorator_1.Component({
-            template: "\n    <div id=\"selector\">\n      <slot>\n        selection\n      </slot>\n    </div>\n  ",
+            template: "\n    <div id=\"selector\">\n      <slot> selection </slot>\n    </div>\n  ",
         })
     ], DataTableSelectionComponent);
     return DataTableSelectionComponent;
@@ -5961,13 +5702,14 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
 var body_row_component_vue_1 = __webpack_require__(/*! ../body-row.component.vue */ "./src/components/body/body-row.component.vue");
 function defaultSumFunc(cells) {
-    var cellsWithValues = cells.filter(function (cell) { return !!cell; });
+    var cellsWithValues = cells.filter(function (cell) { return Boolean(cell); });
     if (!cellsWithValues.length) {
         return null;
     }
     if (cellsWithValues.some(function (cell) { return typeof cell !== 'number'; })) {
         return null;
     }
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/restrict-plus-operands
     return cellsWithValues.reduce(function (res, cell) { return res + cell; });
 }
 function noopSumFunc(cells) {
@@ -6027,22 +5769,29 @@ var DataTableSummaryRowComponent = /** @class */ (function (_super) {
             // this.summaryRow[col.prop] = col.pipe ?
             //   col.pipe.transform(sumFunc(cellsFromSingleColumn)) :
             //   sumFunc(cellsFromSingleColumn);
-            _this.summaryRow[col.prop] = col.filter ?
-                col.filter(sumFunc(cellsFromSingleColumn)) :
-                sumFunc(cellsFromSingleColumn);
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+            _this.summaryRow[col.prop] = col.filter
+                ? col.filter(sumFunc(cellsFromSingleColumn))
+                : sumFunc(cellsFromSingleColumn);
         });
-        this.myRowContext = { row: this.summaryRow, rowIndex: -1, expanded: false, isChecked: false, isSelected: false, rowHeight: this.rowHeight, treeStatus: null };
+        this.myRowContext = {
+            row: this.summaryRow,
+            rowIndex: -1,
+            expanded: false,
+            isChecked: false,
+            isSelected: false,
+            rowHeight: this.rowHeight,
+            treeStatus: null,
+        };
     };
     DataTableSummaryRowComponent.prototype.getSummaryFunction = function (column) {
-        if (column.summaryFunc === undefined) {
+        if (!column.summaryFunc) {
             return defaultSumFunc;
         }
-        else if (column.summaryFunc === null) {
+        if (column.summaryFunc === null) {
             return noopSumFunc;
         }
-        else {
-            return column.summaryFunc;
-        }
+        return column.summaryFunc;
     };
     __decorate([
         vue_property_decorator_1.Prop(),
@@ -6082,7 +5831,7 @@ var DataTableSummaryRowComponent = /** @class */ (function (_super) {
     ], DataTableSummaryRowComponent.prototype, "groupClass", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Function)
     ], DataTableSummaryRowComponent.prototype, "slots", void 0);
     __decorate([
         vue_property_decorator_1.Watch('rows', { immediate: true }),
@@ -6101,7 +5850,7 @@ var DataTableSummaryRowComponent = /** @class */ (function (_super) {
             components: {
                 'datatable-body-row': body_row_component_vue_1.default,
             },
-            template: "\n  <datatable-body-row\n    v-if=\"summaryRow && internalColumns\"\n    tabindex=\"-1\"\n    :columnsByPin=\"columnsByPin\"\n    :columnGroupWidths=\"columnGroupWidths\"\n    :groupStyles=\"groupStyles\"\n    :rowContext=\"myRowContext\"\n    :row=\"summaryRow\"\n    :slots=\"mySlotsFunc\"\n    @activate=\"onActivate\">\n  </datatable-body-row>\n  ",
+            template: "\n    <datatable-body-row\n      v-if=\"summaryRow && internalColumns\"\n      tabindex=\"-1\"\n      :columnsByPin=\"columnsByPin\"\n      :columnGroupWidths=\"columnGroupWidths\"\n      :groupStyles=\"groupStyles\"\n      :rowContext=\"myRowContext\"\n      :row=\"summaryRow\"\n      :slots=\"mySlotsFunc\"\n      @activate=\"onActivate\"\n    >\n    </datatable-body-row>\n  ",
         })
     ], DataTableSummaryRowComponent);
     return DataTableSummaryRowComponent;
@@ -6159,6 +5908,13 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
         _this.column = {};
         return _this;
     }
+    DataTableColumnComponent.prototype.onVisibleChanged = function (newVal) {
+        this.column.visible = newVal;
+        this.$parent.onColumnChangeVisible(this.column);
+    };
+    DataTableColumnComponent.prototype.onWidthChanged = function () {
+        this.$emit('update-width', this.column.width);
+    };
     DataTableColumnComponent.prototype.mounted = function () {
         this.$set(this.column, 'name', this.name);
         this.$set(this.column, 'prop', this.prop);
@@ -6184,7 +5940,7 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
         }
         else if (typeof this.headerClass === 'function') {
             var res = this.headerClass({
-                column: this.column
+                column: this.column,
             });
             if (typeof res === 'string') {
                 headerClasses.push(res);
@@ -6199,6 +5955,7 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
                 }
             }
         }
+        // eslint-disable-next-line @typescript-eslint/prefer-for-of
         for (var i = 0; i < this.$el.classList.length; i++) {
             var value = this.$el.classList[0];
             headerClasses.push(value);
@@ -6214,6 +5971,7 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
         else if (typeof this.cellClass === 'function') {
             cellClasses.push(this.cellClass);
         }
+        // eslint-disable-next-line @typescript-eslint/prefer-for-of
         for (var i = 0; i < this.$el.classList.length; i++) {
             var value = this.$el.classList[0];
             cellClasses.push(value);
@@ -6229,15 +5987,8 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
         // todo: select any way to pass column to datatable // this.$emit('insert-column', column);
         this.$parent.onColumnInsert(this.column);
     };
-    DataTableColumnComponent.prototype.destroyed = function () {
+    DataTableColumnComponent.prototype.beforeDestroy = function () {
         this.$parent.onColumnRemoved(this.column);
-    };
-    DataTableColumnComponent.prototype.onVisibleChanged = function (newVal) {
-        this.column.visible = newVal;
-        this.$parent.onColumnChangeVisible(this.column);
-    };
-    DataTableColumnComponent.prototype.onWidthChanged = function () {
-        this.$emit('update-width', this.column.width);
     };
     __decorate([
         vue_property_decorator_1.Prop(),
@@ -6330,7 +6081,7 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
     __decorate([
         vue_property_decorator_1.Watch('visible'),
         __metadata("design:type", Function),
-        __metadata("design:paramtypes", [Object]),
+        __metadata("design:paramtypes", [Boolean]),
         __metadata("design:returntype", void 0)
     ], DataTableColumnComponent.prototype, "onVisibleChanged", null);
     __decorate([
@@ -6341,7 +6092,7 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
     ], DataTableColumnComponent.prototype, "onWidthChanged", null);
     DataTableColumnComponent = __decorate([
         vue_property_decorator_1.Component({
-            template: "\n    <div>\n      <slot name=\"header\" v-bind=\"{column: column}\">\n      <!-- default content -->\n        {{ name }}\n      </slot>\n      <!-- default slot for cell -->\n      <slot>\n      </slot>\n    </div>"
+            template: "\n    <div>\n      <slot name=\"header\" v-bind=\"{column: column}\">\n        <!-- default content -->\n        {{ name }}\n      </slot>\n      <!-- default slot for cell -->\n      <slot> </slot>\n    </div>\n  ",
         })
     ], DataTableColumnComponent);
     return DataTableColumnComponent;
@@ -6449,7 +6200,7 @@ var render = function() {
           virtualization: _vm.virtualization,
           loadingIndicator: _vm.loadingIndicator,
           externalPaging: _vm.externalPaging,
-          rowHeight: _vm.rowHeight,
+          rowHeight: _vm.myRowHeight,
           rowCount: _vm.rowCount,
           offset: _vm.myOffset,
           trackByProp: _vm.trackByProp,
@@ -6552,7 +6303,7 @@ render._withStripped = true
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_ref_2_oneOf_1_2_datatable_component_scss_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-style-loader!../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/sass-loader/lib/loader.js??ref--2-oneOf-1-2!./datatable.component.scss?vue&type=style&index=0&lang=scss& */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/lib/loader.js?!./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss&");
 /* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_ref_2_oneOf_1_2_datatable_component_scss_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_ref_2_oneOf_1_2_datatable_component_scss_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_ref_2_oneOf_1_2_datatable_component_scss_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_ref_2_oneOf_1_2_datatable_component_scss_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_ref_2_oneOf_1_2_datatable_component_scss_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_ref_2_oneOf_1_2_datatable_component_scss_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
  /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_ref_2_oneOf_1_2_datatable_component_scss_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
@@ -6567,10 +6318,10 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/ts-loader??ref--4!../../node_modules/tslint-loader!./datatable.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js?!./node_modules/tslint-loader/index.js!./src/components/datatable.component.ts?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_ts_loader_index_js_ref_4_node_modules_tslint_loader_index_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
+/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/ts-loader??ref--4!../../node_modules/eslint-loader/dist/cjs.js!./datatable.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js?!./node_modules/eslint-loader/dist/cjs.js!./src/components/datatable.component.ts?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
 
 /***/ }),
 
@@ -6586,7 +6337,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _datatable_component_html_vue_type_template_id_3f42d2da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./datatable.component.html?vue&type=template&id=3f42d2da& */ "./src/components/datatable.component.html?vue&type=template&id=3f42d2da&");
 /* harmony import */ var _datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./datatable.component.ts?vue&type=script&lang=js& */ "./src/components/datatable.component.ts?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
 /* harmony import */ var _datatable_component_scss_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./datatable.component.scss?vue&type=style&index=0&lang=scss& */ "./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
@@ -6679,16 +6430,16 @@ var DataTableFooterComponent = /** @class */ (function (_super) {
     };
     Object.defineProperty(DataTableFooterComponent.prototype, "isVisible", {
         get: function () {
-            return (this.rowCount / this.pageSize) > 1;
+            return this.rowCount / this.pageSize > 1;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DataTableFooterComponent.prototype, "curPage", {
         get: function () {
             return this.offset + 1;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     __decorate([
@@ -6729,7 +6480,7 @@ var DataTableFooterComponent = /** @class */ (function (_super) {
     ], DataTableFooterComponent.prototype, "totalMessage", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", Function)
     ], DataTableFooterComponent.prototype, "footerSlot", void 0);
     __decorate([
         vue_property_decorator_1.Prop({ type: Number, default: 0 }),
@@ -6742,9 +6493,9 @@ var DataTableFooterComponent = /** @class */ (function (_super) {
     DataTableFooterComponent = __decorate([
         vue_property_decorator_1.Component({
             components: {
-                'datatable-pager': pager_component_1.default
+                'datatable-pager': pager_component_1.default,
             },
-            template: "\n    <div\n      class=\"datatable-footer-inner\"\n      :class=\"{'selected-count': selectedMessage }\"\n      :style = \"{ 'height': footerHeight + 'px' }\">\n      <slot v-bind:row=\"{ rowCount: rowCount, pageSize: pageSize, \n                          selectedCount: selectedCount, curPage: curPage, offset: offset }\">\n        <div class=\"page-count\">\n          <span v-if=\"selectedMessage\">\n            {{selectedCount.toLocaleString()}} {{selectedMessage}} / \n          </span>\n          {{rowCount.toLocaleString()}} {{totalMessage}}\n        </div>\n      </slot>\n      <div class=\"datatable-pager\">\n        <datatable-pager\n          :pagerLeftArrowIcon=\"pagerLeftArrowIcon\"\n          :pagerRightArrowIcon=\"pagerRightArrowIcon\"\n          :pagerPreviousIcon=\"pagerPreviousIcon\"\n          :pagerNextIcon=\"pagerNextIcon\"\n          :page=\"curPage\"\n          :size=\"pageSize\"\n          :count=\"rowCount\"\n          :hidden=\"!isVisible\"\n          @change-page=\"$emit('page', $event)\">\n        </datatable-pager>\n      </div>\n    </div>\n  ",
+            template: "\n    <div\n      class=\"datatable-footer-inner\"\n      :class=\"{'selected-count': selectedMessage }\"\n      :style=\"{ 'height': footerHeight + 'px' }\"\n    >\n      <slot\n        v-bind:row=\"{ rowCount: rowCount, pageSize: pageSize,\n                          selectedCount: selectedCount, curPage: curPage, offset: offset }\"\n      >\n        <div class=\"page-count\">\n          <span v-if=\"selectedMessage\"> {{ selectedCount.toLocaleString() }} {{ selectedMessage }} / </span>\n          {{ rowCount.toLocaleString() }} {{ totalMessage }}\n        </div>\n      </slot>\n      <div class=\"datatable-pager\">\n        <datatable-pager\n          :pagerLeftArrowIcon=\"pagerLeftArrowIcon\"\n          :pagerRightArrowIcon=\"pagerRightArrowIcon\"\n          :pagerPreviousIcon=\"pagerPreviousIcon\"\n          :pagerNextIcon=\"pagerNextIcon\"\n          :page=\"curPage\"\n          :size=\"pageSize\"\n          :count=\"rowCount\"\n          :hidden=\"!isVisible\"\n          @change-page=\"$emit('page', $event)\"\n        >\n        </datatable-pager>\n      </div>\n    </div>\n  ",
         })
     ], DataTableFooterComponent);
     return DataTableFooterComponent;
@@ -6812,10 +6563,19 @@ var DataTablePagerComponent = /** @class */ (function (_super) {
     };
     Object.defineProperty(DataTablePagerComponent.prototype, "totalPages", {
         get: function () {
-            var count = this.size < 1 ? 1 : Math.ceil(this.count / this.size);
-            return Math.max(count || 0, 1);
+            // const count = this.size < 1 ? 1 : Math.ceil(this.count / this.size);
+            if (this.size < 1) {
+                return 1;
+            }
+            var result = Math.ceil(this.count / this.size);
+            var newCount = Math.floor(this.count / this.size) * this.size;
+            if (this.count - newCount === 1) {
+                // correct page's number if last page contnains one row
+                result--;
+            }
+            return Math.max(result || 0, 1);
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DataTablePagerComponent.prototype, "canPrevious", {
@@ -6823,14 +6583,14 @@ var DataTablePagerComponent = /** @class */ (function (_super) {
         get: function () {
             return this.myPage > 1;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DataTablePagerComponent.prototype, "canNext", {
         get: function () {
             return this.myPage < this.totalPages;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     DataTablePagerComponent.prototype.prevPage = function () {
@@ -6843,7 +6603,7 @@ var DataTablePagerComponent = /** @class */ (function (_super) {
         if (page > 0 && page <= this.totalPages && page !== this.myPage) {
             this.myPage = page;
             this.$emit('change-page', {
-                page: page
+                page: page,
             });
         }
     };
@@ -6869,7 +6629,7 @@ var DataTablePagerComponent = /** @class */ (function (_super) {
         for (var num = startPage; num <= endPage; num++) {
             pages.push({
                 number: num,
-                text: num
+                text: String(num),
             });
         }
         return pages;
@@ -6922,7 +6682,7 @@ var DataTablePagerComponent = /** @class */ (function (_super) {
     ], DataTablePagerComponent.prototype, "onPageChanged", null);
     DataTablePagerComponent = __decorate([
         vue_property_decorator_1.Component({
-            template: "\n    <ul class=\"pager\">\n      <li :class=\"{ disabled: !canPrevious }\">\n        <a\n          role=\"button\"\n          aria-label=\"go to first page\"\n          href=\"javascript:void(0)\"\n          @click=\"selectPage(1)\">\n          <i :class=\"pagerPreviousIcon\"></i>\n        </a>\n      </li>\n      <li :class=\"{ disabled: !canPrevious }\">\n        <a\n          role=\"button\"\n          aria-label=\"go to previous page\"\n          href=\"javascript:void(0)\"\n          @click=\"prevPage\">\n          <i :class=\"pagerLeftArrowIcon\"></i>\n        </a>\n      </li>\n      <li\n        role=\"button\"\n        aria-label=\"'page ' + pg.number\"\n        class=\"pages\"\n        v-for=\"pg of pages\"\n        :class=\"{ active: pg.number === myPage }\">\n        <a\n          href=\"javascript:void(0)\"\n          @click=\"selectPage(pg.number)\">\n          {{pg.text}}\n        </a>\n      </li>\n      <li :class=\"{ disabled: !canNext }\">\n        <a\n          role=\"button\"\n          aria-label=\"go to next page\"\n          href=\"javascript:void(0)\"\n          @click=\"nextPage\">\n          <i :class=\"pagerRightArrowIcon\"></i>\n        </a>\n      </li>\n      <li :class=\"{ disabled: !canNext }\">\n        <a\n          role=\"button\"\n          aria-label=\"go to last page\"\n          href=\"javascript:void(0)\"\n          @click=\"selectPage(totalPages)\">\n          <i :class=\"pagerNextIcon\"></i>\n        </a>\n      </li>\n    </ul>\n  ",
+            template: "\n    <ul class=\"pager\">\n      <li :class=\"{ disabled: !canPrevious }\">\n        <a role=\"button\" aria-label=\"go to first page\" href=\"javascript:void(0)\" @click=\"selectPage(1)\">\n          <i :class=\"pagerPreviousIcon\"></i>\n        </a>\n      </li>\n      <li :class=\"{ disabled: !canPrevious }\">\n        <a role=\"button\" aria-label=\"go to previous page\" href=\"javascript:void(0)\" @click=\"prevPage\">\n          <i :class=\"pagerLeftArrowIcon\"></i>\n        </a>\n      </li>\n      <li\n        role=\"button\"\n        aria-label=\"'page ' + pg.number\"\n        class=\"pages\"\n        v-for=\"pg of pages\"\n        :class=\"{ active: pg.number === myPage }\"\n      >\n        <a href=\"javascript:void(0)\" @click=\"selectPage(pg.number)\">\n          {{ pg.text }}\n        </a>\n      </li>\n      <li :class=\"{ disabled: !canNext }\">\n        <a role=\"button\" aria-label=\"go to next page\" href=\"javascript:void(0)\" @click=\"nextPage\">\n          <i :class=\"pagerRightArrowIcon\"></i>\n        </a>\n      </li>\n      <li :class=\"{ disabled: !canNext }\">\n        <a role=\"button\" aria-label=\"go to last page\" href=\"javascript:void(0)\" @click=\"selectPage(totalPages)\">\n          <i :class=\"pagerNextIcon\"></i>\n        </a>\n      </li>\n    </ul>\n  ",
         })
     ], DataTablePagerComponent);
     return DataTablePagerComponent;
@@ -6978,10 +6738,10 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
         _this.sortOrder = '';
         // selectFn = this.select.emit.bind(this.select);
         _this.cellContext = {
-            column: _this.column,
+            column: null,
             sortDir: _this.sortDir,
             sortFn: _this.sortFn,
-            allRowsSelected: _this.allRowsSelected,
+            allRowsSelected: false,
         };
         return _this;
     }
@@ -7000,18 +6760,67 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
         this.cellContext.sortDir = this.sortDir;
     };
     DataTableHeaderCellComponent.prototype.created = function () {
+        this.cellContext.column = this.column;
+        this.cellContext.allRowsSelected = this.allRowsSelected;
         this.$emit('header-cell-created', this.$el);
         if (this.column.headerTemplate) {
             this.$slots.default = this.column.headerTemplate({ column: this.column });
         }
     };
     DataTableHeaderCellComponent.prototype.mounted = function () {
+        var _this = this;
         this.column.element = this.$el;
         this.$emit('header-cell-mounted', this.$el);
+        if (window.ResizeObserver) {
+            this.resizeObserver = new window.ResizeObserver(function (entries) {
+                if (!_this.column) {
+                    return;
+                }
+                if (entries.length && entries[0].contentRect) {
+                    _this.column.realWidth = Math.max(_this.$el.clientWidth, entries[0].contentRect.width);
+                }
+                else {
+                    _this.column.realWidth = _this.$el.clientWidth;
+                }
+            });
+            this.resizeObserver.observe(this.$el);
+        }
+        else {
+            this.column.realWidth = this.$el.clientWidth;
+        }
     };
     DataTableHeaderCellComponent.prototype.beforeUpdate = function () {
         if (this.column.headerTemplate) {
             this.$slots.default = this.column.headerTemplate({ column: this.column });
+        }
+    };
+    DataTableHeaderCellComponent.prototype.updated = function () {
+        var _this = this;
+        if (window.ResizeObserver) {
+            this.resizeObserver.unobserve(this.$el);
+            this.resizeObserver = new window.ResizeObserver(function (entries) {
+                if (!_this.column) {
+                    return;
+                }
+                if (entries.length && entries[0].contentRect) {
+                    _this.column.realWidth = Math.max(_this.$el.clientWidth, entries[0].contentRect.width);
+                }
+                else {
+                    _this.column.realWidth = _this.$el.clientWidth;
+                }
+            });
+            this.resizeObserver.observe(this.$el);
+        }
+        else {
+            this.column.realWidth = this.$el.clientWidth;
+        }
+    };
+    DataTableHeaderCellComponent.prototype.beforeDestroy = function () {
+        if (this.column) {
+            this.column.element = null;
+        }
+        if (this.resizeObserver) {
+            this.resizeObserver.unobserve(this.$el);
         }
     };
     DataTableHeaderCellComponent.prototype.onCheckboxChange = function () {
@@ -7021,12 +6830,15 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
         get: function () {
             var cls = 'datatable-header-cell';
             if (this.column) {
-                if (this.column.sortable)
+                if (this.column.sortable) {
                     cls += ' sortable';
-                if (this.column.resizeable)
+                }
+                if (this.column.resizeable) {
                     cls += ' resizeable';
-                if (this.column.draggable)
+                }
+                if (this.column.draggable) {
                     cls += ' draggable';
+                }
                 if (this.column.headerClass) {
                     if (typeof this.column.headerClass === 'string') {
                         cls += ' ' + this.column.headerClass;
@@ -7036,7 +6848,7 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
                     }
                     else if (typeof this.column.headerClass === 'function') {
                         var res = this.column.headerClass({
-                            column: this.column
+                            column: this.column,
                         });
                         if (typeof res === 'string') {
                             cls += res;
@@ -7045,8 +6857,9 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
                             var keys = Object.keys(res);
                             for (var _i = 0, keys_1 = keys; _i < keys_1.length; _i++) {
                                 var k = keys_1[_i];
-                                if (res[k] === true)
+                                if (res[k] === true) {
                                     cls += " " + k;
+                                }
                             }
                         }
                     }
@@ -7058,20 +6871,18 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
             }
             return cls;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DataTableHeaderCellComponent.prototype, "name", {
-        // @HostBinding('attr.title')
         get: function () {
             // guaranteed to have a value by setColumnDefaults() in column-helper.ts
-            return this.column.headerTemplate === undefined ? this.column.name : undefined;
+            return !this.column.headerTemplate ? this.column.name : null;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DataTableHeaderCellComponent.prototype, "styles", {
-        // @HostBinding('style.height.px')
         get: function () {
             // const width = this.calcRealWidth();
             // if (width !== null && width < 10) {
@@ -7080,27 +6891,27 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
             //   this.column.visible = true;
             // }
             return {
-                height: this.headerHeight + 'px',
-                width: this.column.width + 'px',
-                'min-width': this.column.minWidth + 'px',
-                'max-width': this.column.maxWidth + 'px',
+                height: this.headerHeight + "px",
+                width: this.column.width + "px",
+                'min-width': this.column.minWidth + "px",
+                'max-width': this.column.maxWidth + "px",
             };
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DataTableHeaderCellComponent.prototype, "sortCssClass", {
         get: function () {
             return this.calcSortCssClass(this.sortDir);
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DataTableHeaderCellComponent.prototype, "cssClass", {
         get: function () {
             return this.calcCssClass(this.sortDir);
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(DataTableHeaderCellComponent.prototype, "isCheckboxable", {
@@ -7119,7 +6930,7 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
         get: function () {
             return this.column.checkboxable && this.column.headerCheckboxable;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     // @HostListener('contextmenu', ['$event'])
@@ -7131,7 +6942,9 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
         this.sortOrder = '';
         if (sorts && this.column) {
             var sortOrder_1 = '';
-            var sort = sorts.filter(function (s) { return s.prop; }).find(function (s, index) {
+            var sort = sorts
+                .filter(function (s) { return s.prop; })
+                .find(function (s, index) {
                 if (s.prop === _this.column.prop) {
                     sortOrder_1 = (index + 1).toString();
                     return true;
@@ -7146,33 +6959,30 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
         }
     };
     DataTableHeaderCellComponent.prototype.onSort = function () {
-        if (!this.column.sortable)
+        if (!this.column.sortable) {
             return;
+        }
         var newValue = utils_1.nextSortDir(this.sortType, this.sortDir);
         this.$emit('sort', {
             column: this.column,
             prevValue: this.sortDir,
-            newValue: newValue
+            newValue: newValue,
         });
     };
     DataTableHeaderCellComponent.prototype.calcSortCssClass = function (sortDir) {
         if (sortDir === types_1.SortDirection.asc) {
             return "sort-btn sort-asc " + this.sortAscendingIcon;
         }
-        else if (sortDir === types_1.SortDirection.desc) {
+        if (sortDir === types_1.SortDirection.desc) {
             return "sort-btn sort-desc " + this.sortDescendingIcon;
         }
-        else {
-            return "sort-btn";
-        }
+        return 'sort-btn';
     };
     DataTableHeaderCellComponent.prototype.calcCssClass = function (sortDir) {
         if (sortDir === types_1.SortDirection.asc || sortDir === types_1.SortDirection.desc) {
             return 'datatable-header-cell-bold';
         }
-        else {
-            return '';
-        }
+        return '';
     };
     __decorate([
         vue_property_decorator_1.Prop(),
@@ -7230,7 +7040,7 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
     ], DataTableHeaderCellComponent.prototype, "onSortsChanged", null);
     DataTableHeaderCellComponent = __decorate([
         vue_property_decorator_1.Component({
-            template: "\n    <div class=\"datatable-header-cell-template-wrap\" :class=\"[columnCssClasses]\" :style=\"styles\" :title=\"name\"\n          v-show=\"column.visible\"\n          @contextmenu=\"onContextmenu($event)\">\n      <slot name=\"target-marker\">\n        <!-- Default content -->\n        <div class=\"targetMarker\" v-if=\"isTarget\">\n          <div class=\"icon datatable-icon-down\"></div>\n          <div class=\"icon datatable-icon-up\"></div>\n        </div>\n      </slot>\n      <label\n        v-if=\"isCheckboxable\"\n        class=\"datatable-checkbox\">\n        <input\n          type=\"checkbox\"\n          v-model=\"myAllRowsSelected\"\n          @change=\"onCheckboxChange\"\n        />\n      </label>\n      <slot v-bind=\"{ column: column }\">\n        <!-- Default content -->\n        <span class=\"datatable-header-cell-wrapper\">\n          <span class=\"datatable-header-cell-label draggable\"\n            :class=\"cssClass\"\n            @click=\"onSort\" v-html=\"name\">\n          </span>\n        </span>\n      </slot>\n      <span :class=\"sortCssClass\" @click=\"onSort\">\n        {{sortOrder}}\n      </span>\n    </div>\n  ",
+            template: "\n    <div\n      class=\"datatable-header-cell-template-wrap\"\n      :class=\"[columnCssClasses]\"\n      :style=\"styles\"\n      :title=\"name\"\n      v-show=\"column.visible\"\n      @contextmenu=\"onContextmenu($event)\"\n    >\n      <slot name=\"target-marker\">\n        <!-- Default content -->\n        <div class=\"targetMarker\" v-if=\"isTarget\">\n          <div class=\"icon datatable-icon-down\"></div>\n          <div class=\"icon datatable-icon-up\"></div>\n        </div>\n      </slot>\n      <label v-if=\"isCheckboxable\" class=\"datatable-checkbox\">\n        <input type=\"checkbox\" v-model=\"myAllRowsSelected\" @change=\"onCheckboxChange\" />\n      </label>\n      <slot v-bind=\"{ column: column }\">\n        <!-- Default content -->\n        <span class=\"datatable-header-cell-wrapper\">\n          <span class=\"datatable-header-cell-label draggable\" :class=\"cssClass\" @click=\"onSort\" v-html=\"name\"> </span>\n        </span>\n      </slot>\n      <span :class=\"sortCssClass\" @click=\"onSort\">\n        {{ sortOrder }}\n      </span>\n    </div>\n  ",
         })
     ], DataTableHeaderCellComponent);
     return DataTableHeaderCellComponent;
@@ -7285,12 +7095,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
+var draggable_directive_1 = __webpack_require__(/*! ../../directives/draggable.directive */ "./src/directives/draggable.directive.ts");
+var long_press_directive_1 = __webpack_require__(/*! ../../directives/long-press.directive */ "./src/directives/long-press.directive.ts");
+var resizeable_directive_1 = __webpack_require__(/*! ../../directives/resizeable.directive */ "./src/directives/resizeable.directive.ts");
 var types_1 = __webpack_require__(/*! ../../types */ "./src/types/index.ts");
 var utils_1 = __webpack_require__(/*! ../../utils */ "./src/utils/index.ts");
 var header_cell_component_1 = __webpack_require__(/*! ./header-cell.component */ "./src/components/header/header-cell.component.ts");
-var resizeable_directive_1 = __webpack_require__(/*! ../../directives/resizeable.directive */ "./src/directives/resizeable.directive.ts");
-var long_press_directive_1 = __webpack_require__(/*! ../../directives/long-press.directive */ "./src/directives/long-press.directive.ts");
-var draggable_directive_1 = __webpack_require__(/*! ../../directives/draggable.directive */ "./src/directives/draggable.directive.ts");
 var DataTableHeaderComponent = /** @class */ (function (_super) {
     __extends(DataTableHeaderComponent, _super);
     function DataTableHeaderComponent() {
@@ -7301,10 +7111,10 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
         _this.styleByGroup = {
             left: {},
             center: {},
-            right: {}
+            right: {},
         };
         _this.targetMarkerContext = null;
-        _this.dragEventTarget = null;
+        _this.dragEvent = null;
         _this.dragging = false;
         _this.positions = {};
         return _this;
@@ -7342,12 +7152,12 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
     DataTableHeaderComponent.prototype.onLongPressStart = function (_a) {
         var event = _a.event, model = _a.model;
         model.dragging = true;
-        this.dragEventTarget = event;
+        this.dragEvent = event;
     };
     DataTableHeaderComponent.prototype.onLongPressEnd = function (_a) {
         var _this = this;
         var event = _a.event, model = _a.model;
-        this.dragEventTarget = event;
+        this.dragEvent = event;
         // delay resetting so sort can be
         // prevented if we were dragging
         setTimeout(function () {
@@ -7363,23 +7173,24 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
         // @HostBinding('style.width')
         get: function () {
             if (this.scrollbarH) {
-                return this.innerWidth + 'px';
+                return this.innerWidth + "px";
             }
             return '100%';
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     DataTableHeaderComponent.prototype.isEnableDragX = function (column) {
         return this.reorderable && column.draggable && column.dragging;
     };
-    // trackByGroups(colGroup: any): any {    
+    // trackByGroups(colGroup: any): any {
     //   return colGroup.type;
     // }
     // columnTrackingFn(column: any): any {
     //   return column.$$id;
     // }
     DataTableHeaderComponent.prototype.onColumnResized = function (width, column) {
+        // column: DataTableColumnDirective
         if (width <= column.minWidth) {
             width = column.minWidth;
         }
@@ -7389,10 +7200,10 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
         this.$emit('resize', {
             column: column,
             prevValue: column.width,
-            newValue: width
+            newValue: width,
         });
     };
-    DataTableHeaderComponent.prototype.onHiddenChanged = function ($event) {
+    DataTableHeaderComponent.prototype.onHiddenChanged = function () {
         this.$emit('hidden-changed');
         this.onChangedInnerWidth();
     };
@@ -7410,14 +7221,15 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
     DataTableHeaderComponent.prototype.onSort = function (_a) {
         var column = _a.column, prevValue = _a.prevValue, newValue = _a.newValue;
         // if we are dragging don't sort!
-        if (column.dragging)
+        if (column.dragging) {
             return;
+        }
         var sorts = this.calcNewSorts(column, prevValue, newValue);
         var event = {
             sorts: sorts,
             column: column,
             prevValue: prevValue,
-            newValue: newValue
+            newValue: newValue,
         };
         this.$emit('sort', event);
     };
@@ -7431,11 +7243,12 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
         }
         var sorts = this.sorts.map(function (s, i) {
             s = __assign({}, s);
-            if (s.prop === column.prop)
+            if (s.prop === column.prop) {
                 idx = i;
+            }
             return s;
         });
-        if (newValue === undefined) {
+        if (!newValue) {
             sorts.splice(idx, 1);
         }
         else if (prevValue) {
@@ -7470,7 +7283,7 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
         var widths = this.columnGroupWidths;
         var offsetX = this.offsetX;
         var styles = {
-            width: widths[group] + "px"
+            width: widths[group] + "px",
         };
         if (group === 'center') {
             utils_1.translateXY(styles, offsetX * -1, 0);
@@ -7478,7 +7291,7 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
         else if (group === 'right') {
             var totalDiff = widths.total - this.innerWidth;
             var offset = totalDiff * -1;
-            if (this.scrollbarWidth !== undefined && this.scrollbarWidth !== null) {
+            if (this.scrollbarWidth) {
                 offset -= this.scrollbarWidth;
             }
             utils_1.translateXY(styles, offset, 0);
@@ -7491,11 +7304,11 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
     Object.defineProperty(DataTableHeaderComponent.prototype, "styleObject", {
         get: function () {
             return {
-                width: this.headerWidth ? this.headerWidth : this.columnGroupWidths.total + 'px',
+                width: this.headerWidth ? this.headerWidth : this.columnGroupWidths.total + "px",
                 height: this.myHeaderHeight,
             };
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     DataTableHeaderComponent.prototype.onHeaderCellMounted = function (column, element) {
@@ -7512,21 +7325,21 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
         this.positions = {};
         var i = 0;
         this.draggables.sort(function (a, b) {
-            var left = parseInt(a.element.offsetLeft.toString(), 0);
-            var left1 = parseInt(b.element.offsetLeft.toString(), 0);
+            var left = parseInt(a.element.offsetLeft.toString(), 10);
+            var left1 = parseInt(b.element.offsetLeft.toString(), 10);
             return left - left1;
         });
         for (var _i = 0, _a = this.draggables; _i < _a.length; _i++) {
             var dragger = _a[_i];
             var elm = dragger.element;
-            var left = parseInt(elm.offsetLeft.toString(), 0);
+            var left = parseInt(elm.offsetLeft.toString(), 10);
             var width = elm.offsetWidth;
             if (width) {
                 this.positions[dragger.dragModel.prop] = {
                     left: left,
-                    right: left + parseInt(width.toString(), 0),
+                    right: left + parseInt(width.toString(), 10),
                     index: i++,
-                    element: elm
+                    element: elm,
                 };
             }
         }
@@ -7540,7 +7353,7 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
                 this.onTargetChanged({
                     prevIndex: this.lastDraggingIndex,
                     newIndex: target.i,
-                    initialIndex: prevPos.index
+                    initialIndex: prevPos.index,
                 });
                 this.lastDraggingIndex = target.i;
             }
@@ -7548,7 +7361,7 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
         else if (this.lastDraggingIndex !== prevPos.index) {
             this.onTargetChanged({
                 prevIndex: this.lastDraggingIndex,
-                initialIndex: prevPos.index
+                initialIndex: prevPos.index,
             });
             this.lastDraggingIndex = prevPos.index;
         }
@@ -7563,9 +7376,10 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
             this.onColumnReordered({
                 prevIndex: prevPos,
                 newIndex: this.columns.findIndex(function (col) { return col.prop === target.prop; }),
-                model: model
+                model: model,
             });
         }
+        // eslint-disable-next-line no-undefined
         this.lastDraggingIndex = undefined;
         element.style.left = 'auto';
     };
@@ -7573,11 +7387,11 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
         var prevIndex = _a.prevIndex, newIndex = _a.newIndex, model = _a.model;
         var column = this.getColumn(newIndex);
         column.isTarget = false;
-        column.targetMarkerContext = undefined;
+        column.targetMarkerContext = null;
         this.$emit('reorder', {
             column: model,
             prevValue: prevIndex,
-            newValue: newIndex
+            newValue: newIndex,
         });
     };
     DataTableHeaderComponent.prototype.onTargetChanged = function (_a) {
@@ -7585,13 +7399,15 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
         if (prevIndex || prevIndex === 0) {
             var oldColumn = this.getColumn(prevIndex);
             oldColumn.isTarget = false;
-            oldColumn.targetMarkerContext = undefined;
+            oldColumn.targetMarkerContext = null;
         }
         if (newIndex || newIndex === 0) {
             var newColumn = this.getColumn(newIndex);
             newColumn.isTarget = true;
             if (initialIndex !== newIndex) {
-                newColumn.targetMarkerContext = { class: 'targetMarker '.concat(initialIndex > newIndex ? 'dragFromRight' : 'dragFromLeft') };
+                newColumn.targetMarkerContext = {
+                    class: 'targetMarker '.concat(initialIndex > newIndex ? 'dragFromRight' : 'dragFromLeft'),
+                };
             }
         }
     };
@@ -7608,7 +7424,7 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
                 return { value: {
                         prop: prop,
                         pos: pos,
-                        i: i
+                        i: i,
                     } };
             }
             i++;
@@ -7622,11 +7438,11 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
     };
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", String)
     ], DataTableHeaderComponent.prototype, "sortAscendingIcon", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        __metadata("design:type", String)
     ], DataTableHeaderComponent.prototype, "sortDescendingIcon", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
@@ -7714,7 +7530,7 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
                 'long-press': long_press_directive_1.default,
                 dragndrop: draggable_directive_1.default,
             },
-            template: "\n    <div :style=\"styleObject\" class=\"datatable-header-inner\">\n      <div v-for=\"colGroup of columnsByPin\" :key=\"colGroup.type\"\n        :class=\"['datatable-row-' + colGroup.type]\"\n        :style=\"styleByGroup[colGroup.type]\">\n        <datatable-header-cell class=\"datatable-header-cell\"\n          v-for=\"column of colGroup.columns\" :key=\"column.$$id\"\n          v-resizeable=\"{ resizeEnabled: column.resizeable }\"\n          v-long-press=\"{pressModel: column, pressEnabled: reorderable && column.draggable}\"\n          v-dragndrop=\"{dragEventTarget:dragEventTarget,dragModel:column,dragX:isEnableDragX(column),dragY:false}\"\n          @resize=\"onColumnResized($event, column)\"\n          @longPressStart=\"onLongPressStart($event, column)\"\n          @longPressEnd=\"onLongPressEnd($event, column)\"\n          :headerHeight=\"headerHeight\"\n          :isTarget=\"column.isTarget\"\n          :targetMarkerTemplate=\"targetMarkerTemplate\"\n          :targetMarkerContext=\"column.targetMarkerContext\"\n          :column=\"column\"\n          :sortType=\"sortType\"\n          :sorts=\"sorts\"\n          :selectionType=\"selectionType\"\n          :sortAscendingIcon=\"sortAscendingIcon\"\n          :sortDescendingIcon=\"sortDescendingIcon\"\n          :allRowsSelected=\"allRowsSelected\"\n          @sort=\"onSort($event)\"\n          @select=\"onSelect\"\n          @columnContextmenu=\"$emit('columnContextmenu', $event)\"\n          @header-cell-mounted=\"onHeaderCellMounted(column, $event)\"\n          @dragStart=\"onDragStart\"\n          @dragEnd=\"onDragEnd\"\n          @dragging=\"onDragging\"\n          @hidden-changed=onHiddenChanged($event)>\n        </datatable-header-cell>\n      </div>\n    </div>\n  ",
+            template: "\n    <div :style=\"styleObject\" class=\"datatable-header-inner\">\n      <div\n        v-for=\"colGroup of columnsByPin\"\n        :key=\"colGroup.type\"\n        :class=\"['datatable-row-' + colGroup.type]\"\n        :style=\"styleByGroup[colGroup.type]\"\n      >\n        <datatable-header-cell\n          class=\"datatable-header-cell\"\n          v-for=\"column of colGroup.columns\"\n          :key=\"column.$$id\"\n          v-resizeable=\"{ resizeEnabled: column.resizeable }\"\n          v-long-press=\"{pressModel: column, pressEnabled: reorderable && column.draggable}\"\n          v-dragndrop=\"{dragEvent:dragEvent,dragModel:column,dragX:isEnableDragX(column),dragY:false}\"\n          @resize=\"onColumnResized($event, column)\"\n          @longPressStart=\"onLongPressStart($event, column)\"\n          @longPressEnd=\"onLongPressEnd($event, column)\"\n          :headerHeight=\"headerHeight\"\n          :isTarget=\"column.isTarget\"\n          :targetMarkerTemplate=\"targetMarkerTemplate\"\n          :targetMarkerContext=\"column.targetMarkerContext\"\n          :column=\"column\"\n          :sortType=\"sortType\"\n          :sorts=\"sorts\"\n          :selectionType=\"selectionType\"\n          :sortAscendingIcon=\"sortAscendingIcon\"\n          :sortDescendingIcon=\"sortDescendingIcon\"\n          :allRowsSelected=\"allRowsSelected\"\n          @sort=\"onSort($event)\"\n          @select=\"onSelect\"\n          @columnContextmenu=\"$emit('columnContextmenu', $event)\"\n          @header-cell-mounted=\"onHeaderCellMounted(column, $event)\"\n          @dragStart=\"onDragStart\"\n          @dragEnd=\"onDragEnd\"\n          @dragging=\"onDragging\"\n          @hidden-changed=\"onHiddenChanged($event)\"\n        >\n        </datatable-header-cell>\n      </div>\n    </div>\n  ",
         })
     ], DataTableHeaderComponent);
     return DataTableHeaderComponent;
@@ -7736,7 +7552,7 @@ exports.default = DataTableHeaderComponent;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
-var _id = 0;
+var idCounter = 0;
 var DraggableController = /** @class */ (function () {
     function DraggableController(id, vNode, el, dragModel, dragX, dragY) {
         this.id = 0;
@@ -7747,7 +7563,7 @@ var DraggableController = /** @class */ (function () {
         this.handleMove = null;
         this.dragX = true;
         this.dragY = true;
-        this._dragEventTarget = null;
+        this._dragEvent = null;
         this.isDragging = false;
         this.id = id;
         this.vnode = vNode;
@@ -7762,17 +7578,17 @@ var DraggableController = /** @class */ (function () {
         document.removeEventListener('mousemove', this.handleMove);
         document.removeEventListener('mouseup', this.handleUp);
     };
-    Object.defineProperty(DraggableController.prototype, "dragEventTarget", {
+    Object.defineProperty(DraggableController.prototype, "dragEvent", {
         get: function () {
-            return this._dragEventTarget;
+            return this._dragEvent;
         },
         set: function (value) {
-            this._dragEventTarget = value;
+            this._dragEvent = value;
             if (value) {
                 this.onMouseDown(value);
             }
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     DraggableController.prototype.onMouseDown = function (event) {
@@ -7787,43 +7603,47 @@ var DraggableController = /** @class */ (function () {
             this.emit('dragStart', {
                 event: event,
                 element: this.element,
-                model: this.dragModel
+                model: this.dragModel,
             });
         }
     };
     DraggableController.prototype.onMouseUp = function (event) {
         document.removeEventListener('mousemove', this.handleMove);
-        if (!this.isDragging)
+        if (!this.isDragging) {
             return;
+        }
         this.isDragging = false;
         this.element.classList.remove('dragging');
         this.unsubscribe();
         this.emit('dragEnd', {
             event: event,
             element: this.element,
-            model: this.dragModel
+            model: this.dragModel,
         });
     };
     DraggableController.prototype.onMouseMove = function (event) {
-        if (!this.isDragging)
+        if (!this.isDragging) {
             return;
+        }
         var x = event.clientX - this.mouseDownPos.x;
         var y = event.clientY - this.mouseDownPos.y;
-        if (this.dragX)
+        if (this.dragX) {
             this.element.style.left = x + "px";
-        if (this.dragY)
+        }
+        if (this.dragY) {
             this.element.style.top = y + "px";
+        }
         this.element.classList.add('dragging');
         this.emit('dragging', {
             event: event,
             element: this.element,
-            model: this.dragModel
+            model: this.dragModel,
         });
     };
     DraggableController.prototype.emit = function (name, data) {
-        var handlers = (this.vnode.data && this.vnode.data.on) ||
-            (this.vnode.componentOptions && this.vnode.componentOptions.listeners);
+        var handlers = (this.vnode.data && this.vnode.data.on) || (this.vnode.componentOptions && this.vnode.componentOptions.listeners);
         if (handlers && handlers[name]) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
             handlers[name].fns(data);
         }
     };
@@ -7831,18 +7651,30 @@ var DraggableController = /** @class */ (function () {
 }());
 exports.default = vue_property_decorator_1.Vue.directive('draggable', {
     bind: function (el, binding, vnode) {
-        var ctrl = new DraggableController(_id++, vnode, el, binding.value.dragModel, binding.value.dragX, binding.value.dragY);
+        var ctrl = new DraggableController(idCounter++, vnode, el, 
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        binding.value.dragModel, 
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        binding.value.dragX, 
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        binding.value.dragY);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         el.__draggable__ = ctrl;
     },
     update: function (el, binding, vnode) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         var ctrl = el.__draggable__;
         if (!ctrl) {
             return;
         }
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         ctrl.dragX = binding.value.dragX;
-        ctrl.dragEventTarget = binding.value.dragEventTarget;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        ctrl.dragEvent = binding.value.dragEvent;
     },
     unbind: function (el) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         var ctrl = el.__draggable__;
         ctrl.unsubscribe();
     },
@@ -7863,6 +7695,7 @@ exports.default = vue_property_decorator_1.Vue.directive('draggable', {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
+// eslint-disable-next-line @typescript-eslint/naming-convention
 var _id = 0;
 var LongPressController = /** @class */ (function () {
     function LongPressController(id, vNode, el) {
@@ -7894,9 +7727,14 @@ var LongPressController = /** @class */ (function () {
         },
         set: function (value) {
             this._pressing = value;
-            value ? this.element.classList.add('press') : this.element.classList.remove('press');
+            if (value) {
+                this.element.classList.add('press');
+            }
+            else {
+                this.element.classList.remove('press');
+            }
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(LongPressController.prototype, "isLongPressing", {
@@ -7906,20 +7744,27 @@ var LongPressController = /** @class */ (function () {
         set: function (value) {
             this._isLongPressing = value;
             // console.log('set isLongPressing, id, value', this.id, value);
-            value ? this.element.classList.add('longpress') : this.element.classList.remove('longpress');
+            if (value) {
+                this.element.classList.add('longpress');
+            }
+            else {
+                this.element.classList.remove('longpress');
+            }
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     LongPressController.prototype.onMouseDown = function (event) {
         var _this = this;
         // don't do right/middle clicks
-        if (event.which !== 1 || !this.pressEnabled)
+        if (event.which !== 1 || !this.pressEnabled) {
             return;
+        }
         // don't start drag if its on resize handle
         var target = event.target;
-        if (target.classList.contains('resize-handle'))
+        if (target.classList.contains('resize-handle')) {
             return;
+        }
         this.mouseX = event.clientX;
         this.mouseY = event.clientY;
         this.pressing = true;
@@ -7929,7 +7774,7 @@ var LongPressController = /** @class */ (function () {
             _this.isLongPressing = true;
             _this.emit('longPressStart', {
                 event: event,
-                model: _this.pressModel
+                model: _this.pressModel,
             });
             document.addEventListener('mousemove', _this.handleMove);
             _this.loop(event);
@@ -7956,7 +7801,7 @@ var LongPressController = /** @class */ (function () {
             this.timeout = setTimeout(function () {
                 _this.emit('longPressing', {
                     event: event,
-                    model: _this.pressModel
+                    model: _this.pressModel,
                 });
                 _this.loop(event);
             }, 50);
@@ -7969,14 +7814,14 @@ var LongPressController = /** @class */ (function () {
             this.isLongPressing = false;
             this.pressing = false;
             this.emit('longPressEnd', {
-                model: this.pressModel
+                model: this.pressModel,
             });
         }
     };
     LongPressController.prototype.emit = function (name, data) {
-        var handlers = (this.vnode.data && this.vnode.data.on) ||
-            (this.vnode.componentOptions && this.vnode.componentOptions.listeners);
+        var handlers = (this.vnode.data && this.vnode.data.on) || (this.vnode.componentOptions && this.vnode.componentOptions.listeners);
         if (handlers && handlers[name]) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
             handlers[name].fns(data);
         }
     };
@@ -7985,13 +7830,16 @@ var LongPressController = /** @class */ (function () {
 exports.default = vue_property_decorator_1.Vue.directive('long-press', {
     bind: function (el, binding, vnode) {
         var ctrl = new LongPressController(_id++, vnode, el);
-        if (binding.value.pressEnabled !== undefined && binding.value.pressEnabled !== null) {
-            ctrl.pressEnabled = binding.value.pressEnabled;
+        var value = binding.value;
+        // eslint-disable-next-line no-undefined
+        if (value.pressEnabled !== undefined && value.pressEnabled !== null) {
+            ctrl.pressEnabled = value.pressEnabled;
         }
-        if (binding.value.duration !== undefined && binding.value.duration !== null) {
-            ctrl.duration = binding.value.duration;
+        // eslint-disable-next-line no-undefined
+        if (value.duration !== undefined && value.duration !== null) {
+            ctrl.duration = value.duration;
         }
-        ctrl.pressModel = binding.value.pressModel;
+        ctrl.pressModel = value.pressModel;
         el.__longpress__ = ctrl;
     },
     unbind: function (el) {
@@ -8000,122 +7848,6 @@ exports.default = vue_property_decorator_1.Vue.directive('long-press', {
         ctrl.unsubscribe();
     },
 });
-/*
-@Directive({ selector: '[long-press]' })
-export class LongPressDirective implements OnDestroy {
-
-  @Input() pressEnabled: boolean = true;
-  @Input() pressModel: any;
-  @Input() duration: number = 500;
-
-  @Output() longPressStart: EventEmitter<any> = new EventEmitter();
-  @Output() longPressing: EventEmitter<any> = new EventEmitter();
-  @Output() longPressEnd: EventEmitter<any> = new EventEmitter();
-
-  pressing: boolean;
-  isLongPressing: boolean;
-  timeout: any;
-  mouseX: number = 0;
-  mouseY: number = 0;
-
-  subscription: Subscription;
-
-  @HostBinding('class.press')
-  get press(): boolean { return this.pressing; }
-
-  @HostBinding('class.longpress')
-  get isLongPress(): boolean {
-    return this.isLongPressing;
-  }
-
-  @HostListener('mousedown', ['$event'])
-  onMouseDown(event: MouseEvent): void {
-    // don't do right/middle clicks
-    if (event.which !== 1 || !this.pressEnabled) return;
-
-    // don't start drag if its on resize handle
-    const target = (<HTMLElement>event.target);
-    if (target.classList.contains('resize-handle')) return;
-
-    this.mouseX = event.clientX;
-    this.mouseY = event.clientY;
-
-    this.pressing = true;
-    this.isLongPressing = false;
-
-    const mouseup = fromEvent(document, 'mouseup');
-    this.subscription = mouseup.subscribe((ev: MouseEvent) => this.onMouseup());
-
-    this.timeout = setTimeout(() => {
-      this.isLongPressing = true;
-      this.longPressStart.emit({
-        event,
-        model: this.pressModel
-      });
-
-      this.subscription.add(
-        fromEvent(document, 'mousemove')
-          .pipe(takeUntil(mouseup))
-          .subscribe((mouseEvent: MouseEvent) => this.onMouseMove(mouseEvent))
-      );
-
-      this.loop(event);
-    }, this.duration);
-
-    this.loop(event);
-  }
-
-  onMouseMove(event: MouseEvent): void {
-    if (this.pressing && !this.isLongPressing) {
-      const xThres = Math.abs(event.clientX - this.mouseX) > 10;
-      const yThres = Math.abs(event.clientY - this.mouseY) > 10;
-
-      if (xThres || yThres) {
-        this.endPress();
-      }
-    }
-  }
-
-  loop(event: MouseEvent): void {
-    if (this.isLongPressing) {
-      this.timeout = setTimeout(() => {
-        this.longPressing.emit({
-          event,
-          model: this.pressModel
-        });
-        this.loop(event);
-      }, 50);
-    }
-  }
-
-  endPress(): void {
-    clearTimeout(this.timeout);
-    this.isLongPressing = false;
-    this.pressing = false;
-    this._destroySubscription();
-
-    this.longPressEnd.emit({
-      model: this.pressModel
-    });
-  }
-
-  onMouseup(): void {
-    this.endPress();
-  }
-
-  ngOnDestroy(): void {
-    this._destroySubscription();
-  }
-
-  private _destroySubscription(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-      this.subscription = undefined;
-    }
-  }
-
-}
-*/
 
 
 /***/ }),
@@ -8132,6 +7864,7 @@ export class LongPressDirective implements OnDestroy {
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
+// eslint-disable-next-line @typescript-eslint/naming-convention
 var _id = 0;
 var ResizeableDirectiveController = /** @class */ (function () {
     function ResizeableDirectiveController(id, vNode, el) {
@@ -8161,7 +7894,7 @@ var ResizeableDirectiveController = /** @class */ (function () {
     };
     ResizeableDirectiveController.prototype.onMouseDown = function (event) {
         var _this = this;
-        var isHandle = (event.target).classList.contains('resize-handle');
+        var isHandle = event.target.classList.contains('resize-handle');
         var initialWidth = this.element.clientWidth;
         var mouseDownScreenX = event.screenX;
         if (isHandle) {
@@ -8184,9 +7917,9 @@ var ResizeableDirectiveController = /** @class */ (function () {
         }
     };
     ResizeableDirectiveController.prototype.emit = function (vnode, name, data) {
-        var handlers = (vnode.data && vnode.data.on) ||
-            (vnode.componentOptions && vnode.componentOptions.listeners);
+        var handlers = (vnode.data && vnode.data.on) || (vnode.componentOptions && vnode.componentOptions.listeners);
         if (handlers && handlers[name]) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
             handlers[name].fns(data);
         }
     };
@@ -8196,11 +7929,13 @@ exports.default = vue_property_decorator_1.Vue.directive('resizeable', {
     resizing: false,
     bind: function (el, binding, vnode) {
         var ctrl = new ResizeableDirectiveController(_id++, vnode, el);
-        if (binding.value.resizeEnabled !== undefined && binding.value.resizeEnabled !== null) {
-            ctrl.resizeEnabled = binding.value.resizeEnabled;
+        var value = binding.value;
+        // eslint-disable-next-line no-undefined
+        if (value.resizeEnabled !== undefined && value.resizeEnabled !== null) {
+            ctrl.resizeEnabled = value.resizeEnabled;
         }
-        ctrl.minWidth = binding.value.minWidth;
-        ctrl.maxWidth = binding.value.maxWidth;
+        ctrl.minWidth = value.minWidth;
+        ctrl.maxWidth = value.maxWidth;
         el.__resizeable__ = ctrl;
         document.addEventListener('mouseup', ctrl.handleUp);
         el.addEventListener('mousedown', ctrl.handleDown);
@@ -8222,94 +7957,6 @@ exports.default = vue_property_decorator_1.Vue.directive('resizeable', {
         el.appendChild(node);
     },
 });
-/*@Directive({
-  selector: '[resizeable]',
-  host: {
-    '[class.resizeable]': 'resizeEnabled'
-  }
-})
-export class ResizeableDirective implements OnDestroy, AfterViewInit {
-
-  @Input() resizeEnabled: boolean = true;
-  @Input() minWidth: number;
-  @Input() maxWidth: number;
-
-  @Output() resize: EventEmitter<any> = new EventEmitter();
-
-  element: HTMLElement;
-  subscription: Subscription;
-  resizing: boolean = false;
-
-  constructor(element: ElementRef, private renderer: Renderer2) {
-    this.element = element.nativeElement;
-  }
-
-  ngAfterViewInit(): void {
-    const renderer2 = this.renderer;
-    const node = renderer2.createElement('span');
-    if (this.resizeEnabled) {
-      renderer2.addClass(node, 'resize-handle');
-    } else {
-      renderer2.addClass(node, 'resize-handle--not-resizable');
-    }
-    renderer2.appendChild(this.element, node);
-  }
-
-  ngOnDestroy(): void {
-    this._destroySubscription();
-  }
-
-  onMouseup(): void {
-    this.resizing = false;
-
-    if (this.subscription && !this.subscription.closed) {
-      this._destroySubscription();
-      this.resize.emit(this.element.clientWidth);
-    }
-  }
-
-  @HostListener('mousedown', ['$event'])
-  onMousedown(event: MouseEvent): void {
-    const isHandle = (<HTMLElement>(event.target)).classList.contains('resize-handle');
-    const initialWidth = this.element.clientWidth;
-    const mouseDownScreenX = event.screenX;
-
-    if (isHandle) {
-      event.stopPropagation();
-      this.resizing = true;
-
-      const mouseup = fromEvent(document, 'mouseup');
-      this.subscription = mouseup
-        .subscribe((ev: MouseEvent) => this.onMouseup());
-
-      const mouseMoveSub = fromEvent(document, 'mousemove')
-        .pipe(takeUntil(mouseup))
-        .subscribe((e: MouseEvent) => this.move(e, initialWidth, mouseDownScreenX));
-
-      this.subscription.add(mouseMoveSub);
-    }
-  }
-
-  move(event: MouseEvent, initialWidth: number, mouseDownScreenX: number): void {
-    const movementX = event.screenX - mouseDownScreenX;
-    const newWidth = initialWidth + movementX;
-
-    const overMinWidth = !this.minWidth || newWidth >= this.minWidth;
-    const underMaxWidth = !this.maxWidth || newWidth <= this.maxWidth;
-
-    if (overMinWidth && underMaxWidth) {
-      this.element.style.width = `${newWidth}px`;
-    }
-  }
-
-  private _destroySubscription() {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-      this.subscription = undefined;
-    }
-  }
-
-}*/
 
 
 /***/ }),
@@ -8340,9 +7987,14 @@ var VisibilityController = /** @class */ (function () {
         },
         set: function (value) {
             this._isVisible = value;
-            value ? this.element.classList.add('visible') : this.element.classList.remove('visible');
+            if (value) {
+                this.element.classList.add('visible');
+            }
+            else {
+                this.element.classList.remove('visible');
+            }
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     VisibilityController.prototype.stopCheck = function () {
@@ -8366,14 +8018,14 @@ var VisibilityController = /** @class */ (function () {
             else {
                 _this.onVisibilityChange(false);
             }
-            _this.timeout = setTimeout(check.bind(_this), timeout);
+            _this.timeout = setTimeout(function () { return check(); }, timeout);
         };
-        this.timeout = setTimeout(check.bind(this));
+        this.timeout = setTimeout(function () { return check(); });
     };
     VisibilityController.prototype.emit = function (name, data) {
-        var handlers = (this.vnode.data && this.vnode.data.on) ||
-            (this.vnode.componentOptions && this.vnode.componentOptions.listeners);
+        var handlers = (this.vnode.data && this.vnode.data.on) || (this.vnode.componentOptions && this.vnode.componentOptions.listeners);
         if (handlers && handlers[name]) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
             handlers[name].fns(data);
         }
     };
@@ -8384,10 +8036,10 @@ var VisibilityController = /** @class */ (function () {
  *
  * Usage:
  *
- * 		<div
- *      v-visibility-observer
- *     >
- * 		</div>
+ * <div
+ *   v-visibility-observer
+ * >
+ * </div>
  *
  */
 exports.default = vue_property_decorator_1.Vue.directive('visibility-observer', {
@@ -8395,64 +8047,20 @@ exports.default = vue_property_decorator_1.Vue.directive('visibility-observer', 
     bind: function (el, binding, vnode) {
         var _a, _b, _c;
         var ctrl = new VisibilityController(vnode, el);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         el.__visibility__ = ctrl;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         if ((_a = binding === null || binding === void 0 ? void 0 : binding.value) === null || _a === void 0 ? void 0 : _a.on) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             ctrl.runCheck((_c = (_b = binding === null || binding === void 0 ? void 0 : binding.value) === null || _b === void 0 ? void 0 : _b.timeout) !== null && _c !== void 0 ? _c : 1000);
         }
     },
     unbind: function (el) {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         var ctrl = el.__visibility__;
         ctrl.stopCheck();
     },
 });
-/*@Directive({ selector: '[visibilityObserver]' })
-export class VisibilityDirective implements OnInit, OnDestroy {
-
-  @HostBinding('class.visible')
-  isVisible: boolean = false;
-
-  @Output() visible: EventEmitter<any> = new EventEmitter();
-
-  timeout: any;
-
-  constructor(private element: ElementRef, private zone: NgZone) { }
-
-  ngOnInit(): void {
-    this.runCheck();
-  }
-
-  ngOnDestroy(): void {
-    clearTimeout(this.timeout);
-  }
-
-  onVisibilityChange(): void {
-    // trigger zone recalc for columns
-    this.zone.run(() => {
-      this.isVisible = true;
-      this.visible.emit(true);
-    });
-  }
-
-  runCheck(): void {
-    const check = () => {
-      // https://davidwalsh.name/offsetheight-visibility
-      const { offsetHeight, offsetWidth } = this.element.nativeElement;
-
-      if (offsetHeight && offsetWidth) {
-        clearTimeout(this.timeout);
-        this.onVisibilityChange();
-      } else {
-        clearTimeout(this.timeout);
-        this.zone.runOutsideAngular(() => {
-          this.timeout = setTimeout(() => check(), 50);
-        });
-      }
-    };
-
-    this.timeout = setTimeout(() => check());
-  }
-
-}*/
 
 
 /***/ }),
@@ -8468,6 +8076,7 @@ export class VisibilityDirective implements OnInit, OnDestroy {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.DimensionsHelper = void 0;
 /**
  * Gets the width of the scrollbar.  Nesc for windows
  * http://stackoverflow.com/a/13382873/888165
@@ -8496,6 +8105,7 @@ exports.DimensionsHelper = DimensionsHelper;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ScrollbarHelper = void 0;
 /**
  * Gets the width of the scrollbar.  Nesc for windows
  * http://stackoverflow.com/a/13382873/888165
@@ -8509,7 +8119,7 @@ var ScrollbarHelper = /** @class */ (function () {
         var outer = this.document.createElement('div');
         outer.style.visibility = 'hidden';
         outer.style.width = '100px';
-        outer.style.msOverflowStyle = 'scrollbar';
+        outer.style['msOverflowStyle'] = 'scrollbar';
         this.document.body.appendChild(outer);
         var widthNoScroll = outer.offsetWidth;
         outer.style.overflow = 'scroll';
@@ -8538,6 +8148,7 @@ exports.ScrollbarHelper = ScrollbarHelper;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.CheckMode = void 0;
 var CheckMode;
 (function (CheckMode) {
     CheckMode["checkIsSelect"] = "checkIsSelect";
@@ -8558,6 +8169,7 @@ var CheckMode;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ClickType = void 0;
 var ClickType;
 (function (ClickType) {
     ClickType["single"] = "single";
@@ -8578,6 +8190,7 @@ var ClickType;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ColumnMode = void 0;
 var ColumnMode;
 (function (ColumnMode) {
     ColumnMode["standard"] = "standard";
@@ -8599,6 +8212,7 @@ var ColumnMode;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.ContextmenuType = void 0;
 var ContextmenuType;
 (function (ContextmenuType) {
     ContextmenuType["header"] = "header";
@@ -8618,16 +8232,25 @@ var ContextmenuType;
 
 "use strict";
 
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(/*! ./column-mode.type */ "./src/types/column-mode.type.ts"));
-__export(__webpack_require__(/*! ./sort.type */ "./src/types/sort.type.ts"));
-__export(__webpack_require__(/*! ./sort-direction.type */ "./src/types/sort-direction.type.ts"));
-__export(__webpack_require__(/*! ./selection.type */ "./src/types/selection.type.ts"));
-__export(__webpack_require__(/*! ./click.type */ "./src/types/click.type.ts"));
-__export(__webpack_require__(/*! ./contextmenu.type */ "./src/types/contextmenu.type.ts"));
+__exportStar(__webpack_require__(/*! ./column-mode.type */ "./src/types/column-mode.type.ts"), exports);
+__exportStar(__webpack_require__(/*! ./sort.type */ "./src/types/sort.type.ts"), exports);
+__exportStar(__webpack_require__(/*! ./sort-direction.type */ "./src/types/sort-direction.type.ts"), exports);
+__exportStar(__webpack_require__(/*! ./selection.type */ "./src/types/selection.type.ts"), exports);
+__exportStar(__webpack_require__(/*! ./click.type */ "./src/types/click.type.ts"), exports);
+__exportStar(__webpack_require__(/*! ./table-column.type */ "./src/types/table-column.type.ts"), exports);
+__exportStar(__webpack_require__(/*! ./sort-prop-dir.type */ "./src/types/sort-prop-dir.type.ts"), exports);
+__exportStar(__webpack_require__(/*! ./contextmenu.type */ "./src/types/contextmenu.type.ts"), exports);
 
 
 /***/ }),
@@ -8643,6 +8266,7 @@ __export(__webpack_require__(/*! ./contextmenu.type */ "./src/types/contextmenu.
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.SelectionType = void 0;
 var SelectionType;
 (function (SelectionType) {
     SelectionType["single"] = "single";
@@ -8667,11 +8291,27 @@ var SelectionType;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.SortDirection = void 0;
 var SortDirection;
 (function (SortDirection) {
     SortDirection["asc"] = "asc";
     SortDirection["desc"] = "desc";
 })(SortDirection = exports.SortDirection || (exports.SortDirection = {}));
+
+
+/***/ }),
+
+/***/ "./src/types/sort-prop-dir.type.ts":
+/*!*****************************************!*\
+  !*** ./src/types/sort-prop-dir.type.ts ***!
+  \*****************************************/
+/*! no static exports found */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
 
 
 /***/ }),
@@ -8687,11 +8327,27 @@ var SortDirection;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.SortType = void 0;
 var SortType;
 (function (SortType) {
     SortType["single"] = "single";
     SortType["multi"] = "multi";
 })(SortType = exports.SortType || (exports.SortType = {}));
+
+
+/***/ }),
+
+/***/ "./src/types/table-column.type.ts":
+/*!****************************************!*\
+  !*** ./src/types/table-column.type.ts ***!
+  \****************************************/
+/*! no static exports found */
+/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
 
 
 /***/ }),
@@ -8707,21 +8363,25 @@ var SortType;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.deCamelCase = exports.camelCase = void 0;
 /**
  * Converts strings from something to camel case
  * http://stackoverflow.com/questions/10425287/convert-dash-separated-string-to-camelcase
  */
 function camelCase(str) {
     // Replace special characters with a space
+    // eslint-disable-next-line optimize-regex/optimize-regex
     str = str.replace(/[^a-zA-Z0-9 ]/g, ' ');
     // put a space before an uppercase letter
     str = str.replace(/([a-z](?=[A-Z]))/g, '$1 ');
     // Lower case first character and some other stuff
-    str = str.replace(/([^a-zA-Z0-9 ])|^[0-9]+/g, '').trim().toLowerCase();
+    str = str
+        // eslint-disable-next-line optimize-regex/optimize-regex
+        .replace(/([^a-zA-Z0-9 ])|^[0-9]+/g, '')
+        .trim()
+        .toLowerCase();
     // uppercase characters preceded by a space or number
-    str = str.replace(/([ 0-9]+)([a-zA-Z])/g, function (a, b, c) {
-        return b.trim() + c.toUpperCase();
-    });
+    str = str.replace(/([\d ]+)([A-Za-z])/g, function (a, b, c) { return b.trim() + c.toUpperCase(); });
     return str;
 }
 exports.camelCase = camelCase;
@@ -8730,9 +8390,7 @@ exports.camelCase = camelCase;
  * http://stackoverflow.com/questions/7225407/convert-camelcasetext-to-camel-case-text
  */
 function deCamelCase(str) {
-    return str
-        .replace(/([A-Z])/g, function (match) { return " " + match; })
-        .replace(/^./, function (match) { return match.toUpperCase(); });
+    return str.replace(/([A-Z])/g, function (match) { return " " + match; }).replace(/^./, function (match) { return match.toUpperCase(); });
 }
 exports.deCamelCase = deCamelCase;
 
@@ -8750,16 +8408,18 @@ exports.deCamelCase = deCamelCase;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.isNullOrUndefined = exports.setColumnDefaults = exports.setColumnsDefaults = void 0;
 // import { DataTableColumnDirective } from '../components/columns';
 var camel_case_1 = __webpack_require__(/*! ./camel-case */ "./src/utils/camel-case.ts");
-var id_1 = __webpack_require__(/*! ./id */ "./src/utils/id.ts");
 var column_prop_getters_1 = __webpack_require__(/*! ./column-prop-getters */ "./src/utils/column-prop-getters.ts");
+var id_1 = __webpack_require__(/*! ./id */ "./src/utils/id.ts");
 /**
  * Sets the column defaults
  */
 function setColumnsDefaults(columns, vm) {
-    if (!columns)
+    if (!columns) {
         return;
+    }
     // Only one column should hold the tree view
     // Thus if multiple columns are provided with
     // isTreeColumn as true we take only the first one
@@ -8767,28 +8427,27 @@ function setColumnsDefaults(columns, vm) {
     for (var _i = 0, columns_1 = columns; _i < columns_1.length; _i++) {
         var column = columns_1[_i];
         setColumnDefaults(column, vm);
-        if (!column.hasOwnProperty('isTreeColumn')) {
+        if (!('isTreeColumn' in column)) {
             vm.$set(column, 'isTreeColumn', false);
         }
+        else if (column.isTreeColumn && !treeColumnFound) {
+            // If the first column with isTreeColumn is true found
+            // we mark that treeCoulmn is found
+            vm.$set(column, 'isTreeColumn', true);
+            treeColumnFound = true;
+        }
         else {
-            if (column.isTreeColumn && !treeColumnFound) {
-                // If the first column with isTreeColumn is true found
-                // we mark that treeCoulmn is found
-                vm.$set(column, 'isTreeColumn', true);
-                treeColumnFound = true;
-            }
-            else {
-                // After that isTreeColumn property for any other column
-                // will be set as false
-                vm.$set(column, 'isTreeColumn', false);
-            }
+            // After that isTreeColumn property for any other column
+            // will be set as false
+            vm.$set(column, 'isTreeColumn', false);
         }
     }
 }
 exports.setColumnsDefaults = setColumnsDefaults;
 function setColumnDefaults(column, vm) {
-    if (!column)
+    if (!column) {
         return;
+    }
     if (!column.$$id) {
         column.$$id = id_1.id();
     }
@@ -8807,22 +8466,22 @@ function setColumnDefaults(column, vm) {
     if (isNullOrUndefined(column.prop) && isNullOrUndefined(column.name)) {
         column.name = ''; // Fixes IE and Edge displaying `null`
     }
-    if (!column.hasOwnProperty('resizeable')) {
+    if (!('resizeable' in column)) {
         vm.$set(column, 'resizeable', true);
     }
-    if (!column.hasOwnProperty('sortable')) {
+    if (!('sortable' in column)) {
         vm.$set(column, 'sortable', true);
     }
-    if (!column.hasOwnProperty('draggable')) {
+    if (!('draggable' in column)) {
         vm.$set(column, 'draggable', true);
     }
-    if (!column.hasOwnProperty('visible')) {
+    if (!('visible' in column)) {
         vm.$set(column, 'visible', true);
     }
-    if (!column.hasOwnProperty('canAutoResize') || isNullOrUndefined(column.canAutoResize)) {
+    if (!('canAutoResize' in column) || isNullOrUndefined(column.canAutoResize)) {
         column.canAutoResize = true;
     }
-    if (!column.hasOwnProperty('width') || !column.width) {
+    if (!('width' in column) || !column.width) {
         vm.$set(column, 'width', 150);
     }
     else {
@@ -8833,6 +8492,7 @@ function setColumnDefaults(column, vm) {
 }
 exports.setColumnDefaults = setColumnDefaults;
 function isNullOrUndefined(value) {
+    // eslint-disable-next-line no-undefined
     return value === null || value === undefined;
 }
 exports.isNullOrUndefined = isNullOrUndefined;
@@ -8879,6 +8539,7 @@ exports.isNullOrUndefined = isNullOrUndefined;
 
 // maybe rename this file to prop-getters.ts
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.deepValueGetter = exports.shallowValueGetter = exports.numericIndexGetter = exports.getterForProp = exports.emptyStringGetter = void 0;
 /**
  * Always returns the empty string ''
  * @returns {string}
@@ -8892,20 +8553,17 @@ exports.emptyStringGetter = emptyStringGetter;
  * If prop == null, returns the emptyStringGetter.
  */
 function getterForProp(prop) {
-    if (prop == null)
+    if (!prop) {
         return emptyStringGetter;
+    }
     if (typeof prop === 'number') {
         return numericIndexGetter;
     }
-    else {
-        // deep or simple
-        if (prop.indexOf('.') !== -1) {
-            return deepValueGetter;
-        }
-        else {
-            return shallowValueGetter;
-        }
+    // deep or simple
+    if (prop.indexOf('.') !== -1) {
+        return deepValueGetter;
     }
+    return shallowValueGetter;
 }
 exports.getterForProp = getterForProp;
 /**
@@ -8915,14 +8573,17 @@ exports.getterForProp = getterForProp;
  * @returns {any} or '' if invalid index
  */
 function numericIndexGetter(row, index) {
-    if (row == null)
+    if (row === null) {
         return '';
+    }
     // mimic behavior of deepValueGetter
-    if (!row || index == null)
+    if (!row || index === null) {
         return row;
+    }
     var value = row[index];
-    if (value == null)
+    if (value === null) {
         return '';
+    }
     return value;
 }
 exports.numericIndexGetter = numericIndexGetter;
@@ -8934,13 +8595,16 @@ exports.numericIndexGetter = numericIndexGetter;
  * @returns {any}
  */
 function shallowValueGetter(obj, fieldName) {
-    if (obj == null)
+    if (obj === null) {
         return '';
-    if (!obj || !fieldName)
+    }
+    if (!obj || !fieldName) {
         return obj;
+    }
     var value = obj[fieldName];
-    if (value == null)
+    if (value === null) {
         return '';
+    }
     return value;
 }
 exports.shallowValueGetter = shallowValueGetter;
@@ -8950,23 +8614,30 @@ exports.shallowValueGetter = shallowValueGetter;
  * @param {string} path
  */
 function deepValueGetter(obj, path) {
-    if (obj == null)
+    if (obj === null) {
         return '';
-    if (!obj || !path)
+    }
+    if (!obj || !path) {
         return obj;
+    }
     // check if path matches a root-level field
     // { "a.b.c": 123 }
     var current = obj[path];
-    if (current !== undefined)
+    // eslint-disable-next-line no-undefined
+    if (current !== undefined) {
         return current;
+    }
     current = obj;
     var split = path.split('.');
     if (split.length) {
+        // eslint-disable-next-line @typescript-eslint/prefer-for-of
         for (var i = 0; i < split.length; i++) {
             current = current[split[i]];
             // if found undefined, return empty string
-            if (current === undefined || current === null)
+            // eslint-disable-next-line no-undefined
+            if (current === undefined || current === null) {
                 return '';
+            }
         }
     }
     return current;
@@ -8987,11 +8658,12 @@ exports.deepValueGetter = deepValueGetter;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.columnsByPinArr = exports.columnsTotalWidth = exports.columnTotalWidth = exports.columnGroupWidths = exports.columnsByPin = void 0;
 function columnsByPin(cols) {
     var ret = {
         left: [],
         center: [],
-        right: []
+        right: [],
     };
     if (cols) {
         for (var _i = 0, cols_1 = cols; _i < cols_1.length; _i++) {
@@ -9018,7 +8690,7 @@ function columnGroupWidths(groups, all, tableWidth) {
         left: columnTotalWidth(groups.left),
         center: columnTotalWidth(groups.center),
         right: columnTotalWidth(groups.right),
-        total: Math.floor(columnTotalWidth(all))
+        total: Math.floor(columnTotalWidth(all)),
     };
     if (tableWidth > result.total) {
         result.center += tableWidth - result.total;
@@ -9030,7 +8702,7 @@ exports.columnGroupWidths = columnGroupWidths;
 /**
  * Calculates the total width of all columns and their groups
  */
-function columnTotalWidth(columns, prop) {
+function columnTotalWidth(columns) {
     var totalWidth = 0;
     if (columns) {
         for (var _i = 0, columns_1 = columns; _i < columns_1.length; _i++) {
@@ -9038,9 +8710,13 @@ function columnTotalWidth(columns, prop) {
             if (c.hidden) {
                 continue;
             }
-            var has = prop && c[prop];
-            var width = c.hidden ? 0 : has ? c[prop] : c.width;
-            totalWidth = totalWidth + parseFloat(width);
+            // const has = Boolean(prop && c[prop]);
+            // const width = c.hidden ? 0 : has ? c[prop] : c.width;
+            var width = c.hidden ? 0 : c.width;
+            if (typeof width === 'string') {
+                width = parseFloat(width);
+            }
+            totalWidth = totalWidth + width;
         }
     }
     return totalWidth;
@@ -9049,12 +8725,13 @@ exports.columnTotalWidth = columnTotalWidth;
 /**
  * Calculates the total width of all columns and their groups
  */
-function columnsTotalWidth(columns, prop) {
+function columnsTotalWidth(columns /* , prop?: any */) {
     var totalWidth = 0;
     for (var _i = 0, columns_2 = columns; _i < columns_2.length; _i++) {
         var column = columns_2[_i];
-        var has = prop && column[prop];
-        totalWidth = totalWidth + (has ? column[prop] : column.width);
+        // const has = prop && column[prop];
+        // totalWidth = totalWidth + (has ? column[prop] : column.width);
+        totalWidth = totalWidth + column.width;
     }
     return totalWidth;
 }
@@ -9083,10 +8760,10 @@ exports.columnsByPinArr = columnsByPinArr;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.elementsFromPoint = void 0;
 if (typeof document !== 'undefined' && !document.elementsFromPoint) {
     document.elementsFromPoint = elementsFromPoint;
 }
-/*tslint:disable*/
 /**
  * Polyfill for `elementsFromPoint`
  *
@@ -9100,27 +8777,27 @@ function elementsFromPoint(x, y) {
     var current; // TODO: window.getComputedStyle should be used with inferred type (Element)
     var i;
     var d;
-    //if (document === undefined) return elements;
+    // if (document === undefined) return elements;
     // get all elements via elementFromPoint, and remove them from hit-testing in order
-    while ((current = document.elementFromPoint(x, y)) && elements.indexOf(current) === -1 && current != null) {
+    while ((current = document.elementFromPoint(x, y)) && current && elements.indexOf(current) === -1) {
         // push the element and its current style
         elements.push(current);
         previousPointerEvents.push({
             value: current.style.getPropertyValue('pointer-events'),
-            priority: current.style.getPropertyPriority('pointer-events')
+            priority: current.style.getPropertyPriority('pointer-events'),
         });
         // add "pointer-events: none", to get to the underlying element
         current.style.setProperty('pointer-events', 'none', 'important');
     }
     // restore the previous pointer-events values
-    for (i = previousPointerEvents.length; d = previousPointerEvents[--i];) {
-        elements[i].style.setProperty('pointer-events', d.value ? d.value : '', d.priority);
+    // eslint-disable-next-line prettier/prettier
+    for (i = previousPointerEvents.length; (d = previousPointerEvents[--i]);) {
+        elements[i].style.setProperty('pointer-events', (d === null || d === void 0 ? void 0 : d.value) ? d.value : '', d === null || d === void 0 ? void 0 : d.priority);
     }
     // return our results
     return elements;
 }
 exports.elementsFromPoint = elementsFromPoint;
-/*tslint:enable*/
 
 
 /***/ }),
@@ -9136,19 +8813,23 @@ exports.elementsFromPoint = elementsFromPoint;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.isArrayEqual = void 0;
 function isArrayEqual(array1, array2) {
     // if the other array is a falsy value, return
-    if (!array1 || !array2 || !Array.isArray(array1) || !Array.isArray(array2))
+    if (!array1 || !array2 || !Array.isArray(array1) || !Array.isArray(array2)) {
         return false;
-    // compare lengths - can save a lot of time 
-    if (array1.length !== array2.length)
+    }
+    // compare lengths - can save a lot of time
+    if (array1.length !== array2.length) {
         return false;
+    }
     for (var i = 0, l = array1.length; i < l; i++) {
         // Check if we have nested arrays
         if (array1[i] instanceof Array && array2[i] instanceof Array) {
             // recurse into the nested arrays
-            if (!isArrayEqual(array1[i], array2[i]))
+            if (!isArrayEqual(array1[i], array2[i])) {
                 return false;
+            }
         }
         else if (array1[i] !== array2[i]) {
             // Warning - two different object instances will never be equal: {x:20} != {x:20}
@@ -9173,12 +8854,14 @@ exports.isArrayEqual = isArrayEqual;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.id = void 0;
 /**
  * Creates a unique object id.
  * http://stackoverflow.com/questions/6248666/how-to-generate-short-uid-like-ax4j9z-in-js
  */
 function id() {
-    return ('0000' + (Math.random() * Math.pow(36, 4) << 0).toString(36)).slice(-4);
+    // eslint-disable-next-line no-bitwise
+    return ('0000' + ((Math.random() * Math.pow(36, 4)) << 0).toString(36)).slice(-4);
 }
 exports.id = id;
 
@@ -9195,25 +8878,32 @@ exports.id = id;
 
 "use strict";
 
-function __export(m) {
-    for (var p in m) if (!exports.hasOwnProperty(p)) exports[p] = m[p];
-}
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
+var __exportStar = (this && this.__exportStar) || function(m, exports) {
+    for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-__export(__webpack_require__(/*! ./id */ "./src/utils/id.ts"));
-__export(__webpack_require__(/*! ./column */ "./src/utils/column.ts"));
-__export(__webpack_require__(/*! ./column-prop-getters */ "./src/utils/column-prop-getters.ts"));
-__export(__webpack_require__(/*! ./camel-case */ "./src/utils/camel-case.ts"));
-__export(__webpack_require__(/*! ./keys */ "./src/utils/keys.ts"));
-__export(__webpack_require__(/*! ./math */ "./src/utils/math.ts"));
-__export(__webpack_require__(/*! ./prefixes */ "./src/utils/prefixes.ts"));
-__export(__webpack_require__(/*! ./selection */ "./src/utils/selection.ts"));
-__export(__webpack_require__(/*! ./translate */ "./src/utils/translate.ts"));
-__export(__webpack_require__(/*! ./throttle */ "./src/utils/throttle.ts"));
-__export(__webpack_require__(/*! ./sort */ "./src/utils/sort.ts"));
-__export(__webpack_require__(/*! ./row-height-cache */ "./src/utils/row-height-cache.ts"));
-__export(__webpack_require__(/*! ./column-helper */ "./src/utils/column-helper.ts"));
-__export(__webpack_require__(/*! ./elm-from-point */ "./src/utils/elm-from-point.ts"));
-__export(__webpack_require__(/*! ./tree */ "./src/utils/tree.ts"));
+__exportStar(__webpack_require__(/*! ./id */ "./src/utils/id.ts"), exports);
+__exportStar(__webpack_require__(/*! ./column */ "./src/utils/column.ts"), exports);
+__exportStar(__webpack_require__(/*! ./column-prop-getters */ "./src/utils/column-prop-getters.ts"), exports);
+__exportStar(__webpack_require__(/*! ./camel-case */ "./src/utils/camel-case.ts"), exports);
+__exportStar(__webpack_require__(/*! ./keys */ "./src/utils/keys.ts"), exports);
+__exportStar(__webpack_require__(/*! ./math */ "./src/utils/math.ts"), exports);
+__exportStar(__webpack_require__(/*! ./prefixes */ "./src/utils/prefixes.ts"), exports);
+__exportStar(__webpack_require__(/*! ./selection */ "./src/utils/selection.ts"), exports);
+__exportStar(__webpack_require__(/*! ./translate */ "./src/utils/translate.ts"), exports);
+__exportStar(__webpack_require__(/*! ./throttle */ "./src/utils/throttle.ts"), exports);
+__exportStar(__webpack_require__(/*! ./sort */ "./src/utils/sort.ts"), exports);
+__exportStar(__webpack_require__(/*! ./row-height-cache */ "./src/utils/row-height-cache.ts"), exports);
+__exportStar(__webpack_require__(/*! ./column-helper */ "./src/utils/column-helper.ts"), exports);
+__exportStar(__webpack_require__(/*! ./elm-from-point */ "./src/utils/elm-from-point.ts"), exports);
+__exportStar(__webpack_require__(/*! ./tree */ "./src/utils/tree.ts"), exports);
 
 
 /***/ }),
@@ -9229,6 +8919,7 @@ __export(__webpack_require__(/*! ./tree */ "./src/utils/tree.ts"));
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.Keys = void 0;
 var Keys;
 (function (Keys) {
     Keys[Keys["up"] = 38] = "up";
@@ -9255,6 +8946,7 @@ var Keys;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.forceFillColumnWidths = exports.adjustColumnWidths = void 0;
 var column_1 = __webpack_require__(/*! ./column */ "./src/utils/column.ts");
 /**
  * Calculates the Total Flex Grow
@@ -9303,9 +8995,10 @@ exports.adjustColumnWidths = adjustColumnWidths;
  */
 function scaleColumns(colsByGroup, maxWidth, totalFlexGrow) {
     // calculate total width and flexgrow points for coulumns that can be resized
+    var column;
     for (var attr in colsByGroup) {
         for (var _i = 0, _a = colsByGroup[attr]; _i < _a.length; _i++) {
-            var column = _a[_i];
+            column = _a[_i];
             if (!column.canAutoResize) {
                 maxWidth -= column.width;
                 totalFlexGrow -= column.flexGrow ? column.flexGrow : 0;
@@ -9323,11 +9016,11 @@ function scaleColumns(colsByGroup, maxWidth, totalFlexGrow) {
         remainingWidth = 0;
         for (var attr in colsByGroup) {
             for (var _b = 0, _c = colsByGroup[attr]; _b < _c.length; _b++) {
-                var column = _c[_b];
+                column = _c[_b];
                 // if the column can be resize and it hasn't reached its minimum width yet
                 if (column.canAutoResize && !hasMinWidth[column.prop]) {
                     var newWidth = column.width + column.flexGrow * widthPerFlexPoint;
-                    if (column.minWidth !== undefined && newWidth < column.minWidth) {
+                    if (column.minWidth && newWidth < column.minWidth) {
                         remainingWidth += newWidth - column.minWidth;
                         column.width = column.minWidth;
                         hasMinWidth[column.prop] = true;
@@ -9344,11 +9037,16 @@ function calcRealWidth(column) {
     if (!column.element) {
         return null;
     }
+    // eslint-disable-next-line no-undefined
+    if (column.realWidth !== null || column.realWidth !== undefined) {
+        return column.realWidth;
+    }
     var w = column.element.offsetWidth;
     if (!w || w < 0) {
         return w;
     }
     w = 0;
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
     for (var i = 0; i < column.element.children.length; i++) {
         var el = column.element.children[i];
         w = Math.max(w, el.offsetWidth);
@@ -9397,11 +9095,7 @@ function forceFillColumnWidths(allColumns, expectedWidth, startIdx, allowBleed, 
         }
     });
     allColumns = allColumns.filter(function (c) { return c.visible && !c.hidden; });
-    var columnsToResize = allColumns
-        .slice(startIdx + 1, allColumns.length)
-        .filter(function (c) {
-        return c.canAutoResize !== false;
-    });
+    var columnsToResize = allColumns.slice(startIdx + 1, allColumns.length).filter(function (c) { return c.canAutoResize !== false; });
     var averageColumnWidth = expectedWidth / columnsToResize.length;
     for (var _i = 0, columnsToResize_1 = columnsToResize; _i < columnsToResize_1.length; _i++) {
         var column = columnsToResize_1[_i];
@@ -9464,7 +9158,7 @@ function getContentWidth(allColumns, defaultColWidth) {
     var contentWidth = 0;
     for (var _i = 0, allColumns_1 = allColumns; _i < allColumns_1.length; _i++) {
         var column = allColumns_1[_i];
-        contentWidth += (column.width || defaultColWidth);
+        contentWidth += column.width || defaultColWidth;
     }
     return contentWidth;
 }
@@ -9483,24 +9177,36 @@ function getContentWidth(allColumns, defaultColWidth) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.getVendorPrefixedName = void 0;
+/* eslint-disable no-undefined */
 var camel_case_1 = __webpack_require__(/*! ./camel-case */ "./src/utils/camel-case.ts");
 var cache = {};
 var testStyle = typeof document !== 'undefined' ? document.createElement('div').style : undefined;
 // Get Prefix
 // http://davidwalsh.name/vendor-prefix
-var prefix = function () {
+// eslint-disable-next-line prettier/prettier
+var prefix = (function () {
     var styles = typeof window !== 'undefined' ? window.getComputedStyle(document.documentElement, '') : undefined;
-    var match = typeof styles !== 'undefined' ?
-        Array.prototype.slice.call(styles).join('').match(/-(moz|webkit|ms)-/) : null;
+    var match = null;
+    if (styles) {
+        // eslint-disable-next-line @typescript-eslint/prefer-regexp-exec
+        match = Object.keys(styles)
+            .join('')
+            .match(/-(moz|webkit|ms)-/);
+    }
+    // const match: CSSStyleDeclaration = typeof styles !== 'undefined' ?
+    //   Array.prototype.slice.call(styles).join('').match(/-(moz|webkit|ms)-/) : null;
     var pre = match !== null ? match[1] : undefined;
-    var dom = typeof pre !== 'undefined' ? ('WebKit|Moz|MS|O').match(new RegExp('(' + pre + ')', 'i'))[1] : undefined;
-    return dom ? {
-        dom: dom,
-        lowercase: pre,
-        css: "-" + pre + "-",
-        js: pre[0].toUpperCase() + pre.substr(1)
-    } : undefined;
-}();
+    var dom = typeof pre !== 'undefined' ? new RegExp('(' + pre + ')', 'i').exec('WebKit|Moz|MS|O')[1] : undefined;
+    return dom
+        ? {
+            dom: dom,
+            lowercase: pre,
+            css: "-" + pre + "-",
+            js: pre[0].toUpperCase() + pre.substr(1),
+        }
+        : undefined;
+})();
 function getVendorPrefixedName(property) {
     var name = camel_case_1.camelCase(property);
     if (!cache[name]) {
@@ -9529,15 +9235,7 @@ exports.getVendorPrefixedName = getVendorPrefixedName;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-/**
- * This object contains the cache of the various row heights that are present inside
- * the data table.   Its based on Fenwick tree data structure that helps with
- * querying sums that have time complexity of log n.
- *
- * Fenwick Tree Credits: http://petr-mitrichev.blogspot.com/2013/05/fenwick-tree-range-updates.html
- * https://github.com/mikolalysenko/fenwick-tree
- *
- */
+exports.RowHeightCache = void 0;
 var RowHeightCache = /** @class */ (function () {
     function RowHeightCache() {
         /**
@@ -9617,14 +9315,11 @@ var RowHeightCache = /** @class */ (function () {
      */
     RowHeightCache.prototype.initCache = function (details) {
         var rows = details.rows, rowHeight = details.rowHeight, rowDetailHeight = details.rowDetailHeight, groupRowHeight = details.groupRowHeight, externalVirtual = details.externalVirtual, rowCount = details.rowCount, rowIndexes = details.rowIndexes, rowExpansions = details.rowExpansions;
-        var isFn = typeof rowHeight === 'function';
-        var isDetailFn = typeof rowDetailHeight === 'function';
-        var isGroupFn = typeof groupRowHeight === 'function';
-        if (!isFn && isNaN(rowHeight)) {
+        if (typeof rowHeight !== 'function' && isNaN(rowHeight)) {
             throw new Error("Row Height cache initialization failed. Please ensure that 'rowHeight' is a\n        valid number or function value: (" + rowHeight + ") when 'scrollbarV' is enabled.");
         }
         // Add this additional guard in case rowDetailHeight is set to 'auto' as it wont work.
-        if (!isDetailFn && isNaN(rowDetailHeight)) {
+        if (typeof rowDetailHeight !== 'function' && isNaN(rowDetailHeight)) {
             throw new Error("Row Height cache initialization failed. Please ensure that 'rowDetailHeight' is a\n        valid number or function value: (" + rowDetailHeight + ") when 'scrollbarV' is enabled.");
         }
         var n = externalVirtual ? rowCount : rows.length;
@@ -9639,22 +9334,24 @@ var RowHeightCache = /** @class */ (function () {
             var row = rows[i];
             var currentRowHeight = void 0;
             if (row && row.__isGroup) {
-                currentRowHeight = groupRowHeight;
-                if (isGroupFn) {
+                if (typeof groupRowHeight === 'function') {
                     currentRowHeight = groupRowHeight(row);
                 }
+                else {
+                    currentRowHeight = groupRowHeight;
+                }
+            }
+            else if (typeof rowHeight === 'function') {
+                currentRowHeight = rowHeight(row);
             }
             else {
                 currentRowHeight = rowHeight;
-                if (isFn) {
-                    currentRowHeight = rowHeight(row);
-                }
             }
             // Add the detail row height to the already expanded rows.
             // This is useful for the table that goes through a filter or sort.
             var expanded = rowExpansions.get(row);
-            if (row && expanded === 1) {
-                if (isDetailFn) {
+            if (row && expanded) {
+                if (typeof rowDetailHeight === 'function') {
                     var index = rowIndexes.get(row);
                     currentRowHeight += rowDetailHeight(row, index);
                 }
@@ -9673,8 +9370,9 @@ var RowHeightCache = /** @class */ (function () {
      * that is present in the current view port.  Below handles edge cases.
      */
     RowHeightCache.prototype.getRowIndex = function (scrollY) {
-        if (scrollY === 0)
+        if (scrollY === 0) {
             return 0;
+        }
         var result = this.calcRowIndex(scrollY);
         return result;
     };
@@ -9749,8 +9447,9 @@ var RowHeightCache = /** @class */ (function () {
      * that is present in the current view port.
      */
     RowHeightCache.prototype.calcRowIndex = function (sum) {
-        if (!this.heights.length)
+        if (!this.heights.length) {
             return 0;
+        }
         if (this.heights[this.heights.length - 1].accumulator < sum) {
             return this.heights.length;
         }
@@ -9782,6 +9481,7 @@ exports.RowHeightCache = RowHeightCache;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.selectRowsBetween = exports.selectRows = void 0;
 function selectRows(selected, row, comparefn) {
     var selectedIndex = comparefn(row, selected);
     if (selectedIndex > -1) {
@@ -9803,13 +9503,13 @@ function selectRowsBetween(selected, rows, index, prevIndex, comparefn) {
         if (reverse) {
             range = {
                 start: index,
-                end: prevIndex
+                end: prevIndex,
             };
         }
         else {
             range = {
                 start: prevIndex,
-                end: index + 1
+                end: index + 1,
             };
         }
         if ((reverse && lesser) || (!reverse && greater)) {
@@ -9845,6 +9545,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.sortRows = exports.orderByComparator = exports.nextSortDir = void 0;
 var types_1 = __webpack_require__(/*! ../types */ "./src/types/index.ts");
 var column_prop_getters_1 = __webpack_require__(/*! ./column-prop-getters */ "./src/utils/column-prop-getters.ts");
 /**
@@ -9855,21 +9556,16 @@ function nextSortDir(sortType, current) {
         if (current === types_1.SortDirection.asc) {
             return types_1.SortDirection.desc;
         }
-        else {
-            return types_1.SortDirection.asc;
-        }
+        return types_1.SortDirection.asc;
     }
-    else {
-        if (!current) {
-            return types_1.SortDirection.asc;
-        }
-        else if (current === types_1.SortDirection.asc) {
-            return types_1.SortDirection.desc;
-        }
-        else if (current === types_1.SortDirection.desc) {
-            return undefined;
-        }
-        // avoid TS7030: Not all code paths return a value.
+    if (!current) {
+        return types_1.SortDirection.asc;
+    }
+    if (current === types_1.SortDirection.asc) {
+        return types_1.SortDirection.desc;
+    }
+    if (current === types_1.SortDirection.desc) {
+        // eslint-disable-next-line no-undefined
         return undefined;
     }
 }
@@ -9878,33 +9574,42 @@ exports.nextSortDir = nextSortDir;
  * Adapted from fueld-ui on 6/216
  * https://github.com/FuelInteractive/fuel-ui/tree/master/src/pipes/OrderBy
  */
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 function orderByComparator(a, b) {
-    if (a === null || typeof a === 'undefined')
+    if (a === null || typeof a === 'undefined') {
         a = 0;
-    if (b === null || typeof b === 'undefined')
-        b = 0;
-    if (a instanceof Date && b instanceof Date) {
-        if (a < b)
-            return -1;
-        if (a > b)
-            return 1;
     }
-    else if ((isNaN(parseFloat(a)) || !isFinite(a)) || (isNaN(parseFloat(b)) || !isFinite(b))) {
+    if (b === null || typeof b === 'undefined') {
+        b = 0;
+    }
+    if (a instanceof Date && b instanceof Date) {
+        if (a < b) {
+            return -1;
+        }
+        if (a > b) {
+            return 1;
+        }
+    }
+    else if (isNaN(parseFloat(a)) || !isFinite(a) || isNaN(parseFloat(b)) || !isFinite(b)) {
         // Convert to string in case of a=0 or b=0
         a = String(a);
         b = String(b);
         // Isn't a number so lowercase the string to properly compare
-        if (a.toLowerCase() < b.toLowerCase())
+        if (a.toLowerCase() < b.toLowerCase()) {
             return -1;
-        if (a.toLowerCase() > b.toLowerCase())
+        }
+        if (a.toLowerCase() > b.toLowerCase()) {
             return 1;
+        }
     }
     else {
         // Parse strings as numbers to compare properly
-        if (parseFloat(a) < parseFloat(b))
+        if (parseFloat(a) < parseFloat(b)) {
             return -1;
-        if (parseFloat(a) > parseFloat(b))
+        }
+        if (parseFloat(a) > parseFloat(b)) {
             return 1;
+        }
     }
     // equal each other
     return 0;
@@ -9915,10 +9620,12 @@ exports.orderByComparator = orderByComparator;
  * does not sort the `rows` argument in place
  */
 function sortRows(rows, columns, dirs) {
-    if (!rows)
+    if (!rows) {
         return [];
-    if (!dirs || !dirs.length)
+    }
+    if (!dirs || !dirs.length) {
         return __spreadArrays(rows);
+    }
     /**
      * record the row ordering of results from prior sort operations (if applicable)
      * this is necessary to guarantee stable sorting behavior
@@ -9926,14 +9633,13 @@ function sortRows(rows, columns, dirs) {
     var rowToIndexMap = new Map();
     rows.forEach(function (row, index) { return rowToIndexMap.set(row, index); });
     var temp = __spreadArrays(rows);
-    var cols = [];
-    if (columns) {
-        cols = columns.reduce(function (obj, col) {
+    var cols = {};
+    if (Array.isArray(columns)) {
+        columns.forEach(function (col) {
             if (col.comparator && typeof col.comparator === 'function') {
-                obj[col.prop] = col.comparator;
+                cols[col.prop] = col.comparator;
             }
-            return obj;
-        }, {});
+        });
     }
     // cache valueGetter and compareFn so that they
     // do not need to be looked-up in the sort function body
@@ -9943,7 +9649,7 @@ function sortRows(rows, columns, dirs) {
             prop: prop,
             dir: dir.dir,
             valueGetter: column_prop_getters_1.getterForProp(prop),
-            compareFn: cols[prop] || orderByComparator
+            compareFn: cols[prop] || orderByComparator,
         };
     });
     return temp.sort(function (rowA, rowB) {
@@ -9952,7 +9658,9 @@ function sortRows(rows, columns, dirs) {
             // Get property and valuegetters for column to be sorted
             var prop = cachedDir.prop, valueGetter = cachedDir.valueGetter;
             // Get A and B cell values from rows based on properties of the columns
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             var propA = valueGetter(rowA, prop);
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             var propB = valueGetter(rowB, prop);
             // Compare function gets five parameters:
             // Two cell values to be compared as propA and propB
@@ -9961,15 +9669,17 @@ function sortRows(rows, columns, dirs) {
             // Compare can be a standard JS comparison function (a,b) => -1|0|1
             // as additional parameters are silently ignored. The whole row and sort
             // direction enable more complex sort logic.
-            var comparison = cachedDir.dir !== types_1.SortDirection.desc ?
-                cachedDir.compareFn(propA, propB, rowA, rowB, cachedDir.dir) :
-                -cachedDir.compareFn(propA, propB, rowA, rowB, cachedDir.dir);
+            var comparison = cachedDir.dir !== types_1.SortDirection.desc
+                ? cachedDir.compareFn(propA, propB, rowA, rowB, cachedDir.dir)
+                : -cachedDir.compareFn(propA, propB, rowA, rowB, cachedDir.dir);
             // Don't return 0 yet in case of needing to sort by next property
-            if (comparison !== 0)
+            if (comparison !== 0) {
                 return comparison;
+            }
         }
-        if (!(rowToIndexMap.has(rowA) && rowToIndexMap.has(rowB)))
+        if (!(rowToIndexMap.has(rowA) && rowToIndexMap.has(rowB))) {
             return 0;
+        }
         /**
          * all else being equal, preserve original order of the rows (stable sort)
          */
@@ -9992,6 +9702,7 @@ exports.sortRows = sortRows;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.throttleable = exports.throttle = void 0;
 /**
  * Throttle a function
  */
@@ -10003,27 +9714,33 @@ function throttle(func, wait, options) {
     var timeout = null;
     var previous = 0;
     function later() {
-        previous = options.leading === false ? 0 : +new Date();
+        previous = options.leading === false ? 0 : Number(new Date());
         timeout = null;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         result = func.apply(context, args);
     }
+    // eslint-disable-next-line prettier/prettier
     return function () {
-        var now = +new Date();
+        var now = Number(new Date());
         if (!previous && options.leading === false) {
             previous = now;
         }
         var remaining = wait - (now - previous);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         context = this;
+        // eslint-disable-next-line prefer-rest-params
         args = arguments;
         if (remaining <= 0) {
             clearTimeout(timeout);
             timeout = null;
             previous = now;
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             result = func.apply(context, args);
         }
         else if (!timeout && options.trailing !== false) {
             timeout = setTimeout(later, remaining);
         }
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return result;
     };
 }
@@ -10037,6 +9754,7 @@ exports.throttle = throttle;
  *  }
  */
 function throttleable(duration, options) {
+    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     return function innerDecorator(target, key, descriptor) {
         return {
             configurable: true,
@@ -10045,10 +9763,12 @@ function throttleable(duration, options) {
                 Object.defineProperty(this, key, {
                     configurable: true,
                     enumerable: descriptor.enumerable,
-                    value: throttle(descriptor.value, duration, options)
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                    value: throttle(descriptor.value, duration, options),
                 });
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
                 return this[key];
-            }
+            },
         };
     };
 }
@@ -10068,15 +9788,17 @@ exports.throttleable = throttleable;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var prefixes_1 = __webpack_require__(/*! ./prefixes */ "./src/utils/prefixes.ts");
+exports.translateXY = void 0;
+/* eslint-disable no-undefined */
 var camel_case_1 = __webpack_require__(/*! ./camel-case */ "./src/utils/camel-case.ts");
+var prefixes_1 = __webpack_require__(/*! ./prefixes */ "./src/utils/prefixes.ts");
 // browser detection and prefixing tools
 var transform = typeof window !== 'undefined' ? prefixes_1.getVendorPrefixedName('transform') : undefined;
 var backfaceVisibility = typeof window !== 'undefined' ? prefixes_1.getVendorPrefixedName('backfaceVisibility') : undefined;
-var hasCSSTransforms = typeof window !== 'undefined' ? !!prefixes_1.getVendorPrefixedName('transform') : undefined;
-var hasCSS3DTransforms = typeof window !== 'undefined' ? !!prefixes_1.getVendorPrefixedName('perspective') : undefined;
+var hasCSSTransforms = typeof window !== 'undefined' ? Boolean(prefixes_1.getVendorPrefixedName('transform')) : undefined;
+var hasCSS3DTransforms = typeof window !== 'undefined' ? Boolean(prefixes_1.getVendorPrefixedName('perspective')) : undefined;
 var ua = typeof window !== 'undefined' ? window.navigator.userAgent : 'Chrome';
-var isSafari = (/Safari\//).test(ua) && !(/Chrome\//).test(ua);
+var isSafari = /Safari\//.test(ua) && !/Chrome\//.test(ua);
 function translateXY(styles, x, y) {
     if (typeof transform !== 'undefined' && hasCSSTransforms) {
         if (!isSafari && hasCSS3DTransforms) {
@@ -10115,8 +9837,10 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.groupRowsByParents = exports.optionalGetterForProp = void 0;
 var column_prop_getters_1 = __webpack_require__(/*! ./column-prop-getters */ "./src/utils/column-prop-getters.ts");
 function optionalGetterForProp(prop) {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return prop && (function (row) { return column_prop_getters_1.getterForProp(prop)(row, prop); });
 }
 exports.optionalGetterForProp = optionalGetterForProp;
@@ -10159,7 +9883,7 @@ exports.optionalGetterForProp = optionalGetterForProp;
 function groupRowsByParents(rows, from, to, lazyTree) {
     if (lazyTree === void 0) { lazyTree = false; }
     if (!rows) {
-        this.rows;
+        return rows;
     }
     if (from && to) {
         var nodeById = {};
@@ -10167,29 +9891,38 @@ function groupRowsByParents(rows, from, to, lazyTree) {
         var node = null;
         nodeById[0] = new TreeNode(); // that's the root node
         var uniqIDs = rows.reduce(function (arr, item) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             var toValue = to(item);
             if (arr.indexOf(toValue) === -1) {
                 arr.push(toValue);
             }
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
             return arr;
         }, []);
-        for (var i = 0; i < l; i++) { // make TreeNode objects for each item
+        for (var i = 0; i < l; i++) {
+            // make TreeNode objects for each item
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             nodeById[to(rows[i])] = new TreeNode(rows[i]);
         }
         var notResolvedNodes = [];
-        for (var i = 0; i < l; i++) { // link all TreeNode objects
+        for (var i = 0; i < l; i++) {
+            // link all TreeNode objects
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             node = nodeById[to(rows[i])];
             var parent_1 = 0;
             var fromValue = from(node.row);
-            if (!!fromValue && (uniqIDs.indexOf(fromValue) > -1)) {
+            if (Boolean(fromValue) && uniqIDs.indexOf(fromValue) > -1) {
                 parent_1 = fromValue;
             }
             node.parent = nodeById[parent_1];
+            // eslint-disable-next-line no-undefined
             if (node.parent.row['level'] === null || node.parent.row['level'] === undefined) {
                 notResolvedNodes.push(node);
             }
             else {
+                // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
                 node.row['level'] = node.parent.row['level'] + 1;
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-call
                 node.parent.children.push(node);
             }
         }
@@ -10198,25 +9931,28 @@ function groupRowsByParents(rows, from, to, lazyTree) {
             temp.length = 0;
             while (notResolvedNodes.length) {
                 node = notResolvedNodes.pop();
+                // eslint-disable-next-line no-undefined
                 if (node.parent.row['level'] === null || node.parent.row['level'] === undefined) {
                     temp.push(node);
                 }
                 else {
+                    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
                     node.row['level'] = node.parent.row['level'] + 1;
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
                     node.parent.children.push(node);
                 }
             }
             notResolvedNodes = temp;
         } while (notResolvedNodes.length);
         var resolvedRows_1 = [];
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         nodeById[0].flatten(function () {
             resolvedRows_1 = __spreadArrays(resolvedRows_1, [this.row]);
         }, true, lazyTree);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return resolvedRows_1;
     }
-    else {
-        return rows;
-    }
+    return rows;
 }
 exports.groupRowsByParents = groupRowsByParents;
 var TreeNode = /** @class */ (function () {
@@ -10225,7 +9961,7 @@ var TreeNode = /** @class */ (function () {
         if (!row) {
             row = {
                 level: -1,
-                treeStatus: 'expanded'
+                treeStatus: 'expanded',
             };
         }
         this.row = row;
@@ -10243,8 +9979,10 @@ var TreeNode = /** @class */ (function () {
                 else if (child.children && child.children.length && child.row['treeStatus'] === 'disabled') {
                     child.row['treeStatus'] = 'collapsed';
                 }
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-call
                 f.apply(child, Array.prototype.slice.call(arguments, 2));
                 if (recursive) {
+                    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
                     child.flatten.apply(child, arguments, lazyTree);
                 }
             }

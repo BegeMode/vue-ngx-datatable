@@ -604,8 +604,8 @@ export default class DatatableComponent extends Vue {
     // (group as any).__isGroup = true;
     // group.__expanded = true;
     rows.push(group);
-    if (group.value && group.__expanded) {
-      group.value.forEach(r => {
+    if (group.rows && group.__expanded) {
+      group.rows.forEach(r => {
         rows.push(r);
       });
     }
@@ -1380,7 +1380,7 @@ export default class DatatableComponent extends Vue {
     const result = Array.from(map, x => this.addGroup(x[0], x[1], level, keysDescr));
     if (Array.isArray(groupRowsBy) && level < groupRowsBy.length - 1) {
       result.forEach(item => {
-        item.groups = this.groupArrayBy(item.value, groupRowsBy, level + 1);
+        item.groups = this.groupArrayBy(item.rows, groupRowsBy, level + 1);
       });
     }
     return result;
@@ -1399,7 +1399,7 @@ export default class DatatableComponent extends Vue {
     });
     return {
       key,
-      value,
+      rows: value,
       level: level1,
       keys: keysObj,
       __expanded: true,
@@ -1438,8 +1438,8 @@ export default class DatatableComponent extends Vue {
       if (gr.groups && gr.groups.length) {
         gr.groups = this.sortGroupedRows(gr.groups);
       }
-      if (gr.value && gr.value) {
-        gr.value = sortRows(gr.value, this.internalColumns, this.sorts);
+      if (gr.rows && gr.rows) {
+        gr.rows = sortRows(gr.rows, this.internalColumns, this.sorts);
       }
     });
     const sortedRows = sortRows(rows, this.internalColumns, this.sorts);

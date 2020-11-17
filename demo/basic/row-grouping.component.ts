@@ -149,11 +149,9 @@ export default class RowGroupingComponent  extends Vue {
       } else if (event.target.value === '2') { // expected payment yes selected
         row.exppaypending = 1;
       }
-
+    group = group.rows;
     if (group.length === 2) { // There are only 2 lines in a group
-      // tslint:disable-next-line:max-line-length
       if (['Calculated', 'Funder'].indexOf(group[0].source) > -1 && ['Calculated', 'Funder'].indexOf(group[1].source) > -1) { // Sources are funder and calculated
-        // tslint:disable-next-line:max-line-length
         if (group[0].startdate === group[1].startdate && group[0].enddate === group[1].enddate) { // Start dates and end dates match
           for (let index = 0; index < group.length; index++) {
             if (group[index].source !== row.source) {
