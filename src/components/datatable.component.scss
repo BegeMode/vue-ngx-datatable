@@ -136,7 +136,7 @@
   .datatable-header-cell {
     overflow-x: hidden;
     vertical-align: top;
-    display: inline-block;
+    display: inline-flex;
     line-height: 1.625;
 
     &:focus {
@@ -178,7 +178,7 @@
 
     .datatable-header-cell {
       position: relative;
-      display: inline-block;
+      display: inline-flex;
       user-select: none;
 
       &.sortable {
@@ -189,6 +189,10 @@
 
       &.longpress .datatable-header-cell-wrapper {
         cursor: move;
+      }
+
+      .sort-btn {
+        margin-left: auto;
       }
 
       .sort-btn::before {

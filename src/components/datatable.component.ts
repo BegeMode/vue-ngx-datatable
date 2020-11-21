@@ -343,6 +343,7 @@ export default class DatatableComponent extends Vue {
   headerComponent: DataTableHeaderComponent;
 
   resizeHandler: () => void;
+  resizeObserver?: ResizeObserver;
 
   groupedRows: IGroupedRows[] = null;
 
@@ -365,17 +366,7 @@ export default class DatatableComponent extends Vue {
   // non-reactive
   // mySorts: any[];
 
-  // _columnTemplates: QueryList<DataTableColumnDirective>;
-  // _subscriptions: Subscription[] = [];
-  /**
-   * Row Detail templates gathered from the ContentChild
-   */
-  // @ContentChild(DatatableRowDetailDirective)
   rowDetail = false; // DatatableRowDetailDirective;
-  /**
-   * Group Header templates gathered from the ContentChild
-   */
-  // @ContentChild(DatatableGroupHeaderDirective)
   groupHeader = false; // DatatableGroupHeaderDirective;
 
   groupHeaderSlot = null;
@@ -384,6 +375,7 @@ export default class DatatableComponent extends Vue {
 
   private readonly scrollbarHelper: ScrollbarHelper = new ScrollbarHelper();
   private readonly dimensionsHelper: DimensionsHelper = new DimensionsHelper();
+  private needToCalculateDims = true;
 
   @Watch('rows', { immediate: true }) onRowsChanged(val: Array<Record<string, unknown>>): void {
     if (val) {
@@ -477,9 +469,15 @@ export default class DatatableComponent extends Vue {
   @Watch('offset', { immediate: true }) onOffsetChanged(): void {
     if (this.innerOffset !== this.offset) {
       this.innerOffset = this.offset;
-      if (/* this.externalPager && */ this.innerOffset >= 0) {
-        this.onFooterPage({ page: this.offset + 1 });
+      if (this.pageSize && this.innerOffset >= 0) {
+        this.onFooterPage({ page: this.innerOffset + 1 });
       }
+    }
+  }
+
+  @Watch('pageSize') onPageSizeChanged(): void {
+    if (this.pageSize && this.innerOffset >= 0) {
+      this.$nextTick(() => this.onFooterPage({ page: this.innerOffset + 1 }));
     }
   }
 
@@ -511,7 +509,12 @@ export default class DatatableComponent extends Vue {
   }
 
   beforeDestroy(): void {
-    window.removeEventListener('resize', this.resizeHandler);
+    if (this.resizeHandler) {
+      window.removeEventListener('resize', this.resizeHandler);
+    }
+    if (this.resizeObserver) {
+      this.resizeObserver.unobserve(this.$el);
+    }
   }
 
   /**
@@ -525,20 +528,44 @@ export default class DatatableComponent extends Vue {
     this.rowDetailSlot = this.$scopedSlots.rowDetail;
     this.footerSlot = this.$scopedSlots.footer;
     this.rowDetail = Boolean(this.rowDetailSlot);
-    // need to call this immediatly to size
-    // if the table is hidden the visibility
-    // listener will invoke this itself upon show
-    this.recalculate();
 
     if (!this.externalSorting) {
       this.sortInternalRows();
     }
-    // this has to be done to prevent the change detection
-    // tree from freaking out because we are readjusting
-    if (typeof requestAnimationFrame === 'undefined') {
-      return;
+    if ((window as Window).ResizeObserver) {
+      this.needToCalculateDims = false;
+      this.resizeObserver = new (window as Window).ResizeObserver(entries => {
+        let height = 0;
+        if (entries.length && entries[0].contentRect) {
+          this.innerWidth = Math.floor(entries[0].contentRect.width);
+          height = entries[0].contentRect.height;
+        } else {
+          height = this.$el.clientHeight;
+          this.innerWidth = this.$el.clientWidth;
+        }
+        if (this.scrollbarV) {
+          if (this.headerHeight) {
+            height = height - this.headerHeight;
+          }
+          if (this.footerHeight) {
+            height = height - this.footerHeight;
+          }
+          this.bodyHeight = height;
+        }
+        if (typeof requestAnimationFrame === 'undefined') {
+          this.recalculate();
+        } else {
+          requestAnimationFrame(() => {
+            this.recalculate();
+          });
+        }
+      });
+      this.resizeObserver.observe(this.$el);
+    } else {
+      this.resizeHandler = this.onWindowResize.bind(this) as () => void;
+      window.addEventListener('resize', this.resizeHandler);
     }
-    requestAnimationFrame(() => {
+    const init = () => {
       this.recalculate();
       // emit page for virtual server-side kickoff
       if (this.externalPaging && this.scrollbarV) {
@@ -549,82 +576,14 @@ export default class DatatableComponent extends Vue {
           offset: this.innerOffset,
         });
       }
-      this.resizeHandler = this.onWindowResize.bind(this) as () => void;
-      window.addEventListener('resize', this.resizeHandler);
-    });
-  }
-
-  /**
-   * Body was scrolled typically in a `scrollbarV:true` scenario.
-   */
-  // @Output() scroll: EventEmitter<any> = new EventEmitter();
-  /**
-   * A cell or row was focused via keyboard or mouse click.
-   */
-  // @Output() activate: EventEmitter<any> = new EventEmitter();
-
-  /**
-   * A cell or row was selected.
-   */
-  // @Output() select: EventEmitter<any> = new EventEmitter();
-
-  /**
-   * Column sort was invoked.
-   */
-  // @Output() sort: EventEmitter<any> = new EventEmitter();
-
-  /**
-   * The table was paged either triggered by the pager or the body scroll.
-   */
-  // @Output() page: EventEmitter<any> = new EventEmitter();
-
-  /**
-   * Columns were re-ordered.
-   */
-  // @Output() reorder: EventEmitter<any> = new EventEmitter();
-
-  /**
-   * Column was resized.
-   */
-  // @Output() resize: EventEmitter<any> = new EventEmitter();
-
-  /**
-   * The context menu was invoked on the table.
-   * type indicates whether the header or the body was clicked.
-   * content contains either the column or the row that was clicked.
-   */
-  // @Output() tableContextmenu = new EventEmitter<{ event: MouseEvent, type: ContextmenuType, content: any }>(false);
-
-  /**
-   * A row was expanded ot collapsed for tree
-   */
-  // @Output() treeAction: EventEmitter<any> = new EventEmitter();
-
-  addRow(group: IGroupedRows, rows: Array<IGroupedRows | Record<string, unknown>>): void {
-    // (group as any).__isGroup = true;
-    // group.__expanded = true;
-    rows.push(group);
-    if (group.rows && group.__expanded) {
-      group.rows.forEach(r => {
-        rows.push(r);
+    };
+    if (typeof requestAnimationFrame === 'undefined') {
+      init();
+    } else {
+      requestAnimationFrame(() => {
+        init();
       });
     }
-    if (group.groups && group.__expanded) {
-      group.groups.forEach(gr => {
-        this.addRow(gr, rows);
-      });
-    }
-  }
-
-  processGroupedRows(groupedRows: IGroupedRows[]): Array<IGroupedRows | Record<string, unknown>> {
-    const rows: Array<IGroupedRows | Record<string, unknown>> = [];
-    if (groupedRows && groupedRows.length) {
-      // creates a new array with the data grouped
-      groupedRows.forEach(g => {
-        this.addRow(g, rows);
-      });
-    }
-    return rows;
   }
 
   get myRowHeight(): number | TRowHeightFunc {
@@ -795,7 +754,12 @@ export default class DatatableComponent extends Vue {
    * Also can be manually invoked or upon window resize.
    */
   recalculate(): void {
-    this.recalculateDims();
+    if (this.needToCalculateDims) {
+      // this.recalculatePages will be called in this.recalculateDims
+      this.recalculateDims();
+    } else {
+      this.recalculatePages();
+    }
     this.recalculateColumns();
   }
 
@@ -848,7 +812,6 @@ export default class DatatableComponent extends Vue {
       }
       this.bodyHeight = height;
     }
-
     this.recalculatePages();
   }
 
@@ -897,7 +860,9 @@ export default class DatatableComponent extends Vue {
    */
   onFooterPage(event: { page: number }): void {
     this.innerOffset = event.page - 1;
-    this.bodyComponent.updateOffsetY(this.innerOffset, true);
+    if (this.bodyComponent) {
+      this.bodyComponent.updateOffsetY(this.innerOffset, true);
+    }
 
     this.$emit('page', {
       count: this.count,
@@ -935,7 +900,7 @@ export default class DatatableComponent extends Vue {
       if (typeof this.rowHeight === 'number') {
         rowHeight = this.rowHeight;
       }
-      const size = Math.floor(this.bodyHeight / rowHeight);
+      const size = Math.ceil(this.bodyHeight / rowHeight);
       return Math.max(size, 0);
     }
 
@@ -1445,5 +1410,32 @@ export default class DatatableComponent extends Vue {
     const sortedRows = sortRows(rows, this.internalColumns, this.sorts);
     const result = sortedRows.map(r => r.__group);
     return result as IGroupedRows[];
+  }
+
+  private addRow(group: IGroupedRows, rows: Array<IGroupedRows | Record<string, unknown>>): void {
+    // (group as any).__isGroup = true;
+    // group.__expanded = true;
+    rows.push(group);
+    if (group.rows && group.__expanded) {
+      group.rows.forEach(r => {
+        rows.push(r);
+      });
+    }
+    if (group.groups && group.__expanded) {
+      group.groups.forEach(gr => {
+        this.addRow(gr, rows);
+      });
+    }
+  }
+
+  private processGroupedRows(groupedRows: IGroupedRows[]): Array<IGroupedRows | Record<string, unknown>> {
+    const rows: Array<IGroupedRows | Record<string, unknown>> = [];
+    if (groupedRows && groupedRows.length) {
+      // creates a new array with the data grouped
+      groupedRows.forEach(g => {
+        this.addRow(g, rows);
+      });
+    }
+    return rows;
   }
 }

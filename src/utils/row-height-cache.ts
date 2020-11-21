@@ -11,9 +11,9 @@ import { IGroupedRows } from 'types/grouped-rows';
  */
 interface IRowsHeightCache {
   rows: Record<string, unknown>[];
-  rowHeight: (row: Record<string, unknown>, index?: number) => number | number;
-  rowDetailHeight: (row: Record<string, unknown>, index?: number) => number | number;
-  groupRowHeight: (row: Record<string, unknown>, index?: number) => number | number;
+  rowHeight: number | ((row: Record<string, unknown>, index?: number) => number);
+  rowDetailHeight: number | ((row: Record<string, unknown>, index?: number) => number);
+  groupRowHeight: number | ((row: Record<string, unknown>, index?: number) => number);
   externalVirtual: boolean;
   rowCount: number;
   rowIndexes: Map<Record<string, unknown>, number>;
@@ -58,13 +58,13 @@ export class RowHeightCache {
 
     if (typeof rowHeight !== 'function' && isNaN(rowHeight)) {
       throw new Error(`Row Height cache initialization failed. Please ensure that 'rowHeight' is a
-        valid number or function value: (${rowHeight as number}) when 'scrollbarV' is enabled.`);
+        valid number or function value: (${rowHeight}) when 'scrollbarV' is enabled.`);
     }
 
     // Add this additional guard in case rowDetailHeight is set to 'auto' as it wont work.
     if (typeof rowDetailHeight !== 'function' && isNaN(rowDetailHeight)) {
       throw new Error(`Row Height cache initialization failed. Please ensure that 'rowDetailHeight' is a
-        valid number or function value: (${rowDetailHeight as number}) when 'scrollbarV' is enabled.`);
+        valid number or function value: (${rowDetailHeight}) when 'scrollbarV' is enabled.`);
     }
 
     const n = externalVirtual ? rowCount : rows.length;

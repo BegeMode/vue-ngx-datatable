@@ -45,8 +45,8 @@ export default class DataTableBodyComponent extends Vue {
   @Prop() scrollbarH: boolean;
   @Prop() loadingIndicator: boolean;
   @Prop() externalPaging: boolean;
-  @Prop() rowHeight: (row: Record<string, unknown>, index?: number) => number | number;
-  @Prop() groupRowHeight: (row: Record<string, unknown>, index?: number) => number | number;
+  @Prop() rowHeight: number | ((row: Record<string, unknown>, index?: number) => number);
+  @Prop() groupRowHeight: number | ((row: Record<string, unknown>, index?: number) => number);
   @Prop() offsetX: number;
   @Prop() emptyMessage: string;
   @Prop() selectionType: SelectionType;
@@ -93,7 +93,7 @@ export default class DataTableBodyComponent extends Vue {
   columnGroupWidthsWithoutGroup = null;
   rowIndexes = new Map<Record<string, unknown>, number>();
   rowExpansions = new Map<Record<string, unknown> | IGroupedRows, boolean>();
-  myBodyHeight: number | string = null;
+  myBodyHeight: string = null;
   columnsByPin: IColumnsByPinRecord[] = null;
   groupStyles = {
     left: {},
@@ -212,13 +212,13 @@ export default class DataTableBodyComponent extends Vue {
   }
 
   @Watch('bodyHeight', { immediate: true }) onBodyHeightChanged(): void {
-    this.myBodyHeight = this.bodyHeight;
-    if (this.myBodyHeight === -1) {
+    this.myBodyHeight = this.bodyHeight.toString();
+    if (this.bodyHeight === -1) {
       this.myBodyHeight = '0px';
       return;
     }
     if (this.scrollbarV) {
-      this.myBodyHeight = this.myBodyHeight.toString() + 'px';
+      this.myBodyHeight = this.myBodyHeight + 'px';
     } else {
       this.myBodyHeight = 'auto';
     }
@@ -254,7 +254,7 @@ export default class DataTableBodyComponent extends Vue {
   get styleObject(): Record<string, string> {
     return {
       width: this.bodyWidth ? this.bodyWidth : 'auto',
-      height: this.myBodyHeight ? this.myBodyHeight.toString() : 'auto',
+      height: this.myBodyHeight ? this.myBodyHeight : 'auto',
     };
   }
 
@@ -353,7 +353,7 @@ export default class DataTableBodyComponent extends Vue {
       if (this.isUseRowHeightCache || typeof this.rowHeight === 'function') {
         offsetY = this.rowHeightsCache.query(rowIndex - 1);
       } else {
-        offsetY = rowIndex * (this.rowHeight as number);
+        offsetY = rowIndex * this.rowHeight;
       }
     } else if (this.scrollbarV && !this.virtualization) {
       offsetY = 0;
@@ -617,8 +617,8 @@ export default class DataTableBodyComponent extends Vue {
       return result;
     }
     return {
-      offsetY: (this.rowHeight as number) * index,
-      height: this.rowHeight as number,
+      offsetY: this.rowHeight * index,
+      height: this.rowHeight,
     };
   }
 
@@ -641,7 +641,7 @@ export default class DataTableBodyComponent extends Vue {
     if (this.isUseRowHeightCache || typeof this.rowHeight === 'function') {
       pos = this.rowHeightsCache.query(this.rows.length - 1);
     } else {
-      pos = (this.rowHeight as number) * (this.rowCount - 1);
+      pos = this.rowHeight * (this.rowCount - 1);
     }
 
     translateXY(styles, 0, pos);
@@ -668,13 +668,13 @@ export default class DataTableBodyComponent extends Vue {
         // Calculation of the first and last indexes will be based on where the
         // scrollY position would be at.  The last index would be the one
         // that shows up inside the view port the last.
-        const height = parseInt(this.myBodyHeight?.toString(), 10);
+        const height = this.bodyHeight;
         if (this.isUseRowHeightCache || typeof this.rowHeight === 'function') {
           first = this.rowHeightsCache.getRowIndex(this.offsetY);
           last = this.rowHeightsCache.getRowIndex(height + this.offsetY) + 1;
         } else {
-          first = Math.floor(this.offsetY / (this.rowHeight as number));
-          last = Math.ceil((height + this.offsetY) / (this.rowHeight as number));
+          first = Math.floor(this.offsetY / this.rowHeight);
+          last = Math.ceil((height + this.offsetY + this.rowHeight) / this.rowHeight);
         }
       } else {
         // If virtual rows are not needed
@@ -738,7 +738,7 @@ export default class DataTableBodyComponent extends Vue {
       offsetScroll = this.rowHeightsCache.query(viewPortFirstRowIndex);
       return offsetScroll <= this.offsetY ? Math.max(0, viewPortFirstRowIndex - 1) : viewPortFirstRowIndex;
     }
-    offsetScroll = (this.rowHeight as number) * viewPortFirstRowIndex;
+    offsetScroll = this.rowHeight * viewPortFirstRowIndex;
     return offsetScroll <= this.offsetY ? Math.max(0, viewPortFirstRowIndex - 1) : viewPortFirstRowIndex;
     // return viewPortFirstRowIndex;
   }
@@ -982,7 +982,7 @@ export default class DataTableBodyComponent extends Vue {
     if (this.isUseRowHeightCache || typeof this.rowHeight === 'function') {
       rowOffsetY = this.rowHeightsCache.query(rowContext.rowIndex);
     } else {
-      rowOffsetY = (this.rowHeight as number) * rowContext.rowIndex;
+      rowOffsetY = this.rowHeight * rowContext.rowIndex;
     }
     return rowOffsetY >= this.offsetY && rowOffsetY <= this.offsetY + this.bodyHeight;
   }

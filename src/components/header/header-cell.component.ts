@@ -28,9 +28,9 @@ import { nextSortDir } from '../../utils';
           <span class="datatable-header-cell-label draggable" :class="cssClass" @click="onSort" v-html="name"> </span>
         </span>
       </slot>
-      <span :class="sortCssClass" @click="onSort">
+      <div :class="sortCssClass" @click="onSort">
         {{ sortOrder }}
-      </span>
+      </div>
     </div>
   `,
 })
@@ -90,21 +90,7 @@ export default class DataTableHeaderCellComponent extends Vue {
   mounted(): void {
     this.column.element = this.$el;
     this.$emit('header-cell-mounted', this.$el);
-    if ((window as Window).ResizeObserver) {
-      this.resizeObserver = new (window as Window).ResizeObserver(entries => {
-        if (!this.column) {
-          return;
-        }
-        if (entries.length && entries[0].contentRect) {
-          this.column.realWidth = Math.max(this.$el.clientWidth, entries[0].contentRect.width);
-        } else {
-          this.column.realWidth = this.$el.clientWidth;
-        }
-      });
-      this.resizeObserver.observe(this.$el);
-    } else {
-      this.column.realWidth = this.$el.clientWidth;
-    }
+    this.setResizeObserver();
   }
 
   beforeUpdate(): void {
@@ -114,22 +100,11 @@ export default class DataTableHeaderCellComponent extends Vue {
   }
 
   updated(): void {
-    if ((window as Window).ResizeObserver) {
-      this.resizeObserver.unobserve(this.$el);
-      this.resizeObserver = new (window as Window).ResizeObserver(entries => {
-        if (!this.column) {
-          return;
-        }
-        if (entries.length && entries[0].contentRect) {
-          this.column.realWidth = Math.max(this.$el.clientWidth, entries[0].contentRect.width);
-        } else {
-          this.column.realWidth = this.$el.clientWidth;
-        }
-      });
-      this.resizeObserver.observe(this.$el);
-    } else {
-      this.column.realWidth = this.$el.clientWidth;
+    if (this.resizeObserver && this.column.element !== this.$el) {
+      this.resizeObserver.unobserve(this.column.element);
     }
+    this.column.element = this.$el;
+    this.setResizeObserver();
   }
 
   beforeDestroy(): void {
@@ -289,5 +264,23 @@ export default class DataTableHeaderCellComponent extends Vue {
       return 'datatable-header-cell-bold';
     }
     return '';
+  }
+
+  private setResizeObserver() {
+    if ((window as Window).ResizeObserver) {
+      this.resizeObserver = new (window as Window).ResizeObserver(entries => {
+        if (!this.column) {
+          return;
+        }
+        if (entries.length && entries[0].contentRect) {
+          this.column.realWidth = Math.max(this.$el.clientWidth, entries[0].contentRect.width);
+        } else {
+          this.column.realWidth = this.$el.clientWidth;
+        }
+      });
+      this.resizeObserver.observe(this.$el);
+    } else {
+      this.column.realWidth = null;
+    }
   }
 }

@@ -11,7 +11,7 @@ export default class ScrollerComponent extends Vue {
   @Prop({ type: Boolean, default: false }) scrollbarV: boolean;
   @Prop({ type: Boolean, default: false }) scrollbarH: boolean;
   @Prop() scrollHeight: number;
-  @Prop() scrollWidth: number;
+  @Prop() scrollWidth: string;
 
   fromPager = true;
 

@@ -111,7 +111,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
 // Module
-exports.push([module.i, ".ngx-datatable {\n  display: block;\n  overflow: hidden;\n  justify-content: center;\n  position: relative;\n  -webkit-transform: translate3d(0, 0, 0);\n  transform: translate3d(0, 0, 0);\n  /**\r\n   * Vertical Scrolling Adjustments\r\n   */\n  /**\r\n   * Horizontal Scrolling Adjustments\r\n   */\n  /**\r\n   * Fixed Header Height Adjustments\r\n   */\n  /**\r\n   * Fixed row height adjustments\r\n   */\n  /**\r\n   * Shared Styles\r\n   */\n  /**\r\n   * Header Styles\r\n   */\n  /**\r\n   * Body Styles\r\n   */\n  /**\r\n   * Footer Styles\r\n   */\n}\n.ngx-datatable.ngx-flex {\n    display: flex;\n    flex-flow: column;\n    justify-content: flex-start;\n    height: 100%;\n}\n.ngx-datatable.ngx-flex .datatable-body {\n      overflow-y: auto;\n      flex: 1 1 auto;\n}\n.ngx-datatable.ngx-flex .datatable-header,\n    .ngx-datatable.ngx-flex .datatable-footer {\n      flex: none;\n}\n.ngx-datatable.ngx-nowrap-text .datatable-body .datatable-body-row .datatable-body-cell .datatable-body-cell-label {\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n.ngx-datatable [hidden] {\n    display: none !important;\n}\n.ngx-datatable .hidden-columns {\n    visibility: hidden;\n    position: absolute;\n    z-index: -1;\n}\n.ngx-datatable *,\n  .ngx-datatable *:before,\n  .ngx-datatable *:after {\n    -moz-box-sizing: border-box;\n    -webkit-box-sizing: border-box;\n    box-sizing: border-box;\n}\n.ngx-datatable.scroll-vertical .datatable-body {\n    overflow-y: auto;\n}\n.ngx-datatable.scroll-vertical.virtualized .datatable-body .datatable-row-wrapper {\n    position: absolute;\n}\n.ngx-datatable.scroll-horz .datatable-body {\n    overflow-x: auto;\n    -webkit-overflow-scrolling: touch;\n}\n.ngx-datatable.fixed-header .datatable-header .datatable-header-inner {\n    white-space: nowrap;\n}\n.ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n}\n.ngx-datatable.fixed-row .datatable-scroll {\n    white-space: nowrap;\n}\n.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row {\n      white-space: nowrap;\n}\n.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-cell {\n        overflow: hidden;\n        white-space: nowrap;\n        text-overflow: ellipsis;\n}\n.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-group-cell {\n        overflow: hidden;\n        white-space: nowrap;\n        text-overflow: ellipsis;\n}\n.ngx-datatable .datatable-body-row,\n  .ngx-datatable .datatable-row-center,\n  .ngx-datatable .datatable-header-inner {\n    display: -webkit-box;\n    display: -moz-box;\n    display: -ms-flexbox;\n    display: -webkit-flex;\n    display: flex;\n    flex-direction: row;\n    -webkit-flex-flow: row;\n    -moz-flex-flow: row;\n    -ms-flex-flow: row;\n    -o-flex-flow: row;\n    flex-flow: row;\n}\n.ngx-datatable .datatable-body-cell,\n  .ngx-datatable .datatable-header-cell {\n    overflow-x: hidden;\n    vertical-align: top;\n    display: inline-block;\n    line-height: 1.625;\n}\n.ngx-datatable .datatable-body-cell:focus,\n    .ngx-datatable .datatable-header-cell:focus {\n      outline: none;\n}\n.ngx-datatable .datatable-body-cell .datatable-body-cell-label,\n    .ngx-datatable .datatable-header-cell .datatable-body-cell-label {\n      width: 100%;\n}\n.ngx-datatable .datatable-body-cell-bold,\n    .ngx-datatable .datatable-header-cell-bold {\n      font-weight: bold;\n}\n.ngx-datatable .datatable-row-left,\n  .ngx-datatable .datatable-row-right {\n    z-index: 9;\n}\n.ngx-datatable .datatable-row-left,\n  .ngx-datatable .datatable-row-center,\n  .ngx-datatable .datatable-row-group,\n  .ngx-datatable .datatable-row-right {\n    position: relative;\n}\n.ngx-datatable .datatable-header {\n    overflow: hidden;\n}\n.ngx-datatable .datatable-header .datatable-header-inner {\n      align-items: stretch;\n      -webkit-align-items: stretch;\n}\n.ngx-datatable .datatable-header .datatable-header-cell {\n      position: relative;\n      display: inline-block;\n      user-select: none;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.sortable .datatable-header-cell-wrapper {\n        cursor: pointer;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.longpress .datatable-header-cell-wrapper {\n        cursor: move;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .sort-btn::before {\n        line-height: 100%;\n        vertical-align: middle;\n        display: inline-block;\n        cursor: pointer;\n        font-size: 1.25rem;\n        margin-right: -7px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .resize-handle,\n      .ngx-datatable .datatable-header .datatable-header-cell .resize-handle--not-resizable {\n        display: inline-block;\n        position: absolute;\n        right: 0;\n        top: 0;\n        bottom: 0;\n        width: 5px;\n        padding: 0 4px;\n        visibility: hidden;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .resize-handle {\n        cursor: ew-resize;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.resizeable:hover .resize-handle {\n        visibility: visible;\n}\n.ngx-datatable .datatable-header .datatable-header-cell:hover .resize-handle--not-resizable {\n        visibility: visible;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker {\n        position: absolute;\n        top: 0;\n        bottom: 0;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker.dragFromLeft {\n          right: -13px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker.dragFromRight {\n          left: 0;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker .icon {\n          position: absolute;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker .datatable-icon-down {\n          top: 0px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker .datatable-icon-up {\n          top: 35px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .datatable-header-cell-template-wrap {\n        height: inherit;\n}\n.ngx-datatable .datatable-body {\n    position: relative;\n    z-index: 10;\n    display: block;\n}\n.ngx-datatable .datatable-body .datatable-scroll {\n      display: inline-block;\n}\n.ngx-datatable .datatable-body .datatable-row-detail {\n      overflow-y: hidden;\n}\n.ngx-datatable .datatable-body .datatable-row-wrapper {\n      display: -webkit-box;\n      display: -moz-box;\n      display: -ms-flexbox;\n      display: -webkit-flex;\n      display: flex;\n      -webkit-box-orient: vertical;\n      -webkit-box-direction: normal;\n      -webkit-flex-direction: column;\n      -moz-box-orient: vertical;\n      -moz-box-direction: normal;\n      -ms-flex-direction: column;\n      flex-direction: column;\n}\n.ngx-datatable .datatable-body .datatable-body-row {\n      outline: none;\n}\n.ngx-datatable .datatable-body .datatable-body-row > div {\n        display: -webkit-box;\n        display: -moz-box;\n        display: -ms-flexbox;\n        display: -webkit-flex;\n        display: flex;\n}\n.ngx-datatable .datatable-footer {\n    display: block;\n    width: 100%;\n    margin-top: auto;\n}\n.ngx-datatable .datatable-footer .datatable-footer-inner {\n      display: flex;\n      align-items: center;\n      width: 100%;\n}\n.ngx-datatable .datatable-footer .selected-count .page-count {\n      flex: 1 1 40%;\n}\n.ngx-datatable .datatable-footer .selected-count .datatable-pager {\n      flex: 1 1 60%;\n}\n.ngx-datatable .datatable-footer .page-count {\n      flex: 1 1 20%;\n}\n.ngx-datatable .datatable-footer .datatable-pager {\n      flex: 1 1 80%;\n      text-align: right;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager,\n      .ngx-datatable .datatable-footer .datatable-pager .pager li {\n        padding: 0;\n        margin: 0;\n        display: inline-block;\n        list-style: none;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager li,\n      .ngx-datatable .datatable-footer .datatable-pager .pager li a {\n        outline: none;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager li a {\n        cursor: pointer;\n        display: inline-block;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager li.disabled a {\n        cursor: not-allowed;\n}\n", ""]);
+exports.push([module.i, ".ngx-datatable {\n  display: block;\n  overflow: hidden;\n  justify-content: center;\n  position: relative;\n  -webkit-transform: translate3d(0, 0, 0);\n  transform: translate3d(0, 0, 0);\n  /**\r\n   * Vertical Scrolling Adjustments\r\n   */\n  /**\r\n   * Horizontal Scrolling Adjustments\r\n   */\n  /**\r\n   * Fixed Header Height Adjustments\r\n   */\n  /**\r\n   * Fixed row height adjustments\r\n   */\n  /**\r\n   * Shared Styles\r\n   */\n  /**\r\n   * Header Styles\r\n   */\n  /**\r\n   * Body Styles\r\n   */\n  /**\r\n   * Footer Styles\r\n   */\n}\n.ngx-datatable.ngx-flex {\n    display: flex;\n    flex-flow: column;\n    justify-content: flex-start;\n    height: 100%;\n}\n.ngx-datatable.ngx-flex .datatable-body {\n      overflow-y: auto;\n      flex: 1 1 auto;\n}\n.ngx-datatable.ngx-flex .datatable-header,\n    .ngx-datatable.ngx-flex .datatable-footer {\n      flex: none;\n}\n.ngx-datatable.ngx-nowrap-text .datatable-body .datatable-body-row .datatable-body-cell .datatable-body-cell-label {\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n.ngx-datatable [hidden] {\n    display: none !important;\n}\n.ngx-datatable .hidden-columns {\n    visibility: hidden;\n    position: absolute;\n    z-index: -1;\n}\n.ngx-datatable *,\n  .ngx-datatable *:before,\n  .ngx-datatable *:after {\n    -moz-box-sizing: border-box;\n    -webkit-box-sizing: border-box;\n    box-sizing: border-box;\n}\n.ngx-datatable.scroll-vertical .datatable-body {\n    overflow-y: auto;\n}\n.ngx-datatable.scroll-vertical.virtualized .datatable-body .datatable-row-wrapper {\n    position: absolute;\n}\n.ngx-datatable.scroll-horz .datatable-body {\n    overflow-x: auto;\n    -webkit-overflow-scrolling: touch;\n}\n.ngx-datatable.fixed-header .datatable-header .datatable-header-inner {\n    white-space: nowrap;\n}\n.ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n}\n.ngx-datatable.fixed-row .datatable-scroll {\n    white-space: nowrap;\n}\n.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row {\n      white-space: nowrap;\n}\n.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-cell {\n        overflow: hidden;\n        white-space: nowrap;\n        text-overflow: ellipsis;\n}\n.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-group-cell {\n        overflow: hidden;\n        white-space: nowrap;\n        text-overflow: ellipsis;\n}\n.ngx-datatable .datatable-body-row,\n  .ngx-datatable .datatable-row-center,\n  .ngx-datatable .datatable-header-inner {\n    display: -webkit-box;\n    display: -moz-box;\n    display: -ms-flexbox;\n    display: -webkit-flex;\n    display: flex;\n    flex-direction: row;\n    -webkit-flex-flow: row;\n    -moz-flex-flow: row;\n    -ms-flex-flow: row;\n    -o-flex-flow: row;\n    flex-flow: row;\n}\n.ngx-datatable .datatable-body-cell,\n  .ngx-datatable .datatable-header-cell {\n    overflow-x: hidden;\n    vertical-align: top;\n    display: inline-flex;\n    line-height: 1.625;\n}\n.ngx-datatable .datatable-body-cell:focus,\n    .ngx-datatable .datatable-header-cell:focus {\n      outline: none;\n}\n.ngx-datatable .datatable-body-cell .datatable-body-cell-label,\n    .ngx-datatable .datatable-header-cell .datatable-body-cell-label {\n      width: 100%;\n}\n.ngx-datatable .datatable-body-cell-bold,\n    .ngx-datatable .datatable-header-cell-bold {\n      font-weight: bold;\n}\n.ngx-datatable .datatable-row-left,\n  .ngx-datatable .datatable-row-right {\n    z-index: 9;\n}\n.ngx-datatable .datatable-row-left,\n  .ngx-datatable .datatable-row-center,\n  .ngx-datatable .datatable-row-group,\n  .ngx-datatable .datatable-row-right {\n    position: relative;\n}\n.ngx-datatable .datatable-header {\n    overflow: hidden;\n}\n.ngx-datatable .datatable-header .datatable-header-inner {\n      align-items: stretch;\n      -webkit-align-items: stretch;\n}\n.ngx-datatable .datatable-header .datatable-header-cell {\n      position: relative;\n      display: inline-flex;\n      user-select: none;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.sortable .datatable-header-cell-wrapper {\n        cursor: pointer;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.longpress .datatable-header-cell-wrapper {\n        cursor: move;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .sort-btn {\n        margin-left: auto;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .sort-btn::before {\n        line-height: 100%;\n        vertical-align: middle;\n        display: inline-block;\n        cursor: pointer;\n        font-size: 1.25rem;\n        margin-right: -7px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .resize-handle,\n      .ngx-datatable .datatable-header .datatable-header-cell .resize-handle--not-resizable {\n        display: inline-block;\n        position: absolute;\n        right: 0;\n        top: 0;\n        bottom: 0;\n        width: 5px;\n        padding: 0 4px;\n        visibility: hidden;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .resize-handle {\n        cursor: ew-resize;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.resizeable:hover .resize-handle {\n        visibility: visible;\n}\n.ngx-datatable .datatable-header .datatable-header-cell:hover .resize-handle--not-resizable {\n        visibility: visible;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker {\n        position: absolute;\n        top: 0;\n        bottom: 0;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker.dragFromLeft {\n          right: -13px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker.dragFromRight {\n          left: 0;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker .icon {\n          position: absolute;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker .datatable-icon-down {\n          top: 0px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker .datatable-icon-up {\n          top: 35px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .datatable-header-cell-template-wrap {\n        height: inherit;\n}\n.ngx-datatable .datatable-body {\n    position: relative;\n    z-index: 10;\n    display: block;\n}\n.ngx-datatable .datatable-body .datatable-scroll {\n      display: inline-block;\n}\n.ngx-datatable .datatable-body .datatable-row-detail {\n      overflow-y: hidden;\n}\n.ngx-datatable .datatable-body .datatable-row-wrapper {\n      display: -webkit-box;\n      display: -moz-box;\n      display: -ms-flexbox;\n      display: -webkit-flex;\n      display: flex;\n      -webkit-box-orient: vertical;\n      -webkit-box-direction: normal;\n      -webkit-flex-direction: column;\n      -moz-box-orient: vertical;\n      -moz-box-direction: normal;\n      -ms-flex-direction: column;\n      flex-direction: column;\n}\n.ngx-datatable .datatable-body .datatable-body-row {\n      outline: none;\n}\n.ngx-datatable .datatable-body .datatable-body-row > div {\n        display: -webkit-box;\n        display: -moz-box;\n        display: -ms-flexbox;\n        display: -webkit-flex;\n        display: flex;\n}\n.ngx-datatable .datatable-footer {\n    display: block;\n    width: 100%;\n    margin-top: auto;\n}\n.ngx-datatable .datatable-footer .datatable-footer-inner {\n      display: flex;\n      align-items: center;\n      width: 100%;\n}\n.ngx-datatable .datatable-footer .selected-count .page-count {\n      flex: 1 1 40%;\n}\n.ngx-datatable .datatable-footer .selected-count .datatable-pager {\n      flex: 1 1 60%;\n}\n.ngx-datatable .datatable-footer .page-count {\n      flex: 1 1 20%;\n}\n.ngx-datatable .datatable-footer .datatable-pager {\n      flex: 1 1 80%;\n      text-align: right;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager,\n      .ngx-datatable .datatable-footer .datatable-pager .pager li {\n        padding: 0;\n        margin: 0;\n        display: inline-block;\n        list-style: none;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager li,\n      .ngx-datatable .datatable-footer .datatable-pager .pager li a {\n        outline: none;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager li a {\n        cursor: pointer;\n        display: inline-block;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager li.disabled a {\n        cursor: not-allowed;\n}\n", ""]);
 
 
 
@@ -1172,13 +1172,13 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         this.recalcLayout();
     };
     DataTableBodyComponent.prototype.onBodyHeightChanged = function () {
-        this.myBodyHeight = this.bodyHeight;
-        if (this.myBodyHeight === -1) {
+        this.myBodyHeight = this.bodyHeight.toString();
+        if (this.bodyHeight === -1) {
             this.myBodyHeight = '0px';
             return;
         }
         if (this.scrollbarV) {
-            this.myBodyHeight = this.myBodyHeight.toString() + 'px';
+            this.myBodyHeight = this.myBodyHeight + 'px';
         }
         else {
             this.myBodyHeight = 'auto';
@@ -1217,7 +1217,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         get: function () {
             return {
                 width: this.bodyWidth ? this.bodyWidth : 'auto',
-                height: this.myBodyHeight ? this.myBodyHeight.toString() : 'auto',
+                height: this.myBodyHeight ? this.myBodyHeight : 'auto',
             };
         },
         enumerable: false,
@@ -1617,7 +1617,6 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
      * Updates the index of the rows in the viewport
      */
     DataTableBodyComponent.prototype.updateIndexes = function (direction) {
-        var _a;
         var first = 0;
         var last = 0;
         if (this.scrollbarV && !this.limit) {
@@ -1625,14 +1624,14 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
                 // Calculation of the first and last indexes will be based on where the
                 // scrollY position would be at.  The last index would be the one
                 // that shows up inside the view port the last.
-                var height = parseInt((_a = this.myBodyHeight) === null || _a === void 0 ? void 0 : _a.toString(), 10);
+                var height = this.bodyHeight;
                 if (this.isUseRowHeightCache || typeof this.rowHeight === 'function') {
                     first = this.rowHeightsCache.getRowIndex(this.offsetY);
                     last = this.rowHeightsCache.getRowIndex(height + this.offsetY) + 1;
                 }
                 else {
                     first = Math.floor(this.offsetY / this.rowHeight);
-                    last = Math.ceil((height + this.offsetY) / this.rowHeight);
+                    last = Math.ceil((height + this.offsetY + this.rowHeight) / this.rowHeight);
                 }
             }
             else {
@@ -1989,11 +1988,11 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     ], DataTableBodyComponent.prototype, "externalPaging", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Function)
+        __metadata("design:type", Object)
     ], DataTableBodyComponent.prototype, "rowHeight", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Function)
+        __metadata("design:type", Object)
     ], DataTableBodyComponent.prototype, "groupRowHeight", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
@@ -2312,23 +2311,14 @@ var DatatableComponent = /** @class */ (function (_super) {
         _this.isVisible = false;
         // non-reactive
         // mySorts: any[];
-        // _columnTemplates: QueryList<DataTableColumnDirective>;
-        // _subscriptions: Subscription[] = [];
-        /**
-         * Row Detail templates gathered from the ContentChild
-         */
-        // @ContentChild(DatatableRowDetailDirective)
         _this.rowDetail = false; // DatatableRowDetailDirective;
-        /**
-         * Group Header templates gathered from the ContentChild
-         */
-        // @ContentChild(DatatableGroupHeaderDirective)
         _this.groupHeader = false; // DatatableGroupHeaderDirective;
         _this.groupHeaderSlot = null;
         _this.rowDetailSlot = null;
         _this.footerSlot = null;
         _this.scrollbarHelper = new scrollbar_helper_service_1.ScrollbarHelper();
         _this.dimensionsHelper = new dimensions_helper_service_1.DimensionsHelper();
+        _this.needToCalculateDims = true;
         return _this;
     }
     DatatableComponent.prototype.onRowsChanged = function (val) {
@@ -2414,9 +2404,15 @@ var DatatableComponent = /** @class */ (function (_super) {
     DatatableComponent.prototype.onOffsetChanged = function () {
         if (this.innerOffset !== this.offset) {
             this.innerOffset = this.offset;
-            if ( /* this.externalPager && */this.innerOffset >= 0) {
-                this.onFooterPage({ page: this.offset + 1 });
+            if (this.pageSize && this.innerOffset >= 0) {
+                this.onFooterPage({ page: this.innerOffset + 1 });
             }
+        }
+    };
+    DatatableComponent.prototype.onPageSizeChanged = function () {
+        var _this = this;
+        if (this.pageSize && this.innerOffset >= 0) {
+            this.$nextTick(function () { return _this.onFooterPage({ page: _this.innerOffset + 1 }); });
         }
     };
     DatatableComponent.prototype.onSelectedChanged = function () {
@@ -2441,7 +2437,12 @@ var DatatableComponent = /** @class */ (function (_super) {
         }
     };
     DatatableComponent.prototype.beforeDestroy = function () {
-        window.removeEventListener('resize', this.resizeHandler);
+        if (this.resizeHandler) {
+            window.removeEventListener('resize', this.resizeHandler);
+        }
+        if (this.resizeObserver) {
+            this.resizeObserver.unobserve(this.$el);
+        }
     };
     /**
      * Lifecycle hook that is called after data-bound
@@ -2455,19 +2456,46 @@ var DatatableComponent = /** @class */ (function (_super) {
         this.rowDetailSlot = this.$scopedSlots.rowDetail;
         this.footerSlot = this.$scopedSlots.footer;
         this.rowDetail = Boolean(this.rowDetailSlot);
-        // need to call this immediatly to size
-        // if the table is hidden the visibility
-        // listener will invoke this itself upon show
-        this.recalculate();
         if (!this.externalSorting) {
             this.sortInternalRows();
         }
-        // this has to be done to prevent the change detection
-        // tree from freaking out because we are readjusting
-        if (typeof requestAnimationFrame === 'undefined') {
-            return;
+        if (window.ResizeObserver) {
+            this.needToCalculateDims = false;
+            this.resizeObserver = new window.ResizeObserver(function (entries) {
+                var height = 0;
+                if (entries.length && entries[0].contentRect) {
+                    _this.innerWidth = Math.floor(entries[0].contentRect.width);
+                    height = entries[0].contentRect.height;
+                }
+                else {
+                    height = _this.$el.clientHeight;
+                    _this.innerWidth = _this.$el.clientWidth;
+                }
+                if (_this.scrollbarV) {
+                    if (_this.headerHeight) {
+                        height = height - _this.headerHeight;
+                    }
+                    if (_this.footerHeight) {
+                        height = height - _this.footerHeight;
+                    }
+                    _this.bodyHeight = height;
+                }
+                if (typeof requestAnimationFrame === 'undefined') {
+                    _this.recalculate();
+                }
+                else {
+                    requestAnimationFrame(function () {
+                        _this.recalculate();
+                    });
+                }
+            });
+            this.resizeObserver.observe(this.$el);
         }
-        requestAnimationFrame(function () {
+        else {
+            this.resizeHandler = this.onWindowResize.bind(this);
+            window.addEventListener('resize', this.resizeHandler);
+        }
+        var init = function () {
             _this.recalculate();
             // emit page for virtual server-side kickoff
             if (_this.externalPaging && _this.scrollbarV) {
@@ -2478,74 +2506,15 @@ var DatatableComponent = /** @class */ (function (_super) {
                     offset: _this.innerOffset,
                 });
             }
-            _this.resizeHandler = _this.onWindowResize.bind(_this);
-            window.addEventListener('resize', _this.resizeHandler);
-        });
-    };
-    /**
-     * Body was scrolled typically in a `scrollbarV:true` scenario.
-     */
-    // @Output() scroll: EventEmitter<any> = new EventEmitter();
-    /**
-     * A cell or row was focused via keyboard or mouse click.
-     */
-    // @Output() activate: EventEmitter<any> = new EventEmitter();
-    /**
-     * A cell or row was selected.
-     */
-    // @Output() select: EventEmitter<any> = new EventEmitter();
-    /**
-     * Column sort was invoked.
-     */
-    // @Output() sort: EventEmitter<any> = new EventEmitter();
-    /**
-     * The table was paged either triggered by the pager or the body scroll.
-     */
-    // @Output() page: EventEmitter<any> = new EventEmitter();
-    /**
-     * Columns were re-ordered.
-     */
-    // @Output() reorder: EventEmitter<any> = new EventEmitter();
-    /**
-     * Column was resized.
-     */
-    // @Output() resize: EventEmitter<any> = new EventEmitter();
-    /**
-     * The context menu was invoked on the table.
-     * type indicates whether the header or the body was clicked.
-     * content contains either the column or the row that was clicked.
-     */
-    // @Output() tableContextmenu = new EventEmitter<{ event: MouseEvent, type: ContextmenuType, content: any }>(false);
-    /**
-     * A row was expanded ot collapsed for tree
-     */
-    // @Output() treeAction: EventEmitter<any> = new EventEmitter();
-    DatatableComponent.prototype.addRow = function (group, rows) {
-        var _this = this;
-        // (group as any).__isGroup = true;
-        // group.__expanded = true;
-        rows.push(group);
-        if (group.rows && group.__expanded) {
-            group.rows.forEach(function (r) {
-                rows.push(r);
+        };
+        if (typeof requestAnimationFrame === 'undefined') {
+            init();
+        }
+        else {
+            requestAnimationFrame(function () {
+                init();
             });
         }
-        if (group.groups && group.__expanded) {
-            group.groups.forEach(function (gr) {
-                _this.addRow(gr, rows);
-            });
-        }
-    };
-    DatatableComponent.prototype.processGroupedRows = function (groupedRows) {
-        var _this = this;
-        var rows = [];
-        if (groupedRows && groupedRows.length) {
-            // creates a new array with the data grouped
-            groupedRows.forEach(function (g) {
-                _this.addRow(g, rows);
-            });
-        }
-        return rows;
     };
     Object.defineProperty(DatatableComponent.prototype, "myRowHeight", {
         get: function () {
@@ -2763,7 +2732,13 @@ var DatatableComponent = /** @class */ (function (_super) {
      * Also can be manually invoked or upon window resize.
      */
     DatatableComponent.prototype.recalculate = function () {
-        this.recalculateDims();
+        if (this.needToCalculateDims) {
+            // this.recalculatePages will be called in this.recalculateDims
+            this.recalculateDims();
+        }
+        else {
+            this.recalculatePages();
+        }
         this.recalculateColumns();
     };
     /**
@@ -2856,7 +2831,9 @@ var DatatableComponent = /** @class */ (function (_super) {
      */
     DatatableComponent.prototype.onFooterPage = function (event) {
         this.innerOffset = event.page - 1;
-        this.bodyComponent.updateOffsetY(this.innerOffset, true);
+        if (this.bodyComponent) {
+            this.bodyComponent.updateOffsetY(this.innerOffset, true);
+        }
         this.$emit('page', {
             count: this.count,
             pageSize: this.pageSize,
@@ -2891,7 +2868,7 @@ var DatatableComponent = /** @class */ (function (_super) {
             if (typeof this.rowHeight === 'number') {
                 rowHeight = this.rowHeight;
             }
-            var size = Math.floor(this.bodyHeight / rowHeight);
+            var size = Math.ceil(this.bodyHeight / rowHeight);
             return Math.max(size, 0);
         }
         // if limit is passed, we are paging
@@ -3367,6 +3344,33 @@ var DatatableComponent = /** @class */ (function (_super) {
         var result = sortedRows.map(function (r) { return r.__group; });
         return result;
     };
+    DatatableComponent.prototype.addRow = function (group, rows) {
+        var _this = this;
+        // (group as any).__isGroup = true;
+        // group.__expanded = true;
+        rows.push(group);
+        if (group.rows && group.__expanded) {
+            group.rows.forEach(function (r) {
+                rows.push(r);
+            });
+        }
+        if (group.groups && group.__expanded) {
+            group.groups.forEach(function (gr) {
+                _this.addRow(gr, rows);
+            });
+        }
+    };
+    DatatableComponent.prototype.processGroupedRows = function (groupedRows) {
+        var _this = this;
+        var rows = [];
+        if (groupedRows && groupedRows.length) {
+            // creates a new array with the data grouped
+            groupedRows.forEach(function (g) {
+                _this.addRow(g, rows);
+            });
+        }
+        return rows;
+    };
     __decorate([
         vue_property_decorator_1.Prop({ default: false }),
         __metadata("design:type", Boolean)
@@ -3619,6 +3623,12 @@ var DatatableComponent = /** @class */ (function (_super) {
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DatatableComponent.prototype, "onOffsetChanged", null);
+    __decorate([
+        vue_property_decorator_1.Watch('pageSize'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], DatatableComponent.prototype, "onPageSizeChanged", null);
     __decorate([
         vue_property_decorator_1.Watch('selected', { immediate: true }),
         __metadata("design:type", Function),
@@ -5225,7 +5235,7 @@ var ScrollerComponent = /** @class */ (function (_super) {
     ], ScrollerComponent.prototype, "scrollHeight", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Number)
+        __metadata("design:type", String)
     ], ScrollerComponent.prototype, "scrollWidth", void 0);
     ScrollerComponent = __decorate([
         vue_property_decorator_1.Component({
@@ -6768,26 +6778,9 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
         }
     };
     DataTableHeaderCellComponent.prototype.mounted = function () {
-        var _this = this;
         this.column.element = this.$el;
         this.$emit('header-cell-mounted', this.$el);
-        if (window.ResizeObserver) {
-            this.resizeObserver = new window.ResizeObserver(function (entries) {
-                if (!_this.column) {
-                    return;
-                }
-                if (entries.length && entries[0].contentRect) {
-                    _this.column.realWidth = Math.max(_this.$el.clientWidth, entries[0].contentRect.width);
-                }
-                else {
-                    _this.column.realWidth = _this.$el.clientWidth;
-                }
-            });
-            this.resizeObserver.observe(this.$el);
-        }
-        else {
-            this.column.realWidth = this.$el.clientWidth;
-        }
+        this.setResizeObserver();
     };
     DataTableHeaderCellComponent.prototype.beforeUpdate = function () {
         if (this.column.headerTemplate) {
@@ -6795,25 +6788,11 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
         }
     };
     DataTableHeaderCellComponent.prototype.updated = function () {
-        var _this = this;
-        if (window.ResizeObserver) {
-            this.resizeObserver.unobserve(this.$el);
-            this.resizeObserver = new window.ResizeObserver(function (entries) {
-                if (!_this.column) {
-                    return;
-                }
-                if (entries.length && entries[0].contentRect) {
-                    _this.column.realWidth = Math.max(_this.$el.clientWidth, entries[0].contentRect.width);
-                }
-                else {
-                    _this.column.realWidth = _this.$el.clientWidth;
-                }
-            });
-            this.resizeObserver.observe(this.$el);
+        if (this.resizeObserver && this.column.element !== this.$el) {
+            this.resizeObserver.unobserve(this.column.element);
         }
-        else {
-            this.column.realWidth = this.$el.clientWidth;
-        }
+        this.column.element = this.$el;
+        this.setResizeObserver();
     };
     DataTableHeaderCellComponent.prototype.beforeDestroy = function () {
         if (this.column) {
@@ -6984,6 +6963,26 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
         }
         return '';
     };
+    DataTableHeaderCellComponent.prototype.setResizeObserver = function () {
+        var _this = this;
+        if (window.ResizeObserver) {
+            this.resizeObserver = new window.ResizeObserver(function (entries) {
+                if (!_this.column) {
+                    return;
+                }
+                if (entries.length && entries[0].contentRect) {
+                    _this.column.realWidth = Math.max(_this.$el.clientWidth, entries[0].contentRect.width);
+                }
+                else {
+                    _this.column.realWidth = _this.$el.clientWidth;
+                }
+            });
+            this.resizeObserver.observe(this.$el);
+        }
+        else {
+            this.column.realWidth = null;
+        }
+    };
     __decorate([
         vue_property_decorator_1.Prop(),
         __metadata("design:type", String)
@@ -7040,7 +7039,7 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
     ], DataTableHeaderCellComponent.prototype, "onSortsChanged", null);
     DataTableHeaderCellComponent = __decorate([
         vue_property_decorator_1.Component({
-            template: "\n    <div\n      class=\"datatable-header-cell-template-wrap\"\n      :class=\"[columnCssClasses]\"\n      :style=\"styles\"\n      :title=\"name\"\n      v-show=\"column.visible\"\n      @contextmenu=\"onContextmenu($event)\"\n    >\n      <slot name=\"target-marker\">\n        <!-- Default content -->\n        <div class=\"targetMarker\" v-if=\"isTarget\">\n          <div class=\"icon datatable-icon-down\"></div>\n          <div class=\"icon datatable-icon-up\"></div>\n        </div>\n      </slot>\n      <label v-if=\"isCheckboxable\" class=\"datatable-checkbox\">\n        <input type=\"checkbox\" v-model=\"myAllRowsSelected\" @change=\"onCheckboxChange\" />\n      </label>\n      <slot v-bind=\"{ column: column }\">\n        <!-- Default content -->\n        <span class=\"datatable-header-cell-wrapper\">\n          <span class=\"datatable-header-cell-label draggable\" :class=\"cssClass\" @click=\"onSort\" v-html=\"name\"> </span>\n        </span>\n      </slot>\n      <span :class=\"sortCssClass\" @click=\"onSort\">\n        {{ sortOrder }}\n      </span>\n    </div>\n  ",
+            template: "\n    <div\n      class=\"datatable-header-cell-template-wrap\"\n      :class=\"[columnCssClasses]\"\n      :style=\"styles\"\n      :title=\"name\"\n      v-show=\"column.visible\"\n      @contextmenu=\"onContextmenu($event)\"\n    >\n      <slot name=\"target-marker\">\n        <!-- Default content -->\n        <div class=\"targetMarker\" v-if=\"isTarget\">\n          <div class=\"icon datatable-icon-down\"></div>\n          <div class=\"icon datatable-icon-up\"></div>\n        </div>\n      </slot>\n      <label v-if=\"isCheckboxable\" class=\"datatable-checkbox\">\n        <input type=\"checkbox\" v-model=\"myAllRowsSelected\" @change=\"onCheckboxChange\" />\n      </label>\n      <slot v-bind=\"{ column: column }\">\n        <!-- Default content -->\n        <span class=\"datatable-header-cell-wrapper\">\n          <span class=\"datatable-header-cell-label draggable\" :class=\"cssClass\" @click=\"onSort\" v-html=\"name\"> </span>\n        </span>\n      </slot>\n      <div :class=\"sortCssClass\" @click=\"onSort\">\n        {{ sortOrder }}\n      </div>\n    </div>\n  ",
         })
     ], DataTableHeaderCellComponent);
     return DataTableHeaderCellComponent;
