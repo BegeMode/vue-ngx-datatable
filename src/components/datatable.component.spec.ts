@@ -403,18 +403,18 @@ describe('DatatableComponent', () => {
     await Vue.nextTick();
     await flushPromises();
 
-    const datatableComponent = wrapper.find(DatatableComponent);
+    const datatableComponent = wrapper.findComponent(DatatableComponent);
     expect((datatableComponent.vm as DatatableComponentClass).innerOffset).toBe(0);
   });
 
   it('should support array data', async () => {
     const initialRows = [['Hello', 123]];
-
     const columns = [{ prop: 0 }, { prop: 1 }];
 
     // previously, an exception was thrown from column-helper.ts setColumnDefaults()
-    component.rows = (initialRows as unknown) as Record<string, unknown>[];
     component.columns = columns;
+    await Vue.nextTick();
+    component.rows = (initialRows as unknown) as Record<string, unknown>[];
     await Vue.nextTick();
     await flushPromises();
 
@@ -467,8 +467,9 @@ describe('DatatableComponent With Custom Templates', () => {
     /**
      * initially display `user` column as the second column in the table
      */
-    component.rows = initialRows;
     (component as TestFixtureComponentWithCustomTemplates).columnTwoProp = 'user';
+    await component.$nextTick();
+    component.rows = initialRows;
 
     await component.$nextTick();
     await flushPromises();
@@ -481,8 +482,8 @@ describe('DatatableComponent With Custom Templates', () => {
      * switch to displaying `age` column as the second column in the table
      */
     (component as TestFixtureComponentWithCustomTemplates).columnTwoProp = 'age';
-
     await component.$nextTick();
+    await flushPromises();
 
     expect(textContent({ row: 1, column: 2 })).toContain('35', 'Displays age');
     expect(textContent({ row: 2, column: 2 })).toContain('50', 'Displays age');
@@ -525,9 +526,9 @@ function sortBy({ column }: { column: number }) {
  */
 function textContent({ row, column }: { row: number; column: number }) {
   const [rowIndex, columnIndex] = [row - 1, column - 1];
-  const bodyRows = wrapper.findAll(DataTableBodyRowComponent);
+  const bodyRows = wrapper.findAllComponents(DataTableBodyRowComponent);
   const bodyRow = bodyRows.wrappers[rowIndex] as Wrapper<DataTableBodyRowComponent>;
-  const rowCols = bodyRow.findAll(DataTableBodyCellComponent);
+  const rowCols = bodyRow.findAllComponents(DataTableBodyCellComponent);
   const rowCol = rowCols.wrappers[columnIndex];
   return rowCol.text();
 }

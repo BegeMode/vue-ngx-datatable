@@ -19,31 +19,31 @@ describe('DataTableFooterComponent', () => {
     });
 
     it('should have a height', async () => {
-      wrapper.setProps({
+      await wrapper.setProps({
         footerHeight: 123,
       });
       await component.$nextTick();
-      const footer = wrapper.find(DataTableFooterComponent);
+      const footer = wrapper.findComponent(DataTableFooterComponent);
       void expect((footer.vm.$el as HTMLElement).style.height).toEqual('123px');
     });
 
     it('should have `.selected-count` class when selectedMessage is set', async () => {
-      wrapper.setProps({
+      await wrapper.setProps({
         selectedMessage: 'selected',
         selectedCount: 1,
       });
       await component.$nextTick();
-      const footer = wrapper.find(DataTableFooterComponent);
+      const footer = wrapper.findComponent(DataTableFooterComponent);
       expect(footer.vm.$el).toHaveCssClass('selected-count');
     });
 
     it('should not have `.selected-count` class if selectedMessage is not set', async () => {
-      wrapper.setProps({
+      await wrapper.setProps({
         selectedMessage: null,
         selectedCount: 1,
       });
       await component.$nextTick();
-      const footer = wrapper.find(DataTableFooterComponent);
+      const footer = wrapper.findComponent(DataTableFooterComponent);
       expect(footer.vm.$el).not.toHaveCssClass('selected-count');
     });
   });
@@ -54,37 +54,37 @@ describe('DataTableFooterComponent', () => {
     });
 
     it('should not render a template', () => {
-      const footer = wrapper.find(DataTableFooterComponent);
+      const footer = wrapper.findComponent(DataTableFooterComponent);
       void expect(footer.vm.$el.querySelector('#template-list')).toBeNull();
     });
 
     it('should display the selected count and total if selectedMessage set', async () => {
-      wrapper.setProps({
+      await wrapper.setProps({
         selectedMessage: 'selected',
         selectedCount: 7,
         rowCount: 10,
         totalMessage: 'total',
       });
       await component.$nextTick();
-      const footer = wrapper.find(DataTableFooterComponent);
+      const footer = wrapper.findComponent(DataTableFooterComponent);
       void expect((footer.vm.$el as HTMLElement).innerText).toContain('7 selected /');
       void expect((footer.vm.$el as HTMLElement).innerText).toContain('10 total');
     });
 
     it('should display only the total if selectedMessage is not set', async () => {
-      wrapper.setProps({
+      await wrapper.setProps({
         selectedMessage: null,
         rowCount: 100,
         totalMessage: 'total',
       });
       await component.$nextTick();
-      const footer = wrapper.find(DataTableFooterComponent);
+      const footer = wrapper.findComponent(DataTableFooterComponent);
       void expect((footer.vm.$el as HTMLElement).innerText).not.toContain('selected /');
       void expect((footer.vm.$el as HTMLElement).innerText).toContain('100 total');
     });
 
     it('should render a DataTablePagerComponent', () => {
-      const pager = wrapper.find(DataTablePagerComponent);
+      const pager = wrapper.findComponent(DataTablePagerComponent);
       void expect(pager).not.toBeNull();
       void expect(pager.vm).not.toBeNull();
     });
@@ -92,7 +92,7 @@ describe('DataTableFooterComponent', () => {
     it('should propagate page change events upward from the DataTablePagerComponent', async () => {
       const spy = spyOn(component, 'onPageEvent');
       const pageChangeEvent = { page: 7 };
-      const pager = wrapper.find(DataTablePagerComponent);
+      const pager = wrapper.findComponent(DataTablePagerComponent);
       // mimic the act of changing the page through the datatable pager
       pager.vm.$emit('change-page', pageChangeEvent);
       await component.$nextTick();
@@ -101,84 +101,84 @@ describe('DataTableFooterComponent', () => {
     });
 
     it('should bind to DataTablePagerComponent pagerLeftArrowIcon input', async () => {
-      wrapper.setProps({
+      await wrapper.setProps({
         pagerLeftArrowIcon: 'pager-left-arrow-icon',
       });
 
       await component.$nextTick();
 
-      const pager = wrapper.find(DataTablePagerComponent);
+      const pager = wrapper.findComponent(DataTablePagerComponent);
       void expect((pager.vm as DataTablePagerComponent).pagerLeftArrowIcon).toBe(component.pagerLeftArrowIcon);
     });
 
     it('should bind to DataTablePagerComponent pagerRightArrowIcon input', async () => {
-      wrapper.setProps({
+      await wrapper.setProps({
         pagerRightArrowIcon: 'pager-right-arrow-icon',
       });
       await component.$nextTick();
 
-      const pager = wrapper.find(DataTablePagerComponent);
+      const pager = wrapper.findComponent(DataTablePagerComponent);
       void expect((pager.vm as DataTablePagerComponent).pagerRightArrowIcon).toBe(component.pagerRightArrowIcon);
     });
 
     it('should bind to DataTablePagerComponent pagerNextIcon input', async () => {
-      wrapper.setProps({
+      await wrapper.setProps({
         pagerNextIcon: 'pager-next-icon',
       });
       await component.$nextTick();
 
-      const pager = wrapper.find(DataTablePagerComponent);
+      const pager = wrapper.findComponent(DataTablePagerComponent);
       void expect((pager.vm as DataTablePagerComponent).pagerNextIcon).toBe(component.pagerNextIcon);
     });
 
     it('should bind to DataTablePagerComponent pagerPreviousIcon input', async () => {
-      wrapper.setProps({
+      await wrapper.setProps({
         pagerPreviousIcon: 'pager-previous-icon',
       });
       await component.$nextTick();
 
-      const pager = wrapper.find(DataTablePagerComponent);
+      const pager = wrapper.findComponent(DataTablePagerComponent);
       void expect((pager.vm as DataTablePagerComponent).pagerPreviousIcon).toBe(component.pagerPreviousIcon);
     });
 
     it('should bind to DataTablePagerComponent size input', async () => {
-      wrapper.setProps({
+      await wrapper.setProps({
         pageSize: 4,
       });
       await component.$nextTick();
 
-      const pager = wrapper.find(DataTablePagerComponent);
+      const pager = wrapper.findComponent(DataTablePagerComponent);
       void expect((pager.vm as DataTablePagerComponent).size).toBe(component.pageSize);
     });
 
     it('should bind to DataTablePagerComponent count input', async () => {
-      wrapper.setProps({
+      await wrapper.setProps({
         pageSize: 4,
       });
       await component.$nextTick();
-      const pager = wrapper.find(DataTablePagerComponent);
+      const pager = wrapper.findComponent(DataTablePagerComponent);
       void expect((pager.vm as DataTablePagerComponent).count).toBe(component.rowCount);
     });
 
     it('should bind to DataTablePagerComponent page input', async () => {
-      wrapper.setProps({
+      await wrapper.setProps({
         offset: 200,
       });
       await component.$nextTick();
-      const pager = wrapper.find(DataTablePagerComponent);
+      const pager = wrapper.findComponent(DataTablePagerComponent);
       void expect((pager.vm as DataTablePagerComponent).page).toBe(201);
     });
 
     it('should show & hide the DataTablePagerComponent', async () => {
-      wrapper.setProps({
+      await wrapper.setProps({
         rowCount: 200,
         pageSize: 5,
       });
       await component.$nextTick();
-      const pager = wrapper.find(DataTablePagerComponent);
+      const pager = wrapper.findComponent(DataTablePagerComponent);
       void expect((pager.vm.$el as HTMLElement).hidden).toBe(false, 'DataTablePagerComponent should be hidden');
 
-      wrapper.setProps({
+      await wrapper.setProps({
         rowCount: 1,
         pageSize: 2,
       });
@@ -193,14 +193,14 @@ describe('DataTableFooterComponent', () => {
     });
 
     it('should not render div.page-count or DatatablePagerComponent', async () => {
-      const footer = wrapper.find(DataTableFooterComponent);
+      const footer = wrapper.findComponent(DataTableFooterComponent);
       footer.vm.$forceUpdate();
       await footer.vm.$nextTick();
       void expect((footer.vm.$el as HTMLElement).querySelector('.page-count')).toBeNull();
     });
 
     it('should render the template', async () => {
-      const footer = wrapper.find(DataTableFooterComponent);
+      const footer = wrapper.findComponent(DataTableFooterComponent);
       footer.vm.$forceUpdate();
       await footer.vm.$nextTick();
 
@@ -208,14 +208,14 @@ describe('DataTableFooterComponent', () => {
     });
 
     it('should give the template proper context', async () => {
-      wrapper.setProps({
+      await wrapper.setProps({
         rowCount: 12,
         pageSize: 1,
         selectedCount: 4,
         offset: 0,
       });
       await component.$nextTick();
-      const footer = wrapper.find(DataTableFooterComponent);
+      const footer = wrapper.findComponent(DataTableFooterComponent);
       footer.vm.$forceUpdate();
       await footer.vm.$nextTick();
 

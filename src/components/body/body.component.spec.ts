@@ -46,7 +46,8 @@ describe('DataTableBodyComponent', () => {
 
   describe('Paging', () => {
     it('should have correct indexes for normal paging with rows > pageSize', async () => {
-      wrapper.setProps({
+      // need to setProps twice - bug in vue-test-utils
+      await wrapper.setProps({
         externalPaging: false,
         rows: [
           { num: 1 },
@@ -64,28 +65,57 @@ describe('DataTableBodyComponent', () => {
         offset: 1,
         rowCount: 20,
       });
-      await component.$nextTick();
+      await wrapper.setProps({
+        externalPaging: false,
+        rows: [
+          { num: 1 },
+          { num: 2 },
+          { num: 3 },
+          { num: 4 },
+          { num: 5 },
+          { num: 6 },
+          { num: 7 },
+          { num: 8 },
+          { num: 9 },
+          { num: 10 },
+        ],
+        pageSize: 10,
+        offset: 1,
+        rowCount: 20,
+      });
+      // await component.$nextTick();
+      // await flushPromises();
       const expectedIndexes = { first: 10, last: 20 };
       component.updateIndexes();
       expect(component.indexes).toEqual(expectedIndexes);
     });
 
     it('should have correct indexes for normal paging with rows < pageSize', async () => {
-      wrapper.setProps({
+      // need to setProps twice - bug in vue-test-utils
+      await wrapper.setProps({
         externalPaging: false,
         rows: [{ num: 1 }, { num: 2 }, { num: 3 }, { num: 4 }],
         pageSize: 5,
         offset: 1,
         rowCount: 9,
       });
-      await component.$nextTick();
+      await wrapper.setProps({
+        externalPaging: false,
+        rows: [{ num: 1 }, { num: 2 }, { num: 3 }, { num: 4 }],
+        pageSize: 5,
+        offset: 1,
+        rowCount: 9,
+      });
+      // await component.$nextTick();
+      // await flushPromises();
       const expectedIndexes = { first: 5, last: 9 };
       component.updateIndexes();
       expect(component.indexes).toEqual(expectedIndexes);
     });
 
     it('should have correct indexes for external paging with rows > pageSize', async () => {
-      wrapper.setProps({
+      // need to setProps twice - bug in vue-test-utils
+      await wrapper.setProps({
         externalPaging: true,
         rows: [
           { num: 1 },
@@ -103,21 +133,45 @@ describe('DataTableBodyComponent', () => {
         offset: 1,
         rowCount: 20,
       });
-      await component.$nextTick();
+      await wrapper.setProps({
+        externalPaging: true,
+        rows: [
+          { num: 1 },
+          { num: 2 },
+          { num: 3 },
+          { num: 4 },
+          { num: 5 },
+          { num: 6 },
+          { num: 7 },
+          { num: 8 },
+          { num: 9 },
+          { num: 10 },
+        ],
+        pageSize: 10,
+        offset: 1,
+        rowCount: 20,
+      });
       const expectedIndexes = { first: 0, last: 10 };
       component.updateIndexes();
       expect(component.indexes).toEqual(expectedIndexes);
     });
 
     it('should have correct indexes for external paging with rows < pageSize', async () => {
-      wrapper.setProps({
+      // need to setProps twice - bug in vue-test-utils
+      await wrapper.setProps({
         externalPaging: true,
         rows: [{ num: 1 }, { num: 2 }, { num: 3 }, { num: 4 }],
         pageSize: 5,
         offset: 1,
         rowCount: 9,
       });
-      await component.$nextTick();
+      await wrapper.setProps({
+        externalPaging: true,
+        rows: [{ num: 1 }, { num: 2 }, { num: 3 }, { num: 4 }],
+        pageSize: 5,
+        offset: 1,
+        rowCount: 9,
+      });
       const expectedIndexes = { first: 0, last: 5 };
       component.updateIndexes();
       expect(component.indexes).toEqual(expectedIndexes);

@@ -74,8 +74,8 @@ export default class DataTableBodyComponent extends Vue {
   @Prop() rows: Record<string, unknown>[];
   @Prop() columns: TableColumn[];
   @Prop() offset: number;
-  @Prop() rowCount: number;
-  @Prop() bodyHeight: number;
+  @Prop({ default: 0 }) rowCount: number;
+  @Prop({ default: 0 }) bodyHeight: number;
   @Prop({ type: [Number, String], default: null }) minItemHeight: number | string;
   @Prop({ type: [String], default: 'height' }) heightField: string;
   @Prop() groupHeaderSlot: (obj: Record<string, unknown>) => VNode[];
@@ -320,7 +320,7 @@ export default class DataTableBodyComponent extends Vue {
   }
 
   reset(): void {
-    this.offsetX = 0;
+    this.myOffsetX = 0;
     this.offsetY = 0;
   }
 
@@ -366,7 +366,7 @@ export default class DataTableBodyComponent extends Vue {
   }
 
   onScrollSetup(event: { scrollYPos: number; scrollXPos: number }): void {
-    this.offsetX = event.scrollXPos;
+    this.myOffsetX = event.scrollXPos;
     this.offsetY = event.scrollYPos;
   }
 

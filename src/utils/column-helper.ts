@@ -50,9 +50,7 @@ export function setColumnDefaults(column: TableColumn, vm: Vue): void {
     column.prop = camelCase(column.name);
   }
 
-  if (!column.$$valueGetter) {
-    vm.$set(column, '$$valueGetter', getterForProp(column.prop));
-  }
+  vm.$set(column, '$$valueGetter', getterForProp(column.prop));
 
   // format props if no name passed
   if (!isNullOrUndefined(column.prop) && isNullOrUndefined(column.name)) {

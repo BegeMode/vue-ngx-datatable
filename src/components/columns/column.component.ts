@@ -49,9 +49,9 @@ export default class DataTableColumnComponent extends Vue {
     (this.$parent as DatatableComponent).onColumnChangeVisible(this.column);
   }
 
-  @Watch('column.width') onWidthChanged(): void {
-    this.$emit('update-width', this.column.width);
-  }
+  // @Watch('column.width') onWidthChanged(): void {
+  //   this.$emit('update-width', this.column.width);
+  // }
 
   mounted(): void {
     this.$set(this.column, 'name', this.name);
