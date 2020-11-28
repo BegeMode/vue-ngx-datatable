@@ -1026,11 +1026,11 @@ export default class DatatableComponent extends Vue {
    * The header triggered a column sort event.
    */
   onColumnSort(event: ISortEvent): void {
-    // clean selected rows
+    // clean all checked rows
     if (this.selectAllRowsOnPage) {
-      this.mySelected = [];
-      this.$emit('select', {
-        selected: this.mySelected,
+      this.myChecked = [];
+      this.$emit('check', {
+        checked: this.myChecked,
       });
     }
 

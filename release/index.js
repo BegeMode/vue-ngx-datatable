@@ -1,5 +1,5 @@
 /**
- * vue-data-table v"1.2.0" (https://github.com/begemode/vue-ngx-data-table)
+ * vue-data-table v"1.2.1" (https://github.com/begemode/vue-ngx-data-table)
  * Copyright 2018
  * Licensed under MIT
  */
@@ -1302,7 +1302,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         // if (this.groupHeader) this.listener.unsubscribe();
     };
     DataTableBodyComponent.prototype.reset = function () {
-        this.offsetX = 0;
+        this.myOffsetX = 0;
         this.offsetY = 0;
     };
     DataTableBodyComponent.prototype.onSelect = function (event) {
@@ -1348,7 +1348,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         return offsetY || 0;
     };
     DataTableBodyComponent.prototype.onScrollSetup = function (event) {
-        this.offsetX = event.scrollXPos;
+        this.myOffsetX = event.scrollXPos;
         this.offsetY = event.scrollYPos;
     };
     /**
@@ -2099,11 +2099,11 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         __metadata("design:type", Number)
     ], DataTableBodyComponent.prototype, "offset", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        vue_property_decorator_1.Prop({ default: 0 }),
         __metadata("design:type", Number)
     ], DataTableBodyComponent.prototype, "rowCount", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        vue_property_decorator_1.Prop({ default: 0 }),
         __metadata("design:type", Number)
     ], DataTableBodyComponent.prototype, "bodyHeight", void 0);
     __decorate([
@@ -2985,11 +2985,11 @@ var DatatableComponent = /** @class */ (function (_super) {
     DatatableComponent.prototype.onColumnSort = function (event) {
         var _this = this;
         var _a;
-        // clean selected rows
+        // clean all checked rows
         if (this.selectAllRowsOnPage) {
-            this.mySelected = [];
-            this.$emit('select', {
-                selected: this.mySelected,
+            this.myChecked = [];
+            this.$emit('check', {
+                checked: this.myChecked,
             });
         }
         // this.mySorts = event.sorts;
@@ -5922,9 +5922,9 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
         this.column.visible = newVal;
         this.$parent.onColumnChangeVisible(this.column);
     };
-    DataTableColumnComponent.prototype.onWidthChanged = function () {
-        this.$emit('update-width', this.column.width);
-    };
+    // @Watch('column.width') onWidthChanged(): void {
+    //   this.$emit('update-width', this.column.width);
+    // }
     DataTableColumnComponent.prototype.mounted = function () {
         this.$set(this.column, 'name', this.name);
         this.$set(this.column, 'prop', this.prop);
@@ -6094,12 +6094,6 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
         __metadata("design:paramtypes", [Boolean]),
         __metadata("design:returntype", void 0)
     ], DataTableColumnComponent.prototype, "onVisibleChanged", null);
-    __decorate([
-        vue_property_decorator_1.Watch('column.width'),
-        __metadata("design:type", Function),
-        __metadata("design:paramtypes", []),
-        __metadata("design:returntype", void 0)
-    ], DataTableColumnComponent.prototype, "onWidthChanged", null);
     DataTableColumnComponent = __decorate([
         vue_property_decorator_1.Component({
             template: "\n    <div>\n      <slot name=\"header\" v-bind=\"{column: column}\">\n        <!-- default content -->\n        {{ name }}\n      </slot>\n      <!-- default slot for cell -->\n      <slot> </slot>\n    </div>\n  ",
@@ -6169,7 +6163,9 @@ var render = function() {
               scrollbarH: _vm.scrollbarH,
               innerWidth: _vm.innerWidth,
               offsetX: _vm.offsetX,
-              dealsWithGroup: _vm.groupRowsBy,
+              dealsWithGroup:
+                Array.isArray(_vm.groupRowsBy) &&
+                Boolean(_vm.groupRowsBy.length),
               columns: _vm.internalColumns,
               headerHeight: _vm.headerHeight,
               reorderable: _vm.reorderable,
@@ -8455,9 +8451,7 @@ function setColumnDefaults(column, vm) {
     if (isNullOrUndefined(column.prop) && column.name) {
         column.prop = camel_case_1.camelCase(column.name);
     }
-    if (!column.$$valueGetter) {
-        vm.$set(column, '$$valueGetter', column_prop_getters_1.getterForProp(column.prop));
-    }
+    vm.$set(column, '$$valueGetter', column_prop_getters_1.getterForProp(column.prop));
     // format props if no name passed
     if (!isNullOrUndefined(column.prop) && isNullOrUndefined(column.name)) {
         column.name = camel_case_1.deCamelCase(String(column.prop));
@@ -8539,6 +8533,7 @@ exports.isNullOrUndefined = isNullOrUndefined;
 // maybe rename this file to prop-getters.ts
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.deepValueGetter = exports.shallowValueGetter = exports.numericIndexGetter = exports.getterForProp = exports.emptyStringGetter = void 0;
+var column_helper_1 = __webpack_require__(/*! utils/column-helper */ "./src/utils/column-helper.ts");
 /**
  * Always returns the empty string ''
  * @returns {string}
@@ -8552,7 +8547,7 @@ exports.emptyStringGetter = emptyStringGetter;
  * If prop == null, returns the emptyStringGetter.
  */
 function getterForProp(prop) {
-    if (!prop) {
+    if (column_helper_1.isNullOrUndefined(prop)) {
         return emptyStringGetter;
     }
     if (typeof prop === 'number') {
