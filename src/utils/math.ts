@@ -91,12 +91,11 @@ function calcRealWidth(column: TableColumn): number {
   if (!column.element) {
     return null;
   }
+  let w = (column.element as HTMLElement).offsetWidth;
   // eslint-disable-next-line no-undefined
   if (column.realWidth !== null || column.realWidth !== undefined) {
-    return column.realWidth;
+    return Math.max(w, column.realWidth);
   }
-
-  let w = (column.element as HTMLElement).offsetWidth;
   if (!w || w < 0) {
     return w;
   }

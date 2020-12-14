@@ -38,7 +38,6 @@ interface IDragPosition {
         :style="styleByGroup[colGroup.type]"
       >
         <datatable-header-cell
-          class="datatable-header-cell"
           v-for="column of colGroup.columns"
           :key="column.$$id"
           v-resizeable="{ resizeEnabled: column.resizeable }"

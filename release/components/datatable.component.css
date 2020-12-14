@@ -117,7 +117,7 @@
 .ngx-datatable .datatable-header-cell {
   overflow-x: hidden;
   vertical-align: top;
-  display: inline-block;
+  display: inline-flex;
   line-height: 1.625;
 }
 .ngx-datatable .datatable-body-cell:focus,
@@ -159,6 +159,9 @@
 }
 .ngx-datatable .datatable-header .datatable-header-cell.longpress .datatable-header-cell-wrapper {
   cursor: move;
+}
+.ngx-datatable .datatable-header .datatable-header-cell .sort-btn {
+  margin-left: auto;
 }
 .ngx-datatable .datatable-header .datatable-header-cell .sort-btn::before {
   line-height: 100%;
