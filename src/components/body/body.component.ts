@@ -304,6 +304,9 @@ export default class DataTableBodyComponent extends Vue {
       }
       return this.rowHeightsCache.query(this.rowCount - 1);
     }
+    if (!this.rowCount) {
+      return 0;
+    }
   }
 
   get scrollWidth(): string {

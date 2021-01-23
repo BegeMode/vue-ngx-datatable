@@ -17,7 +17,7 @@ export default class ScrollerComponent extends Vue {
 
   get styleObject(): Record<string, unknown> {
     return {
-      height: `${this.scrollHeight}px`,
+      height: this.scrollHeight ? `${this.scrollHeight}px` : null,
       width: `${this.scrollWidth}px`,
     };
   }

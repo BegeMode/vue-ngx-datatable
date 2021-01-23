@@ -1282,6 +1282,9 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
                 }
                 return this.rowHeightsCache.query(this.rowCount - 1);
             }
+            if (!this.rowCount) {
+                return 0;
+            }
         },
         enumerable: false,
         configurable: true
@@ -5121,7 +5124,7 @@ var ScrollerComponent = /** @class */ (function (_super) {
     Object.defineProperty(ScrollerComponent.prototype, "styleObject", {
         get: function () {
             return {
-                height: this.scrollHeight + "px",
+                height: this.scrollHeight ? this.scrollHeight + "px" : null,
                 width: this.scrollWidth + "px",
             };
         },
@@ -6041,7 +6044,7 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
         __metadata("design:type", Boolean)
     ], DataTableColumnComponent.prototype, "draggable", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        vue_property_decorator_1.Prop({ default: true }),
         __metadata("design:type", Boolean)
     ], DataTableColumnComponent.prototype, "canAutoResize", void 0);
     __decorate([

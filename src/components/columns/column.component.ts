@@ -25,7 +25,7 @@ export default class DataTableColumnComponent extends Vue {
   @Prop() pipe: any;
   @Prop() sortable: boolean;
   @Prop() draggable: boolean;
-  @Prop() canAutoResize: boolean;
+  @Prop({ default: true }) canAutoResize: boolean;
   @Prop() minWidth: number;
   @Prop() width: number;
   @Prop() maxWidth: number;
