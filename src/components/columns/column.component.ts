@@ -122,8 +122,4 @@ export default class DataTableColumnComponent extends Vue {
     // todo: select any way to pass column to datatable // this.$emit('insert-column', column);
     (this.$parent as DatatableComponent).onColumnInsert(this.column);
   }
-
-  beforeDestroy(): void {
-    (this.$parent as DatatableComponent).onColumnRemoved(this.column);
-  }
 }

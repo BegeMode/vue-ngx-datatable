@@ -255,6 +255,8 @@ export default class DataTableBodyComponent extends Vue {
     return {
       width: this.bodyWidth ? this.bodyWidth : 'auto',
       height: this.myBodyHeight ? this.myBodyHeight : 'auto',
+      'overflow-anchor': 'auto',
+      contain: 'content',
     };
   }
 

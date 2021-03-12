@@ -1218,6 +1218,8 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
             return {
                 width: this.bodyWidth ? this.bodyWidth : 'auto',
                 height: this.myBodyHeight ? this.myBodyHeight : 'auto',
+                'overflow-anchor': 'auto',
+                contain: 'content',
             };
         },
         enumerable: false,
@@ -2319,6 +2321,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         _this.groupHeaderSlot = null;
         _this.rowDetailSlot = null;
         _this.footerSlot = null;
+        _this.isColumnsInited = false;
         _this.scrollbarHelper = new scrollbar_helper_service_1.ScrollbarHelper();
         _this.dimensionsHelper = new dimensions_helper_service_1.DimensionsHelper();
         _this.needToCalculateDims = true;
@@ -3100,6 +3103,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         this.$emit('tree-action', { row: row, rowIndex: rowIndex });
     };
     DatatableComponent.prototype.onColumnInsert = function (column) {
+        var _this = this;
         utils_1.setColumnDefaults(column, this);
         if (!this.internalColumns) {
             this.internalColumns = [column];
@@ -3129,6 +3133,8 @@ var DatatableComponent = /** @class */ (function (_super) {
         if (this.isVisible) {
             this.recalculateColumns();
         }
+        clearTimeout(this.isColumnsInitedTimeoutId);
+        this.isColumnsInitedTimeoutId = setTimeout(function () { return (_this.isColumnsInited = true); }, 50);
     };
     DatatableComponent.prototype.onColumnRemoved = function (column) {
         var colIndex = this.internalColumns.findIndex(function (c) { return c.name === column.name; });
@@ -5118,7 +5124,6 @@ var ScrollerComponent = /** @class */ (function (_super) {
         _this.scrollXPos = 0;
         _this.prevScrollYPos = 0;
         _this.prevScrollXPos = 0;
-        _this.scrollDirty = false;
         return _this;
     }
     Object.defineProperty(ScrollerComponent.prototype, "styleObject", {
@@ -5126,11 +5131,14 @@ var ScrollerComponent = /** @class */ (function (_super) {
             return {
                 height: this.scrollHeight ? this.scrollHeight + "px" : null,
                 width: this.scrollWidth + "px",
+                position: 'relative',
+                transform: 'translateZ(0)',
             };
         },
         enumerable: false,
         configurable: true
     });
+    // scrollDirty = false;
     ScrollerComponent.prototype.created = function () {
         this.$emit('setup', {
             scrollYPos: this.scrollYPos,
@@ -5144,22 +5152,23 @@ var ScrollerComponent = /** @class */ (function (_super) {
             // const renderer = this.renderer;
             this.parentElement = this.$el.closest('.datatable-body');
             // .parentElement; //  renderer.parentNode(renderer.parentNode(this.element));
-            this.onScrollListener = this.onScrolled.bind(this);
-            this.parentElement.addEventListener('scroll', this.onScrollListener, {
-                passive: true,
-            });
+            // this.onScrollListener = this.onScrolled.bind(this) as (event: MouseEvent) => void;
+            // this.parentElement.addEventListener('scroll', this.onScrollListener, {
+            //   passive: true,
+            // });
             this.onInitScrollHandler = this.onInitScroll.bind(this);
             'mousedown DOMMouseScroll mousewheel wheel touchstart keyup'.split(' ').forEach(function (event) {
                 _this.parentElement.addEventListener(event, _this.onInitScrollHandler, {
                     passive: true,
                 });
             });
+            this.tick();
         }
     };
     ScrollerComponent.prototype.beforeDestroy = function () {
         var _this = this;
         if (this.scrollbarV || this.scrollbarH) {
-            this.parentElement.removeEventListener('scroll', this.onScrollListener);
+            // this.parentElement.removeEventListener('scroll', this.onScrollListener);
             'mousedown DOMMouseScroll mousewheel wheel touchstart keyup'.split(' ').forEach(function (event) {
                 _this.parentElement.removeEventListener(event, _this.onInitScrollHandler);
             });
@@ -5180,23 +5189,40 @@ var ScrollerComponent = /** @class */ (function (_super) {
     ScrollerComponent.prototype.onInitScroll = function () {
         this.fromPager = false;
     };
-    ScrollerComponent.prototype.onScrolled = function (event) {
+    // onScrolled(event: MouseEvent): void {
+    //   if (this.scrollbarV || this.scrollbarH) {
+    //     if (!this.scrollDirty) {
+    //       this.scrollDirty = true;
+    //       const dom: Element = <Element>event.currentTarget;
+    //       requestAnimationFrame(() => {
+    //         this.scrollYPos = dom.scrollTop;
+    //         this.scrollXPos = dom.scrollLeft;
+    //         this.updateOffset();
+    //         this.scrollDirty = false;
+    //       });
+    //     } else {
+    //       // eslint-disable-next-line no-console
+    //       console.log('this.scrollDirty is true');
+    //     }
+    //   }
+    // }
+    ScrollerComponent.prototype.tick = function () {
         var _this = this;
+        requestAnimationFrame(function () { return _this.tick(); });
+        // this.loading = Boolean(this.scrollTo !== ScrollTo.None);
         if (this.scrollbarV || this.scrollbarH) {
-            if (!this.scrollDirty) {
-                this.scrollDirty = true;
-                var dom_1 = event.currentTarget;
-                requestAnimationFrame(function () {
-                    _this.scrollYPos = dom_1.scrollTop;
-                    _this.scrollXPos = dom_1.scrollLeft;
-                    _this.updateOffset();
-                    _this.scrollDirty = false;
-                });
+            var list = this.parentElement; // this.$refs.list as HTMLElement;
+            if (!list) {
+                return;
             }
-            else {
-                // eslint-disable-next-line no-console
-                console.log('this.scrollDirty is true');
+            var scrollTop = list.scrollTop;
+            var scrollLeft = list.scrollLeft;
+            if (this.scrollYPos === scrollTop && this.scrollXPos === scrollLeft) {
+                return;
             }
+            this.scrollYPos = scrollTop;
+            this.scrollXPos = scrollLeft;
+            this.updateOffset();
         }
     };
     ScrollerComponent.prototype.updateOffset = function () {
@@ -5920,6 +5946,9 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.column = {};
         return _this;
+        // beforeDestroy(): void {
+        //   (this.$parent as DatatableComponent).onColumnRemoved(this.column);
+        // }
     }
     DataTableColumnComponent.prototype.onVisibleChanged = function (newVal) {
         this.column.visible = newVal;
@@ -5999,9 +6028,6 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
         this.$set(this.column, 'visible', this.visible);
         // todo: select any way to pass column to datatable // this.$emit('insert-column', column);
         this.$parent.onColumnInsert(this.column);
-    };
-    DataTableColumnComponent.prototype.beforeDestroy = function () {
-        this.$parent.onColumnRemoved(this.column);
     };
     __decorate([
         vue_property_decorator_1.Prop(),
@@ -6148,12 +6174,14 @@ var render = function() {
       on: { visible: _vm.onVisible, "insert-column": _vm.onColumnInsert }
     },
     [
-      _c(
-        "div",
-        { ref: "hiddenColumns", staticClass: "hidden-columns" },
-        [_vm._t("default")],
-        2
-      ),
+      !_vm.isColumnsInited
+        ? _c(
+            "div",
+            { ref: "hiddenColumns", staticClass: "hidden-columns" },
+            [_vm._t("default")],
+            2
+          )
+        : _vm._e(),
       _vm._v(" "),
       _vm.headerHeight
         ? _c("datatable-header", {
@@ -6782,7 +6810,7 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
         this.setResizeObserver();
     };
     DataTableHeaderCellComponent.prototype.beforeUpdate = function () {
-        if (this.column.headerTemplate) {
+        if (this.column.headerTemplate && !this.$slots.default) {
             this.$slots.default = this.column.headerTemplate({ column: this.column });
         }
     };

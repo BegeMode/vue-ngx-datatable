@@ -372,6 +372,8 @@ export default class DatatableComponent extends Vue {
   groupHeaderSlot = null;
   rowDetailSlot = null;
   footerSlot = null;
+  isColumnsInited = false;
+  isColumnsInitedTimeoutId: any;
 
   private readonly scrollbarHelper: ScrollbarHelper = new ScrollbarHelper();
   private readonly dimensionsHelper: DimensionsHelper = new DimensionsHelper();
@@ -1170,6 +1172,8 @@ export default class DatatableComponent extends Vue {
     if (this.isVisible) {
       this.recalculateColumns();
     }
+    clearTimeout(this.isColumnsInitedTimeoutId);
+    this.isColumnsInitedTimeoutId = setTimeout(() => (this.isColumnsInited = true), 50);
   }
 
   onColumnRemoved(column: TableColumn): void {

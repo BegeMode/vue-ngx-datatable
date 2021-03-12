@@ -94,7 +94,7 @@ export default class DataTableHeaderCellComponent extends Vue {
   }
 
   beforeUpdate(): void {
-    if (this.column.headerTemplate) {
+    if (this.column.headerTemplate && !this.$slots.default) {
       this.$slots.default = this.column.headerTemplate({ column: this.column });
     }
   }
