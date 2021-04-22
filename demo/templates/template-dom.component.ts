@@ -29,6 +29,9 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
           <template v-slot:header="scope">
             <span>Holla! {{scope.column.name}}</span>
           </template>
+          <template v-slot:headerAppend="scope">
+            <button>+</button>
+          </template>
           <template v-slot:default="scope">
             <span v-if="scope.row">Hi: <strong>{{scope.row.name}}</strong></span>
           </template>

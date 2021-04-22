@@ -1,5 +1,5 @@
 /**
- * vue-data-table v"1.2.1" (https://github.com/begemode/vue-ngx-data-table)
+ * vue-data-table v"1.3.0" (https://github.com/begemode/vue-ngx-data-table)
  * Copyright 2018
  * Licensed under MIT
  */
@@ -5946,9 +5946,6 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.column = {};
         return _this;
-        // beforeDestroy(): void {
-        //   (this.$parent as DatatableComponent).onColumnRemoved(this.column);
-        // }
     }
     DataTableColumnComponent.prototype.onVisibleChanged = function (newVal) {
         this.column.visible = newVal;
@@ -6023,6 +6020,7 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
         this.$set(this.column, 'treeLevelIndent', this.treeLevelIndent);
         this.$set(this.column, 'summaryFunc', this.summaryFunc);
         this.$set(this.column, 'headerTemplate', this.$scopedSlots.header);
+        this.$set(this.column, 'headerAppendTemplate', this.$scopedSlots.headerAppend);
         this.$set(this.column, 'cellTemplate', this.$scopedSlots.default);
         this.$set(this.column, 'summaryTemplate', this.$scopedSlots.summary);
         this.$set(this.column, 'visible', this.visible);
@@ -6803,6 +6801,9 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
         if (this.column.headerTemplate) {
             this.$slots.default = this.column.headerTemplate({ column: this.column });
         }
+        if (this.column.headerAppendTemplate) {
+            this.$slots.append = this.column.headerAppendTemplate({ column: this.column });
+        }
     };
     DataTableHeaderCellComponent.prototype.mounted = function () {
         this.column.element = this.$el;
@@ -6812,6 +6813,9 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
     DataTableHeaderCellComponent.prototype.beforeUpdate = function () {
         if (this.column.headerTemplate && !this.$slots.default) {
             this.$slots.default = this.column.headerTemplate({ column: this.column });
+        }
+        if (this.column.headerAppendTemplate && !this.$slots.append) {
+            this.$slots.append = this.column.headerAppendTemplate({ column: this.column });
         }
     };
     DataTableHeaderCellComponent.prototype.updated = function () {
@@ -7066,7 +7070,7 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
     ], DataTableHeaderCellComponent.prototype, "onSortsChanged", null);
     DataTableHeaderCellComponent = __decorate([
         vue_property_decorator_1.Component({
-            template: "\n    <div\n      class=\"datatable-header-cell-template-wrap\"\n      :class=\"[columnCssClasses]\"\n      :style=\"styles\"\n      :title=\"name\"\n      v-show=\"column.visible\"\n      @contextmenu=\"onContextmenu($event)\"\n    >\n      <slot name=\"target-marker\">\n        <!-- Default content -->\n        <div class=\"targetMarker\" v-if=\"isTarget\">\n          <div class=\"icon datatable-icon-down\"></div>\n          <div class=\"icon datatable-icon-up\"></div>\n        </div>\n      </slot>\n      <label v-if=\"isCheckboxable\" class=\"datatable-checkbox\">\n        <input type=\"checkbox\" v-model=\"myAllRowsSelected\" @change=\"onCheckboxChange\" />\n      </label>\n      <slot v-bind=\"{ column: column }\">\n        <!-- Default content -->\n        <span class=\"datatable-header-cell-wrapper\">\n          <span class=\"datatable-header-cell-label draggable\" :class=\"cssClass\" @click=\"onSort\" v-html=\"name\"> </span>\n        </span>\n      </slot>\n      <div :class=\"sortCssClass\" @click=\"onSort\">\n        {{ sortOrder }}\n      </div>\n    </div>\n  ",
+            template: "\n    <div\n      class=\"datatable-header-cell-template-wrap\"\n      :class=\"[columnCssClasses]\"\n      :style=\"styles\"\n      :title=\"name\"\n      v-show=\"column.visible\"\n      @contextmenu=\"onContextmenu($event)\"\n    >\n      <slot name=\"target-marker\">\n        <!-- Default content -->\n        <div class=\"targetMarker\" v-if=\"isTarget\">\n          <div class=\"icon datatable-icon-down\"></div>\n          <div class=\"icon datatable-icon-up\"></div>\n        </div>\n      </slot>\n      <label v-if=\"isCheckboxable\" class=\"datatable-checkbox\">\n        <input type=\"checkbox\" v-model=\"myAllRowsSelected\" @change=\"onCheckboxChange\" />\n      </label>\n      <slot v-bind=\"{ column: column }\">\n        <!-- Default content -->\n        <span class=\"datatable-header-cell-wrapper\">\n          <span class=\"datatable-header-cell-label draggable\" :class=\"cssClass\" @click=\"onSort\" v-html=\"name\"> </span>\n        </span>\n      </slot>\n      <div :class=\"sortCssClass\" @click=\"onSort\">\n        {{ sortOrder }}\n      </div>\n      <slot name=\"append\" v-bind=\"{ column: column }\"></slot>\n    </div>\n  ",
         })
     ], DataTableHeaderCellComponent);
     return DataTableHeaderCellComponent;

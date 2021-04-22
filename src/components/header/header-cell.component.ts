@@ -31,6 +31,7 @@ import { nextSortDir } from '../../utils';
       <div :class="sortCssClass" @click="onSort">
         {{ sortOrder }}
       </div>
+      <slot name="append" v-bind="{ column: column }"></slot>
     </div>
   `,
 })
@@ -85,6 +86,9 @@ export default class DataTableHeaderCellComponent extends Vue {
     if (this.column.headerTemplate) {
       this.$slots.default = this.column.headerTemplate({ column: this.column });
     }
+    if (this.column.headerAppendTemplate) {
+      this.$slots.append = this.column.headerAppendTemplate({ column: this.column });
+    }
   }
 
   mounted(): void {
@@ -96,6 +100,9 @@ export default class DataTableHeaderCellComponent extends Vue {
   beforeUpdate(): void {
     if (this.column.headerTemplate && !this.$slots.default) {
       this.$slots.default = this.column.headerTemplate({ column: this.column });
+    }
+    if (this.column.headerAppendTemplate && !this.$slots.append) {
+      this.$slots.append = this.column.headerAppendTemplate({ column: this.column });
     }
   }
 

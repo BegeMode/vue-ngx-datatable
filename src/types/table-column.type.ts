@@ -191,12 +191,20 @@ export interface TableColumn {
   cellTemplate?: (arg?: Record<string, unknown>) => VNode[];
 
   /**
-   * Header template ref
+   * Header template slot
    *
    * @type {*}
    * @memberOf TableColumn
    */
   headerTemplate?: (arg?: Record<string, unknown>) => VNode[];
+
+  /**
+   * Header append template slot
+   *
+   * @type {*}
+   * @memberOf TableColumn
+   */
+  headerAppendTemplate?: (arg?: Record<string, unknown>) => VNode[];
 
   /**
    * Tree toggle template ref

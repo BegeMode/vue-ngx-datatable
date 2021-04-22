@@ -113,7 +113,7 @@ export function groupRowsByParents(
           node.parent.children.push(node);
         }
       }
-      notResolvedNodes = temp;
+      notResolvedNodes = [...temp];
     } while (notResolvedNodes.length);
 
     let resolvedRows: any[] = [];
