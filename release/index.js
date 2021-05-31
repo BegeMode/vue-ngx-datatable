@@ -1,5 +1,5 @@
 /**
- * vue-data-table v"1.3.0" (https://github.com/begemode/vue-ngx-data-table)
+ * vue-data-table v"1.3.1" (https://github.com/begemode/vue-ngx-data-table)
  * Copyright 2018
  * Licensed under MIT
  */
@@ -1046,8 +1046,6 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
             center: {},
             right: {},
         };
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        _this.onBodyScrollHandler = utils_1.throttle(_this.onBodyScroll.bind(_this), 10, { trailing: true });
         _this.rowContexts = [];
         _this.scrollbarHelper = new scrollbar_helper_service_1.ScrollbarHelper();
         _this.renderCounter = 0;
@@ -1357,6 +1355,16 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
                 offsetY: scrollYPos,
                 offsetX: scrollXPos,
             });
+            if (this.groupHeader && this.myOffsetX !== scrollXPos) {
+                // don't horizontal scroll for group rows headers
+                var headers = this.$el.querySelectorAll('.datatable-group-header');
+                if (headers && headers.length) {
+                    headers.forEach(function (h) {
+                        h.style.width = _this.$el.clientWidth + "px";
+                        h.style.transform = "translateX(" + scrollXPos + "px)";
+                    });
+                }
+            }
         }
         this.offsetY = scrollYPos;
         this.myOffsetX = scrollXPos;
