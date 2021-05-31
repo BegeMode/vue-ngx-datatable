@@ -52,9 +52,9 @@ module.exports = function(env) {
     externals: {
       'vue': 'vue/dist/vue.esm.js',
       'Vue': 'vue/dist/vue.esm.js',
-      'vue-property-decorator': 'vue-property-decorator/lib/vue-property-decorator.js',
-      'vue-class-component': 'vue-class-component/lib/index.js',
-      'vue-router': 'vue-router/dist/vue-router.js',
+      'vue-property-decorator': 'vue-property-decorator',
+      'vue-class-component': 'vue-class-component',
+      'vue-router': 'vue-router',
       // 'vue-style-loader': 'vue-style-loader/index.js',
       // 'vue-loader': 'vue-loader/lib/index.js',
       // 'css-loader': 'css-loader/dist/index.js',

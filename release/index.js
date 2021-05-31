@@ -5,13 +5,13 @@
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("vue-property-decorator/lib/vue-property-decorator.js"));
+		module.exports = factory(require("vue-property-decorator"));
 	else if(typeof define === 'function' && define.amd)
-		define("vueNgxDatatable", ["vue-property-decorator/lib/vue-property-decorator.js"], factory);
+		define("vueNgxDatatable", ["vue-property-decorator"], factory);
 	else if(typeof exports === 'object')
-		exports["vueNgxDatatable"] = factory(require("vue-property-decorator/lib/vue-property-decorator.js"));
+		exports["vueNgxDatatable"] = factory(require("vue-property-decorator"));
 	else
-		root["vueNgxDatatable"] = factory(root["vue-property-decorator/lib/vue-property-decorator.js"]);
+		root["vueNgxDatatable"] = factory(root["vue-property-decorator"]);
 })(window, function(__WEBPACK_EXTERNAL_MODULE_vue_property_decorator__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -10007,9 +10007,9 @@ var TreeNode = /** @class */ (function () {
 /***/ }),
 
 /***/ "vue-property-decorator":
-/*!***********************************************************************!*\
-  !*** external "vue-property-decorator/lib/vue-property-decorator.js" ***!
-  \***********************************************************************/
+/*!*****************************************!*\
+  !*** external "vue-property-decorator" ***!
+  \*****************************************/
 /*! no static exports found */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports) {
