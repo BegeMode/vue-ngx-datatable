@@ -18,7 +18,7 @@ export default class DataTableBodyRowComponent extends Vue {
   @Prop() columnGroupWidths: IColumnsWidth;
   @Prop() groupStyles: Record<string, string | number>;
   @Prop() rowClass: (row: Record<string, unknown>, rowIndex: number) => string | string;
-  @Prop() displayCheck: (row: Record<string, unknown>, column?: TableColumn, value?: any) => boolean;
+  @Prop() displayCheck: (row: Record<string, unknown>, column?: TableColumn, value?: unknown) => boolean;
   @Prop() slots: () => Record<string, (arg?: Record<string, unknown>) => VNode[]>;
   @Prop() renderTracking: boolean;
 

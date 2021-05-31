@@ -5,13 +5,13 @@
  */
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("vue-property-decorator"));
+		module.exports = factory(require("vue-property-decorator/lib/vue-property-decorator.js"));
 	else if(typeof define === 'function' && define.amd)
-		define("vueNgxDatatable", ["vue-property-decorator"], factory);
+		define("vueNgxDatatable", ["vue-property-decorator/lib/vue-property-decorator.js"], factory);
 	else if(typeof exports === 'object')
-		exports["vueNgxDatatable"] = factory(require("vue-property-decorator"));
+		exports["vueNgxDatatable"] = factory(require("vue-property-decorator/lib/vue-property-decorator.js"));
 	else
-		root["vueNgxDatatable"] = factory(root["vue-property-decorator"]);
+		root["vueNgxDatatable"] = factory(root["vue-property-decorator/lib/vue-property-decorator.js"]);
 })(window, function(__WEBPACK_EXTERNAL_MODULE_vue_property_decorator__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
@@ -1064,21 +1064,6 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         };
         return _this;
     }
-    // ready = false;
-    // startIndex = 0;
-    // endIndex = 0;
-    // length = 0;
-    // oldScrollTop = null;
-    // oldScrollBottom = null;
-    // offsetTop = 0;
-    // height = 0;
-    // @Output() scroll: EventEmitter<any> = new EventEmitter();
-    // @Output() page: EventEmitter<any> = new EventEmitter();
-    // @Output() activate: EventEmitter<any> = new EventEmitter();
-    // @Output() select: EventEmitter<any> = new EventEmitter();
-    // @Output() detailToggle: EventEmitter<any> = new EventEmitter();
-    // @Output() rowContextmenu = new EventEmitter<{ event: MouseEvent, row: any }>(false);
-    // @Output() treeAction: EventEmitter<any> = new EventEmitter();
     DataTableBodyComponent.prototype.onPageSize = function () {
         this.recalcLayout();
     };
@@ -2315,7 +2300,6 @@ var DatatableComponent = /** @class */ (function (_super) {
         _this.renderTracking = false;
         _this.isVisible = false;
         // non-reactive
-        // mySorts: any[];
         _this.rowDetail = false; // DatatableRowDetailDirective;
         _this.groupHeader = false; // DatatableGroupHeaderDirective;
         _this.groupHeaderSlot = null;
@@ -3388,10 +3372,6 @@ var DatatableComponent = /** @class */ (function (_super) {
         vue_property_decorator_1.Prop({ default: 1000 }),
         __metadata("design:type", Number)
     ], DatatableComponent.prototype, "visibilityCheckTimeout", void 0);
-    __decorate([
-        vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
-    ], DatatableComponent.prototype, "targetMarkerTemplate", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
         __metadata("design:type", Array)
@@ -6198,7 +6178,6 @@ var render = function() {
               columns: _vm.internalColumns,
               headerHeight: _vm.headerHeight,
               reorderable: _vm.reorderable,
-              targetMarkerTemplate: _vm.targetMarkerTemplate,
               sortAscendingIcon: _vm.cssClasses.sortAscending,
               sortDescendingIcon: _vm.cssClasses.sortDescending,
               allRowsSelected: _vm.allRowsSelected,
@@ -7488,10 +7467,6 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
     ], DataTableHeaderComponent.prototype, "dealsWithGroup", void 0);
     __decorate([
         vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
-    ], DataTableHeaderComponent.prototype, "targetMarkerTemplate", void 0);
-    __decorate([
-        vue_property_decorator_1.Prop(),
         __metadata("design:type", Number)
     ], DataTableHeaderComponent.prototype, "innerWidth", void 0);
     __decorate([
@@ -7560,7 +7535,7 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
                 'long-press': long_press_directive_1.default,
                 dragndrop: draggable_directive_1.default,
             },
-            template: "\n    <div :style=\"styleObject\" class=\"datatable-header-inner\">\n      <div\n        v-for=\"colGroup of columnsByPin\"\n        :key=\"colGroup.type\"\n        :class=\"['datatable-row-' + colGroup.type]\"\n        :style=\"styleByGroup[colGroup.type]\"\n      >\n        <datatable-header-cell\n          v-for=\"column of colGroup.columns\"\n          :key=\"column.$$id\"\n          v-resizeable=\"{ resizeEnabled: column.resizeable }\"\n          v-long-press=\"{pressModel: column, pressEnabled: reorderable && column.draggable}\"\n          v-dragndrop=\"{dragEvent:dragEvent,dragModel:column,dragX:isEnableDragX(column),dragY:false}\"\n          @resize=\"onColumnResized($event, column)\"\n          @longPressStart=\"onLongPressStart($event, column)\"\n          @longPressEnd=\"onLongPressEnd($event, column)\"\n          :headerHeight=\"headerHeight\"\n          :isTarget=\"column.isTarget\"\n          :targetMarkerTemplate=\"targetMarkerTemplate\"\n          :targetMarkerContext=\"column.targetMarkerContext\"\n          :column=\"column\"\n          :sortType=\"sortType\"\n          :sorts=\"sorts\"\n          :selectionType=\"selectionType\"\n          :sortAscendingIcon=\"sortAscendingIcon\"\n          :sortDescendingIcon=\"sortDescendingIcon\"\n          :allRowsSelected=\"allRowsSelected\"\n          @sort=\"onSort($event)\"\n          @select=\"onSelect\"\n          @columnContextmenu=\"$emit('columnContextmenu', $event)\"\n          @header-cell-mounted=\"onHeaderCellMounted(column, $event)\"\n          @dragStart=\"onDragStart\"\n          @dragEnd=\"onDragEnd\"\n          @dragging=\"onDragging\"\n          @hidden-changed=\"onHiddenChanged($event)\"\n        >\n        </datatable-header-cell>\n      </div>\n    </div>\n  ",
+            template: "\n    <div :style=\"styleObject\" class=\"datatable-header-inner\">\n      <div\n        v-for=\"colGroup of columnsByPin\"\n        :key=\"colGroup.type\"\n        :class=\"['datatable-row-' + colGroup.type]\"\n        :style=\"styleByGroup[colGroup.type]\"\n      >\n        <datatable-header-cell\n          v-for=\"column of colGroup.columns\"\n          :key=\"column.$$id\"\n          v-resizeable=\"{ resizeEnabled: column.resizeable }\"\n          v-long-press=\"{pressModel: column, pressEnabled: reorderable && column.draggable}\"\n          v-dragndrop=\"{dragEvent:dragEvent,dragModel:column,dragX:isEnableDragX(column),dragY:false}\"\n          @resize=\"onColumnResized($event, column)\"\n          @longPressStart=\"onLongPressStart($event, column)\"\n          @longPressEnd=\"onLongPressEnd($event, column)\"\n          :headerHeight=\"headerHeight\"\n          :isTarget=\"column.isTarget\"\n          :targetMarkerContext=\"column.targetMarkerContext\"\n          :column=\"column\"\n          :sortType=\"sortType\"\n          :sorts=\"sorts\"\n          :selectionType=\"selectionType\"\n          :sortAscendingIcon=\"sortAscendingIcon\"\n          :sortDescendingIcon=\"sortDescendingIcon\"\n          :allRowsSelected=\"allRowsSelected\"\n          @sort=\"onSort($event)\"\n          @select=\"onSelect\"\n          @columnContextmenu=\"$emit('columnContextmenu', $event)\"\n          @header-cell-mounted=\"onHeaderCellMounted(column, $event)\"\n          @dragStart=\"onDragStart\"\n          @dragEnd=\"onDragEnd\"\n          @dragging=\"onDragging\"\n          @hidden-changed=\"onHiddenChanged($event)\"\n        >\n        </datatable-header-cell>\n      </div>\n    </div>\n  ",
         })
     ], DataTableHeaderComponent);
     return DataTableHeaderComponent;
@@ -9971,7 +9946,7 @@ function groupRowsByParents(rows, from, to, lazyTree) {
                     node.parent.children.push(node);
                 }
             }
-            notResolvedNodes = temp;
+            notResolvedNodes = __spreadArrays(temp);
         } while (notResolvedNodes.length);
         var resolvedRows_1 = [];
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
@@ -10024,9 +9999,9 @@ var TreeNode = /** @class */ (function () {
 /***/ }),
 
 /***/ "vue-property-decorator":
-/*!*****************************************!*\
-  !*** external "vue-property-decorator" ***!
-  \*****************************************/
+/*!***********************************************************************!*\
+  !*** external "vue-property-decorator/lib/vue-property-decorator.js" ***!
+  \***********************************************************************/
 /*! no static exports found */
 /*! ModuleConcatenation bailout: Module is not an ECMAScript module */
 /***/ (function(module, exports) {

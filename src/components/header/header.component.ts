@@ -48,7 +48,6 @@ interface IDragPosition {
           @longPressEnd="onLongPressEnd($event, column)"
           :headerHeight="headerHeight"
           :isTarget="column.isTarget"
-          :targetMarkerTemplate="targetMarkerTemplate"
           :targetMarkerContext="column.targetMarkerContext"
           :column="column"
           :sortType="sortType"
@@ -77,7 +76,6 @@ export default class DataTableHeaderComponent extends Vue {
   @Prop() scrollbarWidth: number;
   @Prop() scrollbarH: boolean;
   @Prop() dealsWithGroup: boolean;
-  @Prop() targetMarkerTemplate: any;
   @Prop() innerWidth: number;
   @Prop() sorts: ISortPropDir[];
   @Prop() sortType: SortType;

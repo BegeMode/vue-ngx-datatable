@@ -14,7 +14,6 @@ import {
   IColumnsByPinRecord,
   IColumnsWidth,
   RowHeightCache,
-  throttle,
   translateXY,
 } from '../../utils';
 import DataTableBodyGroupHeaderComponent from './body-group-header.component';
@@ -53,14 +52,14 @@ export default class DataTableBodyComponent extends Vue {
   @Prop() checkMode: CheckMode;
   @Prop({ type: Array, default: () => [] }) selected: Record<string, unknown>[];
   @Prop({ type: Array, default: () => [] }) checked: Record<string, unknown>[];
-  @Prop() rowIdentity: (row: Record<string, unknown>) => any;
+  @Prop() rowIdentity: (row: Record<string, unknown>) => string | number;
   @Prop() rowDetail: boolean;
-  @Prop() rowDetailHeight: number | string | ((row?: any, index?: any) => number);
+  @Prop() rowDetailHeight: number | string | ((row?: Record<string, unknown>, index?: number) => number);
   @Prop() groupHeader: any;
   @Prop() selectCheck: any;
   @Prop() displayCheck: any;
   @Prop() trackByProp: string;
-  @Prop() rowClass: (row: any, rowIndex: number) => string | string;
+  @Prop() rowClass: (row: Record<string, unknown>, rowIndex: number) => string | string;
   // @Prop() groupedRows: any;
   @Prop() groupExpansionDefault: boolean;
   @Prop() innerWidth: number;
@@ -102,7 +101,7 @@ export default class DataTableBodyComponent extends Vue {
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-  onBodyScrollHandler = throttle(this.onBodyScroll.bind(this), 10, { trailing: true });
+  // onBodyScrollHandler = throttle(this.onBodyScroll.bind(this), 10, { trailing: true });
 
   rowTrackingFn: any;
   listener: any;
@@ -114,23 +113,6 @@ export default class DataTableBodyComponent extends Vue {
   private readonly scrollbarHelper = new ScrollbarHelper();
   private renderCounter = 0;
   private renderId = null;
-
-  // ready = false;
-  // startIndex = 0;
-  // endIndex = 0;
-  // length = 0;
-  // oldScrollTop = null;
-  // oldScrollBottom = null;
-  // offsetTop = 0;
-  // height = 0;
-
-  // @Output() scroll: EventEmitter<any> = new EventEmitter();
-  // @Output() page: EventEmitter<any> = new EventEmitter();
-  // @Output() activate: EventEmitter<any> = new EventEmitter();
-  // @Output() select: EventEmitter<any> = new EventEmitter();
-  // @Output() detailToggle: EventEmitter<any> = new EventEmitter();
-  // @Output() rowContextmenu = new EventEmitter<{ event: MouseEvent, row: any }>(false);
-  // @Output() treeAction: EventEmitter<any> = new EventEmitter();
 
   @Watch('pageSize') onPageSize(): void {
     this.recalcLayout();
@@ -230,7 +212,7 @@ export default class DataTableBodyComponent extends Vue {
    */
   created(): void {
     // declare fn here so we can get access to the `this` property
-    this.rowTrackingFn = (row: any): any => {
+    this.rowTrackingFn = (row: Record<string, unknown>): string | number => {
       const idx = this.getRowIndex(row);
       if (this.trackByProp) {
         return `${idx}-${this.trackByProp}`;
@@ -301,7 +283,7 @@ export default class DataTableBodyComponent extends Vue {
   get scrollHeight(): number | undefined {
     if (this.scrollbarV && this.virtualization && this.rowCount) {
       if (!this.isUseRowHeightCache) {
-        const height: any = this.rowHeight;
+        const height = this.rowHeight as number;
         return height * this.rowCount;
       }
       return this.rowHeightsCache.query(this.rowCount - 1);
@@ -329,11 +311,11 @@ export default class DataTableBodyComponent extends Vue {
     this.offsetY = 0;
   }
 
-  onSelect(event: { selected: Array<any>; index: number }): void {
+  onSelect(event: { selected: Array<Record<string, unknown>>; index: number }): void {
     this.$emit('select', event);
   }
 
-  recalculateColumns(val: any[] = this.columns): void {
+  recalculateColumns(val: Array<TableColumn> = this.columns): void {
     const colsByPin = columnsByPin(this.columns);
     this.columnsByPin = columnsByPinArr(this.columns);
     let width = this.innerWidth;
@@ -391,6 +373,16 @@ export default class DataTableBodyComponent extends Vue {
         offsetY: scrollYPos,
         offsetX: scrollXPos,
       });
+      if (this.groupHeader && this.myOffsetX !== scrollXPos) {
+        // don't horizontal scroll for group rows headers
+        const headers = this.$el.querySelectorAll('.datatable-group-header');
+        if (headers && headers.length) {
+          headers.forEach((h: HTMLElement) => {
+            h.style.width = `${this.$el.clientWidth}px`;
+            h.style.transform = `translateX(${scrollXPos}px)`;
+          });
+        }
+      }
     }
     this.offsetY = scrollYPos;
     this.myOffsetX = scrollXPos;
@@ -601,9 +593,9 @@ export default class DataTableBodyComponent extends Vue {
       // The position of this row would be the sum of all row heights
       // until the previous row position.
       let pos = 0;
-      let height: any = 50;
+      let height = 50;
       if (!this.isUseRowHeightCache) {
-        height = this.rowHeight;
+        height = this.rowHeight as number;
         pos = idx * height;
       } else {
         pos = this.rowHeightsCache.query(idx - 1);

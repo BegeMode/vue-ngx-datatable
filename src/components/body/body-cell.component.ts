@@ -13,10 +13,10 @@ export default class DataTableBodyCellComponent extends Vue {
   @Prop() tabIndex: string;
   @Prop() cellSlot: (obj: Record<string, unknown>) => VNode[];
   @Prop() renderTracking: boolean;
-  @Prop() displayCheck: (row: Record<string, unknown>, column?: TableColumn, value?: any) => boolean;
+  @Prop() displayCheck: (row: Record<string, unknown>, column?: TableColumn, value?: unknown) => boolean;
 
   sanitizedValue: string = null;
-  value: any = null;
+  value: unknown = null;
   // sortDir: SortDirection = null;
   isFocused = false;
   // activateFn = this.activate.emit.bind(this.activate); todo

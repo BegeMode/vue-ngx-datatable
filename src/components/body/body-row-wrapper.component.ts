@@ -51,7 +51,7 @@ export default class DataTableRowWrapperComponent extends Vue {
     return styles;
   }
 
-  get rowId(): any {
+  get rowId(): string | number | null {
     if (!this.row) {
       return null;
     }

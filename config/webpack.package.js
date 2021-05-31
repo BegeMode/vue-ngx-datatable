@@ -52,11 +52,12 @@ module.exports = function(env) {
     externals: {
       'vue': 'vue/dist/vue.esm.js',
       'Vue': 'vue/dist/vue.esm.js',
-      'vue-property-decorator': 'vue-property-decorator',
-      'vue-class-component': 'vue-class-component',
-      // 'vue-style-loader': 'vue-style-loader/lib/',
-      // 'vue-loader': 'vue-loader/lib/runtime',
-      // 'css-loader': 'css-loader/lib',
+      'vue-property-decorator': 'vue-property-decorator/lib/vue-property-decorator.js',
+      'vue-class-component': 'vue-class-component/lib/index.js',
+      'vue-router': 'vue-router/dist/vue-router.js',
+      // 'vue-style-loader': 'vue-style-loader/index.js',
+      // 'vue-loader': 'vue-loader/lib/index.js',
+      // 'css-loader': 'css-loader/dist/index.js',
     },
     plugins: [
       new webpack.optimize.LimitChunkCountPlugin({

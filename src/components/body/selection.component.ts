@@ -300,7 +300,7 @@ export default class DataTableSelectionComponent extends Vue {
     }
   }
 
-  getPrevNextRow1(rowElement: Element, keyCode: number): any {
+  getPrevNextRow1(rowElement: Element, keyCode: number): Element {
     const parentElement = rowElement.parentElement;
     // const parentElement = rowElement.closest('.datatable-row-wrapper');
 

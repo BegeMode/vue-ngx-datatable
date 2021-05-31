@@ -33,7 +33,7 @@ Vue.component('datatable-body-cell', DataTableBodyCellComponent);
 interface IGroup {
   title: string;
   prop: string;
-  valueGetter?: (value: any) => string;
+  valueGetter?: (value: unknown) => string;
 }
 
 export type TGroupByField = string | IGroup;
@@ -53,10 +53,6 @@ type TRowHeightFunc = (row: Record<string, unknown>, index?: number) => number;
 export default class DatatableComponent extends Vue {
   @Prop({ default: false }) visibilityCheck: boolean;
   @Prop({ default: 1000 }) visibilityCheckTimeout: number;
-  /**
-   * Template for the target marker of drag target columns.
-   */
-  @Prop() targetMarkerTemplate: any;
   /**
    * Rows that are displayed in the table.
    */
@@ -87,13 +83,13 @@ export default class DatatableComponent extends Vue {
    * represented as selected in the grid.
    * Default value: `[]`
    */
-  @Prop({ type: Array, default: () => [] }) selected: any[];
+  @Prop({ type: Array, default: () => [] }) selected: Array<Record<string, unknown>>;
   /**
    * List of row objects that should be
    * represented as checked in the grid.
    * Default value: `[]`
    */
-  @Prop({ type: Array, default: () => [] }) checked: any[];
+  @Prop({ type: Array, default: () => [] }) checked: Array<Record<string, unknown>>;
   /**
    * Enable vertical scrollbars
    */
@@ -225,7 +221,7 @@ export default class DatatableComponent extends Vue {
       pagerNext: 'datatable-icon-skip',
     }),
   })
-  cssClasses: any;
+  cssClasses: Record<string, unknown>;
   /**
    * Message overrides for localization
    *
@@ -243,7 +239,7 @@ export default class DatatableComponent extends Vue {
       selectedMessage: 'selected',
     }),
   })
-  messages: any;
+  messages: Record<string, string>;
   /**
    * This will be used when displaying or selecting rows.
    * when tracking/comparing them, we'll use the value of this fn,
@@ -252,7 +248,7 @@ export default class DatatableComponent extends Vue {
    */
   @Prop({ type: Function, default: (x: Record<string, unknown>) => x }) rowIdentity: (
     x: Record<string, unknown>
-  ) => any;
+  ) => string | number;
   /**
    * Row specific classes.
    * Similar implementation to ngClass.
@@ -260,7 +256,7 @@ export default class DatatableComponent extends Vue {
    *  [rowClass]="'first second'"
    *  [rowClass]="{ 'first': true, 'second': true, 'third': false }"
    */
-  @Prop() rowClass: (row: any, rowIndex: number) => string | string;
+  @Prop() rowClass: (row: Record<string, unknown>, rowIndex: number) => string | string;
   /**
    * A boolean/function you can use to check whether you want
    * to select a particular row based on a criteria. Example:
@@ -278,7 +274,11 @@ export default class DatatableComponent extends Vue {
    *      return row.name !== 'Ethel Price';
    *    }
    */
-  @Prop({ type: Function, default: null }) displayCheck: (row: any, column?: any, value?: any) => boolean;
+  @Prop({ type: Function, default: null }) displayCheck: (
+    row: Record<string, unknown>,
+    column?: TableColumn,
+    value?: unknown
+  ) => boolean;
   /**
    * A boolean you can use to set the detault behaviour of rows and groups
    * whether they will start expanded or not. If ommited the default is NOT expanded.
@@ -352,8 +352,8 @@ export default class DatatableComponent extends Vue {
   bodyHeight = 0;
   rowCount = 0;
   offsetX = 0;
-  internalRows: any[] = null;
-  initialRows: any[] = null;
+  internalRows: Array<Record<string, unknown>> = null;
+  initialRows: Array<Record<string, unknown>> = null;
   internalColumns: TableColumn[] = null;
   myColumnMode: ColumnMode = ColumnMode.standard;
   mySortType: SortType = SortType.single;
@@ -364,7 +364,6 @@ export default class DatatableComponent extends Vue {
   isVisible = false;
 
   // non-reactive
-  // mySorts: any[];
 
   rowDetail = false; // DatatableRowDetailDirective;
   groupHeader = false; // DatatableGroupHeaderDirective;
@@ -400,7 +399,7 @@ export default class DatatableComponent extends Vue {
     if (this.rows && this.groupRowsBy) {
       // this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy);
       this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy, 0);
-      this.internalRows = this.processGroupedRows(this.groupedRows);
+      this.internalRows = this.processGroupedRows(this.groupedRows) as Array<Record<string, unknown>>;
     }
 
     // recalculate sizes/etc
@@ -420,7 +419,7 @@ export default class DatatableComponent extends Vue {
     this.groupedRows = null;
     if (this.groupRowsBy) {
       this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy, 0);
-      this.internalRows = this.processGroupedRows(this.groupedRows);
+      this.internalRows = this.processGroupedRows(this.groupedRows) as Array<Record<string, unknown>>;
     } else {
       this.internalRows = this.rows;
     }
@@ -893,7 +892,7 @@ export default class DatatableComponent extends Vue {
   /**
    * Recalculates the sizes of the page
    */
-  calcPageSize(val: any[] = this.rows): number {
+  calcPageSize(val: Array<Record<string, unknown>> = this.rows): number {
     // Keep the page size constant even if the row has been expanded.
     // This is because an expanded row is still considered to be a child of
     // the original row.  Hence calculation would use rowHeight only.
@@ -924,7 +923,7 @@ export default class DatatableComponent extends Vue {
   /**
    * Calculates the row count.
    */
-  calcRowCount(val: any[] = this.rows): number {
+  calcRowCount(val: Array<Record<string, unknown>> = this.rows): number {
     if (!this.externalPaging) {
       if (!val) {
         return 0;
@@ -1129,7 +1128,7 @@ export default class DatatableComponent extends Vue {
 
   onGroupToggle(event: { value: Record<string, unknown> }): void {
     event.value.__expanded = !event.value.__expanded;
-    this.internalRows = this.processGroupedRows(this.groupedRows);
+    this.internalRows = this.processGroupedRows(this.groupedRows) as Array<Record<string, unknown>>;
     this.recalculate();
   }
 
@@ -1390,7 +1389,7 @@ export default class DatatableComponent extends Vue {
   private sortInternalRows(): void {
     if (this.groupedRows) {
       this.groupedRows = this.sortGroupedRows(this.groupedRows);
-      this.internalRows = this.processGroupedRows(this.groupedRows);
+      this.internalRows = this.processGroupedRows(this.groupedRows) as Array<Record<string, unknown>>;
     } else {
       this.internalRows = sortRows(this.internalRows, this.internalColumns, this.sorts);
     }
