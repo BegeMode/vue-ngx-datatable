@@ -1,9 +1,11 @@
 import DataTableBodyComponent from 'components/body/body.component';
 import ScrollerComponent from 'components/body/scroller.component';
+import { CheckMode } from 'types/check.type';
+import { SelectionType } from 'types/selection.type';
+import { TableColumn } from 'types/table-column.type';
+import { Keys } from 'utils/keys';
+import { selectRows, selectRowsBetween } from 'utils/selection';
 import { Component, Prop, Vue } from 'vue-property-decorator';
-import { SelectionType, TableColumn } from '../../types';
-import { CheckMode } from '../../types/check.type';
-import { Keys, selectRows, selectRowsBetween } from '../../utils';
 // import { MouseEvent, KeyboardEvent } from '../../events';
 
 export interface Model {

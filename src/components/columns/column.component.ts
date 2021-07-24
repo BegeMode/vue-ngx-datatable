@@ -1,6 +1,6 @@
 import DatatableComponent from 'components/datatable.component';
+import { TableColumn, TableColumnProp } from 'types/table-column.type';
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import { TableColumn, TableColumnProp } from '../../types';
 
 @Component({
   template: `

@@ -1,4 +1,4 @@
-import { TableColumn } from '../types';
+import { TableColumn } from 'types/table-column.type';
 
 export interface IColumnsWidth {
   left: number;

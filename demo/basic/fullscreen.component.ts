@@ -1,7 +1,7 @@
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import DatatableComponent from '../../src/components/datatable.component.vue';
-import { TableColumn } from '../../src/types';
 import DataTableColumnComponent from '../../src/components/columns/column.component';
+import { TableColumn } from 'types/table-column.type';
 
 @Component({
   components: {

@@ -1,21 +1,16 @@
 import { TreeStatus } from 'components/body/body-cell.component';
 import { TGroupByField } from 'components/datatable.component';
+import { ScrollbarHelper } from 'services/scrollbar-helper.service';
+import { CheckMode } from 'types/check.type';
+import { IGroupedRows } from 'types/grouped-rows';
+import { IRowContext } from 'types/row-context.type';
+import { SelectionType } from 'types/selection.type';
+import { TableColumn } from 'types/table-column.type';
+import { columnGroupWidths, columnsByPin, columnsByPinArr, IColumnsByPinRecord, IColumnsWidth } from 'utils/column';
+import { RowHeightCache } from 'utils/row-height-cache';
+import { translateXY } from 'utils/translate';
 import { VNode } from 'vue';
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import { ScrollbarHelper } from '../../services/scrollbar-helper.service';
-import { SelectionType, TableColumn } from '../../types';
-import { CheckMode } from '../../types/check.type';
-import { IGroupedRows } from '../../types/grouped-rows';
-import { IRowContext } from '../../types/row-context.type';
-import {
-  columnGroupWidths,
-  columnsByPin,
-  columnsByPinArr,
-  IColumnsByPinRecord,
-  IColumnsWidth,
-  RowHeightCache,
-  translateXY,
-} from '../../utils';
 import DataTableBodyGroupHeaderComponent from './body-group-header.component';
 import DataTableBodyRowDetailComponent from './body-row-detail.component';
 import DataTableRowWrapperComponent from './body-row-wrapper.component.vue';

@@ -1,4 +1,7 @@
-import { ISortPropDir, SortDirection, SortType, TableColumn, TComparator } from '../types';
+import { SortDirection } from 'types/sort-direction.type';
+import { ISortPropDir } from 'types/sort-prop-dir.type';
+import { SortType } from 'types/sort.type';
+import { TableColumn, TComparator } from 'types/table-column.type';
 import { getterForProp } from './column-prop-getters';
 /**
  * Gets the next sort direction

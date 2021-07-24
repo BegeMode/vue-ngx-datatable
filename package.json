@@ -6,6 +6,7 @@
   "typings": "release/index.d.ts",
   "scripts": {
     "check": "npm-check --skip-unused",
+    "compile:profile": "webpack --config config/webpack.package.js --profile --json > webpack-stats.json",
     "test": "karma start",
     "test-linux": "karma start --browsers ChromeTravisCi",
     "test:debug": "karma start config/karma.debug.js",

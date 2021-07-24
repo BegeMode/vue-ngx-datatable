@@ -247,8 +247,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var keys_1 = __webpack_require__(/*! utils/keys */ "./src/utils/keys.ts");
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
-var utils_1 = __webpack_require__(/*! ../../utils */ "./src/utils/index.ts");
 var DataTableBodyCellComponent = /** @class */ (function (_super) {
     __extends(DataTableBodyCellComponent, _super);
     function DataTableBodyCellComponent() {
@@ -371,13 +371,13 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
     DataTableBodyCellComponent.prototype.onKeyDown = function (event) {
         var keyCode = event.keyCode;
         var isTargetCell = event.target === this.$el;
-        var isAction = keyCode === utils_1.Keys.return ||
-            keyCode === utils_1.Keys.down ||
-            keyCode === utils_1.Keys.up ||
-            keyCode === utils_1.Keys.left ||
-            keyCode === utils_1.Keys.right ||
-            keyCode === utils_1.Keys.pageUp ||
-            keyCode === utils_1.Keys.pageDown;
+        var isAction = keyCode === keys_1.Keys.return ||
+            keyCode === keys_1.Keys.down ||
+            keyCode === keys_1.Keys.up ||
+            keyCode === keys_1.Keys.left ||
+            keyCode === keys_1.Keys.right ||
+            keyCode === keys_1.Keys.pageUp ||
+            keyCode === keys_1.Keys.pageDown;
         if (isAction && isTargetCell) {
             event.preventDefault();
             event.stopPropagation();
@@ -457,8 +457,8 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
                         }
                         else if (typeof res === 'object') {
                             var keys = Object.keys(res);
-                            for (var _i = 0, keys_1 = keys; _i < keys_1.length; _i++) {
-                                var k = keys_1[_i];
+                            for (var _i = 0, keys_2 = keys; _i < keys_2.length; _i++) {
+                                var k = keys_2[_i];
                                 if (res[k] === true) {
                                     result[" " + k] = true;
                                 }
@@ -1009,11 +1009,13 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var scrollbar_helper_service_1 = __webpack_require__(/*! services/scrollbar-helper.service */ "./src/services/scrollbar-helper.service.ts");
+var check_type_1 = __webpack_require__(/*! types/check.type */ "./src/types/check.type.ts");
+var selection_type_1 = __webpack_require__(/*! types/selection.type */ "./src/types/selection.type.ts");
+var column_1 = __webpack_require__(/*! utils/column */ "./src/utils/column.ts");
+var row_height_cache_1 = __webpack_require__(/*! utils/row-height-cache */ "./src/utils/row-height-cache.ts");
+var translate_1 = __webpack_require__(/*! utils/translate */ "./src/utils/translate.ts");
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
-var scrollbar_helper_service_1 = __webpack_require__(/*! ../../services/scrollbar-helper.service */ "./src/services/scrollbar-helper.service.ts");
-var types_1 = __webpack_require__(/*! ../../types */ "./src/types/index.ts");
-var check_type_1 = __webpack_require__(/*! ../../types/check.type */ "./src/types/check.type.ts");
-var utils_1 = __webpack_require__(/*! ../../utils */ "./src/utils/index.ts");
 var body_group_header_component_1 = __webpack_require__(/*! ./body-group-header.component */ "./src/components/body/body-group-header.component.ts");
 var body_row_detail_component_1 = __webpack_require__(/*! ./body-row-detail.component */ "./src/components/body/body-row-detail.component.ts");
 var body_row_wrapper_component_vue_1 = __webpack_require__(/*! ./body-row-wrapper.component.vue */ "./src/components/body/body-row-wrapper.component.vue");
@@ -1030,7 +1032,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.scroller = null; // ScrollerComponent
         _this.selector = null; // DataTableSelectionComponent;
-        _this.rowHeightsCache = new utils_1.RowHeightCache();
+        _this.rowHeightsCache = new row_height_cache_1.RowHeightCache();
         _this.offsetY = 0;
         _this.myOffset = 0;
         _this.myOffsetX = 0;
@@ -1220,7 +1222,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     });
     Object.defineProperty(DataTableBodyComponent.prototype, "checkEnabled", {
         get: function () {
-            return this.checkMode === check_type_1.CheckMode.checkNoSelect || this.selectionType === types_1.SelectionType.checkbox;
+            return this.checkMode === check_type_1.CheckMode.checkNoSelect || this.selectionType === selection_type_1.SelectionType.checkbox;
         },
         enumerable: false,
         configurable: true
@@ -1298,13 +1300,13 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     };
     DataTableBodyComponent.prototype.recalculateColumns = function (val) {
         if (val === void 0) { val = this.columns; }
-        var colsByPin = utils_1.columnsByPin(this.columns);
-        this.columnsByPin = utils_1.columnsByPinArr(this.columns);
+        var colsByPin = column_1.columnsByPin(this.columns);
+        this.columnsByPin = column_1.columnsByPinArr(this.columns);
         var width = this.innerWidth;
         if (this.scrollbarV) {
             width = width - this.scrollbarHelper.width;
         }
-        this.columnGroupWidths = utils_1.columnGroupWidths(colsByPin, this.columns, width);
+        this.columnGroupWidths = column_1.columnGroupWidths(colsByPin, this.columns, width);
     };
     /**
      * Updates the Y offset given a new offset.
@@ -1564,7 +1566,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
             else {
                 pos = this.rowHeightsCache.query(idx - 1);
             }
-            utils_1.translateXY(styles, 0, pos);
+            translate_1.translateXY(styles, 0, pos);
         }
         return styles;
     };
@@ -1602,7 +1604,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         else {
             pos = this.rowHeight * (this.rowCount - 1);
         }
-        utils_1.translateXY(styles, 0, pos);
+        translate_1.translateXY(styles, 0, pos);
         return styles;
     };
     /**
@@ -1874,14 +1876,14 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
             width: widths[group] + "px",
         };
         if (group === 'left') {
-            utils_1.translateXY(styles, offsetX, 0);
+            translate_1.translateXY(styles, offsetX, 0);
         }
         else if (group === 'right') {
             var bodyWidth = parseInt(this.innerWidth.toString(), 10);
             var totalDiff = widths.total - bodyWidth;
             var offsetDiff = totalDiff - offsetX;
             var offset = (offsetDiff + this.scrollbarHelper.width) * -1;
-            utils_1.translateXY(styles, offset, 0);
+            translate_1.translateXY(styles, offset, 0);
         }
         return styles;
     };
@@ -2268,14 +2270,21 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var check_type_1 = __webpack_require__(/*! types/check.type */ "./src/types/check.type.ts");
+var column_mode_type_1 = __webpack_require__(/*! types/column-mode.type */ "./src/types/column-mode.type.ts");
+var contextmenu_type_1 = __webpack_require__(/*! types/contextmenu.type */ "./src/types/contextmenu.type.ts");
+var selection_type_1 = __webpack_require__(/*! types/selection.type */ "./src/types/selection.type.ts");
+var sort_type_1 = __webpack_require__(/*! types/sort.type */ "./src/types/sort.type.ts");
+var column_helper_1 = __webpack_require__(/*! utils/column-helper */ "./src/utils/column-helper.ts");
+var equal_array_1 = __webpack_require__(/*! utils/equal.array */ "./src/utils/equal.array.ts");
+var math_1 = __webpack_require__(/*! utils/math */ "./src/utils/math.ts");
+var sort_1 = __webpack_require__(/*! utils/sort */ "./src/utils/sort.ts");
+var throttle_1 = __webpack_require__(/*! utils/throttle */ "./src/utils/throttle.ts");
+var tree_1 = __webpack_require__(/*! utils/tree */ "./src/utils/tree.ts");
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
 var visibility_directive_1 = __webpack_require__(/*! ../directives/visibility.directive */ "./src/directives/visibility.directive.ts");
 var dimensions_helper_service_1 = __webpack_require__(/*! ../services/dimensions-helper.service */ "./src/services/dimensions-helper.service.ts");
 var scrollbar_helper_service_1 = __webpack_require__(/*! ../services/scrollbar-helper.service */ "./src/services/scrollbar-helper.service.ts");
-var types_1 = __webpack_require__(/*! ../types */ "./src/types/index.ts");
-var check_type_1 = __webpack_require__(/*! ../types/check.type */ "./src/types/check.type.ts");
-var utils_1 = __webpack_require__(/*! ../utils */ "./src/utils/index.ts");
-var equal_array_1 = __webpack_require__(/*! ../utils/equal.array */ "./src/utils/equal.array.ts");
 var body_cell_component_vue_1 = __webpack_require__(/*! ./body/body-cell.component.vue */ "./src/components/body/body-cell.component.vue");
 var body_component_vue_1 = __webpack_require__(/*! ./body/body.component.vue */ "./src/components/body/body.component.vue");
 var column_component_1 = __webpack_require__(/*! ./columns/column.component */ "./src/components/columns/column.component.ts");
@@ -2300,8 +2309,8 @@ var DatatableComponent = /** @class */ (function (_super) {
         _this.internalRows = null;
         _this.initialRows = null;
         _this.internalColumns = null;
-        _this.myColumnMode = types_1.ColumnMode.standard;
-        _this.mySortType = types_1.SortType.single;
+        _this.myColumnMode = column_mode_type_1.ColumnMode.standard;
+        _this.mySortType = sort_type_1.SortType.single;
         _this.innerOffset = 0; // page number after scrolling
         _this.mySelected = [];
         _this.myChecked = [];
@@ -2323,8 +2332,8 @@ var DatatableComponent = /** @class */ (function (_super) {
         if (val) {
             this.internalRows = __spreadArrays(val);
         }
-        var treeFrom = utils_1.optionalGetterForProp(this.treeFromRelation);
-        var treeTo = utils_1.optionalGetterForProp(this.treeToRelation);
+        var treeFrom = tree_1.optionalGetterForProp(this.treeFromRelation);
+        var treeTo = tree_1.optionalGetterForProp(this.treeToRelation);
         if (treeFrom && treeTo) {
             this.initialRows = this.internalRows;
         }
@@ -2333,7 +2342,7 @@ var DatatableComponent = /** @class */ (function (_super) {
             this.sortInternalRows();
         }
         // auto group by parent on new update
-        this.internalRows = utils_1.groupRowsByParents(this.internalRows, treeFrom, treeTo, this.lazyTree);
+        this.internalRows = tree_1.groupRowsByParents(this.internalRows, treeFrom, treeTo, this.lazyTree);
         this.groupedRows = null;
         if (this.rows && this.groupRowsBy) {
             // this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy);
@@ -2370,7 +2379,7 @@ var DatatableComponent = /** @class */ (function (_super) {
     DatatableComponent.prototype.onColumnsChanged = function (newVal) {
         var _this = this;
         if (newVal) {
-            utils_1.setColumnsDefaults(newVal, this);
+            column_helper_1.setColumnsDefaults(newVal, this);
             this.internalColumns = __spreadArrays(newVal);
             this.$nextTick(function () { return _this.recalculateColumns(); });
         }
@@ -2392,11 +2401,11 @@ var DatatableComponent = /** @class */ (function (_super) {
         this.recalculate();
     };
     DatatableComponent.prototype.onColumnModeChanged = function () {
-        this.myColumnMode = types_1.ColumnMode[this.columnMode];
+        this.myColumnMode = column_mode_type_1.ColumnMode[this.columnMode];
     };
     DatatableComponent.prototype.onSortTypeChanged = function () {
-        if (types_1.SortType[this.sortType]) {
-            this.mySortType = types_1.SortType[this.sortType];
+        if (sort_type_1.SortType[this.sortType]) {
+            this.mySortType = sort_type_1.SortType[this.sortType];
         }
     };
     DatatableComponent.prototype.onOffsetChanged = function () {
@@ -2610,7 +2619,7 @@ var DatatableComponent = /** @class */ (function (_super) {
          * CSS class applied to root is checkbox selection.
          */
         get: function () {
-            return this.selectionType === types_1.SelectionType.checkbox;
+            return this.selectionType === selection_type_1.SelectionType.checkbox;
         },
         enumerable: false,
         configurable: true
@@ -2620,7 +2629,7 @@ var DatatableComponent = /** @class */ (function (_super) {
          * CSS class applied to root if cell selection.
          */
         get: function () {
-            return this.selectionType === types_1.SelectionType.cell;
+            return this.selectionType === selection_type_1.SelectionType.cell;
         },
         enumerable: false,
         configurable: true
@@ -2630,14 +2639,14 @@ var DatatableComponent = /** @class */ (function (_super) {
          * CSS class applied to root if single select.
          */
         get: function () {
-            return this.selectionType === types_1.SelectionType.single;
+            return this.selectionType === selection_type_1.SelectionType.single;
         },
         enumerable: false,
         configurable: true
     });
     Object.defineProperty(DatatableComponent.prototype, "isSingleFocusSelection", {
         get: function () {
-            return this.selectionType === types_1.SelectionType.singleFocus;
+            return this.selectionType === selection_type_1.SelectionType.singleFocus;
         },
         enumerable: false,
         configurable: true
@@ -2647,7 +2656,7 @@ var DatatableComponent = /** @class */ (function (_super) {
          * CSS class added to root element if mulit select
          */
         get: function () {
-            return this.selectionType === types_1.SelectionType.multi;
+            return this.selectionType === selection_type_1.SelectionType.multi;
         },
         enumerable: false,
         configurable: true
@@ -2657,7 +2666,7 @@ var DatatableComponent = /** @class */ (function (_super) {
          * CSS class added to root element if mulit click select
          */
         get: function () {
-            return this.selectionType === types_1.SelectionType.multiClick;
+            return this.selectionType === selection_type_1.SelectionType.multiClick;
         },
         enumerable: false,
         configurable: true
@@ -2754,11 +2763,11 @@ var DatatableComponent = /** @class */ (function (_super) {
         if (this.scrollbarV) {
             width = width - this.scrollbarHelper.width;
         }
-        if (this.myColumnMode === types_1.ColumnMode.force) {
-            utils_1.forceFillColumnWidths(columns, width, forceIdx, allowBleed);
+        if (this.myColumnMode === column_mode_type_1.ColumnMode.force) {
+            math_1.forceFillColumnWidths(columns, width, forceIdx, allowBleed);
         }
-        else if (this.myColumnMode === types_1.ColumnMode.flex) {
-            utils_1.adjustColumnWidths(columns, width);
+        else if (this.myColumnMode === column_mode_type_1.ColumnMode.flex) {
+            math_1.adjustColumnWidths(columns, width);
         }
         var hiddenColumns = columns.filter(function (col) { return col.hidden; });
         if (hiddenColumns.length && this.bodyComponent) {
@@ -2905,14 +2914,14 @@ var DatatableComponent = /** @class */ (function (_super) {
      */
     DatatableComponent.prototype.onColumnContextmenu = function (_a) {
         var event = _a.event, column = _a.column;
-        this.$emit('tableContextmenu', { event: event, type: types_1.ContextmenuType.header, content: column });
+        this.$emit('tableContextmenu', { event: event, type: contextmenu_type_1.ContextmenuType.header, content: column });
     };
     /**
      * The body triggered a contextmenu event.
      */
     DatatableComponent.prototype.onRowContextmenu = function (_a) {
         var event = _a.event, row = _a.row;
-        this.$emit('tableContextmenu', { event: event, type: types_1.ContextmenuType.body, content: row });
+        this.$emit('tableContextmenu', { event: event, type: contextmenu_type_1.ContextmenuType.body, content: row });
     };
     /**
      * The header triggered a column resize event.
@@ -3096,7 +3105,7 @@ var DatatableComponent = /** @class */ (function (_super) {
     };
     DatatableComponent.prototype.onColumnInsert = function (column) {
         var _this = this;
-        utils_1.setColumnDefaults(column, this);
+        column_helper_1.setColumnDefaults(column, this);
         if (!this.internalColumns) {
             this.internalColumns = [column];
         }
@@ -3192,8 +3201,8 @@ var DatatableComponent = /** @class */ (function (_super) {
         return (_a = this.bodyComponent) === null || _a === void 0 ? void 0 : _a.isRowVisible(row);
     };
     DatatableComponent.prototype.innerSortRows = function () {
-        var treeFrom = utils_1.optionalGetterForProp(this.treeFromRelation);
-        var treeTo = utils_1.optionalGetterForProp(this.treeToRelation);
+        var treeFrom = tree_1.optionalGetterForProp(this.treeFromRelation);
+        var treeTo = tree_1.optionalGetterForProp(this.treeToRelation);
         if (treeFrom && treeTo) {
             this.internalRows = this.initialRows;
         }
@@ -3204,7 +3213,7 @@ var DatatableComponent = /** @class */ (function (_super) {
             this.sortInternalRows();
         }
         // auto group by parent on new update
-        this.internalRows = utils_1.groupRowsByParents(this.internalRows, treeFrom, treeTo, this.lazyTree);
+        this.internalRows = tree_1.groupRowsByParents(this.internalRows, treeFrom, treeTo, this.lazyTree);
     };
     /**
      * Creates a map with the data grouped by the user choice of grouping index
@@ -3322,7 +3331,7 @@ var DatatableComponent = /** @class */ (function (_super) {
             this.internalRows = this.processGroupedRows(this.groupedRows);
         }
         else {
-            this.internalRows = utils_1.sortRows(this.internalRows, this.internalColumns, this.sorts);
+            this.internalRows = sort_1.sortRows(this.internalRows, this.internalColumns, this.sorts);
         }
     };
     DatatableComponent.prototype.sortGroupedRows = function (groupedRows) {
@@ -3338,10 +3347,10 @@ var DatatableComponent = /** @class */ (function (_super) {
                 gr.groups = _this.sortGroupedRows(gr.groups);
             }
             if (gr.rows && gr.rows) {
-                gr.rows = utils_1.sortRows(gr.rows, _this.internalColumns, _this.sorts);
+                gr.rows = sort_1.sortRows(gr.rows, _this.internalColumns, _this.sorts);
             }
         });
-        var sortedRows = utils_1.sortRows(rows, this.internalColumns, this.sorts);
+        var sortedRows = sort_1.sortRows(rows, this.internalColumns, this.sorts);
         var result = sortedRows.map(function (r) { return r.__group; });
         return result;
     };
@@ -3645,7 +3654,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         __metadata("design:returntype", void 0)
     ], DatatableComponent.prototype, "onSortsChanged", null);
     __decorate([
-        utils_1.throttleable(5),
+        throttle_1.throttleable(5),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
@@ -5307,10 +5316,11 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var scroller_component_1 = __webpack_require__(/*! components/body/scroller.component */ "./src/components/body/scroller.component.ts");
+var check_type_1 = __webpack_require__(/*! types/check.type */ "./src/types/check.type.ts");
+var selection_type_1 = __webpack_require__(/*! types/selection.type */ "./src/types/selection.type.ts");
+var keys_1 = __webpack_require__(/*! utils/keys */ "./src/utils/keys.ts");
+var selection_1 = __webpack_require__(/*! utils/selection */ "./src/utils/selection.ts");
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
-var types_1 = __webpack_require__(/*! ../../types */ "./src/types/index.ts");
-var check_type_1 = __webpack_require__(/*! ../../types/check.type */ "./src/types/check.type.ts");
-var utils_1 = __webpack_require__(/*! ../../utils */ "./src/utils/index.ts");
 var DataTableSelectionComponent = /** @class */ (function (_super) {
     __extends(DataTableSelectionComponent, _super);
     function DataTableSelectionComponent() {
@@ -5321,23 +5331,23 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
         if (!this.selectEnabled) {
             return;
         }
-        var chkbox = this.selectionType === types_1.SelectionType.checkbox && this.checkMode === check_type_1.CheckMode.checkIsSelect;
-        var multi = this.selectionType === types_1.SelectionType.multi;
-        var multiClick = this.selectionType === types_1.SelectionType.multiClick;
+        var chkbox = this.selectionType === selection_type_1.SelectionType.checkbox && this.checkMode === check_type_1.CheckMode.checkIsSelect;
+        var multi = this.selectionType === selection_type_1.SelectionType.multi;
+        var multiClick = this.selectionType === selection_type_1.SelectionType.multiClick;
         var selected = [];
         if (multi || chkbox || multiClick) {
             if (event.shiftKey) {
-                selected = utils_1.selectRowsBetween([], this.rows, index, this.prevIndex, this.getRowSelectedIdx.bind(this));
+                selected = selection_1.selectRowsBetween([], this.rows, index, this.prevIndex, this.getRowSelectedIdx.bind(this));
             }
             else if (event.ctrlKey || event.metaKey || multiClick || chkbox) {
-                selected = utils_1.selectRows(__spreadArrays(this.selected), row, this.getRowSelectedIdx.bind(this));
+                selected = selection_1.selectRows(__spreadArrays(this.selected), row, this.getRowSelectedIdx.bind(this));
             }
             else {
-                selected = utils_1.selectRows([], row, this.getRowSelectedIdx.bind(this));
+                selected = selection_1.selectRows([], row, this.getRowSelectedIdx.bind(this));
             }
         }
         else {
-            selected = utils_1.selectRows([], row, this.getRowSelectedIdx.bind(this));
+            selected = selection_1.selectRows([], row, this.getRowSelectedIdx.bind(this));
         }
         this.prevIndex = index;
         if (typeof this.selectCheck === 'function') {
@@ -5357,10 +5367,10 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
         }
         var checked = [];
         if (event.shiftKey) {
-            checked = utils_1.selectRowsBetween([], this.rows, index, this.prevIndex, this.getRowSelectedIdx.bind(this));
+            checked = selection_1.selectRowsBetween([], this.rows, index, this.prevIndex, this.getRowSelectedIdx.bind(this));
         }
         else {
-            checked = utils_1.selectRows(__spreadArrays(this.checked), row, this.getRowSelectedIdx.bind(this));
+            checked = selection_1.selectRows(__spreadArrays(this.checked), row, this.getRowSelectedIdx.bind(this));
         }
         this.prevIndex = index;
         if (typeof this.selectCheck === 'function') {
@@ -5374,7 +5384,7 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
     };
     DataTableSelectionComponent.prototype.onActivate = function (model, index) {
         var type = model.type, event = model.event, row = model.row, column = model.column;
-        var chkbox = this.selectionType === types_1.SelectionType.checkbox && this.checkMode === check_type_1.CheckMode.checkIsSelect;
+        var chkbox = this.selectionType === selection_type_1.SelectionType.checkbox && this.checkMode === check_type_1.CheckMode.checkIsSelect;
         var select = (!chkbox && (type === 'click' || type === 'dblclick')) || (chkbox && type === 'checkbox');
         if (this.checkMode === check_type_1.CheckMode.checkNoSelect && (column === null || column === void 0 ? void 0 : column.checkboxable)) {
             select = false;
@@ -5386,7 +5396,7 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
             this.checkRow(event, index, row);
         }
         else if (type === 'keydown') {
-            if (event.keyCode === utils_1.Keys.return) {
+            if (event.keyCode === keys_1.Keys.return) {
                 this.selectRow(event, index, row);
             }
             else {
@@ -5397,14 +5407,14 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
     };
     DataTableSelectionComponent.prototype.onKeyboardFocus = function (model) {
         var keyCode = model.event.keyCode;
-        var shouldFocus = keyCode === utils_1.Keys.up ||
-            keyCode === utils_1.Keys.down ||
-            keyCode === utils_1.Keys.right ||
-            keyCode === utils_1.Keys.left ||
-            keyCode === utils_1.Keys.pageUp ||
-            keyCode === utils_1.Keys.pageDown;
+        var shouldFocus = keyCode === keys_1.Keys.up ||
+            keyCode === keys_1.Keys.down ||
+            keyCode === keys_1.Keys.right ||
+            keyCode === keys_1.Keys.left ||
+            keyCode === keys_1.Keys.pageUp ||
+            keyCode === keys_1.Keys.pageDown;
         if (shouldFocus) {
-            var isCellSelection = this.selectionType === types_1.SelectionType.cell;
+            var isCellSelection = this.selectionType === selection_type_1.SelectionType.cell;
             if (!model.cellElement || !isCellSelection) {
                 this.focusRow(model, keyCode);
             }
@@ -5416,23 +5426,23 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
     DataTableSelectionComponent.prototype.focusRow = function (model, keyCode) {
         var nextRowElement = this.getPrevNextRow(model.rowElement, keyCode);
         var index = 0;
-        if (keyCode === utils_1.Keys.up) {
+        if (keyCode === keys_1.Keys.up) {
             if (model.rowIndex - 1 < 0) {
                 return;
             }
             index = model.rowIndex - 1;
         }
-        else if (keyCode === utils_1.Keys.down) {
+        else if (keyCode === keys_1.Keys.down) {
             if (model.rowIndex + 1 >= this.rows.length) {
                 return;
             }
             index = model.rowIndex + 1;
         }
-        else if (keyCode === utils_1.Keys.pageUp) {
+        else if (keyCode === keys_1.Keys.pageUp) {
             index = model.rowIndex - this.pageSize;
             index = index < 0 ? 0 : index;
         }
-        else if (keyCode === utils_1.Keys.pageDown) {
+        else if (keyCode === keys_1.Keys.pageDown) {
             index = model.rowIndex + this.pageSize;
             index = index >= this.rows.length ? this.rows.length - 1 : index;
         }
@@ -5445,25 +5455,25 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
         }
         var scrolled = false;
         var h = 0;
-        if ([utils_1.Keys.down, utils_1.Keys.pageDown].includes(keyCode)) {
+        if ([keys_1.Keys.down, keys_1.Keys.pageDown].includes(keyCode)) {
             h = offsetY + height - (this.$parent.$el.scrollTop + this.bodyHeight);
         }
-        else if ([utils_1.Keys.up, utils_1.Keys.pageUp].includes(keyCode)) {
+        else if ([keys_1.Keys.up, keys_1.Keys.pageUp].includes(keyCode)) {
             h = offsetY - height - this.$parent.$el.scrollTop;
         }
-        if (h > 0 && [utils_1.Keys.down, utils_1.Keys.pageDown].includes(keyCode)) {
+        if (h > 0 && [keys_1.Keys.down, keys_1.Keys.pageDown].includes(keyCode)) {
             this.scroller.incOffset(h);
             // scrolled = model.rowIndex === this.rows.length - 2 ? false : true;
         }
-        else if (h < 0 && [utils_1.Keys.up, utils_1.Keys.pageUp].includes(keyCode)) {
+        else if (h < 0 && [keys_1.Keys.up, keys_1.Keys.pageUp].includes(keyCode)) {
             this.scroller.incOffset(h);
             scrolled = model.rowIndex !== 1;
         }
-        else if (h === 0 && [utils_1.Keys.up, utils_1.Keys.pageUp].includes(keyCode) && [0, 1, 2].includes(model.rowIndex)) {
+        else if (h === 0 && [keys_1.Keys.up, keys_1.Keys.pageUp].includes(keyCode) && [0, 1, 2].includes(model.rowIndex)) {
             this.scroller.setOffset(h);
             // scrolled = true;
         }
-        if (scrolled || [utils_1.Keys.left, utils_1.Keys.right].includes(keyCode)) {
+        if (scrolled || [keys_1.Keys.left, keys_1.Keys.right].includes(keyCode)) {
             model.rowElement.focus();
         }
         else if (nextRowElement) {
@@ -5473,23 +5483,23 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
     DataTableSelectionComponent.prototype.focusRow1 = function (keyCode) {
         var _this = this;
         var index = 0;
-        if (keyCode === utils_1.Keys.up) {
+        if (keyCode === keys_1.Keys.up) {
             if (this.prevIndex - 1 < 0) {
                 return;
             }
             index = this.prevIndex - 1;
         }
-        else if (keyCode === utils_1.Keys.down) {
+        else if (keyCode === keys_1.Keys.down) {
             if (this.prevIndex + 1 >= this.rows.length) {
                 return;
             }
             index = this.prevIndex + 1;
         }
-        else if (keyCode === utils_1.Keys.pageUp) {
+        else if (keyCode === keys_1.Keys.pageUp) {
             index = this.prevIndex - this.pageSize;
             index = index < 0 ? 0 : index;
         }
-        else if (keyCode === utils_1.Keys.pageDown) {
+        else if (keyCode === keys_1.Keys.pageDown) {
             index = this.prevIndex + this.pageSize;
             index = index >= this.rows.length ? this.rows.length - 1 : index;
         }
@@ -5500,16 +5510,16 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
         setTimeout(function () { return _this.selectRow({ shiftKey: false, ctrlKey: false }, index, nextRow); });
         var _a = this.$parent.getRowOffsetY(index), offsetY = _a.offsetY, height = _a.height;
         var h = 0;
-        if ([utils_1.Keys.down, utils_1.Keys.pageDown].includes(keyCode)) {
+        if ([keys_1.Keys.down, keys_1.Keys.pageDown].includes(keyCode)) {
             h = offsetY - this.bodyHeight;
         }
-        else if ([utils_1.Keys.up, utils_1.Keys.pageUp].includes(keyCode)) {
+        else if ([keys_1.Keys.up, keys_1.Keys.pageUp].includes(keyCode)) {
             h = offsetY - height - this.scroller.scrollYPos;
         }
-        if (h > 0 && [utils_1.Keys.down, utils_1.Keys.pageDown].includes(keyCode)) {
+        if (h > 0 && [keys_1.Keys.down, keys_1.Keys.pageDown].includes(keyCode)) {
             this.scroller.setOffset(h);
         }
-        else if (h < 0 && [utils_1.Keys.up, utils_1.Keys.pageUp].includes(keyCode)) {
+        else if (h < 0 && [keys_1.Keys.up, keys_1.Keys.pageUp].includes(keyCode)) {
             this.scroller.incOffset(h);
         }
         // const { el: rowElement, height } = (this.$parent as any).getRowElementAndHeight(this.rows[this.prevIndex]);
@@ -5557,10 +5567,10 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
     DataTableSelectionComponent.prototype.getPrevNextRowElement = function (rowElement, keyCode) {
         if (rowElement) {
             var focusElement = void 0;
-            if (keyCode === utils_1.Keys.up) {
+            if (keyCode === keys_1.Keys.up) {
                 focusElement = rowElement.previousElementSibling;
             }
-            else if (keyCode === utils_1.Keys.down) {
+            else if (keyCode === keys_1.Keys.down) {
                 focusElement = rowElement.nextElementSibling;
             }
             return focusElement;
@@ -5570,10 +5580,10 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
         var parentElement = rowElement.parentElement;
         if (parentElement) {
             var focusElement = void 0;
-            if (keyCode === utils_1.Keys.up) {
+            if (keyCode === keys_1.Keys.up) {
                 focusElement = parentElement.previousElementSibling;
             }
-            else if (keyCode === utils_1.Keys.down) {
+            else if (keyCode === keys_1.Keys.down) {
                 focusElement = parentElement.nextElementSibling;
             }
             if (focusElement && focusElement.children.length) {
@@ -5586,10 +5596,10 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
         // const parentElement = rowElement.closest('.datatable-row-wrapper');
         if (parentElement) {
             var focusElement = void 0;
-            if (keyCode === utils_1.Keys.up) {
+            if (keyCode === keys_1.Keys.up) {
                 focusElement = parentElement.previousElementSibling;
             }
-            else if (keyCode === utils_1.Keys.down) {
+            else if (keyCode === keys_1.Keys.down) {
                 focusElement = parentElement.nextElementSibling;
             }
             // return focusElement;
@@ -5600,13 +5610,13 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
     };
     DataTableSelectionComponent.prototype.focusCell = function (cellElement, rowElement, keyCode, cellIndex) {
         var nextCellElement;
-        if (keyCode === utils_1.Keys.left) {
+        if (keyCode === keys_1.Keys.left) {
             nextCellElement = cellElement.previousElementSibling;
         }
-        else if (keyCode === utils_1.Keys.right) {
+        else if (keyCode === keys_1.Keys.right) {
             nextCellElement = cellElement.nextElementSibling;
         }
-        else if (keyCode === utils_1.Keys.up || keyCode === utils_1.Keys.down) {
+        else if (keyCode === keys_1.Keys.up || keyCode === keys_1.Keys.down) {
             var nextRowElement = this.getPrevNextRow(rowElement, keyCode);
             if (nextRowElement) {
                 var children = nextRowElement.getElementsByClassName('datatable-body-cell');
@@ -6747,9 +6757,11 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var selection_type_1 = __webpack_require__(/*! types/selection.type */ "./src/types/selection.type.ts");
+var sort_direction_type_1 = __webpack_require__(/*! types/sort-direction.type */ "./src/types/sort-direction.type.ts");
+var sort_type_1 = __webpack_require__(/*! types/sort.type */ "./src/types/sort.type.ts");
+var sort_1 = __webpack_require__(/*! utils/sort */ "./src/utils/sort.ts");
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
-var types_1 = __webpack_require__(/*! ../../types */ "./src/types/index.ts");
-var utils_1 = __webpack_require__(/*! ../../utils */ "./src/utils/index.ts");
 var DataTableHeaderCellComponent = /** @class */ (function (_super) {
     __extends(DataTableHeaderCellComponent, _super);
     function DataTableHeaderCellComponent() {
@@ -6948,7 +6960,7 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
                 }
             });
             if (sort) {
-                if (this.sortType === types_1.SortType.multi) {
+                if (this.sortType === sort_type_1.SortType.multi) {
                     this.sortOrder = sortOrder_1;
                 }
                 return sort.dir;
@@ -6959,7 +6971,7 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
         if (!this.column.sortable) {
             return;
         }
-        var newValue = utils_1.nextSortDir(this.sortType, this.sortDir);
+        var newValue = sort_1.nextSortDir(this.sortType, this.sortDir);
         this.$emit('sort', {
             column: this.column,
             prevValue: this.sortDir,
@@ -6967,16 +6979,16 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
         });
     };
     DataTableHeaderCellComponent.prototype.calcSortCssClass = function (sortDir) {
-        if (sortDir === types_1.SortDirection.asc) {
+        if (sortDir === sort_direction_type_1.SortDirection.asc) {
             return "sort-btn sort-asc " + this.sortAscendingIcon;
         }
-        if (sortDir === types_1.SortDirection.desc) {
+        if (sortDir === sort_direction_type_1.SortDirection.desc) {
             return "sort-btn sort-desc " + this.sortDescendingIcon;
         }
         return 'sort-btn';
     };
     DataTableHeaderCellComponent.prototype.calcCssClass = function (sortDir) {
-        if (sortDir === types_1.SortDirection.asc || sortDir === types_1.SortDirection.desc) {
+        if (sortDir === sort_direction_type_1.SortDirection.asc || sortDir === sort_direction_type_1.SortDirection.desc) {
             return 'datatable-header-cell-bold';
         }
         return '';
@@ -7111,12 +7123,14 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var draggable_directive_1 = __webpack_require__(/*! directives/draggable.directive */ "./src/directives/draggable.directive.ts");
+var long_press_directive_1 = __webpack_require__(/*! directives/long-press.directive */ "./src/directives/long-press.directive.ts");
+var resizeable_directive_1 = __webpack_require__(/*! directives/resizeable.directive */ "./src/directives/resizeable.directive.ts");
+var selection_type_1 = __webpack_require__(/*! types/selection.type */ "./src/types/selection.type.ts");
+var sort_type_1 = __webpack_require__(/*! types/sort.type */ "./src/types/sort.type.ts");
+var column_1 = __webpack_require__(/*! utils/column */ "./src/utils/column.ts");
+var translate_1 = __webpack_require__(/*! utils/translate */ "./src/utils/translate.ts");
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
-var draggable_directive_1 = __webpack_require__(/*! ../../directives/draggable.directive */ "./src/directives/draggable.directive.ts");
-var long_press_directive_1 = __webpack_require__(/*! ../../directives/long-press.directive */ "./src/directives/long-press.directive.ts");
-var resizeable_directive_1 = __webpack_require__(/*! ../../directives/resizeable.directive */ "./src/directives/resizeable.directive.ts");
-var types_1 = __webpack_require__(/*! ../../types */ "./src/types/index.ts");
-var utils_1 = __webpack_require__(/*! ../../utils */ "./src/utils/index.ts");
 var header_cell_component_1 = __webpack_require__(/*! ./header-cell.component */ "./src/components/header/header-cell.component.ts");
 var DataTableHeaderComponent = /** @class */ (function (_super) {
     __extends(DataTableHeaderComponent, _super);
@@ -7138,8 +7152,8 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
     }
     DataTableHeaderComponent.prototype.onChangedInnerWidth = function () {
         if (this.columns) {
-            var colByPin = utils_1.columnsByPin(this.columns);
-            this.columnGroupWidths = utils_1.columnGroupWidths(colByPin, this.columns, this.innerWidth);
+            var colByPin = column_1.columnsByPin(this.columns);
+            this.columnGroupWidths = column_1.columnGroupWidths(colByPin, this.columns, this.innerWidth);
             this.setStylesByGroup();
         }
     };
@@ -7153,9 +7167,9 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
         }
     };
     DataTableHeaderComponent.prototype.onColumnsChanged = function () {
-        var colsByPin = utils_1.columnsByPin(this.columns);
-        this.columnsByPin = utils_1.columnsByPinArr(this.columns);
-        this.columnGroupWidths = utils_1.columnGroupWidths(colsByPin, this.columns, this.innerWidth);
+        var colsByPin = column_1.columnsByPin(this.columns);
+        this.columnsByPin = column_1.columnsByPinArr(this.columns);
+        this.columnGroupWidths = column_1.columnGroupWidths(colsByPin, this.columns, this.innerWidth);
         this.setStylesByGroup();
     };
     DataTableHeaderComponent.prototype.onOffsetXChanged = function () {
@@ -7272,7 +7286,7 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
             sorts[idx].dir = newValue;
         }
         else {
-            if (this.sortType === types_1.SortType.single) {
+            if (this.sortType === sort_type_1.SortType.single) {
                 sorts.splice(0, this.sorts.length);
             }
             sorts.push({ dir: newValue, prop: column.prop });
@@ -7303,7 +7317,7 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
             width: widths[group] + "px",
         };
         if (group === 'center') {
-            utils_1.translateXY(styles, offsetX * -1, 0);
+            translate_1.translateXY(styles, offsetX * -1, 0);
         }
         else if (group === 'right') {
             var totalDiff = widths.total - this.innerWidth;
@@ -7311,7 +7325,7 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
             if (this.scrollbarWidth) {
                 offset -= this.scrollbarWidth;
             }
-            utils_1.translateXY(styles, offset, 0);
+            translate_1.translateXY(styles, offset, 0);
         }
         return styles;
     };
@@ -8171,27 +8185,6 @@ var CheckMode;
 
 /***/ }),
 
-/***/ "./src/types/click.type.ts":
-/*!*********************************!*\
-  !*** ./src/types/click.type.ts ***!
-  \*********************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ClickType = void 0;
-var ClickType;
-(function (ClickType) {
-    ClickType["single"] = "single";
-    ClickType["double"] = "double";
-})(ClickType = exports.ClickType || (exports.ClickType = {}));
-
-
-/***/ }),
-
 /***/ "./src/types/column-mode.type.ts":
 /*!***************************************!*\
   !*** ./src/types/column-mode.type.ts ***!
@@ -8231,39 +8224,6 @@ var ContextmenuType;
     ContextmenuType["header"] = "header";
     ContextmenuType["body"] = "body";
 })(ContextmenuType = exports.ContextmenuType || (exports.ContextmenuType = {}));
-
-
-/***/ }),
-
-/***/ "./src/types/index.ts":
-/*!****************************!*\
-  !*** ./src/types/index.ts ***!
-  \****************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __exportStar = (this && this.__exportStar) || function(m, exports) {
-    for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(__webpack_require__(/*! ./column-mode.type */ "./src/types/column-mode.type.ts"), exports);
-__exportStar(__webpack_require__(/*! ./sort.type */ "./src/types/sort.type.ts"), exports);
-__exportStar(__webpack_require__(/*! ./sort-direction.type */ "./src/types/sort-direction.type.ts"), exports);
-__exportStar(__webpack_require__(/*! ./selection.type */ "./src/types/selection.type.ts"), exports);
-__exportStar(__webpack_require__(/*! ./click.type */ "./src/types/click.type.ts"), exports);
-__exportStar(__webpack_require__(/*! ./table-column.type */ "./src/types/table-column.type.ts"), exports);
-__exportStar(__webpack_require__(/*! ./sort-prop-dir.type */ "./src/types/sort-prop-dir.type.ts"), exports);
-__exportStar(__webpack_require__(/*! ./contextmenu.type */ "./src/types/contextmenu.type.ts"), exports);
 
 
 /***/ }),
@@ -8314,21 +8274,6 @@ var SortDirection;
 
 /***/ }),
 
-/***/ "./src/types/sort-prop-dir.type.ts":
-/*!*****************************************!*\
-  !*** ./src/types/sort-prop-dir.type.ts ***!
-  \*****************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-
-
-/***/ }),
-
 /***/ "./src/types/sort.type.ts":
 /*!********************************!*\
   !*** ./src/types/sort.type.ts ***!
@@ -8346,21 +8291,6 @@ var SortType;
     SortType["single"] = "single";
     SortType["multi"] = "multi";
 })(SortType = exports.SortType || (exports.SortType = {}));
-
-
-/***/ }),
-
-/***/ "./src/types/table-column.type.ts":
-/*!****************************************!*\
-  !*** ./src/types/table-column.type.ts ***!
-  \****************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
 
 
 /***/ }),
@@ -8761,59 +8691,6 @@ exports.columnsByPinArr = columnsByPinArr;
 
 /***/ }),
 
-/***/ "./src/utils/elm-from-point.ts":
-/*!*************************************!*\
-  !*** ./src/utils/elm-from-point.ts ***!
-  \*************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.elementsFromPoint = void 0;
-if (typeof document !== 'undefined' && !document.elementsFromPoint) {
-    document.elementsFromPoint = elementsFromPoint;
-}
-/**
- * Polyfill for `elementsFromPoint`
- *
- * https://developer.mozilla.org/en-US/docs/Web/API/Document/elementsFromPoint
- * https://gist.github.com/iddan/54d5d9e58311b0495a91bf06de661380
- * https://gist.github.com/oslego/7265412
- */
-function elementsFromPoint(x, y) {
-    var elements = [];
-    var previousPointerEvents = [];
-    var current; // TODO: window.getComputedStyle should be used with inferred type (Element)
-    var i;
-    var d;
-    // if (document === undefined) return elements;
-    // get all elements via elementFromPoint, and remove them from hit-testing in order
-    while ((current = document.elementFromPoint(x, y)) && current && elements.indexOf(current) === -1) {
-        // push the element and its current style
-        elements.push(current);
-        previousPointerEvents.push({
-            value: current.style.getPropertyValue('pointer-events'),
-            priority: current.style.getPropertyPriority('pointer-events'),
-        });
-        // add "pointer-events: none", to get to the underlying element
-        current.style.setProperty('pointer-events', 'none', 'important');
-    }
-    // restore the previous pointer-events values
-    // eslint-disable-next-line prettier/prettier
-    for (i = previousPointerEvents.length; (d = previousPointerEvents[--i]);) {
-        elements[i].style.setProperty('pointer-events', (d === null || d === void 0 ? void 0 : d.value) ? d.value : '', d === null || d === void 0 ? void 0 : d.priority);
-    }
-    // return our results
-    return elements;
-}
-exports.elementsFromPoint = elementsFromPoint;
-
-
-/***/ }),
-
 /***/ "./src/utils/equal.array.ts":
 /*!**********************************!*\
   !*** ./src/utils/equal.array.ts ***!
@@ -8876,46 +8753,6 @@ function id() {
     return ('0000' + ((Math.random() * Math.pow(36, 4)) << 0).toString(36)).slice(-4);
 }
 exports.id = id;
-
-
-/***/ }),
-
-/***/ "./src/utils/index.ts":
-/*!****************************!*\
-  !*** ./src/utils/index.ts ***!
-  \****************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
-var __exportStar = (this && this.__exportStar) || function(m, exports) {
-    for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-__exportStar(__webpack_require__(/*! ./id */ "./src/utils/id.ts"), exports);
-__exportStar(__webpack_require__(/*! ./column */ "./src/utils/column.ts"), exports);
-__exportStar(__webpack_require__(/*! ./column-prop-getters */ "./src/utils/column-prop-getters.ts"), exports);
-__exportStar(__webpack_require__(/*! ./camel-case */ "./src/utils/camel-case.ts"), exports);
-__exportStar(__webpack_require__(/*! ./keys */ "./src/utils/keys.ts"), exports);
-__exportStar(__webpack_require__(/*! ./math */ "./src/utils/math.ts"), exports);
-__exportStar(__webpack_require__(/*! ./prefixes */ "./src/utils/prefixes.ts"), exports);
-__exportStar(__webpack_require__(/*! ./selection */ "./src/utils/selection.ts"), exports);
-__exportStar(__webpack_require__(/*! ./translate */ "./src/utils/translate.ts"), exports);
-__exportStar(__webpack_require__(/*! ./throttle */ "./src/utils/throttle.ts"), exports);
-__exportStar(__webpack_require__(/*! ./sort */ "./src/utils/sort.ts"), exports);
-__exportStar(__webpack_require__(/*! ./row-height-cache */ "./src/utils/row-height-cache.ts"), exports);
-__exportStar(__webpack_require__(/*! ./column-helper */ "./src/utils/column-helper.ts"), exports);
-__exportStar(__webpack_require__(/*! ./elm-from-point */ "./src/utils/elm-from-point.ts"), exports);
-__exportStar(__webpack_require__(/*! ./tree */ "./src/utils/tree.ts"), exports);
 
 
 /***/ }),
@@ -9558,25 +9395,26 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.sortRows = exports.orderByComparator = exports.nextSortDir = void 0;
-var types_1 = __webpack_require__(/*! ../types */ "./src/types/index.ts");
+var sort_direction_type_1 = __webpack_require__(/*! types/sort-direction.type */ "./src/types/sort-direction.type.ts");
+var sort_type_1 = __webpack_require__(/*! types/sort.type */ "./src/types/sort.type.ts");
 var column_prop_getters_1 = __webpack_require__(/*! ./column-prop-getters */ "./src/utils/column-prop-getters.ts");
 /**
  * Gets the next sort direction
  */
 function nextSortDir(sortType, current) {
-    if (sortType === types_1.SortType.single) {
-        if (current === types_1.SortDirection.asc) {
-            return types_1.SortDirection.desc;
+    if (sortType === sort_type_1.SortType.single) {
+        if (current === sort_direction_type_1.SortDirection.asc) {
+            return sort_direction_type_1.SortDirection.desc;
         }
-        return types_1.SortDirection.asc;
+        return sort_direction_type_1.SortDirection.asc;
     }
     if (!current) {
-        return types_1.SortDirection.asc;
+        return sort_direction_type_1.SortDirection.asc;
     }
-    if (current === types_1.SortDirection.asc) {
-        return types_1.SortDirection.desc;
+    if (current === sort_direction_type_1.SortDirection.asc) {
+        return sort_direction_type_1.SortDirection.desc;
     }
-    if (current === types_1.SortDirection.desc) {
+    if (current === sort_direction_type_1.SortDirection.desc) {
         // eslint-disable-next-line no-undefined
         return undefined;
     }
@@ -9681,7 +9519,7 @@ function sortRows(rows, columns, dirs) {
             // Compare can be a standard JS comparison function (a,b) => -1|0|1
             // as additional parameters are silently ignored. The whole row and sort
             // direction enable more complex sort logic.
-            var comparison = cachedDir.dir !== types_1.SortDirection.desc
+            var comparison = cachedDir.dir !== sort_direction_type_1.SortDirection.desc
                 ? cachedDir.compareFn(propA, propB, rowA, rowB, cachedDir.dir)
                 : -cachedDir.compareFn(propA, propB, rowA, rowB, cachedDir.dir);
             // Don't return 0 yet in case of needing to sort by next property

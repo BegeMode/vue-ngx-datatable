@@ -1,6 +1,10 @@
+import { SelectionType } from 'types/selection.type';
+import { SortDirection } from 'types/sort-direction.type';
+import { ISortPropDir } from 'types/sort-prop-dir.type';
+import { SortType } from 'types/sort.type';
+import { TableColumn } from 'types/table-column.type';
+import { nextSortDir } from 'utils/sort';
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import { ISortPropDir, SelectionType, SortDirection, SortType, TableColumn } from '../../types';
-import { nextSortDir } from '../../utils';
 
 @Component({
   template: `

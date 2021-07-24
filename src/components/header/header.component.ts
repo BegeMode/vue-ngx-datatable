@@ -1,16 +1,14 @@
+import DraggableDirective from 'directives/draggable.directive';
+import LongPressDirective from 'directives/long-press.directive';
+import ResizeableDirective from 'directives/resizeable.directive';
+import { SelectionType } from 'types/selection.type';
+import { SortDirection } from 'types/sort-direction.type';
+import { ISortEvent, ISortPropDir } from 'types/sort-prop-dir.type';
+import { SortType } from 'types/sort.type';
+import { TableColumn } from 'types/table-column.type';
+import { columnGroupWidths, columnsByPin, columnsByPinArr, IColumnsByPinRecord, IColumnsWidth } from 'utils/column';
+import { translateXY } from 'utils/translate';
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import DraggableDirective from '../../directives/draggable.directive';
-import LongPressDirective from '../../directives/long-press.directive';
-import ResizeableDirective from '../../directives/resizeable.directive';
-import { ISortEvent, ISortPropDir, SelectionType, SortDirection, SortType, TableColumn } from '../../types';
-import {
-  columnGroupWidths,
-  columnsByPin,
-  columnsByPinArr,
-  IColumnsByPinRecord,
-  IColumnsWidth,
-  translateXY,
-} from '../../utils';
 import DataTableHeaderCellComponent from './header-cell.component';
 
 interface IDragPosition {

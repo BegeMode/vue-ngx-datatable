@@ -3,7 +3,8 @@
 import { mount, Wrapper } from '@vue/test-utils';
 import DatatableComponentClass from 'components/datatable.component';
 import * as flushPromises from 'flush-promises';
-import { ISortPropDir, TableColumn } from 'types';
+import { ISortPropDir } from 'types/sort-prop-dir.type';
+import { TableColumn } from 'types/table-column.type';
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 import { VueConstructor } from 'vue/types/umd';

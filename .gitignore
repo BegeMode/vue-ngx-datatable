@@ -9,3 +9,4 @@ coverage/
 yarn.lock
 /.vscode
 .eslintcache
+webpack-stats.json

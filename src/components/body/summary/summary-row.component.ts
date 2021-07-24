@@ -1,5 +1,5 @@
 import { IRowContext } from 'types/row-context.type';
-import { IColumnsByPinRecord, IColumnsWidth } from 'utils';
+import { IColumnsByPinRecord, IColumnsWidth } from 'utils/column';
 import { VNode } from 'vue';
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import DataTableBodyRowComponent from '../body-row.component.vue';

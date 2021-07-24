@@ -1,8 +1,8 @@
-import { TableColumn } from 'types';
 import { IRowContext } from 'types/row-context.type';
+import { TableColumn } from 'types/table-column.type';
+import { Keys } from 'utils/keys';
 import { VNode } from 'vue';
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
-import { Keys } from '../../utils';
 
 export type TreeStatus = 'collapsed' | 'expanded' | 'loading' | 'disabled';
 

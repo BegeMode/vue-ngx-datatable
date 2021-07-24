@@ -1,4 +1,4 @@
-import { TableColumn } from 'types';
+import { TableColumn } from 'types/table-column.type';
 import { VNode } from 'vue';
 import { Vue } from 'vue-property-decorator';
 import { DirectiveBinding } from 'vue/types/options';

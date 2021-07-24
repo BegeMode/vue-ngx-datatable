@@ -1,7 +1,7 @@
 // maybe rename this file to prop-getters.ts
 
+import { TableColumnProp } from 'types/table-column.type';
 import { isNullOrUndefined } from 'utils/column-helper';
-import { TableColumnProp } from '../types';
 
 export type ValueGetter = (obj: Record<string, unknown>, prop: TableColumnProp) => any;
 

@@ -1,4 +1,4 @@
-import { TableColumn } from '../types';
+import { TableColumn } from 'types/table-column.type';
 import { columnsByPin, columnsTotalWidth, IColumnsByPin } from './column';
 
 /**

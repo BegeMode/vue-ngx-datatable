@@ -1,5 +1,5 @@
+import { Keys } from 'utils/keys';
 import { Vue } from 'vue-property-decorator';
-import { Keys } from '../../../utils';
 
 export type TreeStatus = 'collapsed' | 'expanded' | 'loading' | 'disabled';
 

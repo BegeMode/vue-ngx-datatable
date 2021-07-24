@@ -1,5 +1,5 @@
 import { IRowContext } from 'types/row-context.type';
-import { IColumnsByPinRecord, IColumnsWidth } from 'utils';
+import { IColumnsByPinRecord, IColumnsWidth } from 'utils/column';
 import { VNode } from 'vue';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { TableColumn } from '../../types/table-column.type';

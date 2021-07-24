@@ -1,5 +1,5 @@
+import { TableColumn } from 'types/table-column.type';
 import Vue from 'vue';
-import { TableColumn } from '../types';
 // import { DataTableColumnDirective } from '../components/columns';
 import { camelCase, deCamelCase } from './camel-case';
 import { getterForProp } from './column-prop-getters';

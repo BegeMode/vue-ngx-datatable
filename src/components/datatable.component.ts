@@ -1,21 +1,21 @@
+import { CheckMode } from 'types/check.type';
+import { ColumnMode } from 'types/column-mode.type';
+import { ContextmenuType } from 'types/contextmenu.type';
+import { IGroupedRows } from 'types/grouped-rows';
+import { SelectionType } from 'types/selection.type';
+import { ISortEvent, ISortPropDir } from 'types/sort-prop-dir.type';
+import { SortType } from 'types/sort.type';
+import { TableColumn } from 'types/table-column.type';
+import { setColumnDefaults, setColumnsDefaults } from 'utils/column-helper';
+import { isArrayEqual } from 'utils/equal.array';
+import { adjustColumnWidths, forceFillColumnWidths } from 'utils/math';
+import { sortRows } from 'utils/sort';
+import { throttleable } from 'utils/throttle';
+import { groupRowsByParents, optionalGetterForProp } from 'utils/tree';
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import VisibilityDirective from '../directives/visibility.directive';
 import { DimensionsHelper } from '../services/dimensions-helper.service';
 import { ScrollbarHelper } from '../services/scrollbar-helper.service';
-import { ColumnMode, ContextmenuType, ISortEvent, ISortPropDir, SelectionType, SortType, TableColumn } from '../types';
-import { CheckMode } from '../types/check.type';
-import { IGroupedRows } from '../types/grouped-rows';
-import {
-  adjustColumnWidths,
-  forceFillColumnWidths,
-  groupRowsByParents,
-  optionalGetterForProp,
-  setColumnDefaults,
-  setColumnsDefaults,
-  sortRows,
-  throttleable,
-} from '../utils';
-import { isArrayEqual } from '../utils/equal.array';
 import DataTableBodyCellComponent from './body/body-cell.component.vue';
 import DataTableBody from './body/body.component';
 import DataTableBodyComponent from './body/body.component.vue';

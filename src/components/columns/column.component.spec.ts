@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-floating-promises */
 import { mount, Wrapper } from '@vue/test-utils';
 import * as flushPromises from 'flush-promises';
+import { TableColumn } from 'types/table-column.type';
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 import { VueConstructor } from 'vue/types/umd';
-import { TableColumn } from '../../types';
 import DataTableColumnComponent from './column.component';
 
 let counter = 0;
