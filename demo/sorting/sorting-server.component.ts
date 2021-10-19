@@ -1,3 +1,4 @@
+import { ISortEvent } from 'types/sort-prop-dir.type';
 import { Component, Vue } from 'vue-property-decorator';
 import DatatableComponent from '../../src/components/datatable.component.vue';
 
@@ -34,7 +35,7 @@ export default class ServerSortingComponent extends Vue {
 
   loading: boolean = false;
 
-  rows = [];
+  rows: Array<Record<string, unknown>> = [];
 
   columns = [
     { name: 'Company', sortable: true },
@@ -43,12 +44,12 @@ export default class ServerSortingComponent extends Vue {
   ];
 
   created() {
-    this.fetch((data) => {
+    this.fetch((data: Array<Record<string, unknown>>) => {
       this.rows = data;
     });
   }
 
-  fetch(cb) {
+  fetch(cb: (data: Array<Record<string, unknown>>) => void) {
     const req = new XMLHttpRequest();
     req.open('GET', `assets/data/company.json`);
 
@@ -60,7 +61,7 @@ export default class ServerSortingComponent extends Vue {
     req.send();
   }
 
-  onSort(event) {
+  onSort(event: { sorts: ISortEvent }) {
     // event was triggered, start sort sequence
     console.log('Sort Event', event);
     this.loading = true;
@@ -72,7 +73,7 @@ export default class ServerSortingComponent extends Vue {
       // you and you would just set the rows prop
       const sort = event.sorts[0];
       rows.sort((a, b) => {
-        return a[sort.prop].localeCompare(b[sort.prop]) * (sort.dir === 'desc' ? -1 : 1);
+        return (a[sort.prop] as string).localeCompare(b[sort.prop] as string) * (sort.dir === 'desc' ? -1 : 1);
       });
 
       this.rows = rows;
