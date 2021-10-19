@@ -80,8 +80,7 @@ export default class DataTableBodyCellComponent extends Vue {
       // } else if (value !== undefined) {
       //   value = val;
       // }
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      value = this.column.$$valueGetter(this.rowContext.row, this.column.prop);
+      value = this.column.$$valueGetter(this.rowContext.row, this.column.prop) as string;
     }
     if (this.value !== value) {
       this.value = value;
@@ -283,7 +282,7 @@ export default class DataTableBodyCellComponent extends Vue {
   }
 
   calcLeftMargin(column: TableColumn, row: Record<string, unknown>): number {
-    const levelIndent = column.treeLevelIndent !== null ? column.treeLevelIndent : 50;
+    const levelIndent = column.treeLevelIndent ? column.treeLevelIndent : 50;
     return column.isTreeColumn ? (row.level as number) * levelIndent : 0;
   }
 }

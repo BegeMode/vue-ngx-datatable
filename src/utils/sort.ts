@@ -29,8 +29,7 @@ export function nextSortDir(sortType: SortType, current: SortDirection): SortDir
  * Adapted from fueld-ui on 6/216
  * https://github.com/FuelInteractive/fuel-ui/tree/master/src/pipes/OrderBy
  */
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-export function orderByComparator(a: any, b: any): number {
+export function orderByComparator(a: unknown, b: unknown): number {
   if (a === null || typeof a === 'undefined') {
     a = 0;
   }
@@ -44,7 +43,12 @@ export function orderByComparator(a: any, b: any): number {
     if (a > b) {
       return 1;
     }
-  } else if (isNaN(parseFloat(a)) || !isFinite(a) || isNaN(parseFloat(b)) || !isFinite(b)) {
+  } else if (
+    isNaN(parseFloat(a as string)) ||
+    !isFinite(a as number) ||
+    isNaN(parseFloat(b as string)) ||
+    !isFinite(b as number)
+  ) {
     // Convert to string in case of a=0 or b=0
     a = String(a);
     b = String(b);
@@ -57,10 +61,10 @@ export function orderByComparator(a: any, b: any): number {
     }
   } else {
     // Parse strings as numbers to compare properly
-    if (parseFloat(a) < parseFloat(b)) {
+    if (parseFloat(a as string) < parseFloat(b as string)) {
       return -1;
     }
-    if (parseFloat(a) > parseFloat(b)) {
+    if (parseFloat(a as string) > parseFloat(b as string)) {
       return 1;
     }
   }
@@ -89,7 +93,7 @@ export function sortRows(
    * record the row ordering of results from prior sort operations (if applicable)
    * this is necessary to guarantee stable sorting behavior
    */
-  const rowToIndexMap = new Map<any, number>();
+  const rowToIndexMap = new Map<Record<string, unknown>, number>();
   rows.forEach((row, index) => rowToIndexMap.set(row, index));
   const temp = [...rows];
   const cols: Record<string, TComparator> = {};
@@ -113,7 +117,7 @@ export function sortRows(
     };
   });
 
-  return temp.sort((rowA: any, rowB: any) => {
+  return temp.sort((rowA: Record<string, unknown>, rowB: Record<string, unknown>) => {
     for (const cachedDir of cachedDirs) {
       // Get property and valuegetters for column to be sorted
       const { prop, valueGetter } = cachedDir;
@@ -132,8 +136,8 @@ export function sortRows(
       // direction enable more complex sort logic.
       const comparison =
         cachedDir.dir !== SortDirection.desc
-          ? cachedDir.compareFn(propA, propB, rowA, rowB, cachedDir.dir)
-          : -cachedDir.compareFn(propA, propB, rowA, rowB, cachedDir.dir);
+          ? cachedDir.compareFn(propA as string, propB as string, rowA, rowB, cachedDir.dir)
+          : -cachedDir.compareFn(propA as string, propB as string, rowA, rowB, cachedDir.dir);
 
       // Don't return 0 yet in case of needing to sort by next property
       if (comparison !== 0) {

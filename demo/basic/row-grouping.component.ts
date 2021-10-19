@@ -2,6 +2,23 @@ import { Component, Vue } from 'vue-property-decorator';
 import DatatableComponent from '../../src/components/datatable.component.vue';
 import DataTableColumnComponent from '../../src/components/columns/column.component';
 
+interface IRow {
+  exppayyes: number;
+  exppayno: number;
+  exppaypending: number;
+  source: string;
+  name: string;
+  gender: string;
+  company: string;
+  age: number;
+  comment: string;
+  groupcomment: string;
+  startdate: string;
+  enddate: string;
+  groupstatus: string;
+  dt: string;
+}
+
 @Component({
   components: {
     'ngx-datatable': DatatableComponent,
@@ -93,13 +110,13 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
 })
 export default class RowGroupingComponent  extends Vue {
 
-  funder = [];
-  calculated = [];
-  pending = [];
-  groups = [];
+  // funder = [];
+  // calculated = [];
+  // pending = [];
+  // groups = [];
   
   editing = {};  
-  rows = [];
+  rows: Array<IRow> = [];
   groupRowsBy = ['age', [{ title: 'Gender', prop: 'gender' }, { title: 'Firm', prop: 'company' }, { title: 'Date', prop: 'dt', valueGetter: (dt: string) => new Date(dt).getFullYear() }]];
   
   created() {
@@ -111,7 +128,7 @@ export default class RowGroupingComponent  extends Vue {
     });
   }
 
-  fetch(cb) {
+  fetch(cb: ( data: Array<IRow>) => void) {
     const req = new XMLHttpRequest();
     req.open('GET', `assets/data/forRowGrouping.json`);
 
@@ -122,7 +139,7 @@ export default class RowGroupingComponent  extends Vue {
     req.send();
   }
 
-  getGroupRowHeight(group, rowHeight) {
+  getGroupRowHeight(group: Array<unknown>, rowHeight: unknown) {
     let style = {};
 
     style = {
@@ -133,7 +150,7 @@ export default class RowGroupingComponent  extends Vue {
     return style;
   }
 
-  checkGroup(event, row, rowIndex, group) {
+  checkGroup(event: { target: { checked: boolean; value: string }}, row: Record<string, unknown>, rowIndex: unknown, group: { rows: Array<IRow> }) {
     let groupStatus: string = 'Pending';
     let expectedPaymentDealtWith: boolean = true;
 
@@ -149,20 +166,20 @@ export default class RowGroupingComponent  extends Vue {
       } else if (event.target.value === '2') { // expected payment yes selected
         row.exppaypending = 1;
       }
-    group = group.rows;
-    if (group.length === 2) { // There are only 2 lines in a group
-      if (['Calculated', 'Funder'].indexOf(group[0].source) > -1 && ['Calculated', 'Funder'].indexOf(group[1].source) > -1) { // Sources are funder and calculated
-        if (group[0].startdate === group[1].startdate && group[0].enddate === group[1].enddate) { // Start dates and end dates match
-          for (let index = 0; index < group.length; index++) {
-            if (group[index].source !== row.source) {
+    const gr = group.rows;
+    if (gr.length === 2) { // There are only 2 lines in a group
+      if (['Calculated', 'Funder'].indexOf(gr[0].source) > -1 && ['Calculated', 'Funder'].indexOf(gr[1].source) > -1) { // Sources are funder and calculated
+        if (gr[0].startdate === gr[1].startdate && gr[0].enddate === gr[1].enddate) { // Start dates and end dates match
+          for (let index = 0; index < gr.length; index++) {
+            if (gr[index].source !== row.source) {
               if (event.target.value === '0') { // expected payment yes selected
-                group[index].exppayyes = 0;
-                group[index].exppaypending = 0;
-                group[index].exppayno = 1;
+                gr[index].exppayyes = 0;
+                gr[index].exppaypending = 0;
+                gr[index].exppayno = 1;
               }
             }
 
-            if (group[index].exppayyes === 0 && group[index].exppayno === 0 && group[index].exppaypending === 0) {
+            if (gr[index].exppayyes === 0 && gr[index].exppayno === 0 && gr[index].exppaypending === 0) {
               expectedPaymentDealtWith = false;
             }
             console.log('expectedPaymentDealtWith', expectedPaymentDealtWith);
@@ -170,8 +187,8 @@ export default class RowGroupingComponent  extends Vue {
         }
       }
     } else {
-      for (let index = 0; index < group.length; index++) {
-        if (group[index].exppayyes === 0 && group[index].exppayno === 0 && group[index].exppaypending === 0) {
+      for (let index = 0; index < gr.length; index++) {
+        if (gr[index].exppayyes === 0 && gr[index].exppayno === 0 && gr[index].exppaypending === 0) {
           expectedPaymentDealtWith = false;
         }
         console.log('expectedPaymentDealtWith', expectedPaymentDealtWith);
@@ -179,19 +196,19 @@ export default class RowGroupingComponent  extends Vue {
     }
 
     // check if there is a pending selected payment or a row that does not have any expected payment selected
-    if (group.filter(rowFilter => rowFilter.exppaypending === 1).length === 0 
-      && group.filter(rowFilter => rowFilter.exppaypending === 0 
+    if (gr.filter(rowFilter => rowFilter.exppaypending === 1).length === 0 
+      && gr.filter(rowFilter => rowFilter.exppaypending === 0 
                       && rowFilter.exppayyes === 0 
                       && rowFilter.exppayno === 0).length === 0) {
       console.log('expected payment dealt with');
       
       // check if can set the group status
-      const numberOfExpPayYes = group.filter(rowFilter => rowFilter.exppayyes === 1).length;
-      const numberOfSourceFunder = group.filter(
+      const numberOfExpPayYes = gr.filter(rowFilter => rowFilter.exppayyes === 1).length;
+      const numberOfSourceFunder = gr.filter(
           rowFilter => rowFilter.exppayyes === 1 && rowFilter.source === 'Funder').length;
-      const numberOfSourceCalculated = group.filter(
+      const numberOfSourceCalculated = gr.filter(
           rowFilter => rowFilter.exppayyes === 1 && rowFilter.source === 'Calculated').length;
-      const numberOfSourceManual = group.filter(
+      const numberOfSourceManual = gr.filter(
           rowFilter => rowFilter.exppayyes === 1 && rowFilter.source === 'Manual').length;
 
       console.log('numberOfExpPayYes', numberOfExpPayYes);
@@ -213,15 +230,16 @@ export default class RowGroupingComponent  extends Vue {
         
     }
 
-    group[0].groupstatus = groupStatus;    
+    gr[0].groupstatus = groupStatus;    
   }
 
-  updateValue(event, cell, rowIndex) {
+  updateValue(event: { target: { checked: boolean; value: any }}, cell: string, rowIndex: number) {
     this.editing[rowIndex + '-' + cell] = false;
-    this.rows[rowIndex][cell] = event.target.value;
+    const row = this.rows[rowIndex];
+    row[cell] = event.target.value;
   }
 
-  onDetailToggle(event) {
+  onDetailToggle(event: unknown) {
     console.log('Detail Toggled', event);
   }
 

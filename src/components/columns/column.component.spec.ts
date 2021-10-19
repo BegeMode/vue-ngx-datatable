@@ -104,7 +104,6 @@ describe('DataTableColumnDirective', () => {
       expect(column.flexGrow).toBeUndefined();
       expect(column.resizeable).toBeUndefined();
       expect(column.comparator).toBeUndefined();
-      expect(column.pipe).toBeUndefined();
       expect(column.sortable).toBeUndefined();
       expect(column.draggable).toBeUndefined();
       expect(column.canAutoResize).toBeUndefined();

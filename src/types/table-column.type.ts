@@ -212,7 +212,7 @@ export interface TableColumn {
    * @type {*}
    * @memberOf TableColumn
    */
-  treeToggleTemplate?: any;
+  treeToggleTemplate?: boolean;
 
   /**
    * CSS Classes for the cell
@@ -232,7 +232,7 @@ export interface TableColumn {
    *
    * @memberOf TableColumn
    */
-  headerClass?: string | ((data: any) => string);
+  headerClass?: string | ((data: unknown) => string);
 
   /**
    * Header checkbox enabled
@@ -264,7 +264,7 @@ export interface TableColumn {
    * @type {(cells: any[]) => any}
    * @memberOf TableColumn
    */
-  summaryFunc?: (cells: any[]) => any;
+  summaryFunc?: (cells: unknown[]) => string;
 
   /**
    * Summary cell template ref
@@ -272,7 +272,7 @@ export interface TableColumn {
    * @type {*}
    * @memberOf TableColumn
    */
-  summaryTemplate?: any;
+  summaryTemplate?: (arg?: Record<string, unknown>) => VNode[];
   /**
    * Is column the drag'n'drop target?
    * @type {boolean}

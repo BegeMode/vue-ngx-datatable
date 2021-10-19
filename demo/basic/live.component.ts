@@ -51,7 +51,7 @@ export default class LiveDataComponent extends Vue {
   id: any;
 
   created() {
-    this.fetch((data) => {
+    this.fetch((data: Array<Record<string, unknown>>) => {
       this.rows = data.map(d => {
         d.updated = Date.now().toString();
         return d;

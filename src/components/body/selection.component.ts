@@ -216,7 +216,7 @@ export default class DataTableSelectionComponent extends Vue {
     if (!nextRow) {
       return;
     }
-    setTimeout(() => this.selectRow({ shiftKey: false, ctrlKey: false } as any, index, nextRow));
+    setTimeout(() => this.selectRow({ shiftKey: false, ctrlKey: false } as KeyboardEvent | MouseEvent, index, nextRow));
     const { offsetY, height } = (this.$parent as DataTableBodyComponent).getRowOffsetY(index);
     let h = 0;
     if ([Keys.down, Keys.pageDown].includes(keyCode)) {

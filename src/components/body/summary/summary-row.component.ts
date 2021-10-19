@@ -5,16 +5,16 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import DataTableBodyRowComponent from '../body-row.component.vue';
 
 export interface ISummaryColumn {
-  summaryFunc?: (cells: any[]) => any;
+  summaryFunc?: (cells: unknown[]) => string;
   summaryTemplate?: (arg?: Record<string, unknown>) => VNode[];
   cellTemplate?: string;
 
   prop: string;
   // pipe?: PipeTransform;
-  filter?: (...args) => string;
+  filter?: (...args: Array<unknown>) => string;
 }
 
-function defaultSumFunc(cells: any[]): number {
+function defaultSumFunc(cells: number[]): number {
   const cellsWithValues = cells.filter(cell => Boolean(cell));
 
   if (!cellsWithValues.length) {
@@ -23,12 +23,10 @@ function defaultSumFunc(cells: any[]): number {
   if (cellsWithValues.some(cell => typeof cell !== 'number')) {
     return null;
   }
-
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/restrict-plus-operands
   return cellsWithValues.reduce((res, cell) => res + cell);
 }
 
-function noopSumFunc(cells: any[]): void {
+function noopSumFunc(cells: unknown[]): void {
   return null;
 }
 
@@ -135,7 +133,7 @@ export default class DataTableSummaryRowComponent extends Vue {
     };
   }
 
-  private getSummaryFunction(column: ISummaryColumn): (a: any[]) => any {
+  private getSummaryFunction(column: ISummaryColumn): (a: unknown[]) => unknown {
     if (!column.summaryFunc) {
       return defaultSumFunc;
     }

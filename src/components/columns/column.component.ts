@@ -1,5 +1,5 @@
 import DatatableComponent from 'components/datatable.component';
-import { TableColumn, TableColumnProp } from 'types/table-column.type';
+import { TableColumn, TableColumnProp, TComparator } from 'types/table-column.type';
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 
 @Component({
@@ -17,12 +17,11 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 export default class DataTableColumnComponent extends Vue {
   @Prop() name: string;
   @Prop() prop: TableColumnProp;
-  @Prop() frozenLeft: any;
-  @Prop() frozenRight: any;
+  @Prop() frozenLeft: boolean;
+  @Prop() frozenRight: boolean;
   @Prop() flexGrow: number;
   @Prop() resizeable: boolean;
-  @Prop() comparator: any;
-  @Prop() pipe: any;
+  @Prop() comparator: TComparator;
   @Prop() sortable: boolean;
   @Prop() draggable: boolean;
   @Prop({ default: true }) canAutoResize: boolean;
@@ -39,7 +38,7 @@ export default class DataTableColumnComponent extends Vue {
     | Array<string | Array<string> | ((data: Record<string, unknown>) => string | Record<string, unknown>)>;
   @Prop() isTreeColumn: boolean;
   @Prop() treeLevelIndent: number;
-  @Prop() summaryFunc: (cells: any[]) => any;
+  @Prop() summaryFunc: (cells: unknown[]) => string;
   @Prop({ default: true }) visible: boolean;
 
   column: TableColumn = {};

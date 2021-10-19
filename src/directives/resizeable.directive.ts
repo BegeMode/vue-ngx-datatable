@@ -62,7 +62,7 @@ class ResizeableDirectiveController {
     }
   }
 
-  private emit(vnode: VNode, name: string, data: any) {
+  private emit(vnode: VNode, name: string, data: unknown) {
     const handlers = (vnode.data && vnode.data.on) || (vnode.componentOptions && vnode.componentOptions.listeners);
     if (handlers && handlers[name]) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call

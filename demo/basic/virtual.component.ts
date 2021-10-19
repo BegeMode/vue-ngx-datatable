@@ -45,7 +45,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
 })
 export default class VirtualScrollComponent extends Vue {
 
-  rows = [];
+  rows: Array<Record<string, unknown>> = [];
   expanded = {};
   timeout: any;
 
@@ -55,14 +55,14 @@ export default class VirtualScrollComponent extends Vue {
     });
   }
 
-  onPage(event) {
+  onPage(event: unknown) {
     clearTimeout(this.timeout);
     this.timeout = setTimeout(() => {
       console.log('paged!', event);
     }, 100);
   }
 
-  fetch(cb) {
+  fetch(cb: ( data: Array<Record<string, unknown>>) => void) {
     const req = new XMLHttpRequest();
     req.open('GET', `assets/data/100k.json`);
 
@@ -79,7 +79,7 @@ export default class VirtualScrollComponent extends Vue {
     req.send();
   }
 
-  getRowHeight(row) {
+  getRowHeight(row: { height: number }) {
     return row.height;
   }
 

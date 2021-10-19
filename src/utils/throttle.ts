@@ -2,15 +2,15 @@
  * Throttle a function
  */
 export function throttle(
-  func: (...args) => any,
+  func: (...args: Array<unknown>) => unknown,
   wait: number,
   options?: { leading?: boolean; trailing?: boolean }
-): (...args) => any {
+): (...args: Array<unknown>) => unknown {
   options = options || {};
-  let context: any;
-  let args: any;
-  let result: any;
-  let timeout: any = null;
+  let context: unknown;
+  let args: IArguments;
+  let result: unknown;
+  let timeout: number = null;
   let previous = 0;
 
   function later() {
@@ -21,7 +21,7 @@ export function throttle(
   }
 
   // eslint-disable-next-line prettier/prettier
-  return function (this: any) {
+  return function (this: unknown) {
     const now = Number(new Date());
 
     if (!previous && options.leading === false) {
@@ -41,7 +41,7 @@ export function throttle(
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       result = func.apply(context, args);
     } else if (!timeout && options.trailing !== false) {
-      timeout = setTimeout(later, remaining);
+      timeout = (setTimeout(later, remaining) as unknown) as number;
     }
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return result;
@@ -58,7 +58,11 @@ export function throttle(
  */
 export function throttleable(duration: number, options?: { leading?: boolean; trailing?: boolean }) {
   // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  return function innerDecorator(target: any, key: PropertyKey, descriptor: PropertyDescriptor): PropertyDescriptor {
+  return function innerDecorator(
+    target: unknown,
+    key: PropertyKey,
+    descriptor: PropertyDescriptor
+  ): PropertyDescriptor {
     return {
       configurable: true,
       enumerable: descriptor.enumerable,

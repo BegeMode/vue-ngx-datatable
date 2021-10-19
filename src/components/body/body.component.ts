@@ -45,14 +45,14 @@ export default class DataTableBodyComponent extends Vue {
   @Prop() emptyMessage: string;
   @Prop() selectionType: SelectionType;
   @Prop() checkMode: CheckMode;
-  @Prop({ type: Array, default: () => [] }) selected: Record<string, unknown>[];
-  @Prop({ type: Array, default: () => [] }) checked: Record<string, unknown>[];
+  @Prop({ type: Array, default: () => [] as Array<Record<string, unknown>> }) selected: Array<Record<string, unknown>>;
+  @Prop({ type: Array, default: () => [] as Array<Record<string, unknown>> }) checked: Array<Record<string, unknown>>;
   @Prop() rowIdentity: (row: Record<string, unknown>) => string | number;
   @Prop() rowDetail: boolean;
   @Prop() rowDetailHeight: number | string | ((row?: Record<string, unknown>, index?: number) => number);
-  @Prop() groupHeader: any;
-  @Prop() selectCheck: any;
-  @Prop() displayCheck: any;
+  @Prop() groupHeader: boolean;
+  @Prop() selectCheck: () => void;
+  @Prop() displayCheck: (row: Record<string, unknown>, column?: TableColumn, value?: unknown) => boolean;
   @Prop() trackByProp: string;
   @Prop() rowClass: (row: Record<string, unknown>, rowIndex: number) => string | string;
   // @Prop() groupedRows: any;
@@ -84,7 +84,7 @@ export default class DataTableBodyComponent extends Vue {
   myOffsetX = 0;
   indexes: { first: number; last: number } = { first: 0, last: 0 };
   columnGroupWidths: IColumnsWidth = null;
-  columnGroupWidthsWithoutGroup = null;
+  // columnGroupWidthsWithoutGroup = null;
   rowIndexes = new Map<Record<string, unknown>, number>();
   rowExpansions = new Map<Record<string, unknown> | IGroupedRows, boolean>();
   myBodyHeight: string = null;
@@ -98,8 +98,7 @@ export default class DataTableBodyComponent extends Vue {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   // onBodyScrollHandler = throttle(this.onBodyScroll.bind(this), 10, { trailing: true });
 
-  rowTrackingFn: any;
-  listener: any;
+  rowTrackingFn: (row: Record<string, unknown>) => string | number;
   lastFirst: number;
   lastLast: number;
   lastRowCount: number;
@@ -107,7 +106,7 @@ export default class DataTableBodyComponent extends Vue {
   rowContexts: Array<IRowContext> = [];
   private readonly scrollbarHelper = new ScrollbarHelper();
   private renderCounter = 0;
-  private renderId = null;
+  private renderId: number = null;
 
   @Watch('pageSize') onPageSize(): void {
     this.recalcLayout();
@@ -483,7 +482,7 @@ export default class DataTableBodyComponent extends Vue {
           isChecked: this.isChecked(row),
           expanded: this.getRowExpanded(row),
           treeStatus: this.treeStatus(row),
-          group: group as IGroupedRows,
+          group: (group as unknown) as IGroupedRows,
         };
         idx++;
       }
@@ -790,8 +789,7 @@ export default class DataTableBodyComponent extends Vue {
     });
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-  onGroupToggle($event: any): void {
+  onGroupToggle($event: { value: Record<string, unknown> }): void {
     this.$emit('group-toggle', $event);
     // if ($event.type === 'group') {
     //   this.toggleRowExpansion($event.value);
@@ -906,7 +904,7 @@ export default class DataTableBodyComponent extends Vue {
     this.renderCounter++;
     const counter = this.renderCounter;
     clearTimeout(this.renderId);
-    this.renderId = setTimeout(() => this.checkRenderFinish(counter), 100);
+    this.renderId = (setTimeout(() => this.checkRenderFinish(counter), 100) as unknown) as number;
   }
 
   checkRenderFinish(counter: number): void {
@@ -918,7 +916,7 @@ export default class DataTableBodyComponent extends Vue {
     } else {
       counter = this.renderCounter;
       clearTimeout(this.renderId);
-      this.renderId = setTimeout(() => this.checkRenderFinish(counter), 100);
+      this.renderId = (setTimeout(() => this.checkRenderFinish(counter), 100) as unknown) as number;
     }
   }
 

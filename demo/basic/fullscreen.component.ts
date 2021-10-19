@@ -48,7 +48,7 @@ import { TableColumn } from 'types/table-column.type';
   `
 })
 export class FullScreenComponent extends Vue {
-  rows = [];
+  rows: Array<Record<string, unknown>> = [];
   columns: TableColumn[] = [];
   //   {
   //     name: 'Id',
@@ -78,7 +78,7 @@ export class FullScreenComponent extends Vue {
   //   },
   // ];
   created() {
-    this.fetch((data) => {
+    this.fetch((data: { cols: Array<string>, data: Array<Record<string, unknown>> }) => {
       data.cols.forEach(col => {
         this.columns.push({ name: col, prop: col });
       });
@@ -86,7 +86,7 @@ export class FullScreenComponent extends Vue {
     });
   }
 
-  fetch(cb) {
+  fetch(cb: (data: { cols: Array<string>, data: Array<Record<string, unknown>> }) => void) {
     const req = new XMLHttpRequest();
     // req.open('GET', `assets/data/100k.json`);
     req.open('GET', `assets/data/columns20.json`);
@@ -102,7 +102,7 @@ export class FullScreenComponent extends Vue {
     //
   }
 
-  rowIdentity(row: any): number | string {
+  rowIdentity(row: { Id: string | number }): number | string {
     if (!row) {
       return null;
     }

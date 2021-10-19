@@ -42,7 +42,7 @@ import { Page } from '../../demo/paging/model/page';
 })
 export default class DynamicHeightComponent extends Vue {
 
-  page = null;
+  page: Page = null;
   rows: Array<CorporateEmployee> = null;
   columns = [{ name: 'Name' }, { name: 'Gender' }, { name: 'Company' }];
   cache: any = {};
@@ -65,7 +65,7 @@ export default class DynamicHeightComponent extends Vue {
    * Populate the table with new data based on the page number
    * @param page The page to select
    */
-  async setPage(pageInfo) {
+  async setPage(pageInfo: { offset: number; pageSize: number }) {
     if (!this.page || (this.rows?.length && pageInfo.offset === this.page.pageNumber)) {
       return;
     }
@@ -119,7 +119,7 @@ export default class DynamicHeightComponent extends Vue {
     this.isLoading--;
   }
 
-  getRowHeight(row) {
+  getRowHeight(row: Record<string, number>): number {
     if (!row) {
       return 100;
     }

@@ -94,24 +94,23 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
   template: ``,
 })
 export default class ResponsiveComponent extends Vue {
-  rows: any[] = [];
-  expanded: any = {};
-  timeout: any;
+  rows: Array<Record<string, unknown>> = [];
+  timeout: number;
 
   created() {
-    this.fetch(data => {
+    this.fetch((data: Array<Record<string, unknown>>) => {
       this.rows = data;
     });
   }
 
-  onPage(event) {
+  onPage(event: Record<string, unknown>) {
     clearTimeout(this.timeout);
-    this.timeout = setTimeout(() => {
+    this.timeout = (setTimeout(() => {
       console.log('paged!', event);
-    }, 100);
+    }, 100) as unknown) as number;
   }
 
-  fetch(cb) {
+  fetch(cb: (data: Array<Record<string, unknown>>) => void) {
     const req = new XMLHttpRequest();
     req.open('GET', `assets/data/100k.json`);
 
@@ -122,12 +121,12 @@ export default class ResponsiveComponent extends Vue {
     req.send();
   }
 
-  toggleExpandRow(row) {
+  toggleExpandRow(row: Record<string, unknown>) {
     console.log('Toggled Expand Row!', row);
     (this.$refs.table as any).toggleExpandDetail(row);
   }
 
-  onDetailToggle(event) {
+  onDetailToggle(event: Record<string, unknown>) {
     console.log('Detail Toggled', event);
   }
 }

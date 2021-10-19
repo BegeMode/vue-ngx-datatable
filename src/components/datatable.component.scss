@@ -220,6 +220,10 @@
         cursor: ew-resize;
       }
 
+      &.resizeable {
+        flex-shrink: 0;
+      }
+
       &.resizeable:hover {
         .resize-handle {
           visibility: visible;

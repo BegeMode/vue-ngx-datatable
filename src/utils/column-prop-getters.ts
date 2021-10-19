@@ -3,7 +3,7 @@
 import { TableColumnProp } from 'types/table-column.type';
 import { isNullOrUndefined } from 'utils/column-helper';
 
-export type ValueGetter = (obj: Record<string, unknown>, prop: TableColumnProp) => any;
+export type ValueGetter = (obj: Record<string, unknown>, prop: TableColumnProp) => unknown;
 
 /**
  * Always returns the empty string ''
@@ -38,7 +38,7 @@ export function getterForProp(prop: TableColumnProp): ValueGetter {
  * @param index numeric index
  * @returns {any} or '' if invalid index
  */
-export function numericIndexGetter(row: Record<string, unknown>, index: number): any {
+export function numericIndexGetter(row: Record<string, unknown>, index: number): unknown {
   if (row === null) {
     return '';
   }
@@ -59,9 +59,9 @@ export function numericIndexGetter(row: Record<string, unknown>, index: number):
  * (more efficient than deepValueGetter)
  * @param obj object containing the field
  * @param fieldName field name string
- * @returns {any}
+ * @returns {unknown}
  */
-export function shallowValueGetter(obj: Record<string, unknown>, fieldName: string): any {
+export function shallowValueGetter(obj: Record<string, unknown>, fieldName: string): unknown {
   if (obj === null) {
     return '';
   }
@@ -81,7 +81,7 @@ export function shallowValueGetter(obj: Record<string, unknown>, fieldName: stri
  * @param {object} obj
  * @param {string} path
  */
-export function deepValueGetter(obj: Record<string, unknown>, path: string): any {
+export function deepValueGetter(obj: Record<string, unknown>, path: string): unknown {
   if (obj === null) {
     return '';
   }

@@ -5,6 +5,10 @@ import { DirectiveBinding } from 'vue/types/options';
 
 let idCounter = 0;
 
+interface IDraggableElement extends HTMLElement {
+  __draggable__: DraggableController;
+}
+
 class DraggableController {
   id = 0;
   vnode: VNode = null;
@@ -108,7 +112,7 @@ class DraggableController {
     });
   }
 
-  private emit(name: string, data: any): void {
+  private emit(name: string, data: unknown): void {
     const handlers =
       (this.vnode.data && this.vnode.data.on) || (this.vnode.componentOptions && this.vnode.componentOptions.listeners);
     if (handlers && handlers[name]) {
@@ -132,11 +136,11 @@ export default Vue.directive('draggable', {
       binding.value.dragY
     );
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    (el as any).__draggable__ = ctrl;
+    (el as IDraggableElement).__draggable__ = ctrl;
   },
   update(el: HTMLElement, binding: DirectiveBinding, vnode: VNode): void {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    const ctrl: DraggableController = (el as any).__draggable__ as DraggableController;
+    const ctrl: DraggableController = (el as IDraggableElement).__draggable__;
     if (!ctrl) {
       return;
     }
@@ -148,7 +152,7 @@ export default Vue.directive('draggable', {
   },
   unbind(el: HTMLElement) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    const ctrl: DraggableController = (el as any).__draggable__ as DraggableController;
+    const ctrl: DraggableController = (el as IDraggableElement).__draggable__;
     ctrl.unsubscribe();
   },
 });

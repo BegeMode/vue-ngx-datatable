@@ -12,6 +12,7 @@ import { adjustColumnWidths, forceFillColumnWidths } from 'utils/math';
 import { sortRows } from 'utils/sort';
 import { throttleable } from 'utils/throttle';
 import { groupRowsByParents, optionalGetterForProp } from 'utils/tree';
+import { VNode } from 'vue';
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import VisibilityDirective from '../directives/visibility.directive';
 import { DimensionsHelper } from '../services/dimensions-helper.service';
@@ -83,13 +84,13 @@ export default class DatatableComponent extends Vue {
    * represented as selected in the grid.
    * Default value: `[]`
    */
-  @Prop({ type: Array, default: () => [] }) selected: Array<Record<string, unknown>>;
+  @Prop({ type: Array, default: (): Array<Record<string, unknown>> => [] }) selected: Array<Record<string, unknown>>;
   /**
    * List of row objects that should be
    * represented as checked in the grid.
    * Default value: `[]`
    */
-  @Prop({ type: Array, default: () => [] }) checked: Array<Record<string, unknown>>;
+  @Prop({ type: Array, default: (): Array<Record<string, unknown>> => [] }) checked: Array<Record<string, unknown>>;
   /**
    * Enable vertical scrollbars
    */
@@ -201,7 +202,7 @@ export default class DatatableComponent extends Vue {
    * Array of sorted columns by property and type.
    * Default value: `[]`
    */
-  @Prop({ type: Array, default: () => [] }) sorts: ISortPropDir[];
+  @Prop({ type: Array, default: (): Array<ISortPropDir> => [] }) sorts: ISortPropDir[];
   /**
    * Go to first page when sorting to see the newly sorted data
    * Default value: true
@@ -265,7 +266,7 @@ export default class DatatableComponent extends Vue {
    *      return selection !== 'Ethel Price';
    *    }
    */
-  @Prop() selectCheck: any;
+  @Prop() selectCheck: () => void;
   /**
    * A function you can use to check whether you want
    * to show the checkbox for a particular row based on a criteria. Example:
@@ -358,8 +359,8 @@ export default class DatatableComponent extends Vue {
   myColumnMode: ColumnMode = ColumnMode.standard;
   mySortType: SortType = SortType.single;
   innerOffset = 0; // page number after scrolling
-  mySelected = [];
-  myChecked = [];
+  mySelected: Array<Record<string, unknown>> = [];
+  myChecked: Array<Record<string, unknown>> = [];
   renderTracking = false;
   isVisible = false;
 
@@ -368,11 +369,11 @@ export default class DatatableComponent extends Vue {
   rowDetail = false; // DatatableRowDetailDirective;
   groupHeader = false; // DatatableGroupHeaderDirective;
 
-  groupHeaderSlot = null;
-  rowDetailSlot = null;
-  footerSlot = null;
+  groupHeaderSlot: (obj: Record<string, unknown>) => VNode[] = null;
+  rowDetailSlot: (obj: Record<string, unknown>) => VNode[] = null;
+  footerSlot: (obj: Record<string, unknown>) => VNode[] = null;
   isColumnsInited = false;
-  isColumnsInitedTimeoutId: any;
+  isColumnsInitedTimeoutId: number;
 
   private readonly scrollbarHelper: ScrollbarHelper = new ScrollbarHelper();
   private readonly dimensionsHelper: DimensionsHelper = new DimensionsHelper();
@@ -1130,6 +1131,7 @@ export default class DatatableComponent extends Vue {
     event.value.__expanded = !event.value.__expanded;
     this.internalRows = this.processGroupedRows(this.groupedRows) as Array<Record<string, unknown>>;
     this.recalculate();
+    this.$emit('group-toggle', Object.freeze(event));
   }
 
   /**
@@ -1172,7 +1174,7 @@ export default class DatatableComponent extends Vue {
       this.recalculateColumns();
     }
     clearTimeout(this.isColumnsInitedTimeoutId);
-    this.isColumnsInitedTimeoutId = setTimeout(() => (this.isColumnsInited = true), 50);
+    this.isColumnsInitedTimeoutId = (setTimeout(() => (this.isColumnsInited = true), 50) as unknown) as number;
   }
 
   onColumnRemoved(column: TableColumn): void {
@@ -1231,6 +1233,32 @@ export default class DatatableComponent extends Vue {
   collapseAllDetails(): void {
     this.bodyComponent.collapseAllDetails();
     this.$emit('detail-toggle', {
+      type: 'all',
+      value: false,
+    });
+  }
+
+  /**
+   * Expand all the group rows.
+   */
+  expandAllGroups(): void {
+    this.groupedRows.forEach(row => {
+      this.$set(row, '__expanded', true);
+    });
+    this.$emit('group-toggle', {
+      type: 'all',
+      value: true,
+    });
+  }
+
+  /**
+   * Collapse all the rows.
+   */
+  collapseAllGroups(): void {
+    this.groupedRows.forEach(row => {
+      this.$set(row, '__expanded', false);
+    });
+    this.$emit('group-toggle', {
       type: 'all',
       value: false,
     });
@@ -1297,19 +1325,22 @@ export default class DatatableComponent extends Vue {
         return getValue(row, groupByArr);
       }
       // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-      return groupByArr.reduce((key, groupDescr) => {
-        let res = null;
-        if (Array.isArray(groupDescr)) {
-          return getKey(row, groupDescr);
-        }
-        res = getValue(row, groupDescr);
-        if (!res) {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-          return res;
-        }
-        // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
-        return key ? `${key}^^${res}` : `${res}`;
-      }, '');
+      const result = groupByArr.reduce(
+        (key: string, groupDescr: Array<TGroupByField | Array<TGroupByField>> | TGroupByField) => {
+          let res: string = null;
+          if (Array.isArray(groupDescr)) {
+            return getKey(row, groupDescr);
+          }
+          res = getValue(row, groupDescr);
+          if (!res) {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+            return res;
+          }
+          return key ? `${key}^^${res}` : `${res}`;
+        },
+        ''
+      ) as string;
+      return result;
     };
 
     const itemsToRemove: Record<string, string>[] = [];
@@ -1334,15 +1365,18 @@ export default class DatatableComponent extends Vue {
       });
     }
 
-    const keysDescr = [];
+    const keysDescr: Array<{
+      title: string;
+      prop: string; // | Array<TGroupByField | Array<TGroupByField>> | TGroupByField | Array<TGroupByField>;
+    }> = [];
     if (Array.isArray(groupBy)) {
       groupBy.forEach(prop => {
         const title = this.getGroupTitle(prop);
-        keysDescr.push({ title, prop });
+        keysDescr.push({ title, prop: prop as string });
       });
     } else {
       const title = this.getGroupTitle(groupBy);
-      keysDescr.push({ title, prop: groupBy });
+      keysDescr.push({ title, prop: groupBy as string });
     }
     // convert map back to a simple array of objects
     const result = Array.from(map, x => this.addGroup(x[0], x[1], level, keysDescr));
@@ -1358,10 +1392,17 @@ export default class DatatableComponent extends Vue {
     key: string,
     value: Record<string, unknown>[],
     level1: number,
-    keysDescr: Array<{ title: string; prop: string }>
+    keysDescr: Array<{
+      title: string;
+      prop: string;
+    }>
   ): IGroupedRows {
     const keys = key ? key.toString().split('^^') : null;
-    const keysObj: { title: string; prop: string; value: string }[] = [];
+    const keysObj: {
+      title: string;
+      prop: string; // | Array<TGroupByField | Array<TGroupByField>> | TGroupByField | Array<TGroupByField>;
+      value: string;
+    }[] = [];
     keysDescr.forEach((descr, index) => {
       keysObj.push({ title: descr.title, prop: descr.prop, value: keys && keys.length > index ? keys[index] : '' });
     });
@@ -1375,7 +1416,9 @@ export default class DatatableComponent extends Vue {
     };
   }
 
-  private getGroupTitle(prop: string | { title: string; prop: string }): string {
+  private getGroupTitle(
+    prop: Array<TGroupByField | Array<TGroupByField>> | TGroupByField | Array<TGroupByField>
+  ): string {
     let title = prop;
     if (typeof prop === 'string') {
       const column = this.columns && this.columns.find(c => c.prop === prop);
@@ -1396,7 +1439,7 @@ export default class DatatableComponent extends Vue {
   }
 
   private sortGroupedRows(groupedRows: IGroupedRows[]): IGroupedRows[] {
-    const rows = [];
+    const rows: Array<Record<string, unknown>> = [];
     groupedRows.forEach(gr => {
       const row = { __group: gr };
       gr.keys.forEach(keyDescr => {

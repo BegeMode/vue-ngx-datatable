@@ -1,6 +1,6 @@
 import { TGroupByField } from 'components/datatable.component';
 import { VNode } from 'vue';
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import { IGroupedRows } from '../../types/grouped-rows';
 
 @Component({
@@ -20,12 +20,16 @@ import { IGroupedRows } from '../../types/grouped-rows';
   `,
 })
 export default class DataTableBodyGroupHeaderComponent extends Vue {
-  @Prop({ default: 0 }) rowHeight: number | ((group?: any, index?: number) => number);
+  @Prop({ default: 0 }) rowHeight: number | ((group?: IGroupedRows, index?: number) => number);
   @Prop() group: IGroupedRows;
   @Prop() expanded: boolean;
   @Prop() groupHeaderSlot: (obj: Record<string, unknown>) => VNode[];
   @Prop() groupLevel: number;
   @Prop() groupRowsBy: Array<TGroupByField | Array<TGroupByField>>;
+
+  @Watch('expanded') onExpandedChanged(): void {
+    this.toggleExpandGroup();
+  }
 
   created(): void {
     if (this.groupHeaderSlot) {

@@ -4,7 +4,7 @@ import { TreeStatus } from '../components/body/body-cell.component';
 export interface IRowContext {
   activateFn?: () => void;
   row: Record<string, unknown>;
-  group?: IGroupedRows;
+  group?: IGroupedRows | Record<string, unknown>;
   rowHeight: number;
   isSelected: boolean;
   isChecked: boolean;

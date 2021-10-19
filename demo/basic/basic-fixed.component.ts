@@ -29,7 +29,7 @@ import DatatableComponent from '../../src/components/datatable.component.vue';
 })
 export default class BasicFixedComponent extends Vue {
 
-  rows = [];
+  rows: Array<Record<string, unknown>> = [];
   columns = [
     { prop: 'name' },
     { name: 'Company' },
@@ -37,12 +37,12 @@ export default class BasicFixedComponent extends Vue {
   ];
 
   created() {
-    this.fetch((data) => {
+    this.fetch((data: Array<Record<string, unknown>>) => {
       this.rows = data;
     });
   }
 
-  fetch(cb) {
+  fetch(cb: (data: Array<Record<string, unknown>>) => void) {
     const req = new XMLHttpRequest();
     req.open('GET', `assets/data/company.json`);
 

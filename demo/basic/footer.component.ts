@@ -45,7 +45,7 @@ import DatatableComponent from '../../src/components/datatable.component.vue';
 })
 export default class FooterDemoComponent extends Vue {
 
-  rows = [];
+  rows: Array<Record<string, unknown>> = [];
 
   columns = [
     { prop: 'name' },
@@ -54,12 +54,12 @@ export default class FooterDemoComponent extends Vue {
   ];
 
   created() {
-    this.fetch((data) => {
+    this.fetch((data: Array<Record<string, unknown>>) => {
       this.rows = data.splice(0, 5);
     });
   }
 
-  fetch(cb) {
+  fetch(cb: (data: Array<Record<string, unknown>>) => void) {
     const req = new XMLHttpRequest();
     req.open('GET', `assets/data/company.json`);
 
