@@ -2,6 +2,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import DatatableComponent from '../../src/components/datatable.component.vue';
 import DataTableColumnComponent from '../../src/components/columns/column.component';
 import './summary-row-inline-html.component.scss';
+import { TableColumn } from 'types/table-column.type';
 
 @Component({
   name: 'summary-row-custom-template-demo',
@@ -41,15 +42,15 @@ import './summary-row-inline-html.component.scss';
 })
 
 export default class SummaryRowCustomTemplateComponent extends Vue {
-  rows = [];
+  rows: Array<Record<string, unknown>> = [];
 
   // @ViewChild('nameSummaryCell')
   nameSummaryCell: any;
 
-  columns = [];
+  columns: Array<TableColumn> = [];
 
   created() {
-    this.fetch((data) => {
+    this.fetch((data: Array<Record<string, unknown>>) => {
       this.rows = data.splice(0, 5);
     });
   }
@@ -57,12 +58,12 @@ export default class SummaryRowCustomTemplateComponent extends Vue {
   mounted() {
     this.columns = [
       { prop: 'name', summaryFunc: () => null, summaryTemplate: this.nameSummaryCell },
-      { name: 'Gender', summaryFunc: (cells) => this.summaryForGender(cells) },
-      { prop: 'age', summaryFunc: (cells) => this.avgAge(cells) },
+      { name: 'Gender', summaryFunc: (cells: Array<string>) => this.summaryForGender(cells) },
+      { prop: 'age', summaryFunc: (cells: Array<number>) => this.avgAge(cells) },
     ];
   }
 
-  fetch(cb) {
+  fetch(cb: (data: Array<Record<string, unknown>>) => void) {
     const req = new XMLHttpRequest();
     req.open('GET', `assets/data/company.json`);
 
@@ -76,7 +77,7 @@ export default class SummaryRowCustomTemplateComponent extends Vue {
   getNames(): string[] {
     return this.rows
       .map(row => row['name'])
-      .map(fullName => fullName.split(' ')[1]);
+      .map(fullName => (fullName as string).split(' ')[1]);
   }
 
   private summaryForGender(cells: string[]) {
@@ -86,8 +87,8 @@ export default class SummaryRowCustomTemplateComponent extends Vue {
     return `males: ${males}, females: ${females}`;
   }
 
-  private avgAge(cells: number[]): number {
+  private avgAge(cells: number[]): string {
     const filteredCells = cells.filter(cell => !!cell);
-    return filteredCells.reduce((sum, cell) => sum += cell, 0) / filteredCells.length;
+    return String(filteredCells.reduce((sum, cell) => sum += cell, 0) / filteredCells.length);
   }
 }

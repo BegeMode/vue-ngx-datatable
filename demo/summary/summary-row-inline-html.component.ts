@@ -44,18 +44,18 @@ import './summary-row-inline-html.component.scss';
 })
 
 export default class SummaryRowInlineHtmlComponent extends Vue {
-  rows = [];
+  rows: Array<Record<string, unknown>> = [];
 
   enableSummary = true;
   summaryPosition = 'top';
 
   created() {
-    this.fetch((data) => {
+    this.fetch((data: Array<Record<string, unknown>>) => {
       this.rows = data.splice(0, 5);
     });
   }
 
-  fetch(cb) {
+  fetch(cb: (data: Array<Record<string, unknown>>) => void) {
     const req = new XMLHttpRequest();
     req.open('GET', `assets/data/company.json`);
 
@@ -69,7 +69,7 @@ export default class SummaryRowInlineHtmlComponent extends Vue {
   get names(): string[] {
     return this.rows
       .map(row => row['name'])
-      .map(fullName => fullName.split(' ')[1]);
+      .map(fullName => (fullName as string).split(' ')[1]);
   }
 
   summaryForGender(cells: string[]) {

@@ -50,24 +50,24 @@ import './summary-row-simple.component.scss';
 })
 
 export default class SummaryRowSimpleComponent extends Vue {
-  rows = [];
+  rows: Array<Record<string, unknown>> = [];
 
   columns = [
     { prop: 'name', summaryFunc: null, },
-    { name: 'Gender', summaryFunc: (cells) => this.summaryForGender(cells) },
-    { prop: 'age', summaryFunc: (cells) => this.avgAge(cells) },
+    { name: 'Gender', summaryFunc: (cells: Array<string>) => this.summaryForGender(cells) },
+    { prop: 'age', summaryFunc: (cells: Array<number>) => this.avgAge(cells) },
   ];
 
   enableSummary = true;
   summaryPosition = 'top';
 
   created() {
-    this.fetch((data) => {
+    this.fetch((data: Array<Record<string, unknown>>) => {
       this.rows = data.splice(0, 5);
     });
   }
 
-  fetch(cb) {
+  fetch(cb: (data: Array<Record<string, unknown>>) => void) {
     const req = new XMLHttpRequest();
     req.open('GET', `assets/data/company.json`);
 
@@ -78,7 +78,7 @@ export default class SummaryRowSimpleComponent extends Vue {
     req.send();
   }
 
-  onSummaryStateChange(a) {
+  onSummaryStateChange(a: unknown) {
     console.log(a);
   }
 
