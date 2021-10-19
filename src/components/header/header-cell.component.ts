@@ -57,7 +57,7 @@ export default class DataTableHeaderCellComponent extends Vue {
   // selectFn = this.select.emit.bind(this.select);
 
   cellContext = {
-    column: null,
+    column: null as TableColumn,
     sortDir: this.sortDir,
     sortFn: this.sortFn,
     allRowsSelected: false,

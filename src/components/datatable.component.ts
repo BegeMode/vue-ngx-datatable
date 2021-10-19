@@ -395,7 +395,12 @@ export default class DatatableComponent extends Vue {
     }
 
     // auto group by parent on new update
-    this.internalRows = groupRowsByParents(this.internalRows, treeFrom, treeTo, this.lazyTree);
+    this.internalRows = groupRowsByParents(
+      this.internalRows as Array<{ level: number; treeStatus?: string }>,
+      treeFrom,
+      treeTo,
+      this.lazyTree
+    );
     this.groupedRows = null;
     if (this.rows && this.groupRowsBy) {
       // this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy);
@@ -1286,7 +1291,12 @@ export default class DatatableComponent extends Vue {
     }
 
     // auto group by parent on new update
-    this.internalRows = groupRowsByParents(this.internalRows, treeFrom, treeTo, this.lazyTree);
+    this.internalRows = groupRowsByParents(
+      this.internalRows as Array<{ level: number; treeStatus?: string }>,
+      treeFrom,
+      treeTo,
+      this.lazyTree
+    );
   }
 
   /**

@@ -1,8 +1,9 @@
 /* eslint-disable max-classes-per-file */
 import { mount, Wrapper } from '@vue/test-utils';
 import * as flushPromises from 'flush-promises';
-import Vue, { VueConstructor } from 'vue';
+import Vue, { VNode, VueConstructor } from 'vue';
 import { Component, Prop } from 'vue-property-decorator';
+import { NormalizedScopedSlot } from 'vue/types/vnode';
 import { addMatchers } from '../../../test';
 import DataTableFooterComponent from './footer.component';
 import DataTablePagerComponent from './pager.component';
@@ -34,6 +35,7 @@ describe('DataTableFooterComponent', () => {
       });
       await component.$nextTick();
       const footer = wrapper.findComponent(DataTableFooterComponent);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       expect(footer.vm.$el).toHaveCssClass('selected-count');
     });
 
@@ -44,6 +46,7 @@ describe('DataTableFooterComponent', () => {
       });
       await component.$nextTick();
       const footer = wrapper.findComponent(DataTableFooterComponent);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       expect(footer.vm.$el).not.toHaveCssClass('selected-count');
     });
   });
@@ -221,10 +224,15 @@ describe('DataTableFooterComponent', () => {
 
       const listItems = footer.find('#template-list').element.querySelectorAll('li');
 
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       expect(listItems[0]).toHaveText('rowCount 12');
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       expect(listItems[1]).toHaveText('pageSize 1');
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       expect(listItems[2]).toHaveText('selectedCount 4');
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       expect(listItems[3]).toHaveText('curPage 1');
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
       expect(listItems[4]).toHaveText('offset 0');
     });
   });
@@ -262,9 +270,9 @@ describe('DataTableFooterComponent', () => {
 })
 class TestFixtureComponent extends Vue {
   @Prop({ type: Number, default: 0 }) footerHeight = 0;
-  @Prop({ type: Number, default: 100 }) rowCount;
-  @Prop({ type: Number, default: 1 }) pageSize;
-  @Prop({ type: Number, default: 0 }) offset;
+  @Prop({ type: Number, default: 100 }) rowCount: number;
+  @Prop({ type: Number, default: 1 }) pageSize: number;
+  @Prop({ type: Number, default: 0 }) offset: number;
   @Prop({ type: String, default: '' }) pagerLeftArrowIcon: string;
   @Prop({ type: String, default: '' }) pagerRightArrowIcon: string;
   @Prop({ type: String, default: '' }) pagerPreviousIcon: string;
@@ -273,7 +281,7 @@ class TestFixtureComponent extends Vue {
   @Prop({ type: Number, default: 0 }) selectedCount: number;
   @Prop({ type: String, default: '' }) selectedMessage: string;
 
-  footerSlot: any = null;
+  footerSlot: VNode[] | NormalizedScopedSlot = null;
 
   mounted() {
     this.footerSlot = this.$scopedSlots.footer || this.$slots.footer;
@@ -322,9 +330,9 @@ class TestFixtureComponent extends Vue {
 })
 class TestFixtureTemplateComponent extends Vue {
   @Prop({ type: Number, default: 0 }) footerHeight = 0;
-  @Prop({ type: Number, default: 100 }) rowCount;
-  @Prop({ type: Number, default: 1 }) pageSize;
-  @Prop({ type: Number, default: 0 }) offset;
+  @Prop({ type: Number, default: 100 }) rowCount: number;
+  @Prop({ type: Number, default: 1 }) pageSize: number;
+  @Prop({ type: Number, default: 0 }) offset: number;
   @Prop({ type: String, default: '' }) pagerLeftArrowIcon: string;
   @Prop({ type: String, default: '' }) pagerRightArrowIcon: string;
   @Prop({ type: String, default: '' }) pagerPreviousIcon: string;

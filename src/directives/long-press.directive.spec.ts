@@ -4,9 +4,9 @@ import { IHasLongPressController } from 'directives/long-press.directive';
 import * as flushPromises from 'flush-promises';
 import Vue, { VueConstructor } from 'vue';
 import { Component } from 'vue-property-decorator';
-// import { LongPressDirective } from './long-press.directive';
+// import LongPressDirective from './long-press.directive';
 
-let wrapper: Wrapper<any>;
+let wrapper: Wrapper<Vue>;
 let component: Vue;
 
 async function setupTest(componentClass: VueConstructor) {
@@ -14,7 +14,7 @@ async function setupTest(componentClass: VueConstructor) {
     wrapper = mount(componentClass);
     // await Vue.nextTick();
     await flushPromises();
-    component = wrapper.vm as Vue;
+    component = wrapper.vm;
     await Vue.nextTick();
   } catch (e) {
     // eslint-disable-next-line no-console

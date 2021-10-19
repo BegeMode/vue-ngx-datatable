@@ -26,6 +26,7 @@
       "*": ["*"]
     }
   },
+  "exclude": ["src/components/body/functional/*"],
   "compileOnSave": false,
   "buildOnSave": false,
   "awesomeTypescriptLoaderOptions": {

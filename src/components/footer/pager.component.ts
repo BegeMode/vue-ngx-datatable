@@ -51,7 +51,7 @@ export default class DataTablePagerComponent extends Vue {
   @Prop({ type: Number, default: 0 }) count: number;
   @Prop({ type: Number, default: 1 }) page: number;
 
-  pages: any = [];
+  pages: IPage[] = [];
   myPage = 0;
 
   @Watch('count') onCountChanged(): void {
@@ -85,8 +85,6 @@ export default class DataTablePagerComponent extends Vue {
     }
     return Math.max(result || 0, 1);
   }
-
-  // @Output() change: EventEmitter<any> = new EventEmitter();
 
   get canPrevious(): boolean {
     return this.myPage > 1;

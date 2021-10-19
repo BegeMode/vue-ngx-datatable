@@ -170,7 +170,7 @@ export function forceFillColumnWidths(
   let exceedsWindow = false;
   let contentWidth = getContentWidth(allColumns, defaultColWidth);
   let remainingWidth = expectedWidth - contentWidth;
-  const columnsProcessed: any[] = [];
+  const columnsProcessed: TableColumn[] = [];
 
   // This loop takes care of the
   do {
@@ -206,7 +206,7 @@ export function forceFillColumnWidths(
 /**
  * Remove the processed columns from the current active columns.
  */
-function removeProcessedColumns(columnsToResize: any[], columnsProcessed: any[]) {
+function removeProcessedColumns(columnsToResize: TableColumn[], columnsProcessed: TableColumn[]) {
   for (const column of columnsProcessed) {
     const index = columnsToResize.indexOf(column);
     columnsToResize.splice(index, 1);

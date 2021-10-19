@@ -6,7 +6,7 @@ import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 import { VueConstructor } from 'vue/types/umd';
 
-let wrapper: Wrapper<any>;
+let wrapper: Wrapper<Vue>;
 let component: Vue;
 const visibilityObserver = jasmine.createSpy();
 
@@ -19,7 +19,7 @@ async function setupTest(componentClass: VueConstructor) {
     });
     // await Vue.nextTick();
     await flushPromises();
-    component = wrapper.vm as Vue;
+    component = wrapper.vm;
     await Vue.nextTick();
   } catch (e) {
     // eslint-disable-next-line no-console

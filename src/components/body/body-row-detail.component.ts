@@ -1,3 +1,4 @@
+import { IGroupedRows } from 'types/grouped-rows';
 import { VNode } from 'vue';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 
@@ -11,7 +12,7 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
   `,
 })
 export default class DataTableBodyRowDetailComponent extends Vue {
-  @Prop({ default: 0 }) rowHeight: number | ((group?: any, index?: number) => number);
+  @Prop({ default: 0 }) rowHeight: number | ((group?: IGroupedRows, index?: number) => number);
   @Prop() row: Record<string, unknown>;
   @Prop() expanded: boolean;
   @Prop() rowDetailSlot: (obj: Record<string, unknown>) => VNode[];

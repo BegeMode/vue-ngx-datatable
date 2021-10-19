@@ -5,8 +5,8 @@ import Vue, { VueConstructor } from 'vue';
 import { Component } from 'vue-property-decorator';
 // import ResizeableDirective from './resizeable.directive';
 
-let wrapper: Wrapper<any>;
-let component: any;
+let wrapper: Wrapper<Vue>;
+let component: Vue;
 const resizeable = jasmine.createSpy();
 
 async function setupTest(componentClass: VueConstructor) {
@@ -18,7 +18,7 @@ async function setupTest(componentClass: VueConstructor) {
     });
     // await Vue.nextTick();
     await flushPromises();
-    component = wrapper.vm as Vue;
+    component = wrapper.vm;
     await Vue.nextTick();
   } catch (e) {
     // eslint-disable-next-line no-console

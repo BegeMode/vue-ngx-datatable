@@ -1,4 +1,4 @@
-export function isArrayEqual(array1: any[], array2: any[]): boolean {
+export function isArrayEqual(array1: unknown[], array2: unknown[]): boolean {
   // if the other array is a falsy value, return
   if (!array1 || !array2 || !Array.isArray(array1) || !Array.isArray(array2)) {
     return false;

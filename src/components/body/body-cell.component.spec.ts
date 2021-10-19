@@ -4,6 +4,7 @@ import Vue, { VueConstructor } from 'vue';
 import { TableColumn } from '../../types/table-column.type';
 import { setColumnDefaults } from '../../utils/column-helper';
 import { numericIndexGetter } from '../../utils/column-prop-getters';
+import DataTableBodyCellClass from './body-cell.component';
 import DataTableBodyCellComponent from './body-cell.component.vue';
 
 let wrapper: Wrapper<DataTableBodyCellComponent>;
@@ -63,8 +64,7 @@ describe('DataTableBodyCellComponent', () => {
         },
       });
       await component.$nextTick();
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      await expect((component as any).column.value).toEqual('Hello');
+      await expect((component as DataTableBodyCellClass).value).toEqual('Hello');
     });
   });
 });

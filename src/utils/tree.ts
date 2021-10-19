@@ -4,7 +4,7 @@
 import { TableColumnProp } from '../types/table-column.type';
 import { getterForProp } from './column-prop-getters';
 
-export type OptionalValueGetter = (row: Record<string, unknown>) => any | undefined;
+export type OptionalValueGetter = (row: Record<string, unknown>) => unknown | undefined;
 export function optionalGetterForProp(prop: TableColumnProp): OptionalValueGetter {
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return prop && (row => getterForProp(prop)(row, prop));
@@ -47,7 +47,7 @@ export function optionalGetterForProp(prop: TableColumnProp): OptionalValueGette
  *
  */
 export function groupRowsByParents(
-  rows: Record<string, unknown>[],
+  rows: Array<{ level: number; treeStatus?: string }>,
   from?: OptionalValueGetter,
   to?: OptionalValueGetter,
   lazyTree: boolean = false
@@ -74,18 +74,22 @@ export function groupRowsByParents(
 
     for (let i = 0; i < l; i++) {
       // make TreeNode objects for each item
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      nodeById[to(rows[i])] = new TreeNode(rows[i]);
+      const t = to(rows[i]);
+      if (t) {
+        nodeById[t as string | number] = new TreeNode(rows[i]);
+      }
     }
     let notResolvedNodes = [];
     for (let i = 0; i < l; i++) {
       // link all TreeNode objects
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      node = nodeById[to(rows[i])];
+      const t = to(rows[i]);
+      if (t) {
+        node = nodeById[t as string | number];
+      }
       let parent = 0;
       const fromValue = from(node.row);
       if (Boolean(fromValue) && uniqIDs.indexOf(fromValue) > -1) {
-        parent = fromValue;
+        parent = fromValue as number;
       }
       node.parent = nodeById[parent];
       // eslint-disable-next-line no-undefined
@@ -116,7 +120,7 @@ export function groupRowsByParents(
       notResolvedNodes = [...temp];
     } while (notResolvedNodes.length);
 
-    let resolvedRows: any[] = [];
+    let resolvedRows: Record<string, unknown>[] = [];
     // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     nodeById[0].flatten(
       function () {
@@ -132,11 +136,11 @@ export function groupRowsByParents(
 }
 
 class TreeNode {
-  public row: any;
-  public parent: any;
-  public children: any[];
+  public row: { level: number; treeStatus?: string };
+  public parent: TreeNode;
+  public children: Array<TreeNode>;
 
-  constructor(row: any | null = null) {
+  constructor(row: { level: number; treeStatus?: string } | null = null) {
     if (!row) {
       row = {
         level: -1,
@@ -148,7 +152,7 @@ class TreeNode {
     this.children = [];
   }
 
-  flatten(f: any, recursive: boolean, lazyTree: boolean = false) {
+  flatten(f: () => void, recursive: boolean, lazyTree: boolean = false): void {
     if (this.row['treeStatus'] === 'expanded') {
       for (let i = 0, l = this.children.length; i < l; i++) {
         const child = this.children[i];
@@ -157,11 +161,9 @@ class TreeNode {
         } else if (child.children && child.children.length && child.row['treeStatus'] === 'disabled') {
           child.row['treeStatus'] = 'collapsed';
         }
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         f.apply(child, Array.prototype.slice.call(arguments, 2));
         if (recursive) {
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-          child.flatten.apply(child, arguments, lazyTree);
+          child.flatten(f, recursive, lazyTree);
         }
       }
     }
