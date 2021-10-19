@@ -52,7 +52,7 @@ import DatatableComponent from '../../src/components/datatable.component.vue';
 })
 export default class ColumnReorderComponent extends Vue {
 
-  rows = [];
+  rows: Array<Record<string, unknown>> = [];
   loadingIndicator: boolean = true;
   reorderable: boolean = true;
   swapColumns: boolean = false;
@@ -64,13 +64,13 @@ export default class ColumnReorderComponent extends Vue {
   ];
 
   created() {
-    this.fetch((data) => {
+    this.fetch((data: Array<Record<string, unknown>>) => {
       this.rows = data;
       setTimeout(() => { this.loadingIndicator = false; }, 1500);
     });
   }
 
-  fetch(cb) {
+  fetch(cb: (data: Array<Record<string, unknown>>) => void) {
     const req = new XMLHttpRequest();
     req.open('GET', `assets/data/company.json`);
 

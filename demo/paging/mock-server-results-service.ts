@@ -41,7 +41,7 @@ export class MockServerResultsService {
             pagedData.data.push(employee);
         }
         pagedData.page = page;
-        let resolveFunc;
+        let resolveFunc: (data: PagedData<CorporateEmployee>) => void;
         const promise = new Promise<PagedData<CorporateEmployee>>(
             resolve => (resolveFunc = resolve)
           );
@@ -50,7 +50,7 @@ export class MockServerResultsService {
     }
 
     private delay(timeout: number): Promise<{}> {
-        let resolveFunc;
+        let resolveFunc: (value?: unknown) => void;;
         const promise = new Promise(resolve => (resolveFunc = resolve));
         setTimeout(() => resolveFunc(), timeout);
         return promise;

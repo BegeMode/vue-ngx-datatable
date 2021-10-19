@@ -77,7 +77,7 @@ export default class ColumnToggleComponent extends Vue {
     return this.allColumns; // .filter(c => c.visible);
   }
 
-  toggle(col) {
+  toggle(col: { visible: boolean }) {
     col.visible = !col.visible;
     // this.columns = this.allColumns.filter(c => c.visible);
     // this.$nextTick(() => this.columns = this.allColumns.filter(c => c.visible));
@@ -92,7 +92,7 @@ export default class ColumnToggleComponent extends Vue {
     // }
   }
 
-  isChecked(col) {
+  isChecked(col: { visible: boolean }) {
     return col.visible;
     // return this.columns.find(c => {
     //   return c.name === col.name;
