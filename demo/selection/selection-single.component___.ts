@@ -54,9 +54,9 @@ import DatatableComponent from '../../src/components/datatable.component.vue';
 export default class SingleSelectionComponent extends Vue {
 
   // rows = [];
-  items = [];
+  items: Array<Record<string, unknown>> = [];
 
-  selected = [];
+  selected: Array<Record<string, unknown>> = [];
 
   columns: any[] = [
     { prop: 'name'} , 
@@ -66,7 +66,7 @@ export default class SingleSelectionComponent extends Vue {
 
   created() {
     let id = 0;
-    this.fetch((data) => {
+    this.fetch((data: Array<Record<string, unknown>>) => {
       // this.rows = data;
       // this.selected = [data[2]];
       data.forEach(r => {
@@ -78,7 +78,7 @@ export default class SingleSelectionComponent extends Vue {
     });
   }
 
-  fetch(cb) {
+  fetch(cb: (data: Array<Record<string, unknown>>) => void) {
     const req = new XMLHttpRequest();
     req.open('GET', `assets/data/company.json`);
 
@@ -89,34 +89,34 @@ export default class SingleSelectionComponent extends Vue {
     req.send();
   }
 
-  rowIdentity(row): number {
+  rowIdentity(row: Record<string, number>): number {
     return row.id;
   }
 
-  async onSelect({ selected }) {
+  async onSelect({ selected }: { selected: Array<Record<string, unknown>> }) {
     this.selected.splice(0, this.selected.length);
     this.selected.push(...selected);
     console.log('Select Event', selected, this.selected);
     await this.updateRow(selected[0]);
   }
 
-  onActivate(event) {
+  onActivate(event: Record<string, unknown>) {
     console.log('Activate Event', event);
   }
 
   async updateRow(row: any): Promise<any> {
-    let resolveFunc = null;
+    let resolveFunc: (value?: unknown) => void = null;
     const promise = new Promise((resolve) => {
       resolveFunc = resolve;
     });
     setTimeout(() => {
-      let newValue = null;
+      let newValue: Record<string, unknown | Record<string, unknown>> = null;
       this.fetch((data) => {
         newValue = data.find(r => r.name === row.name);
         if (newValue) {
           newValue = { id: row.id, attributes: { id: row.id, ...newValue } };
         }
-        newValue.attributes.company += '+';
+        (newValue.attributes as Record<string, unknown>).company += '+';
         const item = this.items.find(r => r.id === row.id);
         Object.keys(newValue).forEach(key => {
           if (item[key] && typeof item[key] === 'object') {

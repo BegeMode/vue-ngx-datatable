@@ -1,3 +1,4 @@
+import { TableColumn } from 'types/table-column.type';
 import { Component, Vue } from 'vue-property-decorator';
 import DatatableComponent from '../../src/components/datatable.component.vue';
 
@@ -34,21 +35,21 @@ import DatatableComponent from '../../src/components/datatable.component.vue';
 })
 export default class CellSelectionComponent extends Vue {
 
-  rows: any[] = [];
-  selected: any[] = [];
-  columns: any[] = [
+  rows: Array<Record<string, unknown>> = [];
+  selected: Array<Record<string, unknown>> = [];
+  columns: TableColumn[] = [
     { prop: 'name'} , 
     { name: 'Company' }, 
     { name: 'Gender' }
   ];
 
   created() {
-    this.fetch((data) => {
+    this.fetch((data: Array<Record<string, unknown>>) => {
       this.rows = data;
     });
   }
 
-  fetch(cb) {
+  fetch(cb: (data: Array<Record<string, unknown>>) => void) {
     const req = new XMLHttpRequest();
     req.open('GET', `assets/data/company.json`);
 
@@ -59,15 +60,15 @@ export default class CellSelectionComponent extends Vue {
     req.send();
   }
 
-  onFocus(event) {
+  onFocus(event: FocusEvent) {
     console.log('foooccuuuss', event);
   }
 
-  onSelect(event) {
+  onSelect(event: Array<Record<string, unknown>>) {
     console.log('Event: select', event, this.selected);
   }
 
-  onActivate(event) {
+  onActivate(event: Record<string, unknown>) {
     console.log('Event: activate', event);
   }
 
