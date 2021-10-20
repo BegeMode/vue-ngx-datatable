@@ -1132,8 +1132,13 @@ export default class DatatableComponent extends Vue {
     this.$emit('check', event);
   }
 
-  onGroupToggle(event: { value: Record<string, unknown> }): void {
-    event.value.__expanded = !event.value.__expanded;
+  onGroupToggle(event: { value: IGroupedRows | boolean }): void {
+    if (!event) {
+      return;
+    }
+    if (typeof event.value !== 'boolean') {
+      event.value.__expanded = !event.value.__expanded;
+    }
     this.internalRows = this.processGroupedRows(this.groupedRows) as Array<Record<string, unknown>>;
     this.recalculate();
     this.$emit('group-toggle', Object.freeze(event));
@@ -1248,9 +1253,9 @@ export default class DatatableComponent extends Vue {
    */
   expandAllGroups(): void {
     this.groupedRows.forEach(row => {
-      this.$set(row, '__expanded', true);
+      this.expandCollapseRow(row, true);
     });
-    this.$emit('group-toggle', {
+    this.onGroupToggle({
       type: 'all',
       value: true,
     });
@@ -1261,9 +1266,9 @@ export default class DatatableComponent extends Vue {
    */
   collapseAllGroups(): void {
     this.groupedRows.forEach(row => {
-      this.$set(row, '__expanded', false);
+      this.expandCollapseRow(row, false);
     });
-    this.$emit('group-toggle', {
+    this.onGroupToggle({
       type: 'all',
       value: false,
     });
@@ -1466,6 +1471,15 @@ export default class DatatableComponent extends Vue {
     const sortedRows = sortRows(rows, this.internalColumns, this.sorts);
     const result = sortedRows.map(r => r.__group);
     return result as IGroupedRows[];
+  }
+
+  private expandCollapseRow(group: IGroupedRows, expand: boolean): void {
+    group.__expanded = expand;
+    if (Array.isArray(group.groups)) {
+      group.groups.forEach(gr => {
+        this.expandCollapseRow(gr, expand);
+      });
+    }
   }
 
   private addRow(group: IGroupedRows, rows: Array<IGroupedRows | Record<string, unknown>>): void {

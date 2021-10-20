@@ -35,6 +35,12 @@ interface IRow {
           </a>
         </small>
       </h3>
+
+      <div style="margin-left: 50%;">
+        <button @click="onExpandAll">Expand all</button>
+        <button @click="onCollapseAll">Collapse all</button>
+      </div>
+
       <ngx-datatable
         ref="table"
         class="material expandable"
@@ -258,4 +264,19 @@ export default class RowGroupingComponent  extends Vue {
     //
   }
 
+  onExpandAll() {
+    const table = this.$refs.table;
+    if (!table) {
+      return;
+    }
+    (table as unknown as { expandAllGroups: () => void }).expandAllGroups();
+  }
+
+  onCollapseAll() {
+    const table = this.$refs.table;
+    if (!table) {
+      return;
+    }
+    (table as unknown as { collapseAllGroups: () => void }).collapseAllGroups();
+  }
 }

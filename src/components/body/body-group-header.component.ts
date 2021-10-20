@@ -27,10 +27,6 @@ export default class DataTableBodyGroupHeaderComponent extends Vue {
   @Prop() groupLevel: number;
   @Prop() groupRowsBy: Array<TGroupByField | Array<TGroupByField>>;
 
-  // @Watch('expanded') onExpandedChanged(): void {
-  //   this.toggleExpandGroup();
-  // }
-
   created(): void {
     if (this.groupHeaderSlot) {
       this.$slots.groupHeader = this.groupHeaderSlot({
@@ -60,26 +56,6 @@ export default class DataTableBodyGroupHeaderComponent extends Vue {
     this.$emit('group-toggle', {
       type: 'group',
       value: this.group,
-    });
-  }
-
-  /**
-   * Expand all groups
-   */
-  expandAllGroups(): void {
-    this.$emit('group-toggle', {
-      type: 'all',
-      value: true,
-    });
-  }
-
-  /**
-   * Collapse all groups
-   */
-  collapseAllGroups(): void {
-    this.$emit('group-toggle', {
-      type: 'all',
-      value: false,
     });
   }
 
