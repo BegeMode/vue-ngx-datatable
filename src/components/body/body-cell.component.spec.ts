@@ -59,7 +59,7 @@ describe('DataTableBodyCellComponent', () => {
 
       void wrapper.setProps({
         column: columns[0],
-        context: {
+        rowContext: {
           row: ['Hello'],
         },
       });
