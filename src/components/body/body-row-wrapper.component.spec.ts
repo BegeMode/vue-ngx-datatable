@@ -40,8 +40,8 @@ describe('DataTableRowWrapperComponent', () => {
     });
 
     it('should have a group header styles', () => {
-      const styles = component.groupHeaderStyles;
-      expect(styles.transform.includes('translate3d(10')).toBeTruthy();
+      const styles = component.groupTitleStyles;
+      expect((styles.transform as string).includes('translate3d(10')).toBeTruthy();
     });
   });
 });

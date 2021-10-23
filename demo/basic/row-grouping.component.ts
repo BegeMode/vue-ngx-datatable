@@ -54,12 +54,14 @@ interface IRow {
         limit="10"
         :groupExpansionDefault="true"
         :groupRowHeight="40"
+        groupHeaderClasses="group-header"
+        :groupHeaderStyles="groupHeaderStyles"
         @rendered="onRendered"
         @group-toggle="onDetailToggle($event)">
 
         <!-- Group Header Template -->
         <!-- <template v-slot:groupHeader="scope">
-          <b>{{groupTitle(scope.group, scope.groupBy)}}</b>
+          <b style="color: white;">{{groupTitle(scope.group, scope.groupBy)}}</b>
         </template> -->
 
         <!-- Row Column Template -->
@@ -279,4 +281,13 @@ export default class RowGroupingComponent  extends Vue {
     }
     (table as unknown as { collapseAllGroups: () => void }).collapseAllGroups();
   }
+
+  get groupHeaderStyles(): Record<string, string> {
+    return {
+      'font-size': '18px',
+      'font-style': 'italic',
+      color: 'white',
+    };
+  }
+
 }

@@ -3,7 +3,8 @@
     <datatable-group-header
       v-if="row && row.__isGroup"
       class="datatable-group-header"
-      :style="groupHeaderStyles"
+      :class="groupHeaderClasses"
+      :style="groupTitleStyles"
       :group="row"
       :groupLevel="row.level"
       :groupRowsBy="groupRowsBy"

@@ -41,6 +41,8 @@ export default class DataTableBodyComponent extends Vue {
   @Prop() externalPaging: boolean;
   @Prop() rowHeight: number | ((row: Record<string, unknown>, index?: number) => number);
   @Prop() groupRowHeight: number | ((row: Record<string, unknown>, index?: number) => number);
+  @Prop() groupHeaderStyles: Record<string, string | number>;
+  @Prop() groupHeaderClasses: string | Array<string>;
   @Prop() offsetX: number;
   @Prop() emptyMessage: string;
   @Prop() selectionType: SelectionType;

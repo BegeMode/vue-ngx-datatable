@@ -21,6 +21,8 @@ export default class DataTableRowWrapperComponent extends Vue {
   @Prop() offsetX: number;
   @Prop() rowDetailHeight: number;
   @Prop() groupRowHeight: number;
+  @Prop() groupHeaderStyles: Record<string, string | number>;
+  @Prop() groupHeaderClasses: string | Array<string>;
   @Prop() row: Record<string, unknown>;
   @Prop() rowIdentity: (row: Record<string, unknown>) => string | number;
   @Prop() groupRowsBy: Array<TGroupByField | Array<TGroupByField>>;
@@ -42,8 +44,8 @@ export default class DataTableRowWrapperComponent extends Vue {
     this.$emit('rowContextmenu', { event: $event, row: this.row });
   }
 
-  get groupHeaderStyles(): Record<string, string> {
-    const styles = {};
+  get groupTitleStyles(): Record<string, string | number> {
+    const styles = this.groupHeaderStyles ?? {};
     styles['transform'] = `translate3d(${this.offsetX}px, 0px, 0px)'`;
     styles['backface-visibility'] = 'hidden';
     styles['width'] = this.innerWidth || '100%';

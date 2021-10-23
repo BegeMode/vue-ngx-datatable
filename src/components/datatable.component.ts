@@ -22,10 +22,6 @@ import DataTableBody from './body/body.component';
 import DataTableBodyComponent from './body/body.component.vue';
 import DataTableColumnComponent from './columns/column.component';
 import DataTableFooterComponent from './footer/footer.component';
-// import { DatatableGroupHeaderDirective } from './body/body-group-header.directive';
-// import { DataTableColumnDirective } from './columns';
-// import { DatatableRowDetailDirective } from './row-detail';
-// import { DatatableFooterDirective } from './footer';
 import DataTableHeaderComponent from './header/header.component';
 
 Vue.component('datatable-column', DataTableColumnComponent);
@@ -59,22 +55,6 @@ export default class DatatableComponent extends Vue {
    */
   @Prop() rows: Array<Record<string, unknown>>;
   /**
-   * This attribute allows the user to set a grouped array in the following format:
-   *  [
-   *    {groupid=1} [
-   *      {id=1 name="test1"},
-   *      {id=2 name="test2"},
-   *      {id=3 name="test3"}
-   *    ]},
-   *    {groupid=2>[
-   *      {id=4 name="test4"},
-   *      {id=5 name="test5"},
-   *      {id=6 name="test6"}
-   *    ]}
-   *  ]
-   */
-  // @Prop() groupedRows: any[];
-  /**
    * This attribute allows the user to set the names of the columns to group the data with
    */
   @Prop() groupRowsBy: Array<TGroupByField | Array<TGroupByField>>;
@@ -105,9 +85,17 @@ export default class DatatableComponent extends Vue {
    */
   @Prop({ default: 'auto' }) rowHeight: TRowHeightFunc | number | string;
   /**
-   * The group row height
+   * The group header row height
    */
   @Prop() groupRowHeight: number | string;
+  /**
+   * The group header row styles
+   */
+  @Prop() groupHeaderStyles: Record<string, string | number>;
+  /**
+   * The group header row css classes
+   */
+  @Prop() groupHeaderClasses: string | Array<string>;
   /**
    * The detail row height
    */
