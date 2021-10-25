@@ -68,11 +68,11 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
 })
 export default class FullScreenTreeComponent extends Vue {
 
-  rows = [];
+  rows: Array<Record<string, unknown>> = [];
   lastIndex = 15;
 
   created() {
-    this.fetch((data) => {
+    this.fetch((data: Array<Record<string, unknown>>) => {
       data = data.slice(1, this.lastIndex);
       this.rows = data.map((d) => {
         this.$set(d, 'treeStatus', 'collapsed');
@@ -82,7 +82,7 @@ export default class FullScreenTreeComponent extends Vue {
     });
   }
 
-  fetch(cb) {
+  fetch(cb: (data: Array<Record<string, unknown>>) => void) {
     const req = new XMLHttpRequest();
     req.open('GET', `assets/data/100k.json`);
 

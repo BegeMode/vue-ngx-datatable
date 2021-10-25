@@ -38,7 +38,7 @@ import {Page} from './model/page';
 })
 export default class VirtualPagingComponent extends Vue {
 
-  page = null;
+  page: Page = null;
   rows: Array<CorporateEmployee> = null;
   columns = [{ name: 'Name' }, { name: 'Gender' }, { name: 'Company' }];
   cache: any = {};
@@ -62,7 +62,7 @@ export default class VirtualPagingComponent extends Vue {
    * Populate the table with new data based on the page number
    * @param page The page to select
    */
-  async setPage(pageInfo) {
+  async setPage(pageInfo: { pageNumber?: number; offset: number; pageSize: number }) {
     if (!this.page || (this.rows?.length && pageInfo.offset === this.page.pageNumber)) {
       return;
     }

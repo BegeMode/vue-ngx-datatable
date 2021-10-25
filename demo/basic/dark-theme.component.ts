@@ -34,24 +34,24 @@ import DatatableComponent from '../../src/components/datatable.component.vue';
 })
 export default class DarkThemeComponent extends Vue {
 
-  rows = [];
+  rows: Array<Record<string, unknown>> = [];
   loadingIndicator: boolean = true;
   reorderable: boolean = true;
 
   columns = [
-    { prop: 'name', summaryFunc: () => null },
-    { name: 'Gender', summaryFunc: (cells) => this.summaryForGender(cells) },
-    { name: 'Company', summaryFunc: () => null }
+    { prop: 'name', summaryFunc: (): string => null },
+    { name: 'Gender', summaryFunc: (cells: Array<string>): string => this.summaryForGender(cells) },
+    { name: 'Company', summaryFunc: (): string => null }
   ];
 
   created() {
-    this.fetch((data) => {
+    this.fetch((data: Array<Record<string, unknown>>) => {
       this.rows = data;
       setTimeout(() => { this.loadingIndicator = false; }, 1500);
     });
   }
 
-  fetch(cb) {
+  fetch(cb: (data: Array<Record<string, unknown>>) => void) {
     const req = new XMLHttpRequest();
     req.open('GET', `assets/data/company.json`);
 
@@ -62,7 +62,7 @@ export default class DarkThemeComponent extends Vue {
     req.send();
   }
 
-  private summaryForGender(cells: string[]) {
+  private summaryForGender(cells: string[]): string {
     const males = cells.filter(cell => cell === 'male').length;
     const females = cells.filter(cell => cell === 'female').length;
 

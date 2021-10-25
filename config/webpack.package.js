@@ -1,10 +1,10 @@
 const webpack = require('webpack');
-const webpackMerge = require('webpack-merge');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { merge } = require('webpack-merge');
+// const CleanWebpackPlugin = require('clean-webpack-plugin');
+// const HtmlWebpackPlugin = require('html-webpack-plugin');
 const commonConfig = require('./webpack.common');
 const { ENV, dir, APP_VERSION } = require('./helpers');
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const banner =
 `/**
@@ -14,18 +14,12 @@ const banner =
  */`;
 
 module.exports = function(env) {
-  return webpackMerge(commonConfig({ env: ENV }), {
+  return merge(commonConfig({ env: ENV }), {
     devtool: 'source-map',
     mode: 'development',
     module: {
       exprContextCritical: false,
       rules: [
-        {
-          enforce: 'pre',
-          test: /\.ts$/,
-          loader: 'tslint-loader',
-          exclude: /(node_modules|release|dist|demo)/
-        },
         {
           test: /\.ts$/,
           loader: 'ts-loader',
@@ -33,10 +27,6 @@ module.exports = function(env) {
             appendTsSuffixTo: [/\.vue$/]
           },
           exclude: [/\.(spec|e2e|d)\.ts$/]
-        },
-        {
-          test: /\.vue$/,
-          loader: 'vue-loader',
         },
       ]
     },
@@ -54,9 +44,10 @@ module.exports = function(env) {
       'Vue': 'vue/dist/vue.esm.js',
       'vue-property-decorator': 'vue-property-decorator',
       'vue-class-component': 'vue-class-component',
-      // 'vue-style-loader': 'vue-style-loader/lib/',
-      // 'vue-loader': 'vue-loader/lib/runtime',
-      // 'css-loader': 'css-loader/lib',
+      'vue-router': 'vue-router',
+      // 'vue-style-loader': 'vue-style-loader/index.js',
+      // 'vue-loader': 'vue-loader/lib/index.js',
+      // 'css-loader': 'css-loader/dist/index.js',
     },
     plugins: [
       new webpack.optimize.LimitChunkCountPlugin({

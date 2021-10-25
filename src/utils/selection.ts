@@ -1,7 +1,11 @@
-export function selectRows(selected: any[], row: any, comparefn: any) {
+export function selectRows(
+  selected: Record<string, unknown>[],
+  row: Record<string, unknown>,
+  comparefn: (r: Record<string, unknown>, arr: Record<string, unknown>[]) => number
+): Record<string, unknown>[] {
   const selectedIndex = comparefn(row, selected);
 
-  if(selectedIndex > -1) {
+  if (selectedIndex > -1) {
     selected.splice(selectedIndex, 1);
   } else {
     selected.push(row);
@@ -11,15 +15,15 @@ export function selectRows(selected: any[], row: any, comparefn: any) {
 }
 
 export function selectRowsBetween(
-  selected: any[], 
-  rows: any[], 
-  index: number, 
-  prevIndex: number, 
-  comparefn: any): any[] {
-
+  selected: Record<string, unknown>[],
+  rows: Record<string, unknown>[],
+  index: number,
+  prevIndex: number,
+  comparefn: () => boolean
+): Record<string, unknown>[] {
   const reverse = index < prevIndex;
 
-  for(let i = 0; i < rows.length; i++) {
+  for (let i = 0; i < rows.length; i++) {
     const row = rows[i];
     const greater = i >= prevIndex && i <= index;
     const lesser = i <= prevIndex && i >= index;
@@ -28,19 +32,19 @@ export function selectRowsBetween(
     if (reverse) {
       range = {
         start: index,
-        end: prevIndex
+        end: prevIndex,
       };
     } else {
       range = {
         start: prevIndex,
-        end: index + 1
+        end: index + 1,
       };
     }
 
-    if((reverse && lesser) || (!reverse && greater)) {
+    if ((reverse && lesser) || (!reverse && greater)) {
       // if in the positive range to be added to `selected`, and
       // not already in the selected array, add it
-      if(i >= range.start && i <= range.end) {
+      if (i >= range.start && i <= range.end) {
         selected.push(row);
       }
     }

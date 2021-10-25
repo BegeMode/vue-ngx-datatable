@@ -1,0 +1,6 @@
+**/*.js
+**/*.d.ts
+coverage
+demo
+src/components/body/functional
+.eslintcache

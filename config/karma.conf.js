@@ -6,14 +6,16 @@ process.env.CHROME_BIN = require('puppeteer').executablePath()
 module.exports = function(config) {
   config.set({
     basePath: '',
-    frameworks: ['jasmine' /*, '@angular-devkit/build-angular'*/ ],
-    // plugins: [
-    //   require('karma-jasmine'),
-    //   require('karma-chrome-launcher'),
-    //   require('karma-jasmine-html-reporter'),
-    //   require('karma-coverage-istanbul-reporter'),
-    //   // require('@angular-devkit/build-angular/plugins/karma')
-    // ],
+    frameworks: ['jasmine', 'webpack'],
+    plugins: [
+      'karma-jasmine',
+      'karma-jasmine-html-reporter',
+      'karma-webpack',
+      'karma-coverage',
+      'karma-sourcemap-loader',
+      'karma-chrome-launcher',
+      'karma-coverage-istanbul-reporter',
+    ],
     client: {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
@@ -22,7 +24,7 @@ module.exports = function(config) {
       reports: ['html', 'lcovonly', 'text-summary'],
       fixWebpackSourcePaths: true
     },
-    reporters: ['progress', 'kjhtml'],
+    reporters: ['progress', 'kjhtml', 'coverage'],
     files: [
       { pattern: './config/spec-bundle.js', watched: false }
     ],

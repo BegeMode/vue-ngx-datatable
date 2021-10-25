@@ -37,7 +37,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
 })
 export default class HorzVertScrolling extends Vue {
 
-  rows = [];
+  rows: Array<Record<string, unknown>> = [];
 
   created() {
     this.fetch((data) => {
@@ -45,7 +45,7 @@ export default class HorzVertScrolling extends Vue {
     });
   }
 
-  fetch(cb) {
+  fetch(cb: ( data: Array<Record<string, unknown>>) => void) {
     const req = new XMLHttpRequest();
     req.open('GET', `assets/data/100k.json`);
 

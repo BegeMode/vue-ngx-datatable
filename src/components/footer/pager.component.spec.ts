@@ -1,19 +1,20 @@
+/* eslint-disable @typescript-eslint/no-floating-promises */
 import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
 import * as flushPromises from 'flush-promises';
-import DataTablePagerComponent from './pager.component';
+import Vue from 'vue';
+import DataTablePagerComponent, { IPage } from './pager.component';
 
 describe('DataTablePagerComponent', () => {
   let wrapper: Wrapper<DataTablePagerComponent>;
   let pager: DataTablePagerComponent;
-  let element;
+  // let element;
 
   beforeEach(async () => {
     wrapper = mount(DataTablePagerComponent, { sync: false });
     // await Vue.nextTick();
     await flushPromises();
     pager = wrapper.vm;
-    element = pager.$el;
+    // element = pager.$el;
     await Vue.nextTick();
   });
 
@@ -59,7 +60,7 @@ describe('DataTablePagerComponent', () => {
     it('should calculate totalPages', async () => {
       wrapper.setProps({
         size: 10,
-        count: 28
+        count: 28,
       });
       await pager.$nextTick();
       expect(pager.totalPages).toEqual(3);
@@ -68,7 +69,7 @@ describe('DataTablePagerComponent', () => {
     it('should have 1 page if size is 0', async () => {
       wrapper.setProps({
         size: 0,
-        count: 28
+        count: 28,
       });
       await pager.$nextTick();
       expect(pager.totalPages).toEqual(1);
@@ -77,7 +78,7 @@ describe('DataTablePagerComponent', () => {
     it('should have 1 page if count is 0', async () => {
       wrapper.setProps({
         size: 10,
-        count: 0
+        count: 0,
       });
       await pager.$nextTick();
       expect(pager.totalPages).toEqual(1);
@@ -88,25 +89,25 @@ describe('DataTablePagerComponent', () => {
     beforeEach(async () => {
       wrapper.setProps({
         size: 10,
-        count: 100
+        count: 100,
       });
       await pager.$nextTick();
     });
 
     it('should return true if not on first page', async () => {
       wrapper.setProps({
-        page: 2
+        page: 2,
       });
       await pager.$nextTick();
-      expect((pager as any).canPrevious).toEqual(true);
+      expect(pager.canPrevious).toEqual(true);
     });
 
     it('should return false if on first page', async () => {
       wrapper.setProps({
-        page: 1
+        page: 1,
       });
       await pager.$nextTick();
-      expect((pager as any).canPrevious).toEqual(false);
+      expect(pager.canPrevious).toEqual(false);
     });
   });
 
@@ -114,25 +115,25 @@ describe('DataTablePagerComponent', () => {
     beforeEach(async () => {
       wrapper.setProps({
         size: 10,
-        count: 100
+        count: 100,
       });
       await pager.$nextTick();
     });
 
     it('should return true if not on last page', async () => {
       wrapper.setProps({
-        page: 2
+        page: 2,
       });
       await pager.$nextTick();
-      expect((pager as any).canNext).toEqual(true);
+      expect(pager.canNext).toEqual(true);
     });
 
     it('should return false if on last page', async () => {
       wrapper.setProps({
-        page: 10
+        page: 10,
       });
       await pager.$nextTick();
-      expect((pager as any).canNext).toEqual(false);
+      expect(pager.canNext).toEqual(false);
     });
   });
 
@@ -140,14 +141,14 @@ describe('DataTablePagerComponent', () => {
     beforeEach(async () => {
       wrapper.setProps({
         size: 10,
-        count: 100
+        count: 100,
       });
       await pager.$nextTick();
     });
 
     it('should set current page to previous page', async () => {
       wrapper.setProps({
-        page: 2
+        page: 2,
       });
       await pager.$nextTick();
       pager.prevPage();
@@ -157,7 +158,7 @@ describe('DataTablePagerComponent', () => {
     it('should emit change event', async () => {
       const spy = spyOn(pager, '$emit');
       wrapper.setProps({
-        page: 2
+        page: 2,
       });
       await pager.$nextTick();
       pager.prevPage();
@@ -167,7 +168,7 @@ describe('DataTablePagerComponent', () => {
 
     it('should not change page if already on first page', async () => {
       wrapper.setProps({
-        page: 2
+        page: 2,
       });
       await pager.$nextTick();
       pager.prevPage();
@@ -180,14 +181,14 @@ describe('DataTablePagerComponent', () => {
     beforeEach(async () => {
       wrapper.setProps({
         size: 10,
-        count: 100
+        count: 100,
       });
       await pager.$nextTick();
     });
 
     it('should set current page to next page', async () => {
       wrapper.setProps({
-        page: 2
+        page: 2,
       });
       await pager.$nextTick();
       pager.nextPage();
@@ -197,7 +198,7 @@ describe('DataTablePagerComponent', () => {
 
     it('should emit change event', async () => {
       wrapper.setProps({
-        page: 2
+        page: 2,
       });
       await pager.$nextTick();
       const spy = spyOn(pager, '$emit');
@@ -208,7 +209,7 @@ describe('DataTablePagerComponent', () => {
 
     it('should not change page if already on last page', async () => {
       wrapper.setProps({
-        page: 10
+        page: 10,
       });
       await pager.$nextTick();
       pager.nextPage();
@@ -222,7 +223,7 @@ describe('DataTablePagerComponent', () => {
       wrapper.setProps({
         size: 10,
         count: 100,
-        page: 1
+        page: 1,
       });
       await pager.$nextTick();
     });
@@ -270,13 +271,13 @@ describe('DataTablePagerComponent', () => {
       wrapper.setProps({
         size: 10,
         count: 73,
-        page: 1
+        page: 1,
       });
       await pager.$nextTick();
     });
 
     it('should return array with max 5 pages to display', () => {
-      const pages = pager.calcPages(1);
+      const pages: IPage[] = pager.calcPages(1);
       expect(pages.length).toEqual(5);
       expect(pages[0].number).toEqual(1);
       expect(pages[4].number).toEqual(5);
@@ -284,7 +285,7 @@ describe('DataTablePagerComponent', () => {
 
     it('should return array with available pages to display', async () => {
       wrapper.setProps({
-        count: 30
+        count: 30,
       });
       await pager.$nextTick();
       const pages = pager.calcPages(1);
@@ -302,7 +303,7 @@ describe('DataTablePagerComponent', () => {
 
     xit('should use current page if no page is specified', () => {
       wrapper.setProps({
-        page: 7
+        page: 7,
       });
       const pages = pager.calcPages();
       expect(pages.length).toEqual(3);

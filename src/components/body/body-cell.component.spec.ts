@@ -1,47 +1,49 @@
 import { mount, Wrapper } from '@vue/test-utils';
-import Vue from 'vue';
 import * as flushPromises from 'flush-promises';
-import DataTableBodyCellComponent from './body-cell.component.vue';
-
-import { numericIndexGetter } from '../../utils/column-prop-getters';
-import { setColumnDefaults } from '../../utils/column-helper';
+import Vue, { VueConstructor } from 'vue';
 import { TableColumn } from '../../types/table-column.type';
+import { setColumnDefaults } from '../../utils/column-helper';
+import { numericIndexGetter } from '../../utils/column-prop-getters';
+import DataTableBodyCellClass from './body-cell.component';
+import DataTableBodyCellComponent from './body-cell.component.vue';
 
 let wrapper: Wrapper<DataTableBodyCellComponent>;
 let component: DataTableBodyCellComponent;
 
-async function setupTest(componentClass) {
+async function setupTest(componentClass: VueConstructor) {
   try {
     wrapper = mount(componentClass, {
       sync: false,
       propsData: {
-        cellColumnCssClasses: (context) => {},
-        cellStyleObject: (context) => {},
-        marginCellStyle: (context) => {},
-        context: {
-          row: [],
-          column: { visible: true },
-        }
-      }
-    });
+        column: {
+          visible: true,
+          isTreeColumn: false,
+          treeToggleTemplate: false,
+          $$valueGetter: () => 'test',
+        },
+        rowContext: {
+          treeStatus: 'disabled',
+        },
+      },
+    }) as Wrapper<DataTableBodyCellComponent>;
     // await Vue.nextTick();
     await flushPromises();
     component = wrapper.vm;
     await Vue.nextTick();
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error(e);
   }
 }
 
 describe('DataTableBodyCellComponent', () => {
-
   beforeEach(async () => {
     await setupTest(DataTableBodyCellComponent);
   });
 
   describe('fixture', () => {
-    it('should have a component instance', () => {
-      expect(component).toBeTruthy();
+    it('should have a component instance', async () => {
+      await expect(component).toBeTruthy();
     });
   });
 
@@ -49,22 +51,20 @@ describe('DataTableBodyCellComponent', () => {
     // verify there wasn't a mistake where the falsey 0 value
     // resulted in a code path for missing column prop
     it('should get value from zero-index prop', async () => {
-      const columns: TableColumn[] = [{ name: 'First Column', prop: 0 }];
+      const columns: TableColumn[] = [{ name: 'First Column', prop: 0, value: 'Hello' }];
       // users should never set columns on DataTableBodyCellComponent directly
       // setColumnDefaults will be run on columns before they are set on BodyCellComponent
       setColumnDefaults(columns[0], wrapper.vm);
-      expect(columns[0].$$valueGetter).toBe(numericIndexGetter);
+      await expect(columns[0].$$valueGetter).toBe(numericIndexGetter);
 
-      wrapper.setProps({
-        cellColumnCssClasses: (context) => {},
-        context: {
+      void wrapper.setProps({
+        column: columns[0],
+        rowContext: {
           row: ['Hello'],
-          column: columns[0],
-          value: 'Hello'
-        }
+        },
       });
       await component.$nextTick();
-      expect((component as any).context.value).toEqual('Hello');
+      await expect((component as DataTableBodyCellClass).value).toEqual('Hello');
     });
   });
 });

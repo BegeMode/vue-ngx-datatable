@@ -6,12 +6,17 @@ const { ENV, IS_PRODUCTION, APP_VERSION, IS_DEV, dir } = require('./helpers');
 // const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 const extractSass = new MiniCssExtractPlugin({
   filename: '[name].css',
   chunkFilename: "[id].css",
   // disable: process.env.NODE_ENV === 'development'
 });
+
+const esLintOptions = {
+  exclude: ['node_modules', 'release' , 'dist' , 'demo'],
+};
 
 module.exports = function(options = {}) {
   return {
@@ -50,9 +55,19 @@ module.exports = function(options = {}) {
       exprContextCritical: false,
       rules: [
         {
+          enforce: 'pre',
+          test: /\.js$/,
+          loader: 'source-map-loader',
+          exclude: /(node_modules)/
+        },
+        {
+          test: /\.vue$/,
+          loader: 'vue-loader',
+        },
+        {
           test: /\.(png|woff|woff2|eot|ttf|svg|jpeg|jpg|gif)$/,
           loader: 'url-loader',
-          query: {
+          options: {
             limit: '100000'
           }
         },
@@ -133,8 +148,9 @@ module.exports = function(options = {}) {
     plugins: [
       // new ExtractTextPlugin('[name].css'),
       // new webpack.NamedModulesPlugin(),
-      extractSass,
+      new ESLintPlugin(esLintOptions),
       new VueLoaderPlugin(),
+      extractSass,
       new webpack.DefinePlugin({
         ENV,
         IS_PRODUCTION,
@@ -142,9 +158,11 @@ module.exports = function(options = {}) {
         IS_DEV,
         HMR: options.HMR
       }),
-      new CopyWebpackPlugin([
-        { from: 'assets', to: 'assets' }
-      ]),
+      new CopyWebpackPlugin({
+        patterns: [
+          { from: 'assets', to: 'assets' }
+        ]
+      }),
       new webpack.LoaderOptionsPlugin({
         options: {
           context: dir(),

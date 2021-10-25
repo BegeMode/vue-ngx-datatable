@@ -1,9 +1,13 @@
+/* eslint-disable prefer-rest-params */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { TableColumnProp } from '../types/table-column.type';
 import { getterForProp } from './column-prop-getters';
 
-export type OptionalValueGetter = (row: any) => any | undefined;
+export type OptionalValueGetter = (row: Record<string, unknown>) => unknown | undefined;
 export function optionalGetterForProp(prop: TableColumnProp): OptionalValueGetter {
-  return prop && ((row) => getterForProp(prop)(row, prop));
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+  return prop && (row => getterForProp(prop)(row, prop));
 }
 
 /**
@@ -42,10 +46,14 @@ export function optionalGetterForProp(prop: TableColumnProp): OptionalValueGette
  * @param rows
  *
  */
-export function groupRowsByParents(rows: any[], from?: OptionalValueGetter, to?: OptionalValueGetter,
-                                   lazyTree: boolean = false): any[] {
+export function groupRowsByParents(
+  rows: Array<{ level: number; treeStatus?: string }>,
+  from?: OptionalValueGetter,
+  to?: OptionalValueGetter,
+  lazyTree: boolean = false
+): Record<string, unknown>[] {
   if (!rows) {
-    this.rows;
+    return rows;
   }
   if (from && to) {
     const nodeById = {};
@@ -55,29 +63,42 @@ export function groupRowsByParents(rows: any[], from?: OptionalValueGetter, to?:
     nodeById[0] = new TreeNode(); // that's the root node
 
     const uniqIDs = rows.reduce((arr, item) => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const toValue = to(item);
       if (arr.indexOf(toValue) === -1) {
         arr.push(toValue);
       }
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
       return arr;
     }, []);
 
-    for (let i = 0; i < l; i++) {  // make TreeNode objects for each item
-      nodeById[ to(rows[i]) ] = new TreeNode(rows[i]);
+    for (let i = 0; i < l; i++) {
+      // make TreeNode objects for each item
+      const t = to(rows[i]);
+      if (t) {
+        nodeById[t as string | number] = new TreeNode(rows[i]);
+      }
     }
-    let notResolvedNodes = []; 
-    for (let i = 0; i < l; i++) {  // link all TreeNode objects
-      node = nodeById[ to(rows[i]) ];
+    let notResolvedNodes = [];
+    for (let i = 0; i < l; i++) {
+      // link all TreeNode objects
+      const t = to(rows[i]);
+      if (t) {
+        node = nodeById[t as string | number];
+      }
       let parent = 0;
       const fromValue = from(node.row);
-      if (!!fromValue && (uniqIDs.indexOf(fromValue) > -1)) {
-        parent = fromValue;
+      if (Boolean(fromValue) && uniqIDs.indexOf(fromValue) > -1) {
+        parent = fromValue as number;
       }
       node.parent = nodeById[parent];
+      // eslint-disable-next-line no-undefined
       if (node.parent.row['level'] === null || node.parent.row['level'] === undefined) {
         notResolvedNodes.push(node);
       } else {
+        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
         node.row['level'] = node.parent.row['level'] + 1;
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         node.parent.children.push(node);
       }
     }
@@ -86,37 +107,44 @@ export function groupRowsByParents(rows: any[], from?: OptionalValueGetter, to?:
       temp.length = 0;
       while (notResolvedNodes.length) {
         node = notResolvedNodes.pop();
+        // eslint-disable-next-line no-undefined
         if (node.parent.row['level'] === null || node.parent.row['level'] === undefined) {
           temp.push(node);
         } else {
+          // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
           node.row['level'] = node.parent.row['level'] + 1;
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-call
           node.parent.children.push(node);
         }
       }
-      notResolvedNodes = temp;
+      notResolvedNodes = [...temp];
     } while (notResolvedNodes.length);
 
-    let resolvedRows: any[] = [];
-    nodeById[0].flatten(function() {
-      resolvedRows = [...resolvedRows, this.row];
-    }, true, lazyTree);
-
+    let resolvedRows: Record<string, unknown>[] = [];
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    nodeById[0].flatten(
+      function () {
+        resolvedRows = [...resolvedRows, this.row];
+      },
+      true,
+      lazyTree
+    );
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return resolvedRows;
-  } else {
-    return rows;
   }
+  return rows;
 }
 
 class TreeNode {
-  public row: any;
-  public parent: any;
-  public children: any[];
+  public row: { level: number; treeStatus?: string };
+  public parent: TreeNode;
+  public children: Array<TreeNode>;
 
-  constructor(row: any | null = null) {
+  constructor(row: { level: number; treeStatus?: string } | null = null) {
     if (!row) {
       row = {
         level: -1,
-        treeStatus: 'expanded'
+        treeStatus: 'expanded',
       };
     }
     this.row = row;
@@ -124,7 +152,7 @@ class TreeNode {
     this.children = [];
   }
 
-  flatten(f: any, recursive: boolean, lazyTree: boolean = false)  {
+  flatten(f: () => void, recursive: boolean, lazyTree: boolean = false): void {
     if (this.row['treeStatus'] === 'expanded') {
       for (let i = 0, l = this.children.length; i < l; i++) {
         const child = this.children[i];
@@ -135,7 +163,7 @@ class TreeNode {
         }
         f.apply(child, Array.prototype.slice.call(arguments, 2));
         if (recursive) {
-          child.flatten.apply(child, arguments, lazyTree);
+          child.flatten(f, recursive, lazyTree);
         }
       }
     }

@@ -1,20 +1,25 @@
-import { Vue } from 'vue-property-decorator';
 import { VNode } from 'vue';
+import { Vue } from 'vue-property-decorator';
+import { DirectiveBinding } from 'vue/types/options';
 
 class VisibilityController {
-  _isVisible: boolean = false;
-  timeout: any;
+  _isVisible = false;
+  timeout: number;
   vnode: VNode = null;
   element: HTMLElement = null;
 
-  constructor(vNode: VNode, el) {
+  constructor(vNode: VNode, el: HTMLElement) {
     this.vnode = vNode;
     this.element = el;
   }
 
   set isVisible(value: boolean) {
     this._isVisible = value;
-    value ? this.element.classList.add('visible') : this.element.classList.remove('visible');
+    if (value) {
+      this.element.classList.add('visible');
+    } else {
+      this.element.classList.remove('visible');
+    }
   }
 
   get isVisible(): boolean {
@@ -43,16 +48,17 @@ class VisibilityController {
       } else {
         this.onVisibilityChange(false);
       }
-      this.timeout = setTimeout(check.bind(this), timeout);
+      this.timeout = setTimeout(() => check(), timeout) as unknown as number;
     };
-    this.timeout = setTimeout(check.bind(this));
+    this.timeout = setTimeout(() => check()) as unknown as number;
   }
 
-  private emit(name, data) {
-    const handlers = (this.vnode.data && this.vnode.data.on) ||
-      (this.vnode.componentOptions && this.vnode.componentOptions.listeners);
-  
+  private emit(name: string, data: unknown) {
+    const handlers =
+      (this.vnode.data && this.vnode.data.on) || (this.vnode.componentOptions && this.vnode.componentOptions.listeners);
+
     if (handlers && handlers[name]) {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
       handlers[name].fns(data);
     }
   }
@@ -63,72 +69,24 @@ class VisibilityController {
  *
  * Usage:
  *
- * 		<div
- *      v-visibility-observer
- *     >
- * 		</div>
+ * <div
+ *   v-visibility-observer
+ * >
+ * </div>
  *
  */
 export default Vue.directive('visibility-observer', {
   resizing: false,
-  bind(el, binding, vnode) {
+  bind(el: HTMLElement, binding: DirectiveBinding, vnode: VNode) {
     const ctrl = new VisibilityController(vnode, el);
-    el.__visibility__ = ctrl;
-    if (binding?.value?.on) {
-      ctrl.runCheck(binding?.value?.timeout ?? 1000);
+    (el as unknown as { __visibility__: VisibilityController }).__visibility__ = ctrl;
+    const b = binding as { value: { on: boolean; timeout: number } };
+    if (b?.value?.on) {
+      ctrl.runCheck(b?.value?.timeout ?? 1000);
     }
   },
-  unbind(el: any) {
-    const ctrl = el.__visibility__;
+  unbind(el: HTMLElement) {
+    const ctrl = (el as unknown as { __visibility__: VisibilityController }).__visibility__;
     ctrl.stopCheck();
   },
 });
-
-/*@Directive({ selector: '[visibilityObserver]' })
-export class VisibilityDirective implements OnInit, OnDestroy {
-
-  @HostBinding('class.visible') 
-  isVisible: boolean = false;
-
-  @Output() visible: EventEmitter<any> = new EventEmitter();
-
-  timeout: any;
-
-  constructor(private element: ElementRef, private zone: NgZone) { }
-
-  ngOnInit(): void {
-    this.runCheck();
-  }
-
-  ngOnDestroy(): void {
-    clearTimeout(this.timeout);
-  }
-
-  onVisibilityChange(): void {
-    // trigger zone recalc for columns
-    this.zone.run(() => {
-      this.isVisible = true;
-      this.visible.emit(true);
-    });
-  }
-
-  runCheck(): void {
-    const check = () => {
-      // https://davidwalsh.name/offsetheight-visibility
-      const { offsetHeight, offsetWidth } = this.element.nativeElement;
-
-      if (offsetHeight && offsetWidth) {
-        clearTimeout(this.timeout);
-        this.onVisibilityChange();
-      } else {
-        clearTimeout(this.timeout);
-        this.zone.runOutsideAngular(() => {
-          this.timeout = setTimeout(() => check(), 50);
-        });
-      }
-    };
-
-    this.timeout = setTimeout(() => check());
-  }
-
-}*/

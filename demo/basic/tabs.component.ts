@@ -34,6 +34,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
           <h4>hidden Table</h4>
           <ngx-datatable
             class="material"
+            :visibilityCheck="true"
             :rows="rows"
             columnMode="force"
             :headerHeight="50"
@@ -68,7 +69,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
 })
 export default class TabsDemoComponent extends Vue {
 
-  rows = [];
+  rows: Array<Record<string, unknown>> = [];
 
   tab1 = true;
   tab2 = false;
@@ -80,7 +81,7 @@ export default class TabsDemoComponent extends Vue {
     });
   }
 
-  fetch(cb) {
+  fetch(cb: ( data: Array<Record<string, unknown>>) => void) {
     const req = new XMLHttpRequest();
     req.open('GET', `assets/data/100k.json`);
 

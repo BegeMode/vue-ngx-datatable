@@ -35,17 +35,17 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
 })
 export default class RowCssComponent extends Vue {
 
-  rows = [];
+  rows: Array<Record<string, unknown>> = [];
   expanded = {};
   timeout: any;
 
   created() {
-    this.fetch((data) => {
+    this.fetch((data: Array<Record<string, unknown>>) => {
       this.rows = data;
     });
   }
 
-  fetch(cb) {
+  fetch(cb: (data: Array<Record<string, unknown>>) => void) {
     const req = new XMLHttpRequest();
     req.open('GET', `assets/data/100k.json`);
 
@@ -57,13 +57,13 @@ export default class RowCssComponent extends Vue {
     req.send();
   }
 
-  getRowClass(row) {
+  getRowClass(row: { age: number }) {
     return {
       'age-is-ten': (row.age % 10) === 0
     };
   }
 
-  getCellClass({ row, column, value }): any {
+  getCellClass({ row, column, value }: { row: Record<string, unknown>; column: unknown; value: string }): Record<string, unknown> {
     return {
       'is-female': value === 'female'
     };

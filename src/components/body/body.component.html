@@ -1,96 +1,102 @@
 <div :style="styleObject" class="datatable-body">
-<datatable-selection
-ref="selector"
-:selected="selected"
-:checked="checked"
-:rows="rows"
-:pageSize="pageSize"
-:selectCheck="selectCheck"
-:selectEnabled="selectEnabled"
-:selectionType="selectionType"
-:checkMode="checkMode"
-:rowIdentity="rowIdentity"
-:scroller="scroller"
-:bodyHeight="bodyHeight"
-@select="onSelect"
-@check="$emit('check', $event)"
-@activate="$emit('activate', $event)">
-<datatable-progress
-  v-if="loadingIndicator">
-</datatable-progress>
-<datatable-scroller ref="scroller"
-  :scrollbarV="scrollbarV"
-  :scrollbarH="scrollbarH"
-  :scrollHeight="scrollHeight"
-  :scrollWidth="scrollWidth"
-  @setup="onScrollSetup"
-  @scroll="onBodyScroll">
-  <datatable-summary-row class="datatable-summary-row"
-    v-if="summaryRow && summaryPosition === 'top'"
-    :rowHeight="summaryHeight"
-    :offsetX="offsetX"
-    :innerWidth="innerWidth"
+  <datatable-selection
+    ref="selector"
+    :selected="selected"
+    :checked="checked"
     :rows="rows"
-    :columns="columns"
-    :columnsByPin="columnsByPin"
-    :columnGroupWidths="columnGroupWidths"
-    :groupStyles="getGroupStyles"
-    :slots=cellSlots>
-  </datatable-summary-row>
-  <datatable-row-wrapper 
-    v-for="(rowContext, i) of rowContexts" :key="i"
-    :styleObject="getRowWrapperStyles(rowContext)"
-    :groupRowsBy="groupRowsBy"
-    :groupLevel="0"
-    :row="rowContext.row"
+    :pageSize="pageSize"
+    :selectCheck="selectCheck"
+    :selectEnabled="selectEnabled"
+    :selectionType="selectionType"
+    :checkMode="checkMode"
     :rowIdentity="rowIdentity"
-    :innerWidth="innerWidth"
-    :rowDetail="rowDetail"
-    :groupHeader="groupHeader"
-    :offsetX="offsetX"
-    :groupRowHeight="groupRowHeight"
-    :rowDetailHeight="getDetailRowHeight(rowContext.row)"
-    :expanded="rowContext.expanded"
-    :rowIndex="rowContext.rowIndex"
-    :groupHeaderSlot="groupHeaderSlot"
-    :rowDetailSlot="rowDetailSlot"
-    @group-toggle="onGroupToggle"
-    @row-contextmenu="$emit('rowContextmenu')">
-    <datatable-body-row
-      tabindex="-1"
-      :columnsByPin="columnsByPin"
-      :columnGroupWidths="columnGroupWidths"
-      :groupStyles="getGroupStyles"
-      :rowClass="rowClass"
-      :row="rowContext.row"
-      :rowContext="rowContext"
-      :displayCheck="displayCheck"
-      :slots="cellSlots"
-      :renderTracking="renderTracking"
-      @tree-action="onTreeAction($event)"
-      @activate="onActivate($event, i)"
-      @row-created="onRowRendered"
-      @row-updated="onRowRendered">
-    </datatable-body-row>
-  </datatable-row-wrapper>
-  <datatable-summary-row class="datatable-summary-row"
-    v-if="summaryRow && summaryPosition === 'bottom'"
-    :style="getBottomSummaryRowStyles"
-    :rowHeight="summaryHeight"
-    :offsetX="offsetX"
-    :innerWidth="innerWidth"
-    :rows="rows"
-    :columns="columns"
-    :columnsByPin="columnsByPin"
-    :columnGroupWidths="columnGroupWidths"
-    :groupStyles="getGroupStyles"
-    :slots=cellSlots>
-  </datatable-summary-row>
-</datatable-scroller>
-<div
-  class="empty-row"
-  v-if="(!rows || !rows.length) && !loadingIndicator"
-  v-html="emptyMessage">
-</div>
-</datatable-selection>
+    :scroller="scroller"
+    :bodyHeight="bodyHeight"
+    @select="onSelect"
+    @check="$emit('check', $event)"
+    @activate="$emit('activate', $event)"
+  >
+    <datatable-progress v-if="loadingIndicator"> </datatable-progress>
+    <datatable-scroller
+      ref="scroller"
+      :scrollbarV="scrollbarV"
+      :scrollbarH="scrollbarH"
+      :scrollHeight="scrollHeight"
+      :scrollWidth="scrollWidth"
+      @setup="onScrollSetup"
+      @scroll="onBodyScroll"
+    >
+      <datatable-summary-row
+        class="datatable-summary-row"
+        v-if="summaryRow && summaryPosition === 'top'"
+        :rowHeight="summaryHeight"
+        :offsetX="offsetX"
+        :innerWidth="innerWidth"
+        :rows="rows"
+        :columns="columns"
+        :columnsByPin="columnsByPin"
+        :columnGroupWidths="columnGroupWidths"
+        :groupStyles="getGroupStyles"
+        :slots="cellSlots"
+      >
+      </datatable-summary-row>
+      <datatable-row-wrapper
+        v-for="(rowContext, i) of rowContexts"
+        :key="i"
+        :styleObject="getRowWrapperStyles(rowContext)"
+        :groupRowsBy="groupRowsBy"
+        :groupLevel="0"
+        :row="rowContext.row"
+        :rowIdentity="rowIdentity"
+        :innerWidth="innerWidth"
+        :rowDetail="rowDetail"
+        :groupHeader="groupHeader"
+        :offsetX="offsetX"
+        :groupRowHeight="groupRowHeight"
+        :groupHeaderStyles="groupHeaderStyles"
+        :groupHeaderClasses="groupHeaderClasses"
+        :rowDetailHeight="getDetailRowHeight(rowContext.row)"
+        :expanded="rowContext.expanded"
+        :rowIndex="rowContext.rowIndex"
+        :groupHeaderSlot="groupHeaderSlot"
+        :rowDetailSlot="rowDetailSlot"
+        @group-toggle="onGroupToggle"
+        @row-contextmenu="$emit('rowContextmenu')"
+      >
+        <datatable-body-row
+          tabindex="-1"
+          :columnsByPin="columnsByPin"
+          :columnGroupWidths="columnGroupWidths"
+          :groupStyles="getGroupStyles"
+          :rowClass="rowClass"
+          :row="rowContext.row"
+          :rowContext="rowContext"
+          :displayCheck="displayCheck"
+          :slots="cellSlots"
+          :renderTracking="renderTracking"
+          @tree-action="onTreeAction($event)"
+          @activate="onActivate($event, i)"
+          @row-created="onRowRendered"
+          @row-updated="onRowRendered"
+        >
+        </datatable-body-row>
+      </datatable-row-wrapper>
+      <datatable-summary-row
+        class="datatable-summary-row"
+        v-if="summaryRow && summaryPosition === 'bottom'"
+        :style="getBottomSummaryRowStyles"
+        :rowHeight="summaryHeight"
+        :offsetX="offsetX"
+        :innerWidth="innerWidth"
+        :rows="rows"
+        :columns="columns"
+        :columnsByPin="columnsByPin"
+        :columnGroupWidths="columnGroupWidths"
+        :groupStyles="getGroupStyles"
+        :slots="cellSlots"
+      >
+      </datatable-summary-row>
+    </datatable-scroller>
+    <div class="empty-row" v-if="(!rows || !rows.length) && !loadingIndicator" v-html="emptyMessage"></div>
+  </datatable-selection>
 </div>

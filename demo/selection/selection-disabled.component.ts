@@ -47,9 +47,9 @@ import DatatableComponent from '../../src/components/datatable.component.vue';
 })
 export default class MultiDisableSelectionComponent extends Vue {
 
-  rows = [];
+  rows: Array<Record<string, unknown>> = [];
 
-  selected = [];
+  selected: Array<Record<string, unknown>> = [];
 
   columns: any[] = [
     { prop: 'name'} , 
@@ -58,12 +58,12 @@ export default class MultiDisableSelectionComponent extends Vue {
   ];
 
   created() {
-    this.fetch((data) => {
+    this.fetch((data: Array<Record<string, unknown>>) => {
       this.rows = data;
     });
   }
 
-  fetch(cb) {
+  fetch(cb: (data: Array<Record<string, unknown>>) => void) {
     const req = new XMLHttpRequest();
     req.open('GET', `assets/data/company.json`);
 
@@ -74,18 +74,18 @@ export default class MultiDisableSelectionComponent extends Vue {
     req.send();
   }
 
-  onSelect({ selected }) {
+  onSelect({ selected }: { selected: Array<Record<string, unknown>> }) {
     console.log('Select Event', selected, this.selected);
 
     this.selected.splice(0, this.selected.length);
     this.selected.push(...selected);
   }
 
-  onActivate(event) {
+  onActivate(event: Record<string, unknown>) {
     console.log('Activate Event', event);
   }
 
-  checkSelectable(event) {
+  checkSelectable(event: Record<string, unknown>) {
     console.log('Checking if selectable', event);
     return event.name !== 'Ethel Price';
   }

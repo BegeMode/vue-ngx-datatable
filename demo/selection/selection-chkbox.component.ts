@@ -67,16 +67,16 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
 })
 export default class CheckboxSelectionComponent extends Vue {
 
-  rows = [];
-  selected = [];
+  rows: Array<Record<string, unknown>> = [];
+  selected: Array<Record<string, unknown>> = [];
 
   created() {
-    this.fetch((data) => {
+    this.fetch((data: Array<Record<string, unknown>>) => {
       this.rows = data;
     });
   }
 
-  fetch(cb) {
+  fetch(cb: (data: Array<Record<string, unknown>>) => void) {
     const req = new XMLHttpRequest();
     req.open('GET', `assets/data/company.json`);
 
@@ -87,14 +87,14 @@ export default class CheckboxSelectionComponent extends Vue {
     req.send();
   }
 
-  onSelect({ selected }) {
+  onSelect({ selected }: { selected: Array<Record<string, unknown>> }) {
     console.log('Select Event', selected, this.selected);
 
     this.selected.splice(0, this.selected.length);
     this.selected.push(...selected);
   }
 
-  onActivate(event) {
+  onActivate(event: Record<string, unknown>) {
     console.log('Activate Event', event);
   }
 
@@ -110,7 +110,7 @@ export default class CheckboxSelectionComponent extends Vue {
     this.selected = [];
   }
 
-  displayCheck(row) {
+  displayCheck(row: Record<string, unknown>) {
     return row.name !== 'Ethel Price';
   }
 }

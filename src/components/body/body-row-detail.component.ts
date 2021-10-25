@@ -1,33 +1,35 @@
-import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
+import { IGroupedRows } from 'types/grouped-rows';
+import { VNode } from 'vue';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component({
   template: `
-      <div style="padding-left:5px;">
-           <slot name="rowDetail" v-bind="{ row: row, expanded: expanded }">
-             <h3>detail row info</h3>
-           </slot>  
-      </div>
+    <div style="padding-left:5px;">
+      <slot name="rowDetail" v-bind="{ row: row, expanded: expanded }">
+        <h3>detail row info</h3>
+      </slot>
+    </div>
   `,
 })
 export default class DataTableBodyRowDetailComponent extends Vue {
-  @Prop({ default: 0 }) rowHeight: (number | ((group?: any, index?: number) => number));
-  @Prop() row: any;
+  @Prop({ default: 0 }) rowHeight: number | ((group?: IGroupedRows, index?: number) => number);
+  @Prop() row: Record<string, unknown>;
   @Prop() expanded: boolean;
-  @Prop() rowDetailSlot: any;
+  @Prop() rowDetailSlot: (obj: Record<string, unknown>) => VNode[];
 
-  created() {
+  created(): void {
     if (this.rowDetailSlot) {
-      this.$slots.rowDetail = this.rowDetailSlot({row: this.row, expanded: this.expanded});
+      this.$slots.rowDetail = this.rowDetailSlot({ row: this.row, expanded: this.expanded });
     }
   }
 
-  beforeUpdate() {
+  beforeUpdate(): void {
     if (this.rowDetailSlot) {
-      this.$slots.rowDetail = this.rowDetailSlot({row: this.row, expanded: this.expanded});
+      this.$slots.rowDetail = this.rowDetailSlot({ row: this.row, expanded: this.expanded });
     }
   }
 
-  toggleExpandGroup() {
+  toggleExpandGroup(): void {
     //
   }
 }

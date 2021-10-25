@@ -46,9 +46,9 @@ export default class SummaryRowServerPagingComponent extends Vue {
 
   columns = [
     // NOTE: cells for current page only !
-    { name: 'Name', summaryFunc: (cells) => `${cells.length} total` },
+    { name: 'Name', summaryFunc: (cells: Array<string>) => `${cells.length} total` },
     { name: 'Gender', summaryFunc: () => this.getGenderSummary() },
-    { name: 'Company', summaryFunc: () => null }
+    { name: 'Company', summaryFunc: (): string => null }
   ];
 
   created() {
@@ -64,7 +64,7 @@ export default class SummaryRowServerPagingComponent extends Vue {
    * Populate the table with new data based on the page number
    * @param page The page to select
    */
-  async setPage(pageInfo) {
+  async setPage(pageInfo: { offset: number }) {
     this.page.pageNumber = pageInfo.offset;
     const pagedData = await this.serverResultsService.getResults(this.page);
     this.page = pagedData.page;

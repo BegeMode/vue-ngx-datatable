@@ -1,6 +1,5 @@
 import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
 import DatatableComponent from '../../src/components/datatable.component.vue';
-import { TableColumn } from '../../src/types';
 import DataTableColumnComponent from '../../src/components/columns/column.component';
 
 @Component({
@@ -34,8 +33,8 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
         </vue-datatable-column>
         <vue-datatable-column name="Gender" width="300">
           <template slot-scope="scope" v-if="scope.row">
-            <strong>{{scope.row.name}}</strong>
-            <i v-html="scope.row.name"></i> and <i>{{scope.row.gender}}</i>
+            <!-- <strong>{{scope.row.name}}</strong> -->
+            <i v-html="scope.row.name"></i>&nbsp;and&nbsp;<i>{{scope.row.gender}}</i>
           </template>
         </vue-datatable-column>
         <vue-datatable-column name="Row Height" prop="height" width="80">
@@ -46,7 +45,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
 })
 export default class VirtualScrollComponent extends Vue {
 
-  rows = [];
+  rows: Array<Record<string, unknown>> = [];
   expanded = {};
   timeout: any;
 
@@ -56,14 +55,14 @@ export default class VirtualScrollComponent extends Vue {
     });
   }
 
-  onPage(event) {
+  onPage(event: unknown) {
     clearTimeout(this.timeout);
     this.timeout = setTimeout(() => {
       console.log('paged!', event);
     }, 100);
   }
 
-  fetch(cb) {
+  fetch(cb: ( data: Array<Record<string, unknown>>) => void) {
     const req = new XMLHttpRequest();
     req.open('GET', `assets/data/100k.json`);
 
@@ -80,7 +79,7 @@ export default class VirtualScrollComponent extends Vue {
     req.send();
   }
 
-  getRowHeight(row) {
+  getRowHeight(row: { height: number }) {
     return row.height;
   }
 

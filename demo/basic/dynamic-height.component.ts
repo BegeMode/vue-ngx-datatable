@@ -34,17 +34,17 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
 })
 export default class DynamicHeightComponent extends Vue {
 
-  rows = [];
+  rows: Array<Record<string, unknown>> = [];
   expanded = {};
   timeout: any;
 
   created() {
-    this.fetch((data) => {
+    this.fetch((data: Array<Record<string, unknown>>) => {
       this.rows = data;
     });
   }
 
-  fetch(cb) {
+  fetch(cb: (data: Array<Record<string, unknown>>) => void) {
     const req = new XMLHttpRequest();
     req.open('GET', `assets/data/100k.json`);
 
@@ -61,7 +61,7 @@ export default class DynamicHeightComponent extends Vue {
     req.send();
   }
 
-  getRowHeight(row) {
+  getRowHeight(row: Record<string, unknown>) {
     if(!row) return 50;
     if(row.height === undefined) return 50;
     return row.height;

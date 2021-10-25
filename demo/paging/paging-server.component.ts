@@ -55,7 +55,7 @@ export default class ServerPagingComponent extends Vue {
    * Populate the table with new data based on the page number
    * @param page The page to select
    */
-  async setPage(pageInfo) {
+  async setPage(pageInfo: { pageNumber?: number; offset: number }) {
     this.page.pageNumber = pageInfo.offset;
     const pagedData = await this.serverResultsService.getResults(this.page);
     this.page = pagedData.page;

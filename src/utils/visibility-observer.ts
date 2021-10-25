@@ -1,5 +1,5 @@
-export function checkVisibility(element: any, callback: any) {
-  let timeout: any;
+export function checkVisibility(element: HTMLElement, callback: () => void): void {
+  let timeout: number;
 
   function check() {
     // https://davidwalsh.name/offsetheight-visibility
@@ -12,7 +12,7 @@ export function checkVisibility(element: any, callback: any) {
       }
     } else {
       clearTimeout(timeout);
-      timeout = setTimeout(() => check(), 50);
+      timeout = setTimeout(() => check(), 50) as unknown as number;
     }
   }
 

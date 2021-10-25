@@ -1,41 +1,42 @@
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Prop, Vue } from 'vue-property-decorator';
 
 @Component({
   template: `
-  <div class="datatable-scroll" :style="styleObject">
-    <slot></slot>
-  </div>
+    <div class="datatable-scroll" :style="styleObject">
+      <slot></slot>
+    </div>
   `,
 })
 export default class ScrollerComponent extends Vue {
-
   @Prop({ type: Boolean, default: false }) scrollbarV: boolean;
   @Prop({ type: Boolean, default: false }) scrollbarH: boolean;
   @Prop() scrollHeight: number;
-  @Prop() scrollWidth: number;
+  @Prop() scrollWidth: string;
 
   fromPager = true;
 
-  get styleObject() {
+  get styleObject(): Record<string, unknown> {
     return {
-      height: this.scrollHeight + 'px',
-      width: this.scrollWidth + 'px',
+      height: this.scrollHeight ? `${this.scrollHeight}px` : null,
+      width: `${this.scrollWidth}px`,
+      position: 'relative',
+      transform: 'translateZ(0)',
     };
   }
 
-  scrollYPos: number = 0;
-  scrollXPos: number = 0;
-  prevScrollYPos: number = 0;
-  prevScrollXPos: number = 0;
-  parentElement: any;
-  onScrollListener: (event: MouseEvent) => void;
+  scrollYPos = 0;
+  scrollXPos = 0;
+  prevScrollYPos = 0;
+  prevScrollXPos = 0;
+  parentElement: Element;
+  // onScrollListener: (event: MouseEvent) => void;
   onInitScrollHandler: () => void;
-  scrollDirty = false;
+  // scrollDirty = false;
 
-  created() {
+  created(): void {
     this.$emit('setup', {
       scrollYPos: this.scrollYPos,
-      scrollXPos: this.scrollXPos
+      scrollXPos: this.scrollXPos,
     });
   }
 
@@ -45,22 +46,23 @@ export default class ScrollerComponent extends Vue {
       // const renderer = this.renderer;
       this.parentElement = this.$el.closest('.datatable-body');
       // .parentElement; //  renderer.parentNode(renderer.parentNode(this.element));
-      this.onScrollListener = this.onScrolled.bind(this);
-      this.parentElement.addEventListener('scroll', this.onScrollListener, {
-        passive: true,
-      });
-      this.onInitScrollHandler = this.onInitScroll.bind(this);
+      // this.onScrollListener = this.onScrolled.bind(this) as (event: MouseEvent) => void;
+      // this.parentElement.addEventListener('scroll', this.onScrollListener, {
+      //   passive: true,
+      // });
+      this.onInitScrollHandler = this.onInitScroll.bind(this) as () => void;
       'mousedown DOMMouseScroll mousewheel wheel touchstart keyup'.split(' ').forEach(event => {
         this.parentElement.addEventListener(event, this.onInitScrollHandler, {
           passive: true,
         });
       });
+      this.tick();
     }
   }
 
   beforeDestroy(): void {
     if (this.scrollbarV || this.scrollbarH) {
-      this.parentElement.removeEventListener('scroll', this.onScrollListener);
+      // this.parentElement.removeEventListener('scroll', this.onScrollListener);
       'mousedown DOMMouseScroll mousewheel wheel touchstart keyup'.split(' ').forEach(event => {
         this.parentElement.removeEventListener(event, this.onInitScrollHandler);
       });
@@ -80,24 +82,44 @@ export default class ScrollerComponent extends Vue {
     }
   }
 
-  onInitScroll() {
+  onInitScroll(): void {
     this.fromPager = false;
   }
 
-  onScrolled(event: MouseEvent): void {
+  // onScrolled(event: MouseEvent): void {
+  //   if (this.scrollbarV || this.scrollbarH) {
+  //     if (!this.scrollDirty) {
+  //       this.scrollDirty = true;
+  //       const dom: Element = <Element>event.currentTarget;
+  //       requestAnimationFrame(() => {
+  //         this.scrollYPos = dom.scrollTop;
+  //         this.scrollXPos = dom.scrollLeft;
+  //         this.updateOffset();
+  //         this.scrollDirty = false;
+  //       });
+  //     } else {
+  //       // eslint-disable-next-line no-console
+  //       console.log('this.scrollDirty is true');
+  //     }
+  //   }
+  // }
+
+  tick(): void {
+    requestAnimationFrame(() => this.tick());
+    // this.loading = Boolean(this.scrollTo !== ScrollTo.None);
     if (this.scrollbarV || this.scrollbarH) {
-      if (!this.scrollDirty) {
-        this.scrollDirty = true;
-        const dom: Element = <Element>event.currentTarget;
-        requestAnimationFrame(() => {
-          this.scrollYPos = dom.scrollTop;
-          this.scrollXPos = dom.scrollLeft;
-          this.updateOffset();
-          this.scrollDirty = false;
-        });
-      } else {
-        console.log('this.scrollDirty is true');
+      const list: Element = this.parentElement; // this.$refs.list as HTMLElement;
+      if (!list) {
+        return;
       }
+      const scrollTop = list.scrollTop;
+      const scrollLeft = list.scrollLeft;
+      if (this.scrollYPos === scrollTop && this.scrollXPos === scrollLeft) {
+        return;
+      }
+      this.scrollYPos = scrollTop;
+      this.scrollXPos = scrollLeft;
+      this.updateOffset();
     }
   }
 
@@ -117,11 +139,10 @@ export default class ScrollerComponent extends Vue {
         direction,
         scrollYPos: this.scrollYPos,
         scrollXPos: this.scrollXPos,
-        fromPager: this.fromPager
+        fromPager: this.fromPager,
       });
     }
     this.prevScrollYPos = this.scrollYPos;
     this.prevScrollXPos = this.scrollXPos;
   }
-
 }

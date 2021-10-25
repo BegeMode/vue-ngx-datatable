@@ -37,9 +37,9 @@ import DatatableComponent from '../../src/components/datatable.component.vue';
 })
 export default class FilterBarComponent extends Vue {
 
-  rows = [];
+  rows: Array<Record<string, string>> = [];
 
-  temp = [];
+  temp: Array<Record<string, string>> = [];
 
   columns = [
     { prop: 'name' },
@@ -49,7 +49,7 @@ export default class FilterBarComponent extends Vue {
   table: any; // DatatableComponent;
 
   created() {
-    this.fetch((data) => {
+    this.fetch((data: Array<Record<string, string>>) => {
       // cache our list
       this.temp = [...data];
 
@@ -62,7 +62,7 @@ export default class FilterBarComponent extends Vue {
     this.table = this.$refs.table;
   }
 
-  fetch(cb) {
+  fetch(cb: (data: Array<Record<string, string>>) => void) {
     const req = new XMLHttpRequest();
     req.open('GET', `assets/data/company.json`);
 
@@ -73,8 +73,8 @@ export default class FilterBarComponent extends Vue {
     req.send();
   }
 
-  updateFilter(event) {
-    const val = event.target.value.toLowerCase();
+  updateFilter(event: KeyboardEvent) {
+    const val = (event.target as unknown as { value: string }).value.toLowerCase();
 
     // filter our data
     const temp = this.temp.filter(function(d) {

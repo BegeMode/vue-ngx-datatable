@@ -1,46 +1,58 @@
-import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
-import { TableColumnProp, TableColumn } from '../../types';
+import DatatableComponent from 'components/datatable.component';
+import { TableColumn, TableColumnProp, TComparator } from 'types/table-column.type';
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 
 @Component({
   template: `
     <div>
       <slot name="header" v-bind="{column: column}">
-      <!-- default content -->
+        <!-- default content -->
         {{ name }}
       </slot>
       <!-- default slot for cell -->
-      <slot>
-      </slot>
-    </div>`
+      <slot> </slot>
+    </div>
+  `,
 })
 export default class DataTableColumnComponent extends Vue {
-  
   @Prop() name: string;
   @Prop() prop: TableColumnProp;
-  @Prop() frozenLeft: any;
-  @Prop() frozenRight: any;
+  @Prop() frozenLeft: boolean;
+  @Prop() frozenRight: boolean;
   @Prop() flexGrow: number;
   @Prop() resizeable: boolean;
-  @Prop() comparator: any;
-  @Prop() pipe: any;
+  @Prop() comparator: TComparator;
   @Prop() sortable: boolean;
   @Prop() draggable: boolean;
-  @Prop() canAutoResize: boolean;
+  @Prop({ default: true }) canAutoResize: boolean;
   @Prop() minWidth: number;
   @Prop() width: number;
   @Prop() maxWidth: number;
   @Prop() checkboxable: boolean;
   @Prop() headerCheckboxable: boolean;
-  @Prop() headerClass: string | ((data: any) => string|any);
-  @Prop() cellClass: string | ((data: any) => string|any);
+  @Prop() headerClass: string | ((data: { column: TableColumn }) => string | Record<string, unknown>);
+  @Prop() cellClass:
+    | string
+    | Array<string>
+    | ((data: Record<string, unknown>) => string | Record<string, unknown>)
+    | Array<string | Array<string> | ((data: Record<string, unknown>) => string | Record<string, unknown>)>;
   @Prop() isTreeColumn: boolean;
   @Prop() treeLevelIndent: number;
-  @Prop() summaryFunc: (cells: any[]) => any;
+  @Prop() summaryFunc: (cells: unknown[]) => string;
   @Prop({ default: true }) visible: boolean;
 
   column: TableColumn = {};
 
-  mounted() {
+  @Watch('visible') onVisibleChanged(newVal: boolean): void {
+    this.column.visible = newVal;
+    (this.$parent as DatatableComponent).onColumnChangeVisible(this.column);
+  }
+
+  // @Watch('column.width') onWidthChanged(): void {
+  //   this.$emit('update-width', this.column.width);
+  // }
+
+  mounted(): void {
     this.$set(this.column, 'name', this.name);
     this.$set(this.column, 'prop', this.prop);
     this.$set(this.column, 'frozenLeft', this.frozenLeft);
@@ -63,7 +75,7 @@ export default class DataTableColumnComponent extends Vue {
       headerClasses.push(this.headerClass);
     } else if (typeof this.headerClass === 'function') {
       const res = this.headerClass({
-        column: this.column
+        column: this.column,
       });
       if (typeof res === 'string') {
         headerClasses.push(res);
@@ -76,6 +88,7 @@ export default class DataTableColumnComponent extends Vue {
         }
       }
     }
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
     for (let i = 0; i < this.$el.classList.length; i++) {
       const value = this.$el.classList[0];
       headerClasses.push(value);
@@ -90,6 +103,7 @@ export default class DataTableColumnComponent extends Vue {
     } else if (typeof this.cellClass === 'function') {
       cellClasses.push(this.cellClass);
     }
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
     for (let i = 0; i < this.$el.classList.length; i++) {
       const value = this.$el.classList[0];
       cellClasses.push(value);
@@ -100,25 +114,12 @@ export default class DataTableColumnComponent extends Vue {
     this.$set(this.column, 'treeLevelIndent', this.treeLevelIndent);
     this.$set(this.column, 'summaryFunc', this.summaryFunc);
     this.$set(this.column, 'headerTemplate', this.$scopedSlots.header);
+    this.$set(this.column, 'headerAppendTemplate', this.$scopedSlots.headerAppend);
     this.$set(this.column, 'cellTemplate', this.$scopedSlots.default);
     this.$set(this.column, 'summaryTemplate', this.$scopedSlots.summary);
     this.$set(this.column, 'visible', this.visible);
 
     // todo: select any way to pass column to datatable // this.$emit('insert-column', column);
-    (this.$parent as any).onColumnInsert(this.column);
+    (this.$parent as DatatableComponent).onColumnInsert(this.column);
   }
-  
-  destroyed() {
-    (this.$parent as any).onColumnRemoved(this.column);
-  }
-
-  @Watch('visible') onVisibleChanged(newVal) {
-    this.column.visible = newVal;
-    (this.$parent as any).onColumnChangeVisible(this.column);
-  }
-
-  @Watch('column.width') onWidthChanged() {
-    this.$emit('update-width', this.column.width);
-  }
-
 }

@@ -11,7 +11,7 @@
     "pretty": true,
     "allowUnreachableCode": true,
     "allowUnusedLabels": true,
-    "noImplicitAny": false,
+    "noImplicitAny": true,
     "noImplicitReturns": false,
     "noImplicitUseStrict": false,
     "noFallthroughCasesInSwitch": false,
@@ -23,11 +23,10 @@
     "skipLibCheck": true,
     "baseUrl": "src",
     "paths": {
-      "*": [
-        "*"
-      ]
-    },
+      "*": ["*"]
+    }
   },
+  "exclude": ["src/components/body/functional/*"],
   "compileOnSave": false,
   "buildOnSave": false,
   "awesomeTypescriptLoaderOptions": {

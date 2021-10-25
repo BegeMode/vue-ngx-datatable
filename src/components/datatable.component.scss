@@ -1,6 +1,6 @@
 .ngx-datatable {
   display: block;
-  overflow:hidden;
+  overflow: hidden;
   justify-content: center;
   position: relative;
   -webkit-transform: translate3d(0, 0, 0);
@@ -16,7 +16,8 @@
       overflow-y: auto;
       flex: 1 1 auto;
     }
-    .datatable-header, .datatable-footer {
+    .datatable-header,
+    .datatable-footer {
       flex: none;
     }
   }
@@ -36,7 +37,9 @@
     z-index: -1;
   }
 
-  *, *:before, *:after {
+  *,
+  *:before,
+  *:after {
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
@@ -47,24 +50,23 @@
    */
   &.scroll-vertical {
     .datatable-body {
-      overflow-y:auto;
+      overflow-y: auto;
     }
     &.virtualized {
       .datatable-body {
-       .datatable-row-wrapper {
+        .datatable-row-wrapper {
           position: absolute;
         }
       }
     }
   }
 
-
   /**
    * Horizontal Scrolling Adjustments
    */
   &.scroll-horz {
     .datatable-body {
-      overflow-x:auto;
+      overflow-x: auto;
       -webkit-overflow-scrolling: touch;
     }
   }
@@ -74,9 +76,9 @@
    */
   &.fixed-header {
     .datatable-header {
-      .datatable-header-inner{
+      .datatable-header-inner {
         white-space: nowrap;
-        .datatable-header-cell{
+        .datatable-header-cell {
           white-space: nowrap;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -89,9 +91,9 @@
    * Fixed row height adjustments
    */
   &.fixed-row {
-    .datatable-scroll{
+    .datatable-scroll {
       white-space: nowrap;
-      
+
       .datatable-body-row {
         white-space: nowrap;
 
@@ -105,8 +107,7 @@
           overflow: hidden;
           white-space: nowrap;
           text-overflow: ellipsis;
-        }      
-        
+        }
       }
     }
   }
@@ -135,7 +136,7 @@
   .datatable-header-cell {
     overflow-x: hidden;
     vertical-align: top;
-    display: inline-block;
+    display: inline-flex;
     line-height: 1.625;
 
     &:focus {
@@ -149,7 +150,6 @@
     &-bold {
       font-weight: bold;
     }
-
   }
 
   .datatable-row-left,
@@ -161,7 +161,7 @@
   .datatable-row-center,
   .datatable-row-group,
   .datatable-row-right {
-    position:relative;
+    position: relative;
   }
 
   /**
@@ -171,14 +171,14 @@
     // display: block;
     overflow: hidden;
 
-    .datatable-header-inner{
+    .datatable-header-inner {
       align-items: stretch;
       -webkit-align-items: stretch;
     }
 
     .datatable-header-cell {
       position: relative;
-      display: inline-block;
+      display: inline-flex;
       user-select: none;
 
       &.sortable {
@@ -191,16 +191,21 @@
         cursor: move;
       }
 
+      .sort-btn {
+        margin-left: auto;
+      }
+
       .sort-btn::before {
         line-height: 100%;
         vertical-align: middle;
         display: inline-block;
         cursor: pointer;
         font-size: 1.25rem;
-        margin-right: -7px
+        margin-right: -7px;
       }
 
-      .resize-handle, .resize-handle--not-resizable {
+      .resize-handle,
+      .resize-handle--not-resizable {
         display: inline-block;
         position: absolute;
         right: 0;
@@ -215,8 +220,12 @@
         cursor: ew-resize;
       }
 
+      &.resizeable {
+        flex-shrink: 0;
+      }
+
       &.resizeable:hover {
-        .resize-handle{
+        .resize-handle {
           visibility: visible;
         }
       }
@@ -241,13 +250,13 @@
         }
 
         & .icon {
-          position:absolute;
+          position: absolute;
         }
-        
+
         & .datatable-icon-down {
           top: 0px;
         }
-        
+
         & .datatable-icon-up {
           top: 35px;
         }
@@ -267,7 +276,7 @@
     z-index: 10;
     display: block;
 
-    .datatable-scroll{
+    .datatable-scroll {
       display: inline-block;
     }
 
@@ -292,7 +301,7 @@
     }
 
     .datatable-body-row {
-      outline:none;
+      outline: none;
 
       > div {
         display: -webkit-box;
@@ -327,11 +336,11 @@
       }
     }
 
-    .page-count{
+    .page-count {
       flex: 1 1 20%;
     }
 
-    .datatable-pager{
+    .datatable-pager {
       flex: 1 1 80%;
       text-align: right;
 
@@ -344,7 +353,8 @@
       }
 
       .pager {
-        li, li a{
+        li,
+        li a {
           outline: none;
         }
 

@@ -6,13 +6,14 @@
         <a
           href="https://github.com/begemode/vue-ngx-datatable/blob/master/demo/paging/scrolling-server.component.ts"
           target="_blank"
-        >Source</a>
+          >Source</a
+        >
       </small>
     </h3>
     <ngx-datatable
       class="material server-scrolling-demo"
       :rows="rows"
-      :columns="[{name:'Name'},{name:'Gender'},{name:'Company'}]"
+      :columns="[{ name: 'Name' }, { name: 'Gender' }, { name: 'Company' }]"
       columnMode="force"
       :headerHeight="headerHeight"
       :rowHeight="rowHeight"
@@ -24,11 +25,11 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
-import DatatableComponent from "../../src/components/datatable.component.vue";
-import { CorporateEmployee } from "./model/corporate-employee";
+import { Component, Vue } from 'vue-property-decorator';
+import DatatableComponent from '../../src/components/datatable.component.vue';
+import { CorporateEmployee } from './model/corporate-employee';
 
-const companyData = require("../../assets/data/company.json");
+const companyData = require('../../assets/data/company.json');
 
 class PagedData<T> {
   data: T[];
@@ -38,15 +39,10 @@ class PagedData<T> {
  * A server used to mock a paged data result from a server
  */
 export class MockServerResultsService {
-  public getResults(
-    offset: number,
-    limit: number
-  ): Promise<PagedData<CorporateEmployee>> {
+  public getResults(offset: number, limit: number): Promise<PagedData<CorporateEmployee>> {
     const result = companyData.slice(offset, offset + limit);
-    let resolveFunc;
-    const promise = new Promise<PagedData<CorporateEmployee>>(
-      resolve => (resolveFunc = resolve)
-    );
+    let resolveFunc: (data: PagedData<CorporateEmployee>) => void;
+    const promise = new Promise<PagedData<CorporateEmployee>>(resolve => (resolveFunc = resolve));
     setTimeout(() => resolveFunc({ data: result }), 2000);
     return promise;
   }
@@ -55,8 +51,8 @@ export class MockServerResultsService {
 @Component({
   name: 'server-scrolling-demo',
   components: {
-    'ngx-datatable': DatatableComponent
-  }
+    'ngx-datatable': DatatableComponent,
+  },
 })
 export default class ServerScrollingComponent extends Vue {
   readonly headerHeight = 50;
@@ -73,14 +69,10 @@ export default class ServerScrollingComponent extends Vue {
 
   onScroll(offsetY: number) {
     // total height of all rows in the viewport
-    const viewHeight =
-      this.$el.getBoundingClientRect().height - this.headerHeight;
+    const viewHeight = this.$el.getBoundingClientRect().height - this.headerHeight;
 
     // check if we scrolled to the end of the viewport
-    if (
-      !this.isLoading &&
-      offsetY + viewHeight >= this.rows.length * this.rowHeight
-    ) {
+    if (!this.isLoading && offsetY + viewHeight >= this.rows.length * this.rowHeight) {
       // total number of results to load
       let limit = this.pageLimit;
 
@@ -111,12 +103,12 @@ export default class ServerScrollingComponent extends Vue {
 }
 </script>
 <style lang="scss">
-  .server-scrolling-demo {
-    height: calc(100vh - 110px) !important;
-  }
+.server-scrolling-demo {
+  height: calc(100vh - 110px) !important;
+}
 
-  .server-scrolling-demo .progress-linear {
-    position: fixed !important;
-    bottom: 0px;
-  }
+.server-scrolling-demo .progress-linear {
+  position: fixed !important;
+  bottom: 0px;
+}
 </style>

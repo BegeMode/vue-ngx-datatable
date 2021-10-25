@@ -29,7 +29,7 @@ import DatatableComponent from '../../src/components/datatable.component.vue';
 })
 export default class SortingComparatorComponent extends Vue {
 
-  rows = [];
+  rows: Array<Record<string, unknown>> = [];
 
   columns = [
     { name: 'Company', comparator: this.companyComparator.bind(this) },
@@ -38,12 +38,12 @@ export default class SortingComparatorComponent extends Vue {
   ];
 
   created() {
-    this.fetch((data) => {
+    this.fetch((data: Array<Record<string, unknown>>) => {
       this.rows = data;
     });
   }
 
-  fetch(cb) {
+  fetch(cb: (data: Array<Record<string, unknown>>) => void) {
     const req = new XMLHttpRequest();
     req.open('GET', `assets/data/company.json`);
 
@@ -55,7 +55,7 @@ export default class SortingComparatorComponent extends Vue {
     req.send();
   }
 
-  companyComparator(propA, propB) {
+  companyComparator(propA: string, propB: string) {
     console.log('Sorting Comparator', propA, propB);
 
     // Just a simple sort function comparisoins

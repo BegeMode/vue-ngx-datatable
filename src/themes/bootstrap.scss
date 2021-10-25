@@ -25,7 +25,7 @@ bootstrap table theme
       }
       &.active {
         background-color: #1483ff;
-        color: #FFF;
+        color: #fff;
       }
       .datatable-body-cell {
         padding: 0.75rem;
@@ -92,8 +92,8 @@ bootstrap table theme
   }
   // Summary row styles
   .datatable-summary-row.datatable-body-row {
-      .datatable-body-cell {
-	      font-weight: bold;
-      }
+    .datatable-body-cell {
+      font-weight: bold;
+    }
   }
 }

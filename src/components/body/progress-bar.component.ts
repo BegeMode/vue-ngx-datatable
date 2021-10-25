@@ -9,5 +9,4 @@ import { Component, Vue } from 'vue-property-decorator';
     </div>
   `,
 })
-export default class ProgressBarComponent extends Vue {
-}
+export default class ProgressBarComponent extends Vue {}

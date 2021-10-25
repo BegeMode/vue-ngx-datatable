@@ -72,15 +72,15 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
 export default class InlineEditComponent extends Vue {
 
   editing = {};
-  rows = [];
+  rows: Array<Record<string, unknown>> = [];
 
   created() {
-    this.fetch((data) => {
+    this.fetch((data: Array<Record<string, unknown>>) => {
       this.rows = data;
     });
   }
 
-  fetch(cb) {
+  fetch(cb: (data: Array<Record<string, unknown>>) => void) {
     const req = new XMLHttpRequest();
     req.open('GET', `assets/data/company.json`);
 
@@ -91,16 +91,16 @@ export default class InlineEditComponent extends Vue {
     req.send();
   }
 
-  dblclick(edit, rowIndex, prop, update) {
+  dblclick(edit: boolean, rowIndex: number, prop: string, update: () => void) {
     // this.editing[`${rowIndex}-${prop}`] = edit;
     this.$set(this.editing, `${rowIndex}-${prop}`, edit);
     update();
   }
 
-  updateValue(event, cell, rowIndex) {
+  updateValue(event: Event, cell: string, rowIndex: number) {
     console.log('inline editing rowIndex', rowIndex);
     this.editing[rowIndex + '-' + cell] = false;
-    this.rows[rowIndex][cell] = event.target.value;
+    this.rows[rowIndex][cell] = (event.target as unknown as { value: string }).value;
     this.rows = [...this.rows];
     console.log('UPDATED!', this.rows[rowIndex][cell]);
   }

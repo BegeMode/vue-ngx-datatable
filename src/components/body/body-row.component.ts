@@ -1,37 +1,37 @@
-import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
+import { IRowContext } from 'types/row-context.type';
+import { IColumnsByPinRecord, IColumnsWidth } from 'utils/column';
+import { VNode } from 'vue';
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import { TableColumn } from '../../types/table-column.type';
 import { Keys } from '../../utils/keys';
 import DataTableBodyCellComponent from './body-cell.component.vue';
-import { TableColumn } from '../../types/table-column.type';
-import { IRowContext } from 'types/row-context.type';
 
 @Component({
   components: {
     'datatable-body-cell': DataTableBodyCellComponent,
-  }
+  },
 })
 export default class DataTableBodyRowComponent extends Vue {
-  @Prop() row: any;
+  @Prop() row: Record<string, unknown>;
   @Prop() rowContext: IRowContext;
-  @Prop() group: any[];
-  @Prop() columnsByPin: any[];
-  @Prop() columnGroupWidths: any;
-  @Prop() groupStyles: any;
-  @Prop() rowClass: (row: any, rowIndex: number) => string | string;
-  @Prop() displayCheck: any; // (row: any, column?: TableColumn, value?: any) => boolean,
-  @Prop() slots: any;
+  @Prop() columnsByPin: IColumnsByPinRecord[];
+  @Prop() columnGroupWidths: IColumnsWidth;
+  @Prop() groupStyles: Record<string, string | number>;
+  @Prop() rowClass: (row: Record<string, unknown>, rowIndex: number) => string | string;
+  @Prop() displayCheck: (row: Record<string, unknown>, column?: TableColumn, value?: unknown) => boolean;
+  @Prop() slots: () => Record<string, (arg?: Record<string, unknown>) => VNode[]>;
   @Prop() renderTracking: boolean;
 
   counter = 0; // it's need to update cells after row's changing
-  isFocused: boolean = false;
+  isFocused = false;
 
-
-  created() {
+  created(): void {
     if (this.renderTracking) {
       this.$emit('row-created', this.row);
     }
   }
 
-  updated() {
+  updated(): void {
     if (this.renderTracking) {
       this.$emit('row-updated', this.row);
     }
@@ -47,19 +47,19 @@ export default class DataTableBodyRowComponent extends Vue {
   //   }
   // }
 
-  onCellRendered(column: TableColumn) {
+  onCellRendered(column: TableColumn): void {
     this.$emit('row-updated', this.row);
   }
 
-  onFocus() {
+  onFocus(): void {
     this.isFocused = true;
   }
 
-  onBlur() {
+  onBlur(): void {
     this.isFocused = false;
   }
 
-  onActivate(event: any, index: number): void {
+  onActivate(event: { cellIndex: number; rowElement: Element }, index: number): void {
     event.cellIndex = index;
     event.rowElement = this.$el;
     this.$emit('activate', event);
@@ -85,33 +85,33 @@ export default class DataTableBodyRowComponent extends Vue {
         event,
         row: this.row,
         rowIndex: this.rowContext.rowIndex,
-        rowElement: this.$el
+        rowElement: this.$el,
       });
     }
   }
 
-  onMouseenter(event: any): void {
+  onMouseenter(event: MouseEvent): void {
     this.$emit('activate', {
-        type: 'mouseenter',
-        event,
-        row: this.row,
-        rowElement: this.$el
-      });
+      type: 'mouseenter',
+      event,
+      row: this.row,
+      rowElement: this.$el,
+    });
   }
 
-  onTreeAction(event) {
+  onTreeAction(event: Event): void {
     this.$emit('tree-action', event);
   }
 
-  get styles(): object {
+  get styles(): Record<string, string> {
     if (this.rowContext) {
       return {
-        width: this.columnGroupWidths.total + 'px',
-        height: this.rowContext.rowHeight + 'px',
+        width: `${this.columnGroupWidths.total}px`,
+        height: `${this.rowContext.rowHeight}px`,
       };
     }
     return {
-      width: this.columnGroupWidths.total + 'px',
+      width: `${this.columnGroupWidths.total}px`,
     };
   }
 
@@ -132,11 +132,12 @@ export default class DataTableBodyRowComponent extends Vue {
       } else if (typeof res === 'object') {
         const keys = Object.keys(res);
         for (const k of keys) {
-          if (res[k] === true) cls += ` ${k}`;
+          if (res[k] === true) {
+            cls += ` ${k}`;
+          }
         }
       }
     }
     return cls;
   }
-
 }

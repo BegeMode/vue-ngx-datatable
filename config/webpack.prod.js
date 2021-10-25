@@ -1,12 +1,12 @@
 const webpack = require('webpack');
-const webpackMerge = require('webpack-merge');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { merge } = require('webpack-merge');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const commonConfig = require('./webpack.common');
 const { ENV, dir } = require('./helpers');
 
 module.exports = function(env) {
-  return webpackMerge(commonConfig({ env: ENV }), {
+  return merge(commonConfig({ env: ENV }), {
     devtool: 'source-map',
     mode: 'production',
     entry: {
@@ -17,28 +17,13 @@ module.exports = function(env) {
       exprContextCritical: false,
       rules: [
         {
-          enforce: 'pre',
-          test: /\.js$/,
-          loader: 'source-map-loader',
-          exclude: /(node_modules)/
-        },
-        {
-          enforce: 'pre',
-          test: /\.ts$/,
-          loader: 'tslint-loader',
-          exclude: /(node_modules|release|dist|demo)/
-        },
-        {
           test: /\.ts$/,
           loader: 'ts-loader',
           options: {
             appendTsSuffixTo: [/\.vue$/]
           },
-          exclude: [/\.(spec|e2e|d)\.ts$/]
-        },
-        {
-          test: /\.vue$/,
-          loader: 'vue-loader',
+          // exclude: [/\.(spec|e2e|d)\.ts$/]
+          exclude: /node_modules|\.(spec|e2e|d)\.ts$|vue\/src/,
         },
       ]
     },
@@ -46,18 +31,14 @@ module.exports = function(env) {
       new webpack.optimize.ModuleConcatenationPlugin(),
       new HtmlWebpackPlugin({
         template: 'demo/index.ejs',
-        chunksSortMode: 'dependency',
-        title: 'ngx-datatable',
+        chunksSortMode: 'auto',
+        title: 'vue-ngx-datatable',
         // googleAnalytics: {
         //   trackingId: 'UA-57474611-3',
         //   pageViewOnLoad: true
         // }
       }),
-      new CleanWebpackPlugin(['dist'], {
-        root: dir(),
-        verbose: false,
-        dry: false
-      }),
+      new CleanWebpackPlugin(),
       // new webpack.optimize.UglifyJsPlugin()
     ]
   });

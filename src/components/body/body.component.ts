@@ -1,20 +1,26 @@
-import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
-import { translateXY, columnsByPin, columnGroupWidths, RowHeightCache, columnsByPinArr, throttle } from '../../utils';
-import { SelectionType, TableColumn, SortDirection } from '../../types';
-import ScrollerComponent from './scroller.component';
-import DataTableSelectionComponent from './selection.component';
+import { TreeStatus } from 'components/body/body-cell.component';
+import { TGroupByField } from 'components/datatable.component';
+import { ScrollbarHelper } from 'services/scrollbar-helper.service';
+import { CheckMode } from 'types/check.type';
+import { IGroupedRows } from 'types/grouped-rows';
+import { IRowContext } from 'types/row-context.type';
+import { SelectionType } from 'types/selection.type';
+import { TableColumn } from 'types/table-column.type';
+import { columnGroupWidths, columnsByPin, columnsByPinArr, IColumnsByPinRecord, IColumnsWidth } from 'utils/column';
+import { RowHeightCache } from 'utils/row-height-cache';
+import { translateXY } from 'utils/translate';
+import { VNode } from 'vue';
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
+import DataTableBodyGroupHeaderComponent from './body-group-header.component';
+import DataTableBodyRowDetailComponent from './body-row-detail.component';
+import DataTableRowWrapperComponent from './body-row-wrapper.component.vue';
+import DataTableBodyRowComponent from './body-row.component.vue';
 import ProgressBarComponent from './progress-bar.component';
+import ScrollerComponent from './scroller.component';
+import DataTableSelectionComponent, { Model } from './selection.component';
 // import DataTableRowWrapperComponent from './body-row-wrapper.component.vue';
 // import DataTableBodyRowComponent from './body-row.component.vue';
 import DataTableSummaryRowComponent from './summary/summary-row.component';
-import { ScrollbarHelper } from '../../services/scrollbar-helper.service';
-import { IRowContext } from '../../types/row-context.type';
-import DataTableBodyGroupHeaderComponent from './body-group-header.component';
-import DataTableBodyRowDetailComponent from './body-row-detail.component';
-import { IGroupedRows } from '../../types/grouped-rows';
-import DataTableRowWrapperComponent from './body-row-wrapper.component.vue';
-import DataTableBodyRowComponent from './body-row.component.vue';
-import { CheckMode } from '../../types/check.type';
 
 @Component({
   components: {
@@ -26,128 +32,94 @@ import { CheckMode } from '../../types/check.type';
     'datatable-body-row': DataTableBodyRowComponent,
     'datatable-group-header': DataTableBodyGroupHeaderComponent,
     'datatable-row-detail': DataTableBodyRowDetailComponent,
-  }
+  },
 })
 export default class DataTableBodyComponent extends Vue {
   @Prop() scrollbarV: boolean;
   @Prop() scrollbarH: boolean;
   @Prop() loadingIndicator: boolean;
   @Prop() externalPaging: boolean;
-  @Prop() rowHeight: number | ((row?: any) => number);
-  @Prop() groupRowHeight: number | string;
+  @Prop() rowHeight: number | ((row: Record<string, unknown>, index?: number) => number);
+  @Prop() groupRowHeight: number | ((row: Record<string, unknown>, index?: number) => number);
+  @Prop() groupHeaderStyles: Record<string, string | number>;
+  @Prop() groupHeaderClasses: string | Array<string>;
   @Prop() offsetX: number;
   @Prop() emptyMessage: string;
   @Prop() selectionType: SelectionType;
   @Prop() checkMode: CheckMode;
-  @Prop({ type: Array, default: () => [] }) selected: any[];
-  @Prop({ type: Array, default: () => [] }) checked: any[];
-  @Prop() rowIdentity: (row: any) => any;
+  @Prop({ type: Array, default: () => [] as Array<Record<string, unknown>> }) selected: Array<Record<string, unknown>>;
+  @Prop({ type: Array, default: () => [] as Array<Record<string, unknown>> }) checked: Array<Record<string, unknown>>;
+  @Prop() rowIdentity: (row: Record<string, unknown>) => string | number;
   @Prop() rowDetail: boolean;
-  @Prop() rowDetailHeight: number | string | ((row?: any, index?: any) => number);
-  @Prop() groupHeader: any;
-  @Prop() selectCheck: any;
-  @Prop() displayCheck: any;
+  @Prop() rowDetailHeight: number | string | ((row?: Record<string, unknown>, index?: number) => number);
+  @Prop() groupHeader: boolean;
+  @Prop() selectCheck: () => void;
+  @Prop() displayCheck: (row: Record<string, unknown>, column?: TableColumn, value?: unknown) => boolean;
   @Prop() trackByProp: string;
-  @Prop() rowClass: (row: any, rowIndex: number) => string | string;
+  @Prop() rowClass: (row: Record<string, unknown>, rowIndex: number) => string | string;
   // @Prop() groupedRows: any;
   @Prop() groupExpansionDefault: boolean;
   @Prop() innerWidth: number;
-  @Prop() groupRowsBy: string;
+  @Prop() groupRowsBy: Array<TGroupByField | Array<TGroupByField>>;
   @Prop() virtualization: boolean;
   @Prop() summaryRow: boolean;
   @Prop() summaryPosition: string;
   @Prop() summaryHeight: number | string;
   @Prop() pageSize: number;
   @Prop() limit: number;
-  @Prop() rows: any[];
+  @Prop() rows: Record<string, unknown>[];
   @Prop() columns: TableColumn[];
   @Prop() offset: number;
-  @Prop() rowCount: number;
-  @Prop() bodyHeight: number;
+  @Prop({ default: 0 }) rowCount: number;
+  @Prop({ default: 0 }) bodyHeight: number;
   @Prop({ type: [Number, String], default: null }) minItemHeight: number | string;
   @Prop({ type: [String], default: 'height' }) heightField: string;
-  @Prop() groupHeaderSlot: any;
-  @Prop() rowDetailSlot: any;
+  @Prop() groupHeaderSlot: (obj: Record<string, unknown>) => VNode[];
+  @Prop() rowDetailSlot: (obj: Record<string, unknown>) => VNode[];
   @Prop() renderTracking: boolean;
 
-  scroller: any = null; // ScrollerComponent
-  selector: any = null; // DataTableSelectionComponent;
+  scroller: ScrollerComponent = null; // ScrollerComponent
+  selector: DataTableSelectionComponent = null; // DataTableSelectionComponent;
   rowHeightsCache: RowHeightCache = new RowHeightCache();
-  offsetY: number = 0;
-  myOffset: number = 0;
-  myOffsetX: number = 0;
-  indexes: any = {};
-  columnGroupWidths: any = null;
-  columnGroupWidthsWithoutGroup: any = null;
-  rowIndexes: any = new Map();
-  rowExpansions: any = new Map();
-  myBodyHeight: any = null;
-  columnsByPin: any = null;
+  offsetY = 0;
+  myOffset = 0;
+  myOffsetX = 0;
+  indexes: { first: number; last: number } = { first: 0, last: 0 };
+  columnGroupWidths: IColumnsWidth = null;
+  // columnGroupWidthsWithoutGroup = null;
+  rowIndexes = new Map<Record<string, unknown>, number>();
+  rowExpansions = new Map<Record<string, unknown> | IGroupedRows, boolean>();
+  myBodyHeight: string = null;
+  columnsByPin: IColumnsByPinRecord[] = null;
   groupStyles = {
     left: {},
     center: {},
-    right: {}
+    right: {},
   };
 
-  onBodyScrollHandler = throttle(this.onBodyScroll.bind(this), 10, { trailing: true });
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  // onBodyScrollHandler = throttle(this.onBodyScroll.bind(this), 10, { trailing: true });
 
-  rowTrackingFn: any;
-  listener: any;
+  rowTrackingFn: (row: Record<string, unknown>) => string | number;
   lastFirst: number;
   lastLast: number;
   lastRowCount: number;
   rowsChanged: boolean;
   rowContexts: Array<IRowContext> = [];
-  private scrollbarHelper = new ScrollbarHelper();
+  private readonly scrollbarHelper = new ScrollbarHelper();
   private renderCounter = 0;
-  private renderId = null;
+  private renderId: number = null;
 
-  // ready = false;
-  // startIndex = 0;
-  // endIndex = 0;
-  // length = 0;
-  // oldScrollTop = null;
-  // oldScrollBottom = null;
-  // offsetTop = 0;
-  // height = 0;
-
-  // @Output() scroll: EventEmitter<any> = new EventEmitter();
-  // @Output() page: EventEmitter<any> = new EventEmitter();
-  // @Output() activate: EventEmitter<any> = new EventEmitter();
-  // @Output() select: EventEmitter<any> = new EventEmitter();
-  // @Output() detailToggle: EventEmitter<any> = new EventEmitter();
-  // @Output() rowContextmenu = new EventEmitter<{ event: MouseEvent, row: any }>(false);
-  // @Output() treeAction: EventEmitter<any> = new EventEmitter();
-
-  /**
-   * Creates an instance of DataTableBodyComponent.
-   */
-  created() {
-    // declare fn here so we can get access to the `this` property
-    this.rowTrackingFn = (row: any): any => {
-      const idx = this.getRowIndex(row);
-      if (this.trackByProp) {
-        return `${idx}-${this.trackByProp}`;
-      } else {
-        return idx;
-      }
-    };
-  }
-
-  mounted() {
-    this.selector = this.$refs.selector;
-    this.scroller = this.$refs.scroller;
-  }
-
-  @Watch('pageSize') onPageSize() {
+  @Watch('pageSize') onPageSize(): void {
     this.recalcLayout();
   }
 
-  @Watch('rows', { immediate: true }) async onRowsChanged() {
+  @Watch('rows', { immediate: true }) async onRowsChanged(): Promise<void> {
     this.rowsChanged = true;
     this.rowExpansions.clear();
     // const updateOffset = this.rows && this.rows.length && this.offset || (!this.offset && this.offsetY);
-    const updateOffset = this.rows && this.rows.length && ((this.offset && !this.offsetY) || (!this.offset && this.offsetY));
+    const updateOffset =
+      this.rows && this.rows.length && ((this.offset && !this.offsetY) || (!this.offset && this.offsetY));
     if (updateOffset) {
       this.updateOffsetY(this.offset, true);
       await this.$nextTick();
@@ -170,7 +142,7 @@ export default class DataTableBodyComponent extends Vue {
   //   this.onRowsChanged();
   // }
 
-  @Watch('selected', { deep: true }) async onSelectedChanged() {
+  @Watch('selected', { deep: true }) async onSelectedChanged(): Promise<void> {
     await this.$nextTick();
     this.rowContexts.forEach(rowContext => {
       rowContext.isSelected = this.isSelect(rowContext.row);
@@ -178,72 +150,91 @@ export default class DataTableBodyComponent extends Vue {
     });
   }
 
-  @Watch('checked', { deep : true }) async onCheckedChanged() {
+  @Watch('checked', { deep: true }) async onCheckedChanged(): Promise<void> {
     await this.$nextTick();
     this.rowContexts.forEach(rowContext => {
       rowContext.isChecked = this.isChecked(rowContext.row);
     });
   }
 
-  @Watch('columns', { immediate: true }) onColumnsChanged(newVal, oldVal) {
+  @Watch('columns', { immediate: true }) onColumnsChanged(): void {
     this.recalculateColumns();
     this.buildStylesByGroup();
   }
 
-  @Watch('offset', { immediate: true }) onOffsetChanged() {
+  @Watch('offset', { immediate: true }) onOffsetChanged(): void {
     this.myOffset = this.offset;
   }
 
-  @Watch('offsetX', { immediate: true }) onOffsetXChanged() {
+  @Watch('offsetX', { immediate: true }) onOffsetXChanged(): void {
     this.myOffsetX = this.offsetX;
   }
 
-  @Watch('myOffsetX') onMyOffsetXChanged() {
+  @Watch('myOffsetX') onMyOffsetXChanged(): void {
     this.buildStylesByGroup();
   }
 
-  @Watch('innerWidth') onInnerWidthChanged() {
+  @Watch('innerWidth') onInnerWidthChanged(): void {
     this.recalculateColumns();
     this.buildStylesByGroup();
   }
 
-  @Watch('myOffset') onMyOffsetChanged() {
+  @Watch('myOffset') onMyOffsetChanged(): void {
     if (this.limit) {
       this.recalcLayout();
     }
   }
 
-  @Watch('rowCount') onRowCountChanged() {
+  @Watch('rowCount') onRowCountChanged(): void {
     this.recalcLayout();
   }
 
-  @Watch('bodyHeight', { immediate: true }) onBodyHeightChanged() {
-    this.myBodyHeight = this.bodyHeight;
-    if (this.myBodyHeight === -1) {
+  @Watch('bodyHeight', { immediate: true }) onBodyHeightChanged(): void {
+    this.myBodyHeight = this.bodyHeight.toString();
+    if (this.bodyHeight === -1) {
       this.myBodyHeight = '0px';
       return;
-    } else {
-      if (this.scrollbarV) {
-        this.myBodyHeight += 'px';
-      } else {
-        this.myBodyHeight = 'auto';
-      }
-      this.recalcLayout();
     }
+    if (this.scrollbarV) {
+      this.myBodyHeight = this.myBodyHeight + 'px';
+    } else {
+      this.myBodyHeight = 'auto';
+    }
+    this.recalcLayout();
+  }
+
+  /**
+   * Creates an instance of DataTableBodyComponent.
+   */
+  created(): void {
+    // declare fn here so we can get access to the `this` property
+    this.rowTrackingFn = (row: Record<string, unknown>): string | number => {
+      const idx = this.getRowIndex(row);
+      if (this.trackByProp) {
+        return `${idx}-${this.trackByProp}`;
+      }
+      return idx;
+    };
+  }
+
+  mounted(): void {
+    this.selector = this.$refs.selector as DataTableSelectionComponent;
+    this.scroller = this.$refs.scroller as ScrollerComponent;
   }
 
   get bodyWidth(): string {
     if (this.scrollbarH) {
-      return this.innerWidth + 'px';
-    } else {
-      return '100%';
+      return `${this.innerWidth}px`;
     }
+    return '100%';
   }
 
-  get styleObject() {
+  get styleObject(): Record<string, string> {
     return {
       width: this.bodyWidth ? this.bodyWidth : 'auto',
       height: this.myBodyHeight ? this.myBodyHeight : 'auto',
+      'overflow-anchor': 'auto',
+      contain: 'content',
     };
   }
 
@@ -251,7 +242,7 @@ export default class DataTableBodyComponent extends Vue {
    * Returns if selection is enabled.
    */
   get selectEnabled(): boolean {
-    return !!this.selectionType;
+    return Boolean(this.selectionType);
   }
 
   get checkEnabled(): boolean {
@@ -259,10 +250,18 @@ export default class DataTableBodyComponent extends Vue {
   }
 
   get isUseRowHeightCache(): boolean {
-    if (this.fixedRowHeight && !this.rowDetailHeight && !this.groupRowsBy || ((this.scrollbarV && !this.virtualization) || !this.scrollbarV)) {
-      return false;
+    if (typeof this.rowHeight === 'function' || this.rowDetailHeight || this.groupRowsBy) {
+      return true;
     }
-    return true;
+    return false;
+    // if (
+    //   (this.fixedRowHeight && !this.rowDetailHeight && !this.groupRowsBy) ||
+    //   (this.scrollbarV && !this.virtualization) ||
+    //   !this.scrollbarV
+    // ) {
+    //   return false;
+    // }
+    // return true;
   }
 
   get fixedRowHeight(): boolean {
@@ -280,17 +279,18 @@ export default class DataTableBodyComponent extends Vue {
   get scrollHeight(): number | undefined {
     if (this.scrollbarV && this.virtualization && this.rowCount) {
       if (!this.isUseRowHeightCache) {
-        const height: any = this.rowHeight;
+        const height = this.rowHeight as number;
         return height * this.rowCount;
       }
       return this.rowHeightsCache.query(this.rowCount - 1);
     }
-    // avoid TS7030: Not all code paths return a value.
-    return undefined;
+    if (!this.rowCount) {
+      return 0;
+    }
   }
 
-  get scrollWidth() {
-    return this.columnGroupWidths ? this.columnGroupWidths.total : 'auto';
+  get scrollWidth(): string {
+    return this.columnGroupWidths ? this.columnGroupWidths.total.toString() : 'auto';
   }
 
   /**
@@ -302,16 +302,16 @@ export default class DataTableBodyComponent extends Vue {
     // if (this.groupHeader) this.listener.unsubscribe();
   }
 
-  reset() {
-    this.offsetX = 0;
+  reset(): void {
+    this.myOffsetX = 0;
     this.offsetY = 0;
   }
 
-  onSelect(event: { selected: Array<any>, index: number }) {
+  onSelect(event: { selected: Array<Record<string, unknown>>; index: number }): void {
     this.$emit('select', event);
   }
 
-  recalculateColumns(val: any[] = this.columns): void {
+  recalculateColumns(val: Array<TableColumn> = this.columns): void {
     const colsByPin = columnsByPin(this.columns);
     this.columnsByPin = columnsByPinArr(this.columns);
     let width = this.innerWidth;
@@ -326,15 +326,17 @@ export default class DataTableBodyComponent extends Vue {
    */
   updateOffsetY(offset?: number, fromPager: boolean = false): number {
     // scroller is missing on empty table
-    if (!this.scroller) return;
+    if (!this.scroller) {
+      return;
+    }
     let offsetY = 0;
     if (this.scrollbarV && this.virtualization && offset) {
       // First get the row Index that we need to move to.
       const rowIndex = this.pageSize * offset;
-      if (this.isUseRowHeightCache) {
+      if (this.isUseRowHeightCache || typeof this.rowHeight === 'function') {
         offsetY = this.rowHeightsCache.query(rowIndex - 1);
       } else {
-        offsetY = rowIndex * (this.rowHeight as number);
+        offsetY = rowIndex * this.rowHeight;
       }
     } else if (this.scrollbarV && !this.virtualization) {
       offsetY = 0;
@@ -345,9 +347,9 @@ export default class DataTableBodyComponent extends Vue {
     this.scroller.setOffset(offsetY || 0, fromPager);
     return offsetY || 0;
   }
-  
-  onScrollSetup(event: { scrollYPos: number; scrollXPos: number }) {
-    this.offsetX = event.scrollXPos;
+
+  onScrollSetup(event: { scrollYPos: number; scrollXPos: number }): void {
+    this.myOffsetX = event.scrollXPos;
     this.offsetY = event.scrollYPos;
   }
 
@@ -361,13 +363,23 @@ export default class DataTableBodyComponent extends Vue {
 
     // if scroll change, trigger update
     // this is mainly used for header cell positions
-    if (this.offsetY !== scrollYPos || this.myOffsetX !== scrollXPos) { // Math.abs(scrollYPos - this.offsetY) > 50
+    if (this.offsetY !== scrollYPos || this.myOffsetX !== scrollXPos) {
+      // Math.abs(scrollYPos - this.offsetY) > 50
       this.$emit('scroll', {
         offsetY: scrollYPos,
-        offsetX: scrollXPos
+        offsetX: scrollXPos,
       });
+      if (this.groupHeader && this.myOffsetX !== scrollXPos) {
+        // don't horizontal scroll for group rows headers
+        const headers = this.$el.querySelectorAll('.datatable-group-header');
+        if (headers && headers.length) {
+          headers.forEach((h: HTMLElement) => {
+            h.style.width = `${this.$el.clientWidth}px`;
+            h.style.transform = `translateX(${scrollXPos}px)`;
+          });
+        }
+      }
     }
-   
     this.offsetY = scrollYPos;
     this.myOffsetX = scrollXPos;
     this.$nextTick(() => {
@@ -385,12 +397,10 @@ export default class DataTableBodyComponent extends Vue {
 
     if (fromPager) {
       offset = Math.ceil(offset);
-    } else {
-      if (direction === 'up') {
-        offset = Math.ceil(offset);
-      } else if (direction === 'down') {
-        offset = Math.floor(offset);
-      }
+    } else if (direction === 'up') {
+      offset = Math.ceil(offset);
+    } else if (direction === 'down') {
+      offset = Math.floor(offset);
     }
 
     if (!fromPager && ['up', 'down'].includes(direction) && !isNaN(offset)) {
@@ -431,7 +441,7 @@ export default class DataTableBodyComponent extends Vue {
     //   if (this.groupedRows.length === 1) {
     //     maxRowsPerGroup = this.groupedRows[0].value.length;
     //   }
-    //   let index = 0; 
+    //   let index = 0;
     //   while (rowIndex < last && rowIndex < this.groupedRows.length) {
     //     // Add the groups into this page
     //     const group = this.groupedRows[rowIndex];
@@ -443,14 +453,19 @@ export default class DataTableBodyComponent extends Vue {
     //     rowIndex++;
     //   }
     // } else {
-    let temp: Array<IRowContext> = [];
+    const temp: Array<IRowContext> = [];
     // let rowContext: IRowContext;
+    let group;
     while (rowIndex < last && rowIndex < this.rowCount) {
       const row = this.rows[rowIndex];
       if (row) {
+        if (row.__isGroup) {
+          group = row;
+        }
         this.rowIndexes.set(row, rowIndex);
         // rowContext = this.rowContexts[idx];
         // if (!rowContext) {
+        //   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         //   rowContext = {} as any;
         // }
         // rowContext.row = row;
@@ -468,7 +483,8 @@ export default class DataTableBodyComponent extends Vue {
           isSelected: this.isSelect(row),
           isChecked: this.isChecked(row),
           expanded: this.getRowExpanded(row),
-          treeStatus: this.treeStatus(row)
+          treeStatus: this.treeStatus(row),
+          group: group as unknown as IGroupedRows,
         };
         idx++;
       }
@@ -482,7 +498,7 @@ export default class DataTableBodyComponent extends Vue {
   /**
    * Get the row height
    */
-  getRowHeight(row: any): number {
+  getRowHeight(row: Record<string, unknown>): number {
     // if its a function return it
     if (typeof this.rowHeight === 'function') {
       return this.rowHeight(row);
@@ -493,27 +509,25 @@ export default class DataTableBodyComponent extends Vue {
   /**
    * @param group the group with all rows
    */
-  getGroupHeight(group: any): number {
-    let rowHeight: number = 0;
-
-    if (group.value) {
-      for (let index = 0; index < group.value.length; index++) {
-        rowHeight += this.getRowAndDetailHeight(group.value[index]);
+  getGroupHeight(group: { value: Array<Record<string, unknown>> }): number {
+    let rowHeight = 0;
+    if (Array.isArray(group.value)) {
+      for (const value of group.value) {
+        rowHeight += this.getRowAndDetailHeight(value);
       }
     }
-
     return rowHeight;
   }
 
   /**
    * Calculate row height based on the expanded state of the row.
    */
-  getRowAndDetailHeight(row: any): number {
+  getRowAndDetailHeight(row: Record<string, unknown>): number {
     let rowHeight = this.getRowHeight(row);
     const expanded = this.rowExpansions.get(row);
 
     // Adding detail row height if its expanded.
-    if (expanded === 1) {
+    if (expanded) {
       rowHeight += this.getDetailRowHeight(row);
     }
 
@@ -523,13 +537,13 @@ export default class DataTableBodyComponent extends Vue {
   /**
    * Get the height of the detail row.
    */
-  getDetailRowHeight = (row?: any, index?: any): number => {
+  getDetailRowHeight = (row?: Record<string, unknown>, index?: number): number => {
     if (!this.rowDetail) {
       return 0;
     }
     const rowHeight = this.rowDetailHeight || this.getRowHeight(row) || 50;
     return typeof rowHeight === 'function' ? rowHeight(row, index) : Number(rowHeight);
-  }
+  };
 
   /**
    * Calculates the styles for the row so that the rows can be moved in 2D space
@@ -558,7 +572,7 @@ export default class DataTableBodyComponent extends Vue {
     const styles = {};
     // only add styles for the group if there is a group
     if (this.groupRowsBy) {
-      styles['width'] = '100%';// this.columnGroupWidths.total + 'px';
+      styles['width'] = '100%'; // this.columnGroupWidths.total + 'px';
     }
 
     if (this.scrollbarV && this.virtualization) {
@@ -575,9 +589,9 @@ export default class DataTableBodyComponent extends Vue {
       // The position of this row would be the sum of all row heights
       // until the previous row position.
       let pos = 0;
-      let height: any = 50;
+      let height = 50;
       if (!this.isUseRowHeightCache) {
-        height = this.rowHeight;
+        height = this.rowHeight as number;
         pos = idx * height;
       } else {
         pos = this.rowHeightsCache.query(idx - 1);
@@ -588,19 +602,17 @@ export default class DataTableBodyComponent extends Vue {
   }
 
   getRowOffsetY(index: number): { offsetY: number; height: number } {
-    if (this.isUseRowHeightCache) {
+    if (this.isUseRowHeightCache || typeof this.rowHeight === 'function') {
       let result = this.rowHeightsCache.queryWithHeight(index);
       if (!result) {
         result = { height: 0, offsetY: 0 };
       }
       return result;
-    } else {
-      return {
-        offsetY: (this.rowHeight as number) * index,
-        height: this.rowHeight as number
-      }
-
     }
+    return {
+      offsetY: this.rowHeight * index,
+      height: this.rowHeight,
+    };
   }
 
   /**
@@ -612,17 +624,17 @@ export default class DataTableBodyComponent extends Vue {
    *
    * @memberOf DataTableBodyComponent
    */
-  getBottomSummaryRowStyles(): any {
+  getBottomSummaryRowStyles(): Record<string, string> {
     if (!this.scrollbarV || !this.rows || !this.rows.length) {
       return null;
     }
 
     const styles = { position: 'absolute' };
     let pos = 0;
-    if (this.isUseRowHeightCache) {
+    if (this.isUseRowHeightCache || typeof this.rowHeight === 'function') {
       pos = this.rowHeightsCache.query(this.rows.length - 1);
     } else {
-      pos = (this.rowHeight as number) * (this.rowCount - 1);
+      pos = this.rowHeight * (this.rowCount - 1);
     }
 
     translateXY(styles, 0, pos);
@@ -649,13 +661,13 @@ export default class DataTableBodyComponent extends Vue {
         // Calculation of the first and last indexes will be based on where the
         // scrollY position would be at.  The last index would be the one
         // that shows up inside the view port the last.
-        const height = parseInt(this.myBodyHeight, 0);
-        if (this.isUseRowHeightCache) {
+        const height = this.bodyHeight;
+        if (this.isUseRowHeightCache || typeof this.rowHeight === 'function') {
           first = this.rowHeightsCache.getRowIndex(this.offsetY);
           last = this.rowHeightsCache.getRowIndex(height + this.offsetY) + 1;
         } else {
-          first = Math.floor(this.offsetY / (this.rowHeight as number));
-          last = Math.ceil((height + this.offsetY) / (this.rowHeight as number));
+          first = Math.floor(this.offsetY / this.rowHeight);
+          last = Math.ceil((height + this.offsetY + this.rowHeight) / this.rowHeight);
         }
       } else {
         // If virtual rows are not needed
@@ -669,7 +681,7 @@ export default class DataTableBodyComponent extends Vue {
       if (!this.externalPaging) {
         first = Math.max(this.myOffset * this.pageSize, 0);
       }
-      last = Math.min((first + this.pageSize), this.rowCount);
+      last = Math.min(first + this.pageSize, this.rowCount);
     }
     // if (direction === 'down') {
     //   last = last === this.rowCount ? last : last + 1;
@@ -700,7 +712,7 @@ export default class DataTableBodyComponent extends Vue {
         externalVirtual: this.scrollbarV && this.externalPaging,
         rowCount: this.rowCount,
         rowIndexes: this.rowIndexes,
-        rowExpansions: this.rowExpansions
+        rowExpansions: this.rowExpansions,
       });
     }
   }
@@ -715,11 +727,11 @@ export default class DataTableBodyComponent extends Vue {
     const viewPortFirstRowIndex = this.indexes.first;
 
     let offsetScroll;
-    if (this.isUseRowHeightCache) {
+    if (this.isUseRowHeightCache || typeof this.rowHeight === 'function') {
       offsetScroll = this.rowHeightsCache.query(viewPortFirstRowIndex);
       return offsetScroll <= this.offsetY ? Math.max(0, viewPortFirstRowIndex - 1) : viewPortFirstRowIndex;
     }
-    offsetScroll = (this.rowHeight as number) * viewPortFirstRowIndex;
+    offsetScroll = this.rowHeight * viewPortFirstRowIndex;
     return offsetScroll <= this.offsetY ? Math.max(0, viewPortFirstRowIndex - 1) : viewPortFirstRowIndex;
     // return viewPortFirstRowIndex;
   }
@@ -733,7 +745,7 @@ export default class DataTableBodyComponent extends Vue {
   toggleRowExpansion(rowContext: IRowContext): boolean {
     // Capture the row index of the first row that is visible on the viewport.
     // const viewPortFirstRowIndex = this.getAdjustedViewPortIndex();
-    let expanded = Number(rowContext.expanded);
+    let expanded = rowContext.expanded;
 
     // If the rowDetailHeight is auto --> only in case of non-virtualized scroll
     if (this.isUseRowHeightCache) {
@@ -741,7 +753,7 @@ export default class DataTableBodyComponent extends Vue {
       this.rowHeightsCache.update(rowContext.rowIndex, rowDetailHeight);
     }
     // Update the toggled row and update thive nevere heights in the cache.
-    expanded = expanded ^= 1;
+    expanded = !expanded;
     this.rowExpansions.set(rowContext.row, expanded);
 
     this.$emit('detail-toggle', {
@@ -758,7 +770,7 @@ export default class DataTableBodyComponent extends Vue {
     // clear prev expansions
     this.rowExpansions.clear();
 
-    const rowExpanded = expanded ? 1 : 0;
+    const rowExpanded = Boolean(expanded);
 
     // Capture the row index of the first row that is visible on the viewport.
     const viewPortFirstRowIndex = this.getAdjustedViewPortIndex();
@@ -775,11 +787,11 @@ export default class DataTableBodyComponent extends Vue {
     // Emit all rows that have been expanded.
     this.$emit('detail-toggle', {
       rows: this.rows,
-      currentIndex: viewPortFirstRowIndex
+      currentIndex: viewPortFirstRowIndex,
     });
   }
 
-  onGroupToggle($event) {
+  onGroupToggle($event: { value: Record<string, unknown> }): void {
     this.$emit('group-toggle', $event);
     // if ($event.type === 'group') {
     //   this.toggleRowExpansion($event.value);
@@ -802,7 +814,7 @@ export default class DataTableBodyComponent extends Vue {
   /**
    * Tracks the column
    */
-  columnTrackingFn(index: number, column: any): any {
+  columnTrackingFn(index: number, column: TableColumn): string {
     return column.$$id;
   }
 
@@ -830,8 +842,8 @@ export default class DataTableBodyComponent extends Vue {
   //   return styles;
   // }
 
-  initExpansions(group: IGroupedRows) {
-    this.rowExpansions.set(group, 1);
+  initExpansions(group: IGroupedRows): void {
+    this.rowExpansions.set(group, true);
     if (group.groups) {
       for (const gr of group.groups) {
         this.initExpansions(gr);
@@ -842,7 +854,7 @@ export default class DataTableBodyComponent extends Vue {
   /**
    * Returns if the row was expanded and set default row expansion when row expansion is empty
    */
-  getRowExpanded(row: any): boolean {
+  getRowExpanded(row: Record<string, unknown>): boolean {
     // if (this.rowExpansions.size === 0 && this.groupExpansionDefault && this.groupedRows) {
     //   for (const group of this.groupedRows) {
     //     this.initExpansions(group);
@@ -851,77 +863,81 @@ export default class DataTableBodyComponent extends Vue {
     if (!this.rowDetail) {
       return false;
     }
-    const expanded = this.rowExpansions.get(row);
-    return expanded === 1;
+    const expanded = Boolean(this.rowExpansions.get(row));
+    return expanded;
   }
 
   /**
    * Gets the row index given a row
    */
-  getRowIndex(row: any): number {
+  getRowIndex(row: Record<string, unknown>): number {
     return row ? this.rowIndexes.get(row) || 0 : 0;
   }
 
-  onTreeAction(event) {
+  onTreeAction(event: unknown): void {
     this.$emit('tree-action', event);
   }
 
-  isSelect(row: any) {
+  isSelect(row: Record<string, unknown>): boolean {
     if (!this.selectEnabled) {
       return false;
     }
     return this.selector ? this.selector.getRowSelected(row) : false;
   }
 
-  isChecked(row) {
+  isChecked(row: Record<string, unknown>): boolean {
     if (!this.checkEnabled) {
       return false;
     }
     return this.selector ? this.selector.getRowChecked(row) : false;
   }
 
-  onActivate(event, index) {
-    this.selector && this.selector.onActivate(event, this.indexes.first + index);
+  onActivate(model: Model, index: number): void {
+    if (this.selector) {
+      this.selector.onActivate(model, this.indexes.first + index);
+    }
   }
 
-  onRowRendered(row: any) {
+  onRowRendered(row: Record<string, unknown>): void {
     if (this.renderCounter === 0) {
+      // eslint-disable-next-line no-console
       console.time('render');
     }
     this.renderCounter++;
     const counter = this.renderCounter;
     clearTimeout(this.renderId);
-    this.renderId = setTimeout(() => this.checkRenderFinish(counter), 100);
+    this.renderId = setTimeout(() => this.checkRenderFinish(counter), 100) as unknown as number;
   }
 
-  checkRenderFinish(counter: number) {
+  checkRenderFinish(counter: number): void {
     if (counter === this.renderCounter) {
+      // eslint-disable-next-line no-console
       console.timeEnd('render');
       this.renderCounter = 0;
       this.$emit('rendered');
     } else {
       counter = this.renderCounter;
       clearTimeout(this.renderId);
-      this.renderId = setTimeout(() => this.checkRenderFinish(counter), 100);
+      this.renderId = setTimeout(() => this.checkRenderFinish(counter), 100) as unknown as number;
     }
   }
 
-  buildStylesByGroup() {
+  buildStylesByGroup(): void {
     this.groupStyles['left'] = this.calcStylesByGroup('left');
     this.groupStyles['center'] = this.calcStylesByGroup('center');
     this.groupStyles['right'] = this.calcStylesByGroup('right');
   }
 
-  calcStylesByGroup(group: string) {
+  calcStylesByGroup(group: keyof IColumnsWidth): Record<string, string> {
     const widths = this.columnGroupWidths;
     const offsetX = this.myOffsetX;
     const styles = {
-      width: `${widths[group]}px`
+      width: `${widths[group]}px`,
     };
     if (group === 'left') {
       translateXY(styles, offsetX, 0);
     } else if (group === 'right') {
-      const bodyWidth = parseInt(this.innerWidth + '', 0);
+      const bodyWidth = parseInt(this.innerWidth.toString(), 10);
       const totalDiff = widths.total - bodyWidth;
       const offsetDiff = totalDiff - offsetX;
       const offset = (offsetDiff + this.scrollbarHelper.width) * -1;
@@ -930,67 +946,70 @@ export default class DataTableBodyComponent extends Vue {
     return styles;
   }
 
-  getGroupStyles(colGroup: { type: string }): Record<string, string | number> {
+  getGroupStyles(colGroup: { type: 'left' | 'center' | 'right' }): Record<string, string | number> {
     if (colGroup && colGroup.type) {
       return {
-        width: this.columnGroupWidths.total + 'px',
+        width: `${this.columnGroupWidths.total}px`,
         ...this.groupStyles[colGroup.type],
       };
     }
     return {
-      width: this.columnGroupWidths.total + 'px',
+      width: `${this.columnGroupWidths.total}px`,
     };
   }
 
-  treeStatus(row) {
+  treeStatus(row: Record<string, unknown>): TreeStatus {
     if (!row) {
       return null;
     }
-    return row.treeStatus;
+    return row.treeStatus as TreeStatus;
   }
 
-  isRowVisible(row: any): boolean {
+  isRowVisible(row: Record<string, unknown>): boolean {
     const rowContext = this.rowContexts.find(c => c.row === row);
     if (!rowContext) {
       return false;
     }
     let rowOffsetY;
-    if (this.isUseRowHeightCache) {
+    if (this.isUseRowHeightCache || typeof this.rowHeight === 'function') {
       rowOffsetY = this.rowHeightsCache.query(rowContext.rowIndex);
     } else {
-      rowOffsetY = (this.rowHeight as number) * rowContext.rowIndex;
+      rowOffsetY = this.rowHeight * rowContext.rowIndex;
     }
-    return rowOffsetY >= this.offsetY && rowOffsetY <= (this.offsetY + this.bodyHeight);
+    return rowOffsetY >= this.offsetY && rowOffsetY <= this.offsetY + this.bodyHeight;
   }
 
-  get cellSlots(): () => {} {
+  get cellSlots(): () => Record<string, (arg?: Record<string, unknown>) => VNode[]> {
     const result = {};
-    this.columns && this.columns.forEach(column => {
-      if (column.cellTemplate) {
-        result[column.prop] = column.cellTemplate;
-      }
-    });
+    if (this.columns) {
+      this.columns.forEach(column => {
+        if (column.cellTemplate) {
+          result[column.prop] = column.cellTemplate;
+        }
+      });
+    }
     return () => result;
   }
 
-  onCellFocus($event) {
+  onCellFocus($event: Event): void {
+    // eslint-disable-next-line no-console
     console.log('onCellFocus($event)');
   }
 
   /**
    * Toggle the expansion of the row
    */
-  toggleExpandDetail(row: any): void {
+  toggleExpandDetail(row: Record<string, unknown>): void {
     const rowContext = this.rowContexts.find(c => c.row === row);
     if (!rowContext) {
-      throw new Error(`row context is not found for row ${row}`);
+      throw new Error('row context is not found');
     }
     rowContext.expanded = this.toggleRowExpansion(rowContext);
     this.updateIndexes();
     this.updateRows(true);
     this.$emit('detail-toggle', {
       type: 'row',
-      value: row
+      value: row,
     });
   }
 
@@ -1001,7 +1020,7 @@ export default class DataTableBodyComponent extends Vue {
     this.toggleAllRows(true);
     this.$emit('detail-toggle', {
       type: 'all',
-      value: true
+      value: true,
     });
   }
 
@@ -1012,8 +1031,7 @@ export default class DataTableBodyComponent extends Vue {
     this.toggleAllRows(false);
     this.$emit('detail-toggle', {
       type: 'all',
-      value: false
+      value: false,
     });
   }
-
 }

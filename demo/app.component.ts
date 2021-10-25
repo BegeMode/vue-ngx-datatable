@@ -34,6 +34,7 @@ import ColumnFlexComponent from './columns/column-flex.component';
 import ColumnPinningComponent from './columns/pinning.component';
 import SummaryRowSimpleComponent from './summary/summary-row-simple.component';
 import RowGroupingComponent from './basic/row-grouping.component';
+import RowGroupingCustomComponent from './basic/row-grouping.custom.component';
 import RowDetailsComponent from './basic/row-detail.component';
 import MultipleTablesComponent from './basic/multiple.component';
 import TabsDemoComponent from './basic/tabs.component';
@@ -86,6 +87,7 @@ import SummaryRowInlineHtmlComponent from './summary/summary-row-inline-html.com
     'column-pinning-demo': ColumnPinningComponent,
     'summary-row-simple-demo': SummaryRowSimpleComponent,
     'row-grouping-demo': RowGroupingComponent,
+    'row-grouping-custom-demo': RowGroupingCustomComponent,
     'row-details-demo': RowDetailsComponent,
     'multiple-tables-demo': MultipleTablesComponent,
     'tabs-demo': TabsDemoComponent,
@@ -155,6 +157,7 @@ import SummaryRowInlineHtmlComponent from './summary/summary-row-inline-html.com
             <h4>Rows</h4>
             <ul>
               <li><a href="#row-grouping" @click="state='row-grouping'">Row Grouping</a></li>
+              <li><a href="#row-grouping-custom" @click="state='row-grouping-custom'">Row Grouping With Custom Styles</a></li>
               <li><a href="#" @click="state=''">Fluid Row Height</a></li>
               <li><a href="#basic-fixed" @click="state='basic-fixed'">Fixed Row Height</a></li>
               <li><a href="#dynamic" @click="state='dynamic'">Dynamic Row Height</a></li>
@@ -258,6 +261,7 @@ import SummaryRowInlineHtmlComponent from './summary/summary-row-inline-html.com
         <client-paging-demo v-if="state === 'client-paging'"></client-paging-demo>
         <virtual-paging-demo v-if="state === 'virtual-paging'"></virtual-paging-demo>
         <row-grouping-demo v-if="state === 'row-grouping'"></row-grouping-demo>
+        <row-grouping-custom-demo v-if="state === 'row-grouping-custom'"></row-grouping-custom-demo>
         <server-scrolling-demo v-if="state === 'server-scrolling'"></server-scrolling-demo>
         <server-paging-demo v-if="state === 'server-paging'"></server-paging-demo>
         <paging-scrolling-novirtualization-demo v-if="state === 'paging-scrolling-novirtualization'">

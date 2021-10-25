@@ -1,24 +1,26 @@
-import { SortType, SortDirection, ISortPropDir } from '../types';
+import { SortDirection } from 'types/sort-direction.type';
+import { ISortPropDir } from 'types/sort-prop-dir.type';
+import { SortType } from 'types/sort.type';
+import { TableColumn, TComparator } from 'types/table-column.type';
 import { getterForProp } from './column-prop-getters';
 /**
  * Gets the next sort direction
  */
 export function nextSortDir(sortType: SortType, current: SortDirection): SortDirection | undefined {
   if (sortType === SortType.single) {
-    if(current === SortDirection.asc) {
+    if (current === SortDirection.asc) {
       return SortDirection.desc;
-    } else {
-      return SortDirection.asc;
     }
-  } else {
-    if(!current) {
-      return SortDirection.asc;
-    } else if(current === SortDirection.asc) {
-      return SortDirection.desc;
-    } else if(current === SortDirection.desc) {
-      return undefined;
-    }
-    // avoid TS7030: Not all code paths return a value.
+    return SortDirection.asc;
+  }
+  if (!current) {
+    return SortDirection.asc;
+  }
+  if (current === SortDirection.asc) {
+    return SortDirection.desc;
+  }
+  if (current === SortDirection.desc) {
+    // eslint-disable-next-line no-undefined
     return undefined;
   }
 }
@@ -27,23 +29,44 @@ export function nextSortDir(sortType: SortType, current: SortDirection): SortDir
  * Adapted from fueld-ui on 6/216
  * https://github.com/FuelInteractive/fuel-ui/tree/master/src/pipes/OrderBy
  */
-export function orderByComparator(a: any, b: any): number {
-  if (a === null || typeof a === 'undefined') a = 0;
-  if (b === null || typeof b === 'undefined') b = 0;
+export function orderByComparator(a: unknown, b: unknown): number {
+  if (a === null || typeof a === 'undefined') {
+    a = 0;
+  }
+  if (b === null || typeof b === 'undefined') {
+    b = 0;
+  }
   if (a instanceof Date && b instanceof Date) {
-    if (a < b) return -1;
-    if (a > b) return 1;
-  } else if ((isNaN(parseFloat(a)) || !isFinite(a)) || (isNaN(parseFloat(b)) || !isFinite(b))) {
+    if (a < b) {
+      return -1;
+    }
+    if (a > b) {
+      return 1;
+    }
+  } else if (
+    isNaN(parseFloat(a as string)) ||
+    !isFinite(a as number) ||
+    isNaN(parseFloat(b as string)) ||
+    !isFinite(b as number)
+  ) {
     // Convert to string in case of a=0 or b=0
     a = String(a);
     b = String(b);
     // Isn't a number so lowercase the string to properly compare
-    if (a.toLowerCase() < b.toLowerCase()) return -1;
-    if (a.toLowerCase() > b.toLowerCase()) return 1;
+    if ((a as string).toLowerCase() < (b as string).toLowerCase()) {
+      return -1;
+    }
+    if ((a as string).toLowerCase() > (b as string).toLowerCase()) {
+      return 1;
+    }
   } else {
     // Parse strings as numbers to compare properly
-    if (parseFloat(a) < parseFloat(b)) return -1;
-    if (parseFloat(a) > parseFloat(b)) return 1;
+    if (parseFloat(a as string) < parseFloat(b as string)) {
+      return -1;
+    }
+    if (parseFloat(a as string) > parseFloat(b as string)) {
+      return 1;
+    }
   }
 
   // equal each other
@@ -54,26 +77,32 @@ export function orderByComparator(a: any, b: any): number {
  * creates a shallow copy of the `rows` input and returns the sorted copy. this function
  * does not sort the `rows` argument in place
  */
-export function sortRows(rows: any[], columns: any[], dirs: ISortPropDir[]): any[] {
-  if(!rows) return [];
-  if(!dirs || !dirs.length) return [...rows];
+export function sortRows(
+  rows: Record<string, unknown>[],
+  columns: TableColumn[],
+  dirs: ISortPropDir[]
+): Record<string, unknown>[] {
+  if (!rows) {
+    return [];
+  }
+  if (!dirs || !dirs.length) {
+    return [...rows];
+  }
 
   /**
    * record the row ordering of results from prior sort operations (if applicable)
-   * this is necessary to guarantee stable sorting behavior 
+   * this is necessary to guarantee stable sorting behavior
    */
-  const rowToIndexMap = new Map<any, number>();
+  const rowToIndexMap = new Map<Record<string, unknown>, number>();
   rows.forEach((row, index) => rowToIndexMap.set(row, index));
-  
   const temp = [...rows];
-  let cols = [];
-  if (columns) {
-    cols = columns.reduce((obj, col) => {
+  const cols: Record<string, TComparator> = {};
+  if (Array.isArray(columns)) {
+    columns.forEach(col => {
       if (col.comparator && typeof col.comparator === 'function') {
-        obj[col.prop] = col.comparator;
+        cols[col.prop] = col.comparator;
       }
-      return obj;
-    }, {});
+    });
   }
 
   // cache valueGetter and compareFn so that they
@@ -84,17 +113,18 @@ export function sortRows(rows: any[], columns: any[], dirs: ISortPropDir[]): any
       prop,
       dir: dir.dir,
       valueGetter: getterForProp(prop),
-      compareFn: cols[prop] || orderByComparator
+      compareFn: cols[prop] || orderByComparator,
     };
   });
 
-  return temp.sort(function(rowA: any, rowB: any) {
-
-    for(const cachedDir of cachedDirs) {
+  return temp.sort((rowA: Record<string, unknown>, rowB: Record<string, unknown>) => {
+    for (const cachedDir of cachedDirs) {
       // Get property and valuegetters for column to be sorted
       const { prop, valueGetter } = cachedDir;
       // Get A and B cell values from rows based on properties of the columns
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const propA = valueGetter(rowA, prop);
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const propB = valueGetter(rowB, prop);
 
       // Compare function gets five parameters:
@@ -104,16 +134,21 @@ export function sortRows(rows: any[], columns: any[], dirs: ISortPropDir[]): any
       // Compare can be a standard JS comparison function (a,b) => -1|0|1
       // as additional parameters are silently ignored. The whole row and sort
       // direction enable more complex sort logic.
-      const comparison = cachedDir.dir !== SortDirection.desc ?
-        cachedDir.compareFn(propA, propB, rowA, rowB, cachedDir.dir) :
-        -cachedDir.compareFn(propA, propB, rowA, rowB, cachedDir.dir);
+      const comparison =
+        cachedDir.dir !== SortDirection.desc
+          ? cachedDir.compareFn(propA as string, propB as string, rowA, rowB, cachedDir.dir)
+          : -cachedDir.compareFn(propA as string, propB as string, rowA, rowB, cachedDir.dir);
 
       // Don't return 0 yet in case of needing to sort by next property
-      if (comparison !== 0) return comparison;
+      if (comparison !== 0) {
+        return comparison;
+      }
     }
 
-    if (!(rowToIndexMap.has(rowA) && rowToIndexMap.has(rowB))) return 0;
-    
+    if (!(rowToIndexMap.has(rowA) && rowToIndexMap.has(rowB))) {
+      return 0;
+    }
+
     /**
      * all else being equal, preserve original order of the rows (stable sort)
      */

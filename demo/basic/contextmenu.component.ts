@@ -41,7 +41,7 @@ import DatatableComponent from '../../src/components/datatable.component.vue';
 })
 export default class ContextMenuDemoComponent extends Vue {
 
-  rows = [];
+  rows: Array<Record<string, unknown>> = [];
 
   columns = [
     { prop: 'name', visible: true },
@@ -49,17 +49,17 @@ export default class ContextMenuDemoComponent extends Vue {
     { name: 'Company', visible: true }
   ];
 
-  rawEvent: any = null;
-  contextmenuRow: any = null;
-  contextmenuColumn: any = null;
+  rawEvent: Event = null;
+  contextmenuRow: Record<string, unknown> = null;
+  contextmenuColumn: unknown = null;
 
   created() {
-    this.fetch((data) => {
+    this.fetch((data: Array<Record<string, unknown>>) => {
       this.rows = data;
     });
   }
 
-  onTableContextMenu(contextMenuEvent) {
+  onTableContextMenu(contextMenuEvent: { event: Event; type: string; content: Record<string, unknown> }) {
     console.log(contextMenuEvent);
 
     this.rawEvent = contextMenuEvent.event;
@@ -75,7 +75,7 @@ export default class ContextMenuDemoComponent extends Vue {
     contextMenuEvent.event.stopPropagation();
   }
 
-  fetch(cb) {
+  fetch(cb: (data: Array<Record<string, unknown>>) => void) {
     const req = new XMLHttpRequest();
     req.open('GET', `assets/data/company.json`);
 

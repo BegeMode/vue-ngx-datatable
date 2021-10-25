@@ -1,12 +1,21 @@
-import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
-import { SortDirection, SortType, SelectionType, TableColumn, ISortPropDir } from '../../types';
-import { nextSortDir } from '../../utils';
+import { SelectionType } from 'types/selection.type';
+import { SortDirection } from 'types/sort-direction.type';
+import { ISortPropDir } from 'types/sort-prop-dir.type';
+import { SortType } from 'types/sort.type';
+import { TableColumn } from 'types/table-column.type';
+import { nextSortDir } from 'utils/sort';
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 
 @Component({
   template: `
-    <div class="datatable-header-cell-template-wrap" :class="[columnCssClasses]" :style="styles" :title="name"
-          v-show="column.visible"
-          @contextmenu="onContextmenu($event)">
+    <div
+      class="datatable-header-cell-template-wrap"
+      :class="[columnCssClasses]"
+      :style="styles"
+      :title="name"
+      v-show="column.visible"
+      @contextmenu="onContextmenu($event)"
+    >
       <slot name="target-marker">
         <!-- Default content -->
         <div class="targetMarker" v-if="isTarget">
@@ -14,32 +23,23 @@ import { nextSortDir } from '../../utils';
           <div class="icon datatable-icon-up"></div>
         </div>
       </slot>
-      <label
-        v-if="isCheckboxable"
-        class="datatable-checkbox">
-        <input
-          type="checkbox"
-          v-model="myAllRowsSelected"
-          @change="onCheckboxChange"
-        />
+      <label v-if="isCheckboxable" class="datatable-checkbox">
+        <input type="checkbox" v-model="myAllRowsSelected" @change="onCheckboxChange" />
       </label>
       <slot v-bind="{ column: column }">
         <!-- Default content -->
         <span class="datatable-header-cell-wrapper">
-          <span class="datatable-header-cell-label draggable"
-            :class="cssClass"
-            @click="onSort" v-html="name">
-          </span>
+          <span class="datatable-header-cell-label draggable" :class="cssClass" @click="onSort" v-html="name"> </span>
         </span>
       </slot>
-      <span :class="sortCssClass" @click="onSort">
-        {{sortOrder}}
-      </span>
+      <div :class="sortCssClass" @click="onSort">
+        {{ sortOrder }}
+      </div>
+      <slot name="append" v-bind="{ column: column }"></slot>
     </div>
   `,
 })
 export default class DataTableHeaderCellComponent extends Vue {
-
   @Prop() sortType: SortType;
   @Prop() sortAscendingIcon: string;
   @Prop() sortDescendingIcon: string;
@@ -50,64 +50,99 @@ export default class DataTableHeaderCellComponent extends Vue {
   @Prop() sorts: ISortPropDir[];
   @Prop() headerHeight: number;
 
-  sortFn = this.onSort.bind(this);
+  sortFn = this.onSort.bind(this) as () => void;
   sortDir: SortDirection = null;
   myAllRowsSelected = false;
   sortOrder = '';
   // selectFn = this.select.emit.bind(this.select);
 
-  cellContext: any = {
-    column: this.column,
+  cellContext = {
+    column: null as TableColumn,
     sortDir: this.sortDir,
     sortFn: this.sortFn,
-    allRowsSelected: this.allRowsSelected,
+    allRowsSelected: false,
     // selectFn: this.selectFn
   };
 
-  @Watch('allRowsSelected', { immediate: true }) onAllRowsSelectedChanged() {
+  resizeObserver?: ResizeObserver;
+
+  @Watch('allRowsSelected', { immediate: true }) onAllRowsSelectedChanged(): void {
     if (!this.isCheckboxable) {
       return;
     }
     this.myAllRowsSelected = this.allRowsSelected;
     this.cellContext.allRowsSelected = this.allRowsSelected;
   }
-  
-  @Watch('column', { immediate: true }) onColumnChahged() {
+
+  @Watch('column', { immediate: true }) onColumnChahged(): void {
     this.cellContext.column = this.column;
   }
 
-  @Watch('sorts', { immediate: true }) onSortsChanged() {
+  @Watch('sorts', { immediate: true }) onSortsChanged(): void {
     this.sortDir = this.calcSortDir(this.sorts);
     this.cellContext.sortDir = this.sortDir;
   }
 
-  created() {
+  created(): void {
+    this.cellContext.column = this.column;
+    this.cellContext.allRowsSelected = this.allRowsSelected;
     this.$emit('header-cell-created', this.$el);
     if (this.column.headerTemplate) {
       this.$slots.default = this.column.headerTemplate({ column: this.column });
     }
-  }
-
-  mounted() {
-    this.column.element = this.$el;
-    this.$emit('header-cell-mounted', this.$el);
-  }
-
-  beforeUpdate() {
-    if (this.column.headerTemplate) {
-      this.$slots.default = this.column.headerTemplate({ column: this.column });
+    if (this.column.headerAppendTemplate) {
+      this.$slots.append = this.column.headerAppendTemplate({ column: this.column });
     }
   }
-  onCheckboxChange() {
+
+  mounted(): void {
+    this.column.element = this.$el;
+    this.$emit('header-cell-mounted', this.$el);
+    this.setResizeObserver();
+  }
+
+  beforeUpdate(): void {
+    if (this.column.headerTemplate && !this.$slots.default) {
+      this.$slots.default = this.column.headerTemplate({ column: this.column });
+    }
+    if (this.column.headerAppendTemplate && !this.$slots.append) {
+      this.$slots.append = this.column.headerAppendTemplate({ column: this.column });
+    }
+  }
+
+  updated(): void {
+    if (this.resizeObserver && this.column.element !== this.$el) {
+      this.resizeObserver.unobserve(this.column.element);
+    }
+    this.column.element = this.$el;
+    this.setResizeObserver();
+  }
+
+  beforeDestroy(): void {
+    if (this.column) {
+      this.column.element = null;
+    }
+    if (this.resizeObserver) {
+      this.resizeObserver.unobserve(this.$el);
+    }
+  }
+
+  onCheckboxChange(): void {
     this.$emit('select', this.myAllRowsSelected);
   }
 
-  get columnCssClasses(): any {
+  get columnCssClasses(): string {
     let cls = 'datatable-header-cell';
     if (this.column) {
-      if (this.column.sortable) cls += ' sortable';
-      if (this.column.resizeable) cls += ' resizeable';
-      if (this.column.draggable) cls += ' draggable';
+      if (this.column.sortable) {
+        cls += ' sortable';
+      }
+      if (this.column.resizeable) {
+        cls += ' resizeable';
+      }
+      if (this.column.draggable) {
+        cls += ' draggable';
+      }
       if (this.column.headerClass) {
         if (typeof this.column.headerClass === 'string') {
           cls += ' ' + this.column.headerClass;
@@ -115,14 +150,16 @@ export default class DataTableHeaderCellComponent extends Vue {
           cls += ' ' + this.column.headerClass.join(' ');
         } else if (typeof this.column.headerClass === 'function') {
           const res = this.column.headerClass({
-            column: this.column
+            column: this.column,
           });
           if (typeof res === 'string') {
             cls += res;
           } else if (typeof res === 'object') {
             const keys = Object.keys(res);
             for (const k of keys) {
-              if (res[k] === true) cls += ` ${k}`;
+              if (res[k] === true) {
+                cls += ` ${k}`;
+              }
             }
           }
         }
@@ -137,14 +174,12 @@ export default class DataTableHeaderCellComponent extends Vue {
     return cls;
   }
 
-  // @HostBinding('attr.title')
   get name(): string {
     // guaranteed to have a value by setColumnDefaults() in column-helper.ts
-    return this.column.headerTemplate === undefined ? this.column.name : undefined;
+    return !this.column.headerTemplate ? this.column.name : null;
   }
 
-  // @HostBinding('style.height.px')
-  get styles() {
+  get styles(): Record<string, string> {
     // const width = this.calcRealWidth();
     // if (width !== null && width < 10) {
     //   this.column.visible = false;
@@ -152,10 +187,10 @@ export default class DataTableHeaderCellComponent extends Vue {
     //   this.column.visible = true;
     // }
     return {
-      height: this.headerHeight + 'px',
-      width: this.column.width + 'px',
-      'min-width': this.column.minWidth + 'px',
-      'max-width': this.column.maxWidth + 'px',
+      height: `${this.headerHeight}px`,
+      width: `${this.column.width}px`,
+      'min-width': `${this.column.minWidth}px`,
+      'max-width': `${this.column.maxWidth}px`,
     };
   }
 
@@ -195,47 +230,68 @@ export default class DataTableHeaderCellComponent extends Vue {
     this.sortOrder = '';
     if (sorts && this.column) {
       let sortOrder = '';
-      const sort = sorts.filter(s => s.prop).find((s: ISortPropDir, index) => {
-        if (s.prop === this.column.prop) {
-          sortOrder = (index + 1).toString();
-          return true;
-        }
-      });
+      const sort = sorts
+        .filter(s => s.prop)
+        .find((s: ISortPropDir, index) => {
+          if (s.prop === this.column.prop) {
+            sortOrder = (index + 1).toString();
+            return true;
+          }
+        });
       if (sort) {
         if (this.sortType === SortType.multi) {
           this.sortOrder = sortOrder;
         }
         return sort.dir;
-      } 
+      }
     }
   }
 
   onSort(): void {
-    if (!this.column.sortable) return;
+    if (!this.column.sortable) {
+      return;
+    }
 
     const newValue = nextSortDir(this.sortType, this.sortDir);
     this.$emit('sort', {
       column: this.column,
       prevValue: this.sortDir,
-      newValue
+      newValue,
     });
   }
 
   calcSortCssClass(sortDir: SortDirection): string {
     if (sortDir === SortDirection.asc) {
       return `sort-btn sort-asc ${this.sortAscendingIcon}`;
-    } else if (sortDir === SortDirection.desc) {
-      return `sort-btn sort-desc ${this.sortDescendingIcon}`;
-    } else {
-      return `sort-btn`;
     }
+    if (sortDir === SortDirection.desc) {
+      return `sort-btn sort-desc ${this.sortDescendingIcon}`;
+    }
+    return 'sort-btn';
   }
 
   calcCssClass(sortDir: SortDirection): string {
     if (sortDir === SortDirection.asc || sortDir === SortDirection.desc) {
       return 'datatable-header-cell-bold';
+    }
+    return '';
+  }
+
+  private setResizeObserver() {
+    if ((window as Window).ResizeObserver) {
+      this.resizeObserver = new (window as Window).ResizeObserver(entries => {
+        if (!this.column) {
+          return;
+        }
+        if (entries.length && entries[0].contentRect) {
+          this.column.realWidth = Math.max(this.$el.clientWidth, entries[0].contentRect.width);
+        } else {
+          this.column.realWidth = this.$el.clientWidth;
+        }
+      });
+      this.resizeObserver.observe(this.$el);
     } else {
-      return '';
+      this.column.realWidth = null;
     }
   }
 }

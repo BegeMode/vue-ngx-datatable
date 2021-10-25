@@ -47,8 +47,8 @@ import DatatableComponent from '../../src/components/datatable.component.vue';
 })
 export default class TemplateRefTemplatesComponent extends Vue {
 
-  rows = [];
-  columns = [];
+  rows: Array<Record<string, unknown>> = [];
+  columns: Array<Record<string, unknown>> = [];
 
   created() {
     this.columns = [{
@@ -56,12 +56,12 @@ export default class TemplateRefTemplatesComponent extends Vue {
       headerTemplate: this.$slots.hdrTpl,
       name: 'Gender'
     }];
-    this.fetch((data) => {
+    this.fetch((data: Array<Record<string, unknown>>) => {
       this.rows = data.splice(0, 5);
     });
   }
 
-  fetch(cb) {
+  fetch(cb: (data: Array<Record<string, unknown>>) => void) {
     const req = new XMLHttpRequest();
     req.open('GET', `assets/data/company.json`);
 
