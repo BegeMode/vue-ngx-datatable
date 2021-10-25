@@ -484,7 +484,7 @@ export default class DataTableBodyComponent extends Vue {
           isChecked: this.isChecked(row),
           expanded: this.getRowExpanded(row),
           treeStatus: this.treeStatus(row),
-          group: (group as unknown) as IGroupedRows,
+          group: group as unknown as IGroupedRows,
         };
         idx++;
       }
@@ -906,7 +906,7 @@ export default class DataTableBodyComponent extends Vue {
     this.renderCounter++;
     const counter = this.renderCounter;
     clearTimeout(this.renderId);
-    this.renderId = (setTimeout(() => this.checkRenderFinish(counter), 100) as unknown) as number;
+    this.renderId = setTimeout(() => this.checkRenderFinish(counter), 100) as unknown as number;
   }
 
   checkRenderFinish(counter: number): void {
@@ -918,7 +918,7 @@ export default class DataTableBodyComponent extends Vue {
     } else {
       counter = this.renderCounter;
       clearTimeout(this.renderId);
-      this.renderId = (setTimeout(() => this.checkRenderFinish(counter), 100) as unknown) as number;
+      this.renderId = setTimeout(() => this.checkRenderFinish(counter), 100) as unknown as number;
     }
   }
 

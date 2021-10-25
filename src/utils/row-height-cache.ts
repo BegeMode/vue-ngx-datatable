@@ -45,16 +45,8 @@ export class RowHeightCache {
    * @param rowDetailHeight The detail row height.
    */
   initCache(details: IRowsHeightCache): void {
-    const {
-      rows,
-      rowHeight,
-      rowDetailHeight,
-      groupRowHeight,
-      externalVirtual,
-      rowCount,
-      rowIndexes,
-      rowExpansions,
-    } = details;
+    const { rows, rowHeight, rowDetailHeight, groupRowHeight, externalVirtual, rowCount, rowIndexes, rowExpansions } =
+      details;
 
     if (typeof rowHeight !== 'function' && isNaN(rowHeight)) {
       throw new Error(`Row Height cache initialization failed. Please ensure that 'rowHeight' is a

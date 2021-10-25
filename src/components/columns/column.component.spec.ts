@@ -3,8 +3,8 @@ import { mount, Wrapper } from '@vue/test-utils';
 import * as flushPromises from 'flush-promises';
 import { TableColumn } from 'types/table-column.type';
 import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
 import { VueConstructor } from 'vue/types/umd';
+import { Component } from 'vue-property-decorator';
 import DataTableColumnComponent from './column.component';
 
 let counter = 0;
@@ -137,7 +137,7 @@ describe('DataTableColumnDirective', () => {
     it('notifies of visible changes', async () => {
       const spy = spyOn(component, 'onColumnChangeVisible');
 
-      colWrapper.setProps({ visible: false });
+      column.visible = false;
       await column.$nextTick();
 
       expect(spy).toHaveBeenCalled();

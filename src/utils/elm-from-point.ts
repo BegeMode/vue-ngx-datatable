@@ -31,8 +31,7 @@ export function elementsFromPoint(x: number, y: number): Array<Element> {
   }
 
   // restore the previous pointer-events values
-  // eslint-disable-next-line prettier/prettier
-  for (i = previousPointerEvents.length; (d = previousPointerEvents[--i]);) {
+  for (i = previousPointerEvents.length; (d = previousPointerEvents[i]); i--) {
     (elements[i] as HTMLElement).style.setProperty('pointer-events', d?.value ? d.value : '', d?.priority);
   }
   // return our results

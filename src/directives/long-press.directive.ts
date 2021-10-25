@@ -84,7 +84,7 @@ class LongPressController {
 
     document.addEventListener('mouseup', this.handleUp);
 
-    this.timeout = (setTimeout(() => {
+    this.timeout = setTimeout(() => {
       this.isLongPressing = true;
       this.emit('longPressStart', {
         event,
@@ -94,7 +94,7 @@ class LongPressController {
       document.addEventListener('mousemove', this.handleMove);
 
       this.loop(event);
-    }, this.duration) as unknown) as number;
+    }, this.duration) as unknown as number;
 
     this.loop(event);
   }
@@ -119,13 +119,13 @@ class LongPressController {
 
   private loop(event: MouseEvent): void {
     if (this.isLongPressing) {
-      this.timeout = (setTimeout(() => {
+      this.timeout = setTimeout(() => {
         this.emit('longPressing', {
           event,
           model: this.pressModel,
         });
         this.loop(event);
-      }, 50) as unknown) as number;
+      }, 50) as unknown as number;
     }
   }
 

@@ -12,7 +12,7 @@ export function checkVisibility(element: HTMLElement, callback: () => void): voi
       }
     } else {
       clearTimeout(timeout);
-      timeout = (setTimeout(() => check(), 50) as unknown) as number;
+      timeout = setTimeout(() => check(), 50) as unknown as number;
     }
   }
 

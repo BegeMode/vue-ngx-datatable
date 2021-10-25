@@ -6,8 +6,8 @@ import * as flushPromises from 'flush-promises';
 import { ISortPropDir } from 'types/sort-prop-dir.type';
 import { TableColumn } from 'types/table-column.type';
 import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
 import { VueConstructor } from 'vue/types/umd';
+import { Component } from 'vue-property-decorator';
 import DataTableBodyCellComponent from './body/body-cell.component.vue';
 import DataTableBodyRowComponent from './body/body-row.component.vue';
 import DataTableColumnComponent from './columns/column.component';
@@ -415,7 +415,7 @@ describe('DatatableComponent', () => {
     // previously, an exception was thrown from column-helper.ts setColumnDefaults()
     component.columns = columns;
     await Vue.nextTick();
-    component.rows = (initialRows as unknown) as Record<string, unknown>[];
+    component.rows = initialRows as unknown as Record<string, unknown>[];
     await Vue.nextTick();
     await flushPromises();
 

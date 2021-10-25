@@ -48,9 +48,9 @@ class VisibilityController {
       } else {
         this.onVisibilityChange(false);
       }
-      this.timeout = (setTimeout(() => check(), timeout) as unknown) as number;
+      this.timeout = setTimeout(() => check(), timeout) as unknown as number;
     };
-    this.timeout = setTimeout(() => check());
+    this.timeout = setTimeout(() => check()) as unknown as number;
   }
 
   private emit(name: string, data: unknown) {
@@ -79,14 +79,14 @@ export default Vue.directive('visibility-observer', {
   resizing: false,
   bind(el: HTMLElement, binding: DirectiveBinding, vnode: VNode) {
     const ctrl = new VisibilityController(vnode, el);
-    ((el as unknown) as { __visibility__: VisibilityController }).__visibility__ = ctrl;
+    (el as unknown as { __visibility__: VisibilityController }).__visibility__ = ctrl;
     const b = binding as { value: { on: boolean; timeout: number } };
     if (b?.value?.on) {
       ctrl.runCheck(b?.value?.timeout ?? 1000);
     }
   },
   unbind(el: HTMLElement) {
-    const ctrl = ((el as unknown) as { __visibility__: VisibilityController }).__visibility__;
+    const ctrl = (el as unknown as { __visibility__: VisibilityController }).__visibility__;
     ctrl.stopCheck();
   },
 });

@@ -3,8 +3,8 @@ import { ColumnMode } from 'types/column-mode.type';
 import { ContextmenuType } from 'types/contextmenu.type';
 import { IGroupedRows } from 'types/grouped-rows';
 import { SelectionType } from 'types/selection.type';
-import { ISortEvent, ISortPropDir } from 'types/sort-prop-dir.type';
 import { SortType } from 'types/sort.type';
+import { ISortEvent, ISortPropDir } from 'types/sort-prop-dir.type';
 import { TableColumn } from 'types/table-column.type';
 import { setColumnDefaults, setColumnsDefaults } from 'utils/column-helper';
 import { isArrayEqual } from 'utils/equal.array';
@@ -17,9 +17,9 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import VisibilityDirective from '../directives/visibility.directive';
 import { DimensionsHelper } from '../services/dimensions-helper.service';
 import { ScrollbarHelper } from '../services/scrollbar-helper.service';
-import DataTableBodyCellComponent from './body/body-cell.component.vue';
 import DataTableBody from './body/body.component';
 import DataTableBodyComponent from './body/body.component.vue';
+import DataTableBodyCellComponent from './body/body-cell.component.vue';
 import DataTableColumnComponent from './columns/column.component';
 import DataTableFooterComponent from './footer/footer.component';
 import DataTableHeaderComponent from './header/header.component';
@@ -104,7 +104,7 @@ export default class DatatableComponent extends Vue {
    * Type of column width distribution formula.
    * Example: flex, force, standard
    */
-  @Prop({ type: String, validator: value => ['standard', 'flex', 'force'].indexOf(value) !== -1 })
+  @Prop({ type: String, validator: (value: string) => ['standard', 'flex', 'force'].indexOf(value) !== -1 })
   columnMode: string;
   /**
    * The minimum header height in pixels.
@@ -185,7 +185,7 @@ export default class DatatableComponent extends Vue {
   /**
    * The type of sorting
    */
-  @Prop({ type: String, validator: value => ['single', 'multi'].indexOf(value) !== -1 }) sortType: string;
+  @Prop({ type: String, validator: (value: string) => ['single', 'multi'].indexOf(value) !== -1 }) sortType: string;
   /**
    * Array of sorted columns by property and type.
    * Default value: `[]`
@@ -1172,7 +1172,7 @@ export default class DatatableComponent extends Vue {
       this.recalculateColumns();
     }
     clearTimeout(this.isColumnsInitedTimeoutId);
-    this.isColumnsInitedTimeoutId = (setTimeout(() => (this.isColumnsInited = true), 50) as unknown) as number;
+    this.isColumnsInitedTimeoutId = setTimeout(() => (this.isColumnsInited = true), 50) as unknown as number;
   }
 
   onColumnRemoved(column: TableColumn): void {

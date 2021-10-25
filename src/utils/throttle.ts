@@ -41,7 +41,7 @@ export function throttle(
       // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       result = func.apply(context, args);
     } else if (!timeout && options.trailing !== false) {
-      timeout = (setTimeout(later, remaining) as unknown) as number;
+      timeout = setTimeout(later, remaining) as unknown as number;
     }
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return result;

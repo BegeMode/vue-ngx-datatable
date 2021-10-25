@@ -2,9 +2,9 @@
 import { mount, Wrapper } from '@vue/test-utils';
 import * as flushPromises from 'flush-promises';
 import Vue from 'vue';
+import { VueConstructor } from 'vue/types/umd';
 // import VisibilityDirective from './visibility.directive';
 import { Component } from 'vue-property-decorator';
-import { VueConstructor } from 'vue/types/umd';
 
 let wrapper: Wrapper<Vue>;
 let component: Vue;
