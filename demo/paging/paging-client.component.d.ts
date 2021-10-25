@@ -1,7 +1,7 @@
 import { Vue } from 'vue-property-decorator';
 export default class ClientPagingComponent extends Vue {
-    rows: any[];
+    rows: Array<Record<string, unknown>>;
     page: number;
     created(): void;
-    fetch(cb: any): void;
+    fetch(cb: (data: Array<Record<string, unknown>>) => void): void;
 }

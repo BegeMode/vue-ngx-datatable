@@ -3,7 +3,7 @@ export interface IGroupedRows {
     key: string;
     level: number;
     __expanded: boolean;
-    value: any[];
+    rows: Record<string, unknown | IGroupedRows>[];
     groups?: IGroupedRows[];
     keys?: Array<{
         title: string;

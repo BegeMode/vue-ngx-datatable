@@ -1,6 +1,6 @@
 import { Vue } from 'vue-property-decorator';
 export default class BasicAutoComponent extends Vue {
-    rows: any[];
+    rows: Array<Record<string, unknown>>;
     loadingIndicator: boolean;
     reorderable: boolean;
     columns: ({
@@ -17,5 +17,5 @@ export default class BasicAutoComponent extends Vue {
         prop?: undefined;
     })[];
     created(): void;
-    fetch(cb: any): void;
+    fetch(cb: (data: Array<Record<string, unknown>>) => void): void;
 }

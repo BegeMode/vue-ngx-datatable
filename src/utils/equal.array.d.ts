@@ -1,1 +1,1 @@
-export declare function isArrayEqual(array1: any[], array2: any[]): boolean;
+export declare function isArrayEqual(array1: unknown[], array2: unknown[]): boolean;

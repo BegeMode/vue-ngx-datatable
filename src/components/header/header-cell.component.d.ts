@@ -1,5 +1,9 @@
+import { SelectionType } from 'types/selection.type';
+import { SortType } from 'types/sort.type';
+import { SortDirection } from 'types/sort-direction.type';
+import { ISortPropDir } from 'types/sort-prop-dir.type';
+import { TableColumn } from 'types/table-column.type';
 import { Vue } from 'vue-property-decorator';
-import { SortDirection, SortType, SelectionType, TableColumn, ISortPropDir } from '../../types';
 export default class DataTableHeaderCellComponent extends Vue {
     sortType: SortType;
     sortAscendingIcon: string;
@@ -10,26 +14,29 @@ export default class DataTableHeaderCellComponent extends Vue {
     column: TableColumn;
     sorts: ISortPropDir[];
     headerHeight: number;
-    sortFn: any;
+    sortFn: () => void;
     sortDir: SortDirection;
     myAllRowsSelected: boolean;
     sortOrder: string;
-    cellContext: any;
+    cellContext: {
+        column: TableColumn;
+        sortDir: SortDirection;
+        sortFn: () => void;
+        allRowsSelected: boolean;
+    };
+    resizeObserver?: ResizeObserver;
     onAllRowsSelectedChanged(): void;
     onColumnChahged(): void;
     onSortsChanged(): void;
     created(): void;
     mounted(): void;
     beforeUpdate(): void;
+    updated(): void;
+    beforeDestroy(): void;
     onCheckboxChange(): void;
-    get columnCssClasses(): any;
+    get columnCssClasses(): string;
     get name(): string;
-    get styles(): {
-        height: string;
-        width: string;
-        'min-width': string;
-        'max-width': string;
-    };
+    get styles(): Record<string, string>;
     get sortCssClass(): string;
     get cssClass(): string;
     get isCheckboxable(): boolean;
@@ -38,4 +45,5 @@ export default class DataTableHeaderCellComponent extends Vue {
     onSort(): void;
     calcSortCssClass(sortDir: SortDirection): string;
     calcCssClass(sortDir: SortDirection): string;
+    private setResizeObserver;
 }

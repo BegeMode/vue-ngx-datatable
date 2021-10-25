@@ -1,4 +1,7 @@
+import { SortDirection } from 'types/sort-direction.type';
+import { VNode } from 'vue/types/umd';
 import { ValueGetter } from '../utils/column-prop-getters';
+export declare type TComparator = (propA: string, propB: string, row: Record<string, unknown>, row1: Record<string, unknown>, dir: SortDirection) => number;
 /**
  * Column property that indicates how to retrieve this column's
  * value from a row.
@@ -84,6 +87,13 @@ export interface TableColumn {
      */
     width?: number;
     /**
+     * The real calculated width of the column, in pixels
+     *
+     * @type {number}
+     * @memberOf TableColumn
+     */
+    realWidth?: number;
+    /**
      * Can the column be resized
      *
      * @type {boolean}
@@ -96,7 +106,7 @@ export interface TableColumn {
      * @type {*}
      * @memberOf TableColumn
      */
-    comparator?: any;
+    comparator?: TComparator;
     /**
      * Custom pipe transforms
      *
@@ -148,35 +158,42 @@ export interface TableColumn {
      * @type {*}
      * @memberOf TableColumn
      */
-    cellTemplate?: any;
+    cellTemplate?: (arg?: Record<string, unknown>) => VNode[];
     /**
-     * Header template ref
+     * Header template slot
      *
      * @type {*}
      * @memberOf TableColumn
      */
-    headerTemplate?: any;
+    headerTemplate?: (arg?: Record<string, unknown>) => VNode[];
+    /**
+     * Header append template slot
+     *
+     * @type {*}
+     * @memberOf TableColumn
+     */
+    headerAppendTemplate?: (arg?: Record<string, unknown>) => VNode[];
     /**
      * Tree toggle template ref
      *
      * @type {*}
      * @memberOf TableColumn
      */
-    treeToggleTemplate?: any;
+    treeToggleTemplate?: boolean;
     /**
      * CSS Classes for the cell
      *
      *
      * @memberOf TableColumn
      */
-    cellClass?: string | ((data: any) => string | any);
+    cellClass?: string | Array<string> | ((data: Record<string, unknown>) => string | Record<string, unknown>) | Array<string | Array<string> | ((data: Record<string, unknown>) => string | Record<string, unknown>)>;
     /**
      * CSS classes for the header
      *
      *
      * @memberOf TableColumn
      */
-    headerClass?: string | ((data: any) => string | any);
+    headerClass?: string | ((data: unknown) => string);
     /**
      * Header checkbox enabled
      *
@@ -204,14 +221,14 @@ export interface TableColumn {
      * @type {(cells: any[]) => any}
      * @memberOf TableColumn
      */
-    summaryFunc?: (cells: any[]) => any;
+    summaryFunc?: (cells: unknown[]) => string;
     /**
      * Summary cell template ref
      *
      * @type {*}
      * @memberOf TableColumn
      */
-    summaryTemplate?: any;
+    summaryTemplate?: (arg?: Record<string, unknown>) => VNode[];
     /**
      * Is column the drag'n'drop target?
      * @type {boolean}
@@ -230,4 +247,24 @@ export interface TableColumn {
      * @memberOf TableColumn
      */
     element?: Element;
+    /**
+     * Is column temporary hidden?
+     * @type {boolean}
+     * @memberOf TableColumn
+     */
+    hidden?: boolean;
+    /**
+     * Is column dragging now?
+     * @type {boolean}
+     * @memberOf TableColumn
+     */
+    dragging?: boolean;
+    /**
+     * Dragging marker css classes
+     * @type {object}
+     * @memberOf TableColumn
+     */
+    targetMarkerContext?: {
+        class: string;
+    };
 }

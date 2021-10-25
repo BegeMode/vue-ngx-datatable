@@ -1,16 +1,18 @@
 import { Vue } from 'vue-property-decorator';
 export default class RowCssComponent extends Vue {
-    rows: any[];
+    rows: Array<Record<string, unknown>>;
     expanded: {};
     timeout: any;
     created(): void;
-    fetch(cb: any): void;
-    getRowClass(row: any): {
+    fetch(cb: (data: Array<Record<string, unknown>>) => void): void;
+    getRowClass(row: {
+        age: number;
+    }): {
         'age-is-ten': boolean;
     };
     getCellClass({ row, column, value }: {
-        row: any;
-        column: any;
-        value: any;
-    }): any;
+        row: Record<string, unknown>;
+        column: unknown;
+        value: string;
+    }): Record<string, unknown>;
 }

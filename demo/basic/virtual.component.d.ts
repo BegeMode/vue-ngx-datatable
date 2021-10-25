@@ -1,11 +1,13 @@
 import { Vue } from 'vue-property-decorator';
 export default class VirtualScrollComponent extends Vue {
-    rows: any[];
+    rows: Array<Record<string, unknown>>;
     expanded: {};
     timeout: any;
     created(): void;
-    onPage(event: any): void;
-    fetch(cb: any): void;
-    getRowHeight(row: any): any;
+    onPage(event: unknown): void;
+    fetch(cb: (data: Array<Record<string, unknown>>) => void): void;
+    getRowHeight(row: {
+        height: number;
+    }): number;
     onRendered(): void;
 }

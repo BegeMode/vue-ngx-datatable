@@ -1,3 +1,4 @@
+import { VNode } from 'vue';
 import { Vue } from 'vue-property-decorator';
 export default class DataTableFooterComponent extends Vue {
     footerHeight: number;
@@ -9,7 +10,7 @@ export default class DataTableFooterComponent extends Vue {
     pagerPreviousIcon: string;
     pagerNextIcon: string;
     totalMessage: string;
-    footerSlot: any;
+    footerSlot: (arg?: Record<string, unknown>) => VNode[];
     selectedCount: number;
     selectedMessage: string | boolean;
     created(): void;

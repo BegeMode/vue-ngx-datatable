@@ -1,7 +1,10 @@
 /**
  * Throttle a function
  */
-export declare function throttle(func: any, wait: number, options?: any): (this: any) => any;
+export declare function throttle(func: (...args: Array<unknown>) => unknown, wait: number, options?: {
+    leading?: boolean;
+    trailing?: boolean;
+}): (...args: Array<unknown>) => unknown;
 /**
  * Throttle decorator
  *
@@ -10,8 +13,7 @@ export declare function throttle(func: any, wait: number, options?: any): (this:
  *    myFn() { ... }
  *  }
  */
-export declare function throttleable(duration: number, options?: any): (target: any, key: string | number | symbol, descriptor: PropertyDescriptor) => {
-    configurable: boolean;
-    enumerable: boolean;
-    get: () => any;
-};
+export declare function throttleable(duration: number, options?: {
+    leading?: boolean;
+    trailing?: boolean;
+}): (target: unknown, key: PropertyKey, descriptor: PropertyDescriptor) => PropertyDescriptor;

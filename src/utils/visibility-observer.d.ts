@@ -1,1 +1,1 @@
-export declare function checkVisibility(element: any, callback: any): void;
+export declare function checkVisibility(element: HTMLElement, callback: () => void): void;

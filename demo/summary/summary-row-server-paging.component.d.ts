@@ -6,19 +6,18 @@ export default class SummaryRowServerPagingComponent extends Vue {
     page: Page;
     rows: CorporateEmployee[];
     serverResultsService: MockServerResultsService;
-    columns: ({
+    columns: {
         name: string;
-        summaryFunc: (cells: any) => string;
-    } | {
-        name: string;
-        summaryFunc: () => any;
-    })[];
+        summaryFunc: (cells: Array<string>) => string;
+    }[];
     created(): void;
     mounted(): void;
     /**
      * Populate the table with new data based on the page number
      * @param page The page to select
      */
-    setPage(pageInfo: any): Promise<void>;
+    setPage(pageInfo: {
+        offset: number;
+    }): Promise<void>;
     getGenderSummary(): string;
 }

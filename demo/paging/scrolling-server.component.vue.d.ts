@@ -1,5 +1,5 @@
-import { Vue } from "vue-property-decorator";
-import { CorporateEmployee } from "./model/corporate-employee";
+import { Vue } from 'vue-property-decorator';
+import { CorporateEmployee } from './model/corporate-employee';
 declare class PagedData<T> {
     data: T[];
 }

@@ -1,11 +1,10 @@
 import { Vue } from 'vue-property-decorator';
 export default class ResponsiveComponent extends Vue {
-    rows: any[];
-    expanded: any;
-    timeout: any;
+    rows: Array<Record<string, unknown>>;
+    timeout: number;
     created(): void;
-    onPage(event: any): void;
-    fetch(cb: any): void;
-    toggleExpandRow(row: any): void;
-    onDetailToggle(event: any): void;
+    onPage(event: Record<string, unknown>): void;
+    fetch(cb: (data: Array<Record<string, unknown>>) => void): void;
+    toggleExpandRow(row: Record<string, unknown>): void;
+    onDetailToggle(event: Record<string, unknown>): void;
 }

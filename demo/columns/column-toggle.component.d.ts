@@ -13,6 +13,10 @@ export default class ColumnToggleComponent extends Vue {
         name: string;
         visible: boolean;
     }[];
-    toggle(col: any): void;
-    isChecked(col: any): any;
+    toggle(col: {
+        visible: boolean;
+    }): void;
+    isChecked(col: {
+        visible: boolean;
+    }): boolean;
 }

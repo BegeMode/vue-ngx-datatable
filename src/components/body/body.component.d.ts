@@ -1,88 +1,92 @@
+import { TreeStatus } from 'components/body/body-cell.component';
+import { TGroupByField } from 'components/datatable.component';
+import { CheckMode } from 'types/check.type';
+import { IGroupedRows } from 'types/grouped-rows';
+import { IRowContext } from 'types/row-context.type';
+import { SelectionType } from 'types/selection.type';
+import { TableColumn } from 'types/table-column.type';
+import { IColumnsByPinRecord, IColumnsWidth } from 'utils/column';
+import { RowHeightCache } from 'utils/row-height-cache';
+import { VNode } from 'vue';
 import { Vue } from 'vue-property-decorator';
-import { RowHeightCache } from '../../utils';
-import { SelectionType, TableColumn } from '../../types';
-import { IRowContext } from '../../types/row-context.type';
-import { IGroupedRows } from '../../types/grouped-rows';
-import { CheckMode } from '../../types/check.type';
+import ScrollerComponent from './scroller.component';
+import DataTableSelectionComponent, { Model } from './selection.component';
 export default class DataTableBodyComponent extends Vue {
     scrollbarV: boolean;
     scrollbarH: boolean;
     loadingIndicator: boolean;
     externalPaging: boolean;
-    rowHeight: number | ((row?: any) => number);
-    groupRowHeight: number | string;
+    rowHeight: number | ((row: Record<string, unknown>, index?: number) => number);
+    groupRowHeight: number | ((row: Record<string, unknown>, index?: number) => number);
+    groupHeaderStyles: Record<string, string | number>;
+    groupHeaderClasses: string | Array<string>;
     offsetX: number;
     emptyMessage: string;
     selectionType: SelectionType;
     checkMode: CheckMode;
-    selected: any[];
-    checked: any[];
-    rowIdentity: (row: any) => any;
+    selected: Array<Record<string, unknown>>;
+    checked: Array<Record<string, unknown>>;
+    rowIdentity: (row: Record<string, unknown>) => string | number;
     rowDetail: boolean;
-    rowDetailHeight: number | string | ((row?: any, index?: any) => number);
-    groupHeader: any;
-    selectCheck: any;
-    displayCheck: any;
+    rowDetailHeight: number | string | ((row?: Record<string, unknown>, index?: number) => number);
+    groupHeader: boolean;
+    selectCheck: () => void;
+    displayCheck: (row: Record<string, unknown>, column?: TableColumn, value?: unknown) => boolean;
     trackByProp: string;
-    rowClass: (row: any, rowIndex: number) => string | string;
+    rowClass: (row: Record<string, unknown>, rowIndex: number) => string | string;
     groupExpansionDefault: boolean;
     innerWidth: number;
-    groupRowsBy: string;
+    groupRowsBy: Array<TGroupByField | Array<TGroupByField>>;
     virtualization: boolean;
     summaryRow: boolean;
     summaryPosition: string;
     summaryHeight: number | string;
     pageSize: number;
     limit: number;
-    rows: any[];
+    rows: Record<string, unknown>[];
     columns: TableColumn[];
     offset: number;
     rowCount: number;
     bodyHeight: number;
     minItemHeight: number | string;
     heightField: string;
-    groupHeaderSlot: any;
-    rowDetailSlot: any;
+    groupHeaderSlot: (obj: Record<string, unknown>) => VNode[];
+    rowDetailSlot: (obj: Record<string, unknown>) => VNode[];
     renderTracking: boolean;
-    scroller: any;
-    selector: any;
+    scroller: ScrollerComponent;
+    selector: DataTableSelectionComponent;
     rowHeightsCache: RowHeightCache;
     offsetY: number;
     myOffset: number;
     myOffsetX: number;
-    indexes: any;
-    columnGroupWidths: any;
-    columnGroupWidthsWithoutGroup: any;
-    rowIndexes: any;
-    rowExpansions: any;
-    myBodyHeight: any;
-    columnsByPin: any;
+    indexes: {
+        first: number;
+        last: number;
+    };
+    columnGroupWidths: IColumnsWidth;
+    rowIndexes: Map<Record<string, unknown>, number>;
+    rowExpansions: Map<Record<string, unknown> | IGroupedRows, boolean>;
+    myBodyHeight: string;
+    columnsByPin: IColumnsByPinRecord[];
     groupStyles: {
         left: {};
         center: {};
         right: {};
     };
-    onBodyScrollHandler: (this: any) => any;
-    rowTrackingFn: any;
-    listener: any;
+    rowTrackingFn: (row: Record<string, unknown>) => string | number;
     lastFirst: number;
     lastLast: number;
     lastRowCount: number;
     rowsChanged: boolean;
     rowContexts: Array<IRowContext>;
-    private scrollbarHelper;
+    private readonly scrollbarHelper;
     private renderCounter;
     private renderId;
-    /**
-     * Creates an instance of DataTableBodyComponent.
-     */
-    created(): void;
-    mounted(): void;
     onPageSize(): void;
     onRowsChanged(): Promise<void>;
     onSelectedChanged(): Promise<void>;
     onCheckedChanged(): Promise<void>;
-    onColumnsChanged(newVal: any, oldVal: any): void;
+    onColumnsChanged(): void;
     onOffsetChanged(): void;
     onOffsetXChanged(): void;
     onMyOffsetXChanged(): void;
@@ -90,11 +94,13 @@ export default class DataTableBodyComponent extends Vue {
     onMyOffsetChanged(): void;
     onRowCountChanged(): void;
     onBodyHeightChanged(): void;
+    /**
+     * Creates an instance of DataTableBodyComponent.
+     */
+    created(): void;
+    mounted(): void;
     get bodyWidth(): string;
-    get styleObject(): {
-        width: string;
-        height: any;
-    };
+    get styleObject(): Record<string, string>;
     /**
      * Returns if selection is enabled.
      */
@@ -108,17 +114,17 @@ export default class DataTableBodyComponent extends Vue {
      * calculate scroll height automatically (as height will be undefined).
      */
     get scrollHeight(): number | undefined;
-    get scrollWidth(): any;
+    get scrollWidth(): string;
     /**
      * Called once, before the instance is destroyed.
      */
     destroyed(): void;
     reset(): void;
     onSelect(event: {
-        selected: Array<any>;
+        selected: Array<Record<string, unknown>>;
         index: number;
     }): void;
-    recalculateColumns(val?: any[]): void;
+    recalculateColumns(val?: Array<TableColumn>): void;
     /**
      * Updates the Y offset given a new offset.
      */
@@ -148,19 +154,21 @@ export default class DataTableBodyComponent extends Vue {
     /**
      * Get the row height
      */
-    getRowHeight(row: any): number;
+    getRowHeight(row: Record<string, unknown>): number;
     /**
      * @param group the group with all rows
      */
-    getGroupHeight(group: any): number;
+    getGroupHeight(group: {
+        value: Array<Record<string, unknown>>;
+    }): number;
     /**
      * Calculate row height based on the expanded state of the row.
      */
-    getRowAndDetailHeight(row: any): number;
+    getRowAndDetailHeight(row: Record<string, unknown>): number;
     /**
      * Get the height of the detail row.
      */
-    getDetailRowHeight: (row?: any, index?: any) => number;
+    getDetailRowHeight: (row?: Record<string, unknown>, index?: number) => number;
     /**
      * Calculates the styles for the row so that the rows can be moved in 2D space
      * during virtual scroll inside the DOM.   In the below case the Y position is
@@ -195,7 +203,7 @@ export default class DataTableBodyComponent extends Vue {
      *
      * @memberOf DataTableBodyComponent
      */
-    getBottomSummaryRowStyles(): any;
+    getBottomSummaryRowStyles(): Record<string, string>;
     /**
      * Hides the loading indicator
      */
@@ -223,7 +231,9 @@ export default class DataTableBodyComponent extends Vue {
      * Expand/Collapse all the rows no matter what their state is.
      */
     toggleAllRows(expanded: boolean): void;
-    onGroupToggle($event: any): void;
+    onGroupToggle($event: {
+        value: Record<string, unknown>;
+    }): void;
     /**
      * Recalculates the table
      */
@@ -231,7 +241,7 @@ export default class DataTableBodyComponent extends Vue {
     /**
      * Tracks the column
      */
-    columnTrackingFn(index: number, column: any): any;
+    columnTrackingFn(index: number, column: TableColumn): string;
     /**
      * Gets the row pinning group styles
      */
@@ -239,32 +249,30 @@ export default class DataTableBodyComponent extends Vue {
     /**
      * Returns if the row was expanded and set default row expansion when row expansion is empty
      */
-    getRowExpanded(row: any): boolean;
+    getRowExpanded(row: Record<string, unknown>): boolean;
     /**
      * Gets the row index given a row
      */
-    getRowIndex(row: any): number;
-    onTreeAction(event: any): void;
-    isSelect(row: any): any;
-    isChecked(row: any): any;
-    onActivate(event: any, index: any): void;
-    onRowRendered(row: any): void;
+    getRowIndex(row: Record<string, unknown>): number;
+    onTreeAction(event: unknown): void;
+    isSelect(row: Record<string, unknown>): boolean;
+    isChecked(row: Record<string, unknown>): boolean;
+    onActivate(model: Model, index: number): void;
+    onRowRendered(row: Record<string, unknown>): void;
     checkRenderFinish(counter: number): void;
     buildStylesByGroup(): void;
-    calcStylesByGroup(group: string): {
-        width: string;
-    };
+    calcStylesByGroup(group: keyof IColumnsWidth): Record<string, string>;
     getGroupStyles(colGroup: {
-        type: string;
+        type: 'left' | 'center' | 'right';
     }): Record<string, string | number>;
-    treeStatus(row: any): any;
-    isRowVisible(row: any): boolean;
-    get cellSlots(): () => {};
-    onCellFocus($event: any): void;
+    treeStatus(row: Record<string, unknown>): TreeStatus;
+    isRowVisible(row: Record<string, unknown>): boolean;
+    get cellSlots(): () => Record<string, (arg?: Record<string, unknown>) => VNode[]>;
+    onCellFocus($event: Event): void;
     /**
      * Toggle the expansion of the row
      */
-    toggleExpandDetail(row: any): void;
+    toggleExpandDetail(row: Record<string, unknown>): void;
     /**
      * Expand all the rows.
      */

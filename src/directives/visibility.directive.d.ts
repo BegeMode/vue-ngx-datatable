@@ -4,10 +4,10 @@ declare const _default: import("vue").DirectiveOptions;
  *
  * Usage:
  *
- * 		<div
- *      v-visibility-observer
- *     >
- * 		</div>
+ * <div
+ *   v-visibility-observer
+ * >
+ * </div>
  *
  */
 export default _default;

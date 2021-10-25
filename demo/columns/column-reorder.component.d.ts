@@ -1,6 +1,6 @@
 import { Vue } from 'vue-property-decorator';
 export default class ColumnReorderComponent extends Vue {
-    rows: any[];
+    rows: Array<Record<string, unknown>>;
     loadingIndicator: boolean;
     reorderable: boolean;
     swapColumns: boolean;
@@ -18,5 +18,5 @@ export default class ColumnReorderComponent extends Vue {
         prop?: undefined;
     })[];
     created(): void;
-    fetch(cb: any): void;
+    fetch(cb: (data: Array<Record<string, unknown>>) => void): void;
 }

@@ -1,9 +1,9 @@
 import { Vue } from 'vue-property-decorator';
 export default class TemplateRefTemplatesComponent extends Vue {
-    rows: any[];
-    columns: any[];
+    rows: Array<Record<string, unknown>>;
+    columns: Array<Record<string, unknown>>;
     created(): void;
-    fetch(cb: any): void;
+    fetch(cb: (data: Array<Record<string, unknown>>) => void): void;
     get column(): {
         name: string;
     };

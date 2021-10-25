@@ -1,9 +1,9 @@
-import { TableColumn } from '../types';
+import { TableColumn } from 'types/table-column.type';
 /**
  * Adjusts the column widths.
  * Inspired by: https://github.com/facebook/fixed-data-table/blob/master/src/FixedDataTableWidthHelper.js
  */
-export declare function adjustColumnWidths(allColumns: TableColumn[], expectedWidth: any): void;
+export declare function adjustColumnWidths(allColumns: TableColumn[], expectedWidth: number): void;
 /**
  * Forces the width of the columns to
  * distribute equally but overflowing when necessary

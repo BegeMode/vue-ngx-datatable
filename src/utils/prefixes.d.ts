@@ -1,1 +1,1 @@
-export declare function getVendorPrefixedName(property: string): any;
+export declare function getVendorPrefixedName(property: string): string;

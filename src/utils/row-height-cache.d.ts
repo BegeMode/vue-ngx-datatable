@@ -1,3 +1,4 @@
+import { IGroupedRows } from 'types/grouped-rows';
 /**
  * This object contains the cache of the various row heights that are present inside
  * the data table.   Its based on Fenwick tree data structure that helps with
@@ -7,6 +8,16 @@
  * https://github.com/mikolalysenko/fenwick-tree
  *
  */
+interface IRowsHeightCache {
+    rows: Record<string, unknown>[];
+    rowHeight: number | ((row: Record<string, unknown>, index?: number) => number);
+    rowDetailHeight: number | ((row: Record<string, unknown>, index?: number) => number);
+    groupRowHeight: number | ((row: Record<string, unknown>, index?: number) => number);
+    externalVirtual: boolean;
+    rowCount: number;
+    rowIndexes: Map<Record<string, unknown>, number>;
+    rowExpansions: Map<Record<string, unknown> | IGroupedRows, boolean>;
+}
 export declare class RowHeightCache {
     /**
      * Tree Array stores the cumulative information of the row heights to perform efficient
@@ -25,7 +36,7 @@ export declare class RowHeightCache {
      * @param rowHeight The row height.
      * @param rowDetailHeight The detail row height.
      */
-    initCache(details: any): void;
+    initCache(details: IRowsHeightCache): void;
     /**
      * Given the ScrollY position i.e. sum, provide the rowIndex
      * that is present in the current view port.  Below handles edge cases.
@@ -54,3 +65,4 @@ export declare class RowHeightCache {
      */
     private calcRowIndex;
 }
+export {};

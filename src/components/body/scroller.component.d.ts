@@ -3,26 +3,21 @@ export default class ScrollerComponent extends Vue {
     scrollbarV: boolean;
     scrollbarH: boolean;
     scrollHeight: number;
-    scrollWidth: number;
+    scrollWidth: string;
     fromPager: boolean;
-    get styleObject(): {
-        height: string;
-        width: string;
-    };
+    get styleObject(): Record<string, unknown>;
     scrollYPos: number;
     scrollXPos: number;
     prevScrollYPos: number;
     prevScrollXPos: number;
-    parentElement: any;
-    onScrollListener: (event: MouseEvent) => void;
+    parentElement: Element;
     onInitScrollHandler: () => void;
-    scrollDirty: boolean;
     created(): void;
     mounted(): void;
     beforeDestroy(): void;
     setOffset(offsetY: number, fromPager?: boolean): void;
     incOffset(offsetY: number): void;
     onInitScroll(): void;
-    onScrolled(event: MouseEvent): void;
+    tick(): void;
     updateOffset(): void;
 }

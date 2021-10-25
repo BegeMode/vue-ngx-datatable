@@ -1,6 +1,6 @@
 import { Vue } from 'vue-property-decorator';
 export default class BasicFixedComponent extends Vue {
-    rows: any[];
+    rows: Array<Record<string, unknown>>;
     columns: ({
         prop: string;
         name?: undefined;
@@ -9,5 +9,5 @@ export default class BasicFixedComponent extends Vue {
         prop?: undefined;
     })[];
     created(): void;
-    fetch(cb: any): void;
+    fetch(cb: (data: Array<Record<string, unknown>>) => void): void;
 }

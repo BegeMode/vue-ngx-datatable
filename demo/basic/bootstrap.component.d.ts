@@ -1,22 +1,18 @@
 import { Vue } from 'vue-property-decorator';
 export default class BootstrapThemeComponent extends Vue {
-    rows: any[];
+    rows: Array<Record<string, unknown>>;
     loadingIndicator: boolean;
     reorderable: boolean;
     columns: ({
         prop: string;
-        summaryFunc: () => any;
+        summaryFunc: () => string;
         name?: undefined;
     } | {
         name: string;
-        summaryFunc: (cells: any) => string;
-        prop?: undefined;
-    } | {
-        name: string;
-        summaryFunc: () => any;
+        summaryFunc: (cells: string[]) => string;
         prop?: undefined;
     })[];
     created(): void;
-    fetch(cb: any): void;
+    fetch(cb: (data: Array<Record<string, unknown>>) => void): void;
     private summaryForGender;
 }

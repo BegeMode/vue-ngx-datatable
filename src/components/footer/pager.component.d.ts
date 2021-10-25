@@ -1,4 +1,8 @@
 import { Vue } from 'vue-property-decorator';
+export interface IPage {
+    number: number;
+    text: string;
+}
 export default class DataTablePagerComponent extends Vue {
     pagerLeftArrowIcon: string;
     pagerRightArrowIcon: string;
@@ -7,7 +11,7 @@ export default class DataTablePagerComponent extends Vue {
     size: number;
     count: number;
     page: number;
-    pages: any;
+    pages: IPage[];
     myPage: number;
     onCountChanged(): void;
     onSizeChanged(): void;
@@ -19,5 +23,5 @@ export default class DataTablePagerComponent extends Vue {
     prevPage(): void;
     nextPage(): void;
     selectPage(page: number): void;
-    calcPages(page?: number): any[];
+    calcPages(page?: number): IPage[];
 }

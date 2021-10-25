@@ -1,5 +1,5 @@
 import { TableColumnProp } from '../types/table-column.type';
-export declare type OptionalValueGetter = (row: any) => any | undefined;
+export declare type OptionalValueGetter = (row: Record<string, unknown>) => unknown | undefined;
 export declare function optionalGetterForProp(prop: TableColumnProp): OptionalValueGetter;
 /**
  * This functions rearrange items by their parents
@@ -37,4 +37,7 @@ export declare function optionalGetterForProp(prop: TableColumnProp): OptionalVa
  * @param rows
  *
  */
-export declare function groupRowsByParents(rows: any[], from?: OptionalValueGetter, to?: OptionalValueGetter, lazyTree?: boolean): any[];
+export declare function groupRowsByParents(rows: Array<{
+    level: number;
+    treeStatus?: string;
+}>, from?: OptionalValueGetter, to?: OptionalValueGetter, lazyTree?: boolean): Record<string, unknown>[];

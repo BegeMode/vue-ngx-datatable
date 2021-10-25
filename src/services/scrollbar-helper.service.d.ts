@@ -4,7 +4,7 @@
  */
 export declare class ScrollbarHelper {
     width: number;
-    private document;
+    private readonly document;
     constructor();
     getWidth(): number;
 }

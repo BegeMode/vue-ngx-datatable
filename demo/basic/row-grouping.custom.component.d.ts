@@ -15,7 +15,7 @@ interface IRow {
     groupstatus: string;
     dt: string;
 }
-export default class RowGroupingComponent extends Vue {
+export default class RowGroupingCustomComponent extends Vue {
     editing: {};
     rows: Array<IRow>;
     groupRowsBy: (string | ({
@@ -58,5 +58,6 @@ export default class RowGroupingComponent extends Vue {
     onRendered(): void;
     onExpandAll(): void;
     onCollapseAll(): void;
+    get groupHeaderStyles(): Record<string, string>;
 }
 export {};

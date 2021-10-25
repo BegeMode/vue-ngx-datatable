@@ -1,13 +1,13 @@
 import { Vue } from 'vue-property-decorator';
 export default class MultiDisableSelectionComponent extends Vue {
-    rows: any[];
-    selected: any[];
+    rows: Array<Record<string, unknown>>;
+    selected: Array<Record<string, unknown>>;
     columns: any[];
     created(): void;
-    fetch(cb: any): void;
+    fetch(cb: (data: Array<Record<string, unknown>>) => void): void;
     onSelect({ selected }: {
-        selected: any;
+        selected: Array<Record<string, unknown>>;
     }): void;
-    onActivate(event: any): void;
-    checkSelectable(event: any): boolean;
+    onActivate(event: Record<string, unknown>): void;
+    checkSelectable(event: Record<string, unknown>): boolean;
 }

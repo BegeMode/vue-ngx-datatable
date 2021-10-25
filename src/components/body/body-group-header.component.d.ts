@@ -1,29 +1,21 @@
+import { TGroupByField } from 'components/datatable.component';
+import { VNode } from 'vue';
 import { Vue } from 'vue-property-decorator';
 import { IGroupedRows } from '../../types/grouped-rows';
 export default class DataTableBodyGroupHeaderComponent extends Vue {
-    rowHeight: (number | ((group?: any, index?: number) => number));
+    rowHeight: number | ((group?: IGroupedRows, index?: number) => number);
     group: IGroupedRows;
     expanded: boolean;
-    groupHeaderSlot: any;
+    groupHeaderSlot: (obj: Record<string, unknown>) => VNode[];
     groupLevel: number;
-    groupRowsBy: string | any[];
+    groupRowsBy: Array<TGroupByField | Array<TGroupByField>>;
     created(): void;
     beforeUpdate(): void;
     /**
      * Toggle the expansion of a group
      */
     toggleExpandGroup(): void;
-    /**
-     * Expand all groups
-     */
-    expandAllGroups(): void;
-    /**
-     * Collapse all groups
-     */
-    collapseAllGroups(): void;
     get groupTitle(): string;
-    get styles(): {
-        'padding-left': string;
-    };
-    get groupBy(): any;
+    get styles(): Record<string, string>;
+    get groupBy(): TGroupByField | Array<TGroupByField>;
 }

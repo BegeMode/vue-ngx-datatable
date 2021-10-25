@@ -12,5 +12,8 @@ export default class PagingScrollingNoVirtualizationComponent extends Vue {
      * Populate the table with new data based on the page number
      * @param page The page to select
      */
-    setPage(pageInfo: any): Promise<void>;
+    setPage(pageInfo: {
+        pageNumber?: number;
+        offset: number;
+    }): Promise<void>;
 }

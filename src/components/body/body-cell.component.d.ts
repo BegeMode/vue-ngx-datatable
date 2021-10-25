@@ -1,16 +1,17 @@
+import { IRowContext } from 'types/row-context.type';
+import { TableColumn } from 'types/table-column.type';
+import { VNode } from 'vue';
 import { Vue } from 'vue-property-decorator';
-import { IRowContext } from '../../types/row-context.type';
-import { TableColumn } from 'types';
 export declare type TreeStatus = 'collapsed' | 'expanded' | 'loading' | 'disabled';
 export default class DataTableBodyCellComponent extends Vue {
     column: TableColumn;
     rowContext: IRowContext;
     tabIndex: string;
-    cellSlot: any;
+    cellSlot: (obj: Record<string, unknown>) => VNode[];
     renderTracking: boolean;
-    displayCheck: (row: any, column?: TableColumn, value?: any) => boolean;
-    sanitizedValue: any;
-    value: any;
+    displayCheck: (row: Record<string, unknown>, column?: TableColumn, value?: unknown) => boolean;
+    sanitizedValue: string;
+    value: unknown;
     isFocused: boolean;
     onRowChanged(): void;
     created(): void;
@@ -19,16 +20,16 @@ export default class DataTableBodyCellComponent extends Vue {
     stripHtml(html: string): string;
     onFocus(): void;
     onBlur(): void;
-    onClick(event: any): void;
-    onDblClick(event: any): void;
-    onKeyDown(event: any): void;
-    onCheckboxChange(event: any): void;
-    onTreeAction(event: any): void;
-    onMouseEnter(event: any): void;
-    get cssClasses(): Record<string, string | number>;
+    onClick(event: MouseEvent): void;
+    onDblClick(event: MouseEvent): void;
+    onKeyDown(event: KeyboardEvent): void;
+    onCheckboxChange(event: MouseEvent): void;
+    onTreeAction(event: MouseEvent): void;
+    onMouseEnter(event: MouseEvent): void;
+    get cssClasses(): Record<string, boolean>;
     get styles(): Record<string, string | number>;
     get marginCellStyle(): Record<string, string>;
     get isCheckboxable(): boolean;
     cellHeight(rowHeight: number): string | number;
-    calcLeftMargin(column: TableColumn, row: any): number;
+    calcLeftMargin(column: TableColumn, row: Record<string, unknown>): number;
 }

@@ -1,5 +1,5 @@
-import { TableColumnProp } from '../types';
-export declare type ValueGetter = (obj: any, prop: TableColumnProp) => any;
+import { TableColumnProp } from 'types/table-column.type';
+export declare type ValueGetter = (obj: Record<string, unknown>, prop: TableColumnProp) => unknown;
 /**
  * Always returns the empty string ''
  * @returns {string}
@@ -16,18 +16,18 @@ export declare function getterForProp(prop: TableColumnProp): ValueGetter;
  * @param index numeric index
  * @returns {any} or '' if invalid index
  */
-export declare function numericIndexGetter(row: any[], index: number): any;
+export declare function numericIndexGetter(row: Record<string, unknown>, index: number): unknown;
 /**
  * Returns the value of a field.
  * (more efficient than deepValueGetter)
  * @param obj object containing the field
  * @param fieldName field name string
- * @returns {any}
+ * @returns {unknown}
  */
-export declare function shallowValueGetter(obj: any, fieldName: string): any;
+export declare function shallowValueGetter(obj: Record<string, unknown>, fieldName: string): unknown;
 /**
  * Returns a deep object given a string. zoo['animal.type']
  * @param {object} obj
  * @param {string} path
  */
-export declare function deepValueGetter(obj: any, path: string): any;
+export declare function deepValueGetter(obj: Record<string, unknown>, path: string): unknown;

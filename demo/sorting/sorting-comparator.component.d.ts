@@ -1,6 +1,6 @@
 import { Vue } from 'vue-property-decorator';
 export default class SortingComparatorComponent extends Vue {
-    rows: any[];
+    rows: Array<Record<string, unknown>>;
     columns: ({
         name: string;
         comparator: any;
@@ -11,6 +11,6 @@ export default class SortingComparatorComponent extends Vue {
         comparator?: undefined;
     })[];
     created(): void;
-    fetch(cb: any): void;
-    companyComparator(propA: any, propB: any): 1 | -1;
+    fetch(cb: (data: Array<Record<string, unknown>>) => void): void;
+    companyComparator(propA: string, propB: string): 1 | -1;
 }

@@ -1,6 +1,6 @@
 import { Vue } from 'vue-property-decorator';
 export default class ContextMenuDemoComponent extends Vue {
-    rows: any[];
+    rows: Array<Record<string, unknown>>;
     columns: ({
         prop: string;
         visible: boolean;
@@ -10,10 +10,14 @@ export default class ContextMenuDemoComponent extends Vue {
         visible: boolean;
         prop?: undefined;
     })[];
-    rawEvent: any;
-    contextmenuRow: any;
-    contextmenuColumn: any;
+    rawEvent: Event;
+    contextmenuRow: Record<string, unknown>;
+    contextmenuColumn: unknown;
     created(): void;
-    onTableContextMenu(contextMenuEvent: any): void;
-    fetch(cb: any): void;
+    onTableContextMenu(contextMenuEvent: {
+        event: Event;
+        type: string;
+        content: Record<string, unknown>;
+    }): void;
+    fetch(cb: (data: Array<Record<string, unknown>>) => void): void;
 }
