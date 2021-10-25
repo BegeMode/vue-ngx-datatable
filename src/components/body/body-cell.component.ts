@@ -253,7 +253,7 @@ export default class DataTableBodyCellComponent extends Vue {
       minWidth: this.column.minWidth ? `${this.column.minWidth}px` : undefined,
       // eslint-disable-next-line no-undefined
       maxWidth: this.column.maxWidth ? `${this.column.maxWidth}px` : undefined,
-      height: `${this.rowContext.rowHeight}px`, // this.cellHeight(this.rowContext.rowHeight),
+      height: this.rowContext.rowHeight === 'auto' ? this.rowContext.rowHeight : `${this.rowContext.rowHeight}px`, // this.cellHeight(this.rowContext.rowHeight),
     };
   }
 

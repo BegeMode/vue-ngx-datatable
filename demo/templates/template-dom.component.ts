@@ -24,7 +24,9 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
         columnMode="force"
         :headerHeight="50"
         :footerHeight="50"
-        rowHeight="auto">
+        :limit="5"
+        rowHeight="auto"
+      >
         <ngx-datatable-column name="Name">
           <template v-slot:header="scope">
             <span>Holla! {{scope.column.name}}</span>
@@ -49,8 +51,9 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
         </ngx-datatable-column>
         <ngx-datatable-column name="Age">
           <template v-slot:default="scope">
-            <div v-if="scope.row" style="width:100%;border:solid 1px #ddd;margin:5px;padding:3px">
+            <div v-if="scope.row" style="width:100%;height:40px;border:solid 1px #ddd;margin:5px;padding:3px">
               <div style="background:#999;height:10px" :style="{'width': scope.row.age + '%'}"></div>
+              <span>{{scope.row.age}}</span>
             </div>
           </template>
         </ngx-datatable-column>
@@ -65,7 +68,7 @@ export default class InlineTemplatesComponent extends Vue {
 
   created() {
     this.fetch((data: Array<Record<string, unknown>>) => {
-      this.rows = data.splice(0, 5);
+      this.rows = data.splice(0, 30);
     });
   }
 

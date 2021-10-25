@@ -1,6 +1,6 @@
 import { VNode } from 'vue';
-import { Vue } from 'vue-property-decorator';
 import { DirectiveBinding } from 'vue/types/options';
+import { Vue } from 'vue-property-decorator';
 
 class VisibilityController {
   _isVisible = false;

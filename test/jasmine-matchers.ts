@@ -36,11 +36,11 @@ function elementText(n: Element): string {
   }
 
   if (n.nodeType === Node.ELEMENT_NODE && n.hasChildNodes()) {
-    return elementText(Array.prototype.slice.call(n.childNodes));
+    return elementText(Array.prototype.slice.call(n.childNodes) as Element);
   }
 
-  if (((n as unknown) as { nativeElement: Element }).nativeElement) {
-    n = ((n as unknown) as { nativeElement: Element }).nativeElement;
+  if ((n as unknown as { nativeElement: Element }).nativeElement) {
+    n = (n as unknown as { nativeElement: Element }).nativeElement;
   }
 
   return n.textContent;

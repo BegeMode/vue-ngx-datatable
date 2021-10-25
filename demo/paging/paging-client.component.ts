@@ -20,7 +20,7 @@ import DatatableComponent from '../../src/components/datatable.component.vue';
         class="material ngx-flex"
         :rows="rows"
         :columns="[{name:'Name'},{name:'Gender'},{name:'Company'}]"
-        :columnMode="'force'"
+        columnMode="force"
         :headerHeight="50"
         :footerHeight="50"
         rowHeight="auto"

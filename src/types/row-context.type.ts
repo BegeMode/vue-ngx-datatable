@@ -5,7 +5,7 @@ export interface IRowContext {
   activateFn?: () => void;
   row: Record<string, unknown>;
   group?: IGroupedRows | Record<string, unknown>;
-  rowHeight: number;
+  rowHeight: number | string;
   isSelected: boolean;
   isChecked: boolean;
   rowIndex: number;

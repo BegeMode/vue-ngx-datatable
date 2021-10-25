@@ -2,8 +2,8 @@ import { TGroupByField } from 'components/datatable.component';
 import { VNode } from 'vue';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import DataTableBodyGroupHeaderComponent from './body-group-header.component';
-import DataTableBodyRowDetailComponent from './body-row-detail.component';
 import DataTableBodyRowComponent from './body-row.component.vue';
+import DataTableBodyRowDetailComponent from './body-row-detail.component';
 
 @Component({
   name: 'datatable-row-wrapper',
@@ -58,23 +58,6 @@ export default class DataTableRowWrapperComponent extends Vue {
       return null;
     }
     if (this.rowIdentity) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-      const result = this.rowIdentity(this.row);
-      if (typeof result === 'object') {
-        return null;
-      }
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-      return result;
-    }
-    return null;
-  }
-
-  get rowId(): any {
-    if (!this.row) {
-      return null;
-    }
-    if (this.rowIdentity) {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       const result = this.rowIdentity(this.row);
       if (typeof result === 'object') {
         return null;

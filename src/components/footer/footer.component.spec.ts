@@ -2,8 +2,8 @@
 import { mount, Wrapper } from '@vue/test-utils';
 import * as flushPromises from 'flush-promises';
 import Vue, { VNode, VueConstructor } from 'vue';
-import { Component, Prop } from 'vue-property-decorator';
 import { NormalizedScopedSlot } from 'vue/types/vnode';
+import { Component, Prop } from 'vue-property-decorator';
 import { addMatchers } from '../../../test';
 import DataTableFooterComponent from './footer.component';
 import DataTablePagerComponent from './pager.component';

@@ -5,7 +5,7 @@
   @visible="onVisible"
   @insert-column="onColumnInsert"
 >
-  <div v-if="!isColumnsInited" class="hidden-columns" ref="hiddenColumns"><slot></slot></div>
+  <div class="hidden-columns" ref="hiddenColumns"><slot></slot></div>
   <datatable-header
     ref="datatableHeader"
     class="datatable-header"

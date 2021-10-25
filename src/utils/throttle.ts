@@ -71,7 +71,7 @@ export function throttleable(duration: number, options?: { leading?: boolean; tr
           configurable: true,
           enumerable: descriptor.enumerable,
           // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-          value: throttle(descriptor.value, duration, options),
+          value: throttle(descriptor.value as (...args: Array<unknown>) => unknown, duration, options),
         });
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/no-unsafe-member-access
         return this[key];

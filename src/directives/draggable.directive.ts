@@ -1,7 +1,7 @@
 import { TableColumn } from 'types/table-column.type';
 import { VNode } from 'vue';
-import { Vue } from 'vue-property-decorator';
 import { DirectiveBinding } from 'vue/types/options';
+import { Vue } from 'vue-property-decorator';
 
 let idCounter = 0;
 
@@ -128,30 +128,21 @@ export default Vue.directive('draggable', {
       idCounter++,
       vnode,
       el,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      binding.value.dragModel as TableColumn,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      binding.value.dragX,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-      binding.value.dragY
+      (binding as { value: { dragModel: TableColumn } }).value.dragModel,
+      (binding as { value: { dragX: boolean } }).value.dragX,
+      (binding as { value: { dragY: boolean } }).value.dragY
     );
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     (el as IDraggableElement).__draggable__ = ctrl;
   },
   update(el: HTMLElement, binding: DirectiveBinding, vnode: VNode): void {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const ctrl: DraggableController = (el as IDraggableElement).__draggable__;
     if (!ctrl) {
       return;
     }
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    ctrl.dragX = binding.value.dragX as boolean;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    ctrl.dragEvent = binding.value.dragEvent as MouseEvent;
+    ctrl.dragX = (binding as { value: { dragX: boolean } }).value.dragX;
+    ctrl.dragEvent = (binding as { value: { dragEvent: MouseEvent } }).value.dragEvent;
   },
   unbind(el: HTMLElement) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     const ctrl: DraggableController = (el as IDraggableElement).__draggable__;
     ctrl.unsubscribe();
   },

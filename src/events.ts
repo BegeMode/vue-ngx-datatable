@@ -1,4 +1,4 @@
-declare let global: any;
+declare let global: unknown;
 
 /* eslint-disable */
 export const MouseEvent = (((typeof window !== 'undefined' && window) as any) || (global as any))

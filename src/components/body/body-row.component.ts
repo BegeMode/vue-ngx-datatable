@@ -107,7 +107,7 @@ export default class DataTableBodyRowComponent extends Vue {
     if (this.rowContext) {
       return {
         width: `${this.columnGroupWidths.total}px`,
-        height: `${this.rowContext.rowHeight}px`,
+        height: this.rowContext.rowHeight === 'auto' ? this.rowContext.rowHeight : `${this.rowContext.rowHeight}px`,
       };
     }
     return {

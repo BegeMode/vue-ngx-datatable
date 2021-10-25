@@ -316,6 +316,7 @@ export default class DatatableComponent extends Vue {
    */
   @Prop({ type: String, default: 'top' }) summaryPosition: string;
 
+  // non-reactive
   /**
    * Reference to the body component for manually
    * invoking functions on the body.
@@ -352,16 +353,14 @@ export default class DatatableComponent extends Vue {
   renderTracking = false;
   isVisible = false;
 
-  // non-reactive
-
   rowDetail = false; // DatatableRowDetailDirective;
   groupHeader = false; // DatatableGroupHeaderDirective;
 
   groupHeaderSlot: (obj: Record<string, unknown>) => VNode[] = null;
   rowDetailSlot: (obj: Record<string, unknown>) => VNode[] = null;
   footerSlot: (obj: Record<string, unknown>) => VNode[] = null;
-  isColumnsInited = false;
-  isColumnsInitedTimeoutId: number;
+  // isColumnsInited = false;
+  // isColumnsInitedTimeoutId: number;
 
   private readonly scrollbarHelper: ScrollbarHelper = new ScrollbarHelper();
   private readonly dimensionsHelper: DimensionsHelper = new DimensionsHelper();
@@ -581,9 +580,9 @@ export default class DatatableComponent extends Vue {
     }
   }
 
-  get myRowHeight(): number | TRowHeightFunc {
+  get myRowHeight(): number | string | TRowHeightFunc {
     if (typeof this.rowHeight === 'string') {
-      return this.rowHeight === 'auto' ? 50 : Number(this.rowHeight);
+      return this.rowHeight === 'auto' ? 'auto' : Number(this.rowHeight);
     }
     return this.rowHeight;
   }
@@ -608,7 +607,7 @@ export default class DatatableComponent extends Vue {
    * the row heights are fixed heights.
    */
   get isFixedRow(): boolean {
-    if (typeof this.rowHeight === 'function') {
+    if (typeof this.rowHeight === 'function' || this.rowHeight === 'auto') {
       return false;
     }
     return true;
@@ -1171,8 +1170,8 @@ export default class DatatableComponent extends Vue {
     if (this.isVisible) {
       this.recalculateColumns();
     }
-    clearTimeout(this.isColumnsInitedTimeoutId);
-    this.isColumnsInitedTimeoutId = setTimeout(() => (this.isColumnsInited = true), 50) as unknown as number;
+    // clearTimeout(this.isColumnsInitedTimeoutId);
+    // this.isColumnsInitedTimeoutId = setTimeout(() => this.$set(this, 'isColumnsInited', true), 50) as unknown as number;
   }
 
   onColumnRemoved(column: TableColumn): void {

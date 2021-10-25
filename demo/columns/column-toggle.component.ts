@@ -19,12 +19,12 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
       </h3>
       <div style='float:left;width:75%'>
         <ngx-datatable
-          class='material'
-          :rows='rows'
-          :columnMode="'force'"
+          class="material"
+          :rows="rows"
+          columnMode="force"
           :headerHeight="50"
           :footerHeight="50"
-          :rowHeight="'auto'">
+          rowHeight="auto">
           <ngx-datatable-column v-for="col of columns" :key="col.name" :name="col.name" :visible="col.visible">
           </ngx-datatable-column>
         </ngx-datatable>
