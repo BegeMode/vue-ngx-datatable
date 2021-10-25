@@ -54,13 +54,15 @@ interface IRow {
         limit="10"
         :groupExpansionDefault="true"
         :groupRowHeight="40"
+        groupHeaderClasses="group-header"
+        :groupHeaderStyles="groupHeaderStyles"
         @rendered="onRendered"
         @group-toggle="onDetailToggle($event)">
 
         <!-- Group Header Template -->
-        <!-- <template v-slot:groupHeader="scope">
+        <template v-slot:groupHeader="scope">
           <b style="color: white;">{{groupTitle(scope.group, scope.groupBy)}}</b>
-        </template> -->
+        </template>
 
         <!-- Row Column Template -->
         <ngx-datatable-column name="Exp. Pay." prop="" :editable="true" :frozenLeft="true">
@@ -114,7 +116,7 @@ interface IRow {
     </div>
   `
 })
-export default class RowGroupingComponent  extends Vue {
+export default class RowGroupingCustomComponent  extends Vue {
 
   // funder = [];
   // calculated = [];
@@ -278,6 +280,14 @@ export default class RowGroupingComponent  extends Vue {
       return;
     }
     (table as unknown as { collapseAllGroups: () => void }).collapseAllGroups();
+  }
+
+  get groupHeaderStyles(): Record<string, string> {
+    return {
+      'font-size': '18px',
+      'font-style': 'italic',
+      color: 'white',
+    };
   }
 
 }
