@@ -459,7 +459,7 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
                 minWidth: this.column.minWidth ? this.column.minWidth + "px" : undefined,
                 // eslint-disable-next-line no-undefined
                 maxWidth: this.column.maxWidth ? this.column.maxWidth + "px" : undefined,
-                height: this.rowContext.rowHeight + "px", // this.cellHeight(this.rowContext.rowHeight),
+                height: this.rowContext.rowHeight === 'auto' ? this.rowContext.rowHeight : this.rowContext.rowHeight + "px", // this.cellHeight(this.rowContext.rowHeight),
             };
         },
         enumerable: false,
@@ -571,8 +571,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
 var body_group_header_component_1 = __webpack_require__(/*! ./body-group-header.component */ "./src/components/body/body-group-header.component.ts");
-var body_row_detail_component_1 = __webpack_require__(/*! ./body-row-detail.component */ "./src/components/body/body-row-detail.component.ts");
 var body_row_component_vue_1 = __webpack_require__(/*! ./body-row.component.vue */ "./src/components/body/body-row.component.vue");
+var body_row_detail_component_1 = __webpack_require__(/*! ./body-row-detail.component */ "./src/components/body/body-row-detail.component.ts");
 var DataTableRowWrapperComponent = /** @class */ (function (_super) {
     __extends(DataTableRowWrapperComponent, _super);
     function DataTableRowWrapperComponent() {
@@ -606,35 +606,15 @@ var DataTableRowWrapperComponent = /** @class */ (function (_super) {
                 return null;
             }
             if (this.rowIdentity) {
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
                 var result = this.rowIdentity(this.row);
                 if (typeof result === 'object') {
                     return null;
                 }
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-return
                 return result;
             }
             return null;
         },
         enumerable: false,
-        configurable: true
-    });
-    Object.defineProperty(DataTableRowWrapperComponent.prototype, "rowId", {
-        get: function () {
-            if (!this.row) {
-                return null;
-            }
-            if (this.rowIdentity) {
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-                var result = this.rowIdentity(this.row);
-                if (typeof result === 'object') {
-                    return null;
-                }
-                return result;
-            }
-            return null;
-        },
-        enumerable: true,
         configurable: true
     });
     __decorate([
@@ -835,7 +815,7 @@ var DataTableBodyRowComponent = /** @class */ (function (_super) {
             if (this.rowContext) {
                 return {
                     width: this.columnGroupWidths.total + "px",
-                    height: this.rowContext.rowHeight + "px",
+                    height: this.rowContext.rowHeight === 'auto' ? this.rowContext.rowHeight : this.rowContext.rowHeight + "px",
                 };
             }
             return {
@@ -1016,9 +996,9 @@ var row_height_cache_1 = __webpack_require__(/*! utils/row-height-cache */ "./sr
 var translate_1 = __webpack_require__(/*! utils/translate */ "./src/utils/translate.ts");
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
 var body_group_header_component_1 = __webpack_require__(/*! ./body-group-header.component */ "./src/components/body/body-group-header.component.ts");
+var body_row_component_vue_1 = __webpack_require__(/*! ./body-row.component.vue */ "./src/components/body/body-row.component.vue");
 var body_row_detail_component_1 = __webpack_require__(/*! ./body-row-detail.component */ "./src/components/body/body-row-detail.component.ts");
 var body_row_wrapper_component_vue_1 = __webpack_require__(/*! ./body-row-wrapper.component.vue */ "./src/components/body/body-row-wrapper.component.vue");
-var body_row_component_vue_1 = __webpack_require__(/*! ./body-row.component.vue */ "./src/components/body/body-row.component.vue");
 var progress_bar_component_1 = __webpack_require__(/*! ./progress-bar.component */ "./src/components/body/progress-bar.component.ts");
 var scroller_component_1 = __webpack_require__(/*! ./scroller.component */ "./src/components/body/scroller.component.ts");
 var selection_component_1 = __webpack_require__(/*! ./selection.component */ "./src/components/body/selection.component.ts");
@@ -2320,13 +2300,13 @@ var DatatableComponent = /** @class */ (function (_super) {
         _this.myChecked = [];
         _this.renderTracking = false;
         _this.isVisible = false;
-        // non-reactive
         _this.rowDetail = false; // DatatableRowDetailDirective;
         _this.groupHeader = false; // DatatableGroupHeaderDirective;
         _this.groupHeaderSlot = null;
         _this.rowDetailSlot = null;
         _this.footerSlot = null;
-        _this.isColumnsInited = false;
+        // isColumnsInited = false;
+        // isColumnsInitedTimeoutId: number;
         _this.scrollbarHelper = new scrollbar_helper_service_1.ScrollbarHelper();
         _this.dimensionsHelper = new dimensions_helper_service_1.DimensionsHelper();
         _this.needToCalculateDims = true;
@@ -2530,7 +2510,7 @@ var DatatableComponent = /** @class */ (function (_super) {
     Object.defineProperty(DatatableComponent.prototype, "myRowHeight", {
         get: function () {
             if (typeof this.rowHeight === 'string') {
-                return this.rowHeight === 'auto' ? 50 : Number(this.rowHeight);
+                return this.rowHeight === 'auto' ? 'auto' : Number(this.rowHeight);
             }
             return this.rowHeight;
         },
@@ -2564,7 +2544,7 @@ var DatatableComponent = /** @class */ (function (_super) {
          * the row heights are fixed heights.
          */
         get: function () {
-            if (typeof this.rowHeight === 'function') {
+            if (typeof this.rowHeight === 'function' || this.rowHeight === 'auto') {
                 return false;
             }
             return true;
@@ -3114,7 +3094,6 @@ var DatatableComponent = /** @class */ (function (_super) {
         this.$emit('tree-action', { row: row, rowIndex: rowIndex });
     };
     DatatableComponent.prototype.onColumnInsert = function (column) {
-        var _this = this;
         (0, column_helper_1.setColumnDefaults)(column, this);
         if (!this.internalColumns) {
             this.internalColumns = [column];
@@ -3144,8 +3123,8 @@ var DatatableComponent = /** @class */ (function (_super) {
         if (this.isVisible) {
             this.recalculateColumns();
         }
-        clearTimeout(this.isColumnsInitedTimeoutId);
-        this.isColumnsInitedTimeoutId = setTimeout(function () { return (_this.isColumnsInited = true); }, 50);
+        // clearTimeout(this.isColumnsInitedTimeoutId);
+        // this.isColumnsInitedTimeoutId = setTimeout(() => this.$set(this, 'isColumnsInited', true), 50) as unknown as number;
     };
     DatatableComponent.prototype.onColumnRemoved = function (column) {
         var colIndex = this.internalColumns.findIndex(function (c) { return c.name === column.name; });
@@ -4948,6 +4927,7 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
         this.$set(this.column, 'summaryTemplate', this.$scopedSlots.summary);
         this.$set(this.column, 'visible', this.visible);
         // todo: select any way to pass column to datatable // this.$emit('insert-column', column);
+        // this.$emit('insert-column', this.column);
         this.$parent.onColumnInsert(this.column);
     };
     __decorate([
@@ -5411,8 +5391,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var selection_type_1 = __webpack_require__(/*! types/selection.type */ "./src/types/selection.type.ts");
-var sort_direction_type_1 = __webpack_require__(/*! types/sort-direction.type */ "./src/types/sort-direction.type.ts");
 var sort_type_1 = __webpack_require__(/*! types/sort.type */ "./src/types/sort.type.ts");
+var sort_direction_type_1 = __webpack_require__(/*! types/sort-direction.type */ "./src/types/sort-direction.type.ts");
 var sort_1 = __webpack_require__(/*! utils/sort */ "./src/utils/sort.ts");
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
 var DataTableHeaderCellComponent = /** @class */ (function (_super) {
@@ -6330,30 +6310,18 @@ var DraggableController = /** @class */ (function () {
 }());
 exports["default"] = vue_property_decorator_1.Vue.directive('draggable', {
     bind: function (el, binding, vnode) {
-        var ctrl = new DraggableController(idCounter++, vnode, el, 
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        binding.value.dragModel, 
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        binding.value.dragX, 
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        binding.value.dragY);
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        var ctrl = new DraggableController(idCounter++, vnode, el, binding.value.dragModel, binding.value.dragX, binding.value.dragY);
         el.__draggable__ = ctrl;
     },
     update: function (el, binding, vnode) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         var ctrl = el.__draggable__;
         if (!ctrl) {
             return;
         }
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         ctrl.dragX = binding.value.dragX;
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         ctrl.dragEvent = binding.value.dragEvent;
     },
     unbind: function (el) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         var ctrl = el.__draggable__;
         ctrl.unsubscribe();
     },
@@ -8000,8 +7968,8 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.sortRows = exports.orderByComparator = exports.nextSortDir = void 0;
-var sort_direction_type_1 = __webpack_require__(/*! types/sort-direction.type */ "./src/types/sort-direction.type.ts");
 var sort_type_1 = __webpack_require__(/*! types/sort.type */ "./src/types/sort.type.ts");
+var sort_direction_type_1 = __webpack_require__(/*! types/sort-direction.type */ "./src/types/sort-direction.type.ts");
 var column_prop_getters_1 = __webpack_require__(/*! ./column-prop-getters */ "./src/utils/column-prop-getters.ts");
 /**
  * Gets the next sort direction
@@ -8986,14 +8954,12 @@ var render = function() {
       on: { visible: _vm.onVisible, "insert-column": _vm.onColumnInsert }
     },
     [
-      !_vm.isColumnsInited
-        ? _c(
-            "div",
-            { ref: "hiddenColumns", staticClass: "hidden-columns" },
-            [_vm._t("default")],
-            2
-          )
-        : _vm._e(),
+      _c(
+        "div",
+        { ref: "hiddenColumns", staticClass: "hidden-columns" },
+        [_vm._t("default")],
+        2
+      ),
       _vm._v(" "),
       _vm.headerHeight
         ? _c("datatable-header", {

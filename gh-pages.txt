@@ -1,2 +1,6 @@
+// build demos for GitHub pages
 npm run build:release
 npm run deploy
+
+// build package for npm
+npm run build:package
