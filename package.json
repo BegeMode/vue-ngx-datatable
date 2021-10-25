@@ -26,7 +26,7 @@
     "clean:build": "rimraf build",
     "clean:dist": "rimraf dist",
     "clean:release": "rimraf release",
-    "build": "webpack --display-error-details",
+    "build": "webpack",
     "build:release": "cross-env NODE_ENV=production npm run build",
     "build:package": "cross-env NODE_ENV=package npm run build",
     "build:ts": "tsc",

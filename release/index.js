@@ -1,5 +1,5 @@
 /**
- * vue-data-table v"1.3.1" (https://github.com/begemode/vue-ngx-data-table)
+ * vue-data-table v"1.3.2" (https://github.com/begemode/vue-ngx-data-table)
  * Copyright 2018
  * Licensed under MIT
  */
@@ -12,107 +12,33 @@
 		exports["vueNgxDatatable"] = factory(require("vue-property-decorator"));
 	else
 		root["vueNgxDatatable"] = factory(root["vue-property-decorator"]);
-})(window, function(__WEBPACK_EXTERNAL_MODULE_vue_property_decorator__) {
-return /******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId]) {
-/******/ 			return installedModules[moduleId].exports;
-/******/ 		}
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			i: moduleId,
-/******/ 			l: false,
-/******/ 			exports: {}
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.l = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// define getter function for harmony exports
-/******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		if(!__webpack_require__.o(exports, name)) {
-/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
-/******/ 		}
-/******/ 	};
-/******/
-/******/ 	// define __esModule on exports
-/******/ 	__webpack_require__.r = function(exports) {
-/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
-/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
-/******/ 		}
-/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
-/******/ 	};
-/******/
-/******/ 	// create a fake namespace object
-/******/ 	// mode & 1: value is a module id, require it
-/******/ 	// mode & 2: merge all properties of value into the ns
-/******/ 	// mode & 4: return value when already ns object
-/******/ 	// mode & 8|1: behave like require
-/******/ 	__webpack_require__.t = function(value, mode) {
-/******/ 		if(mode & 1) value = __webpack_require__(value);
-/******/ 		if(mode & 8) return value;
-/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
-/******/ 		var ns = Object.create(null);
-/******/ 		__webpack_require__.r(ns);
-/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
-/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
-/******/ 		return ns;
-/******/ 	};
-/******/
-/******/ 	// getDefaultExport function for compatibility with non-harmony modules
-/******/ 	__webpack_require__.n = function(module) {
-/******/ 		var getter = module && module.__esModule ?
-/******/ 			function getDefault() { return module['default']; } :
-/******/ 			function getModuleExports() { return module; };
-/******/ 		__webpack_require__.d(getter, 'a', getter);
-/******/ 		return getter;
-/******/ 	};
-/******/
-/******/ 	// Object.prototype.hasOwnProperty.call
-/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = "./src/components/datatable.component.vue");
-/******/ })
-/************************************************************************/
-/******/ ({
+})(self, function(__WEBPACK_EXTERNAL_MODULE_vue_property_decorator__) {
+return /******/ (() => { // webpackBootstrap
+/******/ 	var __webpack_modules__ = ({
 
-/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/lib/loader.js?!./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss&":
-/*!*********************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/lib/loader.js??ref--2-oneOf-1-2!./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss& ***!
-  \*********************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-6[0].rules[0].use[2]!./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss&":
+/*!*************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-6[0].rules[0].use[2]!./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
 
-exports = module.exports = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js")(false);
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/sourceMaps.js */ "./node_modules/css-loader/dist/runtime/sourceMaps.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
+// Imports
+
+
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-exports.push([module.i, ".ngx-datatable {\n  display: block;\n  overflow: hidden;\n  justify-content: center;\n  position: relative;\n  -webkit-transform: translate3d(0, 0, 0);\n  transform: translate3d(0, 0, 0);\n  /**\r\n   * Vertical Scrolling Adjustments\r\n   */\n  /**\r\n   * Horizontal Scrolling Adjustments\r\n   */\n  /**\r\n   * Fixed Header Height Adjustments\r\n   */\n  /**\r\n   * Fixed row height adjustments\r\n   */\n  /**\r\n   * Shared Styles\r\n   */\n  /**\r\n   * Header Styles\r\n   */\n  /**\r\n   * Body Styles\r\n   */\n  /**\r\n   * Footer Styles\r\n   */\n}\n.ngx-datatable.ngx-flex {\n    display: flex;\n    flex-flow: column;\n    justify-content: flex-start;\n    height: 100%;\n}\n.ngx-datatable.ngx-flex .datatable-body {\n      overflow-y: auto;\n      flex: 1 1 auto;\n}\n.ngx-datatable.ngx-flex .datatable-header,\n    .ngx-datatable.ngx-flex .datatable-footer {\n      flex: none;\n}\n.ngx-datatable.ngx-nowrap-text .datatable-body .datatable-body-row .datatable-body-cell .datatable-body-cell-label {\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n.ngx-datatable [hidden] {\n    display: none !important;\n}\n.ngx-datatable .hidden-columns {\n    visibility: hidden;\n    position: absolute;\n    z-index: -1;\n}\n.ngx-datatable *,\n  .ngx-datatable *:before,\n  .ngx-datatable *:after {\n    -moz-box-sizing: border-box;\n    -webkit-box-sizing: border-box;\n    box-sizing: border-box;\n}\n.ngx-datatable.scroll-vertical .datatable-body {\n    overflow-y: auto;\n}\n.ngx-datatable.scroll-vertical.virtualized .datatable-body .datatable-row-wrapper {\n    position: absolute;\n}\n.ngx-datatable.scroll-horz .datatable-body {\n    overflow-x: auto;\n    -webkit-overflow-scrolling: touch;\n}\n.ngx-datatable.fixed-header .datatable-header .datatable-header-inner {\n    white-space: nowrap;\n}\n.ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n}\n.ngx-datatable.fixed-row .datatable-scroll {\n    white-space: nowrap;\n}\n.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row {\n      white-space: nowrap;\n}\n.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-cell {\n        overflow: hidden;\n        white-space: nowrap;\n        text-overflow: ellipsis;\n}\n.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-group-cell {\n        overflow: hidden;\n        white-space: nowrap;\n        text-overflow: ellipsis;\n}\n.ngx-datatable .datatable-body-row,\n  .ngx-datatable .datatable-row-center,\n  .ngx-datatable .datatable-header-inner {\n    display: -webkit-box;\n    display: -moz-box;\n    display: -ms-flexbox;\n    display: -webkit-flex;\n    display: flex;\n    flex-direction: row;\n    -webkit-flex-flow: row;\n    -moz-flex-flow: row;\n    -ms-flex-flow: row;\n    -o-flex-flow: row;\n    flex-flow: row;\n}\n.ngx-datatable .datatable-body-cell,\n  .ngx-datatable .datatable-header-cell {\n    overflow-x: hidden;\n    vertical-align: top;\n    display: inline-flex;\n    line-height: 1.625;\n}\n.ngx-datatable .datatable-body-cell:focus,\n    .ngx-datatable .datatable-header-cell:focus {\n      outline: none;\n}\n.ngx-datatable .datatable-body-cell .datatable-body-cell-label,\n    .ngx-datatable .datatable-header-cell .datatable-body-cell-label {\n      width: 100%;\n}\n.ngx-datatable .datatable-body-cell-bold,\n    .ngx-datatable .datatable-header-cell-bold {\n      font-weight: bold;\n}\n.ngx-datatable .datatable-row-left,\n  .ngx-datatable .datatable-row-right {\n    z-index: 9;\n}\n.ngx-datatable .datatable-row-left,\n  .ngx-datatable .datatable-row-center,\n  .ngx-datatable .datatable-row-group,\n  .ngx-datatable .datatable-row-right {\n    position: relative;\n}\n.ngx-datatable .datatable-header {\n    overflow: hidden;\n}\n.ngx-datatable .datatable-header .datatable-header-inner {\n      align-items: stretch;\n      -webkit-align-items: stretch;\n}\n.ngx-datatable .datatable-header .datatable-header-cell {\n      position: relative;\n      display: inline-flex;\n      user-select: none;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.sortable .datatable-header-cell-wrapper {\n        cursor: pointer;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.longpress .datatable-header-cell-wrapper {\n        cursor: move;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .sort-btn {\n        margin-left: auto;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .sort-btn::before {\n        line-height: 100%;\n        vertical-align: middle;\n        display: inline-block;\n        cursor: pointer;\n        font-size: 1.25rem;\n        margin-right: -7px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .resize-handle,\n      .ngx-datatable .datatable-header .datatable-header-cell .resize-handle--not-resizable {\n        display: inline-block;\n        position: absolute;\n        right: 0;\n        top: 0;\n        bottom: 0;\n        width: 5px;\n        padding: 0 4px;\n        visibility: hidden;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .resize-handle {\n        cursor: ew-resize;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.resizeable:hover .resize-handle {\n        visibility: visible;\n}\n.ngx-datatable .datatable-header .datatable-header-cell:hover .resize-handle--not-resizable {\n        visibility: visible;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker {\n        position: absolute;\n        top: 0;\n        bottom: 0;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker.dragFromLeft {\n          right: -13px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker.dragFromRight {\n          left: 0;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker .icon {\n          position: absolute;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker .datatable-icon-down {\n          top: 0px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker .datatable-icon-up {\n          top: 35px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .datatable-header-cell-template-wrap {\n        height: inherit;\n}\n.ngx-datatable .datatable-body {\n    position: relative;\n    z-index: 10;\n    display: block;\n}\n.ngx-datatable .datatable-body .datatable-scroll {\n      display: inline-block;\n}\n.ngx-datatable .datatable-body .datatable-row-detail {\n      overflow-y: hidden;\n}\n.ngx-datatable .datatable-body .datatable-row-wrapper {\n      display: -webkit-box;\n      display: -moz-box;\n      display: -ms-flexbox;\n      display: -webkit-flex;\n      display: flex;\n      -webkit-box-orient: vertical;\n      -webkit-box-direction: normal;\n      -webkit-flex-direction: column;\n      -moz-box-orient: vertical;\n      -moz-box-direction: normal;\n      -ms-flex-direction: column;\n      flex-direction: column;\n}\n.ngx-datatable .datatable-body .datatable-body-row {\n      outline: none;\n}\n.ngx-datatable .datatable-body .datatable-body-row > div {\n        display: -webkit-box;\n        display: -moz-box;\n        display: -ms-flexbox;\n        display: -webkit-flex;\n        display: flex;\n}\n.ngx-datatable .datatable-footer {\n    display: block;\n    width: 100%;\n    margin-top: auto;\n}\n.ngx-datatable .datatable-footer .datatable-footer-inner {\n      display: flex;\n      align-items: center;\n      width: 100%;\n}\n.ngx-datatable .datatable-footer .selected-count .page-count {\n      flex: 1 1 40%;\n}\n.ngx-datatable .datatable-footer .selected-count .datatable-pager {\n      flex: 1 1 60%;\n}\n.ngx-datatable .datatable-footer .page-count {\n      flex: 1 1 20%;\n}\n.ngx-datatable .datatable-footer .datatable-pager {\n      flex: 1 1 80%;\n      text-align: right;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager,\n      .ngx-datatable .datatable-footer .datatable-pager .pager li {\n        padding: 0;\n        margin: 0;\n        display: inline-block;\n        list-style: none;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager li,\n      .ngx-datatable .datatable-footer .datatable-pager .pager li a {\n        outline: none;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager li a {\n        cursor: pointer;\n        display: inline-block;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager li.disabled a {\n        cursor: not-allowed;\n}\n", ""]);
-
+___CSS_LOADER_EXPORT___.push([module.id, ".ngx-datatable {\n  display: block;\n  overflow: hidden;\n  justify-content: center;\n  position: relative;\n  -webkit-transform: translate3d(0, 0, 0);\n  transform: translate3d(0, 0, 0);\n  /**\r\n   * Vertical Scrolling Adjustments\r\n   */\n  /**\r\n   * Horizontal Scrolling Adjustments\r\n   */\n  /**\r\n   * Fixed Header Height Adjustments\r\n   */\n  /**\r\n   * Fixed row height adjustments\r\n   */\n  /**\r\n   * Shared Styles\r\n   */\n  /**\r\n   * Header Styles\r\n   */\n  /**\r\n   * Body Styles\r\n   */\n  /**\r\n   * Footer Styles\r\n   */\n}\n.ngx-datatable.ngx-flex {\n    display: flex;\n    flex-flow: column;\n    justify-content: flex-start;\n    height: 100%;\n}\n.ngx-datatable.ngx-flex .datatable-body {\n      overflow-y: auto;\n      flex: 1 1 auto;\n}\n.ngx-datatable.ngx-flex .datatable-header,\n    .ngx-datatable.ngx-flex .datatable-footer {\n      flex: none;\n}\n.ngx-datatable.ngx-nowrap-text .datatable-body .datatable-body-row .datatable-body-cell .datatable-body-cell-label {\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n.ngx-datatable [hidden] {\n    display: none !important;\n}\n.ngx-datatable .hidden-columns {\n    visibility: hidden;\n    position: absolute;\n    z-index: -1;\n}\n.ngx-datatable *,\n  .ngx-datatable *:before,\n  .ngx-datatable *:after {\n    -moz-box-sizing: border-box;\n    -webkit-box-sizing: border-box;\n    box-sizing: border-box;\n}\n.ngx-datatable.scroll-vertical .datatable-body {\n    overflow-y: auto;\n}\n.ngx-datatable.scroll-vertical.virtualized .datatable-body .datatable-row-wrapper {\n    position: absolute;\n}\n.ngx-datatable.scroll-horz .datatable-body {\n    overflow-x: auto;\n    -webkit-overflow-scrolling: touch;\n}\n.ngx-datatable.fixed-header .datatable-header .datatable-header-inner {\n    white-space: nowrap;\n}\n.ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n}\n.ngx-datatable.fixed-row .datatable-scroll {\n    white-space: nowrap;\n}\n.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row {\n      white-space: nowrap;\n}\n.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-cell {\n        overflow: hidden;\n        white-space: nowrap;\n        text-overflow: ellipsis;\n}\n.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-group-cell {\n        overflow: hidden;\n        white-space: nowrap;\n        text-overflow: ellipsis;\n}\n.ngx-datatable .datatable-body-row,\n  .ngx-datatable .datatable-row-center,\n  .ngx-datatable .datatable-header-inner {\n    display: -webkit-box;\n    display: -moz-box;\n    display: -ms-flexbox;\n    display: -webkit-flex;\n    display: flex;\n    flex-direction: row;\n    -webkit-flex-flow: row;\n    -moz-flex-flow: row;\n    -ms-flex-flow: row;\n    -o-flex-flow: row;\n    flex-flow: row;\n}\n.ngx-datatable .datatable-body-cell,\n  .ngx-datatable .datatable-header-cell {\n    overflow-x: hidden;\n    vertical-align: top;\n    display: inline-flex;\n    line-height: 1.625;\n}\n.ngx-datatable .datatable-body-cell:focus,\n    .ngx-datatable .datatable-header-cell:focus {\n      outline: none;\n}\n.ngx-datatable .datatable-body-cell .datatable-body-cell-label,\n    .ngx-datatable .datatable-header-cell .datatable-body-cell-label {\n      width: 100%;\n}\n.ngx-datatable .datatable-body-cell-bold,\n    .ngx-datatable .datatable-header-cell-bold {\n      font-weight: bold;\n}\n.ngx-datatable .datatable-row-left,\n  .ngx-datatable .datatable-row-right {\n    z-index: 9;\n}\n.ngx-datatable .datatable-row-left,\n  .ngx-datatable .datatable-row-center,\n  .ngx-datatable .datatable-row-group,\n  .ngx-datatable .datatable-row-right {\n    position: relative;\n}\n.ngx-datatable .datatable-header {\n    overflow: hidden;\n}\n.ngx-datatable .datatable-header .datatable-header-inner {\n      align-items: stretch;\n      -webkit-align-items: stretch;\n}\n.ngx-datatable .datatable-header .datatable-header-cell {\n      position: relative;\n      display: inline-flex;\n      user-select: none;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.sortable .datatable-header-cell-wrapper {\n        cursor: pointer;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.longpress .datatable-header-cell-wrapper {\n        cursor: move;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .sort-btn {\n        margin-left: auto;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .sort-btn::before {\n        line-height: 100%;\n        vertical-align: middle;\n        display: inline-block;\n        cursor: pointer;\n        font-size: 1.25rem;\n        margin-right: -7px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .resize-handle,\n      .ngx-datatable .datatable-header .datatable-header-cell .resize-handle--not-resizable {\n        display: inline-block;\n        position: absolute;\n        right: 0;\n        top: 0;\n        bottom: 0;\n        width: 5px;\n        padding: 0 4px;\n        visibility: hidden;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .resize-handle {\n        cursor: ew-resize;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.resizeable {\n        flex-shrink: 0;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.resizeable:hover .resize-handle {\n        visibility: visible;\n}\n.ngx-datatable .datatable-header .datatable-header-cell:hover .resize-handle--not-resizable {\n        visibility: visible;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker {\n        position: absolute;\n        top: 0;\n        bottom: 0;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker.dragFromLeft {\n          right: -13px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker.dragFromRight {\n          left: 0;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker .icon {\n          position: absolute;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker .datatable-icon-down {\n          top: 0px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker .datatable-icon-up {\n          top: 35px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .datatable-header-cell-template-wrap {\n        height: inherit;\n}\n.ngx-datatable .datatable-body {\n    position: relative;\n    z-index: 10;\n    display: block;\n}\n.ngx-datatable .datatable-body .datatable-scroll {\n      display: inline-block;\n}\n.ngx-datatable .datatable-body .datatable-row-detail {\n      overflow-y: hidden;\n}\n.ngx-datatable .datatable-body .datatable-row-wrapper {\n      display: -webkit-box;\n      display: -moz-box;\n      display: -ms-flexbox;\n      display: -webkit-flex;\n      display: flex;\n      -webkit-box-orient: vertical;\n      -webkit-box-direction: normal;\n      -webkit-flex-direction: column;\n      -moz-box-orient: vertical;\n      -moz-box-direction: normal;\n      -ms-flex-direction: column;\n      flex-direction: column;\n}\n.ngx-datatable .datatable-body .datatable-body-row {\n      outline: none;\n}\n.ngx-datatable .datatable-body .datatable-body-row > div {\n        display: -webkit-box;\n        display: -moz-box;\n        display: -ms-flexbox;\n        display: -webkit-flex;\n        display: flex;\n}\n.ngx-datatable .datatable-footer {\n    display: block;\n    width: 100%;\n    margin-top: auto;\n}\n.ngx-datatable .datatable-footer .datatable-footer-inner {\n      display: flex;\n      align-items: center;\n      width: 100%;\n}\n.ngx-datatable .datatable-footer .selected-count .page-count {\n      flex: 1 1 40%;\n}\n.ngx-datatable .datatable-footer .selected-count .datatable-pager {\n      flex: 1 1 60%;\n}\n.ngx-datatable .datatable-footer .page-count {\n      flex: 1 1 20%;\n}\n.ngx-datatable .datatable-footer .datatable-pager {\n      flex: 1 1 80%;\n      text-align: right;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager,\n      .ngx-datatable .datatable-footer .datatable-pager .pager li {\n        padding: 0;\n        margin: 0;\n        display: inline-block;\n        list-style: none;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager li,\n      .ngx-datatable .datatable-footer .datatable-pager .pager li a {\n        outline: none;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager li a {\n        cursor: pointer;\n        display: inline-block;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager li.disabled a {\n        cursor: not-allowed;\n}\n", "",{"version":3,"sources":["webpack://./src/components/datatable.component.scss","webpack://./datatable.component.scss"],"names":[],"mappings":"AAAA;EACE,cAAc;EACd,gBAAgB;EAChB,uBAAuB;EACvB,kBAAkB;EAClB,uCAAuC;EACvC,+BAA+B;EAyC/B;;ICtCE;EDsDF;;ICnDE;ED6DF;;IC1DE;ED0EF;;ICvEE;EDgGF;;IC7FE;EDiJF;;IC9IE;EDsPF;;ICnPE;EDgSF;;IC7RE;AD+RC;AA7TL;IASI,aAAa;IACb,iBAAiB;IACjB,2BAA2B;IAC3B,YAAY;AAAA;AAZhB;MAeM,gBAAgB;MAChB,cAAc;AAAA;AAhBpB;;MAoBM,UAAU;AAAA;AApBhB;IAwBI,mBAAmB;IACnB,gBAAgB;IAChB,uBAAuB;AAAA;AA1B3B;IA8BI,wBAAwB;AAAA;AA9B5B;IAkCI,kBAAkB;IAClB,kBAAkB;IAClB,WAAW;AAAA;AApCf;;;IA0CI,2BAA2B;IAC3B,8BAA8B;IAC9B,sBAAsB;AAAA;AA5C1B;IAoDM,gBAAgB;AAAA;AApDtB;IAyDU,kBAAkB;AAAA;AAzD5B;IAoEM,gBAAgB;IAChB,iCAAiC;AAAA;AArEvC;IA+EQ,mBAAmB;AAAA;AA/E3B;MAiFU,mBAAmB;MACnB,gBAAgB;MAChB,uBAAuB;AAAA;AAnFjC;IA8FM,mBAAmB;AAAA;AA9FzB;MAiGQ,mBAAmB;AAAA;AAjG3B;QAoGU,gBAAgB;QAChB,mBAAmB;QACnB,uBAAuB;AAAA;AAtGjC;QA0GU,gBAAgB;QAChB,mBAAmB;QACnB,uBAAuB;AAAA;AA5GjC;;;IAwHI,oBAAoB;IACpB,iBAAiB;IACjB,oBAAoB;IACpB,qBAAqB;IACrB,aAAa;IAEb,mBAAmB;IACnB,sBAAsB;IACtB,mBAAmB;IACnB,kBAAkB;IAClB,iBAAiB;IACjB,cAAc;AAAA;AAnIlB;;IAwII,kBAAkB;IAClB,mBAAmB;IACnB,oBAAoB;IACpB,kBAAkB;AAAA;AA3ItB;;MA8IM,aAAa;AAAA;AA9InB;;MAkJM,WAAW;AAAA;AAlJjB;;MAsJM,iBAAiB;AAAA;AAtJvB;;IA4JI,UAAU;AAAA;AA5Jd;;;;IAmKI,kBAAkB;AAAA;AAnKtB;IA2KI,gBAAgB;AAAA;AA3KpB;MA8KM,oBAAoB;MACpB,4BAA4B;AAAA;AA/KlC;MAmLM,kBAAkB;MAClB,oBAAoB;MACpB,iBAAiB;AAAA;AArLvB;QAyLU,eAAe;AAAA;AAzLzB;QA8LQ,YAAY;AAAA;AA9LpB;QAkMQ,iBAAiB;AAAA;AAlMzB;QAsMQ,iBAAiB;QACjB,sBAAsB;QACtB,qBAAqB;QACrB,eAAe;QACf,kBAAkB;QAClB,kBAAkB;AAAA;AA3M1B;;QAgNQ,qBAAqB;QACrB,kBAAkB;QAClB,QAAQ;QACR,MAAM;QACN,SAAS;QACT,UAAU;QACV,cAAc;QACd,kBAAkB;AAAA;AAvN1B;QA2NQ,iBAAiB;AAAA;AA3NzB;QA+NQ,cAAc;AAAA;AA/NtB;QAoOU,mBAAmB;AAAA;AApO7B;QA0OU,mBAAmB;AAAA;AA1O7B;QA+OQ,kBAAkB;QAClB,MAAM;QACN,SAAS;AAAA;AAjPjB;UAoPU,YAAY;AAAA;AApPtB;UAwPU,OAAO;AAAA;AAxPjB;UA4PU,kBAAkB;AAAA;AA5P5B;UAgQU,QAAQ;AAAA;AAhQlB;UAoQU,SAAS;AAAA;AApQnB;QAyQQ,eAAe;AAAA;AAzQvB;IAkRI,kBAAkB;IAClB,WAAW;IACX,cAAc;AAAA;AApRlB;MAuRM,qBAAqB;AAAA;AAvR3B;MA2RM,kBAAkB;AAAA;AA3RxB;MA+RM,oBAAoB;MACpB,iBAAiB;MACjB,oBAAoB;MACpB,qBAAqB;MACrB,aAAa;MAEb,4BAA4B;MAC5B,6BAA6B;MAC7B,8BAA8B;MAC9B,yBAAyB;MACzB,0BAA0B;MAC1B,0BAA0B;MAC1B,sBAAsB;AAAA;AA3S5B;MA+SM,aAAa;AAAA;AA/SnB;QAkTQ,oBAAoB;QACpB,iBAAiB;QACjB,oBAAoB;QACpB,qBAAqB;QACrB,aAAa;AAAA;AAtTrB;IA+TI,cAAc;IACd,WAAW;IACX,gBAAgB;AAAA;AAjUpB;MAoUM,aAAa;MACb,mBAAmB;MACnB,WAAW;AAAA;AAtUjB;MA2UQ,aAAa;AAAA;AA3UrB;MA8UQ,aAAa;AAAA;AA9UrB;MAmVM,aAAa;AAAA;AAnVnB;MAuVM,aAAa;MACb,iBAAiB;AAAA;AAxVvB;;QA4VQ,UAAU;QACV,SAAS;QACT,qBAAqB;QACrB,gBAAgB;AAAA;AA/VxB;;QAqWU,aAAa;AAAA;AArWvB;QA0WY,eAAe;QACf,qBAAqB;AAAA;AA3WjC;QA+WY,mBAAmB;AAAA","sourcesContent":[".ngx-datatable {\r\n  display: block;\r\n  overflow: hidden;\r\n  justify-content: center;\r\n  position: relative;\r\n  -webkit-transform: translate3d(0, 0, 0);\r\n  transform: translate3d(0, 0, 0);\r\n\r\n  &.ngx-flex {\r\n    display: flex;\r\n    flex-flow: column;\r\n    justify-content: flex-start;\r\n    height: 100%;\r\n\r\n    .datatable-body {\r\n      overflow-y: auto;\r\n      flex: 1 1 auto;\r\n    }\r\n    .datatable-header,\r\n    .datatable-footer {\r\n      flex: none;\r\n    }\r\n  }\r\n  &.ngx-nowrap-text .datatable-body .datatable-body-row .datatable-body-cell .datatable-body-cell-label {\r\n    white-space: nowrap;\r\n    overflow: hidden;\r\n    text-overflow: ellipsis;\r\n  }\r\n\r\n  [hidden] {\r\n    display: none !important;\r\n  }\r\n\r\n  .hidden-columns {\r\n    visibility: hidden;\r\n    position: absolute;\r\n    z-index: -1;\r\n  }\r\n\r\n  *,\r\n  *:before,\r\n  *:after {\r\n    -moz-box-sizing: border-box;\r\n    -webkit-box-sizing: border-box;\r\n    box-sizing: border-box;\r\n  }\r\n\r\n  /**\r\n   * Vertical Scrolling Adjustments\r\n   */\r\n  &.scroll-vertical {\r\n    .datatable-body {\r\n      overflow-y: auto;\r\n    }\r\n    &.virtualized {\r\n      .datatable-body {\r\n        .datatable-row-wrapper {\r\n          position: absolute;\r\n        }\r\n      }\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Horizontal Scrolling Adjustments\r\n   */\r\n  &.scroll-horz {\r\n    .datatable-body {\r\n      overflow-x: auto;\r\n      -webkit-overflow-scrolling: touch;\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Fixed Header Height Adjustments\r\n   */\r\n  &.fixed-header {\r\n    .datatable-header {\r\n      .datatable-header-inner {\r\n        white-space: nowrap;\r\n        .datatable-header-cell {\r\n          white-space: nowrap;\r\n          overflow: hidden;\r\n          text-overflow: ellipsis;\r\n        }\r\n      }\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Fixed row height adjustments\r\n   */\r\n  &.fixed-row {\r\n    .datatable-scroll {\r\n      white-space: nowrap;\r\n\r\n      .datatable-body-row {\r\n        white-space: nowrap;\r\n\r\n        .datatable-body-cell {\r\n          overflow: hidden;\r\n          white-space: nowrap;\r\n          text-overflow: ellipsis;\r\n        }\r\n\r\n        .datatable-body-group-cell {\r\n          overflow: hidden;\r\n          white-space: nowrap;\r\n          text-overflow: ellipsis;\r\n        }\r\n      }\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Shared Styles\r\n   */\r\n  .datatable-body-row,\r\n  .datatable-row-center,\r\n  .datatable-header-inner {\r\n    display: -webkit-box;\r\n    display: -moz-box;\r\n    display: -ms-flexbox;\r\n    display: -webkit-flex;\r\n    display: flex;\r\n\r\n    flex-direction: row;\r\n    -webkit-flex-flow: row;\r\n    -moz-flex-flow: row;\r\n    -ms-flex-flow: row;\r\n    -o-flex-flow: row;\r\n    flex-flow: row;\r\n  }\r\n\r\n  .datatable-body-cell,\r\n  .datatable-header-cell {\r\n    overflow-x: hidden;\r\n    vertical-align: top;\r\n    display: inline-flex;\r\n    line-height: 1.625;\r\n\r\n    &:focus {\r\n      outline: none;\r\n    }\r\n\r\n    .datatable-body-cell-label {\r\n      width: 100%;\r\n    }\r\n\r\n    &-bold {\r\n      font-weight: bold;\r\n    }\r\n  }\r\n\r\n  .datatable-row-left,\r\n  .datatable-row-right {\r\n    z-index: 9;\r\n  }\r\n\r\n  .datatable-row-left,\r\n  .datatable-row-center,\r\n  .datatable-row-group,\r\n  .datatable-row-right {\r\n    position: relative;\r\n  }\r\n\r\n  /**\r\n   * Header Styles\r\n   */\r\n  .datatable-header {\r\n    // display: block;\r\n    overflow: hidden;\r\n\r\n    .datatable-header-inner {\r\n      align-items: stretch;\r\n      -webkit-align-items: stretch;\r\n    }\r\n\r\n    .datatable-header-cell {\r\n      position: relative;\r\n      display: inline-flex;\r\n      user-select: none;\r\n\r\n      &.sortable {\r\n        .datatable-header-cell-wrapper {\r\n          cursor: pointer;\r\n        }\r\n      }\r\n\r\n      &.longpress .datatable-header-cell-wrapper {\r\n        cursor: move;\r\n      }\r\n\r\n      .sort-btn {\r\n        margin-left: auto;\r\n      }\r\n\r\n      .sort-btn::before {\r\n        line-height: 100%;\r\n        vertical-align: middle;\r\n        display: inline-block;\r\n        cursor: pointer;\r\n        font-size: 1.25rem;\r\n        margin-right: -7px;\r\n      }\r\n\r\n      .resize-handle,\r\n      .resize-handle--not-resizable {\r\n        display: inline-block;\r\n        position: absolute;\r\n        right: 0;\r\n        top: 0;\r\n        bottom: 0;\r\n        width: 5px;\r\n        padding: 0 4px;\r\n        visibility: hidden;\r\n      }\r\n\r\n      .resize-handle {\r\n        cursor: ew-resize;\r\n      }\r\n\r\n      &.resizeable {\r\n        flex-shrink: 0;\r\n      }\r\n\r\n      &.resizeable:hover {\r\n        .resize-handle {\r\n          visibility: visible;\r\n        }\r\n      }\r\n\r\n      &:hover {\r\n        .resize-handle--not-resizable {\r\n          visibility: visible;\r\n        }\r\n      }\r\n\r\n      .targetMarker {\r\n        position: absolute;\r\n        top: 0;\r\n        bottom: 0;\r\n\r\n        &.dragFromLeft {\r\n          right: -13px;\r\n        }\r\n\r\n        &.dragFromRight {\r\n          left: 0;\r\n        }\r\n\r\n        & .icon {\r\n          position: absolute;\r\n        }\r\n\r\n        & .datatable-icon-down {\r\n          top: 0px;\r\n        }\r\n\r\n        & .datatable-icon-up {\r\n          top: 35px;\r\n        }\r\n      }\r\n\r\n      .datatable-header-cell-template-wrap {\r\n        height: inherit;\r\n      }\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Body Styles\r\n   */\r\n  .datatable-body {\r\n    position: relative;\r\n    z-index: 10;\r\n    display: block;\r\n\r\n    .datatable-scroll {\r\n      display: inline-block;\r\n    }\r\n\r\n    .datatable-row-detail {\r\n      overflow-y: hidden;\r\n    }\r\n\r\n    .datatable-row-wrapper {\r\n      display: -webkit-box;\r\n      display: -moz-box;\r\n      display: -ms-flexbox;\r\n      display: -webkit-flex;\r\n      display: flex;\r\n\r\n      -webkit-box-orient: vertical;\r\n      -webkit-box-direction: normal;\r\n      -webkit-flex-direction: column;\r\n      -moz-box-orient: vertical;\r\n      -moz-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n      flex-direction: column;\r\n    }\r\n\r\n    .datatable-body-row {\r\n      outline: none;\r\n\r\n      > div {\r\n        display: -webkit-box;\r\n        display: -moz-box;\r\n        display: -ms-flexbox;\r\n        display: -webkit-flex;\r\n        display: flex;\r\n      }\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Footer Styles\r\n   */\r\n  .datatable-footer {\r\n    display: block;\r\n    width: 100%;\r\n    margin-top: auto;\r\n\r\n    .datatable-footer-inner {\r\n      display: flex;\r\n      align-items: center;\r\n      width: 100%;\r\n    }\r\n\r\n    .selected-count {\r\n      .page-count {\r\n        flex: 1 1 40%;\r\n      }\r\n      .datatable-pager {\r\n        flex: 1 1 60%;\r\n      }\r\n    }\r\n\r\n    .page-count {\r\n      flex: 1 1 20%;\r\n    }\r\n\r\n    .datatable-pager {\r\n      flex: 1 1 80%;\r\n      text-align: right;\r\n\r\n      .pager,\r\n      .pager li {\r\n        padding: 0;\r\n        margin: 0;\r\n        display: inline-block;\r\n        list-style: none;\r\n      }\r\n\r\n      .pager {\r\n        li,\r\n        li a {\r\n          outline: none;\r\n        }\r\n\r\n        li {\r\n          a {\r\n            cursor: pointer;\r\n            display: inline-block;\r\n          }\r\n\r\n          &.disabled a {\r\n            cursor: not-allowed;\r\n          }\r\n        }\r\n      }\r\n    }\r\n  }\r\n}\r\n",".ngx-datatable {\n  display: block;\n  overflow: hidden;\n  justify-content: center;\n  position: relative;\n  -webkit-transform: translate3d(0, 0, 0);\n  transform: translate3d(0, 0, 0);\n  /**\r\n   * Vertical Scrolling Adjustments\r\n   */\n  /**\r\n   * Horizontal Scrolling Adjustments\r\n   */\n  /**\r\n   * Fixed Header Height Adjustments\r\n   */\n  /**\r\n   * Fixed row height adjustments\r\n   */\n  /**\r\n   * Shared Styles\r\n   */\n  /**\r\n   * Header Styles\r\n   */\n  /**\r\n   * Body Styles\r\n   */\n  /**\r\n   * Footer Styles\r\n   */ }\n  .ngx-datatable.ngx-flex {\n    display: flex;\n    flex-flow: column;\n    justify-content: flex-start;\n    height: 100%; }\n    .ngx-datatable.ngx-flex .datatable-body {\n      overflow-y: auto;\n      flex: 1 1 auto; }\n    .ngx-datatable.ngx-flex .datatable-header,\n    .ngx-datatable.ngx-flex .datatable-footer {\n      flex: none; }\n  .ngx-datatable.ngx-nowrap-text .datatable-body .datatable-body-row .datatable-body-cell .datatable-body-cell-label {\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis; }\n  .ngx-datatable [hidden] {\n    display: none !important; }\n  .ngx-datatable .hidden-columns {\n    visibility: hidden;\n    position: absolute;\n    z-index: -1; }\n  .ngx-datatable *,\n  .ngx-datatable *:before,\n  .ngx-datatable *:after {\n    -moz-box-sizing: border-box;\n    -webkit-box-sizing: border-box;\n    box-sizing: border-box; }\n  .ngx-datatable.scroll-vertical .datatable-body {\n    overflow-y: auto; }\n  .ngx-datatable.scroll-vertical.virtualized .datatable-body .datatable-row-wrapper {\n    position: absolute; }\n  .ngx-datatable.scroll-horz .datatable-body {\n    overflow-x: auto;\n    -webkit-overflow-scrolling: touch; }\n  .ngx-datatable.fixed-header .datatable-header .datatable-header-inner {\n    white-space: nowrap; }\n    .ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis; }\n  .ngx-datatable.fixed-row .datatable-scroll {\n    white-space: nowrap; }\n    .ngx-datatable.fixed-row .datatable-scroll .datatable-body-row {\n      white-space: nowrap; }\n      .ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-cell {\n        overflow: hidden;\n        white-space: nowrap;\n        text-overflow: ellipsis; }\n      .ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-group-cell {\n        overflow: hidden;\n        white-space: nowrap;\n        text-overflow: ellipsis; }\n  .ngx-datatable .datatable-body-row,\n  .ngx-datatable .datatable-row-center,\n  .ngx-datatable .datatable-header-inner {\n    display: -webkit-box;\n    display: -moz-box;\n    display: -ms-flexbox;\n    display: -webkit-flex;\n    display: flex;\n    flex-direction: row;\n    -webkit-flex-flow: row;\n    -moz-flex-flow: row;\n    -ms-flex-flow: row;\n    -o-flex-flow: row;\n    flex-flow: row; }\n  .ngx-datatable .datatable-body-cell,\n  .ngx-datatable .datatable-header-cell {\n    overflow-x: hidden;\n    vertical-align: top;\n    display: inline-flex;\n    line-height: 1.625; }\n    .ngx-datatable .datatable-body-cell:focus,\n    .ngx-datatable .datatable-header-cell:focus {\n      outline: none; }\n    .ngx-datatable .datatable-body-cell .datatable-body-cell-label,\n    .ngx-datatable .datatable-header-cell .datatable-body-cell-label {\n      width: 100%; }\n    .ngx-datatable .datatable-body-cell-bold,\n    .ngx-datatable .datatable-header-cell-bold {\n      font-weight: bold; }\n  .ngx-datatable .datatable-row-left,\n  .ngx-datatable .datatable-row-right {\n    z-index: 9; }\n  .ngx-datatable .datatable-row-left,\n  .ngx-datatable .datatable-row-center,\n  .ngx-datatable .datatable-row-group,\n  .ngx-datatable .datatable-row-right {\n    position: relative; }\n  .ngx-datatable .datatable-header {\n    overflow: hidden; }\n    .ngx-datatable .datatable-header .datatable-header-inner {\n      align-items: stretch;\n      -webkit-align-items: stretch; }\n    .ngx-datatable .datatable-header .datatable-header-cell {\n      position: relative;\n      display: inline-flex;\n      user-select: none; }\n      .ngx-datatable .datatable-header .datatable-header-cell.sortable .datatable-header-cell-wrapper {\n        cursor: pointer; }\n      .ngx-datatable .datatable-header .datatable-header-cell.longpress .datatable-header-cell-wrapper {\n        cursor: move; }\n      .ngx-datatable .datatable-header .datatable-header-cell .sort-btn {\n        margin-left: auto; }\n      .ngx-datatable .datatable-header .datatable-header-cell .sort-btn::before {\n        line-height: 100%;\n        vertical-align: middle;\n        display: inline-block;\n        cursor: pointer;\n        font-size: 1.25rem;\n        margin-right: -7px; }\n      .ngx-datatable .datatable-header .datatable-header-cell .resize-handle,\n      .ngx-datatable .datatable-header .datatable-header-cell .resize-handle--not-resizable {\n        display: inline-block;\n        position: absolute;\n        right: 0;\n        top: 0;\n        bottom: 0;\n        width: 5px;\n        padding: 0 4px;\n        visibility: hidden; }\n      .ngx-datatable .datatable-header .datatable-header-cell .resize-handle {\n        cursor: ew-resize; }\n      .ngx-datatable .datatable-header .datatable-header-cell.resizeable {\n        flex-shrink: 0; }\n      .ngx-datatable .datatable-header .datatable-header-cell.resizeable:hover .resize-handle {\n        visibility: visible; }\n      .ngx-datatable .datatable-header .datatable-header-cell:hover .resize-handle--not-resizable {\n        visibility: visible; }\n      .ngx-datatable .datatable-header .datatable-header-cell .targetMarker {\n        position: absolute;\n        top: 0;\n        bottom: 0; }\n        .ngx-datatable .datatable-header .datatable-header-cell .targetMarker.dragFromLeft {\n          right: -13px; }\n        .ngx-datatable .datatable-header .datatable-header-cell .targetMarker.dragFromRight {\n          left: 0; }\n        .ngx-datatable .datatable-header .datatable-header-cell .targetMarker .icon {\n          position: absolute; }\n        .ngx-datatable .datatable-header .datatable-header-cell .targetMarker .datatable-icon-down {\n          top: 0px; }\n        .ngx-datatable .datatable-header .datatable-header-cell .targetMarker .datatable-icon-up {\n          top: 35px; }\n      .ngx-datatable .datatable-header .datatable-header-cell .datatable-header-cell-template-wrap {\n        height: inherit; }\n  .ngx-datatable .datatable-body {\n    position: relative;\n    z-index: 10;\n    display: block; }\n    .ngx-datatable .datatable-body .datatable-scroll {\n      display: inline-block; }\n    .ngx-datatable .datatable-body .datatable-row-detail {\n      overflow-y: hidden; }\n    .ngx-datatable .datatable-body .datatable-row-wrapper {\n      display: -webkit-box;\n      display: -moz-box;\n      display: -ms-flexbox;\n      display: -webkit-flex;\n      display: flex;\n      -webkit-box-orient: vertical;\n      -webkit-box-direction: normal;\n      -webkit-flex-direction: column;\n      -moz-box-orient: vertical;\n      -moz-box-direction: normal;\n      -ms-flex-direction: column;\n      flex-direction: column; }\n    .ngx-datatable .datatable-body .datatable-body-row {\n      outline: none; }\n      .ngx-datatable .datatable-body .datatable-body-row > div {\n        display: -webkit-box;\n        display: -moz-box;\n        display: -ms-flexbox;\n        display: -webkit-flex;\n        display: flex; }\n  .ngx-datatable .datatable-footer {\n    display: block;\n    width: 100%;\n    margin-top: auto; }\n    .ngx-datatable .datatable-footer .datatable-footer-inner {\n      display: flex;\n      align-items: center;\n      width: 100%; }\n    .ngx-datatable .datatable-footer .selected-count .page-count {\n      flex: 1 1 40%; }\n    .ngx-datatable .datatable-footer .selected-count .datatable-pager {\n      flex: 1 1 60%; }\n    .ngx-datatable .datatable-footer .page-count {\n      flex: 1 1 20%; }\n    .ngx-datatable .datatable-footer .datatable-pager {\n      flex: 1 1 80%;\n      text-align: right; }\n      .ngx-datatable .datatable-footer .datatable-pager .pager,\n      .ngx-datatable .datatable-footer .datatable-pager .pager li {\n        padding: 0;\n        margin: 0;\n        display: inline-block;\n        list-style: none; }\n      .ngx-datatable .datatable-footer .datatable-pager .pager li,\n      .ngx-datatable .datatable-footer .datatable-pager .pager li a {\n        outline: none; }\n      .ngx-datatable .datatable-footer .datatable-pager .pager li a {\n        cursor: pointer;\n        display: inline-block; }\n      .ngx-datatable .datatable-footer .datatable-pager .pager li.disabled a {\n        cursor: not-allowed; }\n"],"sourceRoot":""}]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
 
 /***/ }),
@@ -121,9 +47,7 @@ exports.push([module.i, ".ngx-datatable {\n  display: block;\n  overflow: hidden
 /*!*****************************************************!*\
   !*** ./node_modules/css-loader/dist/runtime/api.js ***!
   \*****************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((module) => {
 
 "use strict";
 
@@ -132,95 +56,142 @@ exports.push([module.i, ".ngx-datatable {\n  display: block;\n  overflow: hidden
   MIT License http://www.opensource.org/licenses/mit-license.php
   Author Tobias Koppers @sokra
 */
-// css base code, injected by the css-loader
-module.exports = function (useSourceMap) {
+module.exports = function (cssWithMappingToString) {
   var list = []; // return the list of modules as css string
 
   list.toString = function toString() {
     return this.map(function (item) {
-      var content = cssWithMappingToString(item, useSourceMap);
+      var content = "";
+      var needLayer = typeof item[5] !== "undefined";
+
+      if (item[4]) {
+        content += "@supports (".concat(item[4], ") {");
+      }
 
       if (item[2]) {
-        return '@media ' + item[2] + '{' + content + '}';
-      } else {
-        return content;
+        content += "@media ".concat(item[2], " {");
       }
-    }).join('');
+
+      if (needLayer) {
+        content += "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {");
+      }
+
+      content += cssWithMappingToString(item);
+
+      if (needLayer) {
+        content += "}";
+      }
+
+      if (item[2]) {
+        content += "}";
+      }
+
+      if (item[4]) {
+        content += "}";
+      }
+
+      return content;
+    }).join("");
   }; // import a list of modules into the list
 
 
-  list.i = function (modules, mediaQuery) {
-    if (typeof modules === 'string') {
-      modules = [[null, modules, '']];
+  list.i = function i(modules, media, dedupe, supports, layer) {
+    if (typeof modules === "string") {
+      modules = [[null, modules, undefined]];
     }
 
     var alreadyImportedModules = {};
 
-    for (var i = 0; i < this.length; i++) {
-      var id = this[i][0];
+    if (dedupe) {
+      for (var _i = 0; _i < this.length; _i++) {
+        var id = this[_i][0];
 
-      if (id != null) {
-        alreadyImportedModules[id] = true;
+        if (id != null) {
+          alreadyImportedModules[id] = true;
+        }
       }
     }
 
-    for (i = 0; i < modules.length; i++) {
-      var item = modules[i]; // skip already imported module
-      // this implementation is not 100% perfect for weird media query combinations
-      // when a module is imported multiple times with different media queries.
-      // I hope this will never occur (Hey this way we have smaller bundles)
+    for (var _i2 = 0; _i2 < modules.length; _i2++) {
+      var item = [].concat(modules[_i2]);
 
-      if (item[0] == null || !alreadyImportedModules[item[0]]) {
-        if (mediaQuery && !item[2]) {
-          item[2] = mediaQuery;
-        } else if (mediaQuery) {
-          item[2] = '(' + item[2] + ') and (' + mediaQuery + ')';
-        }
-
-        list.push(item);
+      if (dedupe && alreadyImportedModules[item[0]]) {
+        continue;
       }
+
+      if (typeof layer !== "undefined") {
+        if (typeof item[5] === "undefined") {
+          item[5] = layer;
+        } else {
+          item[1] = "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {").concat(item[1], "}");
+          item[5] = layer;
+        }
+      }
+
+      if (media) {
+        if (!item[2]) {
+          item[2] = media;
+        } else {
+          item[1] = "@media ".concat(item[2], " {").concat(item[1], "}");
+          item[2] = media;
+        }
+      }
+
+      if (supports) {
+        if (!item[4]) {
+          item[4] = "".concat(supports);
+        } else {
+          item[1] = "@supports (".concat(item[4], ") {").concat(item[1], "}");
+          item[4] = supports;
+        }
+      }
+
+      list.push(item);
     }
   };
 
   return list;
 };
 
-function cssWithMappingToString(item, useSourceMap) {
-  var content = item[1] || '';
+/***/ }),
+
+/***/ "./node_modules/css-loader/dist/runtime/sourceMaps.js":
+/*!************************************************************!*\
+  !*** ./node_modules/css-loader/dist/runtime/sourceMaps.js ***!
+  \************************************************************/
+/***/ ((module) => {
+
+"use strict";
+
+
+module.exports = function (item) {
+  var content = item[1];
   var cssMapping = item[3];
 
   if (!cssMapping) {
     return content;
   }
 
-  if (useSourceMap && typeof btoa === 'function') {
-    var sourceMapping = toComment(cssMapping);
+  if (typeof btoa === "function") {
+    var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(cssMapping))));
+    var data = "sourceMappingURL=data:application/json;charset=utf-8;base64,".concat(base64);
+    var sourceMapping = "/*# ".concat(data, " */");
     var sourceURLs = cssMapping.sources.map(function (source) {
-      return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */';
+      return "/*# sourceURL=".concat(cssMapping.sourceRoot || "").concat(source, " */");
     });
-    return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+    return [content].concat(sourceURLs).concat([sourceMapping]).join("\n");
   }
 
-  return [content].join('\n');
-} // Adapted from convert-source-map (MIT)
-
-
-function toComment(sourceMap) {
-  // eslint-disable-next-line no-undef
-  var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-  var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-  return '/*# ' + data + ' */';
-}
+  return [content].join("\n");
+};
 
 /***/ }),
 
-/***/ "./node_modules/ts-loader/index.js?!./node_modules/eslint-loader/dist/cjs.js!./src/components/body/body-cell.component.ts?vue&type=script&lang=js&":
-/*!*******************************************************************************************************************************************************!*\
-  !*** ./node_modules/ts-loader??ref--4!./node_modules/eslint-loader/dist/cjs.js!./src/components/body/body-cell.component.ts?vue&type=script&lang=js& ***!
-  \*******************************************************************************************************************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body-cell.component.ts?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body-cell.component.ts?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -228,10 +199,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -246,7 +219,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 var keys_1 = __webpack_require__(/*! utils/keys */ "./src/utils/keys.ts");
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
 var DataTableBodyCellComponent = /** @class */ (function (_super) {
@@ -317,7 +290,6 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
             // } else if (value !== undefined) {
             //   value = val;
             // }
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             value = this.column.$$valueGetter(this.rowContext.row, this.column.prop);
         }
         if (this.value !== value) {
@@ -487,7 +459,7 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
                 minWidth: this.column.minWidth ? this.column.minWidth + "px" : undefined,
                 // eslint-disable-next-line no-undefined
                 maxWidth: this.column.maxWidth ? this.column.maxWidth + "px" : undefined,
-                height: this.rowContext.rowHeight + "px",
+                height: this.rowContext.rowHeight + "px", // this.cellHeight(this.rowContext.rowHeight),
             };
         },
         enumerable: false,
@@ -521,35 +493,35 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
         return height + "px";
     };
     DataTableBodyCellComponent.prototype.calcLeftMargin = function (column, row) {
-        var levelIndent = column.treeLevelIndent !== null ? column.treeLevelIndent : 50;
+        var levelIndent = column.treeLevelIndent ? column.treeLevelIndent : 50;
         return column.isTreeColumn ? row.level * levelIndent : 0;
     };
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Object)
     ], DataTableBodyCellComponent.prototype, "column", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Object)
     ], DataTableBodyCellComponent.prototype, "rowContext", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DataTableBodyCellComponent.prototype, "tabIndex", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Function)
     ], DataTableBodyCellComponent.prototype, "cellSlot", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableBodyCellComponent.prototype, "renderTracking", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Function)
     ], DataTableBodyCellComponent.prototype, "displayCheck", void 0);
     __decorate([
-        vue_property_decorator_1.Watch('rowContext.row', { deep: true, immediate: true }),
+        (0, vue_property_decorator_1.Watch)('rowContext.row', { deep: true, immediate: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
@@ -559,18 +531,16 @@ var DataTableBodyCellComponent = /** @class */ (function (_super) {
     ], DataTableBodyCellComponent);
     return DataTableBodyCellComponent;
 }(vue_property_decorator_1.Vue));
-exports.default = DataTableBodyCellComponent;
+exports["default"] = DataTableBodyCellComponent;
 
 
 /***/ }),
 
-/***/ "./node_modules/ts-loader/index.js?!./node_modules/eslint-loader/dist/cjs.js!./src/components/body/body-row-wrapper.component.ts?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************************!*\
-  !*** ./node_modules/ts-loader??ref--4!./node_modules/eslint-loader/dist/cjs.js!./src/components/body/body-row-wrapper.component.ts?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body-row-wrapper.component.ts?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body-row-wrapper.component.ts?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -578,10 +548,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -596,7 +568,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
 var body_group_header_component_1 = __webpack_require__(/*! ./body-group-header.component */ "./src/components/body/body-group-header.component.ts");
 var body_row_detail_component_1 = __webpack_require__(/*! ./body-row-detail.component */ "./src/components/body/body-row-detail.component.ts");
@@ -615,9 +587,10 @@ var DataTableRowWrapperComponent = /** @class */ (function (_super) {
     DataTableRowWrapperComponent.prototype.onContextmenu = function ($event) {
         this.$emit('rowContextmenu', { event: $event, row: this.row });
     };
-    Object.defineProperty(DataTableRowWrapperComponent.prototype, "groupHeaderStyles", {
+    Object.defineProperty(DataTableRowWrapperComponent.prototype, "groupTitleStyles", {
         get: function () {
-            var styles = {};
+            var _a;
+            var styles = (_a = this.groupHeaderStyles) !== null && _a !== void 0 ? _a : {};
             styles['transform'] = "translate3d(" + this.offsetX + "px, 0px, 0px)'";
             styles['backface-visibility'] = 'hidden';
             styles['width'] = this.innerWidth || '100%';
@@ -647,67 +620,75 @@ var DataTableRowWrapperComponent = /** @class */ (function (_super) {
         configurable: true
     });
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableRowWrapperComponent.prototype, "innerWidth", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableRowWrapperComponent.prototype, "rowDetail", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableRowWrapperComponent.prototype, "groupHeader", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableRowWrapperComponent.prototype, "groupLevel", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableRowWrapperComponent.prototype, "offsetX", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableRowWrapperComponent.prototype, "rowDetailHeight", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableRowWrapperComponent.prototype, "groupRowHeight", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
+        __metadata("design:type", Object)
+    ], DataTableRowWrapperComponent.prototype, "groupHeaderStyles", void 0);
+    __decorate([
+        (0, vue_property_decorator_1.Prop)(),
+        __metadata("design:type", Object)
+    ], DataTableRowWrapperComponent.prototype, "groupHeaderClasses", void 0);
+    __decorate([
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Object)
     ], DataTableRowWrapperComponent.prototype, "row", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Function)
     ], DataTableRowWrapperComponent.prototype, "rowIdentity", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Array)
     ], DataTableRowWrapperComponent.prototype, "groupRowsBy", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableRowWrapperComponent.prototype, "rowIndex", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableRowWrapperComponent.prototype, "expanded", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Object)
     ], DataTableRowWrapperComponent.prototype, "styleObject", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Function)
     ], DataTableRowWrapperComponent.prototype, "groupHeaderSlot", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Function)
     ], DataTableRowWrapperComponent.prototype, "rowDetailSlot", void 0);
     DataTableRowWrapperComponent = __decorate([
-        vue_property_decorator_1.Component({
+        (0, vue_property_decorator_1.Component)({
             name: 'datatable-row-wrapper',
             components: {
                 'datatable-group-header': body_group_header_component_1.default,
@@ -718,18 +699,16 @@ var DataTableRowWrapperComponent = /** @class */ (function (_super) {
     ], DataTableRowWrapperComponent);
     return DataTableRowWrapperComponent;
 }(vue_property_decorator_1.Vue));
-exports.default = DataTableRowWrapperComponent;
+exports["default"] = DataTableRowWrapperComponent;
 
 
 /***/ }),
 
-/***/ "./node_modules/ts-loader/index.js?!./node_modules/eslint-loader/dist/cjs.js!./src/components/body/body-row.component.ts?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************************!*\
-  !*** ./node_modules/ts-loader??ref--4!./node_modules/eslint-loader/dist/cjs.js!./src/components/body/body-row.component.ts?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body-row.component.ts?vue&type=script&lang=js&":
+/*!****************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body-row.component.ts?vue&type=script&lang=js& ***!
+  \****************************************************************************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -737,10 +716,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -755,7 +736,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
 var keys_1 = __webpack_require__(/*! ../../utils/keys */ "./src/utils/keys.ts");
 var body_cell_component_vue_1 = __webpack_require__(/*! ./body-cell.component.vue */ "./src/components/body/body-cell.component.vue");
@@ -880,43 +861,43 @@ var DataTableBodyRowComponent = /** @class */ (function (_super) {
         configurable: true
     });
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Object)
     ], DataTableBodyRowComponent.prototype, "row", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Object)
     ], DataTableBodyRowComponent.prototype, "rowContext", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Array)
     ], DataTableBodyRowComponent.prototype, "columnsByPin", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Object)
     ], DataTableBodyRowComponent.prototype, "columnGroupWidths", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Object)
     ], DataTableBodyRowComponent.prototype, "groupStyles", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Function)
     ], DataTableBodyRowComponent.prototype, "rowClass", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Function)
     ], DataTableBodyRowComponent.prototype, "displayCheck", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Function)
     ], DataTableBodyRowComponent.prototype, "slots", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableBodyRowComponent.prototype, "renderTracking", void 0);
     DataTableBodyRowComponent = __decorate([
-        vue_property_decorator_1.Component({
+        (0, vue_property_decorator_1.Component)({
             components: {
                 'datatable-body-cell': body_cell_component_vue_1.default,
             },
@@ -924,18 +905,16 @@ var DataTableBodyRowComponent = /** @class */ (function (_super) {
     ], DataTableBodyRowComponent);
     return DataTableBodyRowComponent;
 }(vue_property_decorator_1.Vue));
-exports.default = DataTableBodyRowComponent;
+exports["default"] = DataTableBodyRowComponent;
 
 
 /***/ }),
 
-/***/ "./node_modules/ts-loader/index.js?!./node_modules/eslint-loader/dist/cjs.js!./src/components/body/body.component.ts?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************!*\
-  !*** ./node_modules/ts-loader??ref--4!./node_modules/eslint-loader/dist/cjs.js!./src/components/body/body.component.ts?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body.component.ts?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body.component.ts?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -943,10 +922,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -1008,7 +989,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 var scrollbar_helper_service_1 = __webpack_require__(/*! services/scrollbar-helper.service */ "./src/services/scrollbar-helper.service.ts");
 var check_type_1 = __webpack_require__(/*! types/check.type */ "./src/types/check.type.ts");
 var selection_type_1 = __webpack_require__(/*! types/selection.type */ "./src/types/selection.type.ts");
@@ -1038,7 +1019,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         _this.myOffsetX = 0;
         _this.indexes = { first: 0, last: 0 };
         _this.columnGroupWidths = null;
-        _this.columnGroupWidthsWithoutGroup = null;
+        // columnGroupWidthsWithoutGroup = null;
         _this.rowIndexes = new Map();
         _this.rowExpansions = new Map();
         _this.myBodyHeight = null;
@@ -1300,13 +1281,13 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     };
     DataTableBodyComponent.prototype.recalculateColumns = function (val) {
         if (val === void 0) { val = this.columns; }
-        var colsByPin = column_1.columnsByPin(this.columns);
-        this.columnsByPin = column_1.columnsByPinArr(this.columns);
+        var colsByPin = (0, column_1.columnsByPin)(this.columns);
+        this.columnsByPin = (0, column_1.columnsByPinArr)(this.columns);
         var width = this.innerWidth;
         if (this.scrollbarV) {
             width = width - this.scrollbarHelper.width;
         }
-        this.columnGroupWidths = column_1.columnGroupWidths(colsByPin, this.columns, width);
+        this.columnGroupWidths = (0, column_1.columnGroupWidths)(colsByPin, this.columns, width);
     };
     /**
      * Updates the Y offset given a new offset.
@@ -1566,7 +1547,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
             else {
                 pos = this.rowHeightsCache.query(idx - 1);
             }
-            translate_1.translateXY(styles, 0, pos);
+            (0, translate_1.translateXY)(styles, 0, pos);
         }
         return styles;
     };
@@ -1604,7 +1585,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         else {
             pos = this.rowHeight * (this.rowCount - 1);
         }
-        translate_1.translateXY(styles, 0, pos);
+        (0, translate_1.translateXY)(styles, 0, pos);
         return styles;
     };
     /**
@@ -1717,7 +1698,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         this.rowExpansions.set(rowContext.row, expanded);
         this.$emit('detail-toggle', {
             rows: [rowContext.row],
-            currentIndex: rowContext.rowIndex,
+            currentIndex: rowContext.rowIndex, // viewPortFirstRowIndex
         });
         return Boolean(expanded);
     };
@@ -1744,7 +1725,6 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
             currentIndex: viewPortFirstRowIndex,
         });
     };
-    // eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
     DataTableBodyComponent.prototype.onGroupToggle = function ($event) {
         this.$emit('group-toggle', $event);
         // if ($event.type === 'group') {
@@ -1876,14 +1856,14 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
             width: widths[group] + "px",
         };
         if (group === 'left') {
-            translate_1.translateXY(styles, offsetX, 0);
+            (0, translate_1.translateXY)(styles, offsetX, 0);
         }
         else if (group === 'right') {
             var bodyWidth = parseInt(this.innerWidth.toString(), 10);
             var totalDiff = widths.total - bodyWidth;
             var offsetDiff = totalDiff - offsetX;
             var offset = (offsetDiff + this.scrollbarHelper.width) * -1;
-            translate_1.translateXY(styles, offset, 0);
+            (0, translate_1.translateXY)(styles, offset, 0);
         }
         return styles;
     };
@@ -1971,235 +1951,243 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         });
     };
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableBodyComponent.prototype, "scrollbarV", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableBodyComponent.prototype, "scrollbarH", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableBodyComponent.prototype, "loadingIndicator", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableBodyComponent.prototype, "externalPaging", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Object)
     ], DataTableBodyComponent.prototype, "rowHeight", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Object)
     ], DataTableBodyComponent.prototype, "groupRowHeight", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
+        __metadata("design:type", Object)
+    ], DataTableBodyComponent.prototype, "groupHeaderStyles", void 0);
+    __decorate([
+        (0, vue_property_decorator_1.Prop)(),
+        __metadata("design:type", Object)
+    ], DataTableBodyComponent.prototype, "groupHeaderClasses", void 0);
+    __decorate([
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableBodyComponent.prototype, "offsetX", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DataTableBodyComponent.prototype, "emptyMessage", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DataTableBodyComponent.prototype, "selectionType", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DataTableBodyComponent.prototype, "checkMode", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Array, default: function () { return []; } }),
+        (0, vue_property_decorator_1.Prop)({ type: Array, default: function () { return []; } }),
         __metadata("design:type", Array)
     ], DataTableBodyComponent.prototype, "selected", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Array, default: function () { return []; } }),
+        (0, vue_property_decorator_1.Prop)({ type: Array, default: function () { return []; } }),
         __metadata("design:type", Array)
     ], DataTableBodyComponent.prototype, "checked", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Function)
     ], DataTableBodyComponent.prototype, "rowIdentity", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableBodyComponent.prototype, "rowDetail", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Object)
     ], DataTableBodyComponent.prototype, "rowDetailHeight", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        (0, vue_property_decorator_1.Prop)(),
+        __metadata("design:type", Boolean)
     ], DataTableBodyComponent.prototype, "groupHeader", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        (0, vue_property_decorator_1.Prop)(),
+        __metadata("design:type", Function)
     ], DataTableBodyComponent.prototype, "selectCheck", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        (0, vue_property_decorator_1.Prop)(),
+        __metadata("design:type", Function)
     ], DataTableBodyComponent.prototype, "displayCheck", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DataTableBodyComponent.prototype, "trackByProp", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Function)
     ], DataTableBodyComponent.prototype, "rowClass", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableBodyComponent.prototype, "groupExpansionDefault", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableBodyComponent.prototype, "innerWidth", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Array)
     ], DataTableBodyComponent.prototype, "groupRowsBy", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableBodyComponent.prototype, "virtualization", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableBodyComponent.prototype, "summaryRow", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DataTableBodyComponent.prototype, "summaryPosition", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Object)
     ], DataTableBodyComponent.prototype, "summaryHeight", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableBodyComponent.prototype, "pageSize", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableBodyComponent.prototype, "limit", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Array)
     ], DataTableBodyComponent.prototype, "rows", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Array)
     ], DataTableBodyComponent.prototype, "columns", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableBodyComponent.prototype, "offset", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ default: 0 }),
+        (0, vue_property_decorator_1.Prop)({ default: 0 }),
         __metadata("design:type", Number)
     ], DataTableBodyComponent.prototype, "rowCount", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ default: 0 }),
+        (0, vue_property_decorator_1.Prop)({ default: 0 }),
         __metadata("design:type", Number)
     ], DataTableBodyComponent.prototype, "bodyHeight", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: [Number, String], default: null }),
+        (0, vue_property_decorator_1.Prop)({ type: [Number, String], default: null }),
         __metadata("design:type", Object)
     ], DataTableBodyComponent.prototype, "minItemHeight", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: [String], default: 'height' }),
+        (0, vue_property_decorator_1.Prop)({ type: [String], default: 'height' }),
         __metadata("design:type", String)
     ], DataTableBodyComponent.prototype, "heightField", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Function)
     ], DataTableBodyComponent.prototype, "groupHeaderSlot", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Function)
     ], DataTableBodyComponent.prototype, "rowDetailSlot", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableBodyComponent.prototype, "renderTracking", void 0);
     __decorate([
-        vue_property_decorator_1.Watch('pageSize'),
+        (0, vue_property_decorator_1.Watch)('pageSize'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DataTableBodyComponent.prototype, "onPageSize", null);
     __decorate([
-        vue_property_decorator_1.Watch('rows', { immediate: true }),
+        (0, vue_property_decorator_1.Watch)('rows', { immediate: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", Promise)
     ], DataTableBodyComponent.prototype, "onRowsChanged", null);
     __decorate([
-        vue_property_decorator_1.Watch('selected', { deep: true }),
+        (0, vue_property_decorator_1.Watch)('selected', { deep: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", Promise)
     ], DataTableBodyComponent.prototype, "onSelectedChanged", null);
     __decorate([
-        vue_property_decorator_1.Watch('checked', { deep: true }),
+        (0, vue_property_decorator_1.Watch)('checked', { deep: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", Promise)
     ], DataTableBodyComponent.prototype, "onCheckedChanged", null);
     __decorate([
-        vue_property_decorator_1.Watch('columns', { immediate: true }),
+        (0, vue_property_decorator_1.Watch)('columns', { immediate: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DataTableBodyComponent.prototype, "onColumnsChanged", null);
     __decorate([
-        vue_property_decorator_1.Watch('offset', { immediate: true }),
+        (0, vue_property_decorator_1.Watch)('offset', { immediate: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DataTableBodyComponent.prototype, "onOffsetChanged", null);
     __decorate([
-        vue_property_decorator_1.Watch('offsetX', { immediate: true }),
+        (0, vue_property_decorator_1.Watch)('offsetX', { immediate: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DataTableBodyComponent.prototype, "onOffsetXChanged", null);
     __decorate([
-        vue_property_decorator_1.Watch('myOffsetX'),
+        (0, vue_property_decorator_1.Watch)('myOffsetX'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DataTableBodyComponent.prototype, "onMyOffsetXChanged", null);
     __decorate([
-        vue_property_decorator_1.Watch('innerWidth'),
+        (0, vue_property_decorator_1.Watch)('innerWidth'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DataTableBodyComponent.prototype, "onInnerWidthChanged", null);
     __decorate([
-        vue_property_decorator_1.Watch('myOffset'),
+        (0, vue_property_decorator_1.Watch)('myOffset'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DataTableBodyComponent.prototype, "onMyOffsetChanged", null);
     __decorate([
-        vue_property_decorator_1.Watch('rowCount'),
+        (0, vue_property_decorator_1.Watch)('rowCount'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DataTableBodyComponent.prototype, "onRowCountChanged", null);
     __decorate([
-        vue_property_decorator_1.Watch('bodyHeight', { immediate: true }),
+        (0, vue_property_decorator_1.Watch)('bodyHeight', { immediate: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DataTableBodyComponent.prototype, "onBodyHeightChanged", null);
     DataTableBodyComponent = __decorate([
-        vue_property_decorator_1.Component({
+        (0, vue_property_decorator_1.Component)({
             components: {
                 'datatable-selection': selection_component_1.default,
                 'datatable-progress': progress_bar_component_1.default,
@@ -2214,18 +2202,16 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     ], DataTableBodyComponent);
     return DataTableBodyComponent;
 }(vue_property_decorator_1.Vue));
-exports.default = DataTableBodyComponent;
+exports["default"] = DataTableBodyComponent;
 
 
 /***/ }),
 
-/***/ "./node_modules/ts-loader/index.js?!./node_modules/eslint-loader/dist/cjs.js!./src/components/datatable.component.ts?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************!*\
-  !*** ./node_modules/ts-loader??ref--4!./node_modules/eslint-loader/dist/cjs.js!./src/components/datatable.component.ts?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ "./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/datatable.component.ts?vue&type=script&lang=js&":
+/*!************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/datatable.component.ts?vue&type=script&lang=js& ***!
+  \************************************************************************************************************************************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -2233,10 +2219,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -2262,14 +2250,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 var check_type_1 = __webpack_require__(/*! types/check.type */ "./src/types/check.type.ts");
 var column_mode_type_1 = __webpack_require__(/*! types/column-mode.type */ "./src/types/column-mode.type.ts");
 var contextmenu_type_1 = __webpack_require__(/*! types/contextmenu.type */ "./src/types/contextmenu.type.ts");
@@ -2285,14 +2275,10 @@ var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */
 var visibility_directive_1 = __webpack_require__(/*! ../directives/visibility.directive */ "./src/directives/visibility.directive.ts");
 var dimensions_helper_service_1 = __webpack_require__(/*! ../services/dimensions-helper.service */ "./src/services/dimensions-helper.service.ts");
 var scrollbar_helper_service_1 = __webpack_require__(/*! ../services/scrollbar-helper.service */ "./src/services/scrollbar-helper.service.ts");
-var body_cell_component_vue_1 = __webpack_require__(/*! ./body/body-cell.component.vue */ "./src/components/body/body-cell.component.vue");
 var body_component_vue_1 = __webpack_require__(/*! ./body/body.component.vue */ "./src/components/body/body.component.vue");
+var body_cell_component_vue_1 = __webpack_require__(/*! ./body/body-cell.component.vue */ "./src/components/body/body-cell.component.vue");
 var column_component_1 = __webpack_require__(/*! ./columns/column.component */ "./src/components/columns/column.component.ts");
 var footer_component_1 = __webpack_require__(/*! ./footer/footer.component */ "./src/components/footer/footer.component.ts");
-// import { DatatableGroupHeaderDirective } from './body/body-group-header.directive';
-// import { DataTableColumnDirective } from './columns';
-// import { DatatableRowDetailDirective } from './row-detail';
-// import { DatatableFooterDirective } from './footer';
 var header_component_1 = __webpack_require__(/*! ./header/header.component */ "./src/components/header/header.component.ts");
 vue_property_decorator_1.Vue.component('datatable-column', column_component_1.default);
 vue_property_decorator_1.Vue.component('datatable-body-cell', body_cell_component_vue_1.default);
@@ -2330,10 +2316,10 @@ var DatatableComponent = /** @class */ (function (_super) {
     }
     DatatableComponent.prototype.onRowsChanged = function (val) {
         if (val) {
-            this.internalRows = __spreadArrays(val);
+            this.internalRows = __spreadArray([], val, true);
         }
-        var treeFrom = tree_1.optionalGetterForProp(this.treeFromRelation);
-        var treeTo = tree_1.optionalGetterForProp(this.treeToRelation);
+        var treeFrom = (0, tree_1.optionalGetterForProp)(this.treeFromRelation);
+        var treeTo = (0, tree_1.optionalGetterForProp)(this.treeToRelation);
         if (treeFrom && treeTo) {
             this.initialRows = this.internalRows;
         }
@@ -2342,7 +2328,7 @@ var DatatableComponent = /** @class */ (function (_super) {
             this.sortInternalRows();
         }
         // auto group by parent on new update
-        this.internalRows = tree_1.groupRowsByParents(this.internalRows, treeFrom, treeTo, this.lazyTree);
+        this.internalRows = (0, tree_1.groupRowsByParents)(this.internalRows, treeFrom, treeTo, this.lazyTree);
         this.groupedRows = null;
         if (this.rows && this.groupRowsBy) {
             // this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy);
@@ -2355,7 +2341,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         }
     };
     DatatableComponent.prototype.onGroupRowsByChanged = function (newVal, oldVal) {
-        if (equal_array_1.isArrayEqual(newVal, oldVal)) {
+        if ((0, equal_array_1.isArrayEqual)(newVal, oldVal)) {
             return;
         }
         this.groupHeader = Boolean(this.groupRowsBy);
@@ -2379,8 +2365,8 @@ var DatatableComponent = /** @class */ (function (_super) {
     DatatableComponent.prototype.onColumnsChanged = function (newVal) {
         var _this = this;
         if (newVal) {
-            column_helper_1.setColumnsDefaults(newVal, this);
-            this.internalColumns = __spreadArrays(newVal);
+            (0, column_helper_1.setColumnsDefaults)(newVal, this);
+            this.internalColumns = __spreadArray([], newVal, true);
             this.$nextTick(function () { return _this.recalculateColumns(); });
         }
     };
@@ -2764,10 +2750,10 @@ var DatatableComponent = /** @class */ (function (_super) {
             width = width - this.scrollbarHelper.width;
         }
         if (this.myColumnMode === column_mode_type_1.ColumnMode.force) {
-            math_1.forceFillColumnWidths(columns, width, forceIdx, allowBleed);
+            (0, math_1.forceFillColumnWidths)(columns, width, forceIdx, allowBleed);
         }
         else if (this.myColumnMode === column_mode_type_1.ColumnMode.flex) {
-            math_1.adjustColumnWidths(columns, width);
+            (0, math_1.adjustColumnWidths)(columns, width);
         }
         var hiddenColumns = columns.filter(function (col) { return col.hidden; });
         if (hiddenColumns.length && this.bodyComponent) {
@@ -2956,7 +2942,7 @@ var DatatableComponent = /** @class */ (function (_super) {
      */
     DatatableComponent.prototype.onColumnReorder = function (_a) {
         var column = _a.column, newValue = _a.newValue, prevValue = _a.prevValue;
-        var cols = __spreadArrays(this.internalColumns);
+        var cols = __spreadArray([], this.internalColumns, true);
         if (this.swapColumns) {
             var prevCol = cols[newValue];
             if (column.$$id === prevCol.$$id) {
@@ -3089,9 +3075,15 @@ var DatatableComponent = /** @class */ (function (_super) {
         this.$emit('check', event);
     };
     DatatableComponent.prototype.onGroupToggle = function (event) {
-        event.value.__expanded = !event.value.__expanded;
+        if (!event) {
+            return;
+        }
+        if (typeof event.value !== 'boolean') {
+            event.value.__expanded = !event.value.__expanded;
+        }
         this.internalRows = this.processGroupedRows(this.groupedRows);
         this.recalculate();
+        this.$emit('group-toggle', Object.freeze(event));
     };
     /**
      * A row was expanded or collapsed for tree
@@ -3105,12 +3097,12 @@ var DatatableComponent = /** @class */ (function (_super) {
     };
     DatatableComponent.prototype.onColumnInsert = function (column) {
         var _this = this;
-        column_helper_1.setColumnDefaults(column, this);
+        (0, column_helper_1.setColumnDefaults)(column, this);
         if (!this.internalColumns) {
             this.internalColumns = [column];
         }
         else {
-            this.internalColumns = __spreadArrays(this.internalColumns, [column]);
+            this.internalColumns = __spreadArray(__spreadArray([], this.internalColumns, true), [column], false);
         }
         // if (!this.internalColumns) {
         //   setColumnDefaults(column, this);
@@ -3139,9 +3131,9 @@ var DatatableComponent = /** @class */ (function (_super) {
     };
     DatatableComponent.prototype.onColumnRemoved = function (column) {
         var colIndex = this.internalColumns.findIndex(function (c) { return c.name === column.name; });
-        var cols = __spreadArrays(this.internalColumns);
+        var cols = __spreadArray([], this.internalColumns, true);
         cols.splice(colIndex, 1);
-        this.internalColumns = __spreadArrays(cols);
+        this.internalColumns = __spreadArray([], cols, true);
         this.recalculateColumns();
     };
     DatatableComponent.prototype.onColumnChangeVisible = function (column) {
@@ -3194,6 +3186,32 @@ var DatatableComponent = /** @class */ (function (_super) {
         });
     };
     /**
+     * Expand all the group rows.
+     */
+    DatatableComponent.prototype.expandAllGroups = function () {
+        var _this = this;
+        this.groupedRows.forEach(function (row) {
+            _this.expandCollapseRow(row, true);
+        });
+        this.onGroupToggle({
+            type: 'all',
+            value: true,
+        });
+    };
+    /**
+     * Collapse all the rows.
+     */
+    DatatableComponent.prototype.collapseAllGroups = function () {
+        var _this = this;
+        this.groupedRows.forEach(function (row) {
+            _this.expandCollapseRow(row, false);
+        });
+        this.onGroupToggle({
+            type: 'all',
+            value: false,
+        });
+    };
+    /**
      * Is the row visible in the current page
      */
     DatatableComponent.prototype.isRowVisible = function (row) {
@@ -3201,8 +3219,8 @@ var DatatableComponent = /** @class */ (function (_super) {
         return (_a = this.bodyComponent) === null || _a === void 0 ? void 0 : _a.isRowVisible(row);
     };
     DatatableComponent.prototype.innerSortRows = function () {
-        var treeFrom = tree_1.optionalGetterForProp(this.treeFromRelation);
-        var treeTo = tree_1.optionalGetterForProp(this.treeToRelation);
+        var treeFrom = (0, tree_1.optionalGetterForProp)(this.treeFromRelation);
+        var treeTo = (0, tree_1.optionalGetterForProp)(this.treeToRelation);
         if (treeFrom && treeTo) {
             this.internalRows = this.initialRows;
         }
@@ -3213,7 +3231,7 @@ var DatatableComponent = /** @class */ (function (_super) {
             this.sortInternalRows();
         }
         // auto group by parent on new update
-        this.internalRows = tree_1.groupRowsByParents(this.internalRows, treeFrom, treeTo, this.lazyTree);
+        this.internalRows = (0, tree_1.groupRowsByParents)(this.internalRows, treeFrom, treeTo, this.lazyTree);
     };
     /**
      * Creates a map with the data grouped by the user choice of grouping index
@@ -3243,7 +3261,7 @@ var DatatableComponent = /** @class */ (function (_super) {
                 return getValue(row, groupByArr);
             }
             // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-            return groupByArr.reduce(function (key, groupDescr) {
+            var result = groupByArr.reduce(function (key, groupDescr) {
                 var res = null;
                 if (Array.isArray(groupDescr)) {
                     return getKey(row, groupDescr);
@@ -3253,9 +3271,9 @@ var DatatableComponent = /** @class */ (function (_super) {
                     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
                     return res;
                 }
-                // eslint-disable-next-line @typescript-eslint/restrict-template-expressions
                 return key ? key + "^^" + res : "" + res;
             }, '');
+            return result;
         };
         var itemsToRemove = [];
         originalArray.forEach(function (item) {
@@ -3331,7 +3349,7 @@ var DatatableComponent = /** @class */ (function (_super) {
             this.internalRows = this.processGroupedRows(this.groupedRows);
         }
         else {
-            this.internalRows = sort_1.sortRows(this.internalRows, this.internalColumns, this.sorts);
+            this.internalRows = (0, sort_1.sortRows)(this.internalRows, this.internalColumns, this.sorts);
         }
     };
     DatatableComponent.prototype.sortGroupedRows = function (groupedRows) {
@@ -3347,12 +3365,21 @@ var DatatableComponent = /** @class */ (function (_super) {
                 gr.groups = _this.sortGroupedRows(gr.groups);
             }
             if (gr.rows && gr.rows) {
-                gr.rows = sort_1.sortRows(gr.rows, _this.internalColumns, _this.sorts);
+                gr.rows = (0, sort_1.sortRows)(gr.rows, _this.internalColumns, _this.sorts);
             }
         });
-        var sortedRows = sort_1.sortRows(rows, this.internalColumns, this.sorts);
+        var sortedRows = (0, sort_1.sortRows)(rows, this.internalColumns, this.sorts);
         var result = sortedRows.map(function (r) { return r.__group; });
         return result;
+    };
+    DatatableComponent.prototype.expandCollapseRow = function (group, expand) {
+        var _this = this;
+        group.__expanded = expand;
+        if (Array.isArray(group.groups)) {
+            group.groups.forEach(function (gr) {
+                _this.expandCollapseRow(gr, expand);
+            });
+        }
     };
     DatatableComponent.prototype.addRow = function (group, rows) {
         var _this = this;
@@ -3382,123 +3409,131 @@ var DatatableComponent = /** @class */ (function (_super) {
         return rows;
     };
     __decorate([
-        vue_property_decorator_1.Prop({ default: false }),
+        (0, vue_property_decorator_1.Prop)({ default: false }),
         __metadata("design:type", Boolean)
     ], DatatableComponent.prototype, "visibilityCheck", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ default: 1000 }),
+        (0, vue_property_decorator_1.Prop)({ default: 1000 }),
         __metadata("design:type", Number)
     ], DatatableComponent.prototype, "visibilityCheckTimeout", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Array)
     ], DatatableComponent.prototype, "rows", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Array)
     ], DatatableComponent.prototype, "groupRowsBy", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Array)
     ], DatatableComponent.prototype, "columns", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Array, default: function () { return []; } }),
+        (0, vue_property_decorator_1.Prop)({ type: Array, default: function () { return []; } }),
         __metadata("design:type", Array)
     ], DatatableComponent.prototype, "selected", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Array, default: function () { return []; } }),
+        (0, vue_property_decorator_1.Prop)({ type: Array, default: function () { return []; } }),
         __metadata("design:type", Array)
     ], DatatableComponent.prototype, "checked", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Boolean, default: false }),
+        (0, vue_property_decorator_1.Prop)({ type: Boolean, default: false }),
         __metadata("design:type", Boolean)
     ], DatatableComponent.prototype, "scrollbarV", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Boolean, default: false }),
+        (0, vue_property_decorator_1.Prop)({ type: Boolean, default: false }),
         __metadata("design:type", Boolean)
     ], DatatableComponent.prototype, "scrollbarH", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ default: 'auto' }),
+        (0, vue_property_decorator_1.Prop)({ default: 'auto' }),
         __metadata("design:type", Object)
     ], DatatableComponent.prototype, "rowHeight", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Object)
     ], DatatableComponent.prototype, "groupRowHeight", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
+        __metadata("design:type", Object)
+    ], DatatableComponent.prototype, "groupHeaderStyles", void 0);
+    __decorate([
+        (0, vue_property_decorator_1.Prop)(),
+        __metadata("design:type", Object)
+    ], DatatableComponent.prototype, "groupHeaderClasses", void 0);
+    __decorate([
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Object)
     ], DatatableComponent.prototype, "rowDetailHeight", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: String, validator: function (value) { return ['standard', 'flex', 'force'].indexOf(value) !== -1; } }),
+        (0, vue_property_decorator_1.Prop)({ type: String, validator: function (value) { return ['standard', 'flex', 'force'].indexOf(value) !== -1; } }),
         __metadata("design:type", String)
     ], DatatableComponent.prototype, "columnMode", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Number, default: 30 }),
+        (0, vue_property_decorator_1.Prop)({ type: Number, default: 30 }),
         __metadata("design:type", Number)
     ], DatatableComponent.prototype, "headerHeight", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Number, default: 0 }),
+        (0, vue_property_decorator_1.Prop)({ type: Number, default: 0 }),
         __metadata("design:type", Number)
     ], DatatableComponent.prototype, "footerHeight", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Boolean, default: false }),
+        (0, vue_property_decorator_1.Prop)({ type: Boolean, default: false }),
         __metadata("design:type", Boolean)
     ], DatatableComponent.prototype, "externalPaging", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Boolean, default: false }),
+        (0, vue_property_decorator_1.Prop)({ type: Boolean, default: false }),
         __metadata("design:type", Boolean)
     ], DatatableComponent.prototype, "externalPager", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Boolean, default: false }),
+        (0, vue_property_decorator_1.Prop)({ type: Boolean, default: false }),
         __metadata("design:type", Boolean)
     ], DatatableComponent.prototype, "externalSorting", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DatatableComponent.prototype, "limit", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Number, default: 0 }),
+        (0, vue_property_decorator_1.Prop)({ type: Number, default: 0 }),
         __metadata("design:type", Number)
     ], DatatableComponent.prototype, "count", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Number, default: 0 }),
+        (0, vue_property_decorator_1.Prop)({ type: Number, default: 0 }),
         __metadata("design:type", Number)
     ], DatatableComponent.prototype, "offset", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Boolean, default: false }),
+        (0, vue_property_decorator_1.Prop)({ type: Boolean, default: false }),
         __metadata("design:type", Boolean)
     ], DatatableComponent.prototype, "loadingIndicator", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DatatableComponent.prototype, "selectionType", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ default: check_type_1.CheckMode.checkIsSelect }),
+        (0, vue_property_decorator_1.Prop)({ default: check_type_1.CheckMode.checkIsSelect }),
         __metadata("design:type", String)
     ], DatatableComponent.prototype, "checkMode", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Boolean, default: true }),
+        (0, vue_property_decorator_1.Prop)({ type: Boolean, default: true }),
         __metadata("design:type", Boolean)
     ], DatatableComponent.prototype, "reorderable", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Boolean, default: false }),
+        (0, vue_property_decorator_1.Prop)({ type: Boolean, default: false }),
         __metadata("design:type", Boolean)
     ], DatatableComponent.prototype, "swapColumns", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: String, validator: function (value) { return ['single', 'multi'].indexOf(value) !== -1; } }),
+        (0, vue_property_decorator_1.Prop)({ type: String, validator: function (value) { return ['single', 'multi'].indexOf(value) !== -1; } }),
         __metadata("design:type", String)
     ], DatatableComponent.prototype, "sortType", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Array, default: function () { return []; } }),
+        (0, vue_property_decorator_1.Prop)({ type: Array, default: function () { return []; } }),
         __metadata("design:type", Array)
     ], DatatableComponent.prototype, "sorts", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ default: true }),
+        (0, vue_property_decorator_1.Prop)({ default: true }),
         __metadata("design:type", Boolean)
     ], DatatableComponent.prototype, "goToFirstAfterSort", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({
+        (0, vue_property_decorator_1.Prop)({
             type: Object,
             default: function () { return ({
                 sortAscending: 'datatable-icon-up',
@@ -3512,7 +3547,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         __metadata("design:type", Object)
     ], DatatableComponent.prototype, "cssClasses", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({
+        (0, vue_property_decorator_1.Prop)({
             type: Object,
             default: function () { return ({
                 emptyMessage: 'No data to display',
@@ -3525,142 +3560,142 @@ var DatatableComponent = /** @class */ (function (_super) {
         __metadata("design:type", Object)
     ], DatatableComponent.prototype, "messages", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Function, default: function (x) { return x; } }),
+        (0, vue_property_decorator_1.Prop)({ type: Function, default: function (x) { return x; } }),
         __metadata("design:type", Function)
     ], DatatableComponent.prototype, "rowIdentity", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Function)
     ], DatatableComponent.prototype, "rowClass", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        (0, vue_property_decorator_1.Prop)(),
+        __metadata("design:type", Function)
     ], DatatableComponent.prototype, "selectCheck", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Function, default: null }),
+        (0, vue_property_decorator_1.Prop)({ type: Function, default: null }),
         __metadata("design:type", Function)
     ], DatatableComponent.prototype, "displayCheck", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Boolean, default: false }),
+        (0, vue_property_decorator_1.Prop)({ type: Boolean, default: false }),
         __metadata("design:type", Boolean)
     ], DatatableComponent.prototype, "groupExpansionDefault", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DatatableComponent.prototype, "trackByProp", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Boolean, default: false }),
+        (0, vue_property_decorator_1.Prop)({ type: Boolean, default: false }),
         __metadata("design:type", Boolean)
     ], DatatableComponent.prototype, "selectAllRowsOnPage", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Boolean, default: true }),
+        (0, vue_property_decorator_1.Prop)({ type: Boolean, default: true }),
         __metadata("design:type", Boolean)
     ], DatatableComponent.prototype, "virtualization", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DatatableComponent.prototype, "treeFromRelation", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DatatableComponent.prototype, "treeToRelation", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ default: false }),
+        (0, vue_property_decorator_1.Prop)({ default: false }),
         __metadata("design:type", Boolean)
     ], DatatableComponent.prototype, "lazyTree", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Boolean, default: false }),
+        (0, vue_property_decorator_1.Prop)({ type: Boolean, default: false }),
         __metadata("design:type", Boolean)
     ], DatatableComponent.prototype, "summaryRow", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ default: 30 }),
+        (0, vue_property_decorator_1.Prop)({ default: 30 }),
         __metadata("design:type", Object)
     ], DatatableComponent.prototype, "summaryHeight", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: String, default: 'top' }),
+        (0, vue_property_decorator_1.Prop)({ type: String, default: 'top' }),
         __metadata("design:type", String)
     ], DatatableComponent.prototype, "summaryPosition", void 0);
     __decorate([
-        vue_property_decorator_1.Watch('rows', { immediate: true }),
+        (0, vue_property_decorator_1.Watch)('rows', { immediate: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Array]),
         __metadata("design:returntype", void 0)
     ], DatatableComponent.prototype, "onRowsChanged", null);
     __decorate([
-        vue_property_decorator_1.Watch('groupRowsBy'),
+        (0, vue_property_decorator_1.Watch)('groupRowsBy'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Array,
             Array]),
         __metadata("design:returntype", void 0)
     ], DatatableComponent.prototype, "onGroupRowsByChanged", null);
     __decorate([
-        vue_property_decorator_1.Watch('columns', { immediate: true }),
+        (0, vue_property_decorator_1.Watch)('columns', { immediate: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Array]),
         __metadata("design:returntype", void 0)
     ], DatatableComponent.prototype, "onColumnsChanged", null);
     __decorate([
-        vue_property_decorator_1.Watch('limit'),
+        (0, vue_property_decorator_1.Watch)('limit'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DatatableComponent.prototype, "onLimitChanged", null);
     __decorate([
-        vue_property_decorator_1.Watch('count'),
+        (0, vue_property_decorator_1.Watch)('count'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DatatableComponent.prototype, "onCountChanged", null);
     __decorate([
-        vue_property_decorator_1.Watch('columnMode', { immediate: true }),
+        (0, vue_property_decorator_1.Watch)('columnMode', { immediate: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DatatableComponent.prototype, "onColumnModeChanged", null);
     __decorate([
-        vue_property_decorator_1.Watch('sortType', { immediate: true }),
+        (0, vue_property_decorator_1.Watch)('sortType', { immediate: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DatatableComponent.prototype, "onSortTypeChanged", null);
     __decorate([
-        vue_property_decorator_1.Watch('offset', { immediate: true }),
+        (0, vue_property_decorator_1.Watch)('offset', { immediate: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DatatableComponent.prototype, "onOffsetChanged", null);
     __decorate([
-        vue_property_decorator_1.Watch('pageSize'),
+        (0, vue_property_decorator_1.Watch)('pageSize'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DatatableComponent.prototype, "onPageSizeChanged", null);
     __decorate([
-        vue_property_decorator_1.Watch('selected', { immediate: true }),
+        (0, vue_property_decorator_1.Watch)('selected', { immediate: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DatatableComponent.prototype, "onSelectedChanged", null);
     __decorate([
-        vue_property_decorator_1.Watch('checked', { immediate: true }),
+        (0, vue_property_decorator_1.Watch)('checked', { immediate: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DatatableComponent.prototype, "onCheckedChanged", null);
     __decorate([
-        vue_property_decorator_1.Watch('sorts'),
+        (0, vue_property_decorator_1.Watch)('sorts'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DatatableComponent.prototype, "onSortsChanged", null);
     __decorate([
-        throttle_1.throttleable(5),
+        (0, throttle_1.throttleable)(5),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DatatableComponent.prototype, "onWindowResize", null);
     DatatableComponent = __decorate([
-        vue_property_decorator_1.Component({
+        (0, vue_property_decorator_1.Component)({
             directives: {
                 'v-visibility-observer': visibility_directive_1.default,
             },
@@ -3673,605 +3708,8 @@ var DatatableComponent = /** @class */ (function (_super) {
     ], DatatableComponent);
     return DatatableComponent;
 }(vue_property_decorator_1.Vue));
-exports.default = DatatableComponent;
+exports["default"] = DatatableComponent;
 
-
-/***/ }),
-
-/***/ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js":
-/*!********************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
-  \********************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return normalizeComponent; });
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-function normalizeComponent (
-  scriptExports,
-  render,
-  staticRenderFns,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier, /* server only */
-  shadowMode /* vue-cli only */
-) {
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (render) {
-    options.render = render
-    options.staticRenderFns = staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = 'data-v-' + scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = shadowMode
-      ? function () {
-        injectStyles.call(
-          this,
-          (options.functional ? this.parent : this).$root.$options.shadowRoot
-        )
-      }
-      : injectStyles
-  }
-
-  if (hook) {
-    if (options.functional) {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functional component in vue file
-      var originalRender = options.render
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return originalRender(h, context)
-      }
-    } else {
-      // inject component registration as beforeCreate hook
-      var existing = options.beforeCreate
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    }
-  }
-
-  return {
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-
-/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/lib/loader.js?!./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss&":
-/*!*****************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-style-loader!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/lib/loader.js??ref--2-oneOf-1-2!./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss& ***!
-  \*****************************************************************************************************************************************************************************************************************************************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(/*! !../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/sass-loader/lib/loader.js??ref--2-oneOf-1-2!./datatable.component.scss?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/lib/loader.js?!./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss&");
-if(typeof content === 'string') content = [[module.i, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = __webpack_require__(/*! ../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js").default
-var update = add("24f3cf14", content, false, {});
-// Hot Module Replacement
-if(false) {}
-
-/***/ }),
-
-/***/ "./node_modules/vue-style-loader/lib/addStylesClient.js":
-/*!**************************************************************************!*\
-  !*** ./node_modules/vue-style-loader/lib/addStylesClient.js + 1 modules ***!
-  \**************************************************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, "default", function() { return /* binding */ addStylesClient; });
-
-// CONCATENATED MODULE: ./node_modules/vue-style-loader/lib/listToStyles.js
-/**
- * Translates the list format produced by css-loader into something
- * easier to manipulate.
- */
-function listToStyles (parentId, list) {
-  var styles = []
-  var newStyles = {}
-  for (var i = 0; i < list.length; i++) {
-    var item = list[i]
-    var id = item[0]
-    var css = item[1]
-    var media = item[2]
-    var sourceMap = item[3]
-    var part = {
-      id: parentId + ':' + i,
-      css: css,
-      media: media,
-      sourceMap: sourceMap
-    }
-    if (!newStyles[id]) {
-      styles.push(newStyles[id] = { id: id, parts: [part] })
-    } else {
-      newStyles[id].parts.push(part)
-    }
-  }
-  return styles
-}
-
-// CONCATENATED MODULE: ./node_modules/vue-style-loader/lib/addStylesClient.js
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Author Tobias Koppers @sokra
-  Modified by Evan You @yyx990803
-*/
-
-
-
-var hasDocument = typeof document !== 'undefined'
-
-if (typeof DEBUG !== 'undefined' && DEBUG) {
-  if (!hasDocument) {
-    throw new Error(
-    'vue-style-loader cannot be used in a non-browser environment. ' +
-    "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
-  ) }
-}
-
-/*
-type StyleObject = {
-  id: number;
-  parts: Array<StyleObjectPart>
-}
-
-type StyleObjectPart = {
-  css: string;
-  media: string;
-  sourceMap: ?string
-}
-*/
-
-var stylesInDom = {/*
-  [id: number]: {
-    id: number,
-    refs: number,
-    parts: Array<(obj?: StyleObjectPart) => void>
-  }
-*/}
-
-var head = hasDocument && (document.head || document.getElementsByTagName('head')[0])
-var singletonElement = null
-var singletonCounter = 0
-var isProduction = false
-var noop = function () {}
-var options = null
-var ssrIdKey = 'data-vue-ssr-id'
-
-// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-// tags it will allow on a page
-var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
-
-function addStylesClient (parentId, list, _isProduction, _options) {
-  isProduction = _isProduction
-
-  options = _options || {}
-
-  var styles = listToStyles(parentId, list)
-  addStylesToDom(styles)
-
-  return function update (newList) {
-    var mayRemove = []
-    for (var i = 0; i < styles.length; i++) {
-      var item = styles[i]
-      var domStyle = stylesInDom[item.id]
-      domStyle.refs--
-      mayRemove.push(domStyle)
-    }
-    if (newList) {
-      styles = listToStyles(parentId, newList)
-      addStylesToDom(styles)
-    } else {
-      styles = []
-    }
-    for (var i = 0; i < mayRemove.length; i++) {
-      var domStyle = mayRemove[i]
-      if (domStyle.refs === 0) {
-        for (var j = 0; j < domStyle.parts.length; j++) {
-          domStyle.parts[j]()
-        }
-        delete stylesInDom[domStyle.id]
-      }
-    }
-  }
-}
-
-function addStylesToDom (styles /* Array<StyleObject> */) {
-  for (var i = 0; i < styles.length; i++) {
-    var item = styles[i]
-    var domStyle = stylesInDom[item.id]
-    if (domStyle) {
-      domStyle.refs++
-      for (var j = 0; j < domStyle.parts.length; j++) {
-        domStyle.parts[j](item.parts[j])
-      }
-      for (; j < item.parts.length; j++) {
-        domStyle.parts.push(addStyle(item.parts[j]))
-      }
-      if (domStyle.parts.length > item.parts.length) {
-        domStyle.parts.length = item.parts.length
-      }
-    } else {
-      var parts = []
-      for (var j = 0; j < item.parts.length; j++) {
-        parts.push(addStyle(item.parts[j]))
-      }
-      stylesInDom[item.id] = { id: item.id, refs: 1, parts: parts }
-    }
-  }
-}
-
-function createStyleElement () {
-  var styleElement = document.createElement('style')
-  styleElement.type = 'text/css'
-  head.appendChild(styleElement)
-  return styleElement
-}
-
-function addStyle (obj /* StyleObjectPart */) {
-  var update, remove
-  var styleElement = document.querySelector('style[' + ssrIdKey + '~="' + obj.id + '"]')
-
-  if (styleElement) {
-    if (isProduction) {
-      // has SSR styles and in production mode.
-      // simply do nothing.
-      return noop
-    } else {
-      // has SSR styles but in dev mode.
-      // for some reason Chrome can't handle source map in server-rendered
-      // style tags - source maps in <style> only works if the style tag is
-      // created and inserted dynamically. So we remove the server rendered
-      // styles and inject new ones.
-      styleElement.parentNode.removeChild(styleElement)
-    }
-  }
-
-  if (isOldIE) {
-    // use singleton mode for IE9.
-    var styleIndex = singletonCounter++
-    styleElement = singletonElement || (singletonElement = createStyleElement())
-    update = applyToSingletonTag.bind(null, styleElement, styleIndex, false)
-    remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true)
-  } else {
-    // use multi-style-tag mode in all other cases
-    styleElement = createStyleElement()
-    update = applyToTag.bind(null, styleElement)
-    remove = function () {
-      styleElement.parentNode.removeChild(styleElement)
-    }
-  }
-
-  update(obj)
-
-  return function updateStyle (newObj /* StyleObjectPart */) {
-    if (newObj) {
-      if (newObj.css === obj.css &&
-          newObj.media === obj.media &&
-          newObj.sourceMap === obj.sourceMap) {
-        return
-      }
-      update(obj = newObj)
-    } else {
-      remove()
-    }
-  }
-}
-
-var replaceText = (function () {
-  var textStore = []
-
-  return function (index, replacement) {
-    textStore[index] = replacement
-    return textStore.filter(Boolean).join('\n')
-  }
-})()
-
-function applyToSingletonTag (styleElement, index, remove, obj) {
-  var css = remove ? '' : obj.css
-
-  if (styleElement.styleSheet) {
-    styleElement.styleSheet.cssText = replaceText(index, css)
-  } else {
-    var cssNode = document.createTextNode(css)
-    var childNodes = styleElement.childNodes
-    if (childNodes[index]) styleElement.removeChild(childNodes[index])
-    if (childNodes.length) {
-      styleElement.insertBefore(cssNode, childNodes[index])
-    } else {
-      styleElement.appendChild(cssNode)
-    }
-  }
-}
-
-function applyToTag (styleElement, obj) {
-  var css = obj.css
-  var media = obj.media
-  var sourceMap = obj.sourceMap
-
-  if (media) {
-    styleElement.setAttribute('media', media)
-  }
-  if (options.ssrId) {
-    styleElement.setAttribute(ssrIdKey, obj.id)
-  }
-
-  if (sourceMap) {
-    // https://developer.chrome.com/devtools/docs/javascript-debugging
-    // this makes source maps inside style tags work properly in Chrome
-    css += '\n/*# sourceURL=' + sourceMap.sources[0] + ' */'
-    // http://stackoverflow.com/a/26603875
-    css += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + ' */'
-  }
-
-  if (styleElement.styleSheet) {
-    styleElement.styleSheet.cssText = css
-  } else {
-    while (styleElement.firstChild) {
-      styleElement.removeChild(styleElement.firstChild)
-    }
-    styleElement.appendChild(document.createTextNode(css))
-  }
-}
-
-
-/***/ }),
-
-/***/ "./src/components/body/body-cell.component.html?vue&type=template&id=48c40f9f&":
-/*!*************************************************************************************************!*\
-  !*** ./src/components/body/body-cell.component.html?vue&type=template&id=48c40f9f& + 1 modules ***!
-  \*************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, "render", function() { return /* reexport */ render; });
-__webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return /* reexport */ staticRenderFns; });
-
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./config/my-vue-raw-loader.js!./src/components/body/body-cell.component.html?vue&type=template&id=48c40f9f&
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      directives: [
-        {
-          name: "show",
-          rawName: "v-show",
-          value: _vm.column.visible,
-          expression: "column.visible"
-        }
-      ],
-      staticClass: "datatable-body-cell",
-      class: _vm.cssClasses,
-      style: _vm.styles,
-      attrs: {
-        id: _vm.column.prop + "-" + _vm.column.$$id,
-        tabindex: _vm.tabIndex
-      },
-      on: {
-        dblclick: _vm.onDblClick,
-        click: _vm.onClick,
-        keydown: _vm.onKeyDown,
-        mouseenter: _vm.onMouseEnter,
-        focus: _vm.onFocus,
-        blur: _vm.onBlur
-      }
-    },
-    [
-      _c(
-        "div",
-        {
-          staticClass: "datatable-body-cell-label",
-          style: _vm.column.isTreeColumn ? _vm.marginCellStyle : null
-        },
-        [
-          _vm.isCheckboxable
-            ? _c("label", { staticClass: "datatable-checkbox" }, [
-                _c("input", {
-                  attrs: { type: "checkbox" },
-                  domProps: { checked: _vm.rowContext.isChecked },
-                  on: { click: _vm.onCheckboxChange }
-                })
-              ])
-            : _vm._e(),
-          _vm._v(" "),
-          _vm.column.isTreeColumn
-            ? [
-                !_vm.column.treeToggleTemplate
-                  ? _c(
-                      "button",
-                      {
-                        staticClass: "datatable-tree-button",
-                        attrs: {
-                          disabled: _vm.rowContext.treeStatus === "disabled"
-                        },
-                        on: { click: _vm.onTreeAction }
-                      },
-                      [
-                        _c("span", [
-                          _vm.rowContext.row.treeStatus === "loading"
-                            ? _c("i", {
-                                staticClass: "icon datatable-icon-collapse"
-                              })
-                            : _vm.rowContext.treeStatus === "collapsed"
-                            ? _c("i", {
-                                staticClass: "icon datatable-icon-right"
-                              })
-                            : _vm.rowContext.treeStatus === "expanded"
-                            ? _c("i", {
-                                staticClass: "icon datatable-icon-down"
-                              })
-                            : _c("i", {
-                                staticClass:
-                                  "icon icon-disabled datatable-icon-down"
-                              })
-                        ])
-                      ]
-                    )
-                  : _vm._e(),
-                _vm._v(" "),
-                _vm._t("tree-toggle")
-              ]
-            : _vm._e(),
-          _vm._v(" "),
-          _vm._t(
-            "default",
-            [
-              _c("span", {
-                attrs: { title: _vm.sanitizedValue },
-                domProps: { innerHTML: _vm._s(_vm.value) }
-              })
-            ],
-            null,
-            {
-              row: _vm.rowContext.row ? _vm.rowContext.row : {},
-              column: _vm.column,
-              rowIndex: _vm.rowContext.rowIndex,
-              group: _vm.rowContext.group,
-              expanded: _vm.rowContext.expanded,
-              value: _vm.value
-            }
-          )
-        ],
-        2
-      )
-    ]
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-// CONCATENATED MODULE: ./src/components/body/body-cell.component.html?vue&type=template&id=48c40f9f&
-
-
-/***/ }),
-
-/***/ "./src/components/body/body-cell.component.ts?vue&type=script&lang=js&":
-/*!*****************************************************************************!*\
-  !*** ./src/components/body/body-cell.component.ts?vue&type=script&lang=js& ***!
-  \*****************************************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module exports are unknown */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/ts-loader??ref--4!../../../node_modules/eslint-loader/dist/cjs.js!./body-cell.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js?!./node_modules/eslint-loader/dist/cjs.js!./src/components/body/body-cell.component.ts?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
-
-/***/ }),
-
-/***/ "./src/components/body/body-cell.component.vue":
-/*!*****************************************************!*\
-  !*** ./src/components/body/body-cell.component.vue ***!
-  \*****************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module exports are unknown */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _body_cell_component_html_vue_type_template_id_48c40f9f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./body-cell.component.html?vue&type=template&id=48c40f9f& */ "./src/components/body/body-cell.component.html?vue&type=template&id=48c40f9f&");
-/* harmony import */ var _body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./body-cell.component.ts?vue&type=script&lang=js& */ "./src/components/body/body-cell.component.ts?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _body_cell_component_html_vue_type_template_id_48c40f9f___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _body_cell_component_html_vue_type_template_id_48c40f9f___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "src/components/body/body-cell.component.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
@@ -4279,9 +3717,7 @@ component.options.__file = "src/components/body/body-cell.component.vue"
 /*!************************************************************!*\
   !*** ./src/components/body/body-group-header.component.ts ***!
   \************************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -4289,10 +3725,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -4307,7 +3745,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
 var DataTableBodyGroupHeaderComponent = /** @class */ (function (_super) {
     __extends(DataTableBodyGroupHeaderComponent, _super);
@@ -4341,24 +3779,6 @@ var DataTableBodyGroupHeaderComponent = /** @class */ (function (_super) {
         this.$emit('group-toggle', {
             type: 'group',
             value: this.group,
-        });
-    };
-    /**
-     * Expand all groups
-     */
-    DataTableBodyGroupHeaderComponent.prototype.expandAllGroups = function () {
-        this.$emit('group-toggle', {
-            type: 'all',
-            value: true,
-        });
-    };
-    /**
-     * Collapse all groups
-     */
-    DataTableBodyGroupHeaderComponent.prototype.collapseAllGroups = function () {
-        this.$emit('group-toggle', {
-            type: 'all',
-            value: false,
         });
     };
     Object.defineProperty(DataTableBodyGroupHeaderComponent.prototype, "groupTitle", {
@@ -4399,37 +3819,37 @@ var DataTableBodyGroupHeaderComponent = /** @class */ (function (_super) {
         configurable: true
     });
     __decorate([
-        vue_property_decorator_1.Prop({ default: 0 }),
+        (0, vue_property_decorator_1.Prop)({ default: 0 }),
         __metadata("design:type", Object)
     ], DataTableBodyGroupHeaderComponent.prototype, "rowHeight", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Object)
     ], DataTableBodyGroupHeaderComponent.prototype, "group", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableBodyGroupHeaderComponent.prototype, "expanded", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Function)
     ], DataTableBodyGroupHeaderComponent.prototype, "groupHeaderSlot", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableBodyGroupHeaderComponent.prototype, "groupLevel", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Array)
     ], DataTableBodyGroupHeaderComponent.prototype, "groupRowsBy", void 0);
     DataTableBodyGroupHeaderComponent = __decorate([
-        vue_property_decorator_1.Component({
+        (0, vue_property_decorator_1.Component)({
             template: "\n    <div\n      :class=\"{ 'datatable-icon-right': !expanded, 'datatable-icon-down': expanded }\"\n      :style=\"styles\"\n      title=\"Expand/Collapse Group\"\n      @click=\"toggleExpandGroup\"\n    >\n      <slot name=\"groupHeader\" v-bind=\"{ group: group, expanded: expanded, level: groupLevel, groupBy: groupBy }\">\n        <span\n          ><b>{{ groupTitle }}</b></span\n        >\n      </slot>\n    </div>\n  ",
         })
     ], DataTableBodyGroupHeaderComponent);
     return DataTableBodyGroupHeaderComponent;
 }(vue_property_decorator_1.Vue));
-exports.default = DataTableBodyGroupHeaderComponent;
+exports["default"] = DataTableBodyGroupHeaderComponent;
 
 
 /***/ }),
@@ -4438,9 +3858,7 @@ exports.default = DataTableBodyGroupHeaderComponent;
 /*!**********************************************************!*\
   !*** ./src/components/body/body-row-detail.component.ts ***!
   \**********************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -4448,10 +3866,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -4466,7 +3886,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
 var DataTableBodyRowDetailComponent = /** @class */ (function (_super) {
     __extends(DataTableBodyRowDetailComponent, _super);
@@ -4487,546 +3907,30 @@ var DataTableBodyRowDetailComponent = /** @class */ (function (_super) {
         //
     };
     __decorate([
-        vue_property_decorator_1.Prop({ default: 0 }),
+        (0, vue_property_decorator_1.Prop)({ default: 0 }),
         __metadata("design:type", Object)
     ], DataTableBodyRowDetailComponent.prototype, "rowHeight", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Object)
     ], DataTableBodyRowDetailComponent.prototype, "row", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableBodyRowDetailComponent.prototype, "expanded", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Function)
     ], DataTableBodyRowDetailComponent.prototype, "rowDetailSlot", void 0);
     DataTableBodyRowDetailComponent = __decorate([
-        vue_property_decorator_1.Component({
+        (0, vue_property_decorator_1.Component)({
             template: "\n    <div style=\"padding-left:5px;\">\n      <slot name=\"rowDetail\" v-bind=\"{ row: row, expanded: expanded }\">\n        <h3>detail row info</h3>\n      </slot>\n    </div>\n  ",
         })
     ], DataTableBodyRowDetailComponent);
     return DataTableBodyRowDetailComponent;
 }(vue_property_decorator_1.Vue));
-exports.default = DataTableBodyRowDetailComponent;
+exports["default"] = DataTableBodyRowDetailComponent;
 
-
-/***/ }),
-
-/***/ "./src/components/body/body-row-wrapper.component.ts?vue&type=script&lang=js&":
-/*!************************************************************************************!*\
-  !*** ./src/components/body/body-row-wrapper.component.ts?vue&type=script&lang=js& ***!
-  \************************************************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module exports are unknown */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/ts-loader??ref--4!../../../node_modules/eslint-loader/dist/cjs.js!./body-row-wrapper.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js?!./node_modules/eslint-loader/dist/cjs.js!./src/components/body/body-row-wrapper.component.ts?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
-
-/***/ }),
-
-/***/ "./src/components/body/body-row-wrapper.component.vue":
-/*!************************************************************!*\
-  !*** ./src/components/body/body-row-wrapper.component.vue ***!
-  \************************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module exports are unknown */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _body_row_wrapper_component_vue_vue_type_template_id_11b0d871_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./body-row-wrapper.component.vue?vue&type=template&id=11b0d871&scoped=true& */ "./src/components/body/body-row-wrapper.component.vue?vue&type=template&id=11b0d871&scoped=true&");
-/* harmony import */ var _body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./body-row-wrapper.component.ts?vue&type=script&lang=js& */ "./src/components/body/body-row-wrapper.component.ts?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _body_row_wrapper_component_vue_vue_type_template_id_11b0d871_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _body_row_wrapper_component_vue_vue_type_template_id_11b0d871_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  "11b0d871",
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "src/components/body/body-row-wrapper.component.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./src/components/body/body-row-wrapper.component.vue?vue&type=template&id=11b0d871&scoped=true&":
-/*!*******************************************************************************************************************!*\
-  !*** ./src/components/body/body-row-wrapper.component.vue?vue&type=template&id=11b0d871&scoped=true& + 1 modules ***!
-  \*******************************************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, "render", function() { return /* reexport */ render; });
-__webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return /* reexport */ staticRenderFns; });
-
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/components/body/body-row-wrapper.component.vue?vue&type=template&id=11b0d871&scoped=true&
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "datatable-row-wrapper",
-      style: _vm.styleObject,
-      attrs: { tabindex: "-1", "data-test-id": _vm.rowId }
-    },
-    [
-      _vm.row && _vm.row.__isGroup
-        ? _c("datatable-group-header", {
-            staticClass: "datatable-group-header",
-            style: _vm.groupHeaderStyles,
-            attrs: {
-              group: _vm.row,
-              groupLevel: _vm.row.level,
-              groupRowsBy: _vm.groupRowsBy,
-              expanded: _vm.row.__expanded,
-              groupHeaderSlot: _vm.groupHeaderSlot
-            },
-            on: {
-              "group-toggle": function($event) {
-                return _vm.$emit("group-toggle", $event)
-              },
-              contextmenu: function($event) {
-                return _vm.$emit("row-contextmenu", $event, _vm.row)
-              }
-            }
-          })
-        : _vm._t("default"),
-      _vm._v(" "),
-      _vm.rowDetail && _vm.expanded
-        ? _c("datatable-row-detail", {
-            staticClass: "datatable-row-detail",
-            style: { height: _vm.rowDetailHeight + "px" },
-            attrs: {
-              row: _vm.row,
-              expanded: _vm.expanded,
-              rowDetailSlot: _vm.rowDetailSlot
-            },
-            on: {
-              "detail-toggle": function($event) {
-                return _vm.$emit("detail-toggle", $event)
-              },
-              contextmenu: function($event) {
-                return _vm.$emit("row-contextmenu", $event, _vm.row)
-              }
-            }
-          })
-        : _vm._e()
-    ],
-    2
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-// CONCATENATED MODULE: ./src/components/body/body-row-wrapper.component.vue?vue&type=template&id=11b0d871&scoped=true&
-
-
-/***/ }),
-
-/***/ "./src/components/body/body-row.component.ts?vue&type=script&lang=js&":
-/*!****************************************************************************!*\
-  !*** ./src/components/body/body-row.component.ts?vue&type=script&lang=js& ***!
-  \****************************************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module exports are unknown */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/ts-loader??ref--4!../../../node_modules/eslint-loader/dist/cjs.js!./body-row.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js?!./node_modules/eslint-loader/dist/cjs.js!./src/components/body/body-row.component.ts?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
-
-/***/ }),
-
-/***/ "./src/components/body/body-row.component.vue":
-/*!****************************************************!*\
-  !*** ./src/components/body/body-row.component.vue ***!
-  \****************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module exports are unknown */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _body_row_component_vue_vue_type_template_id_0d0f71aa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./body-row.component.vue?vue&type=template&id=0d0f71aa& */ "./src/components/body/body-row.component.vue?vue&type=template&id=0d0f71aa&");
-/* harmony import */ var _body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./body-row.component.ts?vue&type=script&lang=js& */ "./src/components/body/body-row.component.ts?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _body_row_component_vue_vue_type_template_id_0d0f71aa___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _body_row_component_vue_vue_type_template_id_0d0f71aa___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "src/components/body/body-row.component.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ "./src/components/body/body-row.component.vue?vue&type=template&id=0d0f71aa&":
-/*!***********************************************************************************************!*\
-  !*** ./src/components/body/body-row.component.vue?vue&type=template&id=0d0f71aa& + 1 modules ***!
-  \***********************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, "render", function() { return /* reexport */ render; });
-__webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return /* reexport */ staticRenderFns; });
-
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./src/components/body/body-row.component.vue?vue&type=template&id=0d0f71aa&
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      staticClass: "datatable-body-row",
-      class: _vm.cssClasses,
-      style: _vm.styles,
-      attrs: { id: "row-group", tabIndex: -1 },
-      on: { focus: _vm.onFocus, blur: _vm.onBlur, keydown: _vm.onKeyDown }
-    },
-    _vm._l(_vm.columnsByPin, function(colGroup) {
-      return _c(
-        "div",
-        {
-          key: colGroup.type,
-          staticClass: "datatable-row-group",
-          class: "datatable-row-" + colGroup.type,
-          style: _vm.groupStyles(colGroup),
-          on: {
-            mouseenter: function($event) {
-              return _vm.$emit("activate", _vm.row)
-            }
-          }
-        },
-        _vm._l(colGroup.columns, function(column, ii) {
-          return _c("datatable-body-cell", {
-            key: column.$$id + "-" + _vm.counter,
-            attrs: {
-              tabIndex: "-1",
-              rowContext: _vm.rowContext,
-              column: column,
-              cellSlot: _vm.slots()[column.prop],
-              renderTracking: _vm.renderTracking,
-              displayCheck: _vm.displayCheck
-            },
-            on: {
-              activate: function($event) {
-                return _vm.onActivate($event, ii)
-              },
-              "tree-action": _vm.onTreeAction,
-              mouseenter: _vm.onMouseenter,
-              "cell-created": _vm.onCellRendered,
-              "cell-updated": _vm.onCellRendered
-            }
-          })
-        }),
-        1
-      )
-    }),
-    0
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-// CONCATENATED MODULE: ./src/components/body/body-row.component.vue?vue&type=template&id=0d0f71aa&
-
-
-/***/ }),
-
-/***/ "./src/components/body/body.component.html?vue&type=template&id=0878f244&":
-/*!********************************************************************************************!*\
-  !*** ./src/components/body/body.component.html?vue&type=template&id=0878f244& + 1 modules ***!
-  \********************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, "render", function() { return /* reexport */ render; });
-__webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return /* reexport */ staticRenderFns; });
-
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./config/my-vue-raw-loader.js!./src/components/body/body.component.html?vue&type=template&id=0878f244&
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "datatable-body", style: _vm.styleObject },
-    [
-      _c(
-        "datatable-selection",
-        {
-          ref: "selector",
-          attrs: {
-            selected: _vm.selected,
-            checked: _vm.checked,
-            rows: _vm.rows,
-            pageSize: _vm.pageSize,
-            selectCheck: _vm.selectCheck,
-            selectEnabled: _vm.selectEnabled,
-            selectionType: _vm.selectionType,
-            checkMode: _vm.checkMode,
-            rowIdentity: _vm.rowIdentity,
-            scroller: _vm.scroller,
-            bodyHeight: _vm.bodyHeight
-          },
-          on: {
-            select: _vm.onSelect,
-            check: function($event) {
-              return _vm.$emit("check", $event)
-            },
-            activate: function($event) {
-              return _vm.$emit("activate", $event)
-            }
-          }
-        },
-        [
-          _vm.loadingIndicator ? _c("datatable-progress") : _vm._e(),
-          _vm._v(" "),
-          _c(
-            "datatable-scroller",
-            {
-              ref: "scroller",
-              attrs: {
-                scrollbarV: _vm.scrollbarV,
-                scrollbarH: _vm.scrollbarH,
-                scrollHeight: _vm.scrollHeight,
-                scrollWidth: _vm.scrollWidth
-              },
-              on: { setup: _vm.onScrollSetup, scroll: _vm.onBodyScroll }
-            },
-            [
-              _vm.summaryRow && _vm.summaryPosition === "top"
-                ? _c("datatable-summary-row", {
-                    staticClass: "datatable-summary-row",
-                    attrs: {
-                      rowHeight: _vm.summaryHeight,
-                      offsetX: _vm.offsetX,
-                      innerWidth: _vm.innerWidth,
-                      rows: _vm.rows,
-                      columns: _vm.columns,
-                      columnsByPin: _vm.columnsByPin,
-                      columnGroupWidths: _vm.columnGroupWidths,
-                      groupStyles: _vm.getGroupStyles,
-                      slots: _vm.cellSlots
-                    }
-                  })
-                : _vm._e(),
-              _vm._v(" "),
-              _vm._l(_vm.rowContexts, function(rowContext, i) {
-                return _c(
-                  "datatable-row-wrapper",
-                  {
-                    key: i,
-                    attrs: {
-                      styleObject: _vm.getRowWrapperStyles(rowContext),
-                      groupRowsBy: _vm.groupRowsBy,
-                      groupLevel: 0,
-                      row: rowContext.row,
-                      rowIdentity: _vm.rowIdentity,
-                      innerWidth: _vm.innerWidth,
-                      rowDetail: _vm.rowDetail,
-                      groupHeader: _vm.groupHeader,
-                      offsetX: _vm.offsetX,
-                      groupRowHeight: _vm.groupRowHeight,
-                      rowDetailHeight: _vm.getDetailRowHeight(rowContext.row),
-                      expanded: rowContext.expanded,
-                      rowIndex: rowContext.rowIndex,
-                      groupHeaderSlot: _vm.groupHeaderSlot,
-                      rowDetailSlot: _vm.rowDetailSlot
-                    },
-                    on: {
-                      "group-toggle": _vm.onGroupToggle,
-                      "row-contextmenu": function($event) {
-                        return _vm.$emit("rowContextmenu")
-                      }
-                    }
-                  },
-                  [
-                    _c("datatable-body-row", {
-                      attrs: {
-                        tabindex: "-1",
-                        columnsByPin: _vm.columnsByPin,
-                        columnGroupWidths: _vm.columnGroupWidths,
-                        groupStyles: _vm.getGroupStyles,
-                        rowClass: _vm.rowClass,
-                        row: rowContext.row,
-                        rowContext: rowContext,
-                        displayCheck: _vm.displayCheck,
-                        slots: _vm.cellSlots,
-                        renderTracking: _vm.renderTracking
-                      },
-                      on: {
-                        "tree-action": function($event) {
-                          return _vm.onTreeAction($event)
-                        },
-                        activate: function($event) {
-                          return _vm.onActivate($event, i)
-                        },
-                        "row-created": _vm.onRowRendered,
-                        "row-updated": _vm.onRowRendered
-                      }
-                    })
-                  ],
-                  1
-                )
-              }),
-              _vm._v(" "),
-              _vm.summaryRow && _vm.summaryPosition === "bottom"
-                ? _c("datatable-summary-row", {
-                    staticClass: "datatable-summary-row",
-                    style: _vm.getBottomSummaryRowStyles,
-                    attrs: {
-                      rowHeight: _vm.summaryHeight,
-                      offsetX: _vm.offsetX,
-                      innerWidth: _vm.innerWidth,
-                      rows: _vm.rows,
-                      columns: _vm.columns,
-                      columnsByPin: _vm.columnsByPin,
-                      columnGroupWidths: _vm.columnGroupWidths,
-                      groupStyles: _vm.getGroupStyles,
-                      slots: _vm.cellSlots
-                    }
-                  })
-                : _vm._e()
-            ],
-            2
-          ),
-          _vm._v(" "),
-          (!_vm.rows || !_vm.rows.length) && !_vm.loadingIndicator
-            ? _c("div", {
-                staticClass: "empty-row",
-                domProps: { innerHTML: _vm._s(_vm.emptyMessage) }
-              })
-            : _vm._e()
-        ],
-        1
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-// CONCATENATED MODULE: ./src/components/body/body.component.html?vue&type=template&id=0878f244&
-
-
-/***/ }),
-
-/***/ "./src/components/body/body.component.ts?vue&type=script&lang=js&":
-/*!************************************************************************!*\
-  !*** ./src/components/body/body.component.ts?vue&type=script&lang=js& ***!
-  \************************************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module exports are unknown */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/ts-loader??ref--4!../../../node_modules/eslint-loader/dist/cjs.js!./body.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js?!./node_modules/eslint-loader/dist/cjs.js!./src/components/body/body.component.ts?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
-
-/***/ }),
-
-/***/ "./src/components/body/body.component.vue":
-/*!************************************************!*\
-  !*** ./src/components/body/body.component.vue ***!
-  \************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module exports are unknown */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _body_component_html_vue_type_template_id_0878f244___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./body.component.html?vue&type=template&id=0878f244& */ "./src/components/body/body.component.html?vue&type=template&id=0878f244&");
-/* harmony import */ var _body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./body.component.ts?vue&type=script&lang=js& */ "./src/components/body/body.component.ts?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _body_component_html_vue_type_template_id_0878f244___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _body_component_html_vue_type_template_id_0878f244___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "src/components/body/body.component.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
@@ -5034,9 +3938,7 @@ component.options.__file = "src/components/body/body.component.vue"
 /*!*******************************************************!*\
   !*** ./src/components/body/progress-bar.component.ts ***!
   \*******************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -5044,10 +3946,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -5059,7 +3963,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
 var ProgressBarComponent = /** @class */ (function (_super) {
     __extends(ProgressBarComponent, _super);
@@ -5067,13 +3971,13 @@ var ProgressBarComponent = /** @class */ (function (_super) {
         return _super !== null && _super.apply(this, arguments) || this;
     }
     ProgressBarComponent = __decorate([
-        vue_property_decorator_1.Component({
+        (0, vue_property_decorator_1.Component)({
             template: "\n    <div class=\"progress-linear\" role=\"progressbar\">\n      <div class=\"ngx-container\">\n        <div class=\"ngx-bar\"></div>\n      </div>\n    </div>\n  ",
         })
     ], ProgressBarComponent);
     return ProgressBarComponent;
 }(vue_property_decorator_1.Vue));
-exports.default = ProgressBarComponent;
+exports["default"] = ProgressBarComponent;
 
 
 /***/ }),
@@ -5082,9 +3986,7 @@ exports.default = ProgressBarComponent;
 /*!***************************************************!*\
   !*** ./src/components/body/scroller.component.ts ***!
   \***************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -5092,10 +3994,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -5110,7 +4014,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
 var ScrollerComponent = /** @class */ (function (_super) {
     __extends(ScrollerComponent, _super);
@@ -5248,29 +4152,29 @@ var ScrollerComponent = /** @class */ (function (_super) {
         this.prevScrollXPos = this.scrollXPos;
     };
     __decorate([
-        vue_property_decorator_1.Prop({ type: Boolean, default: false }),
+        (0, vue_property_decorator_1.Prop)({ type: Boolean, default: false }),
         __metadata("design:type", Boolean)
     ], ScrollerComponent.prototype, "scrollbarV", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Boolean, default: false }),
+        (0, vue_property_decorator_1.Prop)({ type: Boolean, default: false }),
         __metadata("design:type", Boolean)
     ], ScrollerComponent.prototype, "scrollbarH", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], ScrollerComponent.prototype, "scrollHeight", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], ScrollerComponent.prototype, "scrollWidth", void 0);
     ScrollerComponent = __decorate([
-        vue_property_decorator_1.Component({
+        (0, vue_property_decorator_1.Component)({
             template: "\n    <div class=\"datatable-scroll\" :style=\"styleObject\">\n      <slot></slot>\n    </div>\n  ",
         })
     ], ScrollerComponent);
     return ScrollerComponent;
 }(vue_property_decorator_1.Vue));
-exports.default = ScrollerComponent;
+exports["default"] = ScrollerComponent;
 
 
 /***/ }),
@@ -5279,9 +4183,7 @@ exports.default = ScrollerComponent;
 /*!****************************************************!*\
   !*** ./src/components/body/selection.component.ts ***!
   \****************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -5289,10 +4191,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -5307,14 +4211,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 var scroller_component_1 = __webpack_require__(/*! components/body/scroller.component */ "./src/components/body/scroller.component.ts");
 var check_type_1 = __webpack_require__(/*! types/check.type */ "./src/types/check.type.ts");
 var selection_type_1 = __webpack_require__(/*! types/selection.type */ "./src/types/selection.type.ts");
@@ -5337,17 +4243,17 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
         var selected = [];
         if (multi || chkbox || multiClick) {
             if (event.shiftKey) {
-                selected = selection_1.selectRowsBetween([], this.rows, index, this.prevIndex, this.getRowSelectedIdx.bind(this));
+                selected = (0, selection_1.selectRowsBetween)([], this.rows, index, this.prevIndex, this.getRowSelectedIdx.bind(this));
             }
             else if (event.ctrlKey || event.metaKey || multiClick || chkbox) {
-                selected = selection_1.selectRows(__spreadArrays(this.selected), row, this.getRowSelectedIdx.bind(this));
+                selected = (0, selection_1.selectRows)(__spreadArray([], this.selected, true), row, this.getRowSelectedIdx.bind(this));
             }
             else {
-                selected = selection_1.selectRows([], row, this.getRowSelectedIdx.bind(this));
+                selected = (0, selection_1.selectRows)([], row, this.getRowSelectedIdx.bind(this));
             }
         }
         else {
-            selected = selection_1.selectRows([], row, this.getRowSelectedIdx.bind(this));
+            selected = (0, selection_1.selectRows)([], row, this.getRowSelectedIdx.bind(this));
         }
         this.prevIndex = index;
         if (typeof this.selectCheck === 'function') {
@@ -5367,10 +4273,10 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
         }
         var checked = [];
         if (event.shiftKey) {
-            checked = selection_1.selectRowsBetween([], this.rows, index, this.prevIndex, this.getRowSelectedIdx.bind(this));
+            checked = (0, selection_1.selectRowsBetween)([], this.rows, index, this.prevIndex, this.getRowSelectedIdx.bind(this));
         }
         else {
-            checked = selection_1.selectRows(__spreadArrays(this.checked), row, this.getRowSelectedIdx.bind(this));
+            checked = (0, selection_1.selectRows)(__spreadArray([], this.checked, true), row, this.getRowSelectedIdx.bind(this));
         }
         this.prevIndex = index;
         if (typeof this.selectCheck === 'function') {
@@ -5648,57 +4554,57 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
         });
     };
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Array)
     ], DataTableSelectionComponent.prototype, "rows", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Array)
     ], DataTableSelectionComponent.prototype, "selected", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Array)
     ], DataTableSelectionComponent.prototype, "checked", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableSelectionComponent.prototype, "selectEnabled", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DataTableSelectionComponent.prototype, "selectionType", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DataTableSelectionComponent.prototype, "checkMode", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Function)
     ], DataTableSelectionComponent.prototype, "rowIdentity", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Function)
     ], DataTableSelectionComponent.prototype, "selectCheck", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", scroller_component_1.default)
     ], DataTableSelectionComponent.prototype, "scroller", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableSelectionComponent.prototype, "pageSize", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableSelectionComponent.prototype, "bodyHeight", void 0);
     DataTableSelectionComponent = __decorate([
-        vue_property_decorator_1.Component({
+        (0, vue_property_decorator_1.Component)({
             template: "\n    <div id=\"selector\">\n      <slot> selection </slot>\n    </div>\n  ",
         })
     ], DataTableSelectionComponent);
     return DataTableSelectionComponent;
 }(vue_property_decorator_1.Vue));
-exports.default = DataTableSelectionComponent;
+exports["default"] = DataTableSelectionComponent;
 
 
 /***/ }),
@@ -5707,9 +4613,7 @@ exports.default = DataTableSelectionComponent;
 /*!**************************************************************!*\
   !*** ./src/components/body/summary/summary-row.component.ts ***!
   \**************************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -5717,10 +4621,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -5735,7 +4641,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
 var body_row_component_vue_1 = __webpack_require__(/*! ../body-row.component.vue */ "./src/components/body/body-row.component.vue");
 function defaultSumFunc(cells) {
@@ -5746,7 +4652,6 @@ function defaultSumFunc(cells) {
     if (cellsWithValues.some(function (cell) { return typeof cell !== 'number'; })) {
         return null;
     }
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return, @typescript-eslint/restrict-plus-operands
     return cellsWithValues.reduce(function (res, cell) { return res + cell; });
 }
 function noopSumFunc(cells) {
@@ -5831,59 +4736,59 @@ var DataTableSummaryRowComponent = /** @class */ (function (_super) {
         return column.summaryFunc;
     };
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Array)
     ], DataTableSummaryRowComponent.prototype, "rows", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Array)
     ], DataTableSummaryRowComponent.prototype, "columns", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableSummaryRowComponent.prototype, "rowHeight", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableSummaryRowComponent.prototype, "offsetX", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableSummaryRowComponent.prototype, "innerWidth", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Array)
     ], DataTableSummaryRowComponent.prototype, "columnsByPin", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Object)
     ], DataTableSummaryRowComponent.prototype, "columnGroupWidths", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Object)
     ], DataTableSummaryRowComponent.prototype, "groupStyles", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DataTableSummaryRowComponent.prototype, "groupClass", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Function)
     ], DataTableSummaryRowComponent.prototype, "slots", void 0);
     __decorate([
-        vue_property_decorator_1.Watch('rows', { immediate: true }),
+        (0, vue_property_decorator_1.Watch)('rows', { immediate: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DataTableSummaryRowComponent.prototype, "onRowsChanged", null);
     __decorate([
-        vue_property_decorator_1.Watch('columns'),
+        (0, vue_property_decorator_1.Watch)('columns'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DataTableSummaryRowComponent.prototype, "onColumnsChanged", null);
     DataTableSummaryRowComponent = __decorate([
-        vue_property_decorator_1.Component({
+        (0, vue_property_decorator_1.Component)({
             components: {
                 'datatable-body-row': body_row_component_vue_1.default,
             },
@@ -5892,7 +4797,7 @@ var DataTableSummaryRowComponent = /** @class */ (function (_super) {
     ], DataTableSummaryRowComponent);
     return DataTableSummaryRowComponent;
 }(vue_property_decorator_1.Vue));
-exports.default = DataTableSummaryRowComponent;
+exports["default"] = DataTableSummaryRowComponent;
 
 
 /***/ }),
@@ -5901,9 +4806,7 @@ exports.default = DataTableSummaryRowComponent;
 /*!****************************************************!*\
   !*** ./src/components/columns/column.component.ts ***!
   \****************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -5911,10 +4814,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -5929,14 +4834,16 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
 var DataTableColumnComponent = /** @class */ (function (_super) {
     __extends(DataTableColumnComponent, _super);
@@ -5970,7 +4877,7 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
         this.$set(this.column, 'headerCheckboxable', this.headerCheckboxable);
         var headerClasses = [];
         if (Array.isArray(this.headerClass)) {
-            headerClasses = __spreadArrays(this.headerClass);
+            headerClasses = __spreadArray([], this.headerClass, true);
         }
         else if (typeof this.headerClass === 'string') {
             headerClasses.push(this.headerClass);
@@ -6000,7 +4907,7 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
         this.$set(this.column, 'headerClass', headerClasses);
         var cellClasses = [];
         if (Array.isArray(this.cellClass)) {
-            cellClasses = __spreadArrays(this.cellClass);
+            cellClasses = __spreadArray([], this.cellClass, true);
         }
         else if (typeof this.cellClass === 'string') {
             cellClasses.push(this.cellClass);
@@ -6026,375 +4933,104 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
         this.$parent.onColumnInsert(this.column);
     };
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DataTableColumnComponent.prototype, "name", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Object)
     ], DataTableColumnComponent.prototype, "prop", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        (0, vue_property_decorator_1.Prop)(),
+        __metadata("design:type", Boolean)
     ], DataTableColumnComponent.prototype, "frozenLeft", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        (0, vue_property_decorator_1.Prop)(),
+        __metadata("design:type", Boolean)
     ], DataTableColumnComponent.prototype, "frozenRight", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableColumnComponent.prototype, "flexGrow", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableColumnComponent.prototype, "resizeable", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
+        (0, vue_property_decorator_1.Prop)(),
+        __metadata("design:type", Function)
     ], DataTableColumnComponent.prototype, "comparator", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
-        __metadata("design:type", Object)
-    ], DataTableColumnComponent.prototype, "pipe", void 0);
-    __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableColumnComponent.prototype, "sortable", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableColumnComponent.prototype, "draggable", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ default: true }),
+        (0, vue_property_decorator_1.Prop)({ default: true }),
         __metadata("design:type", Boolean)
     ], DataTableColumnComponent.prototype, "canAutoResize", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableColumnComponent.prototype, "minWidth", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableColumnComponent.prototype, "width", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableColumnComponent.prototype, "maxWidth", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableColumnComponent.prototype, "checkboxable", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableColumnComponent.prototype, "headerCheckboxable", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Object)
     ], DataTableColumnComponent.prototype, "headerClass", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Object)
     ], DataTableColumnComponent.prototype, "cellClass", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableColumnComponent.prototype, "isTreeColumn", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableColumnComponent.prototype, "treeLevelIndent", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Function)
     ], DataTableColumnComponent.prototype, "summaryFunc", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ default: true }),
+        (0, vue_property_decorator_1.Prop)({ default: true }),
         __metadata("design:type", Boolean)
     ], DataTableColumnComponent.prototype, "visible", void 0);
     __decorate([
-        vue_property_decorator_1.Watch('visible'),
+        (0, vue_property_decorator_1.Watch)('visible'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Boolean]),
         __metadata("design:returntype", void 0)
     ], DataTableColumnComponent.prototype, "onVisibleChanged", null);
     DataTableColumnComponent = __decorate([
-        vue_property_decorator_1.Component({
+        (0, vue_property_decorator_1.Component)({
             template: "\n    <div>\n      <slot name=\"header\" v-bind=\"{column: column}\">\n        <!-- default content -->\n        {{ name }}\n      </slot>\n      <!-- default slot for cell -->\n      <slot> </slot>\n    </div>\n  ",
         })
     ], DataTableColumnComponent);
     return DataTableColumnComponent;
 }(vue_property_decorator_1.Vue));
-exports.default = DataTableColumnComponent;
+exports["default"] = DataTableColumnComponent;
 
-
-/***/ }),
-
-/***/ "./src/components/datatable.component.html?vue&type=template&id=3f42d2da&":
-/*!********************************************************************************************!*\
-  !*** ./src/components/datatable.component.html?vue&type=template&id=3f42d2da& + 1 modules ***!
-  \********************************************************************************************/
-/*! exports provided: render, staticRenderFns */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, "render", function() { return /* reexport */ render; });
-__webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return /* reexport */ staticRenderFns; });
-
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./config/my-vue-raw-loader.js!./src/components/datatable.component.html?vue&type=template&id=3f42d2da&
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      directives: [
-        {
-          name: "visibility-observer",
-          rawName: "v-visibility-observer",
-          value: {
-            on: _vm.visibilityCheck,
-            timeout: _vm.visibilityCheckTimeout
-          },
-          expression: "{ on: visibilityCheck, timeout: visibilityCheckTimeout }"
-        }
-      ],
-      staticClass: "ngx-datatable",
-      class: _vm.classObject,
-      on: { visible: _vm.onVisible, "insert-column": _vm.onColumnInsert }
-    },
-    [
-      !_vm.isColumnsInited
-        ? _c(
-            "div",
-            { ref: "hiddenColumns", staticClass: "hidden-columns" },
-            [_vm._t("default")],
-            2
-          )
-        : _vm._e(),
-      _vm._v(" "),
-      _vm.headerHeight
-        ? _c("datatable-header", {
-            ref: "datatableHeader",
-            staticClass: "datatable-header",
-            attrs: {
-              sorts: _vm.sorts,
-              sortType: _vm.mySortType,
-              scrollbarWidth: _vm.scrollbarWidth,
-              scrollbarH: _vm.scrollbarH,
-              innerWidth: _vm.innerWidth,
-              offsetX: _vm.offsetX,
-              dealsWithGroup:
-                Array.isArray(_vm.groupRowsBy) &&
-                Boolean(_vm.groupRowsBy.length),
-              columns: _vm.internalColumns,
-              headerHeight: _vm.headerHeight,
-              reorderable: _vm.reorderable,
-              sortAscendingIcon: _vm.cssClasses.sortAscending,
-              sortDescendingIcon: _vm.cssClasses.sortDescending,
-              allRowsSelected: _vm.allRowsSelected,
-              selectionType: _vm.selectionType
-            },
-            on: {
-              sort: function($event) {
-                return _vm.onColumnSort($event)
-              },
-              resize: function($event) {
-                return _vm.onColumnResize($event)
-              },
-              reorder: function($event) {
-                return _vm.onColumnReorder($event)
-              },
-              select: function($event) {
-                return _vm.onHeaderSelect($event)
-              },
-              columnContextmenu: function($event) {
-                return _vm.onColumnContextmenu($event)
-              }
-            }
-          })
-        : _vm._e(),
-      _vm._v(" "),
-      _c("datatable-body", {
-        ref: "datatableBody",
-        attrs: {
-          groupRowsBy: _vm.groupRowsBy,
-          rows: _vm.internalRows,
-          groupExpansionDefault: _vm.groupExpansionDefault,
-          scrollbarV: _vm.scrollbarV,
-          scrollbarH: _vm.scrollbarH,
-          virtualization: _vm.virtualization,
-          loadingIndicator: _vm.loadingIndicator,
-          externalPaging: _vm.externalPaging,
-          rowHeight: _vm.myRowHeight,
-          rowCount: _vm.rowCount,
-          offset: _vm.myOffset,
-          trackByProp: _vm.trackByProp,
-          columns: _vm.internalColumns,
-          pageSize: _vm.pageSize,
-          limit: _vm.limit,
-          offsetX: _vm.offsetX,
-          rowDetail: _vm.rowDetail,
-          rowDetailHeight: _vm.rowDetailHeight,
-          groupHeader: _vm.groupHeader,
-          selected: _vm.mySelected,
-          checked: _vm.myChecked,
-          innerWidth: _vm.innerWidth,
-          bodyHeight: _vm.bodyHeight,
-          selectionType: _vm.selectionType,
-          checkMode: _vm.checkMode,
-          emptyMessage: _vm.messages.emptyMessage,
-          rowIdentity: _vm.rowIdentity,
-          rowClass: _vm.rowClass,
-          selectCheck: _vm.selectCheck,
-          displayCheck: _vm.displayCheck,
-          summaryRow: _vm.summaryRow,
-          summaryHeight: _vm.summaryHeight,
-          summaryPosition: _vm.summaryPosition,
-          groupRowHeight: _vm.groupRowHeight,
-          groupHeaderSlot: _vm.groupHeaderSlot,
-          rowDetailSlot: _vm.rowDetailSlot,
-          renderTracking: _vm.renderTracking
-        },
-        on: {
-          page: _vm.onBodyPage,
-          activate: function($event) {
-            return _vm.$emit("activate", $event)
-          },
-          rowContextmenu: _vm.onRowContextmenu,
-          select: _vm.onBodySelect,
-          check: _vm.onBodyCheck,
-          scroll: _vm.onBodyScroll,
-          "group-toggle": _vm.onGroupToggle,
-          "tree-action": _vm.onTreeAction,
-          rendered: function($event) {
-            return _vm.$emit("rendered", $event)
-          }
-        }
-      }),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "datatable-footer",
-          class: { "datatable-footer-border": Boolean(_vm.footerHeight) }
-        },
-        [
-          _vm.footerHeight
-            ? _c("datatable-footer", {
-                ref: "datatableFooter",
-                attrs: {
-                  rowCount: _vm.rowCount,
-                  pageSize: _vm.pageSize,
-                  offset: _vm.myOffset,
-                  footerHeight: _vm.footerHeight,
-                  totalMessage: _vm.messages.totalMessage,
-                  pagerLeftArrowIcon: _vm.cssClasses.pagerLeftArrow,
-                  pagerRightArrowIcon: _vm.cssClasses.pagerRightArrow,
-                  pagerPreviousIcon: _vm.cssClasses.pagerPrevious,
-                  selectedCount: _vm.mySelected.length,
-                  selectedMessage:
-                    !!_vm.selectionType && _vm.messages.selectedMessage,
-                  pagerNextIcon: _vm.cssClasses.pagerNext,
-                  footerSlot: _vm.footerSlot
-                },
-                on: { page: _vm.onFooterPage }
-              })
-            : _vm._e()
-        ],
-        1
-      )
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-
-
-// CONCATENATED MODULE: ./src/components/datatable.component.html?vue&type=template&id=3f42d2da&
-
-
-/***/ }),
-
-/***/ "./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss&":
-/*!***********************************************************************************!*\
-  !*** ./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss& ***!
-  \***********************************************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module exports are unknown */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_ref_2_oneOf_1_2_datatable_component_scss_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-style-loader!../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/sass-loader/lib/loader.js??ref--2-oneOf-1-2!./datatable.component.scss?vue&type=style&index=0&lang=scss& */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/lib/loader.js?!./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_ref_2_oneOf_1_2_datatable_component_scss_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_ref_2_oneOf_1_2_datatable_component_scss_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_ref_2_oneOf_1_2_datatable_component_scss_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_ref_2_oneOf_1_2_datatable_component_scss_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_lib_loader_js_ref_2_oneOf_1_2_datatable_component_scss_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default.a); 
-
-/***/ }),
-
-/***/ "./src/components/datatable.component.ts?vue&type=script&lang=js&":
-/*!************************************************************************!*\
-  !*** ./src/components/datatable.component.ts?vue&type=script&lang=js& ***!
-  \************************************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module exports are unknown */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/ts-loader??ref--4!../../node_modules/eslint-loader/dist/cjs.js!./datatable.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js?!./node_modules/eslint-loader/dist/cjs.js!./src/components/datatable.component.ts?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
- /* harmony default export */ __webpack_exports__["default"] = (_node_modules_ts_loader_index_js_ref_4_node_modules_eslint_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default.a); 
-
-/***/ }),
-
-/***/ "./src/components/datatable.component.vue":
-/*!************************************************!*\
-  !*** ./src/components/datatable.component.vue ***!
-  \************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module exports are unknown */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _datatable_component_html_vue_type_template_id_3f42d2da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./datatable.component.html?vue&type=template&id=3f42d2da& */ "./src/components/datatable.component.html?vue&type=template&id=3f42d2da&");
-/* harmony import */ var _datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./datatable.component.ts?vue&type=script&lang=js& */ "./src/components/datatable.component.ts?vue&type=script&lang=js&");
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(["default"].indexOf(__WEBPACK_IMPORT_KEY__) < 0) (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _datatable_component_scss_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./datatable.component.scss?vue&type=style&index=0&lang=scss& */ "./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
-
-
-
-
-
-
-/* normalize component */
-
-var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _datatable_component_html_vue_type_template_id_3f42d2da___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _datatable_component_html_vue_type_template_id_3f42d2da___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
-  false,
-  null,
-  null,
-  null
-  
-)
-
-/* hot reload */
-if (false) { var api; }
-component.options.__file = "src/components/datatable.component.vue"
-/* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
@@ -6402,9 +5038,7 @@ component.options.__file = "src/components/datatable.component.vue"
 /*!***************************************************!*\
   !*** ./src/components/footer/footer.component.ts ***!
   \***************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -6412,10 +5046,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -6430,7 +5066,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
 var pager_component_1 = __webpack_require__(/*! ./pager.component */ "./src/components/footer/pager.component.ts");
 var DataTableFooterComponent = /** @class */ (function (_super) {
@@ -6475,55 +5111,55 @@ var DataTableFooterComponent = /** @class */ (function (_super) {
         configurable: true
     });
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableFooterComponent.prototype, "footerHeight", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableFooterComponent.prototype, "rowCount", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableFooterComponent.prototype, "pageSize", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableFooterComponent.prototype, "offset", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DataTableFooterComponent.prototype, "pagerLeftArrowIcon", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DataTableFooterComponent.prototype, "pagerRightArrowIcon", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DataTableFooterComponent.prototype, "pagerPreviousIcon", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DataTableFooterComponent.prototype, "pagerNextIcon", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DataTableFooterComponent.prototype, "totalMessage", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Function)
     ], DataTableFooterComponent.prototype, "footerSlot", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Number, default: 0 }),
+        (0, vue_property_decorator_1.Prop)({ type: Number, default: 0 }),
         __metadata("design:type", Number)
     ], DataTableFooterComponent.prototype, "selectedCount", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Object)
     ], DataTableFooterComponent.prototype, "selectedMessage", void 0);
     DataTableFooterComponent = __decorate([
-        vue_property_decorator_1.Component({
+        (0, vue_property_decorator_1.Component)({
             components: {
                 'datatable-pager': pager_component_1.default,
             },
@@ -6532,7 +5168,7 @@ var DataTableFooterComponent = /** @class */ (function (_super) {
     ], DataTableFooterComponent);
     return DataTableFooterComponent;
 }(vue_property_decorator_1.Vue));
-exports.default = DataTableFooterComponent;
+exports["default"] = DataTableFooterComponent;
 
 
 /***/ }),
@@ -6541,9 +5177,7 @@ exports.default = DataTableFooterComponent;
 /*!**************************************************!*\
   !*** ./src/components/footer/pager.component.ts ***!
   \**************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -6551,10 +5185,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -6569,7 +5205,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
 var DataTablePagerComponent = /** @class */ (function (_super) {
     __extends(DataTablePagerComponent, _super);
@@ -6611,7 +5247,6 @@ var DataTablePagerComponent = /** @class */ (function (_super) {
         configurable: true
     });
     Object.defineProperty(DataTablePagerComponent.prototype, "canPrevious", {
-        // @Output() change: EventEmitter<any> = new EventEmitter();
         get: function () {
             return this.myPage > 1;
         },
@@ -6667,59 +5302,59 @@ var DataTablePagerComponent = /** @class */ (function (_super) {
         return pages;
     };
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DataTablePagerComponent.prototype, "pagerLeftArrowIcon", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DataTablePagerComponent.prototype, "pagerRightArrowIcon", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DataTablePagerComponent.prototype, "pagerPreviousIcon", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DataTablePagerComponent.prototype, "pagerNextIcon", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Number, default: 0 }),
+        (0, vue_property_decorator_1.Prop)({ type: Number, default: 0 }),
         __metadata("design:type", Number)
     ], DataTablePagerComponent.prototype, "size", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Number, default: 0 }),
+        (0, vue_property_decorator_1.Prop)({ type: Number, default: 0 }),
         __metadata("design:type", Number)
     ], DataTablePagerComponent.prototype, "count", void 0);
     __decorate([
-        vue_property_decorator_1.Prop({ type: Number, default: 1 }),
+        (0, vue_property_decorator_1.Prop)({ type: Number, default: 1 }),
         __metadata("design:type", Number)
     ], DataTablePagerComponent.prototype, "page", void 0);
     __decorate([
-        vue_property_decorator_1.Watch('count'),
+        (0, vue_property_decorator_1.Watch)('count'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DataTablePagerComponent.prototype, "onCountChanged", null);
     __decorate([
-        vue_property_decorator_1.Watch('size'),
+        (0, vue_property_decorator_1.Watch)('size'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DataTablePagerComponent.prototype, "onSizeChanged", null);
     __decorate([
-        vue_property_decorator_1.Watch('page'),
+        (0, vue_property_decorator_1.Watch)('page'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DataTablePagerComponent.prototype, "onPageChanged", null);
     DataTablePagerComponent = __decorate([
-        vue_property_decorator_1.Component({
+        (0, vue_property_decorator_1.Component)({
             template: "\n    <ul class=\"pager\">\n      <li :class=\"{ disabled: !canPrevious }\">\n        <a role=\"button\" aria-label=\"go to first page\" href=\"javascript:void(0)\" @click=\"selectPage(1)\">\n          <i :class=\"pagerPreviousIcon\"></i>\n        </a>\n      </li>\n      <li :class=\"{ disabled: !canPrevious }\">\n        <a role=\"button\" aria-label=\"go to previous page\" href=\"javascript:void(0)\" @click=\"prevPage\">\n          <i :class=\"pagerLeftArrowIcon\"></i>\n        </a>\n      </li>\n      <li\n        role=\"button\"\n        aria-label=\"'page ' + pg.number\"\n        class=\"pages\"\n        v-for=\"pg of pages\"\n        :class=\"{ active: pg.number === myPage }\"\n      >\n        <a href=\"javascript:void(0)\" @click=\"selectPage(pg.number)\">\n          {{ pg.text }}\n        </a>\n      </li>\n      <li :class=\"{ disabled: !canNext }\">\n        <a role=\"button\" aria-label=\"go to next page\" href=\"javascript:void(0)\" @click=\"nextPage\">\n          <i :class=\"pagerRightArrowIcon\"></i>\n        </a>\n      </li>\n      <li :class=\"{ disabled: !canNext }\">\n        <a role=\"button\" aria-label=\"go to last page\" href=\"javascript:void(0)\" @click=\"selectPage(totalPages)\">\n          <i :class=\"pagerNextIcon\"></i>\n        </a>\n      </li>\n    </ul>\n  ",
         })
     ], DataTablePagerComponent);
     return DataTablePagerComponent;
 }(vue_property_decorator_1.Vue));
-exports.default = DataTablePagerComponent;
+exports["default"] = DataTablePagerComponent;
 
 
 /***/ }),
@@ -6728,9 +5363,7 @@ exports.default = DataTablePagerComponent;
 /*!********************************************************!*\
   !*** ./src/components/header/header-cell.component.ts ***!
   \********************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -6738,10 +5371,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -6756,7 +5391,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 var selection_type_1 = __webpack_require__(/*! types/selection.type */ "./src/types/selection.type.ts");
 var sort_direction_type_1 = __webpack_require__(/*! types/sort-direction.type */ "./src/types/sort-direction.type.ts");
 var sort_type_1 = __webpack_require__(/*! types/sort.type */ "./src/types/sort.type.ts");
@@ -6776,6 +5411,7 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
             sortDir: _this.sortDir,
             sortFn: _this.sortFn,
             allRowsSelected: false,
+            // selectFn: this.selectFn
         };
         return _this;
     }
@@ -6971,7 +5607,7 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
         if (!this.column.sortable) {
             return;
         }
-        var newValue = sort_1.nextSortDir(this.sortType, this.sortDir);
+        var newValue = (0, sort_1.nextSortDir)(this.sortType, this.sortDir);
         this.$emit('sort', {
             column: this.column,
             prevValue: this.sortDir,
@@ -7014,67 +5650,67 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
         }
     };
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DataTableHeaderCellComponent.prototype, "sortType", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DataTableHeaderCellComponent.prototype, "sortAscendingIcon", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DataTableHeaderCellComponent.prototype, "sortDescendingIcon", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableHeaderCellComponent.prototype, "isTarget", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableHeaderCellComponent.prototype, "allRowsSelected", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DataTableHeaderCellComponent.prototype, "selectionType", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Object)
     ], DataTableHeaderCellComponent.prototype, "column", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Array)
     ], DataTableHeaderCellComponent.prototype, "sorts", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableHeaderCellComponent.prototype, "headerHeight", void 0);
     __decorate([
-        vue_property_decorator_1.Watch('allRowsSelected', { immediate: true }),
+        (0, vue_property_decorator_1.Watch)('allRowsSelected', { immediate: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DataTableHeaderCellComponent.prototype, "onAllRowsSelectedChanged", null);
     __decorate([
-        vue_property_decorator_1.Watch('column', { immediate: true }),
+        (0, vue_property_decorator_1.Watch)('column', { immediate: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DataTableHeaderCellComponent.prototype, "onColumnChahged", null);
     __decorate([
-        vue_property_decorator_1.Watch('sorts', { immediate: true }),
+        (0, vue_property_decorator_1.Watch)('sorts', { immediate: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DataTableHeaderCellComponent.prototype, "onSortsChanged", null);
     DataTableHeaderCellComponent = __decorate([
-        vue_property_decorator_1.Component({
+        (0, vue_property_decorator_1.Component)({
             template: "\n    <div\n      class=\"datatable-header-cell-template-wrap\"\n      :class=\"[columnCssClasses]\"\n      :style=\"styles\"\n      :title=\"name\"\n      v-show=\"column.visible\"\n      @contextmenu=\"onContextmenu($event)\"\n    >\n      <slot name=\"target-marker\">\n        <!-- Default content -->\n        <div class=\"targetMarker\" v-if=\"isTarget\">\n          <div class=\"icon datatable-icon-down\"></div>\n          <div class=\"icon datatable-icon-up\"></div>\n        </div>\n      </slot>\n      <label v-if=\"isCheckboxable\" class=\"datatable-checkbox\">\n        <input type=\"checkbox\" v-model=\"myAllRowsSelected\" @change=\"onCheckboxChange\" />\n      </label>\n      <slot v-bind=\"{ column: column }\">\n        <!-- Default content -->\n        <span class=\"datatable-header-cell-wrapper\">\n          <span class=\"datatable-header-cell-label draggable\" :class=\"cssClass\" @click=\"onSort\" v-html=\"name\"> </span>\n        </span>\n      </slot>\n      <div :class=\"sortCssClass\" @click=\"onSort\">\n        {{ sortOrder }}\n      </div>\n      <slot name=\"append\" v-bind=\"{ column: column }\"></slot>\n    </div>\n  ",
         })
     ], DataTableHeaderCellComponent);
     return DataTableHeaderCellComponent;
 }(vue_property_decorator_1.Vue));
-exports.default = DataTableHeaderCellComponent;
+exports["default"] = DataTableHeaderCellComponent;
 
 
 /***/ }),
@@ -7083,9 +5719,7 @@ exports.default = DataTableHeaderCellComponent;
 /*!***************************************************!*\
   !*** ./src/components/header/header.component.ts ***!
   \***************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -7093,10 +5727,12 @@ var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
         extendStatics = Object.setPrototypeOf ||
             ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-            function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
+            function (d, b) { for (var p in b) if (Object.prototype.hasOwnProperty.call(b, p)) d[p] = b[p]; };
         return extendStatics(d, b);
     };
     return function (d, b) {
+        if (typeof b !== "function" && b !== null)
+            throw new TypeError("Class extends value " + String(b) + " is not a constructor or null");
         extendStatics(d, b);
         function __() { this.constructor = d; }
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
@@ -7122,7 +5758,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 var draggable_directive_1 = __webpack_require__(/*! directives/draggable.directive */ "./src/directives/draggable.directive.ts");
 var long_press_directive_1 = __webpack_require__(/*! directives/long-press.directive */ "./src/directives/long-press.directive.ts");
 var resizeable_directive_1 = __webpack_require__(/*! directives/resizeable.directive */ "./src/directives/resizeable.directive.ts");
@@ -7152,8 +5788,8 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
     }
     DataTableHeaderComponent.prototype.onChangedInnerWidth = function () {
         if (this.columns) {
-            var colByPin = column_1.columnsByPin(this.columns);
-            this.columnGroupWidths = column_1.columnGroupWidths(colByPin, this.columns, this.innerWidth);
+            var colByPin = (0, column_1.columnsByPin)(this.columns);
+            this.columnGroupWidths = (0, column_1.columnGroupWidths)(colByPin, this.columns, this.innerWidth);
             this.setStylesByGroup();
         }
     };
@@ -7167,9 +5803,9 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
         }
     };
     DataTableHeaderComponent.prototype.onColumnsChanged = function () {
-        var colsByPin = column_1.columnsByPin(this.columns);
-        this.columnsByPin = column_1.columnsByPinArr(this.columns);
-        this.columnGroupWidths = column_1.columnGroupWidths(colsByPin, this.columns, this.innerWidth);
+        var colsByPin = (0, column_1.columnsByPin)(this.columns);
+        this.columnsByPin = (0, column_1.columnsByPinArr)(this.columns);
+        this.columnGroupWidths = (0, column_1.columnGroupWidths)(colsByPin, this.columns, this.innerWidth);
         this.setStylesByGroup();
     };
     DataTableHeaderComponent.prototype.onOffsetXChanged = function () {
@@ -7317,7 +5953,7 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
             width: widths[group] + "px",
         };
         if (group === 'center') {
-            translate_1.translateXY(styles, offsetX * -1, 0);
+            (0, translate_1.translateXY)(styles, offsetX * -1, 0);
         }
         else if (group === 'right') {
             var totalDiff = widths.total - this.innerWidth;
@@ -7325,7 +5961,7 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
             if (this.scrollbarWidth) {
                 offset -= this.scrollbarWidth;
             }
-            translate_1.translateXY(styles, offset, 0);
+            (0, translate_1.translateXY)(styles, offset, 0);
         }
         return styles;
     };
@@ -7468,87 +6104,87 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
         }
     };
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DataTableHeaderComponent.prototype, "sortAscendingIcon", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DataTableHeaderComponent.prototype, "sortDescendingIcon", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableHeaderComponent.prototype, "scrollbarWidth", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableHeaderComponent.prototype, "scrollbarH", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableHeaderComponent.prototype, "dealsWithGroup", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableHeaderComponent.prototype, "innerWidth", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Array)
     ], DataTableHeaderComponent.prototype, "sorts", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DataTableHeaderComponent.prototype, "sortType", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableHeaderComponent.prototype, "allRowsSelected", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], DataTableHeaderComponent.prototype, "selectionType", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Boolean)
     ], DataTableHeaderComponent.prototype, "reorderable", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Object)
     ], DataTableHeaderComponent.prototype, "headerHeight", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Array)
     ], DataTableHeaderComponent.prototype, "columns", void 0);
     __decorate([
-        vue_property_decorator_1.Prop(),
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableHeaderComponent.prototype, "offsetX", void 0);
     __decorate([
-        vue_property_decorator_1.Watch('innerWidth', { immediate: true }),
+        (0, vue_property_decorator_1.Watch)('innerWidth', { immediate: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DataTableHeaderComponent.prototype, "onChangedInnerWidth", null);
     __decorate([
-        vue_property_decorator_1.Watch('headerHeight', { immediate: true }),
+        (0, vue_property_decorator_1.Watch)('headerHeight', { immediate: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DataTableHeaderComponent.prototype, "onHeaderHeightChanged", null);
     __decorate([
-        vue_property_decorator_1.Watch('columns', { immediate: true }),
+        (0, vue_property_decorator_1.Watch)('columns', { immediate: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DataTableHeaderComponent.prototype, "onColumnsChanged", null);
     __decorate([
-        vue_property_decorator_1.Watch('offsetX'),
+        (0, vue_property_decorator_1.Watch)('offsetX'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DataTableHeaderComponent.prototype, "onOffsetXChanged", null);
     DataTableHeaderComponent = __decorate([
-        vue_property_decorator_1.Component({
+        (0, vue_property_decorator_1.Component)({
             components: {
                 'datatable-header-cell': header_cell_component_1.default,
             },
@@ -7562,7 +6198,7 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
     ], DataTableHeaderComponent);
     return DataTableHeaderComponent;
 }(vue_property_decorator_1.Vue));
-exports.default = DataTableHeaderComponent;
+exports["default"] = DataTableHeaderComponent;
 
 
 /***/ }),
@@ -7571,13 +6207,11 @@ exports.default = DataTableHeaderComponent;
 /*!***********************************************!*\
   !*** ./src/directives/draggable.directive.ts ***!
   \***********************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
 var idCounter = 0;
 var DraggableController = /** @class */ (function () {
@@ -7676,7 +6310,7 @@ var DraggableController = /** @class */ (function () {
     };
     return DraggableController;
 }());
-exports.default = vue_property_decorator_1.Vue.directive('draggable', {
+exports["default"] = vue_property_decorator_1.Vue.directive('draggable', {
     bind: function (el, binding, vnode) {
         var ctrl = new DraggableController(idCounter++, vnode, el, 
         // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
@@ -7714,13 +6348,11 @@ exports.default = vue_property_decorator_1.Vue.directive('draggable', {
 /*!************************************************!*\
   !*** ./src/directives/long-press.directive.ts ***!
   \************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
 // eslint-disable-next-line @typescript-eslint/naming-convention
 var _id = 0;
@@ -7854,7 +6486,7 @@ var LongPressController = /** @class */ (function () {
     };
     return LongPressController;
 }());
-exports.default = vue_property_decorator_1.Vue.directive('long-press', {
+exports["default"] = vue_property_decorator_1.Vue.directive('long-press', {
     bind: function (el, binding, vnode) {
         var ctrl = new LongPressController(_id++, vnode, el);
         var value = binding.value;
@@ -7883,13 +6515,11 @@ exports.default = vue_property_decorator_1.Vue.directive('long-press', {
 /*!************************************************!*\
   !*** ./src/directives/resizeable.directive.ts ***!
   \************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
 // eslint-disable-next-line @typescript-eslint/naming-convention
 var _id = 0;
@@ -7952,7 +6582,7 @@ var ResizeableDirectiveController = /** @class */ (function () {
     };
     return ResizeableDirectiveController;
 }());
-exports.default = vue_property_decorator_1.Vue.directive('resizeable', {
+exports["default"] = vue_property_decorator_1.Vue.directive('resizeable', {
     resizing: false,
     bind: function (el, binding, vnode) {
         var ctrl = new ResizeableDirectiveController(_id++, vnode, el);
@@ -7992,13 +6622,11 @@ exports.default = vue_property_decorator_1.Vue.directive('resizeable', {
 /*!************************************************!*\
   !*** ./src/directives/visibility.directive.ts ***!
   \************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
 var VisibilityController = /** @class */ (function () {
     function VisibilityController(vNode, el) {
@@ -8069,21 +6697,18 @@ var VisibilityController = /** @class */ (function () {
  * </div>
  *
  */
-exports.default = vue_property_decorator_1.Vue.directive('visibility-observer', {
+exports["default"] = vue_property_decorator_1.Vue.directive('visibility-observer', {
     resizing: false,
     bind: function (el, binding, vnode) {
         var _a, _b, _c;
         var ctrl = new VisibilityController(vnode, el);
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         el.__visibility__ = ctrl;
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-        if ((_a = binding === null || binding === void 0 ? void 0 : binding.value) === null || _a === void 0 ? void 0 : _a.on) {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-            ctrl.runCheck((_c = (_b = binding === null || binding === void 0 ? void 0 : binding.value) === null || _b === void 0 ? void 0 : _b.timeout) !== null && _c !== void 0 ? _c : 1000);
+        var b = binding;
+        if ((_a = b === null || b === void 0 ? void 0 : b.value) === null || _a === void 0 ? void 0 : _a.on) {
+            ctrl.runCheck((_c = (_b = b === null || b === void 0 ? void 0 : b.value) === null || _b === void 0 ? void 0 : _b.timeout) !== null && _c !== void 0 ? _c : 1000);
         }
     },
     unbind: function (el) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
         var ctrl = el.__visibility__;
         ctrl.stopCheck();
     },
@@ -8096,13 +6721,11 @@ exports.default = vue_property_decorator_1.Vue.directive('visibility-observer', 
 /*!***************************************************!*\
   !*** ./src/services/dimensions-helper.service.ts ***!
   \***************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DimensionsHelper = void 0;
 /**
  * Gets the width of the scrollbar.  Nesc for windows
@@ -8125,13 +6748,11 @@ exports.DimensionsHelper = DimensionsHelper;
 /*!**************************************************!*\
   !*** ./src/services/scrollbar-helper.service.ts ***!
   \**************************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ScrollbarHelper = void 0;
 /**
  * Gets the width of the scrollbar.  Nesc for windows
@@ -8168,13 +6789,11 @@ exports.ScrollbarHelper = ScrollbarHelper;
 /*!*********************************!*\
   !*** ./src/types/check.type.ts ***!
   \*********************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CheckMode = void 0;
 var CheckMode;
 (function (CheckMode) {
@@ -8189,13 +6808,11 @@ var CheckMode;
 /*!***************************************!*\
   !*** ./src/types/column-mode.type.ts ***!
   \***************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ColumnMode = void 0;
 var ColumnMode;
 (function (ColumnMode) {
@@ -8211,13 +6828,11 @@ var ColumnMode;
 /*!***************************************!*\
   !*** ./src/types/contextmenu.type.ts ***!
   \***************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ContextmenuType = void 0;
 var ContextmenuType;
 (function (ContextmenuType) {
@@ -8232,13 +6847,11 @@ var ContextmenuType;
 /*!*************************************!*\
   !*** ./src/types/selection.type.ts ***!
   \*************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SelectionType = void 0;
 var SelectionType;
 (function (SelectionType) {
@@ -8257,13 +6870,11 @@ var SelectionType;
 /*!******************************************!*\
   !*** ./src/types/sort-direction.type.ts ***!
   \******************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SortDirection = void 0;
 var SortDirection;
 (function (SortDirection) {
@@ -8278,13 +6889,11 @@ var SortDirection;
 /*!********************************!*\
   !*** ./src/types/sort.type.ts ***!
   \********************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SortType = void 0;
 var SortType;
 (function (SortType) {
@@ -8299,13 +6908,11 @@ var SortType;
 /*!*********************************!*\
   !*** ./src/utils/camel-case.ts ***!
   \*********************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.deCamelCase = exports.camelCase = void 0;
 /**
  * Converts strings from something to camel case
@@ -8344,13 +6951,11 @@ exports.deCamelCase = deCamelCase;
 /*!************************************!*\
   !*** ./src/utils/column-helper.ts ***!
   \************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.isNullOrUndefined = exports.setColumnDefaults = exports.setColumnsDefaults = void 0;
 // import { DataTableColumnDirective } from '../components/columns';
 var camel_case_1 = __webpack_require__(/*! ./camel-case */ "./src/utils/camel-case.ts");
@@ -8392,17 +6997,17 @@ function setColumnDefaults(column, vm) {
         return;
     }
     if (!column.$$id) {
-        column.$$id = id_1.id();
+        column.$$id = (0, id_1.id)();
     }
     // prop can be numeric; zero is valid not a missing prop
     // translate name => prop
     if (isNullOrUndefined(column.prop) && column.name) {
-        column.prop = camel_case_1.camelCase(column.name);
+        column.prop = (0, camel_case_1.camelCase)(column.name);
     }
-    vm.$set(column, '$$valueGetter', column_prop_getters_1.getterForProp(column.prop));
+    vm.$set(column, '$$valueGetter', (0, column_prop_getters_1.getterForProp)(column.prop));
     // format props if no name passed
     if (!isNullOrUndefined(column.prop) && isNullOrUndefined(column.name)) {
-        column.name = camel_case_1.deCamelCase(String(column.prop));
+        column.name = (0, camel_case_1.deCamelCase)(String(column.prop));
     }
     if (isNullOrUndefined(column.prop) && isNullOrUndefined(column.name)) {
         column.name = ''; // Fixes IE and Edge displaying `null`
@@ -8472,14 +7077,12 @@ exports.isNullOrUndefined = isNullOrUndefined;
 /*!******************************************!*\
   !*** ./src/utils/column-prop-getters.ts ***!
   \******************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
 // maybe rename this file to prop-getters.ts
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.deepValueGetter = exports.shallowValueGetter = exports.numericIndexGetter = exports.getterForProp = exports.emptyStringGetter = void 0;
 var column_helper_1 = __webpack_require__(/*! utils/column-helper */ "./src/utils/column-helper.ts");
 /**
@@ -8495,7 +7098,7 @@ exports.emptyStringGetter = emptyStringGetter;
  * If prop == null, returns the emptyStringGetter.
  */
 function getterForProp(prop) {
-    if (column_helper_1.isNullOrUndefined(prop)) {
+    if ((0, column_helper_1.isNullOrUndefined)(prop)) {
         return emptyStringGetter;
     }
     if (typeof prop === 'number') {
@@ -8534,7 +7137,7 @@ exports.numericIndexGetter = numericIndexGetter;
  * (more efficient than deepValueGetter)
  * @param obj object containing the field
  * @param fieldName field name string
- * @returns {any}
+ * @returns {unknown}
  */
 function shallowValueGetter(obj, fieldName) {
     if (obj === null) {
@@ -8593,13 +7196,11 @@ exports.deepValueGetter = deepValueGetter;
 /*!*****************************!*\
   !*** ./src/utils/column.ts ***!
   \*****************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.columnsByPinArr = exports.columnsTotalWidth = exports.columnTotalWidth = exports.columnGroupWidths = exports.columnsByPin = void 0;
 function columnsByPin(cols) {
     var ret = {
@@ -8695,13 +7296,11 @@ exports.columnsByPinArr = columnsByPinArr;
 /*!**********************************!*\
   !*** ./src/utils/equal.array.ts ***!
   \**********************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.isArrayEqual = void 0;
 function isArrayEqual(array1, array2) {
     // if the other array is a falsy value, return
@@ -8736,13 +7335,11 @@ exports.isArrayEqual = isArrayEqual;
 /*!*************************!*\
   !*** ./src/utils/id.ts ***!
   \*************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.id = void 0;
 /**
  * Creates a unique object id.
@@ -8761,13 +7358,11 @@ exports.id = id;
 /*!***************************!*\
   !*** ./src/utils/keys.ts ***!
   \***************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Keys = void 0;
 var Keys;
 (function (Keys) {
@@ -8788,13 +7383,11 @@ var Keys;
 /*!***************************!*\
   !*** ./src/utils/math.ts ***!
   \***************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.forceFillColumnWidths = exports.adjustColumnWidths = void 0;
 var column_1 = __webpack_require__(/*! ./column */ "./src/utils/column.ts");
 /**
@@ -8831,9 +7424,9 @@ function adjustColumnWidths(allColumns, expectedWidth) {
         }
     });
     allColumns = allColumns.filter(function (c) { return c.visible && !c.hidden; });
-    var columnsWidth = column_1.columnsTotalWidth(allColumns);
+    var columnsWidth = (0, column_1.columnsTotalWidth)(allColumns);
     var totalFlexGrow = getTotalFlexGrow(allColumns);
-    var colsByGroup = column_1.columnsByPin(allColumns);
+    var colsByGroup = (0, column_1.columnsByPin)(allColumns);
     if (columnsWidth !== expectedWidth) {
         scaleColumns(colsByGroup, expectedWidth, totalFlexGrow);
     }
@@ -9019,13 +7612,11 @@ function getContentWidth(allColumns, defaultColWidth) {
 /*!*******************************!*\
   !*** ./src/utils/prefixes.ts ***!
   \*******************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getVendorPrefixedName = void 0;
 /* eslint-disable no-undefined */
 var camel_case_1 = __webpack_require__(/*! ./camel-case */ "./src/utils/camel-case.ts");
@@ -9057,7 +7648,7 @@ var prefix = (function () {
         : undefined;
 })();
 function getVendorPrefixedName(property) {
-    var name = camel_case_1.camelCase(property);
+    var name = (0, camel_case_1.camelCase)(property);
     if (!cache[name]) {
         if (prefix !== undefined && testStyle[prefix.css + property] !== undefined) {
             cache[name] = prefix.css + property;
@@ -9077,13 +7668,11 @@ exports.getVendorPrefixedName = getVendorPrefixedName;
 /*!***************************************!*\
   !*** ./src/utils/row-height-cache.ts ***!
   \***************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.RowHeightCache = void 0;
 var RowHeightCache = /** @class */ (function () {
     function RowHeightCache() {
@@ -9323,13 +7912,11 @@ exports.RowHeightCache = RowHeightCache;
 /*!********************************!*\
   !*** ./src/utils/selection.ts ***!
   \********************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.selectRowsBetween = exports.selectRows = void 0;
 function selectRows(selected, row, comparefn) {
     var selectedIndex = comparefn(row, selected);
@@ -9380,20 +7967,20 @@ exports.selectRowsBetween = selectRowsBetween;
 /*!***************************!*\
   !*** ./src/utils/sort.ts ***!
   \***************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.sortRows = exports.orderByComparator = exports.nextSortDir = void 0;
 var sort_direction_type_1 = __webpack_require__(/*! types/sort-direction.type */ "./src/types/sort-direction.type.ts");
 var sort_type_1 = __webpack_require__(/*! types/sort.type */ "./src/types/sort.type.ts");
@@ -9424,7 +8011,6 @@ exports.nextSortDir = nextSortDir;
  * Adapted from fueld-ui on 6/216
  * https://github.com/FuelInteractive/fuel-ui/tree/master/src/pipes/OrderBy
  */
-// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 function orderByComparator(a, b) {
     if (a === null || typeof a === 'undefined') {
         a = 0;
@@ -9440,7 +8026,10 @@ function orderByComparator(a, b) {
             return 1;
         }
     }
-    else if (isNaN(parseFloat(a)) || !isFinite(a) || isNaN(parseFloat(b)) || !isFinite(b)) {
+    else if (isNaN(parseFloat(a)) ||
+        !isFinite(a) ||
+        isNaN(parseFloat(b)) ||
+        !isFinite(b)) {
         // Convert to string in case of a=0 or b=0
         a = String(a);
         b = String(b);
@@ -9474,7 +8063,7 @@ function sortRows(rows, columns, dirs) {
         return [];
     }
     if (!dirs || !dirs.length) {
-        return __spreadArrays(rows);
+        return __spreadArray([], rows, true);
     }
     /**
      * record the row ordering of results from prior sort operations (if applicable)
@@ -9482,7 +8071,7 @@ function sortRows(rows, columns, dirs) {
      */
     var rowToIndexMap = new Map();
     rows.forEach(function (row, index) { return rowToIndexMap.set(row, index); });
-    var temp = __spreadArrays(rows);
+    var temp = __spreadArray([], rows, true);
     var cols = {};
     if (Array.isArray(columns)) {
         columns.forEach(function (col) {
@@ -9498,7 +8087,7 @@ function sortRows(rows, columns, dirs) {
         return {
             prop: prop,
             dir: dir.dir,
-            valueGetter: column_prop_getters_1.getterForProp(prop),
+            valueGetter: (0, column_prop_getters_1.getterForProp)(prop),
             compareFn: cols[prop] || orderByComparator,
         };
     });
@@ -9545,13 +8134,11 @@ exports.sortRows = sortRows;
 /*!*******************************!*\
   !*** ./src/utils/throttle.ts ***!
   \*******************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.throttleable = exports.throttle = void 0;
 /**
  * Throttle a function
@@ -9631,22 +8218,20 @@ exports.throttleable = throttleable;
 /*!********************************!*\
   !*** ./src/utils/translate.ts ***!
   \********************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.translateXY = void 0;
 /* eslint-disable no-undefined */
 var camel_case_1 = __webpack_require__(/*! ./camel-case */ "./src/utils/camel-case.ts");
 var prefixes_1 = __webpack_require__(/*! ./prefixes */ "./src/utils/prefixes.ts");
 // browser detection and prefixing tools
-var transform = typeof window !== 'undefined' ? prefixes_1.getVendorPrefixedName('transform') : undefined;
-var backfaceVisibility = typeof window !== 'undefined' ? prefixes_1.getVendorPrefixedName('backfaceVisibility') : undefined;
-var hasCSSTransforms = typeof window !== 'undefined' ? Boolean(prefixes_1.getVendorPrefixedName('transform')) : undefined;
-var hasCSS3DTransforms = typeof window !== 'undefined' ? Boolean(prefixes_1.getVendorPrefixedName('perspective')) : undefined;
+var transform = typeof window !== 'undefined' ? (0, prefixes_1.getVendorPrefixedName)('transform') : undefined;
+var backfaceVisibility = typeof window !== 'undefined' ? (0, prefixes_1.getVendorPrefixedName)('backfaceVisibility') : undefined;
+var hasCSSTransforms = typeof window !== 'undefined' ? Boolean((0, prefixes_1.getVendorPrefixedName)('transform')) : undefined;
+var hasCSS3DTransforms = typeof window !== 'undefined' ? Boolean((0, prefixes_1.getVendorPrefixedName)('perspective')) : undefined;
 var ua = typeof window !== 'undefined' ? window.navigator.userAgent : 'Chrome';
 var isSafari = /Safari\//.test(ua) && !/Chrome\//.test(ua);
 function translateXY(styles, x, y) {
@@ -9656,7 +8241,7 @@ function translateXY(styles, x, y) {
             styles[backfaceVisibility] = 'hidden';
         }
         else {
-            styles[camel_case_1.camelCase(transform)] = "translate(" + x + "px, " + y + "px)";
+            styles[(0, camel_case_1.camelCase)(transform)] = "translate(" + x + "px, " + y + "px)";
         }
     }
     else {
@@ -9673,25 +8258,25 @@ exports.translateXY = translateXY;
 /*!***************************!*\
   !*** ./src/utils/tree.ts ***!
   \***************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
 };
-Object.defineProperty(exports, "__esModule", { value: true });
+Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.groupRowsByParents = exports.optionalGetterForProp = void 0;
 var column_prop_getters_1 = __webpack_require__(/*! ./column-prop-getters */ "./src/utils/column-prop-getters.ts");
 function optionalGetterForProp(prop) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-    return prop && (function (row) { return column_prop_getters_1.getterForProp(prop)(row, prop); });
+    return prop && (function (row) { return (0, column_prop_getters_1.getterForProp)(prop)(row, prop); });
 }
 exports.optionalGetterForProp = optionalGetterForProp;
 /**
@@ -9751,14 +8336,18 @@ function groupRowsByParents(rows, from, to, lazyTree) {
         }, []);
         for (var i = 0; i < l; i++) {
             // make TreeNode objects for each item
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-            nodeById[to(rows[i])] = new TreeNode(rows[i]);
+            var t = to(rows[i]);
+            if (t) {
+                nodeById[t] = new TreeNode(rows[i]);
+            }
         }
         var notResolvedNodes = [];
         for (var i = 0; i < l; i++) {
             // link all TreeNode objects
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
-            node = nodeById[to(rows[i])];
+            var t = to(rows[i]);
+            if (t) {
+                node = nodeById[t];
+            }
             var parent_1 = 0;
             var fromValue = from(node.row);
             if (Boolean(fromValue) && uniqIDs.indexOf(fromValue) > -1) {
@@ -9792,12 +8381,12 @@ function groupRowsByParents(rows, from, to, lazyTree) {
                     node.parent.children.push(node);
                 }
             }
-            notResolvedNodes = __spreadArrays(temp);
+            notResolvedNodes = __spreadArray([], temp, true);
         } while (notResolvedNodes.length);
         var resolvedRows_1 = [];
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         nodeById[0].flatten(function () {
-            resolvedRows_1 = __spreadArrays(resolvedRows_1, [this.row]);
+            resolvedRows_1 = __spreadArray(__spreadArray([], resolvedRows_1, true), [this.row], false);
         }, true, lazyTree);
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return resolvedRows_1;
@@ -9829,11 +8418,9 @@ var TreeNode = /** @class */ (function () {
                 else if (child.children && child.children.length && child.row['treeStatus'] === 'disabled') {
                     child.row['treeStatus'] = 'collapsed';
                 }
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-call
                 f.apply(child, Array.prototype.slice.call(arguments, 2));
                 if (recursive) {
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-                    child.flatten.apply(child, arguments, lazyTree);
+                    child.flatten(f, recursive, lazyTree);
                 }
             }
         }
@@ -9844,18 +8431,1509 @@ var TreeNode = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/components/body/body-cell.component.vue":
+/*!*****************************************************!*\
+  !*** ./src/components/body/body-cell.component.vue ***!
+  \*****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _body_cell_component_html_vue_type_template_id_48c40f9f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./body-cell.component.html?vue&type=template&id=48c40f9f& */ "./src/components/body/body-cell.component.html?vue&type=template&id=48c40f9f&");
+/* harmony import */ var _body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./body-cell.component.ts?vue&type=script&lang=js& */ "./src/components/body/body-cell.component.ts?vue&type=script&lang=js&");
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _body_cell_component_html_vue_type_template_id_48c40f9f___WEBPACK_IMPORTED_MODULE_0__.render,
+  _body_cell_component_html_vue_type_template_id_48c40f9f___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "src/components/body/body-cell.component.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./src/components/body/body-row-wrapper.component.vue":
+/*!************************************************************!*\
+  !*** ./src/components/body/body-row-wrapper.component.vue ***!
+  \************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _body_row_wrapper_component_vue_vue_type_template_id_11b0d871_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./body-row-wrapper.component.vue?vue&type=template&id=11b0d871&scoped=true& */ "./src/components/body/body-row-wrapper.component.vue?vue&type=template&id=11b0d871&scoped=true&");
+/* harmony import */ var _body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./body-row-wrapper.component.ts?vue&type=script&lang=js& */ "./src/components/body/body-row-wrapper.component.ts?vue&type=script&lang=js&");
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _body_row_wrapper_component_vue_vue_type_template_id_11b0d871_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _body_row_wrapper_component_vue_vue_type_template_id_11b0d871_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  "11b0d871",
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "src/components/body/body-row-wrapper.component.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./src/components/body/body-row.component.vue":
+/*!****************************************************!*\
+  !*** ./src/components/body/body-row.component.vue ***!
+  \****************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _body_row_component_vue_vue_type_template_id_0d0f71aa___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./body-row.component.vue?vue&type=template&id=0d0f71aa& */ "./src/components/body/body-row.component.vue?vue&type=template&id=0d0f71aa&");
+/* harmony import */ var _body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./body-row.component.ts?vue&type=script&lang=js& */ "./src/components/body/body-row.component.ts?vue&type=script&lang=js&");
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _body_row_component_vue_vue_type_template_id_0d0f71aa___WEBPACK_IMPORTED_MODULE_0__.render,
+  _body_row_component_vue_vue_type_template_id_0d0f71aa___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "src/components/body/body-row.component.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./src/components/body/body.component.vue":
+/*!************************************************!*\
+  !*** ./src/components/body/body.component.vue ***!
+  \************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _body_component_html_vue_type_template_id_0878f244___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./body.component.html?vue&type=template&id=0878f244& */ "./src/components/body/body.component.html?vue&type=template&id=0878f244&");
+/* harmony import */ var _body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./body.component.ts?vue&type=script&lang=js& */ "./src/components/body/body.component.ts?vue&type=script&lang=js&");
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _body_component_html_vue_type_template_id_0878f244___WEBPACK_IMPORTED_MODULE_0__.render,
+  _body_component_html_vue_type_template_id_0878f244___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "src/components/body/body.component.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./src/components/body/body-cell.component.html?vue&type=template&id=48c40f9f&":
+/*!*************************************************************************************************!*\
+  !*** ./src/components/body/body-cell.component.html?vue&type=template&id=48c40f9f& + 1 modules ***!
+  \*************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "render": () => (/* reexport */ render),
+  "staticRenderFns": () => (/* reexport */ staticRenderFns)
+});
+
+;// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./config/my-vue-raw-loader.js!./src/components/body/body-cell.component.html?vue&type=template&id=48c40f9f&
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      directives: [
+        {
+          name: "show",
+          rawName: "v-show",
+          value: _vm.column.visible,
+          expression: "column.visible"
+        }
+      ],
+      staticClass: "datatable-body-cell",
+      class: _vm.cssClasses,
+      style: _vm.styles,
+      attrs: {
+        id: _vm.column.prop + "-" + _vm.column.$$id,
+        tabindex: _vm.tabIndex
+      },
+      on: {
+        dblclick: _vm.onDblClick,
+        click: _vm.onClick,
+        keydown: _vm.onKeyDown,
+        mouseenter: _vm.onMouseEnter,
+        focus: _vm.onFocus,
+        blur: _vm.onBlur
+      }
+    },
+    [
+      _c(
+        "div",
+        {
+          staticClass: "datatable-body-cell-label",
+          style: _vm.column.isTreeColumn ? _vm.marginCellStyle : null
+        },
+        [
+          _vm.isCheckboxable
+            ? _c("label", { staticClass: "datatable-checkbox" }, [
+                _c("input", {
+                  attrs: { type: "checkbox" },
+                  domProps: { checked: _vm.rowContext.isChecked },
+                  on: { click: _vm.onCheckboxChange }
+                })
+              ])
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.column.isTreeColumn
+            ? [
+                !_vm.column.treeToggleTemplate
+                  ? _c(
+                      "button",
+                      {
+                        staticClass: "datatable-tree-button",
+                        attrs: {
+                          disabled: _vm.rowContext.treeStatus === "disabled"
+                        },
+                        on: { click: _vm.onTreeAction }
+                      },
+                      [
+                        _c("span", [
+                          _vm.rowContext.row.treeStatus === "loading"
+                            ? _c("i", {
+                                staticClass: "icon datatable-icon-collapse"
+                              })
+                            : _vm.rowContext.treeStatus === "collapsed"
+                            ? _c("i", {
+                                staticClass: "icon datatable-icon-right"
+                              })
+                            : _vm.rowContext.treeStatus === "expanded"
+                            ? _c("i", {
+                                staticClass: "icon datatable-icon-down"
+                              })
+                            : _c("i", {
+                                staticClass:
+                                  "icon icon-disabled datatable-icon-down"
+                              })
+                        ])
+                      ]
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm._t("tree-toggle")
+              ]
+            : _vm._e(),
+          _vm._v(" "),
+          _vm._t(
+            "default",
+            function() {
+              return [
+                _c("span", {
+                  attrs: { title: _vm.sanitizedValue },
+                  domProps: { innerHTML: _vm._s(_vm.value) }
+                })
+              ]
+            },
+            null,
+            {
+              row: _vm.rowContext.row ? _vm.rowContext.row : {},
+              column: _vm.column,
+              rowIndex: _vm.rowContext.rowIndex,
+              group: _vm.rowContext.group,
+              expanded: _vm.rowContext.expanded,
+              value: _vm.value
+            }
+          )
+        ],
+        2
+      )
+    ]
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+;// CONCATENATED MODULE: ./src/components/body/body-cell.component.html?vue&type=template&id=48c40f9f&
+
+
+/***/ }),
+
+/***/ "./src/components/body/body.component.html?vue&type=template&id=0878f244&":
+/*!********************************************************************************************!*\
+  !*** ./src/components/body/body.component.html?vue&type=template&id=0878f244& + 1 modules ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "render": () => (/* reexport */ render),
+  "staticRenderFns": () => (/* reexport */ staticRenderFns)
+});
+
+;// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./config/my-vue-raw-loader.js!./src/components/body/body.component.html?vue&type=template&id=0878f244&
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "datatable-body", style: _vm.styleObject },
+    [
+      _c(
+        "datatable-selection",
+        {
+          ref: "selector",
+          attrs: {
+            selected: _vm.selected,
+            checked: _vm.checked,
+            rows: _vm.rows,
+            pageSize: _vm.pageSize,
+            selectCheck: _vm.selectCheck,
+            selectEnabled: _vm.selectEnabled,
+            selectionType: _vm.selectionType,
+            checkMode: _vm.checkMode,
+            rowIdentity: _vm.rowIdentity,
+            scroller: _vm.scroller,
+            bodyHeight: _vm.bodyHeight
+          },
+          on: {
+            select: _vm.onSelect,
+            check: function($event) {
+              return _vm.$emit("check", $event)
+            },
+            activate: function($event) {
+              return _vm.$emit("activate", $event)
+            }
+          }
+        },
+        [
+          _vm.loadingIndicator ? _c("datatable-progress") : _vm._e(),
+          _vm._v(" "),
+          _c(
+            "datatable-scroller",
+            {
+              ref: "scroller",
+              attrs: {
+                scrollbarV: _vm.scrollbarV,
+                scrollbarH: _vm.scrollbarH,
+                scrollHeight: _vm.scrollHeight,
+                scrollWidth: _vm.scrollWidth
+              },
+              on: { setup: _vm.onScrollSetup, scroll: _vm.onBodyScroll }
+            },
+            [
+              _vm.summaryRow && _vm.summaryPosition === "top"
+                ? _c("datatable-summary-row", {
+                    staticClass: "datatable-summary-row",
+                    attrs: {
+                      rowHeight: _vm.summaryHeight,
+                      offsetX: _vm.offsetX,
+                      innerWidth: _vm.innerWidth,
+                      rows: _vm.rows,
+                      columns: _vm.columns,
+                      columnsByPin: _vm.columnsByPin,
+                      columnGroupWidths: _vm.columnGroupWidths,
+                      groupStyles: _vm.getGroupStyles,
+                      slots: _vm.cellSlots
+                    }
+                  })
+                : _vm._e(),
+              _vm._v(" "),
+              _vm._l(_vm.rowContexts, function(rowContext, i) {
+                return _c(
+                  "datatable-row-wrapper",
+                  {
+                    key: i,
+                    attrs: {
+                      styleObject: _vm.getRowWrapperStyles(rowContext),
+                      groupRowsBy: _vm.groupRowsBy,
+                      groupLevel: 0,
+                      row: rowContext.row,
+                      rowIdentity: _vm.rowIdentity,
+                      innerWidth: _vm.innerWidth,
+                      rowDetail: _vm.rowDetail,
+                      groupHeader: _vm.groupHeader,
+                      offsetX: _vm.offsetX,
+                      groupRowHeight: _vm.groupRowHeight,
+                      groupHeaderStyles: _vm.groupHeaderStyles,
+                      groupHeaderClasses: _vm.groupHeaderClasses,
+                      rowDetailHeight: _vm.getDetailRowHeight(rowContext.row),
+                      expanded: rowContext.expanded,
+                      rowIndex: rowContext.rowIndex,
+                      groupHeaderSlot: _vm.groupHeaderSlot,
+                      rowDetailSlot: _vm.rowDetailSlot
+                    },
+                    on: {
+                      "group-toggle": _vm.onGroupToggle,
+                      "row-contextmenu": function($event) {
+                        return _vm.$emit("rowContextmenu")
+                      }
+                    }
+                  },
+                  [
+                    _c("datatable-body-row", {
+                      attrs: {
+                        tabindex: "-1",
+                        columnsByPin: _vm.columnsByPin,
+                        columnGroupWidths: _vm.columnGroupWidths,
+                        groupStyles: _vm.getGroupStyles,
+                        rowClass: _vm.rowClass,
+                        row: rowContext.row,
+                        rowContext: rowContext,
+                        displayCheck: _vm.displayCheck,
+                        slots: _vm.cellSlots,
+                        renderTracking: _vm.renderTracking
+                      },
+                      on: {
+                        "tree-action": function($event) {
+                          return _vm.onTreeAction($event)
+                        },
+                        activate: function($event) {
+                          return _vm.onActivate($event, i)
+                        },
+                        "row-created": _vm.onRowRendered,
+                        "row-updated": _vm.onRowRendered
+                      }
+                    })
+                  ],
+                  1
+                )
+              }),
+              _vm._v(" "),
+              _vm.summaryRow && _vm.summaryPosition === "bottom"
+                ? _c("datatable-summary-row", {
+                    staticClass: "datatable-summary-row",
+                    style: _vm.getBottomSummaryRowStyles,
+                    attrs: {
+                      rowHeight: _vm.summaryHeight,
+                      offsetX: _vm.offsetX,
+                      innerWidth: _vm.innerWidth,
+                      rows: _vm.rows,
+                      columns: _vm.columns,
+                      columnsByPin: _vm.columnsByPin,
+                      columnGroupWidths: _vm.columnGroupWidths,
+                      groupStyles: _vm.getGroupStyles,
+                      slots: _vm.cellSlots
+                    }
+                  })
+                : _vm._e()
+            ],
+            2
+          ),
+          _vm._v(" "),
+          (!_vm.rows || !_vm.rows.length) && !_vm.loadingIndicator
+            ? _c("div", {
+                staticClass: "empty-row",
+                domProps: { innerHTML: _vm._s(_vm.emptyMessage) }
+              })
+            : _vm._e()
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+;// CONCATENATED MODULE: ./src/components/body/body.component.html?vue&type=template&id=0878f244&
+
+
+/***/ }),
+
+/***/ "./src/components/datatable.component.html?vue&type=template&id=3f42d2da&":
+/*!********************************************************************************************!*\
+  !*** ./src/components/datatable.component.html?vue&type=template&id=3f42d2da& + 1 modules ***!
+  \********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "render": () => (/* reexport */ render),
+  "staticRenderFns": () => (/* reexport */ staticRenderFns)
+});
+
+;// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./config/my-vue-raw-loader.js!./src/components/datatable.component.html?vue&type=template&id=3f42d2da&
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      directives: [
+        {
+          name: "visibility-observer",
+          rawName: "v-visibility-observer",
+          value: {
+            on: _vm.visibilityCheck,
+            timeout: _vm.visibilityCheckTimeout
+          },
+          expression: "{ on: visibilityCheck, timeout: visibilityCheckTimeout }"
+        }
+      ],
+      staticClass: "ngx-datatable",
+      class: _vm.classObject,
+      on: { visible: _vm.onVisible, "insert-column": _vm.onColumnInsert }
+    },
+    [
+      !_vm.isColumnsInited
+        ? _c(
+            "div",
+            { ref: "hiddenColumns", staticClass: "hidden-columns" },
+            [_vm._t("default")],
+            2
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.headerHeight
+        ? _c("datatable-header", {
+            ref: "datatableHeader",
+            staticClass: "datatable-header",
+            attrs: {
+              sorts: _vm.sorts,
+              sortType: _vm.mySortType,
+              scrollbarWidth: _vm.scrollbarWidth,
+              scrollbarH: _vm.scrollbarH,
+              innerWidth: _vm.innerWidth,
+              offsetX: _vm.offsetX,
+              dealsWithGroup:
+                Array.isArray(_vm.groupRowsBy) &&
+                Boolean(_vm.groupRowsBy.length),
+              columns: _vm.internalColumns,
+              headerHeight: _vm.headerHeight,
+              reorderable: _vm.reorderable,
+              sortAscendingIcon: _vm.cssClasses.sortAscending,
+              sortDescendingIcon: _vm.cssClasses.sortDescending,
+              allRowsSelected: _vm.allRowsSelected,
+              selectionType: _vm.selectionType
+            },
+            on: {
+              sort: function($event) {
+                return _vm.onColumnSort($event)
+              },
+              resize: function($event) {
+                return _vm.onColumnResize($event)
+              },
+              reorder: function($event) {
+                return _vm.onColumnReorder($event)
+              },
+              select: function($event) {
+                return _vm.onHeaderSelect($event)
+              },
+              columnContextmenu: function($event) {
+                return _vm.onColumnContextmenu($event)
+              }
+            }
+          })
+        : _vm._e(),
+      _vm._v(" "),
+      _c("datatable-body", {
+        ref: "datatableBody",
+        attrs: {
+          groupRowsBy: _vm.groupRowsBy,
+          rows: _vm.internalRows,
+          groupExpansionDefault: _vm.groupExpansionDefault,
+          scrollbarV: _vm.scrollbarV,
+          scrollbarH: _vm.scrollbarH,
+          virtualization: _vm.virtualization,
+          loadingIndicator: _vm.loadingIndicator,
+          externalPaging: _vm.externalPaging,
+          rowHeight: _vm.myRowHeight,
+          rowCount: _vm.rowCount,
+          offset: _vm.myOffset,
+          trackByProp: _vm.trackByProp,
+          columns: _vm.internalColumns,
+          pageSize: _vm.pageSize,
+          limit: _vm.limit,
+          offsetX: _vm.offsetX,
+          rowDetail: _vm.rowDetail,
+          rowDetailHeight: _vm.rowDetailHeight,
+          groupHeader: _vm.groupHeader,
+          selected: _vm.mySelected,
+          checked: _vm.myChecked,
+          innerWidth: _vm.innerWidth,
+          bodyHeight: _vm.bodyHeight,
+          selectionType: _vm.selectionType,
+          checkMode: _vm.checkMode,
+          emptyMessage: _vm.messages.emptyMessage,
+          rowIdentity: _vm.rowIdentity,
+          rowClass: _vm.rowClass,
+          selectCheck: _vm.selectCheck,
+          displayCheck: _vm.displayCheck,
+          summaryRow: _vm.summaryRow,
+          summaryHeight: _vm.summaryHeight,
+          summaryPosition: _vm.summaryPosition,
+          groupRowHeight: _vm.groupRowHeight,
+          groupHeaderStyles: _vm.groupHeaderStyles,
+          groupHeaderClasses: _vm.groupHeaderClasses,
+          groupHeaderSlot: _vm.groupHeaderSlot,
+          rowDetailSlot: _vm.rowDetailSlot,
+          renderTracking: _vm.renderTracking
+        },
+        on: {
+          page: _vm.onBodyPage,
+          activate: function($event) {
+            return _vm.$emit("activate", $event)
+          },
+          rowContextmenu: _vm.onRowContextmenu,
+          select: _vm.onBodySelect,
+          check: _vm.onBodyCheck,
+          scroll: _vm.onBodyScroll,
+          "group-toggle": _vm.onGroupToggle,
+          "tree-action": _vm.onTreeAction,
+          rendered: function($event) {
+            return _vm.$emit("rendered", $event)
+          }
+        }
+      }),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "datatable-footer",
+          class: { "datatable-footer-border": Boolean(_vm.footerHeight) }
+        },
+        [
+          _vm.footerHeight
+            ? _c("datatable-footer", {
+                ref: "datatableFooter",
+                attrs: {
+                  rowCount: _vm.rowCount,
+                  pageSize: _vm.pageSize,
+                  offset: _vm.myOffset,
+                  footerHeight: _vm.footerHeight,
+                  totalMessage: _vm.messages.totalMessage,
+                  pagerLeftArrowIcon: _vm.cssClasses.pagerLeftArrow,
+                  pagerRightArrowIcon: _vm.cssClasses.pagerRightArrow,
+                  pagerPreviousIcon: _vm.cssClasses.pagerPrevious,
+                  selectedCount: _vm.mySelected.length,
+                  selectedMessage:
+                    !!_vm.selectionType && _vm.messages.selectedMessage,
+                  pagerNextIcon: _vm.cssClasses.pagerNext,
+                  footerSlot: _vm.footerSlot
+                },
+                on: { page: _vm.onFooterPage }
+              })
+            : _vm._e()
+        ],
+        1
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+;// CONCATENATED MODULE: ./src/components/datatable.component.html?vue&type=template&id=3f42d2da&
+
+
+/***/ }),
+
+/***/ "./src/components/body/body-cell.component.ts?vue&type=script&lang=js&":
+/*!*****************************************************************************!*\
+  !*** ./src/components/body/body-cell.component.ts?vue&type=script&lang=js& ***!
+  \*****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!../../../node_modules/source-map-loader/dist/cjs.js!./body-cell.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body-cell.component.ts?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default())); 
+
+/***/ }),
+
+/***/ "./src/components/body/body-row-wrapper.component.ts?vue&type=script&lang=js&":
+/*!************************************************************************************!*\
+  !*** ./src/components/body/body-row-wrapper.component.ts?vue&type=script&lang=js& ***!
+  \************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!../../../node_modules/source-map-loader/dist/cjs.js!./body-row-wrapper.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body-row-wrapper.component.ts?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default())); 
+
+/***/ }),
+
+/***/ "./src/components/body/body-row.component.ts?vue&type=script&lang=js&":
+/*!****************************************************************************!*\
+  !*** ./src/components/body/body-row.component.ts?vue&type=script&lang=js& ***!
+  \****************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!../../../node_modules/source-map-loader/dist/cjs.js!./body-row.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body-row.component.ts?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default())); 
+
+/***/ }),
+
+/***/ "./src/components/body/body.component.ts?vue&type=script&lang=js&":
+/*!************************************************************************!*\
+  !*** ./src/components/body/body.component.ts?vue&type=script&lang=js& ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!../../../node_modules/source-map-loader/dist/cjs.js!./body.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body.component.ts?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default())); 
+
+/***/ }),
+
+/***/ "./src/components/datatable.component.ts?vue&type=script&lang=js&":
+/*!************************************************************************!*\
+  !*** ./src/components/datatable.component.ts?vue&type=script&lang=js& ***!
+  \************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!../../node_modules/source-map-loader/dist/cjs.js!./datatable.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/datatable.component.ts?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default())); 
+
+/***/ }),
+
+/***/ "./src/components/body/body-row-wrapper.component.vue?vue&type=template&id=11b0d871&scoped=true&":
+/*!*******************************************************************************************************************!*\
+  !*** ./src/components/body/body-row-wrapper.component.vue?vue&type=template&id=11b0d871&scoped=true& + 1 modules ***!
+  \*******************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "render": () => (/* reexport */ render),
+  "staticRenderFns": () => (/* reexport */ staticRenderFns)
+});
+
+;// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/body/body-row-wrapper.component.vue?vue&type=template&id=11b0d871&scoped=true&
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "datatable-row-wrapper",
+      style: _vm.styleObject,
+      attrs: { tabindex: "-1", "data-test-id": _vm.rowId }
+    },
+    [
+      _vm.row && _vm.row.__isGroup
+        ? _c("datatable-group-header", {
+            staticClass: "datatable-group-header",
+            class: _vm.groupHeaderClasses,
+            style: _vm.groupTitleStyles,
+            attrs: {
+              group: _vm.row,
+              groupLevel: _vm.row.level,
+              groupRowsBy: _vm.groupRowsBy,
+              expanded: _vm.row.__expanded,
+              groupHeaderSlot: _vm.groupHeaderSlot
+            },
+            on: {
+              "group-toggle": function($event) {
+                return _vm.$emit("group-toggle", $event)
+              },
+              contextmenu: function($event) {
+                return _vm.$emit("row-contextmenu", $event, _vm.row)
+              }
+            }
+          })
+        : _vm._t("default"),
+      _vm._v(" "),
+      _vm.rowDetail && _vm.expanded
+        ? _c("datatable-row-detail", {
+            staticClass: "datatable-row-detail",
+            style: { height: _vm.rowDetailHeight + "px" },
+            attrs: {
+              row: _vm.row,
+              expanded: _vm.expanded,
+              rowDetailSlot: _vm.rowDetailSlot
+            },
+            on: {
+              "detail-toggle": function($event) {
+                return _vm.$emit("detail-toggle", $event)
+              },
+              contextmenu: function($event) {
+                return _vm.$emit("row-contextmenu", $event, _vm.row)
+              }
+            }
+          })
+        : _vm._e()
+    ],
+    2
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+;// CONCATENATED MODULE: ./src/components/body/body-row-wrapper.component.vue?vue&type=template&id=11b0d871&scoped=true&
+
+
+/***/ }),
+
+/***/ "./src/components/body/body-row.component.vue?vue&type=template&id=0d0f71aa&":
+/*!***********************************************************************************************!*\
+  !*** ./src/components/body/body-row.component.vue?vue&type=template&id=0d0f71aa& + 1 modules ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "render": () => (/* reexport */ render),
+  "staticRenderFns": () => (/* reexport */ staticRenderFns)
+});
+
+;// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/body/body-row.component.vue?vue&type=template&id=0d0f71aa&
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      staticClass: "datatable-body-row",
+      class: _vm.cssClasses,
+      style: _vm.styles,
+      attrs: { id: "row-group", tabIndex: -1 },
+      on: { focus: _vm.onFocus, blur: _vm.onBlur, keydown: _vm.onKeyDown }
+    },
+    _vm._l(_vm.columnsByPin, function(colGroup) {
+      return _c(
+        "div",
+        {
+          key: colGroup.type,
+          staticClass: "datatable-row-group",
+          class: "datatable-row-" + colGroup.type,
+          style: _vm.groupStyles(colGroup),
+          on: {
+            mouseenter: function($event) {
+              return _vm.$emit("activate", _vm.row)
+            }
+          }
+        },
+        _vm._l(colGroup.columns, function(column, ii) {
+          return _c("datatable-body-cell", {
+            key: column.$$id + "-" + _vm.counter,
+            attrs: {
+              tabIndex: "-1",
+              rowContext: _vm.rowContext,
+              column: column,
+              cellSlot: _vm.slots()[column.prop],
+              renderTracking: _vm.renderTracking,
+              displayCheck: _vm.displayCheck
+            },
+            on: {
+              activate: function($event) {
+                return _vm.onActivate($event, ii)
+              },
+              "tree-action": _vm.onTreeAction,
+              mouseenter: _vm.onMouseenter,
+              "cell-created": _vm.onCellRendered,
+              "cell-updated": _vm.onCellRendered
+            }
+          })
+        }),
+        1
+      )
+    }),
+    0
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+;// CONCATENATED MODULE: ./src/components/body/body-row.component.vue?vue&type=template&id=0d0f71aa&
+
+
+/***/ }),
+
+/***/ "./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss&":
+/*!***********************************************************************************!*\
+  !*** ./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss& ***!
+  \***********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_6_0_rules_0_use_2_datatable_component_scss_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-style-loader/index.js!../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-6[0].rules[0].use[2]!./datatable.component.scss?vue&type=style&index=0&lang=scss& */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-6[0].rules[0].use[2]!./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_6_0_rules_0_use_2_datatable_component_scss_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_6_0_rules_0_use_2_datatable_component_scss_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_6_0_rules_0_use_2_datatable_component_scss_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_6_0_rules_0_use_2_datatable_component_scss_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js":
+/*!********************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ normalizeComponent)
+/* harmony export */ });
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file (except for modules).
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+function normalizeComponent (
+  scriptExports,
+  render,
+  staticRenderFns,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier, /* server only */
+  shadowMode /* vue-cli only */
+) {
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (render) {
+    options.render = render
+    options.staticRenderFns = staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = 'data-v-' + scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = shadowMode
+      ? function () {
+        injectStyles.call(
+          this,
+          (options.functional ? this.parent : this).$root.$options.shadowRoot
+        )
+      }
+      : injectStyles
+  }
+
+  if (hook) {
+    if (options.functional) {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functional component in vue file
+      var originalRender = options.render
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return originalRender(h, context)
+      }
+    } else {
+      // inject component registration as beforeCreate hook
+      var existing = options.beforeCreate
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    }
+  }
+
+  return {
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-6[0].rules[0].use[2]!./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-6[0].rules[0].use[2]!./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+// style-loader: Adds some css to the DOM by adding a <style> tag
+
+// load the styles
+var content = __webpack_require__(/*! !!../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-6[0].rules[0].use[2]!./datatable.component.scss?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-6[0].rules[0].use[2]!./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss&");
+if(content.__esModule) content = content.default;
+if(typeof content === 'string') content = [[module.id, content, '']];
+if(content.locals) module.exports = content.locals;
+// add the styles to the DOM
+var add = __webpack_require__(/*! !../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js")["default"]
+var update = add("33594574", content, false, {});
+// Hot Module Replacement
+if(false) {}
+
+/***/ }),
+
+/***/ "./node_modules/vue-style-loader/lib/addStylesClient.js":
+/*!**************************************************************************!*\
+  !*** ./node_modules/vue-style-loader/lib/addStylesClient.js + 1 modules ***!
+  \**************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+// EXPORTS
+__webpack_require__.d(__webpack_exports__, {
+  "default": () => (/* binding */ addStylesClient)
+});
+
+;// CONCATENATED MODULE: ./node_modules/vue-style-loader/lib/listToStyles.js
+/**
+ * Translates the list format produced by css-loader into something
+ * easier to manipulate.
+ */
+function listToStyles (parentId, list) {
+  var styles = []
+  var newStyles = {}
+  for (var i = 0; i < list.length; i++) {
+    var item = list[i]
+    var id = item[0]
+    var css = item[1]
+    var media = item[2]
+    var sourceMap = item[3]
+    var part = {
+      id: parentId + ':' + i,
+      css: css,
+      media: media,
+      sourceMap: sourceMap
+    }
+    if (!newStyles[id]) {
+      styles.push(newStyles[id] = { id: id, parts: [part] })
+    } else {
+      newStyles[id].parts.push(part)
+    }
+  }
+  return styles
+}
+
+;// CONCATENATED MODULE: ./node_modules/vue-style-loader/lib/addStylesClient.js
+/*
+  MIT License http://www.opensource.org/licenses/mit-license.php
+  Author Tobias Koppers @sokra
+  Modified by Evan You @yyx990803
+*/
+
+
+
+var hasDocument = typeof document !== 'undefined'
+
+if (typeof DEBUG !== 'undefined' && DEBUG) {
+  if (!hasDocument) {
+    throw new Error(
+    'vue-style-loader cannot be used in a non-browser environment. ' +
+    "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
+  ) }
+}
+
+/*
+type StyleObject = {
+  id: number;
+  parts: Array<StyleObjectPart>
+}
+
+type StyleObjectPart = {
+  css: string;
+  media: string;
+  sourceMap: ?string
+}
+*/
+
+var stylesInDom = {/*
+  [id: number]: {
+    id: number,
+    refs: number,
+    parts: Array<(obj?: StyleObjectPart) => void>
+  }
+*/}
+
+var head = hasDocument && (document.head || document.getElementsByTagName('head')[0])
+var singletonElement = null
+var singletonCounter = 0
+var isProduction = false
+var noop = function () {}
+var options = null
+var ssrIdKey = 'data-vue-ssr-id'
+
+// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+// tags it will allow on a page
+var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
+
+function addStylesClient (parentId, list, _isProduction, _options) {
+  isProduction = _isProduction
+
+  options = _options || {}
+
+  var styles = listToStyles(parentId, list)
+  addStylesToDom(styles)
+
+  return function update (newList) {
+    var mayRemove = []
+    for (var i = 0; i < styles.length; i++) {
+      var item = styles[i]
+      var domStyle = stylesInDom[item.id]
+      domStyle.refs--
+      mayRemove.push(domStyle)
+    }
+    if (newList) {
+      styles = listToStyles(parentId, newList)
+      addStylesToDom(styles)
+    } else {
+      styles = []
+    }
+    for (var i = 0; i < mayRemove.length; i++) {
+      var domStyle = mayRemove[i]
+      if (domStyle.refs === 0) {
+        for (var j = 0; j < domStyle.parts.length; j++) {
+          domStyle.parts[j]()
+        }
+        delete stylesInDom[domStyle.id]
+      }
+    }
+  }
+}
+
+function addStylesToDom (styles /* Array<StyleObject> */) {
+  for (var i = 0; i < styles.length; i++) {
+    var item = styles[i]
+    var domStyle = stylesInDom[item.id]
+    if (domStyle) {
+      domStyle.refs++
+      for (var j = 0; j < domStyle.parts.length; j++) {
+        domStyle.parts[j](item.parts[j])
+      }
+      for (; j < item.parts.length; j++) {
+        domStyle.parts.push(addStyle(item.parts[j]))
+      }
+      if (domStyle.parts.length > item.parts.length) {
+        domStyle.parts.length = item.parts.length
+      }
+    } else {
+      var parts = []
+      for (var j = 0; j < item.parts.length; j++) {
+        parts.push(addStyle(item.parts[j]))
+      }
+      stylesInDom[item.id] = { id: item.id, refs: 1, parts: parts }
+    }
+  }
+}
+
+function createStyleElement () {
+  var styleElement = document.createElement('style')
+  styleElement.type = 'text/css'
+  head.appendChild(styleElement)
+  return styleElement
+}
+
+function addStyle (obj /* StyleObjectPart */) {
+  var update, remove
+  var styleElement = document.querySelector('style[' + ssrIdKey + '~="' + obj.id + '"]')
+
+  if (styleElement) {
+    if (isProduction) {
+      // has SSR styles and in production mode.
+      // simply do nothing.
+      return noop
+    } else {
+      // has SSR styles but in dev mode.
+      // for some reason Chrome can't handle source map in server-rendered
+      // style tags - source maps in <style> only works if the style tag is
+      // created and inserted dynamically. So we remove the server rendered
+      // styles and inject new ones.
+      styleElement.parentNode.removeChild(styleElement)
+    }
+  }
+
+  if (isOldIE) {
+    // use singleton mode for IE9.
+    var styleIndex = singletonCounter++
+    styleElement = singletonElement || (singletonElement = createStyleElement())
+    update = applyToSingletonTag.bind(null, styleElement, styleIndex, false)
+    remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true)
+  } else {
+    // use multi-style-tag mode in all other cases
+    styleElement = createStyleElement()
+    update = applyToTag.bind(null, styleElement)
+    remove = function () {
+      styleElement.parentNode.removeChild(styleElement)
+    }
+  }
+
+  update(obj)
+
+  return function updateStyle (newObj /* StyleObjectPart */) {
+    if (newObj) {
+      if (newObj.css === obj.css &&
+          newObj.media === obj.media &&
+          newObj.sourceMap === obj.sourceMap) {
+        return
+      }
+      update(obj = newObj)
+    } else {
+      remove()
+    }
+  }
+}
+
+var replaceText = (function () {
+  var textStore = []
+
+  return function (index, replacement) {
+    textStore[index] = replacement
+    return textStore.filter(Boolean).join('\n')
+  }
+})()
+
+function applyToSingletonTag (styleElement, index, remove, obj) {
+  var css = remove ? '' : obj.css
+
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = replaceText(index, css)
+  } else {
+    var cssNode = document.createTextNode(css)
+    var childNodes = styleElement.childNodes
+    if (childNodes[index]) styleElement.removeChild(childNodes[index])
+    if (childNodes.length) {
+      styleElement.insertBefore(cssNode, childNodes[index])
+    } else {
+      styleElement.appendChild(cssNode)
+    }
+  }
+}
+
+function applyToTag (styleElement, obj) {
+  var css = obj.css
+  var media = obj.media
+  var sourceMap = obj.sourceMap
+
+  if (media) {
+    styleElement.setAttribute('media', media)
+  }
+  if (options.ssrId) {
+    styleElement.setAttribute(ssrIdKey, obj.id)
+  }
+
+  if (sourceMap) {
+    // https://developer.chrome.com/devtools/docs/javascript-debugging
+    // this makes source maps inside style tags work properly in Chrome
+    css += '\n/*# sourceURL=' + sourceMap.sources[0] + ' */'
+    // http://stackoverflow.com/a/26603875
+    css += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + ' */'
+  }
+
+  if (styleElement.styleSheet) {
+    styleElement.styleSheet.cssText = css
+  } else {
+    while (styleElement.firstChild) {
+      styleElement.removeChild(styleElement.firstChild)
+    }
+    styleElement.appendChild(document.createTextNode(css))
+  }
+}
+
+
+/***/ }),
+
 /***/ "vue-property-decorator":
 /*!*****************************************!*\
   !*** external "vue-property-decorator" ***!
   \*****************************************/
-/*! no static exports found */
-/*! ModuleConcatenation bailout: Module is not an ECMAScript module */
-/***/ (function(module, exports) {
+/***/ ((module) => {
 
+"use strict";
 module.exports = __WEBPACK_EXTERNAL_MODULE_vue_property_decorator__;
 
 /***/ })
 
-/******/ });
+/******/ 	});
+/************************************************************************/
+/******/ 	// The module cache
+/******/ 	var __webpack_module_cache__ = {};
+/******/ 	
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/ 		// Check if module is in cache
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = __webpack_module_cache__[moduleId] = {
+/******/ 			id: moduleId,
+/******/ 			// no module.loaded needed
+/******/ 			exports: {}
+/******/ 		};
+/******/ 	
+/******/ 		// Execute the module function
+/******/ 		__webpack_modules__[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/ 	
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/ 	
+/************************************************************************/
+/******/ 	/* webpack/runtime/compat get default export */
+/******/ 	(() => {
+/******/ 		// getDefaultExport function for compatibility with non-harmony modules
+/******/ 		__webpack_require__.n = (module) => {
+/******/ 			var getter = module && module.__esModule ?
+/******/ 				() => (module['default']) :
+/******/ 				() => (module);
+/******/ 			__webpack_require__.d(getter, { a: getter });
+/******/ 			return getter;
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/define property getters */
+/******/ 	(() => {
+/******/ 		// define getter functions for harmony exports
+/******/ 		__webpack_require__.d = (exports, definition) => {
+/******/ 			for(var key in definition) {
+/******/ 				if(__webpack_require__.o(definition, key) && !__webpack_require__.o(exports, key)) {
+/******/ 					Object.defineProperty(exports, key, { enumerable: true, get: definition[key] });
+/******/ 				}
+/******/ 			}
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/hasOwnProperty shorthand */
+/******/ 	(() => {
+/******/ 		__webpack_require__.o = (obj, prop) => (Object.prototype.hasOwnProperty.call(obj, prop))
+/******/ 	})();
+/******/ 	
+/******/ 	/* webpack/runtime/make namespace object */
+/******/ 	(() => {
+/******/ 		// define __esModule on exports
+/******/ 		__webpack_require__.r = (exports) => {
+/******/ 			if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 				Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 			}
+/******/ 			Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 		};
+/******/ 	})();
+/******/ 	
+/************************************************************************/
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+(() => {
+"use strict";
+/*!************************************************!*\
+  !*** ./src/components/datatable.component.vue ***!
+  \************************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _datatable_component_html_vue_type_template_id_3f42d2da___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./datatable.component.html?vue&type=template&id=3f42d2da& */ "./src/components/datatable.component.html?vue&type=template&id=3f42d2da&");
+/* harmony import */ var _datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./datatable.component.ts?vue&type=script&lang=js& */ "./src/components/datatable.component.ts?vue&type=script&lang=js&");
+/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
+/* harmony import */ var _datatable_component_scss_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./datatable.component.scss?vue&type=style&index=0&lang=scss& */ "./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+;
+
+
+/* normalize component */
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
+  _datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _datatable_component_html_vue_type_template_id_3f42d2da___WEBPACK_IMPORTED_MODULE_0__.render,
+  _datatable_component_html_vue_type_template_id_3f42d2da___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "src/components/datatable.component.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+})();
+
+/******/ 	return __webpack_exports__;
+/******/ })()
+;
 });
 //# sourceMappingURL=index.map

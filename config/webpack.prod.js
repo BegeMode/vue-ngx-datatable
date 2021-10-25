@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const { merge } = require('webpack-merge');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const commonConfig = require('./webpack.common');
 const { ENV, dir } = require('./helpers');
@@ -31,18 +31,14 @@ module.exports = function(env) {
       new webpack.optimize.ModuleConcatenationPlugin(),
       new HtmlWebpackPlugin({
         template: 'demo/index.ejs',
-        chunksSortMode: 'dependency',
-        title: 'ngx-datatable',
+        chunksSortMode: 'auto',
+        title: 'vue-ngx-datatable',
         // googleAnalytics: {
         //   trackingId: 'UA-57474611-3',
         //   pageViewOnLoad: true
         // }
       }),
-      new CleanWebpackPlugin(['dist'], {
-        root: dir(),
-        verbose: false,
-        dry: false
-      }),
+      new CleanWebpackPlugin(),
       // new webpack.optimize.UglifyJsPlugin()
     ]
   });
