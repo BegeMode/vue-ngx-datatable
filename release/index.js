@@ -8679,12 +8679,14 @@ var render = function () {
           _vm._v(" "),
           _vm._t(
             "default",
-            [
-              _c("span", {
-                attrs: { title: _vm.sanitizedValue },
-                domProps: { innerHTML: _vm._s(_vm.value) },
-              }),
-            ],
+            function () {
+              return [
+                _c("span", {
+                  attrs: { title: _vm.sanitizedValue },
+                  domProps: { innerHTML: _vm._s(_vm.value) },
+                }),
+              ]
+            },
             null,
             {
               row: _vm.rowContext.row ? _vm.rowContext.row : {},
