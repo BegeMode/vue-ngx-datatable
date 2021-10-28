@@ -33,7 +33,7 @@
       </button>
       <slot name="tree-toggle"> </slot>
     </template>
-    <slot
+    <template v-slot:default
       v-bind="{ 
                  row: rowContext.row ? rowContext.row : {},
                  column: column,
@@ -43,6 +43,6 @@
                  value: value }"
     >
       <span :title="sanitizedValue" v-html="value"></span>
-    </slot>
+    </template>
   </div>
 </div>

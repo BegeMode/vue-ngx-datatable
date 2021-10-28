@@ -1,12 +1,8 @@
-/* eslint-disable prefer-rest-params */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 import { TableColumnProp } from '../types/table-column.type';
 import { getterForProp } from './column-prop-getters';
 
 export type OptionalValueGetter = (row: Record<string, unknown>) => unknown | undefined;
 export function optionalGetterForProp(prop: TableColumnProp): OptionalValueGetter {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return prop && (row => getterForProp(prop)(row, prop));
 }
 
@@ -56,36 +52,28 @@ export function groupRowsByParents(
     return rows;
   }
   if (from && to) {
-    const nodeById = {};
+    const nodeById: Record<string | number, TreeNode> = {};
     const l = rows.length;
     let node: TreeNode | null = null;
 
     nodeById[0] = new TreeNode(); // that's the root node
 
-    const uniqIDs = rows.reduce((arr, item) => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    const uniqIDs: Array<unknown> = rows.reduce((arr, item) => {
       const toValue = to(item);
       if (arr.indexOf(toValue) === -1) {
         arr.push(toValue);
       }
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-      return arr;
+      return arr as Array<unknown>;
     }, []);
 
     for (let i = 0; i < l; i++) {
       // make TreeNode objects for each item
-      const t = to(rows[i]);
-      if (t) {
-        nodeById[t as string | number] = new TreeNode(rows[i]);
-      }
+      nodeById[to(rows[i]) as string | number] = new TreeNode(rows[i]);
     }
     let notResolvedNodes = [];
     for (let i = 0; i < l; i++) {
       // link all TreeNode objects
-      const t = to(rows[i]);
-      if (t) {
-        node = nodeById[t as string | number];
-      }
+      node = nodeById[to(rows[i]) as string | number];
       let parent = 0;
       const fromValue = from(node.row);
       if (Boolean(fromValue) && uniqIDs.indexOf(fromValue) > -1) {
@@ -96,9 +84,7 @@ export function groupRowsByParents(
       if (node.parent.row['level'] === null || node.parent.row['level'] === undefined) {
         notResolvedNodes.push(node);
       } else {
-        // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
         node.row['level'] = node.parent.row['level'] + 1;
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         node.parent.children.push(node);
       }
     }
@@ -111,9 +97,7 @@ export function groupRowsByParents(
         if (node.parent.row['level'] === null || node.parent.row['level'] === undefined) {
           temp.push(node);
         } else {
-          // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
           node.row['level'] = node.parent.row['level'] + 1;
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-call
           node.parent.children.push(node);
         }
       }
@@ -121,15 +105,13 @@ export function groupRowsByParents(
     } while (notResolvedNodes.length);
 
     let resolvedRows: Record<string, unknown>[] = [];
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     nodeById[0].flatten(
       function () {
-        resolvedRows = [...resolvedRows, this.row];
+        resolvedRows = [...resolvedRows, (this as TreeNode).row];
       },
       true,
       lazyTree
     );
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return resolvedRows;
   }
   return rows;
@@ -161,7 +143,7 @@ class TreeNode {
         } else if (child.children && child.children.length && child.row['treeStatus'] === 'disabled') {
           child.row['treeStatus'] = 'collapsed';
         }
-        f.apply(child, Array.prototype.slice.call(arguments, 2));
+        f.call(child);
         if (recursive) {
           child.flatten(f, recursive, lazyTree);
         }

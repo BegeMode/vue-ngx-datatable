@@ -48,7 +48,8 @@ export function numericIndexGetter(row: Record<string, unknown>, index: number):
   }
 
   const value = row[index];
-  if (value === null) {
+  // eslint-disable-next-line no-undefined
+  if (value === null || value === undefined) {
     return '';
   }
   return value;
@@ -70,7 +71,8 @@ export function shallowValueGetter(obj: Record<string, unknown>, fieldName: stri
   }
 
   const value = obj[fieldName];
-  if (value === null) {
+  // eslint-disable-next-line no-undefined
+  if (value === null || value === undefined) {
     return '';
   }
   return value;
