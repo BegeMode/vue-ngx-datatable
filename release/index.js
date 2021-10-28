@@ -7112,7 +7112,8 @@ function numericIndexGetter(row, index) {
         return row;
     }
     var value = row[index];
-    if (value === null) {
+    // eslint-disable-next-line no-undefined
+    if (value === null || value === undefined) {
         return '';
     }
     return value;
@@ -7133,7 +7134,8 @@ function shallowValueGetter(obj, fieldName) {
         return obj;
     }
     var value = obj[fieldName];
-    if (value === null) {
+    // eslint-disable-next-line no-undefined
+    if (value === null || value === undefined) {
         return '';
     }
     return value;
@@ -8261,7 +8263,6 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.groupRowsByParents = exports.optionalGetterForProp = void 0;
 var column_prop_getters_1 = __webpack_require__(/*! ./column-prop-getters */ "./src/utils/column-prop-getters.ts");
 function optionalGetterForProp(prop) {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return prop && (function (row) { return (0, column_prop_getters_1.getterForProp)(prop)(row, prop); });
 }
 exports.optionalGetterForProp = optionalGetterForProp;
@@ -8312,28 +8313,20 @@ function groupRowsByParents(rows, from, to, lazyTree) {
         var node = null;
         nodeById[0] = new TreeNode(); // that's the root node
         var uniqIDs = rows.reduce(function (arr, item) {
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
             var toValue = to(item);
             if (arr.indexOf(toValue) === -1) {
                 arr.push(toValue);
             }
-            // eslint-disable-next-line @typescript-eslint/no-unsafe-return
             return arr;
         }, []);
         for (var i = 0; i < l; i++) {
             // make TreeNode objects for each item
-            var t = to(rows[i]);
-            if (t) {
-                nodeById[t] = new TreeNode(rows[i]);
-            }
+            nodeById[to(rows[i])] = new TreeNode(rows[i]);
         }
         var notResolvedNodes = [];
         for (var i = 0; i < l; i++) {
             // link all TreeNode objects
-            var t = to(rows[i]);
-            if (t) {
-                node = nodeById[t];
-            }
+            node = nodeById[to(rows[i])];
             var parent_1 = 0;
             var fromValue = from(node.row);
             if (Boolean(fromValue) && uniqIDs.indexOf(fromValue) > -1) {
@@ -8345,9 +8338,7 @@ function groupRowsByParents(rows, from, to, lazyTree) {
                 notResolvedNodes.push(node);
             }
             else {
-                // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
                 node.row['level'] = node.parent.row['level'] + 1;
-                // eslint-disable-next-line @typescript-eslint/no-unsafe-call
                 node.parent.children.push(node);
             }
         }
@@ -8361,20 +8352,16 @@ function groupRowsByParents(rows, from, to, lazyTree) {
                     temp.push(node);
                 }
                 else {
-                    // eslint-disable-next-line @typescript-eslint/restrict-plus-operands
                     node.row['level'] = node.parent.row['level'] + 1;
-                    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
                     node.parent.children.push(node);
                 }
             }
             notResolvedNodes = __spreadArray([], temp, true);
         } while (notResolvedNodes.length);
         var resolvedRows_1 = [];
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         nodeById[0].flatten(function () {
             resolvedRows_1 = __spreadArray(__spreadArray([], resolvedRows_1, true), [this.row], false);
         }, true, lazyTree);
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         return resolvedRows_1;
     }
     return rows;
@@ -8404,7 +8391,7 @@ var TreeNode = /** @class */ (function () {
                 else if (child.children && child.children.length && child.row['treeStatus'] === 'disabled') {
                     child.row['treeStatus'] = 'collapsed';
                 }
-                f.apply(child, Array.prototype.slice.call(arguments, 2));
+                f.call(child);
                 if (recursive) {
                     child.flatten(f, recursive, lazyTree);
                 }
@@ -8602,7 +8589,7 @@ __webpack_require__.d(__webpack_exports__, {
 });
 
 ;// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./config/my-vue-raw-loader.js!./src/components/body/body-cell.component.html?vue&type=template&id=48c40f9f&
-var render = function() {
+var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -8614,15 +8601,15 @@ var render = function() {
           name: "show",
           rawName: "v-show",
           value: _vm.column.visible,
-          expression: "column.visible"
-        }
+          expression: "column.visible",
+        },
       ],
       staticClass: "datatable-body-cell",
       class: _vm.cssClasses,
       style: _vm.styles,
       attrs: {
         id: _vm.column.prop + "-" + _vm.column.$$id,
-        tabindex: _vm.tabIndex
+        tabindex: _vm.tabIndex,
       },
       on: {
         dblclick: _vm.onDblClick,
@@ -8630,15 +8617,15 @@ var render = function() {
         keydown: _vm.onKeyDown,
         mouseenter: _vm.onMouseEnter,
         focus: _vm.onFocus,
-        blur: _vm.onBlur
-      }
+        blur: _vm.onBlur,
+      },
     },
     [
       _c(
         "div",
         {
           staticClass: "datatable-body-cell-label",
-          style: _vm.column.isTreeColumn ? _vm.marginCellStyle : null
+          style: _vm.column.isTreeColumn ? _vm.marginCellStyle : null,
         },
         [
           _vm.isCheckboxable
@@ -8646,8 +8633,8 @@ var render = function() {
                 _c("input", {
                   attrs: { type: "checkbox" },
                   domProps: { checked: _vm.rowContext.isChecked },
-                  on: { click: _vm.onCheckboxChange }
-                })
+                  on: { click: _vm.onCheckboxChange },
+                }),
               ])
             : _vm._e(),
           _vm._v(" "),
@@ -8659,47 +8646,45 @@ var render = function() {
                       {
                         staticClass: "datatable-tree-button",
                         attrs: {
-                          disabled: _vm.rowContext.treeStatus === "disabled"
+                          disabled: _vm.rowContext.treeStatus === "disabled",
                         },
-                        on: { click: _vm.onTreeAction }
+                        on: { click: _vm.onTreeAction },
                       },
                       [
                         _c("span", [
                           _vm.rowContext.row.treeStatus === "loading"
                             ? _c("i", {
-                                staticClass: "icon datatable-icon-collapse"
+                                staticClass: "icon datatable-icon-collapse",
                               })
                             : _vm.rowContext.treeStatus === "collapsed"
                             ? _c("i", {
-                                staticClass: "icon datatable-icon-right"
+                                staticClass: "icon datatable-icon-right",
                               })
                             : _vm.rowContext.treeStatus === "expanded"
                             ? _c("i", {
-                                staticClass: "icon datatable-icon-down"
+                                staticClass: "icon datatable-icon-down",
                               })
                             : _c("i", {
                                 staticClass:
-                                  "icon icon-disabled datatable-icon-down"
-                              })
-                        ])
+                                  "icon icon-disabled datatable-icon-down",
+                              }),
+                        ]),
                       ]
                     )
                   : _vm._e(),
                 _vm._v(" "),
-                _vm._t("tree-toggle")
+                _vm._t("tree-toggle"),
               ]
             : _vm._e(),
           _vm._v(" "),
           _vm._t(
             "default",
-            function() {
-              return [
-                _c("span", {
-                  attrs: { title: _vm.sanitizedValue },
-                  domProps: { innerHTML: _vm._s(_vm.value) }
-                })
-              ]
-            },
+            [
+              _c("span", {
+                attrs: { title: _vm.sanitizedValue },
+                domProps: { innerHTML: _vm._s(_vm.value) },
+              }),
+            ],
             null,
             {
               row: _vm.rowContext.row ? _vm.rowContext.row : {},
@@ -8707,12 +8692,12 @@ var render = function() {
               rowIndex: _vm.rowContext.rowIndex,
               group: _vm.rowContext.group,
               expanded: _vm.rowContext.expanded,
-              value: _vm.value
+              value: _vm.value,
             }
-          )
+          ),
         ],
         2
-      )
+      ),
     ]
   )
 }
@@ -8742,7 +8727,7 @@ __webpack_require__.d(__webpack_exports__, {
 });
 
 ;// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./config/my-vue-raw-loader.js!./src/components/body/body.component.html?vue&type=template&id=0878f244&
-var render = function() {
+var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -8765,17 +8750,17 @@ var render = function() {
             checkMode: _vm.checkMode,
             rowIdentity: _vm.rowIdentity,
             scroller: _vm.scroller,
-            bodyHeight: _vm.bodyHeight
+            bodyHeight: _vm.bodyHeight,
           },
           on: {
             select: _vm.onSelect,
-            check: function($event) {
+            check: function ($event) {
               return _vm.$emit("check", $event)
             },
-            activate: function($event) {
+            activate: function ($event) {
               return _vm.$emit("activate", $event)
-            }
-          }
+            },
+          },
         },
         [
           _vm.loadingIndicator ? _c("datatable-progress") : _vm._e(),
@@ -8788,9 +8773,9 @@ var render = function() {
                 scrollbarV: _vm.scrollbarV,
                 scrollbarH: _vm.scrollbarH,
                 scrollHeight: _vm.scrollHeight,
-                scrollWidth: _vm.scrollWidth
+                scrollWidth: _vm.scrollWidth,
               },
-              on: { setup: _vm.onScrollSetup, scroll: _vm.onBodyScroll }
+              on: { setup: _vm.onScrollSetup, scroll: _vm.onBodyScroll },
             },
             [
               _vm.summaryRow && _vm.summaryPosition === "top"
@@ -8805,12 +8790,12 @@ var render = function() {
                       columnsByPin: _vm.columnsByPin,
                       columnGroupWidths: _vm.columnGroupWidths,
                       groupStyles: _vm.getGroupStyles,
-                      slots: _vm.cellSlots
-                    }
+                      slots: _vm.cellSlots,
+                    },
                   })
                 : _vm._e(),
               _vm._v(" "),
-              _vm._l(_vm.rowContexts, function(rowContext, i) {
+              _vm._l(_vm.rowContexts, function (rowContext, i) {
                 return _c(
                   "datatable-row-wrapper",
                   {
@@ -8832,14 +8817,14 @@ var render = function() {
                       expanded: rowContext.expanded,
                       rowIndex: rowContext.rowIndex,
                       groupHeaderSlot: _vm.groupHeaderSlot,
-                      rowDetailSlot: _vm.rowDetailSlot
+                      rowDetailSlot: _vm.rowDetailSlot,
                     },
                     on: {
                       "group-toggle": _vm.onGroupToggle,
-                      "row-contextmenu": function($event) {
+                      "row-contextmenu": function ($event) {
                         return _vm.$emit("rowContextmenu")
-                      }
-                    }
+                      },
+                    },
                   },
                   [
                     _c("datatable-body-row", {
@@ -8853,19 +8838,19 @@ var render = function() {
                         rowContext: rowContext,
                         displayCheck: _vm.displayCheck,
                         slots: _vm.cellSlots,
-                        renderTracking: _vm.renderTracking
+                        renderTracking: _vm.renderTracking,
                       },
                       on: {
-                        "tree-action": function($event) {
+                        "tree-action": function ($event) {
                           return _vm.onTreeAction($event)
                         },
-                        activate: function($event) {
+                        activate: function ($event) {
                           return _vm.onActivate($event, i)
                         },
                         "row-created": _vm.onRowRendered,
-                        "row-updated": _vm.onRowRendered
-                      }
-                    })
+                        "row-updated": _vm.onRowRendered,
+                      },
+                    }),
                   ],
                   1
                 )
@@ -8884,10 +8869,10 @@ var render = function() {
                       columnsByPin: _vm.columnsByPin,
                       columnGroupWidths: _vm.columnGroupWidths,
                       groupStyles: _vm.getGroupStyles,
-                      slots: _vm.cellSlots
-                    }
+                      slots: _vm.cellSlots,
+                    },
                   })
-                : _vm._e()
+                : _vm._e(),
             ],
             2
           ),
@@ -8895,12 +8880,12 @@ var render = function() {
           (!_vm.rows || !_vm.rows.length) && !_vm.loadingIndicator
             ? _c("div", {
                 staticClass: "empty-row",
-                domProps: { innerHTML: _vm._s(_vm.emptyMessage) }
+                domProps: { innerHTML: _vm._s(_vm.emptyMessage) },
               })
-            : _vm._e()
+            : _vm._e(),
         ],
         1
-      )
+      ),
     ],
     1
   )
@@ -8931,7 +8916,7 @@ __webpack_require__.d(__webpack_exports__, {
 });
 
 ;// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./config/my-vue-raw-loader.js!./src/components/datatable.component.html?vue&type=template&id=3f42d2da&
-var render = function() {
+var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -8944,14 +8929,15 @@ var render = function() {
           rawName: "v-visibility-observer",
           value: {
             on: _vm.visibilityCheck,
-            timeout: _vm.visibilityCheckTimeout
+            timeout: _vm.visibilityCheckTimeout,
           },
-          expression: "{ on: visibilityCheck, timeout: visibilityCheckTimeout }"
-        }
+          expression:
+            "{ on: visibilityCheck, timeout: visibilityCheckTimeout }",
+        },
       ],
       staticClass: "ngx-datatable",
       class: _vm.classObject,
-      on: { visible: _vm.onVisible, "insert-column": _vm.onColumnInsert }
+      on: { visible: _vm.onVisible, "insert-column": _vm.onColumnInsert },
     },
     [
       _c(
@@ -8981,25 +8967,25 @@ var render = function() {
               sortAscendingIcon: _vm.cssClasses.sortAscending,
               sortDescendingIcon: _vm.cssClasses.sortDescending,
               allRowsSelected: _vm.allRowsSelected,
-              selectionType: _vm.selectionType
+              selectionType: _vm.selectionType,
             },
             on: {
-              sort: function($event) {
+              sort: function ($event) {
                 return _vm.onColumnSort($event)
               },
-              resize: function($event) {
+              resize: function ($event) {
                 return _vm.onColumnResize($event)
               },
-              reorder: function($event) {
+              reorder: function ($event) {
                 return _vm.onColumnReorder($event)
               },
-              select: function($event) {
+              select: function ($event) {
                 return _vm.onHeaderSelect($event)
               },
-              columnContextmenu: function($event) {
+              columnContextmenu: function ($event) {
                 return _vm.onColumnContextmenu($event)
-              }
-            }
+              },
+            },
           })
         : _vm._e(),
       _vm._v(" "),
@@ -9044,11 +9030,11 @@ var render = function() {
           groupHeaderClasses: _vm.groupHeaderClasses,
           groupHeaderSlot: _vm.groupHeaderSlot,
           rowDetailSlot: _vm.rowDetailSlot,
-          renderTracking: _vm.renderTracking
+          renderTracking: _vm.renderTracking,
         },
         on: {
           page: _vm.onBodyPage,
-          activate: function($event) {
+          activate: function ($event) {
             return _vm.$emit("activate", $event)
           },
           rowContextmenu: _vm.onRowContextmenu,
@@ -9057,17 +9043,17 @@ var render = function() {
           scroll: _vm.onBodyScroll,
           "group-toggle": _vm.onGroupToggle,
           "tree-action": _vm.onTreeAction,
-          rendered: function($event) {
+          rendered: function ($event) {
             return _vm.$emit("rendered", $event)
-          }
-        }
+          },
+        },
       }),
       _vm._v(" "),
       _c(
         "div",
         {
           staticClass: "datatable-footer",
-          class: { "datatable-footer-border": Boolean(_vm.footerHeight) }
+          class: { "datatable-footer-border": Boolean(_vm.footerHeight) },
         },
         [
           _vm.footerHeight
@@ -9086,14 +9072,14 @@ var render = function() {
                   selectedMessage:
                     !!_vm.selectionType && _vm.messages.selectedMessage,
                   pagerNextIcon: _vm.cssClasses.pagerNext,
-                  footerSlot: _vm.footerSlot
+                  footerSlot: _vm.footerSlot,
                 },
-                on: { page: _vm.onFooterPage }
+                on: { page: _vm.onFooterPage },
               })
-            : _vm._e()
+            : _vm._e(),
         ],
         1
-      )
+      ),
     ],
     1
   )
@@ -9224,7 +9210,7 @@ __webpack_require__.d(__webpack_exports__, {
 });
 
 ;// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/body/body-row-wrapper.component.vue?vue&type=template&id=11b0d871&scoped=true&
-var render = function() {
+var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -9233,7 +9219,7 @@ var render = function() {
     {
       staticClass: "datatable-row-wrapper",
       style: _vm.styleObject,
-      attrs: { tabindex: "-1", "data-test-id": _vm.rowId }
+      attrs: { tabindex: "-1", "data-test-id": _vm.rowId },
     },
     [
       _vm.row && _vm.row.__isGroup
@@ -9246,16 +9232,16 @@ var render = function() {
               groupLevel: _vm.row.level,
               groupRowsBy: _vm.groupRowsBy,
               expanded: _vm.row.__expanded,
-              groupHeaderSlot: _vm.groupHeaderSlot
+              groupHeaderSlot: _vm.groupHeaderSlot,
             },
             on: {
-              "group-toggle": function($event) {
+              "group-toggle": function ($event) {
                 return _vm.$emit("group-toggle", $event)
               },
-              contextmenu: function($event) {
+              contextmenu: function ($event) {
                 return _vm.$emit("row-contextmenu", $event, _vm.row)
-              }
-            }
+              },
+            },
           })
         : _vm._t("default"),
       _vm._v(" "),
@@ -9266,18 +9252,18 @@ var render = function() {
             attrs: {
               row: _vm.row,
               expanded: _vm.expanded,
-              rowDetailSlot: _vm.rowDetailSlot
+              rowDetailSlot: _vm.rowDetailSlot,
             },
             on: {
-              "detail-toggle": function($event) {
+              "detail-toggle": function ($event) {
                 return _vm.$emit("detail-toggle", $event)
               },
-              contextmenu: function($event) {
+              contextmenu: function ($event) {
                 return _vm.$emit("row-contextmenu", $event, _vm.row)
-              }
-            }
+              },
+            },
           })
-        : _vm._e()
+        : _vm._e(),
     ],
     2
   )
@@ -9308,7 +9294,7 @@ __webpack_require__.d(__webpack_exports__, {
 });
 
 ;// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./src/components/body/body-row.component.vue?vue&type=template&id=0d0f71aa&
-var render = function() {
+var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
@@ -9319,9 +9305,9 @@ var render = function() {
       class: _vm.cssClasses,
       style: _vm.styles,
       attrs: { id: "row-group", tabIndex: -1 },
-      on: { focus: _vm.onFocus, blur: _vm.onBlur, keydown: _vm.onKeyDown }
+      on: { focus: _vm.onFocus, blur: _vm.onBlur, keydown: _vm.onKeyDown },
     },
-    _vm._l(_vm.columnsByPin, function(colGroup) {
+    _vm._l(_vm.columnsByPin, function (colGroup) {
       return _c(
         "div",
         {
@@ -9330,12 +9316,12 @@ var render = function() {
           class: "datatable-row-" + colGroup.type,
           style: _vm.groupStyles(colGroup),
           on: {
-            mouseenter: function($event) {
+            mouseenter: function ($event) {
               return _vm.$emit("activate", _vm.row)
-            }
-          }
+            },
+          },
         },
-        _vm._l(colGroup.columns, function(column, ii) {
+        _vm._l(colGroup.columns, function (column, ii) {
           return _c("datatable-body-cell", {
             key: column.$$id + "-" + _vm.counter,
             attrs: {
@@ -9344,17 +9330,17 @@ var render = function() {
               column: column,
               cellSlot: _vm.slots()[column.prop],
               renderTracking: _vm.renderTracking,
-              displayCheck: _vm.displayCheck
+              displayCheck: _vm.displayCheck,
             },
             on: {
-              activate: function($event) {
+              activate: function ($event) {
                 return _vm.onActivate($event, ii)
               },
               "tree-action": _vm.onTreeAction,
               mouseenter: _vm.onMouseenter,
               "cell-created": _vm.onCellRendered,
-              "cell-updated": _vm.onCellRendered
-            }
+              "cell-updated": _vm.onCellRendered,
+            },
           })
         }),
         1
