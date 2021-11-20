@@ -403,6 +403,7 @@ export default class DatatableComponent extends Vue {
      * distribution mode and scrollbar offsets.
      */
     recalculateColumns(columns?: TableColumn[], forceIdx?: number, allowBleed?: boolean): TableColumn[] | null;
+    calculateColumnsWidth(width: number, columns?: TableColumn[], forceIdx?: number, allowBleed?: boolean): void;
     /**
      * Recalculates the dimensions of the table size.
      * Internally calls the page size and row count calcs too.

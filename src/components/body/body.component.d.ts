@@ -115,6 +115,7 @@ export default class DataTableBodyComponent extends Vue {
      */
     get scrollHeight(): number | undefined;
     get scrollWidth(): string;
+    get cellSlots(): () => Record<string, (arg?: Record<string, unknown>) => VNode[]>;
     /**
      * Called once, before the instance is destroyed.
      */
@@ -124,11 +125,12 @@ export default class DataTableBodyComponent extends Vue {
         selected: Array<Record<string, unknown>>;
         index: number;
     }): void;
-    recalculateColumns(val?: Array<TableColumn>): void;
+    recalculateColumns(width?: number): void;
     /**
      * Updates the Y offset given a new offset.
      */
     updateOffsetY(offset?: number, fromPager?: boolean): number;
+    onScrollerWidthChanged(width: number): void;
     onScrollSetup(event: {
         scrollYPos: number;
         scrollXPos: number;
@@ -267,7 +269,6 @@ export default class DataTableBodyComponent extends Vue {
     }): Record<string, string | number>;
     treeStatus(row: Record<string, unknown>): TreeStatus;
     isRowVisible(row: Record<string, unknown>): boolean;
-    get cellSlots(): () => Record<string, (arg?: Record<string, unknown>) => VNode[]>;
     onCellFocus($event: Event): void;
     /**
      * Toggle the expansion of the row

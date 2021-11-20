@@ -144,15 +144,25 @@ li {
 }
 
 nav {
+  display: flex;
+  flex-flow: column nowrap;
+  height: 100%;
+  max-height: 100vh;
   background: #fff;
   z-index: 99;
   top: 0;
   left: 0;
   width: 200px;
   position: absolute;
-  min-height: 1900px;
   font-size: 14px;
   box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 13px 19px 2px rgba(0, 0, 0, 0.14), 0 5px 24px 4px rgba(0, 0, 0, 0.12);
+}
+
+.main-ul {
+  margin-left: 15px !important;
+  margin-right: 0 !important;
+  height: 100%;
+  overflow-y: auto;
 }
 
 nav ul {
@@ -177,20 +187,17 @@ nav h4 a {
 }
 
 content {
-  margin-left: 200px;
+  height: 100%;
+  overflow-y: auto;
   min-height: 100vh;
+  max-height: 100vh;
+  margin-left: 200px;
   display: block;
   position: relative;
-  padding-bottom: 20px;
 }
 
 content h3 {
   padding-left: 35px;
-}
-
-.main-ul {
-  margin-left: 15px !important;
-  display: block;
 }
 
 .github-button-wrap {
