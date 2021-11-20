@@ -769,12 +769,20 @@ export default class DatatableComponent extends Vue {
     if (!columns) {
       return null;
     }
-
     let width = this.innerWidth;
-    if (this.scrollbarV) {
+    if (this.scrollbarV || this.treeFromRelation) {
       width = width - this.scrollbarHelper.width;
     }
+    this.calculateColumnsWidth(width, columns, forceIdx, allowBleed);
+    return columns;
+  }
 
+  calculateColumnsWidth(
+    width: number,
+    columns: TableColumn[] = this.internalColumns,
+    forceIdx: number = -1,
+    allowBleed: boolean = this.scrollbarH
+  ) {
     if (this.myColumnMode === ColumnMode.force) {
       forceFillColumnWidths(columns, width, forceIdx, allowBleed);
     } else if (this.myColumnMode === ColumnMode.flex) {
@@ -784,7 +792,6 @@ export default class DatatableComponent extends Vue {
     if (hiddenColumns.length && this.bodyComponent) {
       this.bodyComponent.onInnerWidthChanged();
     }
-    return columns;
   }
 
   /**

@@ -293,6 +293,18 @@ export default class DataTableBodyComponent extends Vue {
     return this.columnGroupWidths ? this.columnGroupWidths.total.toString() : 'auto';
   }
 
+  get cellSlots(): () => Record<string, (arg?: Record<string, unknown>) => VNode[]> {
+    const result = {};
+    if (this.columns) {
+      this.columns.forEach(column => {
+        if (column.cellTemplate) {
+          result[column.prop] = column.cellTemplate;
+        }
+      });
+    }
+    return () => result;
+  }
+
   /**
    * Called once, before the instance is destroyed.
    */
@@ -311,12 +323,12 @@ export default class DataTableBodyComponent extends Vue {
     this.$emit('select', event);
   }
 
-  recalculateColumns(val: Array<TableColumn> = this.columns): void {
+  recalculateColumns(width?: number): void {
     const colsByPin = columnsByPin(this.columns);
     this.columnsByPin = columnsByPinArr(this.columns);
-    let width = this.innerWidth;
-    if (this.scrollbarV) {
-      width = width - this.scrollbarHelper.width;
+    // eslint-disable-next-line no-undefined
+    if (width === null || width === undefined) {
+      width = this.scroller ? this.scroller.$el.clientWidth : this.innerWidth;
     }
     this.columnGroupWidths = columnGroupWidths(colsByPin, this.columns, width);
   }
@@ -346,6 +358,10 @@ export default class DataTableBodyComponent extends Vue {
     }
     this.scroller.setOffset(offsetY || 0, fromPager);
     return offsetY || 0;
+  }
+
+  onScrollerWidthChanged(width: number) {
+    this.recalculateColumns(width);
   }
 
   onScrollSetup(event: { scrollYPos: number; scrollXPos: number }): void {
@@ -977,18 +993,6 @@ export default class DataTableBodyComponent extends Vue {
       rowOffsetY = this.rowHeight * rowContext.rowIndex;
     }
     return rowOffsetY >= this.offsetY && rowOffsetY <= this.offsetY + this.bodyHeight;
-  }
-
-  get cellSlots(): () => Record<string, (arg?: Record<string, unknown>) => VNode[]> {
-    const result = {};
-    if (this.columns) {
-      this.columns.forEach(column => {
-        if (column.cellTemplate) {
-          result[column.prop] = column.cellTemplate;
-        }
-      });
-    }
-    return () => result;
   }
 
   onCellFocus($event: Event): void {

@@ -20,7 +20,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
       <ngx-datatable
         class="material fullscreen"
         style="top: 52px"
-        columnMode="force"
+        columnMode="standard"
         :headerHeight="50"
         :footerHeight="0"
         :rowHeight="50"

@@ -1,5 +1,5 @@
 /**
- * vue-data-table v"1.3.2" (https://github.com/begemode/vue-ngx-data-table)
+ * vue-data-table v"1.3.3" (https://github.com/begemode/vue-ngx-data-table)
  * Copyright 2018
  * Licensed under MIT
  */
@@ -1262,6 +1262,21 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
+    Object.defineProperty(DataTableBodyComponent.prototype, "cellSlots", {
+        get: function () {
+            var result = {};
+            if (this.columns) {
+                this.columns.forEach(function (column) {
+                    if (column.cellTemplate) {
+                        result[column.prop] = column.cellTemplate;
+                    }
+                });
+            }
+            return function () { return result; };
+        },
+        enumerable: false,
+        configurable: true
+    });
     /**
      * Called once, before the instance is destroyed.
      */
@@ -1277,13 +1292,12 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     DataTableBodyComponent.prototype.onSelect = function (event) {
         this.$emit('select', event);
     };
-    DataTableBodyComponent.prototype.recalculateColumns = function (val) {
-        if (val === void 0) { val = this.columns; }
+    DataTableBodyComponent.prototype.recalculateColumns = function (width) {
         var colsByPin = (0, column_1.columnsByPin)(this.columns);
         this.columnsByPin = (0, column_1.columnsByPinArr)(this.columns);
-        var width = this.innerWidth;
-        if (this.scrollbarV) {
-            width = width - this.scrollbarHelper.width;
+        // eslint-disable-next-line no-undefined
+        if (width === null || width === undefined) {
+            width = this.scroller ? this.scroller.$el.clientWidth : this.innerWidth;
         }
         this.columnGroupWidths = (0, column_1.columnGroupWidths)(colsByPin, this.columns, width);
     };
@@ -1315,6 +1329,9 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         }
         this.scroller.setOffset(offsetY || 0, fromPager);
         return offsetY || 0;
+    };
+    DataTableBodyComponent.prototype.onScrollerWidthChanged = function (width) {
+        this.recalculateColumns(width);
     };
     DataTableBodyComponent.prototype.onScrollSetup = function (event) {
         this.myOffsetX = event.scrollXPos;
@@ -1893,21 +1910,6 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         }
         return rowOffsetY >= this.offsetY && rowOffsetY <= this.offsetY + this.bodyHeight;
     };
-    Object.defineProperty(DataTableBodyComponent.prototype, "cellSlots", {
-        get: function () {
-            var result = {};
-            if (this.columns) {
-                this.columns.forEach(function (column) {
-                    if (column.cellTemplate) {
-                        result[column.prop] = column.cellTemplate;
-                    }
-                });
-            }
-            return function () { return result; };
-        },
-        enumerable: false,
-        configurable: true
-    });
     DataTableBodyComponent.prototype.onCellFocus = function ($event) {
         // eslint-disable-next-line no-console
         console.log('onCellFocus($event)');
@@ -2744,9 +2746,16 @@ var DatatableComponent = /** @class */ (function (_super) {
             return null;
         }
         var width = this.innerWidth;
-        if (this.scrollbarV) {
+        if (this.scrollbarV || this.treeFromRelation) {
             width = width - this.scrollbarHelper.width;
         }
+        this.calculateColumnsWidth(width, columns, forceIdx, allowBleed);
+        return columns;
+    };
+    DatatableComponent.prototype.calculateColumnsWidth = function (width, columns, forceIdx, allowBleed) {
+        if (columns === void 0) { columns = this.internalColumns; }
+        if (forceIdx === void 0) { forceIdx = -1; }
+        if (allowBleed === void 0) { allowBleed = this.scrollbarH; }
         if (this.myColumnMode === column_mode_type_1.ColumnMode.force) {
             (0, math_1.forceFillColumnWidths)(columns, width, forceIdx, allowBleed);
         }
@@ -2757,7 +2766,6 @@ var DatatableComponent = /** @class */ (function (_super) {
         if (hiddenColumns.length && this.bodyComponent) {
             this.bodyComponent.onInnerWidthChanged();
         }
-        return columns;
     };
     /**
      * Recalculates the dimensions of the table size.
@@ -4018,6 +4026,7 @@ var ScrollerComponent = /** @class */ (function (_super) {
     function ScrollerComponent() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
         _this.fromPager = true;
+        _this.innerWidth = 0;
         _this.scrollYPos = 0;
         _this.scrollXPos = 0;
         _this.prevScrollYPos = 0;
@@ -4028,7 +4037,7 @@ var ScrollerComponent = /** @class */ (function (_super) {
         get: function () {
             return {
                 height: this.scrollHeight ? this.scrollHeight + "px" : null,
-                width: this.scrollWidth + "px",
+                width: '100%',
                 position: 'relative',
                 transform: 'translateZ(0)',
             };
@@ -4036,7 +4045,9 @@ var ScrollerComponent = /** @class */ (function (_super) {
         enumerable: false,
         configurable: true
     });
-    // scrollDirty = false;
+    ScrollerComponent.prototype.onInnerWidthChanged = function () {
+        this.$emit('change-width', this.innerWidth);
+    };
     ScrollerComponent.prototype.created = function () {
         this.$emit('setup', {
             scrollYPos: this.scrollYPos,
@@ -4062,9 +4073,23 @@ var ScrollerComponent = /** @class */ (function (_super) {
             });
             this.tick();
         }
+        if (window.ResizeObserver) {
+            this.resizeObserver = new window.ResizeObserver(function (entries) {
+                if (entries.length && entries[0].contentRect) {
+                    _this.innerWidth = Math.floor(entries[0].contentRect.width);
+                }
+                else {
+                    _this.innerWidth = _this.$el.clientWidth;
+                }
+            });
+            this.resizeObserver.observe(this.$el);
+        }
     };
     ScrollerComponent.prototype.beforeDestroy = function () {
         var _this = this;
+        if (this.resizeObserver) {
+            this.resizeObserver.unobserve(this.$el);
+        }
         if (this.scrollbarV || this.scrollbarH) {
             // this.parentElement.removeEventListener('scroll', this.onScrollListener);
             'mousedown DOMMouseScroll mousewheel wheel touchstart keyup'.split(' ').forEach(function (event) {
@@ -4164,6 +4189,12 @@ var ScrollerComponent = /** @class */ (function (_super) {
         (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", String)
     ], ScrollerComponent.prototype, "scrollWidth", void 0);
+    __decorate([
+        (0, vue_property_decorator_1.Watch)('innerWidth'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], ScrollerComponent.prototype, "onInnerWidthChanged", null);
     ScrollerComponent = __decorate([
         (0, vue_property_decorator_1.Component)({
             template: "\n    <div class=\"datatable-scroll\" :style=\"styleObject\">\n      <slot></slot>\n    </div>\n  ",
@@ -8777,7 +8808,11 @@ var render = function () {
                 scrollHeight: _vm.scrollHeight,
                 scrollWidth: _vm.scrollWidth,
               },
-              on: { setup: _vm.onScrollSetup, scroll: _vm.onBodyScroll },
+              on: {
+                setup: _vm.onScrollSetup,
+                scroll: _vm.onBodyScroll,
+                "change-width": _vm.onScrollerWidthChanged,
+              },
             },
             [
               _vm.summaryRow && _vm.summaryPosition === "top"

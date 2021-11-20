@@ -140,7 +140,10 @@ class TreeNode {
         const child = this.children[i];
         if (!lazyTree && (!child.children || !child.children.length)) {
           child.row['treeStatus'] = 'disabled';
-        } else if (child.children && child.children.length && child.row['treeStatus'] === 'disabled') {
+        } else if (
+          (child.children && child.children.length && !child.row['treeStatus']) ||
+          child.row['treeStatus'] === 'disabled'
+        ) {
           child.row['treeStatus'] = 'collapsed';
         }
         f.call(child);

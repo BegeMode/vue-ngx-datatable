@@ -108,7 +108,7 @@ import SummaryRowInlineHtmlComponent from './summary/summary-row-inline-html.com
   },
   template: `
     <div :class="classObject" style="height:100%;">
-      <nav style="height:100%;overflow-y:auto;">
+      <nav>
         <h3>vue-ngx-datatable <small>({{version}})</small></h3>
         <ul class="main-ul">
           <!--<li>

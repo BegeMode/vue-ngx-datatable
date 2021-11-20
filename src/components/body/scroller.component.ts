@@ -1,4 +1,4 @@
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 
 @Component({
   template: `
@@ -14,11 +14,12 @@ export default class ScrollerComponent extends Vue {
   @Prop() scrollWidth: string;
 
   fromPager = true;
+  innerWidth = 0;
 
   get styleObject(): Record<string, unknown> {
     return {
       height: this.scrollHeight ? `${this.scrollHeight}px` : null,
-      width: `${this.scrollWidth}px`,
+      width: '100%', // `${this.scrollWidth}px`,
       position: 'relative',
       transform: 'translateZ(0)',
     };
@@ -32,6 +33,11 @@ export default class ScrollerComponent extends Vue {
   // onScrollListener: (event: MouseEvent) => void;
   onInitScrollHandler: () => void;
   // scrollDirty = false;
+  resizeObserver?: ResizeObserver;
+
+  @Watch('innerWidth') onInnerWidthChanged() {
+    this.$emit('change-width', this.innerWidth);
+  }
 
   created(): void {
     this.$emit('setup', {
@@ -58,9 +64,22 @@ export default class ScrollerComponent extends Vue {
       });
       this.tick();
     }
+    if ((window as Window).ResizeObserver) {
+      this.resizeObserver = new (window as Window).ResizeObserver(entries => {
+        if (entries.length && entries[0].contentRect) {
+          this.innerWidth = Math.floor(entries[0].contentRect.width);
+        } else {
+          this.innerWidth = this.$el.clientWidth;
+        }
+      });
+      this.resizeObserver.observe(this.$el);
+    }
   }
 
   beforeDestroy(): void {
+    if (this.resizeObserver) {
+      this.resizeObserver.unobserve(this.$el);
+    }
     if (this.scrollbarV || this.scrollbarH) {
       // this.parentElement.removeEventListener('scroll', this.onScrollListener);
       'mousedown DOMMouseScroll mousewheel wheel touchstart keyup'.split(' ').forEach(event => {
