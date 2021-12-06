@@ -1,5 +1,5 @@
 /**
- * vue-data-table v"1.3.3" (https://github.com/begemode/vue-ngx-data-table)
+ * vue-data-table v"1.4.0" (https://github.com/begemode/vue-ngx-data-table)
  * Copyright 2018
  * Licensed under MIT
  */
@@ -2115,6 +2115,10 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         __metadata("design:type", Boolean)
     ], DataTableBodyComponent.prototype, "renderTracking", void 0);
     __decorate([
+        (0, vue_property_decorator_1.Prop)(),
+        __metadata("design:type", Function)
+    ], DataTableBodyComponent.prototype, "beforeSelectRowCheck", void 0);
+    __decorate([
         (0, vue_property_decorator_1.Watch)('pageSize'),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
@@ -3621,6 +3625,10 @@ var DatatableComponent = /** @class */ (function (_super) {
         __metadata("design:type", String)
     ], DatatableComponent.prototype, "summaryPosition", void 0);
     __decorate([
+        (0, vue_property_decorator_1.Prop)(),
+        __metadata("design:type", Function)
+    ], DatatableComponent.prototype, "beforeSelectRowCheck", void 0);
+    __decorate([
         (0, vue_property_decorator_1.Watch)('rows', { immediate: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", [Array]),
@@ -4253,7 +4261,6 @@ var scroller_component_1 = __webpack_require__(/*! components/body/scroller.comp
 var check_type_1 = __webpack_require__(/*! types/check.type */ "./src/types/check.type.ts");
 var selection_type_1 = __webpack_require__(/*! types/selection.type */ "./src/types/selection.type.ts");
 var keys_1 = __webpack_require__(/*! utils/keys */ "./src/utils/keys.ts");
-var selection_1 = __webpack_require__(/*! utils/selection */ "./src/utils/selection.ts");
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
 var DataTableSelectionComponent = /** @class */ (function (_super) {
     __extends(DataTableSelectionComponent, _super);
@@ -4265,23 +4272,30 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
         if (!this.selectEnabled) {
             return;
         }
+        var doSelect = true;
+        if (typeof this.beforeSelectRowCheck === 'function') {
+            doSelect = this.beforeSelectRowCheck(this.rows[index], this.selected);
+        }
+        if (!doSelect) {
+            return;
+        }
         var chkbox = this.selectionType === selection_type_1.SelectionType.checkbox && this.checkMode === check_type_1.CheckMode.checkIsSelect;
         var multi = this.selectionType === selection_type_1.SelectionType.multi;
         var multiClick = this.selectionType === selection_type_1.SelectionType.multiClick;
         var selected = [];
         if (multi || chkbox || multiClick) {
             if (event.shiftKey) {
-                selected = (0, selection_1.selectRowsBetween)([], this.rows, index, this.prevIndex, this.getRowSelectedIdx.bind(this));
+                selected = this.selectRowsBetween([], this.rows, index, this.prevIndex);
             }
             else if (event.ctrlKey || event.metaKey || multiClick || chkbox) {
-                selected = (0, selection_1.selectRows)(__spreadArray([], this.selected, true), row, this.getRowSelectedIdx.bind(this));
+                selected = this.selectRows(__spreadArray([], this.selected, true), row);
             }
             else {
-                selected = (0, selection_1.selectRows)([], row, this.getRowSelectedIdx.bind(this));
+                selected = this.selectRows([], row);
             }
         }
         else {
-            selected = (0, selection_1.selectRows)([], row, this.getRowSelectedIdx.bind(this));
+            selected = this.selectRows([], row);
         }
         this.prevIndex = index;
         if (typeof this.selectCheck === 'function') {
@@ -4301,10 +4315,10 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
         }
         var checked = [];
         if (event.shiftKey) {
-            checked = (0, selection_1.selectRowsBetween)([], this.rows, index, this.prevIndex, this.getRowSelectedIdx.bind(this));
+            checked = this.selectRowsBetween([], this.rows, index, this.prevIndex);
         }
         else {
-            checked = (0, selection_1.selectRows)(__spreadArray([], this.checked, true), row, this.getRowSelectedIdx.bind(this));
+            checked = this.selectRows(__spreadArray([], this.checked, true), row);
         }
         this.prevIndex = index;
         if (typeof this.selectCheck === 'function') {
@@ -4581,6 +4595,45 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
             return id === rowId;
         });
     };
+    DataTableSelectionComponent.prototype.selectRowsBetween = function (selected, rows, index, prevIndex) {
+        var reverse = index < prevIndex;
+        for (var i = 0; i < rows.length; i++) {
+            var row = rows[i];
+            var greater = i >= prevIndex && i <= index;
+            var lesser = i <= prevIndex && i >= index;
+            var range = { start: 0, end: 0 };
+            if (reverse) {
+                range = {
+                    start: index,
+                    end: prevIndex,
+                };
+            }
+            else {
+                range = {
+                    start: prevIndex,
+                    end: index + 1,
+                };
+            }
+            if ((reverse && lesser) || (!reverse && greater)) {
+                // if in the positive range to be added to `selected`, and
+                // not already in the selected array, add it
+                if (i >= range.start && i <= range.end) {
+                    selected.push(row);
+                }
+            }
+        }
+        return selected;
+    };
+    DataTableSelectionComponent.prototype.selectRows = function (selected, row) {
+        var selectedIndex = this.getRowSelectedIdx(row, selected);
+        if (selectedIndex > -1) {
+            selected.splice(selectedIndex, 1);
+        }
+        else {
+            selected.push(row);
+        }
+        return selected;
+    };
     __decorate([
         (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Array)
@@ -4625,6 +4678,10 @@ var DataTableSelectionComponent = /** @class */ (function (_super) {
         (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Number)
     ], DataTableSelectionComponent.prototype, "bodyHeight", void 0);
+    __decorate([
+        (0, vue_property_decorator_1.Prop)(),
+        __metadata("design:type", Function)
+    ], DataTableSelectionComponent.prototype, "beforeSelectRowCheck", void 0);
     DataTableSelectionComponent = __decorate([
         (0, vue_property_decorator_1.Component)({
             template: "\n    <div id=\"selector\">\n      <slot> selection </slot>\n    </div>\n  ",
@@ -7927,61 +7984,6 @@ exports.RowHeightCache = RowHeightCache;
 
 /***/ }),
 
-/***/ "./src/utils/selection.ts":
-/*!********************************!*\
-  !*** ./src/utils/selection.ts ***!
-  \********************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.selectRowsBetween = exports.selectRows = void 0;
-function selectRows(selected, row, comparefn) {
-    var selectedIndex = comparefn(row, selected);
-    if (selectedIndex > -1) {
-        selected.splice(selectedIndex, 1);
-    }
-    else {
-        selected.push(row);
-    }
-    return selected;
-}
-exports.selectRows = selectRows;
-function selectRowsBetween(selected, rows, index, prevIndex, comparefn) {
-    var reverse = index < prevIndex;
-    for (var i = 0; i < rows.length; i++) {
-        var row = rows[i];
-        var greater = i >= prevIndex && i <= index;
-        var lesser = i <= prevIndex && i >= index;
-        var range = { start: 0, end: 0 };
-        if (reverse) {
-            range = {
-                start: index,
-                end: prevIndex,
-            };
-        }
-        else {
-            range = {
-                start: prevIndex,
-                end: index + 1,
-            };
-        }
-        if ((reverse && lesser) || (!reverse && greater)) {
-            // if in the positive range to be added to `selected`, and
-            // not already in the selected array, add it
-            if (i >= range.start && i <= range.end) {
-                selected.push(row);
-            }
-        }
-    }
-    return selected;
-}
-exports.selectRowsBetween = selectRowsBetween;
-
-
-/***/ }),
-
 /***/ "./src/utils/sort.ts":
 /*!***************************!*\
   !*** ./src/utils/sort.ts ***!
@@ -8419,7 +8421,8 @@ var TreeNode = /** @class */ (function () {
                 if (!lazyTree && (!child.children || !child.children.length)) {
                     child.row['treeStatus'] = 'disabled';
                 }
-                else if (child.children && child.children.length && child.row['treeStatus'] === 'disabled') {
+                else if ((child.children && child.children.length && !child.row['treeStatus']) ||
+                    child.row['treeStatus'] === 'disabled') {
                     child.row['treeStatus'] = 'collapsed';
                 }
                 f.call(child);
@@ -8784,6 +8787,7 @@ var render = function () {
             rowIdentity: _vm.rowIdentity,
             scroller: _vm.scroller,
             bodyHeight: _vm.bodyHeight,
+            beforeSelectRowCheck: _vm.beforeSelectRowCheck,
           },
           on: {
             select: _vm.onSelect,
@@ -9068,6 +9072,7 @@ var render = function () {
           groupHeaderSlot: _vm.groupHeaderSlot,
           rowDetailSlot: _vm.rowDetailSlot,
           renderTracking: _vm.renderTracking,
+          beforeSelectRowCheck: _vm.beforeSelectRowCheck,
         },
         on: {
           page: _vm.onBodyPage,

@@ -77,6 +77,7 @@ export default class DataTableBodyComponent extends Vue {
   @Prop() groupHeaderSlot: (obj: Record<string, unknown>) => VNode[];
   @Prop() rowDetailSlot: (obj: Record<string, unknown>) => VNode[];
   @Prop() renderTracking: boolean;
+  @Prop() beforeSelectRowCheck: (newRow: Record<string, unknown>, oldSelected: Record<string, unknown>[]) => boolean;
 
   scroller: ScrollerComponent = null; // ScrollerComponent
   selector: DataTableSelectionComponent = null; // DataTableSelectionComponent;

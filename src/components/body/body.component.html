@@ -12,6 +12,7 @@
     :rowIdentity="rowIdentity"
     :scroller="scroller"
     :bodyHeight="bodyHeight"
+    :beforeSelectRowCheck="beforeSelectRowCheck"
     @select="onSelect"
     @check="$emit('check', $event)"
     @activate="$emit('activate', $event)"
