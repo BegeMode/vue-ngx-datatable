@@ -315,6 +315,10 @@ export default class DatatableComponent extends Vue {
    * A property holds a summary row position: top/bottom
    */
   @Prop({ type: String, default: 'top' }) summaryPosition: string;
+  /**
+   * Before selection row check function. If return false selection will be cancel
+   */
+  @Prop() beforeSelectRowCheck: (newRow: Record<string, unknown>, oldSelected: Record<string, unknown>[]) => boolean;
 
   // non-reactive
   /**

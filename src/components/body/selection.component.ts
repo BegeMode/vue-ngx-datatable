@@ -4,7 +4,6 @@ import { CheckMode } from 'types/check.type';
 import { SelectionType } from 'types/selection.type';
 import { TableColumn } from 'types/table-column.type';
 import { Keys } from 'utils/keys';
-import { selectRows, selectRowsBetween } from 'utils/selection';
 import { Component, Prop, Vue } from 'vue-property-decorator';
 // import { MouseEvent, KeyboardEvent } from '../../events';
 
@@ -38,6 +37,7 @@ export default class DataTableSelectionComponent extends Vue {
   @Prop() scroller: ScrollerComponent;
   @Prop() pageSize: number;
   @Prop() bodyHeight: number;
+  @Prop() beforeSelectRowCheck: (newRow: Record<string, unknown>, oldSelected: Record<string, unknown>[]) => boolean;
 
   prevIndex: number;
 
@@ -45,31 +45,35 @@ export default class DataTableSelectionComponent extends Vue {
     if (!this.selectEnabled) {
       return;
     }
-
+    let doSelect = true;
+    if (typeof this.beforeSelectRowCheck === 'function') {
+      doSelect = this.beforeSelectRowCheck(this.rows[index], this.selected);
+    }
+    if (!doSelect) {
+      return;
+    }
     const chkbox = this.selectionType === SelectionType.checkbox && this.checkMode === CheckMode.checkIsSelect;
     const multi = this.selectionType === SelectionType.multi;
     const multiClick = this.selectionType === SelectionType.multiClick;
     let selected: Record<string, unknown>[] = [];
-
     if (multi || chkbox || multiClick) {
       if (event.shiftKey) {
-        selected = selectRowsBetween([], this.rows, index, this.prevIndex, this.getRowSelectedIdx.bind(this));
+        selected = this.selectRowsBetween([], this.rows, index, this.prevIndex);
       } else if (event.ctrlKey || event.metaKey || multiClick || chkbox) {
-        selected = selectRows([...this.selected], row, this.getRowSelectedIdx.bind(this));
+        selected = this.selectRows([...this.selected], row);
       } else {
-        selected = selectRows([], row, this.getRowSelectedIdx.bind(this));
+        selected = this.selectRows([], row);
       }
     } else {
-      selected = selectRows([], row, this.getRowSelectedIdx.bind(this));
+      selected = this.selectRows([], row);
     }
     this.prevIndex = index;
     if (typeof this.selectCheck === 'function') {
-      selected = selected.filter(this.selectCheck.bind(this));
+      selected = selected.filter(this.selectCheck.bind(this) as () => void);
     }
 
     this.selected.splice(0, this.selected.length);
     this.selected.push(...selected);
-
     this.$emit('select', {
       selected,
       index,
@@ -82,14 +86,14 @@ export default class DataTableSelectionComponent extends Vue {
     }
     let checked: Record<string, unknown>[] = [];
     if (event.shiftKey) {
-      checked = selectRowsBetween([], this.rows, index, this.prevIndex, this.getRowSelectedIdx.bind(this));
+      checked = this.selectRowsBetween([], this.rows, index, this.prevIndex);
     } else {
-      checked = selectRows([...this.checked], row, this.getRowSelectedIdx.bind(this));
+      checked = this.selectRows([...this.checked], row);
     }
     this.prevIndex = index;
 
     if (typeof this.selectCheck === 'function') {
-      checked = checked.filter(this.selectCheck.bind(this));
+      checked = checked.filter(this.selectCheck.bind(this) as () => void);
     }
 
     this.checked.splice(0, this.checked.length);
@@ -360,5 +364,50 @@ export default class DataTableSelectionComponent extends Vue {
       const id = this.rowIdentity(r);
       return id === rowId;
     });
+  }
+
+  private selectRowsBetween(
+    selected: Record<string, unknown>[],
+    rows: Record<string, unknown>[],
+    index: number,
+    prevIndex: number
+  ): Record<string, unknown>[] {
+    const reverse = index < prevIndex;
+
+    for (let i = 0; i < rows.length; i++) {
+      const row = rows[i];
+      const greater = i >= prevIndex && i <= index;
+      const lesser = i <= prevIndex && i >= index;
+      let range = { start: 0, end: 0 };
+      if (reverse) {
+        range = {
+          start: index,
+          end: prevIndex,
+        };
+      } else {
+        range = {
+          start: prevIndex,
+          end: index + 1,
+        };
+      }
+      if ((reverse && lesser) || (!reverse && greater)) {
+        // if in the positive range to be added to `selected`, and
+        // not already in the selected array, add it
+        if (i >= range.start && i <= range.end) {
+          selected.push(row);
+        }
+      }
+    }
+    return selected;
+  }
+
+  private selectRows(selected: Record<string, unknown>[], row: Record<string, unknown>): Record<string, unknown>[] {
+    const selectedIndex = this.getRowSelectedIdx(row, selected);
+    if (selectedIndex > -1) {
+      selected.splice(selectedIndex, 1);
+    } else {
+      selected.push(row);
+    }
+    return selected;
   }
 }

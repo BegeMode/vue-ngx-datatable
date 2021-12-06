@@ -1,4 +1,4 @@
-import { Component, Vue, Prop, Watch } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import '../src/themes/material.scss';
 import '../src/themes/dark.scss';
 import '../src/themes/bootstrap.scss';
@@ -23,6 +23,7 @@ import FullScreenTreeComponent from './tree/fullscreen.component';
 import CheckboxSelectionComponent from './selection/selection-chkbox.component';
 import CheckNoSelectionComponent from './selection/selection-chkbox-checked.component';
 import MultiDisableSelectionComponent from './selection/selection-disabled.component';
+import BeforeSelectionCheckComponent from './selection/selection-before-select-check.component';
 import CustomCheckboxSelectionComponent from './selection/selection-chkbox-template.component';
 import CellSelectionComponent from './selection/selection-cell.component';
 import ColumnReorderComponent from './columns/column-reorder.component';
@@ -76,6 +77,7 @@ import SummaryRowInlineHtmlComponent from './summary/summary-row-inline-html.com
     'chkbox-selection-demo': CheckboxSelectionComponent,
     'chkbox-no-selection-demo': CheckNoSelectionComponent,
     'multidisable-selection-demo': MultiDisableSelectionComponent,
+    'before-selection-check-demo': BeforeSelectionCheckComponent,
     'chkbox-selection-template-demo': CustomCheckboxSelectionComponent,
     'cell-selection-demo': CellSelectionComponent,
     'column-reorder-demo': ColumnReorderComponent,
@@ -192,6 +194,7 @@ import SummaryRowInlineHtmlComponent from './summary/summary-row-inline-html.com
               <li><a href="#multi-selection" @click="state='multi-selection'">Multi Row</a></li>
               <li><a href="#multi-click-selection" @click="state='multi-click-selection'">Multi Click Row</a></li>
               <li><a href="#multidisable-selection" @click="state='multidisable-selection'">Disable Callback</a></li>
+              <li><a href="#before-selection-check" @click="state='before-selection-check'">Before Select Row Check Callback</a></li>
               <li><a href="#chkbox-selection" @click="state='chkbox-selection'">Checkbox</a></li>
               <li><a href="#chkbox-no-selection" @click="state='chkbox-no-selection'">Checkbox in 'no selection rows' mode</a></li>
               <li><a href="#chkbox-selection-template" @click="state='chkbox-selection-template'">Custom Checkbox</a></li>
@@ -280,6 +283,7 @@ import SummaryRowInlineHtmlComponent from './summary/summary-row-inline-html.com
         <chkbox-selection-demo v-if="state === 'chkbox-selection'"></chkbox-selection-demo>
         <chkbox-no-selection-demo v-if="state === 'chkbox-no-selection'"></chkbox-no-selection-demo>
         <multidisable-selection-demo v-if="state === 'multidisable-selection'"></multidisable-selection-demo>
+        <before-selection-check-demo v-if="state === 'before-selection-check'"></before-selection-check-demo>
         <chkbox-selection-template-demo v-if="state === 'chkbox-selection-template'"></chkbox-selection-template-demo> 
         <cell-selection-demo v-if="state === 'cell-selection'"></cell-selection-demo>
 
@@ -308,6 +312,21 @@ import SummaryRowInlineHtmlComponent from './summary/summary-row-inline-html.com
 })
 export class AppComponent extends Vue {
   state: string = '';
+  selectedElement: Element = null;
+
+  @Watch('state') onStateChanged() {
+    if (this.selectedElement) {
+      this.selectedElement.classList.remove('active');
+    }
+    this.selectedElement = this.$el.querySelector(`a[href="#${this.state}"`);
+    if (this.selectedElement) {
+      this.selectedElement.classList.add('active');
+    }
+  }
+
+  mounted() {
+    this.onStateChanged();
+  }
 
   get classObject() {
     return {
