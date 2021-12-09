@@ -25,9 +25,9 @@ export default class DataTableSelectionComponent extends Vue {
     scroller: ScrollerComponent;
     pageSize: number;
     bodyHeight: number;
-    beforeSelectRowCheck: (newRow: Record<string, unknown>, oldSelected: Record<string, unknown>[]) => boolean;
+    beforeSelectRowCheck: (newRow: Record<string, unknown>, oldSelected: Record<string, unknown>[]) => boolean | Promise<boolean>;
     prevIndex: number;
-    selectRow(event: KeyboardEvent | MouseEvent, index: number, row: Record<string, unknown>): void;
+    selectRow(event: KeyboardEvent | MouseEvent, index: number, row: Record<string, unknown>): Promise<void>;
     checkRow(event: KeyboardEvent | MouseEvent, index: number, row: Record<string, unknown>): void;
     onActivate(model: Model, index: number): void;
     onKeyboardFocus(model: Model): void;
