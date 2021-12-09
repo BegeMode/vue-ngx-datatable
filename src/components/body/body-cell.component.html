@@ -21,8 +21,9 @@
         v-if="!column.treeToggleTemplate"
         class="datatable-tree-button"
         :disabled="rowContext.treeStatus==='disabled'"
-        @click="onTreeAction"
-      >
+        @click.stop="onTreeAction"
+        @dblclick.stop=""
+        >
         <span>
           <i v-if="rowContext.row.treeStatus==='loading'" class="icon datatable-icon-collapse"></i>
           <i v-else-if="rowContext.treeStatus==='collapsed'" class="icon datatable-icon-right"></i>
