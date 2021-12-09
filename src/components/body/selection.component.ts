@@ -37,17 +37,23 @@ export default class DataTableSelectionComponent extends Vue {
   @Prop() scroller: ScrollerComponent;
   @Prop() pageSize: number;
   @Prop() bodyHeight: number;
-  @Prop() beforeSelectRowCheck: (newRow: Record<string, unknown>, oldSelected: Record<string, unknown>[]) => boolean;
+  @Prop() beforeSelectRowCheck: (
+    newRow: Record<string, unknown>,
+    oldSelected: Record<string, unknown>[]
+  ) => boolean | Promise<boolean>;
 
   prevIndex: number;
 
-  selectRow(event: KeyboardEvent | MouseEvent, index: number, row: Record<string, unknown>): void {
+  async selectRow(event: KeyboardEvent | MouseEvent, index: number, row: Record<string, unknown>): Promise<void> {
     if (!this.selectEnabled) {
       return;
     }
-    let doSelect = true;
+    let doSelect: boolean | Promise<boolean> = true;
     if (typeof this.beforeSelectRowCheck === 'function') {
       doSelect = this.beforeSelectRowCheck(this.rows[index], this.selected);
+    }
+    if (doSelect instanceof Promise) {
+      doSelect = await doSelect;
     }
     if (!doSelect) {
       return;

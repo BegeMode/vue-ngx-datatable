@@ -32,11 +32,8 @@ export default class DataTableBodyCellComponent extends Vue {
         column: this.column,
         rowIndex: this.rowContext.rowIndex,
         expanded: this.rowContext.expanded,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         group: this.rowContext.group,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         value: this.value,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         updateCell: this.$forceUpdate.bind(this),
       });
     }
@@ -52,11 +49,8 @@ export default class DataTableBodyCellComponent extends Vue {
         column: this.column,
         rowIndex: this.rowContext.rowIndex,
         expanded: this.rowContext.expanded,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         group: this.rowContext.group,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         value: this.value,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         updateCell: this.$forceUpdate.bind(this),
       });
     }
@@ -114,9 +108,7 @@ export default class DataTableBodyCellComponent extends Vue {
       rowHeight: this.rowContext.rowHeight,
       column: this.column,
       cellElement: this.$el,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       value: this.value,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       group: this.rowContext.group,
     });
   }
@@ -129,9 +121,7 @@ export default class DataTableBodyCellComponent extends Vue {
       rowHeight: this.rowContext.rowHeight,
       column: this.column,
       cellElement: this.$el,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       value: this.value,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       group: this.rowContext.group,
     });
   }
@@ -160,9 +150,7 @@ export default class DataTableBodyCellComponent extends Vue {
         rowHeight: this.rowContext.rowHeight,
         column: this.column,
         cellElement: this.$el,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         value: this.value,
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
         group: this.rowContext.group,
       });
     }
@@ -177,9 +165,7 @@ export default class DataTableBodyCellComponent extends Vue {
       column: this.column,
       cellElement: this.$el,
       treeStatus: this.rowContext.treeStatus,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       value: this.value,
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
       group: this.rowContext.group,
     });
   }

@@ -318,7 +318,10 @@ export default class DatatableComponent extends Vue {
   /**
    * Before selection row check function. If return false selection will be cancel
    */
-  @Prop() beforeSelectRowCheck: (newRow: Record<string, unknown>, oldSelected: Record<string, unknown>[]) => boolean;
+  @Prop() beforeSelectRowCheck: (
+    newRow: Record<string, unknown>,
+    oldSelected: Record<string, unknown>[]
+  ) => boolean | Promise<boolean>;
 
   // non-reactive
   /**
