@@ -6,6 +6,7 @@ export default class DataTableBodyGroupHeaderComponent extends Vue {
     rowHeight: number | ((group?: IGroupedRows, index?: number) => number);
     group: IGroupedRows;
     expanded: boolean;
+    active: boolean;
     groupHeaderSlot: (obj: Record<string, unknown>) => VNode[];
     groupLevel: number;
     groupRowsBy: Array<TGroupByField | Array<TGroupByField>>;

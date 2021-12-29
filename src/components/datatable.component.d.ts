@@ -1,3 +1,7 @@
+import '../themes/material.scss';
+import '../themes/dark.scss';
+import '../themes/bootstrap.scss';
+import '../../assets/icons.css';
 import { CheckMode } from 'types/check.type';
 import { ColumnMode } from 'types/column-mode.type';
 import { IGroupedRows } from 'types/grouped-rows';
@@ -300,6 +304,7 @@ export default class DatatableComponent extends Vue {
     private readonly scrollbarHelper;
     private readonly dimensionsHelper;
     private needToCalculateDims;
+    private activeGroupRow;
     onRowsChanged(val: Array<Record<string, unknown>>): void;
     onGroupRowsByChanged(newVal: Array<TGroupByField | Array<TGroupByField>>, oldVal: Array<TGroupByField | Array<TGroupByField>>): void;
     /**

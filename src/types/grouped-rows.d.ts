@@ -10,4 +10,5 @@ export interface IGroupedRows {
         prop: string;
         value: string;
     }>;
+    active?: boolean;
 }
