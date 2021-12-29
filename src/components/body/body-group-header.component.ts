@@ -6,7 +6,7 @@ import { IGroupedRows } from '../../types/grouped-rows';
 @Component({
   template: `
     <div
-      :class="{ 'datatable-icon-right': !expanded, 'datatable-icon-down': expanded }"
+      :class="{ 'datatable-icon-right': !expanded, 'datatable-icon-down': expanded, 'active': active }"
       :style="styles"
       title="Expand/Collapse Group"
       @click="toggleExpandGroup"
@@ -23,6 +23,7 @@ export default class DataTableBodyGroupHeaderComponent extends Vue {
   @Prop({ default: 0 }) rowHeight: number | ((group?: IGroupedRows, index?: number) => number);
   @Prop() group: IGroupedRows;
   @Prop() expanded: boolean;
+  @Prop() active: boolean;
   @Prop() groupHeaderSlot: (obj: Record<string, unknown>) => VNode[];
   @Prop() groupLevel: number;
   @Prop() groupRowsBy: Array<TGroupByField | Array<TGroupByField>>;

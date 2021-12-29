@@ -2,7 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const autoprefixer = require('autoprefixer');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const { ENV, IS_PRODUCTION, APP_VERSION, IS_DEV, dir } = require('./helpers');
+const { ENV, IS_PRODUCTION, IS_PACKAGE, APP_VERSION, IS_DEV, dir } = require('./helpers');
 // const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
@@ -65,56 +65,88 @@ module.exports = function(options = {}) {
           loader: 'vue-loader',
         },
         {
-          test: /\.(png|woff|woff2|eot|ttf|svg|jpeg|jpg|gif)$/,
-          loader: 'url-loader',
-          options: {
-            limit: '100000'
-          }
+          test: /\.(woff|woff2|eot|ttf)?$/i,
+          type: 'asset/resource',
+          dependency: {
+            not: ['url']
+          },
+        },
+        {
+          test: /\.(png|svg|jpeg|jpg|gif)$/,
+          type: 'asset/resource',
+          dependency: {
+            not: ['url']
+          },
+          // loader: 'url-loader',
+          // options: {
+          //   limit: '100000'
+          // }
         },
         {
           test: /\.html$/,
           loader: path.resolve('config/my-vue-raw-loader.js'),
         },
         {
-          test: /\.(css|sass|scss)$/,
-          oneOf: [
-            // this matches <style module>
+          test: /\.(css|scss)$/,
+          use: [
+            MiniCssExtractPlugin.loader,
             {
-              resourceQuery: /module/,
-              use: [
-                'vue-style-loader',
-                {
-                  loader: 'css-loader',
-                  options: {
-                    modules: true,
-                    localIdentName: '[local]_[hash:base64:5]',
-                    url: false, // очень важная опция - перезаписывает пути в css url на относительные (с начальным слэшем)
-                  }
-                },
-                {
-                  loader: 'sass-loader',
-                  options: {
-                    // you can also read from a file, e.g. `variables.scss`
-                    //data: `$color: red;`
-                  }
-                }
-              ]
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1,
+                sourceMap: false,
+              }
             },
+            { loader: 'postcss-loader' },
             {
-              use: [
-                'vue-style-loader',
-                'css-loader',
-                {
-                  loader: 'sass-loader',
-                  options: {
-                    // you can also read from a file, e.g. `variables.scss`
-                    //data: `$color: red;`
-                  }
-                }
-              ],
-            },  
-          ],  
+              loader: 'sass-loader',
+              options: {
+                implementation: require('node-sass'),
+                sourceMap: false,
+              }
+            }
+          ],
         },
+        // {
+        //   test: /\.(css|sass|scss)$/,
+        //   oneOf: [
+        //     // this matches <style module>
+        //     {
+        //       resourceQuery: /module/,
+        //       use: [
+        //         'vue-style-loader',
+        //         {
+        //           loader: 'css-loader',
+        //           options: {
+        //             modules: true,
+        //             localIdentName: '[local]_[hash:base64:5]',
+        //             url: false, // очень важная опция - перезаписывает пути в css url на относительные (с начальным слэшем)
+        //           }
+        //         },
+        //         {
+        //           loader: 'sass-loader',
+        //           options: {
+        //             // you can also read from a file, e.g. `variables.scss`
+        //             //data: `$color: red;`
+        //           }
+        //         }
+        //       ]
+        //     },
+        //     {
+        //       use: [
+        //         'vue-style-loader',
+        //         'css-loader',
+        //         {
+        //           loader: 'sass-loader',
+        //           options: {
+        //             // you can also read from a file, e.g. `variables.scss`
+        //             //data: `$color: red;`
+        //           }
+        //         }
+        //       ],
+        //     },  
+        //   ],  
+        // },
         // {
         //   test: /\.css/,
         //   use: [
@@ -138,10 +170,11 @@ module.exports = function(options = {}) {
         //     { 
         //       loader: 'sass-loader',
         //       options: {
-        //         sourceMap: true
+        //         implementation: require('node-sass'),
+        //         sourceMap: true,
         //       }
         //     }
-        //   ]
+        //   ],
         // }
       ]
     },
@@ -160,7 +193,10 @@ module.exports = function(options = {}) {
       }),
       new CopyWebpackPlugin({
         patterns: [
-          { from: 'assets', to: 'assets' }
+          IS_PACKAGE ? {
+            from: path.resolve(__dirname, "missing-file.txt"),
+            noErrorOnMissing: true,
+          } : { from: 'assets', to: 'assets' }
         ]
       }),
       new webpack.LoaderOptionsPlugin({

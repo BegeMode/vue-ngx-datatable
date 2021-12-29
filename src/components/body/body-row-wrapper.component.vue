@@ -9,6 +9,7 @@
       :groupLevel="row.level"
       :groupRowsBy="groupRowsBy"
       :expanded="row.__expanded"
+      :active="row.active"
       :groupHeaderSlot="groupHeaderSlot"
       @group-toggle="$emit('group-toggle', $event)"
       @contextmenu="$emit('row-contextmenu', $event, row)"

@@ -1,3 +1,7 @@
+import '../themes/material.scss';
+import '../themes/dark.scss';
+import '../themes/bootstrap.scss';
+import '../../assets/icons.css';
 import { CheckMode } from 'types/check.type';
 import { ColumnMode } from 'types/column-mode.type';
 import { ContextmenuType } from 'types/contextmenu.type';
@@ -372,6 +376,7 @@ export default class DatatableComponent extends Vue {
   private readonly scrollbarHelper: ScrollbarHelper = new ScrollbarHelper();
   private readonly dimensionsHelper: DimensionsHelper = new DimensionsHelper();
   private needToCalculateDims = true;
+  private activeGroupRow: IGroupedRows = null;
 
   @Watch('rows', { immediate: true }) onRowsChanged(val: Array<Record<string, unknown>>): void {
     if (val) {
@@ -1139,6 +1144,11 @@ export default class DatatableComponent extends Vue {
     }
     if (typeof event.value !== 'boolean') {
       event.value.__expanded = !event.value.__expanded;
+      if (this.activeGroupRow) {
+        this.activeGroupRow.active = false;
+      }
+      this.activeGroupRow = event.value;
+      this.activeGroupRow.active = true;
     }
     this.internalRows = this.processGroupedRows(this.groupedRows) as Array<Record<string, unknown>>;
     this.recalculate();

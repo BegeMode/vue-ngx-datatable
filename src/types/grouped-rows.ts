@@ -6,4 +6,5 @@ export interface IGroupedRows {
   rows: Record<string, unknown | IGroupedRows>[];
   groups?: IGroupedRows[];
   keys?: Array<{ title: string; prop: string; value: string }>;
+  active?: boolean;
 }

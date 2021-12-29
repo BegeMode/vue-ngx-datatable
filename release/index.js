@@ -1,5 +1,5 @@
 /**
- * vue-data-table v"1.4.1" (https://github.com/begemode/vue-ngx-data-table)
+ * vue-data-table v"1.4.2" (https://github.com/begemode/vue-ngx-data-table)
  * Copyright 2018
  * Licensed under MIT
  */
@@ -14,186 +14,63 @@
 		root["vueNgxDatatable"] = factory(root["vue-property-decorator"]);
 })(self, function(__WEBPACK_EXTERNAL_MODULE_vue_property_decorator__) {
 return /******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-6[0].rules[0].use[2]!./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss&":
-/*!*************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-6[0].rules[0].use[2]!./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss& ***!
-  \*************************************************************************************************************************************************************************************************************************************************************/
-/***/ ((module, __webpack_exports__, __webpack_require__) => {
+/***/ "./assets/icons.css":
+/*!**************************!*\
+  !*** ./assets/icons.css ***!
+  \**************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/sourceMaps.js */ "./node_modules/css-loader/dist/runtime/sourceMaps.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
-/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1__);
-// Imports
-
-
-var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
-// Module
-___CSS_LOADER_EXPORT___.push([module.id, ".ngx-datatable {\n  display: block;\n  overflow: hidden;\n  justify-content: center;\n  position: relative;\n  -webkit-transform: translate3d(0, 0, 0);\n  transform: translate3d(0, 0, 0);\n  /**\r\n   * Vertical Scrolling Adjustments\r\n   */\n  /**\r\n   * Horizontal Scrolling Adjustments\r\n   */\n  /**\r\n   * Fixed Header Height Adjustments\r\n   */\n  /**\r\n   * Fixed row height adjustments\r\n   */\n  /**\r\n   * Shared Styles\r\n   */\n  /**\r\n   * Header Styles\r\n   */\n  /**\r\n   * Body Styles\r\n   */\n  /**\r\n   * Footer Styles\r\n   */\n}\n.ngx-datatable.ngx-flex {\n    display: flex;\n    flex-flow: column;\n    justify-content: flex-start;\n    height: 100%;\n}\n.ngx-datatable.ngx-flex .datatable-body {\n      overflow-y: auto;\n      flex: 1 1 auto;\n}\n.ngx-datatable.ngx-flex .datatable-header,\n    .ngx-datatable.ngx-flex .datatable-footer {\n      flex: none;\n}\n.ngx-datatable.ngx-nowrap-text .datatable-body .datatable-body-row .datatable-body-cell .datatable-body-cell-label {\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis;\n}\n.ngx-datatable [hidden] {\n    display: none !important;\n}\n.ngx-datatable .hidden-columns {\n    visibility: hidden;\n    position: absolute;\n    z-index: -1;\n}\n.ngx-datatable *,\n  .ngx-datatable *:before,\n  .ngx-datatable *:after {\n    -moz-box-sizing: border-box;\n    -webkit-box-sizing: border-box;\n    box-sizing: border-box;\n}\n.ngx-datatable.scroll-vertical .datatable-body {\n    overflow-y: auto;\n}\n.ngx-datatable.scroll-vertical.virtualized .datatable-body .datatable-row-wrapper {\n    position: absolute;\n}\n.ngx-datatable.scroll-horz .datatable-body {\n    overflow-x: auto;\n    -webkit-overflow-scrolling: touch;\n}\n.ngx-datatable.fixed-header .datatable-header .datatable-header-inner {\n    white-space: nowrap;\n}\n.ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis;\n}\n.ngx-datatable.fixed-row .datatable-scroll {\n    white-space: nowrap;\n}\n.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row {\n      white-space: nowrap;\n}\n.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-cell {\n        overflow: hidden;\n        white-space: nowrap;\n        text-overflow: ellipsis;\n}\n.ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-group-cell {\n        overflow: hidden;\n        white-space: nowrap;\n        text-overflow: ellipsis;\n}\n.ngx-datatable .datatable-body-row,\n  .ngx-datatable .datatable-row-center,\n  .ngx-datatable .datatable-header-inner {\n    display: -webkit-box;\n    display: -moz-box;\n    display: -ms-flexbox;\n    display: -webkit-flex;\n    display: flex;\n    flex-direction: row;\n    -webkit-flex-flow: row;\n    -moz-flex-flow: row;\n    -ms-flex-flow: row;\n    -o-flex-flow: row;\n    flex-flow: row;\n}\n.ngx-datatable .datatable-body-cell,\n  .ngx-datatable .datatable-header-cell {\n    overflow-x: hidden;\n    vertical-align: top;\n    display: inline-flex;\n    line-height: 1.625;\n}\n.ngx-datatable .datatable-body-cell:focus,\n    .ngx-datatable .datatable-header-cell:focus {\n      outline: none;\n}\n.ngx-datatable .datatable-body-cell .datatable-body-cell-label,\n    .ngx-datatable .datatable-header-cell .datatable-body-cell-label {\n      width: 100%;\n}\n.ngx-datatable .datatable-body-cell-bold,\n    .ngx-datatable .datatable-header-cell-bold {\n      font-weight: bold;\n}\n.ngx-datatable .datatable-row-left,\n  .ngx-datatable .datatable-row-right {\n    z-index: 9;\n}\n.ngx-datatable .datatable-row-left,\n  .ngx-datatable .datatable-row-center,\n  .ngx-datatable .datatable-row-group,\n  .ngx-datatable .datatable-row-right {\n    position: relative;\n}\n.ngx-datatable .datatable-header {\n    overflow: hidden;\n}\n.ngx-datatable .datatable-header .datatable-header-inner {\n      align-items: stretch;\n      -webkit-align-items: stretch;\n}\n.ngx-datatable .datatable-header .datatable-header-cell {\n      position: relative;\n      display: inline-flex;\n      user-select: none;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.sortable .datatable-header-cell-wrapper {\n        cursor: pointer;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.longpress .datatable-header-cell-wrapper {\n        cursor: move;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .sort-btn {\n        margin-left: auto;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .sort-btn::before {\n        line-height: 100%;\n        vertical-align: middle;\n        display: inline-block;\n        cursor: pointer;\n        font-size: 1.25rem;\n        margin-right: -7px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .resize-handle,\n      .ngx-datatable .datatable-header .datatable-header-cell .resize-handle--not-resizable {\n        display: inline-block;\n        position: absolute;\n        right: 0;\n        top: 0;\n        bottom: 0;\n        width: 5px;\n        padding: 0 4px;\n        visibility: hidden;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .resize-handle {\n        cursor: ew-resize;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.resizeable {\n        flex-shrink: 0;\n}\n.ngx-datatable .datatable-header .datatable-header-cell.resizeable:hover .resize-handle {\n        visibility: visible;\n}\n.ngx-datatable .datatable-header .datatable-header-cell:hover .resize-handle--not-resizable {\n        visibility: visible;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker {\n        position: absolute;\n        top: 0;\n        bottom: 0;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker.dragFromLeft {\n          right: -13px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker.dragFromRight {\n          left: 0;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker .icon {\n          position: absolute;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker .datatable-icon-down {\n          top: 0px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .targetMarker .datatable-icon-up {\n          top: 35px;\n}\n.ngx-datatable .datatable-header .datatable-header-cell .datatable-header-cell-template-wrap {\n        height: inherit;\n}\n.ngx-datatable .datatable-body {\n    position: relative;\n    z-index: 10;\n    display: block;\n}\n.ngx-datatable .datatable-body .datatable-scroll {\n      display: inline-block;\n}\n.ngx-datatable .datatable-body .datatable-row-detail {\n      overflow-y: hidden;\n}\n.ngx-datatable .datatable-body .datatable-row-wrapper {\n      display: -webkit-box;\n      display: -moz-box;\n      display: -ms-flexbox;\n      display: -webkit-flex;\n      display: flex;\n      -webkit-box-orient: vertical;\n      -webkit-box-direction: normal;\n      -webkit-flex-direction: column;\n      -moz-box-orient: vertical;\n      -moz-box-direction: normal;\n      -ms-flex-direction: column;\n      flex-direction: column;\n}\n.ngx-datatable .datatable-body .datatable-body-row {\n      outline: none;\n}\n.ngx-datatable .datatable-body .datatable-body-row > div {\n        display: -webkit-box;\n        display: -moz-box;\n        display: -ms-flexbox;\n        display: -webkit-flex;\n        display: flex;\n}\n.ngx-datatable .datatable-footer {\n    display: block;\n    width: 100%;\n    margin-top: auto;\n}\n.ngx-datatable .datatable-footer .datatable-footer-inner {\n      display: flex;\n      align-items: center;\n      width: 100%;\n}\n.ngx-datatable .datatable-footer .selected-count .page-count {\n      flex: 1 1 40%;\n}\n.ngx-datatable .datatable-footer .selected-count .datatable-pager {\n      flex: 1 1 60%;\n}\n.ngx-datatable .datatable-footer .page-count {\n      flex: 1 1 20%;\n}\n.ngx-datatable .datatable-footer .datatable-pager {\n      flex: 1 1 80%;\n      text-align: right;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager,\n      .ngx-datatable .datatable-footer .datatable-pager .pager li {\n        padding: 0;\n        margin: 0;\n        display: inline-block;\n        list-style: none;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager li,\n      .ngx-datatable .datatable-footer .datatable-pager .pager li a {\n        outline: none;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager li a {\n        cursor: pointer;\n        display: inline-block;\n}\n.ngx-datatable .datatable-footer .datatable-pager .pager li.disabled a {\n        cursor: not-allowed;\n}\n", "",{"version":3,"sources":["webpack://./src/components/datatable.component.scss","webpack://./datatable.component.scss"],"names":[],"mappings":"AAAA;EACE,cAAc;EACd,gBAAgB;EAChB,uBAAuB;EACvB,kBAAkB;EAClB,uCAAuC;EACvC,+BAA+B;EAyC/B;;ICtCE;EDsDF;;ICnDE;ED6DF;;IC1DE;ED0EF;;ICvEE;EDgGF;;IC7FE;EDiJF;;IC9IE;EDsPF;;ICnPE;EDgSF;;IC7RE;AD+RC;AA7TL;IASI,aAAa;IACb,iBAAiB;IACjB,2BAA2B;IAC3B,YAAY;AAAA;AAZhB;MAeM,gBAAgB;MAChB,cAAc;AAAA;AAhBpB;;MAoBM,UAAU;AAAA;AApBhB;IAwBI,mBAAmB;IACnB,gBAAgB;IAChB,uBAAuB;AAAA;AA1B3B;IA8BI,wBAAwB;AAAA;AA9B5B;IAkCI,kBAAkB;IAClB,kBAAkB;IAClB,WAAW;AAAA;AApCf;;;IA0CI,2BAA2B;IAC3B,8BAA8B;IAC9B,sBAAsB;AAAA;AA5C1B;IAoDM,gBAAgB;AAAA;AApDtB;IAyDU,kBAAkB;AAAA;AAzD5B;IAoEM,gBAAgB;IAChB,iCAAiC;AAAA;AArEvC;IA+EQ,mBAAmB;AAAA;AA/E3B;MAiFU,mBAAmB;MACnB,gBAAgB;MAChB,uBAAuB;AAAA;AAnFjC;IA8FM,mBAAmB;AAAA;AA9FzB;MAiGQ,mBAAmB;AAAA;AAjG3B;QAoGU,gBAAgB;QAChB,mBAAmB;QACnB,uBAAuB;AAAA;AAtGjC;QA0GU,gBAAgB;QAChB,mBAAmB;QACnB,uBAAuB;AAAA;AA5GjC;;;IAwHI,oBAAoB;IACpB,iBAAiB;IACjB,oBAAoB;IACpB,qBAAqB;IACrB,aAAa;IAEb,mBAAmB;IACnB,sBAAsB;IACtB,mBAAmB;IACnB,kBAAkB;IAClB,iBAAiB;IACjB,cAAc;AAAA;AAnIlB;;IAwII,kBAAkB;IAClB,mBAAmB;IACnB,oBAAoB;IACpB,kBAAkB;AAAA;AA3ItB;;MA8IM,aAAa;AAAA;AA9InB;;MAkJM,WAAW;AAAA;AAlJjB;;MAsJM,iBAAiB;AAAA;AAtJvB;;IA4JI,UAAU;AAAA;AA5Jd;;;;IAmKI,kBAAkB;AAAA;AAnKtB;IA2KI,gBAAgB;AAAA;AA3KpB;MA8KM,oBAAoB;MACpB,4BAA4B;AAAA;AA/KlC;MAmLM,kBAAkB;MAClB,oBAAoB;MACpB,iBAAiB;AAAA;AArLvB;QAyLU,eAAe;AAAA;AAzLzB;QA8LQ,YAAY;AAAA;AA9LpB;QAkMQ,iBAAiB;AAAA;AAlMzB;QAsMQ,iBAAiB;QACjB,sBAAsB;QACtB,qBAAqB;QACrB,eAAe;QACf,kBAAkB;QAClB,kBAAkB;AAAA;AA3M1B;;QAgNQ,qBAAqB;QACrB,kBAAkB;QAClB,QAAQ;QACR,MAAM;QACN,SAAS;QACT,UAAU;QACV,cAAc;QACd,kBAAkB;AAAA;AAvN1B;QA2NQ,iBAAiB;AAAA;AA3NzB;QA+NQ,cAAc;AAAA;AA/NtB;QAoOU,mBAAmB;AAAA;AApO7B;QA0OU,mBAAmB;AAAA;AA1O7B;QA+OQ,kBAAkB;QAClB,MAAM;QACN,SAAS;AAAA;AAjPjB;UAoPU,YAAY;AAAA;AApPtB;UAwPU,OAAO;AAAA;AAxPjB;UA4PU,kBAAkB;AAAA;AA5P5B;UAgQU,QAAQ;AAAA;AAhQlB;UAoQU,SAAS;AAAA;AApQnB;QAyQQ,eAAe;AAAA;AAzQvB;IAkRI,kBAAkB;IAClB,WAAW;IACX,cAAc;AAAA;AApRlB;MAuRM,qBAAqB;AAAA;AAvR3B;MA2RM,kBAAkB;AAAA;AA3RxB;MA+RM,oBAAoB;MACpB,iBAAiB;MACjB,oBAAoB;MACpB,qBAAqB;MACrB,aAAa;MAEb,4BAA4B;MAC5B,6BAA6B;MAC7B,8BAA8B;MAC9B,yBAAyB;MACzB,0BAA0B;MAC1B,0BAA0B;MAC1B,sBAAsB;AAAA;AA3S5B;MA+SM,aAAa;AAAA;AA/SnB;QAkTQ,oBAAoB;QACpB,iBAAiB;QACjB,oBAAoB;QACpB,qBAAqB;QACrB,aAAa;AAAA;AAtTrB;IA+TI,cAAc;IACd,WAAW;IACX,gBAAgB;AAAA;AAjUpB;MAoUM,aAAa;MACb,mBAAmB;MACnB,WAAW;AAAA;AAtUjB;MA2UQ,aAAa;AAAA;AA3UrB;MA8UQ,aAAa;AAAA;AA9UrB;MAmVM,aAAa;AAAA;AAnVnB;MAuVM,aAAa;MACb,iBAAiB;AAAA;AAxVvB;;QA4VQ,UAAU;QACV,SAAS;QACT,qBAAqB;QACrB,gBAAgB;AAAA;AA/VxB;;QAqWU,aAAa;AAAA;AArWvB;QA0WY,eAAe;QACf,qBAAqB;AAAA;AA3WjC;QA+WY,mBAAmB;AAAA","sourcesContent":[".ngx-datatable {\r\n  display: block;\r\n  overflow: hidden;\r\n  justify-content: center;\r\n  position: relative;\r\n  -webkit-transform: translate3d(0, 0, 0);\r\n  transform: translate3d(0, 0, 0);\r\n\r\n  &.ngx-flex {\r\n    display: flex;\r\n    flex-flow: column;\r\n    justify-content: flex-start;\r\n    height: 100%;\r\n\r\n    .datatable-body {\r\n      overflow-y: auto;\r\n      flex: 1 1 auto;\r\n    }\r\n    .datatable-header,\r\n    .datatable-footer {\r\n      flex: none;\r\n    }\r\n  }\r\n  &.ngx-nowrap-text .datatable-body .datatable-body-row .datatable-body-cell .datatable-body-cell-label {\r\n    white-space: nowrap;\r\n    overflow: hidden;\r\n    text-overflow: ellipsis;\r\n  }\r\n\r\n  [hidden] {\r\n    display: none !important;\r\n  }\r\n\r\n  .hidden-columns {\r\n    visibility: hidden;\r\n    position: absolute;\r\n    z-index: -1;\r\n  }\r\n\r\n  *,\r\n  *:before,\r\n  *:after {\r\n    -moz-box-sizing: border-box;\r\n    -webkit-box-sizing: border-box;\r\n    box-sizing: border-box;\r\n  }\r\n\r\n  /**\r\n   * Vertical Scrolling Adjustments\r\n   */\r\n  &.scroll-vertical {\r\n    .datatable-body {\r\n      overflow-y: auto;\r\n    }\r\n    &.virtualized {\r\n      .datatable-body {\r\n        .datatable-row-wrapper {\r\n          position: absolute;\r\n        }\r\n      }\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Horizontal Scrolling Adjustments\r\n   */\r\n  &.scroll-horz {\r\n    .datatable-body {\r\n      overflow-x: auto;\r\n      -webkit-overflow-scrolling: touch;\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Fixed Header Height Adjustments\r\n   */\r\n  &.fixed-header {\r\n    .datatable-header {\r\n      .datatable-header-inner {\r\n        white-space: nowrap;\r\n        .datatable-header-cell {\r\n          white-space: nowrap;\r\n          overflow: hidden;\r\n          text-overflow: ellipsis;\r\n        }\r\n      }\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Fixed row height adjustments\r\n   */\r\n  &.fixed-row {\r\n    .datatable-scroll {\r\n      white-space: nowrap;\r\n\r\n      .datatable-body-row {\r\n        white-space: nowrap;\r\n\r\n        .datatable-body-cell {\r\n          overflow: hidden;\r\n          white-space: nowrap;\r\n          text-overflow: ellipsis;\r\n        }\r\n\r\n        .datatable-body-group-cell {\r\n          overflow: hidden;\r\n          white-space: nowrap;\r\n          text-overflow: ellipsis;\r\n        }\r\n      }\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Shared Styles\r\n   */\r\n  .datatable-body-row,\r\n  .datatable-row-center,\r\n  .datatable-header-inner {\r\n    display: -webkit-box;\r\n    display: -moz-box;\r\n    display: -ms-flexbox;\r\n    display: -webkit-flex;\r\n    display: flex;\r\n\r\n    flex-direction: row;\r\n    -webkit-flex-flow: row;\r\n    -moz-flex-flow: row;\r\n    -ms-flex-flow: row;\r\n    -o-flex-flow: row;\r\n    flex-flow: row;\r\n  }\r\n\r\n  .datatable-body-cell,\r\n  .datatable-header-cell {\r\n    overflow-x: hidden;\r\n    vertical-align: top;\r\n    display: inline-flex;\r\n    line-height: 1.625;\r\n\r\n    &:focus {\r\n      outline: none;\r\n    }\r\n\r\n    .datatable-body-cell-label {\r\n      width: 100%;\r\n    }\r\n\r\n    &-bold {\r\n      font-weight: bold;\r\n    }\r\n  }\r\n\r\n  .datatable-row-left,\r\n  .datatable-row-right {\r\n    z-index: 9;\r\n  }\r\n\r\n  .datatable-row-left,\r\n  .datatable-row-center,\r\n  .datatable-row-group,\r\n  .datatable-row-right {\r\n    position: relative;\r\n  }\r\n\r\n  /**\r\n   * Header Styles\r\n   */\r\n  .datatable-header {\r\n    // display: block;\r\n    overflow: hidden;\r\n\r\n    .datatable-header-inner {\r\n      align-items: stretch;\r\n      -webkit-align-items: stretch;\r\n    }\r\n\r\n    .datatable-header-cell {\r\n      position: relative;\r\n      display: inline-flex;\r\n      user-select: none;\r\n\r\n      &.sortable {\r\n        .datatable-header-cell-wrapper {\r\n          cursor: pointer;\r\n        }\r\n      }\r\n\r\n      &.longpress .datatable-header-cell-wrapper {\r\n        cursor: move;\r\n      }\r\n\r\n      .sort-btn {\r\n        margin-left: auto;\r\n      }\r\n\r\n      .sort-btn::before {\r\n        line-height: 100%;\r\n        vertical-align: middle;\r\n        display: inline-block;\r\n        cursor: pointer;\r\n        font-size: 1.25rem;\r\n        margin-right: -7px;\r\n      }\r\n\r\n      .resize-handle,\r\n      .resize-handle--not-resizable {\r\n        display: inline-block;\r\n        position: absolute;\r\n        right: 0;\r\n        top: 0;\r\n        bottom: 0;\r\n        width: 5px;\r\n        padding: 0 4px;\r\n        visibility: hidden;\r\n      }\r\n\r\n      .resize-handle {\r\n        cursor: ew-resize;\r\n      }\r\n\r\n      &.resizeable {\r\n        flex-shrink: 0;\r\n      }\r\n\r\n      &.resizeable:hover {\r\n        .resize-handle {\r\n          visibility: visible;\r\n        }\r\n      }\r\n\r\n      &:hover {\r\n        .resize-handle--not-resizable {\r\n          visibility: visible;\r\n        }\r\n      }\r\n\r\n      .targetMarker {\r\n        position: absolute;\r\n        top: 0;\r\n        bottom: 0;\r\n\r\n        &.dragFromLeft {\r\n          right: -13px;\r\n        }\r\n\r\n        &.dragFromRight {\r\n          left: 0;\r\n        }\r\n\r\n        & .icon {\r\n          position: absolute;\r\n        }\r\n\r\n        & .datatable-icon-down {\r\n          top: 0px;\r\n        }\r\n\r\n        & .datatable-icon-up {\r\n          top: 35px;\r\n        }\r\n      }\r\n\r\n      .datatable-header-cell-template-wrap {\r\n        height: inherit;\r\n      }\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Body Styles\r\n   */\r\n  .datatable-body {\r\n    position: relative;\r\n    z-index: 10;\r\n    display: block;\r\n\r\n    .datatable-scroll {\r\n      display: inline-block;\r\n    }\r\n\r\n    .datatable-row-detail {\r\n      overflow-y: hidden;\r\n    }\r\n\r\n    .datatable-row-wrapper {\r\n      display: -webkit-box;\r\n      display: -moz-box;\r\n      display: -ms-flexbox;\r\n      display: -webkit-flex;\r\n      display: flex;\r\n\r\n      -webkit-box-orient: vertical;\r\n      -webkit-box-direction: normal;\r\n      -webkit-flex-direction: column;\r\n      -moz-box-orient: vertical;\r\n      -moz-box-direction: normal;\r\n      -ms-flex-direction: column;\r\n      flex-direction: column;\r\n    }\r\n\r\n    .datatable-body-row {\r\n      outline: none;\r\n\r\n      > div {\r\n        display: -webkit-box;\r\n        display: -moz-box;\r\n        display: -ms-flexbox;\r\n        display: -webkit-flex;\r\n        display: flex;\r\n      }\r\n    }\r\n  }\r\n\r\n  /**\r\n   * Footer Styles\r\n   */\r\n  .datatable-footer {\r\n    display: block;\r\n    width: 100%;\r\n    margin-top: auto;\r\n\r\n    .datatable-footer-inner {\r\n      display: flex;\r\n      align-items: center;\r\n      width: 100%;\r\n    }\r\n\r\n    .selected-count {\r\n      .page-count {\r\n        flex: 1 1 40%;\r\n      }\r\n      .datatable-pager {\r\n        flex: 1 1 60%;\r\n      }\r\n    }\r\n\r\n    .page-count {\r\n      flex: 1 1 20%;\r\n    }\r\n\r\n    .datatable-pager {\r\n      flex: 1 1 80%;\r\n      text-align: right;\r\n\r\n      .pager,\r\n      .pager li {\r\n        padding: 0;\r\n        margin: 0;\r\n        display: inline-block;\r\n        list-style: none;\r\n      }\r\n\r\n      .pager {\r\n        li,\r\n        li a {\r\n          outline: none;\r\n        }\r\n\r\n        li {\r\n          a {\r\n            cursor: pointer;\r\n            display: inline-block;\r\n          }\r\n\r\n          &.disabled a {\r\n            cursor: not-allowed;\r\n          }\r\n        }\r\n      }\r\n    }\r\n  }\r\n}\r\n",".ngx-datatable {\n  display: block;\n  overflow: hidden;\n  justify-content: center;\n  position: relative;\n  -webkit-transform: translate3d(0, 0, 0);\n  transform: translate3d(0, 0, 0);\n  /**\r\n   * Vertical Scrolling Adjustments\r\n   */\n  /**\r\n   * Horizontal Scrolling Adjustments\r\n   */\n  /**\r\n   * Fixed Header Height Adjustments\r\n   */\n  /**\r\n   * Fixed row height adjustments\r\n   */\n  /**\r\n   * Shared Styles\r\n   */\n  /**\r\n   * Header Styles\r\n   */\n  /**\r\n   * Body Styles\r\n   */\n  /**\r\n   * Footer Styles\r\n   */ }\n  .ngx-datatable.ngx-flex {\n    display: flex;\n    flex-flow: column;\n    justify-content: flex-start;\n    height: 100%; }\n    .ngx-datatable.ngx-flex .datatable-body {\n      overflow-y: auto;\n      flex: 1 1 auto; }\n    .ngx-datatable.ngx-flex .datatable-header,\n    .ngx-datatable.ngx-flex .datatable-footer {\n      flex: none; }\n  .ngx-datatable.ngx-nowrap-text .datatable-body .datatable-body-row .datatable-body-cell .datatable-body-cell-label {\n    white-space: nowrap;\n    overflow: hidden;\n    text-overflow: ellipsis; }\n  .ngx-datatable [hidden] {\n    display: none !important; }\n  .ngx-datatable .hidden-columns {\n    visibility: hidden;\n    position: absolute;\n    z-index: -1; }\n  .ngx-datatable *,\n  .ngx-datatable *:before,\n  .ngx-datatable *:after {\n    -moz-box-sizing: border-box;\n    -webkit-box-sizing: border-box;\n    box-sizing: border-box; }\n  .ngx-datatable.scroll-vertical .datatable-body {\n    overflow-y: auto; }\n  .ngx-datatable.scroll-vertical.virtualized .datatable-body .datatable-row-wrapper {\n    position: absolute; }\n  .ngx-datatable.scroll-horz .datatable-body {\n    overflow-x: auto;\n    -webkit-overflow-scrolling: touch; }\n  .ngx-datatable.fixed-header .datatable-header .datatable-header-inner {\n    white-space: nowrap; }\n    .ngx-datatable.fixed-header .datatable-header .datatable-header-inner .datatable-header-cell {\n      white-space: nowrap;\n      overflow: hidden;\n      text-overflow: ellipsis; }\n  .ngx-datatable.fixed-row .datatable-scroll {\n    white-space: nowrap; }\n    .ngx-datatable.fixed-row .datatable-scroll .datatable-body-row {\n      white-space: nowrap; }\n      .ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-cell {\n        overflow: hidden;\n        white-space: nowrap;\n        text-overflow: ellipsis; }\n      .ngx-datatable.fixed-row .datatable-scroll .datatable-body-row .datatable-body-group-cell {\n        overflow: hidden;\n        white-space: nowrap;\n        text-overflow: ellipsis; }\n  .ngx-datatable .datatable-body-row,\n  .ngx-datatable .datatable-row-center,\n  .ngx-datatable .datatable-header-inner {\n    display: -webkit-box;\n    display: -moz-box;\n    display: -ms-flexbox;\n    display: -webkit-flex;\n    display: flex;\n    flex-direction: row;\n    -webkit-flex-flow: row;\n    -moz-flex-flow: row;\n    -ms-flex-flow: row;\n    -o-flex-flow: row;\n    flex-flow: row; }\n  .ngx-datatable .datatable-body-cell,\n  .ngx-datatable .datatable-header-cell {\n    overflow-x: hidden;\n    vertical-align: top;\n    display: inline-flex;\n    line-height: 1.625; }\n    .ngx-datatable .datatable-body-cell:focus,\n    .ngx-datatable .datatable-header-cell:focus {\n      outline: none; }\n    .ngx-datatable .datatable-body-cell .datatable-body-cell-label,\n    .ngx-datatable .datatable-header-cell .datatable-body-cell-label {\n      width: 100%; }\n    .ngx-datatable .datatable-body-cell-bold,\n    .ngx-datatable .datatable-header-cell-bold {\n      font-weight: bold; }\n  .ngx-datatable .datatable-row-left,\n  .ngx-datatable .datatable-row-right {\n    z-index: 9; }\n  .ngx-datatable .datatable-row-left,\n  .ngx-datatable .datatable-row-center,\n  .ngx-datatable .datatable-row-group,\n  .ngx-datatable .datatable-row-right {\n    position: relative; }\n  .ngx-datatable .datatable-header {\n    overflow: hidden; }\n    .ngx-datatable .datatable-header .datatable-header-inner {\n      align-items: stretch;\n      -webkit-align-items: stretch; }\n    .ngx-datatable .datatable-header .datatable-header-cell {\n      position: relative;\n      display: inline-flex;\n      user-select: none; }\n      .ngx-datatable .datatable-header .datatable-header-cell.sortable .datatable-header-cell-wrapper {\n        cursor: pointer; }\n      .ngx-datatable .datatable-header .datatable-header-cell.longpress .datatable-header-cell-wrapper {\n        cursor: move; }\n      .ngx-datatable .datatable-header .datatable-header-cell .sort-btn {\n        margin-left: auto; }\n      .ngx-datatable .datatable-header .datatable-header-cell .sort-btn::before {\n        line-height: 100%;\n        vertical-align: middle;\n        display: inline-block;\n        cursor: pointer;\n        font-size: 1.25rem;\n        margin-right: -7px; }\n      .ngx-datatable .datatable-header .datatable-header-cell .resize-handle,\n      .ngx-datatable .datatable-header .datatable-header-cell .resize-handle--not-resizable {\n        display: inline-block;\n        position: absolute;\n        right: 0;\n        top: 0;\n        bottom: 0;\n        width: 5px;\n        padding: 0 4px;\n        visibility: hidden; }\n      .ngx-datatable .datatable-header .datatable-header-cell .resize-handle {\n        cursor: ew-resize; }\n      .ngx-datatable .datatable-header .datatable-header-cell.resizeable {\n        flex-shrink: 0; }\n      .ngx-datatable .datatable-header .datatable-header-cell.resizeable:hover .resize-handle {\n        visibility: visible; }\n      .ngx-datatable .datatable-header .datatable-header-cell:hover .resize-handle--not-resizable {\n        visibility: visible; }\n      .ngx-datatable .datatable-header .datatable-header-cell .targetMarker {\n        position: absolute;\n        top: 0;\n        bottom: 0; }\n        .ngx-datatable .datatable-header .datatable-header-cell .targetMarker.dragFromLeft {\n          right: -13px; }\n        .ngx-datatable .datatable-header .datatable-header-cell .targetMarker.dragFromRight {\n          left: 0; }\n        .ngx-datatable .datatable-header .datatable-header-cell .targetMarker .icon {\n          position: absolute; }\n        .ngx-datatable .datatable-header .datatable-header-cell .targetMarker .datatable-icon-down {\n          top: 0px; }\n        .ngx-datatable .datatable-header .datatable-header-cell .targetMarker .datatable-icon-up {\n          top: 35px; }\n      .ngx-datatable .datatable-header .datatable-header-cell .datatable-header-cell-template-wrap {\n        height: inherit; }\n  .ngx-datatable .datatable-body {\n    position: relative;\n    z-index: 10;\n    display: block; }\n    .ngx-datatable .datatable-body .datatable-scroll {\n      display: inline-block; }\n    .ngx-datatable .datatable-body .datatable-row-detail {\n      overflow-y: hidden; }\n    .ngx-datatable .datatable-body .datatable-row-wrapper {\n      display: -webkit-box;\n      display: -moz-box;\n      display: -ms-flexbox;\n      display: -webkit-flex;\n      display: flex;\n      -webkit-box-orient: vertical;\n      -webkit-box-direction: normal;\n      -webkit-flex-direction: column;\n      -moz-box-orient: vertical;\n      -moz-box-direction: normal;\n      -ms-flex-direction: column;\n      flex-direction: column; }\n    .ngx-datatable .datatable-body .datatable-body-row {\n      outline: none; }\n      .ngx-datatable .datatable-body .datatable-body-row > div {\n        display: -webkit-box;\n        display: -moz-box;\n        display: -ms-flexbox;\n        display: -webkit-flex;\n        display: flex; }\n  .ngx-datatable .datatable-footer {\n    display: block;\n    width: 100%;\n    margin-top: auto; }\n    .ngx-datatable .datatable-footer .datatable-footer-inner {\n      display: flex;\n      align-items: center;\n      width: 100%; }\n    .ngx-datatable .datatable-footer .selected-count .page-count {\n      flex: 1 1 40%; }\n    .ngx-datatable .datatable-footer .selected-count .datatable-pager {\n      flex: 1 1 60%; }\n    .ngx-datatable .datatable-footer .page-count {\n      flex: 1 1 20%; }\n    .ngx-datatable .datatable-footer .datatable-pager {\n      flex: 1 1 80%;\n      text-align: right; }\n      .ngx-datatable .datatable-footer .datatable-pager .pager,\n      .ngx-datatable .datatable-footer .datatable-pager .pager li {\n        padding: 0;\n        margin: 0;\n        display: inline-block;\n        list-style: none; }\n      .ngx-datatable .datatable-footer .datatable-pager .pager li,\n      .ngx-datatable .datatable-footer .datatable-pager .pager li a {\n        outline: none; }\n      .ngx-datatable .datatable-footer .datatable-pager .pager li a {\n        cursor: pointer;\n        display: inline-block; }\n      .ngx-datatable .datatable-footer .datatable-pager .pager li.disabled a {\n        cursor: not-allowed; }\n"],"sourceRoot":""}]);
-// Exports
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
+// extracted by mini-css-extract-plugin
 
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/runtime/api.js":
-/*!*****************************************************!*\
-  !*** ./node_modules/css-loader/dist/runtime/api.js ***!
-  \*****************************************************/
-/***/ ((module) => {
+/***/ "./src/themes/bootstrap.scss":
+/*!***********************************!*\
+  !*** ./src/themes/bootstrap.scss ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
 
-
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Author Tobias Koppers @sokra
-*/
-module.exports = function (cssWithMappingToString) {
-  var list = []; // return the list of modules as css string
-
-  list.toString = function toString() {
-    return this.map(function (item) {
-      var content = "";
-      var needLayer = typeof item[5] !== "undefined";
-
-      if (item[4]) {
-        content += "@supports (".concat(item[4], ") {");
-      }
-
-      if (item[2]) {
-        content += "@media ".concat(item[2], " {");
-      }
-
-      if (needLayer) {
-        content += "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {");
-      }
-
-      content += cssWithMappingToString(item);
-
-      if (needLayer) {
-        content += "}";
-      }
-
-      if (item[2]) {
-        content += "}";
-      }
-
-      if (item[4]) {
-        content += "}";
-      }
-
-      return content;
-    }).join("");
-  }; // import a list of modules into the list
-
-
-  list.i = function i(modules, media, dedupe, supports, layer) {
-    if (typeof modules === "string") {
-      modules = [[null, modules, undefined]];
-    }
-
-    var alreadyImportedModules = {};
-
-    if (dedupe) {
-      for (var _i = 0; _i < this.length; _i++) {
-        var id = this[_i][0];
-
-        if (id != null) {
-          alreadyImportedModules[id] = true;
-        }
-      }
-    }
-
-    for (var _i2 = 0; _i2 < modules.length; _i2++) {
-      var item = [].concat(modules[_i2]);
-
-      if (dedupe && alreadyImportedModules[item[0]]) {
-        continue;
-      }
-
-      if (typeof layer !== "undefined") {
-        if (typeof item[5] === "undefined") {
-          item[5] = layer;
-        } else {
-          item[1] = "@layer".concat(item[5].length > 0 ? " ".concat(item[5]) : "", " {").concat(item[1], "}");
-          item[5] = layer;
-        }
-      }
-
-      if (media) {
-        if (!item[2]) {
-          item[2] = media;
-        } else {
-          item[1] = "@media ".concat(item[2], " {").concat(item[1], "}");
-          item[2] = media;
-        }
-      }
-
-      if (supports) {
-        if (!item[4]) {
-          item[4] = "".concat(supports);
-        } else {
-          item[1] = "@supports (".concat(item[4], ") {").concat(item[1], "}");
-          item[4] = supports;
-        }
-      }
-
-      list.push(item);
-    }
-  };
-
-  return list;
-};
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/runtime/sourceMaps.js":
-/*!************************************************************!*\
-  !*** ./node_modules/css-loader/dist/runtime/sourceMaps.js ***!
-  \************************************************************/
-/***/ ((module) => {
+/***/ "./src/themes/dark.scss":
+/*!******************************!*\
+  !*** ./src/themes/dark.scss ***!
+  \******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
 
-
-module.exports = function (item) {
-  var content = item[1];
-  var cssMapping = item[3];
-
-  if (!cssMapping) {
-    return content;
-  }
-
-  if (typeof btoa === "function") {
-    var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(cssMapping))));
-    var data = "sourceMappingURL=data:application/json;charset=utf-8;base64,".concat(base64);
-    var sourceMapping = "/*# ".concat(data, " */");
-    var sourceURLs = cssMapping.sources.map(function (source) {
-      return "/*# sourceURL=".concat(cssMapping.sourceRoot || "").concat(source, " */");
-    });
-    return [content].concat(sourceURLs).concat([sourceMapping]).join("\n");
-  }
-
-  return [content].join("\n");
-};
 
 /***/ }),
 
-/***/ "./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body-cell.component.ts?vue&type=script&lang=js&":
+/***/ "./src/themes/material.scss":
+/*!**********************************!*\
+  !*** ./src/themes/material.scss ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+// extracted by mini-css-extract-plugin
+
+
+/***/ }),
+
+/***/ "./node_modules/ts-loader/index.js??clonedRuleSet-6[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body-cell.component.ts?vue&type=script&lang=js&":
 /*!*****************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body-cell.component.ts?vue&type=script&lang=js& ***!
+  !*** ./node_modules/ts-loader/index.js??clonedRuleSet-6[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body-cell.component.ts?vue&type=script&lang=js& ***!
   \*****************************************************************************************************************************************************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -522,13 +399,12 @@ exports["default"] = DataTableBodyCellComponent;
 
 /***/ }),
 
-/***/ "./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body-row-wrapper.component.ts?vue&type=script&lang=js&":
+/***/ "./node_modules/ts-loader/index.js??clonedRuleSet-6[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body-row-wrapper.component.ts?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body-row-wrapper.component.ts?vue&type=script&lang=js& ***!
+  !*** ./node_modules/ts-loader/index.js??clonedRuleSet-6[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body-row-wrapper.component.ts?vue&type=script&lang=js& ***!
   \************************************************************************************************************************************************************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -688,13 +564,12 @@ exports["default"] = DataTableRowWrapperComponent;
 
 /***/ }),
 
-/***/ "./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body-row.component.ts?vue&type=script&lang=js&":
+/***/ "./node_modules/ts-loader/index.js??clonedRuleSet-6[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body-row.component.ts?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body-row.component.ts?vue&type=script&lang=js& ***!
+  !*** ./node_modules/ts-loader/index.js??clonedRuleSet-6[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body-row.component.ts?vue&type=script&lang=js& ***!
   \****************************************************************************************************************************************************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -894,13 +769,12 @@ exports["default"] = DataTableBodyRowComponent;
 
 /***/ }),
 
-/***/ "./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body.component.ts?vue&type=script&lang=js&":
+/***/ "./node_modules/ts-loader/index.js??clonedRuleSet-6[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body.component.ts?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body.component.ts?vue&type=script&lang=js& ***!
+  !*** ./node_modules/ts-loader/index.js??clonedRuleSet-6[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body.component.ts?vue&type=script&lang=js& ***!
   \************************************************************************************************************************************************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -2197,13 +2071,12 @@ exports["default"] = DataTableBodyComponent;
 
 /***/ }),
 
-/***/ "./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/datatable.component.ts?vue&type=script&lang=js&":
+/***/ "./node_modules/ts-loader/index.js??clonedRuleSet-6[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/datatable.component.ts?vue&type=script&lang=js&":
 /*!************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/datatable.component.ts?vue&type=script&lang=js& ***!
+  !*** ./node_modules/ts-loader/index.js??clonedRuleSet-6[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/datatable.component.ts?vue&type=script&lang=js& ***!
   \************************************************************************************************************************************************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -2250,6 +2123,10 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     return to.concat(ar || Array.prototype.slice.call(from));
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
+__webpack_require__(/*! ../themes/material.scss */ "./src/themes/material.scss");
+__webpack_require__(/*! ../themes/dark.scss */ "./src/themes/dark.scss");
+__webpack_require__(/*! ../themes/bootstrap.scss */ "./src/themes/bootstrap.scss");
+__webpack_require__(/*! ../../assets/icons.css */ "./assets/icons.css");
 var check_type_1 = __webpack_require__(/*! types/check.type */ "./src/types/check.type.ts");
 var column_mode_type_1 = __webpack_require__(/*! types/column-mode.type */ "./src/types/column-mode.type.ts");
 var contextmenu_type_1 = __webpack_require__(/*! types/contextmenu.type */ "./src/types/contextmenu.type.ts");
@@ -2302,6 +2179,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         _this.scrollbarHelper = new scrollbar_helper_service_1.ScrollbarHelper();
         _this.dimensionsHelper = new dimensions_helper_service_1.DimensionsHelper();
         _this.needToCalculateDims = true;
+        _this.activeGroupRow = null;
         return _this;
     }
     DatatableComponent.prototype.onRowsChanged = function (val) {
@@ -3076,6 +2954,11 @@ var DatatableComponent = /** @class */ (function (_super) {
         }
         if (typeof event.value !== 'boolean') {
             event.value.__expanded = !event.value.__expanded;
+            if (this.activeGroupRow) {
+                this.activeGroupRow.active = false;
+            }
+            this.activeGroupRow = event.value;
+            this.activeGroupRow.active = true;
         }
         this.internalRows = this.processGroupedRows(this.groupedRows);
         this.recalculate();
@@ -3718,7 +3601,6 @@ exports["default"] = DatatableComponent;
   \************************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -3831,6 +3713,10 @@ var DataTableBodyGroupHeaderComponent = /** @class */ (function (_super) {
     ], DataTableBodyGroupHeaderComponent.prototype, "expanded", void 0);
     __decorate([
         (0, vue_property_decorator_1.Prop)(),
+        __metadata("design:type", Boolean)
+    ], DataTableBodyGroupHeaderComponent.prototype, "active", void 0);
+    __decorate([
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Function)
     ], DataTableBodyGroupHeaderComponent.prototype, "groupHeaderSlot", void 0);
     __decorate([
@@ -3843,7 +3729,7 @@ var DataTableBodyGroupHeaderComponent = /** @class */ (function (_super) {
     ], DataTableBodyGroupHeaderComponent.prototype, "groupRowsBy", void 0);
     DataTableBodyGroupHeaderComponent = __decorate([
         (0, vue_property_decorator_1.Component)({
-            template: "\n    <div\n      :class=\"{ 'datatable-icon-right': !expanded, 'datatable-icon-down': expanded }\"\n      :style=\"styles\"\n      title=\"Expand/Collapse Group\"\n      @click=\"toggleExpandGroup\"\n    >\n      <slot name=\"groupHeader\" v-bind=\"{ group: group, expanded: expanded, level: groupLevel, groupBy: groupBy }\">\n        <span\n          ><b>{{ groupTitle }}</b></span\n        >\n      </slot>\n    </div>\n  ",
+            template: "\n    <div\n      :class=\"{ 'datatable-icon-right': !expanded, 'datatable-icon-down': expanded, 'active': active }\"\n      :style=\"styles\"\n      title=\"Expand/Collapse Group\"\n      @click=\"toggleExpandGroup\"\n    >\n      <slot name=\"groupHeader\" v-bind=\"{ group: group, expanded: expanded, level: groupLevel, groupBy: groupBy }\">\n        <span\n          ><b>{{ groupTitle }}</b></span\n        >\n      </slot>\n    </div>\n  ",
         })
     ], DataTableBodyGroupHeaderComponent);
     return DataTableBodyGroupHeaderComponent;
@@ -3859,7 +3745,6 @@ exports["default"] = DataTableBodyGroupHeaderComponent;
   \**********************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -3939,7 +3824,6 @@ exports["default"] = DataTableBodyRowDetailComponent;
   \*******************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -3987,7 +3871,6 @@ exports["default"] = ProgressBarComponent;
   \***************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -4207,7 +4090,6 @@ exports["default"] = ScrollerComponent;
   \****************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -4737,7 +4619,6 @@ exports["default"] = DataTableSelectionComponent;
   \**************************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -4930,7 +4811,6 @@ exports["default"] = DataTableSummaryRowComponent;
   \****************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -5163,7 +5043,6 @@ exports["default"] = DataTableColumnComponent;
   \***************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -5302,7 +5181,6 @@ exports["default"] = DataTableFooterComponent;
   \**************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -5488,7 +5366,6 @@ exports["default"] = DataTablePagerComponent;
   \********************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -5844,7 +5721,6 @@ exports["default"] = DataTableHeaderCellComponent;
   \***************************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = function (d, b) {
@@ -6332,7 +6208,6 @@ exports["default"] = DataTableHeaderComponent;
   \***********************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
@@ -6461,7 +6336,6 @@ exports["default"] = vue_property_decorator_1.Vue.directive('draggable', {
   \************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
@@ -6628,7 +6502,6 @@ exports["default"] = vue_property_decorator_1.Vue.directive('long-press', {
   \************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
@@ -6735,7 +6608,6 @@ exports["default"] = vue_property_decorator_1.Vue.directive('resizeable', {
   \************************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
@@ -6834,7 +6706,6 @@ exports["default"] = vue_property_decorator_1.Vue.directive('visibility-observer
   \***************************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.DimensionsHelper = void 0;
@@ -6861,7 +6732,6 @@ exports.DimensionsHelper = DimensionsHelper;
   \**************************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ScrollbarHelper = void 0;
@@ -6902,7 +6772,6 @@ exports.ScrollbarHelper = ScrollbarHelper;
   \*********************************/
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.CheckMode = void 0;
@@ -6921,7 +6790,6 @@ var CheckMode;
   \***************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ColumnMode = void 0;
@@ -6941,7 +6809,6 @@ var ColumnMode;
   \***************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ContextmenuType = void 0;
@@ -6960,7 +6827,6 @@ var ContextmenuType;
   \*************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SelectionType = void 0;
@@ -6983,7 +6849,6 @@ var SelectionType;
   \******************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SortDirection = void 0;
@@ -7002,7 +6867,6 @@ var SortDirection;
   \********************************/
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.SortType = void 0;
@@ -7021,7 +6885,6 @@ var SortType;
   \*********************************/
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.deCamelCase = exports.camelCase = void 0;
@@ -7064,7 +6927,6 @@ exports.deCamelCase = deCamelCase;
   \************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.isNullOrUndefined = exports.setColumnDefaults = exports.setColumnsDefaults = void 0;
@@ -7190,7 +7052,6 @@ exports.isNullOrUndefined = isNullOrUndefined;
   \******************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 // maybe rename this file to prop-getters.ts
 Object.defineProperty(exports, "__esModule", ({ value: true }));
@@ -7311,7 +7172,6 @@ exports.deepValueGetter = deepValueGetter;
   \*****************************/
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.columnsByPinArr = exports.columnsTotalWidth = exports.columnTotalWidth = exports.columnGroupWidths = exports.columnsByPin = void 0;
@@ -7411,7 +7271,6 @@ exports.columnsByPinArr = columnsByPinArr;
   \**********************************/
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.isArrayEqual = void 0;
@@ -7450,7 +7309,6 @@ exports.isArrayEqual = isArrayEqual;
   \*************************/
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.id = void 0;
@@ -7473,7 +7331,6 @@ exports.id = id;
   \***************************/
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Keys = void 0;
@@ -7498,7 +7355,6 @@ var Keys;
   \***************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.forceFillColumnWidths = exports.adjustColumnWidths = void 0;
@@ -7727,7 +7583,6 @@ function getContentWidth(allColumns, defaultColWidth) {
   \*******************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.getVendorPrefixedName = void 0;
@@ -7783,7 +7638,6 @@ exports.getVendorPrefixedName = getVendorPrefixedName;
   \***************************************/
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.RowHeightCache = void 0;
@@ -8027,7 +7881,6 @@ exports.RowHeightCache = RowHeightCache;
   \***************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
@@ -8194,7 +8047,6 @@ exports.sortRows = sortRows;
   \*******************************/
 /***/ ((__unused_webpack_module, exports) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.throttleable = exports.throttle = void 0;
@@ -8278,7 +8130,6 @@ exports.throttleable = throttleable;
   \********************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-"use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.translateXY = void 0;
@@ -8318,7 +8169,6 @@ exports.translateXY = translateXY;
   \***************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-"use strict";
 
 var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
     if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
@@ -8481,7 +8331,6 @@ var TreeNode = /** @class */ (function () {
   \*****************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -8523,7 +8372,6 @@ component.options.__file = "src/components/body/body-cell.component.vue"
   \************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -8565,7 +8413,6 @@ component.options.__file = "src/components/body/body-row-wrapper.component.vue"
   \****************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -8607,7 +8454,6 @@ component.options.__file = "src/components/body/body-row.component.vue"
   \************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -8649,7 +8495,6 @@ component.options.__file = "src/components/body/body.component.vue"
   \*************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
@@ -8797,7 +8642,6 @@ render._withStripped = true
   \********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
@@ -8991,7 +8835,6 @@ render._withStripped = true
   \********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
@@ -9180,23 +9023,39 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss&":
+/*!***********************************************************************************************!*\
+  !*** ./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss& + 1 modules ***!
+  \***********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+// ESM COMPAT FLAG
+__webpack_require__.r(__webpack_exports__);
+
+;// CONCATENATED MODULE: ./node_modules/mini-css-extract-plugin/dist/loader.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[3]!./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss&
+// extracted by mini-css-extract-plugin
+
+;// CONCATENATED MODULE: ./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss&
+
+
+/***/ }),
+
 /***/ "./src/components/body/body-cell.component.ts?vue&type=script&lang=js&":
 /*!*****************************************************************************!*\
   !*** ./src/components/body/body-cell.component.ts?vue&type=script&lang=js& ***!
   \*****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!../../../node_modules/source-map-loader/dist/cjs.js!./body-cell.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body-cell.component.ts?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/ts-loader/index.js??clonedRuleSet-6[0].rules[0]!../../../node_modules/source-map-loader/dist/cjs.js!./body-cell.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js??clonedRuleSet-6[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body-cell.component.ts?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
 /* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default())); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_cell_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default())); 
 
 /***/ }),
 
@@ -9206,17 +9065,16 @@ __webpack_require__.r(__webpack_exports__);
   \************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!../../../node_modules/source-map-loader/dist/cjs.js!./body-row-wrapper.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body-row-wrapper.component.ts?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/ts-loader/index.js??clonedRuleSet-6[0].rules[0]!../../../node_modules/source-map-loader/dist/cjs.js!./body-row-wrapper.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js??clonedRuleSet-6[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body-row-wrapper.component.ts?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
 /* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default())); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_wrapper_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default())); 
 
 /***/ }),
 
@@ -9226,17 +9084,16 @@ __webpack_require__.r(__webpack_exports__);
   \****************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!../../../node_modules/source-map-loader/dist/cjs.js!./body-row.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body-row.component.ts?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/ts-loader/index.js??clonedRuleSet-6[0].rules[0]!../../../node_modules/source-map-loader/dist/cjs.js!./body-row.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js??clonedRuleSet-6[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body-row.component.ts?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
 /* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default())); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_row_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default())); 
 
 /***/ }),
 
@@ -9246,17 +9103,16 @@ __webpack_require__.r(__webpack_exports__);
   \************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!../../../node_modules/source-map-loader/dist/cjs.js!./body.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body.component.ts?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/ts-loader/index.js??clonedRuleSet-6[0].rules[0]!../../../node_modules/source-map-loader/dist/cjs.js!./body.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js??clonedRuleSet-6[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/body/body.component.ts?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
 /* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default())); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_body_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default())); 
 
 /***/ }),
 
@@ -9266,17 +9122,16 @@ __webpack_require__.r(__webpack_exports__);
   \************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!../../node_modules/source-map-loader/dist/cjs.js!./datatable.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js??clonedRuleSet-7[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/datatable.component.ts?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/ts-loader/index.js??clonedRuleSet-6[0].rules[0]!../../node_modules/source-map-loader/dist/cjs.js!./datatable.component.ts?vue&type=script&lang=js& */ "./node_modules/ts-loader/index.js??clonedRuleSet-6[0].rules[0]!./node_modules/source-map-loader/dist/cjs.js!./src/components/datatable.component.ts?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__);
 /* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
+/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
 /* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_node_modules_ts_loader_index_js_clonedRuleSet_7_0_rules_0_node_modules_source_map_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default())); 
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ((_node_modules_ts_loader_index_js_clonedRuleSet_6_0_rules_0_node_modules_source_map_loader_dist_cjs_js_datatable_component_ts_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0___default())); 
 
 /***/ }),
 
@@ -9286,7 +9141,6 @@ __webpack_require__.r(__webpack_exports__);
   \*******************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
@@ -9319,6 +9173,7 @@ var render = function () {
               groupLevel: _vm.row.level,
               groupRowsBy: _vm.groupRowsBy,
               expanded: _vm.row.__expanded,
+              active: _vm.row.active,
               groupHeaderSlot: _vm.groupHeaderSlot,
             },
             on: {
@@ -9370,7 +9225,6 @@ render._withStripped = true
   \***********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 // ESM COMPAT FLAG
 __webpack_require__.r(__webpack_exports__);
 
@@ -9445,30 +9299,12 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss&":
-/*!***********************************************************************************!*\
-  !*** ./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss& ***!
-  \***********************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_6_0_rules_0_use_2_datatable_component_scss_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../node_modules/vue-style-loader/index.js!../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-6[0].rules[0].use[2]!./datatable.component.scss?vue&type=style&index=0&lang=scss& */ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-6[0].rules[0].use[2]!./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss&");
-/* harmony import */ var _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_6_0_rules_0_use_2_datatable_component_scss_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_6_0_rules_0_use_2_datatable_component_scss_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__);
-/* harmony reexport (unknown) */ var __WEBPACK_REEXPORT_OBJECT__ = {};
-/* harmony reexport (unknown) */ for(const __WEBPACK_IMPORT_KEY__ in _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_6_0_rules_0_use_2_datatable_component_scss_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== "default") __WEBPACK_REEXPORT_OBJECT__[__WEBPACK_IMPORT_KEY__] = () => _node_modules_vue_style_loader_index_js_node_modules_css_loader_dist_cjs_js_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_sass_loader_dist_cjs_js_clonedRuleSet_6_0_rules_0_use_2_datatable_component_scss_vue_type_style_index_0_lang_scss___WEBPACK_IMPORTED_MODULE_0__[__WEBPACK_IMPORT_KEY__]
-/* harmony reexport (unknown) */ __webpack_require__.d(__webpack_exports__, __WEBPACK_REEXPORT_OBJECT__);
-
-
-/***/ }),
-
 /***/ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js":
 /*!********************************************************************!*\
   !*** ./node_modules/vue-loader/lib/runtime/componentNormalizer.js ***!
   \********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ normalizeComponent)
@@ -9575,305 +9411,12 @@ function normalizeComponent (
 
 /***/ }),
 
-/***/ "./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-6[0].rules[0].use[2]!./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss&":
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-style-loader/index.js!./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-6[0].rules[0].use[2]!./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss& ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************/
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
-
-// style-loader: Adds some css to the DOM by adding a <style> tag
-
-// load the styles
-var content = __webpack_require__(/*! !!../../node_modules/css-loader/dist/cjs.js!../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../node_modules/sass-loader/dist/cjs.js??clonedRuleSet-6[0].rules[0].use[2]!./datatable.component.scss?vue&type=style&index=0&lang=scss& */ "./node_modules/css-loader/dist/cjs.js!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-6[0].rules[0].use[2]!./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss&");
-if(content.__esModule) content = content.default;
-if(typeof content === 'string') content = [[module.id, content, '']];
-if(content.locals) module.exports = content.locals;
-// add the styles to the DOM
-var add = __webpack_require__(/*! !../../node_modules/vue-style-loader/lib/addStylesClient.js */ "./node_modules/vue-style-loader/lib/addStylesClient.js")["default"]
-var update = add("33594574", content, false, {});
-// Hot Module Replacement
-if(false) {}
-
-/***/ }),
-
-/***/ "./node_modules/vue-style-loader/lib/addStylesClient.js":
-/*!**************************************************************************!*\
-  !*** ./node_modules/vue-style-loader/lib/addStylesClient.js + 1 modules ***!
-  \**************************************************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-// ESM COMPAT FLAG
-__webpack_require__.r(__webpack_exports__);
-
-// EXPORTS
-__webpack_require__.d(__webpack_exports__, {
-  "default": () => (/* binding */ addStylesClient)
-});
-
-;// CONCATENATED MODULE: ./node_modules/vue-style-loader/lib/listToStyles.js
-/**
- * Translates the list format produced by css-loader into something
- * easier to manipulate.
- */
-function listToStyles (parentId, list) {
-  var styles = []
-  var newStyles = {}
-  for (var i = 0; i < list.length; i++) {
-    var item = list[i]
-    var id = item[0]
-    var css = item[1]
-    var media = item[2]
-    var sourceMap = item[3]
-    var part = {
-      id: parentId + ':' + i,
-      css: css,
-      media: media,
-      sourceMap: sourceMap
-    }
-    if (!newStyles[id]) {
-      styles.push(newStyles[id] = { id: id, parts: [part] })
-    } else {
-      newStyles[id].parts.push(part)
-    }
-  }
-  return styles
-}
-
-;// CONCATENATED MODULE: ./node_modules/vue-style-loader/lib/addStylesClient.js
-/*
-  MIT License http://www.opensource.org/licenses/mit-license.php
-  Author Tobias Koppers @sokra
-  Modified by Evan You @yyx990803
-*/
-
-
-
-var hasDocument = typeof document !== 'undefined'
-
-if (typeof DEBUG !== 'undefined' && DEBUG) {
-  if (!hasDocument) {
-    throw new Error(
-    'vue-style-loader cannot be used in a non-browser environment. ' +
-    "Use { target: 'node' } in your Webpack config to indicate a server-rendering environment."
-  ) }
-}
-
-/*
-type StyleObject = {
-  id: number;
-  parts: Array<StyleObjectPart>
-}
-
-type StyleObjectPart = {
-  css: string;
-  media: string;
-  sourceMap: ?string
-}
-*/
-
-var stylesInDom = {/*
-  [id: number]: {
-    id: number,
-    refs: number,
-    parts: Array<(obj?: StyleObjectPart) => void>
-  }
-*/}
-
-var head = hasDocument && (document.head || document.getElementsByTagName('head')[0])
-var singletonElement = null
-var singletonCounter = 0
-var isProduction = false
-var noop = function () {}
-var options = null
-var ssrIdKey = 'data-vue-ssr-id'
-
-// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-// tags it will allow on a page
-var isOldIE = typeof navigator !== 'undefined' && /msie [6-9]\b/.test(navigator.userAgent.toLowerCase())
-
-function addStylesClient (parentId, list, _isProduction, _options) {
-  isProduction = _isProduction
-
-  options = _options || {}
-
-  var styles = listToStyles(parentId, list)
-  addStylesToDom(styles)
-
-  return function update (newList) {
-    var mayRemove = []
-    for (var i = 0; i < styles.length; i++) {
-      var item = styles[i]
-      var domStyle = stylesInDom[item.id]
-      domStyle.refs--
-      mayRemove.push(domStyle)
-    }
-    if (newList) {
-      styles = listToStyles(parentId, newList)
-      addStylesToDom(styles)
-    } else {
-      styles = []
-    }
-    for (var i = 0; i < mayRemove.length; i++) {
-      var domStyle = mayRemove[i]
-      if (domStyle.refs === 0) {
-        for (var j = 0; j < domStyle.parts.length; j++) {
-          domStyle.parts[j]()
-        }
-        delete stylesInDom[domStyle.id]
-      }
-    }
-  }
-}
-
-function addStylesToDom (styles /* Array<StyleObject> */) {
-  for (var i = 0; i < styles.length; i++) {
-    var item = styles[i]
-    var domStyle = stylesInDom[item.id]
-    if (domStyle) {
-      domStyle.refs++
-      for (var j = 0; j < domStyle.parts.length; j++) {
-        domStyle.parts[j](item.parts[j])
-      }
-      for (; j < item.parts.length; j++) {
-        domStyle.parts.push(addStyle(item.parts[j]))
-      }
-      if (domStyle.parts.length > item.parts.length) {
-        domStyle.parts.length = item.parts.length
-      }
-    } else {
-      var parts = []
-      for (var j = 0; j < item.parts.length; j++) {
-        parts.push(addStyle(item.parts[j]))
-      }
-      stylesInDom[item.id] = { id: item.id, refs: 1, parts: parts }
-    }
-  }
-}
-
-function createStyleElement () {
-  var styleElement = document.createElement('style')
-  styleElement.type = 'text/css'
-  head.appendChild(styleElement)
-  return styleElement
-}
-
-function addStyle (obj /* StyleObjectPart */) {
-  var update, remove
-  var styleElement = document.querySelector('style[' + ssrIdKey + '~="' + obj.id + '"]')
-
-  if (styleElement) {
-    if (isProduction) {
-      // has SSR styles and in production mode.
-      // simply do nothing.
-      return noop
-    } else {
-      // has SSR styles but in dev mode.
-      // for some reason Chrome can't handle source map in server-rendered
-      // style tags - source maps in <style> only works if the style tag is
-      // created and inserted dynamically. So we remove the server rendered
-      // styles and inject new ones.
-      styleElement.parentNode.removeChild(styleElement)
-    }
-  }
-
-  if (isOldIE) {
-    // use singleton mode for IE9.
-    var styleIndex = singletonCounter++
-    styleElement = singletonElement || (singletonElement = createStyleElement())
-    update = applyToSingletonTag.bind(null, styleElement, styleIndex, false)
-    remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true)
-  } else {
-    // use multi-style-tag mode in all other cases
-    styleElement = createStyleElement()
-    update = applyToTag.bind(null, styleElement)
-    remove = function () {
-      styleElement.parentNode.removeChild(styleElement)
-    }
-  }
-
-  update(obj)
-
-  return function updateStyle (newObj /* StyleObjectPart */) {
-    if (newObj) {
-      if (newObj.css === obj.css &&
-          newObj.media === obj.media &&
-          newObj.sourceMap === obj.sourceMap) {
-        return
-      }
-      update(obj = newObj)
-    } else {
-      remove()
-    }
-  }
-}
-
-var replaceText = (function () {
-  var textStore = []
-
-  return function (index, replacement) {
-    textStore[index] = replacement
-    return textStore.filter(Boolean).join('\n')
-  }
-})()
-
-function applyToSingletonTag (styleElement, index, remove, obj) {
-  var css = remove ? '' : obj.css
-
-  if (styleElement.styleSheet) {
-    styleElement.styleSheet.cssText = replaceText(index, css)
-  } else {
-    var cssNode = document.createTextNode(css)
-    var childNodes = styleElement.childNodes
-    if (childNodes[index]) styleElement.removeChild(childNodes[index])
-    if (childNodes.length) {
-      styleElement.insertBefore(cssNode, childNodes[index])
-    } else {
-      styleElement.appendChild(cssNode)
-    }
-  }
-}
-
-function applyToTag (styleElement, obj) {
-  var css = obj.css
-  var media = obj.media
-  var sourceMap = obj.sourceMap
-
-  if (media) {
-    styleElement.setAttribute('media', media)
-  }
-  if (options.ssrId) {
-    styleElement.setAttribute(ssrIdKey, obj.id)
-  }
-
-  if (sourceMap) {
-    // https://developer.chrome.com/devtools/docs/javascript-debugging
-    // this makes source maps inside style tags work properly in Chrome
-    css += '\n/*# sourceURL=' + sourceMap.sources[0] + ' */'
-    // http://stackoverflow.com/a/26603875
-    css += '\n/*# sourceMappingURL=data:application/json;base64,' + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + ' */'
-  }
-
-  if (styleElement.styleSheet) {
-    styleElement.styleSheet.cssText = css
-  } else {
-    while (styleElement.firstChild) {
-      styleElement.removeChild(styleElement.firstChild)
-    }
-    styleElement.appendChild(document.createTextNode(css))
-  }
-}
-
-
-/***/ }),
-
 /***/ "vue-property-decorator":
 /*!*****************************************!*\
   !*** external "vue-property-decorator" ***!
   \*****************************************/
 /***/ ((module) => {
 
-"use strict";
 module.exports = __WEBPACK_EXTERNAL_MODULE_vue_property_decorator__;
 
 /***/ })
@@ -9892,7 +9435,7 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_vue_property_decorator__;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
-/******/ 			id: moduleId,
+/******/ 			// no module.id needed
 /******/ 			// no module.loaded needed
 /******/ 			exports: {}
 /******/ 		};
@@ -9947,9 +9490,8 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_vue_property_decorator__;
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
 (() => {
-"use strict";
 /*!************************************************!*\
   !*** ./src/components/datatable.component.vue ***!
   \************************************************/

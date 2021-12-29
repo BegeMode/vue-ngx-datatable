@@ -267,6 +267,11 @@ $datatable-summary-row-background-hover: #ddd !default;
       display: flex;
       align-items: center;
       cursor: pointer;
+
+      &.active {
+        background-color: $ngx-datatable-selected-active-background;
+        color: $ngx-datatable-selected-active-color;
+      }
     }
 
     .datatable-body-row {
