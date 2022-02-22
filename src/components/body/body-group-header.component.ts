@@ -27,6 +27,7 @@ export default class DataTableBodyGroupHeaderComponent extends Vue {
   @Prop() groupHeaderSlot: (obj: Record<string, unknown>) => VNode[];
   @Prop() groupLevel: number;
   @Prop() groupRowsBy: Array<TGroupByField | Array<TGroupByField>>;
+  @Prop() offsetX: number;
 
   created(): void {
     if (this.groupHeaderSlot) {
@@ -77,6 +78,8 @@ export default class DataTableBodyGroupHeaderComponent extends Vue {
   get styles(): Record<string, string> {
     return {
       'padding-left': this.groupLevel ? `${this.groupLevel * 10}px` : '5px',
+      // don't horizontal scroll for group rows headers
+      // transform: `translateX(${this.offsetX}px)`,
     };
   }
 

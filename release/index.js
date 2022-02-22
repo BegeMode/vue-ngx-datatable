@@ -1,5 +1,5 @@
 /**
- * vue-data-table v"1.4.2" (https://github.com/begemode/vue-ngx-data-table)
+ * vue-data-table v"1.4.3" (https://github.com/begemode/vue-ngx-data-table)
  * Copyright 2018
  * Licensed under MIT
  */
@@ -453,9 +453,7 @@ var DataTableRowWrapperComponent = /** @class */ (function (_super) {
         get: function () {
             var _a;
             var styles = (_a = this.groupHeaderStyles) !== null && _a !== void 0 ? _a : {};
-            styles['transform'] = "translate3d(" + this.offsetX + "px, 0px, 0px)'";
             styles['backface-visibility'] = 'hidden';
-            styles['width'] = this.innerWidth || '100%';
             styles['height'] = this.groupRowHeight ? this.groupRowHeight + "px" : 'auto';
             return styles;
         },
@@ -1213,16 +1211,6 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
                 offsetY: scrollYPos,
                 offsetX: scrollXPos,
             });
-            if (this.groupHeader && this.myOffsetX !== scrollXPos) {
-                // don't horizontal scroll for group rows headers
-                var headers = this.$el.querySelectorAll('.datatable-group-header');
-                if (headers && headers.length) {
-                    headers.forEach(function (h) {
-                        h.style.width = _this.$el.clientWidth + "px";
-                        h.style.transform = "translateX(" + scrollXPos + "px)";
-                    });
-                }
-            }
         }
         this.offsetY = scrollYPos;
         this.myOffsetX = scrollXPos;
@@ -1398,7 +1386,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         var styles = {};
         // only add styles for the group if there is a group
         if (this.groupRowsBy) {
-            styles['width'] = '100%'; // this.columnGroupWidths.total + 'px';
+            styles['width'] = this.columnGroupWidths.total + "px";
         }
         if (this.scrollbarV && this.virtualization) {
             var idx = 0;
@@ -2167,6 +2155,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         _this.innerOffset = 0; // page number after scrolling
         _this.mySelected = [];
         _this.myChecked = [];
+        _this.expandedGroups = {};
         _this.renderTracking = false;
         _this.isVisible = false;
         _this.rowDetail = false; // DatatableRowDetailDirective;
@@ -2212,6 +2201,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         if ((0, equal_array_1.isArrayEqual)(newVal, oldVal)) {
             return;
         }
+        this.expandedGroups = {};
         this.groupHeader = Boolean(this.groupRowsBy);
         this.groupedRows = null;
         if (this.groupRowsBy) {
@@ -2954,6 +2944,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         }
         if (typeof event.value !== 'boolean') {
             event.value.__expanded = !event.value.__expanded;
+            this.expandedGroups[event.value.key] = event.value.__expanded;
             if (this.activeGroupRow) {
                 this.activeGroupRow.active = false;
             }
@@ -3096,6 +3087,13 @@ var DatatableComponent = /** @class */ (function (_super) {
         var _a;
         return (_a = this.bodyComponent) === null || _a === void 0 ? void 0 : _a.isRowVisible(row);
     };
+    /**
+     * Is the group row expanded
+     */
+    DatatableComponent.prototype.isGroupExpanded = function (key) {
+        var _a;
+        return (_a = this.expandedGroups[key]) !== null && _a !== void 0 ? _a : true;
+    };
     DatatableComponent.prototype.innerSortRows = function () {
         var treeFrom = (0, tree_1.optionalGetterForProp)(this.treeFromRelation);
         var treeTo = (0, tree_1.optionalGetterForProp)(this.treeToRelation);
@@ -3206,7 +3204,7 @@ var DatatableComponent = /** @class */ (function (_super) {
             rows: value,
             level: level1,
             keys: keysObj,
-            __expanded: true,
+            __expanded: this.isGroupExpanded(key),
             __isGroup: true,
         };
     };
@@ -3253,6 +3251,7 @@ var DatatableComponent = /** @class */ (function (_super) {
     DatatableComponent.prototype.expandCollapseRow = function (group, expand) {
         var _this = this;
         group.__expanded = expand;
+        this.expandedGroups[group.key] = group.__expanded;
         if (Array.isArray(group.groups)) {
             group.groups.forEach(function (gr) {
                 _this.expandCollapseRow(gr, expand);
@@ -3684,6 +3683,8 @@ var DataTableBodyGroupHeaderComponent = /** @class */ (function (_super) {
         get: function () {
             return {
                 'padding-left': this.groupLevel ? this.groupLevel * 10 + "px" : '5px',
+                // don't horizontal scroll for group rows headers
+                // transform: `translateX(${this.offsetX}px)`,
             };
         },
         enumerable: false,
@@ -3727,6 +3728,10 @@ var DataTableBodyGroupHeaderComponent = /** @class */ (function (_super) {
         (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Array)
     ], DataTableBodyGroupHeaderComponent.prototype, "groupRowsBy", void 0);
+    __decorate([
+        (0, vue_property_decorator_1.Prop)(),
+        __metadata("design:type", Number)
+    ], DataTableBodyGroupHeaderComponent.prototype, "offsetX", void 0);
     DataTableBodyGroupHeaderComponent = __decorate([
         (0, vue_property_decorator_1.Component)({
             template: "\n    <div\n      :class=\"{ 'datatable-icon-right': !expanded, 'datatable-icon-down': expanded, 'active': active }\"\n      :style=\"styles\"\n      title=\"Expand/Collapse Group\"\n      @click=\"toggleExpandGroup\"\n    >\n      <slot name=\"groupHeader\" v-bind=\"{ group: group, expanded: expanded, level: groupLevel, groupBy: groupBy }\">\n        <span\n          ><b>{{ groupTitle }}</b></span\n        >\n      </slot>\n    </div>\n  ",
@@ -9169,6 +9174,7 @@ var render = function () {
             class: _vm.groupHeaderClasses,
             style: _vm.groupTitleStyles,
             attrs: {
+              offsetX: _vm.offsetX,
               group: _vm.row,
               groupLevel: _vm.row.level,
               groupRowsBy: _vm.groupRowsBy,

@@ -39,7 +39,9 @@ module.exports = function(options = {}) {
       path: dir('dist'),
       filename: '[name].js',
       sourceMapFilename: '[name].map',
-      chunkFilename: '[id].chunk.js'
+      chunkFilename: '[id].chunk.js',
+      clean: true,
+      assetModuleFilename: 'fonts/[name][ext]',
     },
     resolveLoader: {
       alias: {
@@ -74,9 +76,9 @@ module.exports = function(options = {}) {
         {
           test: /\.(png|svg|jpeg|jpg|gif)$/,
           type: 'asset/resource',
-          dependency: {
-            not: ['url']
-          },
+          // dependency: {
+          //   not: ['url']
+          // },
           // loader: 'url-loader',
           // options: {
           //   limit: '100000'

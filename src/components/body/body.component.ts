@@ -389,16 +389,6 @@ export default class DataTableBodyComponent extends Vue {
         offsetY: scrollYPos,
         offsetX: scrollXPos,
       });
-      if (this.groupHeader && this.myOffsetX !== scrollXPos) {
-        // don't horizontal scroll for group rows headers
-        const headers = this.$el.querySelectorAll('.datatable-group-header');
-        if (headers && headers.length) {
-          headers.forEach((h: HTMLElement) => {
-            h.style.width = `${this.$el.clientWidth}px`;
-            h.style.transform = `translateX(${scrollXPos}px)`;
-          });
-        }
-      }
     }
     this.offsetY = scrollYPos;
     this.myOffsetX = scrollXPos;
@@ -592,7 +582,7 @@ export default class DataTableBodyComponent extends Vue {
     const styles = {};
     // only add styles for the group if there is a group
     if (this.groupRowsBy) {
-      styles['width'] = '100%'; // this.columnGroupWidths.total + 'px';
+      styles['width'] = `${this.columnGroupWidths.total}px`;
     }
 
     if (this.scrollbarV && this.virtualization) {

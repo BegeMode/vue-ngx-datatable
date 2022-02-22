@@ -361,6 +361,7 @@ export default class DatatableComponent extends Vue {
   innerOffset = 0; // page number after scrolling
   mySelected: Array<Record<string, unknown>> = [];
   myChecked: Array<Record<string, unknown>> = [];
+  expandedGroups: Record<string, boolean> = {};
   renderTracking = false;
   isVisible = false;
 
@@ -420,6 +421,7 @@ export default class DatatableComponent extends Vue {
     if (isArrayEqual(newVal, oldVal)) {
       return;
     }
+    this.expandedGroups = {};
     this.groupHeader = Boolean(this.groupRowsBy);
     this.groupedRows = null;
     if (this.groupRowsBy) {
@@ -1144,6 +1146,7 @@ export default class DatatableComponent extends Vue {
     }
     if (typeof event.value !== 'boolean') {
       event.value.__expanded = !event.value.__expanded;
+      this.expandedGroups[event.value.key] = event.value.__expanded;
       if (this.activeGroupRow) {
         this.activeGroupRow.active = false;
       }
@@ -1292,6 +1295,13 @@ export default class DatatableComponent extends Vue {
     return this.bodyComponent?.isRowVisible(row);
   }
 
+  /**
+   * Is the group row expanded
+   */
+  private isGroupExpanded(key: string): boolean {
+    return this.expandedGroups[key] ?? true;
+  }
+
   private innerSortRows(): void {
     const treeFrom = optionalGetterForProp(this.treeFromRelation);
     const treeTo = optionalGetterForProp(this.treeToRelation);
@@ -1437,7 +1447,7 @@ export default class DatatableComponent extends Vue {
       rows: value,
       level: level1,
       keys: keysObj,
-      __expanded: true,
+      __expanded: this.isGroupExpanded(key),
       __isGroup: true,
     };
   }
@@ -1486,6 +1496,7 @@ export default class DatatableComponent extends Vue {
 
   private expandCollapseRow(group: IGroupedRows, expand: boolean): void {
     group.__expanded = expand;
+    this.expandedGroups[group.key] = group.__expanded;
     if (Array.isArray(group.groups)) {
       group.groups.forEach(gr => {
         this.expandCollapseRow(gr, expand);

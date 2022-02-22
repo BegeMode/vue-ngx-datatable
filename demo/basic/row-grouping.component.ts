@@ -13,9 +13,9 @@ interface IRow {
   age: number;
   comment: string;
   groupcomment: string;
-  startdate: string;
-  enddate: string;
-  groupstatus: string;
+  startdate?: string;
+  enddate?: string;
+  groupstatus?: string;
   dt: string;
 }
 
@@ -39,6 +39,7 @@ interface IRow {
       <div style="margin-left: 50%;">
         <button @click="onExpandAll">Expand all</button>
         <button @click="onCollapseAll">Collapse all</button>
+        <!-- <button @click="onAddRow">Add row</button> -->
       </div>
 
       <ngx-datatable
@@ -239,7 +240,7 @@ export default class RowGroupingComponent  extends Vue {
     gr[0].groupstatus = groupStatus;    
   }
 
-  updateValue(event: { target: { checked: boolean; value: any }}, cell: string, rowIndex: number) {
+  updateValue(event: { target: { checked: boolean; value: unknown }}, cell: string, rowIndex: number) {
     this.editing[rowIndex + '-' + cell] = false;
     const row = this.rows[rowIndex];
     row[cell] = event.target.value;
@@ -250,7 +251,7 @@ export default class RowGroupingComponent  extends Vue {
   }
 
   groupTitle(group: {
-    key: string, level: number, value: any[],
+    key: string, level: number, rows: unknown[],
     keys: Array<{ title: string, prop: string, value: string }>
   }) {
     let result = '';
@@ -279,5 +280,21 @@ export default class RowGroupingComponent  extends Vue {
     }
     (table as unknown as { collapseAllGroups: () => void }).collapseAllGroups();
   }
+
+  // onAddRow() {
+  //   this.rows.push({
+  //     exppayyes: 1,
+  //     exppayno: 0,
+  //     exppaypending: 0,
+  //     source: 'Funder',
+  //     name: 'James Bond',
+  //     gender: 'female',
+  //     company: 'Samsung, LLC CMP DDC',
+  //     age: 22,
+  //     comment: 'test1',
+  //     groupcomment: 'group comment test  with multiple lines of text. group comment test  with multiple lines of text.',
+  //     dt: '2022-02-21T11:26:36.734Z',
+  //   });
+  // }
 
 }

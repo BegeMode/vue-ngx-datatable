@@ -5,6 +5,7 @@
       class="datatable-group-header"
       :class="groupHeaderClasses"
       :style="groupTitleStyles"
+      :offsetX="offsetX"
       :group="row"
       :groupLevel="row.level"
       :groupRowsBy="groupRowsBy"

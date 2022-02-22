@@ -46,9 +46,7 @@ export default class DataTableRowWrapperComponent extends Vue {
 
   get groupTitleStyles(): Record<string, string | number> {
     const styles = this.groupHeaderStyles ?? {};
-    styles['transform'] = `translate3d(${this.offsetX}px, 0px, 0px)'`;
     styles['backface-visibility'] = 'hidden';
-    styles['width'] = this.innerWidth || '100%';
     styles['height'] = this.groupRowHeight ? `${this.groupRowHeight}px` : 'auto';
     return styles;
   }
