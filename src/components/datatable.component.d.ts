@@ -294,6 +294,7 @@ export default class DatatableComponent extends Vue {
     innerOffset: number;
     mySelected: Array<Record<string, unknown>>;
     myChecked: Array<Record<string, unknown>>;
+    expandedGroups: Record<string, boolean>;
     renderTracking: boolean;
     isVisible: boolean;
     rowDetail: boolean;
@@ -533,6 +534,10 @@ export default class DatatableComponent extends Vue {
      * Is the row visible in the current page
      */
     isRowVisible(row: Record<string, unknown>): boolean;
+    /**
+     * Is the group row expanded
+     */
+    private isGroupExpanded;
     private innerSortRows;
     /**
      * Creates a map with the data grouped by the user choice of grouping index

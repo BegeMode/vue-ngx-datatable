@@ -10,6 +10,7 @@ export default class DataTableBodyGroupHeaderComponent extends Vue {
     groupHeaderSlot: (obj: Record<string, unknown>) => VNode[];
     groupLevel: number;
     groupRowsBy: Array<TGroupByField | Array<TGroupByField>>;
+    offsetX: number;
     created(): void;
     beforeUpdate(): void;
     /**

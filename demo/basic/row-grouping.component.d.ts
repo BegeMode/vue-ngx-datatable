@@ -10,9 +10,9 @@ interface IRow {
     age: number;
     comment: string;
     groupcomment: string;
-    startdate: string;
-    enddate: string;
-    groupstatus: string;
+    startdate?: string;
+    enddate?: string;
+    groupstatus?: string;
     dt: string;
 }
 export default class RowGroupingComponent extends Vue {
@@ -41,14 +41,14 @@ export default class RowGroupingComponent extends Vue {
     updateValue(event: {
         target: {
             checked: boolean;
-            value: any;
+            value: unknown;
         };
     }, cell: string, rowIndex: number): void;
     onDetailToggle(event: unknown): void;
     groupTitle(group: {
         key: string;
         level: number;
-        value: any[];
+        rows: unknown[];
         keys: Array<{
             title: string;
             prop: string;
