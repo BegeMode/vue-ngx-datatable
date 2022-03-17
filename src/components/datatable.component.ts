@@ -532,8 +532,8 @@ export default class DatatableComponent extends Vue {
   mounted(): void {
     this.bodyComponent = this.$refs.datatableBody as DataTableBody;
     this.headerComponent = this.$refs.datatableHeader as DataTableHeaderComponent;
-    this.groupHeaderSlot = this.$scopedSlots.groupHeader;
-    this.rowDetailSlot = this.$scopedSlots.rowDetail;
+    this.groupHeaderSlot = this.$scopedSlots.groupHeader || this.$scopedSlots['group-header'];
+    this.rowDetailSlot = this.$scopedSlots.rowDetail || this.$scopedSlots['row-detail'];
     this.footerSlot = this.$scopedSlots.footer;
     this.rowDetail = Boolean(this.rowDetailSlot);
 

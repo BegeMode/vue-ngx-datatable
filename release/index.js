@@ -1,5 +1,5 @@
 /**
- * vue-data-table v"1.4.3" (https://github.com/begemode/vue-ngx-data-table)
+ * vue-data-table v"1.4.4" (https://github.com/begemode/vue-ngx-data-table)
  * Copyright 2018
  * Licensed under MIT
  */
@@ -2303,8 +2303,8 @@ var DatatableComponent = /** @class */ (function (_super) {
         var _this = this;
         this.bodyComponent = this.$refs.datatableBody;
         this.headerComponent = this.$refs.datatableHeader;
-        this.groupHeaderSlot = this.$scopedSlots.groupHeader;
-        this.rowDetailSlot = this.$scopedSlots.rowDetail;
+        this.groupHeaderSlot = this.$scopedSlots.groupHeader || this.$scopedSlots['group-header'];
+        this.rowDetailSlot = this.$scopedSlots.rowDetail || this.$scopedSlots['row-detail'];
         this.footerSlot = this.$scopedSlots.footer;
         this.rowDetail = Boolean(this.rowDetailSlot);
         if (!this.externalSorting) {
@@ -4932,7 +4932,7 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
         this.$set(this.column, 'treeLevelIndent', this.treeLevelIndent);
         this.$set(this.column, 'summaryFunc', this.summaryFunc);
         this.$set(this.column, 'headerTemplate', this.$scopedSlots.header);
-        this.$set(this.column, 'headerAppendTemplate', this.$scopedSlots.headerAppend);
+        this.$set(this.column, 'headerAppendTemplate', this.$scopedSlots.headerAppend || this.$scopedSlots['header-append']);
         this.$set(this.column, 'cellTemplate', this.$scopedSlots.default);
         this.$set(this.column, 'summaryTemplate', this.$scopedSlots.summary);
         this.$set(this.column, 'visible', this.visible);

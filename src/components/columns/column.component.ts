@@ -114,7 +114,11 @@ export default class DataTableColumnComponent extends Vue {
     this.$set(this.column, 'treeLevelIndent', this.treeLevelIndent);
     this.$set(this.column, 'summaryFunc', this.summaryFunc);
     this.$set(this.column, 'headerTemplate', this.$scopedSlots.header);
-    this.$set(this.column, 'headerAppendTemplate', this.$scopedSlots.headerAppend);
+    this.$set(
+      this.column,
+      'headerAppendTemplate',
+      this.$scopedSlots.headerAppend || this.$scopedSlots['header-append']
+    );
     this.$set(this.column, 'cellTemplate', this.$scopedSlots.default);
     this.$set(this.column, 'summaryTemplate', this.$scopedSlots.summary);
     this.$set(this.column, 'visible', this.visible);
