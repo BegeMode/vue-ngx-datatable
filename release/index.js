@@ -1,5 +1,5 @@
 /**
- * vue-data-table v"1.4.4" (https://github.com/begemode/vue-ngx-data-table)
+ * vue-data-table v"1.4.5" (https://github.com/begemode/vue-ngx-data-table)
  * Copyright 2018
  * Licensed under MIT
  */
@@ -7434,16 +7434,21 @@ function scaleColumns(colsByGroup, maxWidth, totalFlexGrow) {
             for (var _b = 0, _c = colsByGroup[attr]; _b < _c.length; _b++) {
                 column = _c[_b];
                 // if the column can be resize and it hasn't reached its minimum width yet
-                if (column.canAutoResize && !hasMinWidth[column.prop]) {
-                    var newWidth = column.width + column.flexGrow * widthPerFlexPoint;
-                    if (column.minWidth && newWidth < column.minWidth) {
-                        remainingWidth += newWidth - column.minWidth;
-                        column.width = column.minWidth;
-                        hasMinWidth[column.prop] = true;
+                if (column.canAutoResize) {
+                    if (!hasMinWidth[column.prop]) {
+                        var newWidth = column.width + column.flexGrow * widthPerFlexPoint;
+                        if (column.minWidth && newWidth < column.minWidth) {
+                            remainingWidth += newWidth - column.minWidth;
+                            column.width = column.minWidth;
+                            hasMinWidth[column.prop] = true;
+                        }
+                        else {
+                            column.width = newWidth;
+                        }
                     }
-                    else {
-                        column.width = newWidth;
-                    }
+                }
+                else if (column.$$oldWidth) {
+                    column.width = column.$$oldWidth;
                 }
             }
         }

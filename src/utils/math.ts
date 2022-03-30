@@ -72,15 +72,19 @@ function scaleColumns(colsByGroup: IColumnsByPin, maxWidth: number, totalFlexGro
     for (const attr in colsByGroup) {
       for (column of colsByGroup[attr]) {
         // if the column can be resize and it hasn't reached its minimum width yet
-        if (column.canAutoResize && !hasMinWidth[column.prop]) {
-          const newWidth = column.width + column.flexGrow * widthPerFlexPoint;
-          if (column.minWidth && newWidth < column.minWidth) {
-            remainingWidth += newWidth - column.minWidth;
-            column.width = column.minWidth;
-            hasMinWidth[column.prop] = true;
-          } else {
-            column.width = newWidth;
+        if (column.canAutoResize) {
+          if (!hasMinWidth[column.prop]) {
+            const newWidth = column.width + column.flexGrow * widthPerFlexPoint;
+            if (column.minWidth && newWidth < column.minWidth) {
+              remainingWidth += newWidth - column.minWidth;
+              column.width = column.minWidth;
+              hasMinWidth[column.prop] = true;
+            } else {
+              column.width = newWidth;
+            }
           }
+        } else if (column.$$oldWidth) {
+          column.width = column.$$oldWidth;
         }
       }
     }
