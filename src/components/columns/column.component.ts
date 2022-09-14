@@ -48,6 +48,16 @@ export default class DataTableColumnComponent extends Vue {
     (this.$parent as DatatableComponent).onColumnChangeVisible(this.column);
   }
 
+  @Watch('frozenLeft') onFrozenLeftChanged(newVal: boolean): void {
+    this.column.frozenLeft = newVal;
+    (this.$parent as DatatableComponent).onColumnChangeVisible(this.column);
+  }
+
+  @Watch('frozenRight') onFrozenRightChanged(newVal: boolean): void {
+    this.column.frozenRight = newVal;
+    (this.$parent as DatatableComponent).onColumnChangeVisible(this.column);
+  }
+
   // @Watch('column.width') onWidthChanged(): void {
   //   this.$emit('update-width', this.column.width);
   // }

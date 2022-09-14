@@ -3913,6 +3913,7 @@ var ScrollerComponent = /** @class */ (function (_super) {
         _this.scrollXPos = 0;
         _this.prevScrollYPos = 0;
         _this.prevScrollXPos = 0;
+        _this.stopRender = false;
         return _this;
     }
     Object.defineProperty(ScrollerComponent.prototype, "styleObject", {
@@ -3969,6 +3970,7 @@ var ScrollerComponent = /** @class */ (function (_super) {
     };
     ScrollerComponent.prototype.beforeDestroy = function () {
         var _this = this;
+        this.stopRender = true;
         if (this.resizeObserver) {
             this.resizeObserver.unobserve(this.$el);
         }
@@ -4013,6 +4015,9 @@ var ScrollerComponent = /** @class */ (function (_super) {
     // }
     ScrollerComponent.prototype.tick = function () {
         var _this = this;
+        if (this.stopRender) {
+            return;
+        }
         requestAnimationFrame(function () { return _this.tick(); });
         // this.loading = Boolean(this.scrollTo !== ScrollTo.None);
         if (this.scrollbarV || this.scrollbarH) {
@@ -4863,6 +4868,14 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
         this.column.visible = newVal;
         this.$parent.onColumnChangeVisible(this.column);
     };
+    DataTableColumnComponent.prototype.onFrozenLeftChanged = function (newVal) {
+        this.column.frozenLeft = newVal;
+        this.$parent.onColumnChangeVisible(this.column);
+    };
+    DataTableColumnComponent.prototype.onFrozenRightChanged = function (newVal) {
+        this.column.frozenRight = newVal;
+        this.$parent.onColumnChangeVisible(this.column);
+    };
     // @Watch('column.width') onWidthChanged(): void {
     //   this.$emit('update-width', this.column.width);
     // }
@@ -5030,6 +5043,18 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
         __metadata("design:paramtypes", [Boolean]),
         __metadata("design:returntype", void 0)
     ], DataTableColumnComponent.prototype, "onVisibleChanged", null);
+    __decorate([
+        (0, vue_property_decorator_1.Watch)('frozenLeft'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Boolean]),
+        __metadata("design:returntype", void 0)
+    ], DataTableColumnComponent.prototype, "onFrozenLeftChanged", null);
+    __decorate([
+        (0, vue_property_decorator_1.Watch)('frozenRight'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Boolean]),
+        __metadata("design:returntype", void 0)
+    ], DataTableColumnComponent.prototype, "onFrozenRightChanged", null);
     DataTableColumnComponent = __decorate([
         (0, vue_property_decorator_1.Component)({
             template: "\n    <div>\n      <slot name=\"header\" v-bind=\"{column: column}\">\n        <!-- default content -->\n        {{ name }}\n      </slot>\n      <!-- default slot for cell -->\n      <slot> </slot>\n    </div>\n  ",

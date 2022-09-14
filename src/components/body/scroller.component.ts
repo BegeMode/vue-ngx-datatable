@@ -29,6 +29,7 @@ export default class ScrollerComponent extends Vue {
   scrollXPos = 0;
   prevScrollYPos = 0;
   prevScrollXPos = 0;
+  stopRender = false;
   parentElement: Element;
   // onScrollListener: (event: MouseEvent) => void;
   onInitScrollHandler: () => void;
@@ -77,6 +78,7 @@ export default class ScrollerComponent extends Vue {
   }
 
   beforeDestroy(): void {
+    this.stopRender = true;
     if (this.resizeObserver) {
       this.resizeObserver.unobserve(this.$el);
     }
@@ -124,6 +126,9 @@ export default class ScrollerComponent extends Vue {
   // }
 
   tick(): void {
+    if (this.stopRender) {
+      return;
+    }
     requestAnimationFrame(() => this.tick());
     // this.loading = Boolean(this.scrollTo !== ScrollTo.None);
     if (this.scrollbarV || this.scrollbarH) {
