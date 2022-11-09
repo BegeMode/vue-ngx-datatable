@@ -1,4 +1,5 @@
-import { TableColumnProp } from '../types/table-column.type';
+import { ISortPropDir } from 'types/sort-prop-dir.type';
+import { TableColumn, TableColumnProp } from '../types/table-column.type';
 export declare type OptionalValueGetter = (row: Record<string, unknown>) => unknown | undefined;
 export declare function optionalGetterForProp(prop: TableColumnProp): OptionalValueGetter;
 /**
@@ -40,4 +41,4 @@ export declare function optionalGetterForProp(prop: TableColumnProp): OptionalVa
 export declare function groupRowsByParents(rows: Array<{
     level: number;
     treeStatus?: string;
-}>, from?: OptionalValueGetter, to?: OptionalValueGetter, lazyTree?: boolean): Record<string, unknown>[];
+}>, from?: OptionalValueGetter, to?: OptionalValueGetter, columns?: TableColumn[], sortDirs?: ISortPropDir[], lazyTree?: boolean): Record<string, unknown>[];

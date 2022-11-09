@@ -27,6 +27,9 @@ export default class DataTableHeaderCellComponent extends Vue {
     resizeObserver?: ResizeObserver;
     onAllRowsSelectedChanged(): void;
     onColumnChahged(): void;
+    onColumnVisibleChahged(): void;
+    onColumnFrozenLeftChahged(): void;
+    onColumnFrozenRightChahged(): void;
     onSortsChanged(): void;
     created(): void;
     mounted(): void;

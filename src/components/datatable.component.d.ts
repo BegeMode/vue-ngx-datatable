@@ -9,6 +9,7 @@ import { SelectionType } from 'types/selection.type';
 import { SortType } from 'types/sort.type';
 import { ISortEvent, ISortPropDir } from 'types/sort-prop-dir.type';
 import { TableColumn } from 'types/table-column.type';
+import { IColumnsByPinRecord, IColumnsWidth } from 'utils/column';
 import { VNode } from 'vue';
 import { Vue } from 'vue-property-decorator';
 import DataTableBody from './body/body.component';
@@ -291,6 +292,7 @@ export default class DatatableComponent extends Vue {
     internalColumns: TableColumn[];
     myColumnMode: ColumnMode;
     mySortType: SortType;
+    mySorts: Array<ISortPropDir>;
     innerOffset: number;
     mySelected: Array<Record<string, unknown>>;
     myChecked: Array<Record<string, unknown>>;
@@ -302,10 +304,13 @@ export default class DatatableComponent extends Vue {
     groupHeaderSlot: (obj: Record<string, unknown>) => VNode[];
     rowDetailSlot: (obj: Record<string, unknown>) => VNode[];
     footerSlot: (obj: Record<string, unknown>) => VNode[];
+    columnGroupWidths: IColumnsWidth;
+    columnsByPinArray: IColumnsByPinRecord[];
     private readonly scrollbarHelper;
     private readonly dimensionsHelper;
     private needToCalculateDims;
     private activeGroupRow;
+    private recalculateColumnsTimer;
     onRowsChanged(val: Array<Record<string, unknown>>): void;
     onGroupRowsByChanged(newVal: Array<TGroupByField | Array<TGroupByField>>, oldVal: Array<TGroupByField | Array<TGroupByField>>): void;
     /**
@@ -329,6 +334,7 @@ export default class DatatableComponent extends Vue {
     onSelectedChanged(): void;
     onCheckedChanged(): void;
     onSortsChanged(): void;
+    onMySortsChanged(): void;
     /**
      * Window resize handler to update sizes.
      */
@@ -471,6 +477,11 @@ export default class DatatableComponent extends Vue {
         newValue: number;
     }): void;
     /**
+     * Force change order of columns
+     * @param order Array<naumber> (index - new position of column; value - old position of column)
+     */
+    reorderColumns(order: Array<number>): void;
+    /**
      * The header triggered a column re-order event.
      */
     onColumnReorder({ column, newValue, prevValue }: {
@@ -505,7 +516,7 @@ export default class DatatableComponent extends Vue {
     }): void;
     onColumnInsert(column: TableColumn): void;
     onColumnRemoved(column: TableColumn): void;
-    onColumnChangeVisible(column: TableColumn): void;
+    onColumnChangeVisible(column?: TableColumn): void;
     /**
      * listen for changes to input bindings of all DataTableColumnDirective and
      * trigger the columnTemplates.changes observable to emit

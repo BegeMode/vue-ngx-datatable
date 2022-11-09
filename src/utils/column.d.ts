@@ -30,4 +30,4 @@ export declare function columnTotalWidth(columns: TableColumn[]): number;
  * Calculates the total width of all columns and their groups
  */
 export declare function columnsTotalWidth(columns: TableColumn[]): number;
-export declare function columnsByPinArr(val: TableColumn[]): Array<IColumnsByPinRecord>;
+export declare function columnsByPinArr(val: IColumnsByPin): Array<IColumnsByPinRecord>;

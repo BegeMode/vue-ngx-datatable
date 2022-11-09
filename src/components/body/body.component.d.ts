@@ -53,6 +53,8 @@ export default class DataTableBodyComponent extends Vue {
     groupHeaderSlot: (obj: Record<string, unknown>) => VNode[];
     rowDetailSlot: (obj: Record<string, unknown>) => VNode[];
     renderTracking: boolean;
+    columnGroupWidths: IColumnsWidth;
+    columnsByPin: IColumnsByPinRecord[];
     beforeSelectRowCheck: (newRow: Record<string, unknown>, oldSelected: Record<string, unknown>[]) => boolean | Promise<boolean>;
     scroller: ScrollerComponent;
     selector: DataTableSelectionComponent;
@@ -64,11 +66,9 @@ export default class DataTableBodyComponent extends Vue {
         first: number;
         last: number;
     };
-    columnGroupWidths: IColumnsWidth;
     rowIndexes: Map<Record<string, unknown>, number>;
     rowExpansions: Map<Record<string, unknown> | IGroupedRows, boolean>;
     myBodyHeight: string;
-    columnsByPin: IColumnsByPinRecord[];
     groupStyles: {
         left: {};
         center: {};
@@ -83,6 +83,7 @@ export default class DataTableBodyComponent extends Vue {
     private readonly scrollbarHelper;
     private renderCounter;
     private renderId;
+    private pageRowCount;
     onPageSize(): void;
     onRowsChanged(): Promise<void>;
     onSelectedChanged(): Promise<void>;
@@ -91,6 +92,7 @@ export default class DataTableBodyComponent extends Vue {
     onOffsetChanged(): void;
     onOffsetXChanged(): void;
     onMyOffsetXChanged(): void;
+    onColumnGroupWidthsChanged(): void;
     onInnerWidthChanged(): void;
     onMyOffsetChanged(): void;
     onRowCountChanged(): void;
@@ -126,7 +128,6 @@ export default class DataTableBodyComponent extends Vue {
         selected: Array<Record<string, unknown>>;
         index: number;
     }): void;
-    recalculateColumns(width?: number): void;
     /**
      * Updates the Y offset given a new offset.
      */

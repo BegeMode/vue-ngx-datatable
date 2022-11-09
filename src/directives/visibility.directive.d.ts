@@ -1,4 +1,3 @@
-declare const _default: import("vue").DirectiveOptions;
 /**
  * Visibility Observer Directive
  *
@@ -10,4 +9,5 @@ declare const _default: import("vue").DirectiveOptions;
  * </div>
  *
  */
+declare const _default: import("vue").DirectiveOptions;
 export default _default;

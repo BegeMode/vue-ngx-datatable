@@ -6,11 +6,11 @@ export default class ScrollerComponent extends Vue {
     scrollWidth: string;
     fromPager: boolean;
     innerWidth: number;
-    get styleObject(): Record<string, unknown>;
     scrollYPos: number;
     scrollXPos: number;
     prevScrollYPos: number;
     prevScrollXPos: number;
+    stopRender: boolean;
     parentElement: Element;
     onInitScrollHandler: () => void;
     resizeObserver?: ResizeObserver;
@@ -23,4 +23,5 @@ export default class ScrollerComponent extends Vue {
     onInitScroll(): void;
     tick(): void;
     updateOffset(): void;
+    get styleObject(): Record<string, unknown>;
 }

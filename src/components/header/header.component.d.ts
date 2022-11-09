@@ -26,8 +26,8 @@ export default class DataTableHeaderComponent extends Vue {
     headerHeight: string | number;
     columns: TableColumn[];
     offsetX: number;
-    columnsByPin: IColumnsByPinRecord[];
     columnGroupWidths: IColumnsWidth;
+    columnsByPin: IColumnsByPinRecord[];
     myHeaderHeight: string;
     styleByGroup: {
         left: {};
@@ -49,6 +49,7 @@ export default class DataTableHeaderComponent extends Vue {
     onHeaderHeightChanged(): void;
     onColumnsChanged(): void;
     onOffsetXChanged(): void;
+    onColumnGroupWidthsChanged(): void;
     onLongPressStart({ event, model }: {
         event: MouseEvent;
         model: {
@@ -62,7 +63,7 @@ export default class DataTableHeaderComponent extends Vue {
     get headerWidth(): string;
     isEnableDragX(column: TableColumn): boolean;
     onColumnResized(width: number, column: TableColumn): void;
-    onHiddenChanged(): void;
+    onColumnVisibleChanged(column: TableColumn): void;
     getColumn(index: number): TableColumn;
     onSort({ column, prevValue, newValue, }: {
         column: TableColumn;

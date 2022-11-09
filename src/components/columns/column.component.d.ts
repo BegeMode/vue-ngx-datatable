@@ -26,5 +26,13 @@ export default class DataTableColumnComponent extends Vue {
     visible: boolean;
     column: TableColumn;
     onVisibleChanged(newVal: boolean): void;
+    onFrozenLeftChanged(newVal: boolean): void;
+    onFrozenRightChanged(newVal: boolean): void;
+    onFlexGrowChanged(newVal: number): void;
+    onResizeableChanged(newVal: boolean): void;
+    onSortableChanged(newVal: boolean): void;
+    onDraggableChanged(newVal: boolean): void;
+    onCheckboxableChanged(newVal: boolean): void;
+    onWidthChanged(newVal: number): void;
     mounted(): void;
 }
