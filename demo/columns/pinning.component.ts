@@ -17,6 +17,20 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
           </a>
         </small>
       </h3>
+      <div>
+        <input
+          type='checkbox'
+          id="check"
+          v-model="isVisibleFrozen"
+        />
+        <label for="check">Name is visibled</label>
+        <input
+          type='checkbox'
+          id="check1"
+          v-model="isNameFrozen"
+        />
+        <label for="check1">Name is frozen</label>
+      </div>
       <ngx-datatable
         class="material"
         :columnMode="'force'"
@@ -29,7 +43,9 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
         <ngx-datatable-column
           name="Name"
           :width="300"
-          :frozenLeft="true">
+          :resizeable="true"
+          :visible="isVisibleFrozen"
+          :frozenLeft="isNameFrozen">
         </ngx-datatable-column>
         <ngx-datatable-column
           name="Gender">
@@ -55,6 +71,8 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
 export default class ColumnPinningComponent extends Vue {
 
   rows: Array<Record<string, unknown>> = [];
+  isVisibleFrozen = true;
+  isNameFrozen = true;
 
   created() {
     this.fetch((data: Array<Record<string, unknown>>) => {

@@ -97,6 +97,9 @@ export default Vue.directive('resizeable', {
     el.addEventListener('mousedown', ctrl.handleDown);
   },
   unbind(el: HTMLElement) {
+    if (!el) {
+      return;
+    }
     const ctrl = (el as IHasResizeableDirectiveController).__resizeable__;
     document.removeEventListener('mouseup', ctrl.handleUp);
     el.removeEventListener('mousedown', ctrl.handleDown);

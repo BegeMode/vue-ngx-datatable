@@ -6,7 +6,7 @@ import { SortType } from 'types/sort.type';
 import { SortDirection } from 'types/sort-direction.type';
 import { ISortEvent, ISortPropDir } from 'types/sort-prop-dir.type';
 import { TableColumn } from 'types/table-column.type';
-import { columnGroupWidths, columnsByPin, columnsByPinArr, IColumnsByPinRecord, IColumnsWidth } from 'utils/column';
+import { IColumnsByPinRecord, IColumnsWidth } from 'utils/column';
 import { translateXY } from 'utils/translate';
 import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
 import DataTableHeaderCellComponent from './header-cell.component';
@@ -35,35 +35,37 @@ interface IDragPosition {
         :class="['datatable-row-' + colGroup.type]"
         :style="styleByGroup[colGroup.type]"
       >
-        <datatable-header-cell
-          v-for="column of colGroup.columns"
-          :key="column.$$id"
-          v-resizeable="{ resizeEnabled: column.resizeable }"
-          v-long-press="{pressModel: column, pressEnabled: reorderable && column.draggable}"
-          v-dragndrop="{dragEvent:dragEvent,dragModel:column,dragX:isEnableDragX(column),dragY:false}"
-          @resize="onColumnResized($event, column)"
-          @longPressStart="onLongPressStart($event, column)"
-          @longPressEnd="onLongPressEnd($event, column)"
-          :headerHeight="headerHeight"
-          :isTarget="column.isTarget"
-          :targetMarkerContext="column.targetMarkerContext"
-          :column="column"
-          :sortType="sortType"
-          :sorts="sorts"
-          :selectionType="selectionType"
-          :sortAscendingIcon="sortAscendingIcon"
-          :sortDescendingIcon="sortDescendingIcon"
-          :allRowsSelected="allRowsSelected"
-          @sort="onSort($event)"
-          @select="onSelect"
-          @columnContextmenu="$emit('columnContextmenu', $event)"
-          @header-cell-mounted="onHeaderCellMounted(column, $event)"
-          @dragStart="onDragStart"
-          @dragEnd="onDragEnd"
-          @dragging="onDragging"
-          @hidden-changed="onHiddenChanged($event)"
-        >
-        </datatable-header-cell>
+        <template v-for="column of colGroup.columns">
+          <datatable-header-cell
+            v-if="column.visible"
+            :key="column.$$id"
+            v-resizeable="{ resizeEnabled: column.resizeable }"
+            v-long-press="{pressModel: column, pressEnabled: reorderable && column.draggable}"
+            v-dragndrop="{dragEvent:dragEvent,dragModel:column,dragX:isEnableDragX(column),dragY:false}"
+            @resize="onColumnResized($event, column)"
+            @longPressStart="onLongPressStart($event, column)"
+            @longPressEnd="onLongPressEnd($event, column)"
+            :headerHeight="headerHeight"
+            :isTarget="column.isTarget"
+            :targetMarkerContext="column.targetMarkerContext"
+            :column="column"
+            :sortType="sortType"
+            :sorts="sorts"
+            :selectionType="selectionType"
+            :sortAscendingIcon="sortAscendingIcon"
+            :sortDescendingIcon="sortDescendingIcon"
+            :allRowsSelected="allRowsSelected"
+            @sort="onSort($event)"
+            @select="onSelect"
+            @columnContextmenu="$emit('columnContextmenu', $event)"
+            @header-cell-mounted="onHeaderCellMounted(column, $event)"
+            @dragStart="onDragStart"
+            @dragEnd="onDragEnd"
+            @dragging="onDragging"
+            @column-visible-changed="onColumnVisibleChanged($event)"
+          >
+          </datatable-header-cell>
+        </template>
       </div>
     </div>
   `,
@@ -83,9 +85,9 @@ export default class DataTableHeaderComponent extends Vue {
   @Prop() headerHeight: string | number;
   @Prop() columns: TableColumn[];
   @Prop() offsetX: number;
+  @Prop() columnGroupWidths: IColumnsWidth;
+  @Prop() columnsByPin: IColumnsByPinRecord[];
 
-  columnsByPin: IColumnsByPinRecord[] = null;
-  columnGroupWidths: IColumnsWidth = null;
   myHeaderHeight = 'auto';
   styleByGroup = {
     left: {},
@@ -102,14 +104,11 @@ export default class DataTableHeaderComponent extends Vue {
   draggables: Array<{ dragModel: TableColumn; element: HTMLElement }>;
 
   @Watch('innerWidth', { immediate: true }) onChangedInnerWidth(): void {
-    if (this.columns) {
-      const colByPin = columnsByPin(this.columns);
-      this.columnGroupWidths = columnGroupWidths(colByPin, this.columns, this.innerWidth);
+    if (Array.isArray(this.columns)) {
       this.setStylesByGroup();
     }
   }
 
-  // @HostBinding('style.height')
   @Watch('headerHeight', { immediate: true }) onHeaderHeightChanged(): void {
     if (this.headerHeight !== 'auto') {
       this.myHeaderHeight = `${this.headerHeight}px`;
@@ -119,9 +118,6 @@ export default class DataTableHeaderComponent extends Vue {
   }
 
   @Watch('columns', { immediate: true }) onColumnsChanged(): void {
-    const colsByPin = columnsByPin(this.columns);
-    this.columnsByPin = columnsByPinArr(this.columns);
-    this.columnGroupWidths = columnGroupWidths(colsByPin, this.columns, this.innerWidth);
     this.setStylesByGroup();
   }
 
@@ -129,11 +125,9 @@ export default class DataTableHeaderComponent extends Vue {
     this.setStylesByGroup();
   }
 
-  // @Output() sort: EventEmitter<any> = new EventEmitter();
-  // @Output() reorder: EventEmitter<any> = new EventEmitter();
-  // @Output() resize: EventEmitter<any> = new EventEmitter();
-  // @Output() select: EventEmitter<any> = new EventEmitter();
-  // @Output() columnContextmenu = new EventEmitter<{ event: MouseEvent, column: any }>(false);
+  @Watch('columnGroupWidths') onColumnGroupWidthsChanged() {
+    this.setStylesByGroup();
+  }
 
   onLongPressStart({ event, model }: { event: MouseEvent; model: { dragging: boolean } }): void {
     model.dragging = true;
@@ -190,9 +184,8 @@ export default class DataTableHeaderComponent extends Vue {
     });
   }
 
-  onHiddenChanged(): void {
-    this.$emit('hidden-changed');
-    this.onChangedInnerWidth();
+  onColumnVisibleChanged(column: TableColumn): void {
+    this.$emit('column-visible-changed', column);
   }
 
   getColumn(index: number): TableColumn {
@@ -272,20 +265,26 @@ export default class DataTableHeaderComponent extends Vue {
       return;
     }
     const leftColumnCount = this.columnsByPin[0].columns.length;
-    if (leftColumnCount) {
+    // eslint-disable-next-line eqeqeq
+    if (leftColumnCount != null) {
       this.styleByGroup['left'] = this.calcStylesByGroup('left');
     }
     const centerColumnCount = this.columnsByPin[1].columns.length;
-    if (centerColumnCount) {
+    // eslint-disable-next-line eqeqeq
+    if (centerColumnCount != null) {
       this.styleByGroup['center'] = this.calcStylesByGroup('center');
     }
     const rightColumnCount = this.columnsByPin[2].columns.length;
-    if (rightColumnCount) {
+    // eslint-disable-next-line eqeqeq
+    if (rightColumnCount != null) {
       this.styleByGroup['right'] = this.calcStylesByGroup('right');
     }
   }
 
   calcStylesByGroup(group: keyof IColumnsWidth): Record<string, string | number> {
+    if (!this.columnGroupWidths) {
+      return null;
+    }
     const widths = this.columnGroupWidths;
     const offsetX = this.offsetX;
 

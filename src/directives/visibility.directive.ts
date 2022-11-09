@@ -86,6 +86,9 @@ export default Vue.directive('visibility-observer', {
     }
   },
   unbind(el: HTMLElement) {
+    if (!el) {
+      return;
+    }
     const ctrl = (el as unknown as { __visibility__: VisibilityController }).__visibility__;
     ctrl.stopCheck();
   },

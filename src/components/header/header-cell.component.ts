@@ -13,7 +13,6 @@ import { Component, Prop, Vue, Watch } from 'vue-property-decorator';
       :class="[columnCssClasses]"
       :style="styles"
       :title="name"
-      v-show="column.visible"
       @contextmenu="onContextmenu($event)"
     >
       <slot name="target-marker">
@@ -78,6 +77,18 @@ export default class DataTableHeaderCellComponent extends Vue {
     this.cellContext.column = this.column;
   }
 
+  @Watch('column.visible') onColumnVisibleChahged(): void {
+    this.$emit('column-visible-changed', this.column);
+  }
+
+  @Watch('column.frozenLeft') onColumnFrozenLeftChahged(): void {
+    this.$emit('column-visible-changed', this.column);
+  }
+
+  @Watch('column.frozenRight') onColumnFrozenRightChahged(): void {
+    this.$emit('column-visible-changed', this.column);
+  }
+
   @Watch('sorts', { immediate: true }) onSortsChanged(): void {
     this.sortDir = this.calcSortDir(this.sorts);
     this.cellContext.sortDir = this.sortDir;
@@ -119,11 +130,12 @@ export default class DataTableHeaderCellComponent extends Vue {
   }
 
   beforeDestroy(): void {
-    if (this.column) {
-      this.column.element = null;
-    }
     if (this.resizeObserver) {
       this.resizeObserver.unobserve(this.$el);
+      this.resizeObserver = null;
+    }
+    if (this.column) {
+      this.column.element = null;
     }
   }
 

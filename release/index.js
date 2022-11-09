@@ -1,5 +1,5 @@
 /**
- * vue-data-table v"1.4.5" (https://github.com/begemode/vue-ngx-data-table)
+ * vue-ngx-datatable v"1.4.7" (https://github.com/begemode/vue-ngx-datatable)
  * Copyright 2018
  * Licensed under MIT
  */
@@ -671,14 +671,15 @@ var DataTableBodyRowComponent = /** @class */ (function (_super) {
     };
     Object.defineProperty(DataTableBodyRowComponent.prototype, "styles", {
         get: function () {
+            var _a, _b, _c, _d;
             if (this.rowContext) {
                 return {
-                    width: this.columnGroupWidths.total + "px",
+                    width: ((_b = (_a = this.columnGroupWidths) === null || _a === void 0 ? void 0 : _a.total) !== null && _b !== void 0 ? _b : 0) + "px",
                     height: this.rowContext.rowHeight === 'auto' ? this.rowContext.rowHeight : this.rowContext.rowHeight + "px",
                 };
             }
             return {
-                width: this.columnGroupWidths.total + "px",
+                width: ((_d = (_c = this.columnGroupWidths) === null || _c === void 0 ? void 0 : _c.total) !== null && _d !== void 0 ? _d : 0) + "px",
             };
         },
         enumerable: false,
@@ -849,7 +850,6 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 var scrollbar_helper_service_1 = __webpack_require__(/*! services/scrollbar-helper.service */ "./src/services/scrollbar-helper.service.ts");
 var check_type_1 = __webpack_require__(/*! types/check.type */ "./src/types/check.type.ts");
 var selection_type_1 = __webpack_require__(/*! types/selection.type */ "./src/types/selection.type.ts");
-var column_1 = __webpack_require__(/*! utils/column */ "./src/utils/column.ts");
 var row_height_cache_1 = __webpack_require__(/*! utils/row-height-cache */ "./src/utils/row-height-cache.ts");
 var translate_1 = __webpack_require__(/*! utils/translate */ "./src/utils/translate.ts");
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
@@ -874,12 +874,9 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         _this.myOffset = 0;
         _this.myOffsetX = 0;
         _this.indexes = { first: 0, last: 0 };
-        _this.columnGroupWidths = null;
-        // columnGroupWidthsWithoutGroup = null;
         _this.rowIndexes = new Map();
         _this.rowExpansions = new Map();
         _this.myBodyHeight = null;
-        _this.columnsByPin = null;
         _this.groupStyles = {
             left: {},
             center: {},
@@ -889,6 +886,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         _this.scrollbarHelper = new scrollbar_helper_service_1.ScrollbarHelper();
         _this.renderCounter = 0;
         _this.renderId = null;
+        _this.pageRowCount = 0;
         /**
          * Get the height of the detail row.
          */
@@ -926,6 +924,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
                         _a.sent();
                         _a.label = 3;
                     case 3:
+                        this.lastFirst = -1;
                         this.recalcLayout();
                         return [2 /*return*/];
                 }
@@ -969,7 +968,6 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         });
     };
     DataTableBodyComponent.prototype.onColumnsChanged = function () {
-        this.recalculateColumns();
         this.buildStylesByGroup();
     };
     DataTableBodyComponent.prototype.onOffsetChanged = function () {
@@ -981,8 +979,10 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     DataTableBodyComponent.prototype.onMyOffsetXChanged = function () {
         this.buildStylesByGroup();
     };
+    DataTableBodyComponent.prototype.onColumnGroupWidthsChanged = function () {
+        this.buildStylesByGroup();
+    };
     DataTableBodyComponent.prototype.onInnerWidthChanged = function () {
-        this.recalculateColumns();
         this.buildStylesByGroup();
     };
     DataTableBodyComponent.prototype.onMyOffsetChanged = function () {
@@ -1005,6 +1005,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         else {
             this.myBodyHeight = 'auto';
         }
+        this.pageRowCount = 0;
         this.recalcLayout();
     };
     /**
@@ -1150,15 +1151,6 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     DataTableBodyComponent.prototype.onSelect = function (event) {
         this.$emit('select', event);
     };
-    DataTableBodyComponent.prototype.recalculateColumns = function (width) {
-        var colsByPin = (0, column_1.columnsByPin)(this.columns);
-        this.columnsByPin = (0, column_1.columnsByPinArr)(this.columns);
-        // eslint-disable-next-line no-undefined
-        if (width === null || width === undefined) {
-            width = this.scroller ? this.scroller.$el.clientWidth : this.innerWidth;
-        }
-        this.columnGroupWidths = (0, column_1.columnGroupWidths)(colsByPin, this.columns, width);
-    };
     /**
      * Updates the Y offset given a new offset.
      */
@@ -1189,7 +1181,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         return offsetY || 0;
     };
     DataTableBodyComponent.prototype.onScrollerWidthChanged = function (width) {
-        this.recalculateColumns(width);
+        this.buildStylesByGroup();
     };
     DataTableBodyComponent.prototype.onScrollSetup = function (event) {
         this.myOffsetX = event.scrollXPos;
@@ -1322,7 +1314,8 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         }
         // }
         this.rowContexts = temp;
-        // console.log('updateRows first = ', first);
+        // eslint-disable-next-line no-console
+        // console.log('updateRows first = ', first, last);
     };
     /**
      * Get the row height
@@ -1380,7 +1373,7 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
      * @memberOf DataTableBodyComponent
      */
     DataTableBodyComponent.prototype.getRowWrapperStyles = function (rowContext) {
-        if (!rowContext) {
+        if (!rowContext || !this.columnGroupWidths) {
             return null;
         }
         var styles = {};
@@ -1475,7 +1468,13 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
                 }
                 else {
                     first = Math.floor(this.offsetY / this.rowHeight);
-                    last = Math.ceil((height + this.offsetY + this.rowHeight) / this.rowHeight);
+                    if (!this.pageRowCount) {
+                        last = Math.ceil((height + this.offsetY + this.rowHeight) / this.rowHeight);
+                        this.pageRowCount = last - first;
+                    }
+                    else {
+                        last = first + this.pageRowCount;
+                    }
                 }
             }
             else {
@@ -1590,13 +1589,6 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     };
     DataTableBodyComponent.prototype.onGroupToggle = function ($event) {
         this.$emit('group-toggle', $event);
-        // if ($event.type === 'group') {
-        //   this.toggleRowExpansion($event.value);
-        // } else if ($event.type === 'all') {
-        //   this.toggleAllRows($event.value);
-        // }
-        // this.updateIndexes();
-        // this.updateRows(true);
     };
     /**
      * Recalculates the table
@@ -1713,10 +1705,14 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         this.groupStyles['right'] = this.calcStylesByGroup('right');
     };
     DataTableBodyComponent.prototype.calcStylesByGroup = function (group) {
+        if (!this.columnGroupWidths) {
+            return null;
+        }
         var widths = this.columnGroupWidths;
         var offsetX = this.myOffsetX;
         var styles = {
             width: widths[group] + "px",
+            // 'will-change': 'transform',
         };
         if (group === 'left') {
             (0, translate_1.translateXY)(styles, offsetX, 0);
@@ -1731,6 +1727,9 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         return styles;
     };
     DataTableBodyComponent.prototype.getGroupStyles = function (colGroup) {
+        if (!this.columnGroupWidths) {
+            return null;
+        }
         if (colGroup && colGroup.type) {
             return __assign({ width: this.columnGroupWidths.total + "px" }, this.groupStyles[colGroup.type]);
         }
@@ -1964,6 +1963,14 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
     ], DataTableBodyComponent.prototype, "renderTracking", void 0);
     __decorate([
         (0, vue_property_decorator_1.Prop)(),
+        __metadata("design:type", Object)
+    ], DataTableBodyComponent.prototype, "columnGroupWidths", void 0);
+    __decorate([
+        (0, vue_property_decorator_1.Prop)(),
+        __metadata("design:type", Array)
+    ], DataTableBodyComponent.prototype, "columnsByPin", void 0);
+    __decorate([
+        (0, vue_property_decorator_1.Prop)(),
         __metadata("design:type", Function)
     ], DataTableBodyComponent.prototype, "beforeSelectRowCheck", void 0);
     __decorate([
@@ -2014,6 +2021,12 @@ var DataTableBodyComponent = /** @class */ (function (_super) {
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DataTableBodyComponent.prototype, "onMyOffsetXChanged", null);
+    __decorate([
+        (0, vue_property_decorator_1.Watch)('columnGroupWidths'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], DataTableBodyComponent.prototype, "onColumnGroupWidthsChanged", null);
     __decorate([
         (0, vue_property_decorator_1.Watch)('innerWidth'),
         __metadata("design:type", Function),
@@ -2120,6 +2133,7 @@ var column_mode_type_1 = __webpack_require__(/*! types/column-mode.type */ "./sr
 var contextmenu_type_1 = __webpack_require__(/*! types/contextmenu.type */ "./src/types/contextmenu.type.ts");
 var selection_type_1 = __webpack_require__(/*! types/selection.type */ "./src/types/selection.type.ts");
 var sort_type_1 = __webpack_require__(/*! types/sort.type */ "./src/types/sort.type.ts");
+var column_1 = __webpack_require__(/*! utils/column */ "./src/utils/column.ts");
 var column_helper_1 = __webpack_require__(/*! utils/column-helper */ "./src/utils/column-helper.ts");
 var equal_array_1 = __webpack_require__(/*! utils/equal.array */ "./src/utils/equal.array.ts");
 var math_1 = __webpack_require__(/*! utils/math */ "./src/utils/math.ts");
@@ -2152,6 +2166,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         _this.internalColumns = null;
         _this.myColumnMode = column_mode_type_1.ColumnMode.standard;
         _this.mySortType = sort_type_1.SortType.single;
+        _this.mySorts = [];
         _this.innerOffset = 0; // page number after scrolling
         _this.mySelected = [];
         _this.myChecked = [];
@@ -2165,6 +2180,8 @@ var DatatableComponent = /** @class */ (function (_super) {
         _this.footerSlot = null;
         // isColumnsInited = false;
         // isColumnsInitedTimeoutId: number;
+        _this.columnGroupWidths = null;
+        _this.columnsByPinArray = null;
         _this.scrollbarHelper = new scrollbar_helper_service_1.ScrollbarHelper();
         _this.dimensionsHelper = new dimensions_helper_service_1.DimensionsHelper();
         _this.needToCalculateDims = true;
@@ -2175,17 +2192,7 @@ var DatatableComponent = /** @class */ (function (_super) {
         if (val) {
             this.internalRows = __spreadArray([], val, true);
         }
-        var treeFrom = (0, tree_1.optionalGetterForProp)(this.treeFromRelation);
-        var treeTo = (0, tree_1.optionalGetterForProp)(this.treeToRelation);
-        if (treeFrom && treeTo) {
-            this.initialRows = this.internalRows;
-        }
-        // auto sort on new updates
-        if (!this.externalSorting) {
-            this.sortInternalRows();
-        }
-        // auto group by parent on new update
-        this.internalRows = (0, tree_1.groupRowsByParents)(this.internalRows, treeFrom, treeTo, this.lazyTree);
+        this.innerSortRows();
         this.groupedRows = null;
         if (this.rows && this.groupRowsBy) {
             // this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy);
@@ -2273,6 +2280,9 @@ var DatatableComponent = /** @class */ (function (_super) {
         this.myChecked = this.checked;
     };
     DatatableComponent.prototype.onSortsChanged = function () {
+        this.mySorts = this.sorts;
+    };
+    DatatableComponent.prototype.onMySortsChanged = function () {
         this.innerSortRows();
     };
     /**
@@ -2314,13 +2324,14 @@ var DatatableComponent = /** @class */ (function (_super) {
             this.needToCalculateDims = false;
             this.resizeObserver = new window.ResizeObserver(function (entries) {
                 var height = 0;
+                var width = 0;
                 if (entries.length && entries[0].contentRect) {
-                    _this.innerWidth = Math.floor(entries[0].contentRect.width);
-                    height = entries[0].contentRect.height;
+                    width = Math.round(entries[0].contentRect.width);
+                    height = Math.round(entries[0].contentRect.height);
                 }
                 else {
                     height = _this.$el.clientHeight;
-                    _this.innerWidth = _this.$el.clientWidth;
+                    width = _this.$el.clientWidth;
                 }
                 if (_this.scrollbarV) {
                     if (_this.headerHeight) {
@@ -2329,8 +2340,12 @@ var DatatableComponent = /** @class */ (function (_super) {
                     if (_this.footerHeight) {
                         height = height - _this.footerHeight;
                     }
-                    _this.bodyHeight = height;
                 }
+                if (_this.innerWidth === width && _this.bodyHeight === height) {
+                    return;
+                }
+                _this.innerWidth = width;
+                _this.bodyHeight = height;
                 if (typeof requestAnimationFrame === 'undefined') {
                     _this.recalculate();
                 }
@@ -2597,6 +2612,7 @@ var DatatableComponent = /** @class */ (function (_super) {
      * distribution mode and scrollbar offsets.
      */
     DatatableComponent.prototype.recalculateColumns = function (columns, forceIdx, allowBleed) {
+        var _this = this;
         if (columns === void 0) { columns = this.internalColumns; }
         if (forceIdx === void 0) { forceIdx = -1; }
         if (allowBleed === void 0) { allowBleed = this.scrollbarH; }
@@ -2608,6 +2624,11 @@ var DatatableComponent = /** @class */ (function (_super) {
             width = width - this.scrollbarHelper.width;
         }
         this.calculateColumnsWidth(width, columns, forceIdx, allowBleed);
+        this.$nextTick(function () {
+            var colsByPin = (0, column_1.columnsByPin)(columns);
+            _this.columnsByPinArray = (0, column_1.columnsByPinArr)(colsByPin);
+            _this.columnGroupWidths = (0, column_1.columnGroupWidths)(colsByPin, columns, width);
+        });
         return columns;
     };
     DatatableComponent.prototype.calculateColumnsWidth = function (width, columns, forceIdx, allowBleed) {
@@ -2619,10 +2640,6 @@ var DatatableComponent = /** @class */ (function (_super) {
         }
         else if (this.myColumnMode === column_mode_type_1.ColumnMode.flex) {
             (0, math_1.adjustColumnWidths)(columns, width);
-        }
-        var hiddenColumns = columns.filter(function (col) { return col.hidden; });
-        if (hiddenColumns.length && this.bodyComponent) {
-            this.bodyComponent.onInnerWidthChanged();
         }
     };
     /**
@@ -2802,6 +2819,19 @@ var DatatableComponent = /** @class */ (function (_super) {
         });
     };
     /**
+     * Force change order of columns
+     * @param order Array<naumber> (index - new position of column; value - old position of column)
+     */
+    DatatableComponent.prototype.reorderColumns = function (order) {
+        var _this = this;
+        var oldColumnsOrder = new Map();
+        this.internalColumns.forEach(function (c, i) { return oldColumnsOrder.set(i, c); });
+        order.forEach(function (oldPos, newPos) {
+            _this.internalColumns[newPos] = oldColumnsOrder.get(oldPos);
+        });
+        this.recalculateColumns();
+    };
+    /**
      * The header triggered a column re-order event.
      */
     DatatableComponent.prototype.onColumnReorder = function (_a) {
@@ -2830,6 +2860,7 @@ var DatatableComponent = /** @class */ (function (_super) {
             cols[newValue] = movedCol;
         }
         this.internalColumns = cols;
+        this.recalculateColumns();
         this.$emit('reorder', {
             column: column,
             newValue: newValue,
@@ -2850,15 +2881,13 @@ var DatatableComponent = /** @class */ (function (_super) {
             });
         }
         // this.mySorts = event.sorts;
-        if (Array.isArray(this.sorts) && Array.isArray(event.sorts)) {
-            this.sorts.length = 0;
-            event.sorts.forEach(function (item) { return _this.sorts.push(item); });
-            if (this.sorts.length === 0) {
-                this.sorts.push({ dir: null, prop: null });
+        if (Array.isArray(this.mySorts) && Array.isArray(event.sorts)) {
+            this.mySorts = [];
+            event.sorts.forEach(function (item) { return _this.mySorts.push(item); });
+            if (!this.mySorts.length) {
+                this.mySorts.push({ dir: null, prop: null });
             }
         }
-        // let rows = this.internalRows;
-        this.innerSortRows();
         // Go to first page when sorting to see the newly sorted data
         if (this.goToFirstAfterSort) {
             this.innerOffset = 0;
@@ -2971,44 +3000,35 @@ var DatatableComponent = /** @class */ (function (_super) {
             this.internalColumns = [column];
         }
         else {
-            this.internalColumns = __spreadArray(__spreadArray([], this.internalColumns, true), [column], false);
+            //   this.internalColumns = [...this.internalColumns, column];
+            // }
+            var key_1 = "" + column.prop + column.name;
+            var i = this.internalColumns.findIndex(function (c) { return "" + c.prop + c.name === key_1; });
+            if (i >= 0) {
+                this.internalColumns[i] = column;
+            }
+            this.internalColumns.push(column); // = [...this.internalColumns, column];
         }
-        // if (!this.internalColumns) {
-        //   setColumnDefaults(column, this);
-        //   this.internalColumns = [column];
-        // }
-        // const colIndex = this.internalColumns.findIndex(c => {
-        //   if (column.prop) {
-        //     return c.prop === column.prop;
-        //   } else {
-        //     return c.name === column.name;
-        //   }
-        // });
-        // if (colIndex < 0) {
-        //   setColumnDefaults(column, this);
-        //   this.internalColumns = [...this.internalColumns, column];
-        // } else {
-        //   const col = this.internalColumns[colIndex];
-        //   this.$set(col, 'headerTemplate', column.headerTemplate);
-        //   this.$set(col, 'cellTemplate', column.cellTemplate);
-        // }
-        if (this.isVisible) {
-            this.recalculateColumns();
-        }
+        this.onColumnChangeVisible();
         // clearTimeout(this.isColumnsInitedTimeoutId);
         // this.isColumnsInitedTimeoutId = setTimeout(() => this.$set(this, 'isColumnsInited', true), 50) as unknown as number;
     };
     DatatableComponent.prototype.onColumnRemoved = function (column) {
+        if (!column) {
+            return;
+        }
         var colIndex = this.internalColumns.findIndex(function (c) { return c.name === column.name; });
-        var cols = __spreadArray([], this.internalColumns, true);
-        cols.splice(colIndex, 1);
-        this.internalColumns = __spreadArray([], cols, true);
-        this.recalculateColumns();
+        if (colIndex >= 0) {
+            this.internalColumns.splice(colIndex, 1);
+        }
+        this.onColumnChangeVisible();
     };
     DatatableComponent.prototype.onColumnChangeVisible = function (column) {
         var _this = this;
-        // we have to allow the cell's element to set it's width
-        setTimeout(function () { return _this.recalculateColumns(); }, 100);
+        clearTimeout(this.recalculateColumnsTimer);
+        this.recalculateColumnsTimer = setTimeout(function () {
+            _this.recalculateColumns();
+        }, 100);
     };
     /**
      * listen for changes to input bindings of all DataTableColumnDirective and
@@ -3097,17 +3117,11 @@ var DatatableComponent = /** @class */ (function (_super) {
     DatatableComponent.prototype.innerSortRows = function () {
         var treeFrom = (0, tree_1.optionalGetterForProp)(this.treeFromRelation);
         var treeTo = (0, tree_1.optionalGetterForProp)(this.treeToRelation);
-        if (treeFrom && treeTo) {
-            this.internalRows = this.initialRows;
-        }
-        // this could be optimized better since it will resort
-        // the rows again on the 'push' detection...
         if (this.externalSorting === false) {
-            // don't use normal setter so we don't resort
             this.sortInternalRows();
         }
         // auto group by parent on new update
-        this.internalRows = (0, tree_1.groupRowsByParents)(this.internalRows, treeFrom, treeTo, this.lazyTree);
+        this.internalRows = (0, tree_1.groupRowsByParents)(this.internalRows, treeFrom, treeTo, this.internalColumns, this.mySorts, this.lazyTree);
     };
     /**
      * Creates a map with the data grouped by the user choice of grouping index
@@ -3225,7 +3239,7 @@ var DatatableComponent = /** @class */ (function (_super) {
             this.internalRows = this.processGroupedRows(this.groupedRows);
         }
         else {
-            this.internalRows = (0, sort_1.sortRows)(this.internalRows, this.internalColumns, this.sorts);
+            this.internalRows = (0, sort_1.sortRows)(this.internalRows, this.internalColumns, this.mySorts);
         }
     };
     DatatableComponent.prototype.sortGroupedRows = function (groupedRows) {
@@ -3241,10 +3255,10 @@ var DatatableComponent = /** @class */ (function (_super) {
                 gr.groups = _this.sortGroupedRows(gr.groups);
             }
             if (gr.rows && gr.rows) {
-                gr.rows = (0, sort_1.sortRows)(gr.rows, _this.internalColumns, _this.sorts);
+                gr.rows = (0, sort_1.sortRows)(gr.rows, _this.internalColumns, _this.mySorts);
             }
         });
-        var sortedRows = (0, sort_1.sortRows)(rows, this.internalColumns, this.sorts);
+        var sortedRows = (0, sort_1.sortRows)(rows, this.internalColumns, this.mySorts);
         var result = sortedRows.map(function (r) { return r.__group; });
         return result;
     };
@@ -3564,11 +3578,17 @@ var DatatableComponent = /** @class */ (function (_super) {
         __metadata("design:returntype", void 0)
     ], DatatableComponent.prototype, "onCheckedChanged", null);
     __decorate([
-        (0, vue_property_decorator_1.Watch)('sorts'),
+        (0, vue_property_decorator_1.Watch)('sorts', { immediate: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DatatableComponent.prototype, "onSortsChanged", null);
+    __decorate([
+        (0, vue_property_decorator_1.Watch)('mySorts'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], DatatableComponent.prototype, "onMySortsChanged", null);
     __decorate([
         (0, throttle_1.throttleable)(5),
         __metadata("design:type", Function),
@@ -3916,18 +3936,6 @@ var ScrollerComponent = /** @class */ (function (_super) {
         _this.stopRender = false;
         return _this;
     }
-    Object.defineProperty(ScrollerComponent.prototype, "styleObject", {
-        get: function () {
-            return {
-                height: this.scrollHeight ? this.scrollHeight + "px" : null,
-                width: '100%',
-                position: 'relative',
-                transform: 'translateZ(0)',
-            };
-        },
-        enumerable: false,
-        configurable: true
-    });
     ScrollerComponent.prototype.onInnerWidthChanged = function () {
         this.$emit('change-width', this.innerWidth);
     };
@@ -3941,9 +3949,7 @@ var ScrollerComponent = /** @class */ (function (_super) {
         var _this = this;
         // manual bind so we don't always listen
         if (this.scrollbarV || this.scrollbarH) {
-            // const renderer = this.renderer;
             this.parentElement = this.$el.closest('.datatable-body');
-            // .parentElement; //  renderer.parentNode(renderer.parentNode(this.element));
             // this.onScrollListener = this.onScrolled.bind(this) as (event: MouseEvent) => void;
             // this.parentElement.addEventListener('scroll', this.onScrollListener, {
             //   passive: true,
@@ -3997,21 +4003,22 @@ var ScrollerComponent = /** @class */ (function (_super) {
         this.fromPager = false;
     };
     // onScrolled(event: MouseEvent): void {
-    //   if (this.scrollbarV || this.scrollbarH) {
-    //     if (!this.scrollDirty) {
-    //       this.scrollDirty = true;
-    //       const dom: Element = <Element>event.currentTarget;
-    //       requestAnimationFrame(() => {
-    //         this.scrollYPos = dom.scrollTop;
-    //         this.scrollXPos = dom.scrollLeft;
-    //         this.updateOffset();
-    //         this.scrollDirty = false;
-    //       });
-    //     } else {
-    //       // eslint-disable-next-line no-console
-    //       console.log('this.scrollDirty is true');
-    //     }
+    // if (this.scrollbarV || this.scrollbarH) {
+    //   if (!this.scrollDirty) {
+    //     this.scrollDirty = true;
+    //     const dom: Element = <Element>event.currentTarget;
+    //     requestAnimationFrame(() => {
+    //       this.scrollYPos = dom.scrollTop;
+    //       this.scrollXPos = dom.scrollLeft;
+    //       this.updateOffset();
+    //       this.scrollDirty = false;
+    //     });
+    //   } else {
+    //     // eslint-disable-next-line no-console
+    //     console.log('this.scrollDirty is true');
     //   }
+    // this.currScrollTop = event.target.scrollTop;
+    // this.currScrollLeft = event.target.scrollLeft;
     // }
     ScrollerComponent.prototype.tick = function () {
         var _this = this;
@@ -4019,14 +4026,12 @@ var ScrollerComponent = /** @class */ (function (_super) {
             return;
         }
         requestAnimationFrame(function () { return _this.tick(); });
-        // this.loading = Boolean(this.scrollTo !== ScrollTo.None);
         if (this.scrollbarV || this.scrollbarH) {
-            var list = this.parentElement; // this.$refs.list as HTMLElement;
-            if (!list) {
+            if (!this.parentElement) {
                 return;
             }
-            var scrollTop = list.scrollTop;
-            var scrollLeft = list.scrollLeft;
+            var scrollTop = this.parentElement.scrollTop;
+            var scrollLeft = this.parentElement.scrollLeft;
             if (this.scrollYPos === scrollTop && this.scrollXPos === scrollLeft) {
                 return;
             }
@@ -4060,6 +4065,18 @@ var ScrollerComponent = /** @class */ (function (_super) {
         this.prevScrollYPos = this.scrollYPos;
         this.prevScrollXPos = this.scrollXPos;
     };
+    Object.defineProperty(ScrollerComponent.prototype, "styleObject", {
+        get: function () {
+            return {
+                height: this.scrollHeight ? this.scrollHeight + "px" : null,
+                width: '100%',
+                position: 'relative',
+                transform: 'translateZ(0)',
+            };
+        },
+        enumerable: false,
+        configurable: true
+    });
     __decorate([
         (0, vue_property_decorator_1.Prop)({ type: Boolean, default: false }),
         __metadata("design:type", Boolean)
@@ -4870,15 +4887,28 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
     };
     DataTableColumnComponent.prototype.onFrozenLeftChanged = function (newVal) {
         this.column.frozenLeft = newVal;
-        this.$parent.onColumnChangeVisible(this.column);
     };
     DataTableColumnComponent.prototype.onFrozenRightChanged = function (newVal) {
         this.column.frozenRight = newVal;
-        this.$parent.onColumnChangeVisible(this.column);
     };
-    // @Watch('column.width') onWidthChanged(): void {
-    //   this.$emit('update-width', this.column.width);
-    // }
+    DataTableColumnComponent.prototype.onFlexGrowChanged = function (newVal) {
+        this.column.flexGrow = newVal;
+    };
+    DataTableColumnComponent.prototype.onResizeableChanged = function (newVal) {
+        this.column.resizeable = newVal;
+    };
+    DataTableColumnComponent.prototype.onSortableChanged = function (newVal) {
+        this.column.sortable = newVal;
+    };
+    DataTableColumnComponent.prototype.onDraggableChanged = function (newVal) {
+        this.column.draggable = newVal;
+    };
+    DataTableColumnComponent.prototype.onCheckboxableChanged = function (newVal) {
+        this.column.checkboxable = newVal;
+    };
+    DataTableColumnComponent.prototype.onWidthChanged = function (newVal) {
+        this.column.width = newVal;
+    };
     DataTableColumnComponent.prototype.mounted = function () {
         this.$set(this.column, 'name', this.name);
         this.$set(this.column, 'prop', this.prop);
@@ -5055,6 +5085,42 @@ var DataTableColumnComponent = /** @class */ (function (_super) {
         __metadata("design:paramtypes", [Boolean]),
         __metadata("design:returntype", void 0)
     ], DataTableColumnComponent.prototype, "onFrozenRightChanged", null);
+    __decorate([
+        (0, vue_property_decorator_1.Watch)('flexGrow'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Number]),
+        __metadata("design:returntype", void 0)
+    ], DataTableColumnComponent.prototype, "onFlexGrowChanged", null);
+    __decorate([
+        (0, vue_property_decorator_1.Watch)('resizeable'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Boolean]),
+        __metadata("design:returntype", void 0)
+    ], DataTableColumnComponent.prototype, "onResizeableChanged", null);
+    __decorate([
+        (0, vue_property_decorator_1.Watch)('sortable'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Boolean]),
+        __metadata("design:returntype", void 0)
+    ], DataTableColumnComponent.prototype, "onSortableChanged", null);
+    __decorate([
+        (0, vue_property_decorator_1.Watch)('draggable'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Boolean]),
+        __metadata("design:returntype", void 0)
+    ], DataTableColumnComponent.prototype, "onDraggableChanged", null);
+    __decorate([
+        (0, vue_property_decorator_1.Watch)('checkboxable'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Boolean]),
+        __metadata("design:returntype", void 0)
+    ], DataTableColumnComponent.prototype, "onCheckboxableChanged", null);
+    __decorate([
+        (0, vue_property_decorator_1.Watch)('width'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", [Number]),
+        __metadata("design:returntype", void 0)
+    ], DataTableColumnComponent.prototype, "onWidthChanged", null);
     DataTableColumnComponent = __decorate([
         (0, vue_property_decorator_1.Component)({
             template: "\n    <div>\n      <slot name=\"header\" v-bind=\"{column: column}\">\n        <!-- default content -->\n        {{ name }}\n      </slot>\n      <!-- default slot for cell -->\n      <slot> </slot>\n    </div>\n  ",
@@ -5455,6 +5521,15 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
     DataTableHeaderCellComponent.prototype.onColumnChahged = function () {
         this.cellContext.column = this.column;
     };
+    DataTableHeaderCellComponent.prototype.onColumnVisibleChahged = function () {
+        this.$emit('column-visible-changed', this.column);
+    };
+    DataTableHeaderCellComponent.prototype.onColumnFrozenLeftChahged = function () {
+        this.$emit('column-visible-changed', this.column);
+    };
+    DataTableHeaderCellComponent.prototype.onColumnFrozenRightChahged = function () {
+        this.$emit('column-visible-changed', this.column);
+    };
     DataTableHeaderCellComponent.prototype.onSortsChanged = function () {
         this.sortDir = this.calcSortDir(this.sorts);
         this.cellContext.sortDir = this.sortDir;
@@ -5491,11 +5566,12 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
         this.setResizeObserver();
     };
     DataTableHeaderCellComponent.prototype.beforeDestroy = function () {
-        if (this.column) {
-            this.column.element = null;
-        }
         if (this.resizeObserver) {
             this.resizeObserver.unobserve(this.$el);
+            this.resizeObserver = null;
+        }
+        if (this.column) {
+            this.column.element = null;
         }
     };
     DataTableHeaderCellComponent.prototype.onCheckboxChange = function () {
@@ -5728,6 +5804,24 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
         __metadata("design:returntype", void 0)
     ], DataTableHeaderCellComponent.prototype, "onColumnChahged", null);
     __decorate([
+        (0, vue_property_decorator_1.Watch)('column.visible'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], DataTableHeaderCellComponent.prototype, "onColumnVisibleChahged", null);
+    __decorate([
+        (0, vue_property_decorator_1.Watch)('column.frozenLeft'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], DataTableHeaderCellComponent.prototype, "onColumnFrozenLeftChahged", null);
+    __decorate([
+        (0, vue_property_decorator_1.Watch)('column.frozenRight'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], DataTableHeaderCellComponent.prototype, "onColumnFrozenRightChahged", null);
+    __decorate([
         (0, vue_property_decorator_1.Watch)('sorts', { immediate: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
@@ -5735,7 +5829,7 @@ var DataTableHeaderCellComponent = /** @class */ (function (_super) {
     ], DataTableHeaderCellComponent.prototype, "onSortsChanged", null);
     DataTableHeaderCellComponent = __decorate([
         (0, vue_property_decorator_1.Component)({
-            template: "\n    <div\n      class=\"datatable-header-cell-template-wrap\"\n      :class=\"[columnCssClasses]\"\n      :style=\"styles\"\n      :title=\"name\"\n      v-show=\"column.visible\"\n      @contextmenu=\"onContextmenu($event)\"\n    >\n      <slot name=\"target-marker\">\n        <!-- Default content -->\n        <div class=\"targetMarker\" v-if=\"isTarget\">\n          <div class=\"icon datatable-icon-down\"></div>\n          <div class=\"icon datatable-icon-up\"></div>\n        </div>\n      </slot>\n      <label v-if=\"isCheckboxable\" class=\"datatable-checkbox\">\n        <input type=\"checkbox\" v-model=\"myAllRowsSelected\" @change=\"onCheckboxChange\" />\n      </label>\n      <slot v-bind=\"{ column: column }\">\n        <!-- Default content -->\n        <span class=\"datatable-header-cell-wrapper\">\n          <span class=\"datatable-header-cell-label draggable\" :class=\"cssClass\" @click=\"onSort\" v-html=\"name\"> </span>\n        </span>\n      </slot>\n      <div :class=\"sortCssClass\" @click=\"onSort\">\n        {{ sortOrder }}\n      </div>\n      <slot name=\"append\" v-bind=\"{ column: column }\"></slot>\n    </div>\n  ",
+            template: "\n    <div\n      class=\"datatable-header-cell-template-wrap\"\n      :class=\"[columnCssClasses]\"\n      :style=\"styles\"\n      :title=\"name\"\n      @contextmenu=\"onContextmenu($event)\"\n    >\n      <slot name=\"target-marker\">\n        <!-- Default content -->\n        <div class=\"targetMarker\" v-if=\"isTarget\">\n          <div class=\"icon datatable-icon-down\"></div>\n          <div class=\"icon datatable-icon-up\"></div>\n        </div>\n      </slot>\n      <label v-if=\"isCheckboxable\" class=\"datatable-checkbox\">\n        <input type=\"checkbox\" v-model=\"myAllRowsSelected\" @change=\"onCheckboxChange\" />\n      </label>\n      <slot v-bind=\"{ column: column }\">\n        <!-- Default content -->\n        <span class=\"datatable-header-cell-wrapper\">\n          <span class=\"datatable-header-cell-label draggable\" :class=\"cssClass\" @click=\"onSort\" v-html=\"name\"> </span>\n        </span>\n      </slot>\n      <div :class=\"sortCssClass\" @click=\"onSort\">\n        {{ sortOrder }}\n      </div>\n      <slot name=\"append\" v-bind=\"{ column: column }\"></slot>\n    </div>\n  ",
         })
     ], DataTableHeaderCellComponent);
     return DataTableHeaderCellComponent;
@@ -5793,7 +5887,6 @@ var long_press_directive_1 = __webpack_require__(/*! directives/long-press.direc
 var resizeable_directive_1 = __webpack_require__(/*! directives/resizeable.directive */ "./src/directives/resizeable.directive.ts");
 var selection_type_1 = __webpack_require__(/*! types/selection.type */ "./src/types/selection.type.ts");
 var sort_type_1 = __webpack_require__(/*! types/sort.type */ "./src/types/sort.type.ts");
-var column_1 = __webpack_require__(/*! utils/column */ "./src/utils/column.ts");
 var translate_1 = __webpack_require__(/*! utils/translate */ "./src/utils/translate.ts");
 var vue_property_decorator_1 = __webpack_require__(/*! vue-property-decorator */ "vue-property-decorator");
 var header_cell_component_1 = __webpack_require__(/*! ./header-cell.component */ "./src/components/header/header-cell.component.ts");
@@ -5801,8 +5894,6 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
     __extends(DataTableHeaderComponent, _super);
     function DataTableHeaderComponent() {
         var _this = _super !== null && _super.apply(this, arguments) || this;
-        _this.columnsByPin = null;
-        _this.columnGroupWidths = null;
         _this.myHeaderHeight = 'auto';
         _this.styleByGroup = {
             left: {},
@@ -5816,13 +5907,10 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
         return _this;
     }
     DataTableHeaderComponent.prototype.onChangedInnerWidth = function () {
-        if (this.columns) {
-            var colByPin = (0, column_1.columnsByPin)(this.columns);
-            this.columnGroupWidths = (0, column_1.columnGroupWidths)(colByPin, this.columns, this.innerWidth);
+        if (Array.isArray(this.columns)) {
             this.setStylesByGroup();
         }
     };
-    // @HostBinding('style.height')
     DataTableHeaderComponent.prototype.onHeaderHeightChanged = function () {
         if (this.headerHeight !== 'auto') {
             this.myHeaderHeight = this.headerHeight + "px";
@@ -5832,19 +5920,14 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
         }
     };
     DataTableHeaderComponent.prototype.onColumnsChanged = function () {
-        var colsByPin = (0, column_1.columnsByPin)(this.columns);
-        this.columnsByPin = (0, column_1.columnsByPinArr)(this.columns);
-        this.columnGroupWidths = (0, column_1.columnGroupWidths)(colsByPin, this.columns, this.innerWidth);
         this.setStylesByGroup();
     };
     DataTableHeaderComponent.prototype.onOffsetXChanged = function () {
         this.setStylesByGroup();
     };
-    // @Output() sort: EventEmitter<any> = new EventEmitter();
-    // @Output() reorder: EventEmitter<any> = new EventEmitter();
-    // @Output() resize: EventEmitter<any> = new EventEmitter();
-    // @Output() select: EventEmitter<any> = new EventEmitter();
-    // @Output() columnContextmenu = new EventEmitter<{ event: MouseEvent, column: any }>(false);
+    DataTableHeaderComponent.prototype.onColumnGroupWidthsChanged = function () {
+        this.setStylesByGroup();
+    };
     DataTableHeaderComponent.prototype.onLongPressStart = function (_a) {
         var event = _a.event, model = _a.model;
         model.dragging = true;
@@ -5899,9 +5982,8 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
             newValue: width,
         });
     };
-    DataTableHeaderComponent.prototype.onHiddenChanged = function () {
-        this.$emit('hidden-changed');
-        this.onChangedInnerWidth();
+    DataTableHeaderComponent.prototype.onColumnVisibleChanged = function (column) {
+        this.$emit('column-visible-changed', column);
     };
     DataTableHeaderComponent.prototype.getColumn = function (index) {
         var leftColumnCount = this.columnsByPin[0].columns.length;
@@ -5963,19 +6045,25 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
             return;
         }
         var leftColumnCount = this.columnsByPin[0].columns.length;
-        if (leftColumnCount) {
+        // eslint-disable-next-line eqeqeq
+        if (leftColumnCount != null) {
             this.styleByGroup['left'] = this.calcStylesByGroup('left');
         }
         var centerColumnCount = this.columnsByPin[1].columns.length;
-        if (centerColumnCount) {
+        // eslint-disable-next-line eqeqeq
+        if (centerColumnCount != null) {
             this.styleByGroup['center'] = this.calcStylesByGroup('center');
         }
         var rightColumnCount = this.columnsByPin[2].columns.length;
-        if (rightColumnCount) {
+        // eslint-disable-next-line eqeqeq
+        if (rightColumnCount != null) {
             this.styleByGroup['right'] = this.calcStylesByGroup('right');
         }
     };
     DataTableHeaderComponent.prototype.calcStylesByGroup = function (group) {
+        if (!this.columnGroupWidths) {
+            return null;
+        }
         var widths = this.columnGroupWidths;
         var offsetX = this.offsetX;
         var styles = {
@@ -6189,6 +6277,14 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
         __metadata("design:type", Number)
     ], DataTableHeaderComponent.prototype, "offsetX", void 0);
     __decorate([
+        (0, vue_property_decorator_1.Prop)(),
+        __metadata("design:type", Object)
+    ], DataTableHeaderComponent.prototype, "columnGroupWidths", void 0);
+    __decorate([
+        (0, vue_property_decorator_1.Prop)(),
+        __metadata("design:type", Array)
+    ], DataTableHeaderComponent.prototype, "columnsByPin", void 0);
+    __decorate([
         (0, vue_property_decorator_1.Watch)('innerWidth', { immediate: true }),
         __metadata("design:type", Function),
         __metadata("design:paramtypes", []),
@@ -6212,6 +6308,12 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
         __metadata("design:paramtypes", []),
         __metadata("design:returntype", void 0)
     ], DataTableHeaderComponent.prototype, "onOffsetXChanged", null);
+    __decorate([
+        (0, vue_property_decorator_1.Watch)('columnGroupWidths'),
+        __metadata("design:type", Function),
+        __metadata("design:paramtypes", []),
+        __metadata("design:returntype", void 0)
+    ], DataTableHeaderComponent.prototype, "onColumnGroupWidthsChanged", null);
     DataTableHeaderComponent = __decorate([
         (0, vue_property_decorator_1.Component)({
             components: {
@@ -6222,7 +6324,7 @@ var DataTableHeaderComponent = /** @class */ (function (_super) {
                 'long-press': long_press_directive_1.default,
                 dragndrop: draggable_directive_1.default,
             },
-            template: "\n    <div :style=\"styleObject\" class=\"datatable-header-inner\">\n      <div\n        v-for=\"colGroup of columnsByPin\"\n        :key=\"colGroup.type\"\n        :class=\"['datatable-row-' + colGroup.type]\"\n        :style=\"styleByGroup[colGroup.type]\"\n      >\n        <datatable-header-cell\n          v-for=\"column of colGroup.columns\"\n          :key=\"column.$$id\"\n          v-resizeable=\"{ resizeEnabled: column.resizeable }\"\n          v-long-press=\"{pressModel: column, pressEnabled: reorderable && column.draggable}\"\n          v-dragndrop=\"{dragEvent:dragEvent,dragModel:column,dragX:isEnableDragX(column),dragY:false}\"\n          @resize=\"onColumnResized($event, column)\"\n          @longPressStart=\"onLongPressStart($event, column)\"\n          @longPressEnd=\"onLongPressEnd($event, column)\"\n          :headerHeight=\"headerHeight\"\n          :isTarget=\"column.isTarget\"\n          :targetMarkerContext=\"column.targetMarkerContext\"\n          :column=\"column\"\n          :sortType=\"sortType\"\n          :sorts=\"sorts\"\n          :selectionType=\"selectionType\"\n          :sortAscendingIcon=\"sortAscendingIcon\"\n          :sortDescendingIcon=\"sortDescendingIcon\"\n          :allRowsSelected=\"allRowsSelected\"\n          @sort=\"onSort($event)\"\n          @select=\"onSelect\"\n          @columnContextmenu=\"$emit('columnContextmenu', $event)\"\n          @header-cell-mounted=\"onHeaderCellMounted(column, $event)\"\n          @dragStart=\"onDragStart\"\n          @dragEnd=\"onDragEnd\"\n          @dragging=\"onDragging\"\n          @hidden-changed=\"onHiddenChanged($event)\"\n        >\n        </datatable-header-cell>\n      </div>\n    </div>\n  ",
+            template: "\n    <div :style=\"styleObject\" class=\"datatable-header-inner\">\n      <div\n        v-for=\"colGroup of columnsByPin\"\n        :key=\"colGroup.type\"\n        :class=\"['datatable-row-' + colGroup.type]\"\n        :style=\"styleByGroup[colGroup.type]\"\n      >\n        <template v-for=\"column of colGroup.columns\">\n          <datatable-header-cell\n            v-if=\"column.visible\"\n            :key=\"column.$$id\"\n            v-resizeable=\"{ resizeEnabled: column.resizeable }\"\n            v-long-press=\"{pressModel: column, pressEnabled: reorderable && column.draggable}\"\n            v-dragndrop=\"{dragEvent:dragEvent,dragModel:column,dragX:isEnableDragX(column),dragY:false}\"\n            @resize=\"onColumnResized($event, column)\"\n            @longPressStart=\"onLongPressStart($event, column)\"\n            @longPressEnd=\"onLongPressEnd($event, column)\"\n            :headerHeight=\"headerHeight\"\n            :isTarget=\"column.isTarget\"\n            :targetMarkerContext=\"column.targetMarkerContext\"\n            :column=\"column\"\n            :sortType=\"sortType\"\n            :sorts=\"sorts\"\n            :selectionType=\"selectionType\"\n            :sortAscendingIcon=\"sortAscendingIcon\"\n            :sortDescendingIcon=\"sortDescendingIcon\"\n            :allRowsSelected=\"allRowsSelected\"\n            @sort=\"onSort($event)\"\n            @select=\"onSelect\"\n            @columnContextmenu=\"$emit('columnContextmenu', $event)\"\n            @header-cell-mounted=\"onHeaderCellMounted(column, $event)\"\n            @dragStart=\"onDragStart\"\n            @dragEnd=\"onDragEnd\"\n            @dragging=\"onDragging\"\n            @column-visible-changed=\"onColumnVisibleChanged($event)\"\n          >\n          </datatable-header-cell>\n        </template>\n      </div>\n    </div>\n  ",
         })
     ], DataTableHeaderComponent);
     return DataTableHeaderComponent;
@@ -6352,6 +6454,9 @@ exports["default"] = vue_property_decorator_1.Vue.directive('draggable', {
         ctrl.dragEvent = binding.value.dragEvent;
     },
     unbind: function (el) {
+        if (!el) {
+            return;
+        }
         var ctrl = el.__draggable__;
         ctrl.unsubscribe();
     },
@@ -6517,6 +6622,9 @@ exports["default"] = vue_property_decorator_1.Vue.directive('long-press', {
         el.__longpress__ = ctrl;
     },
     unbind: function (el) {
+        if (!el) {
+            return;
+        }
         var ctrl = el.__longpress__;
         ctrl.element.removeEventListener('mousedown', ctrl.handleDown);
         ctrl.unsubscribe();
@@ -6612,6 +6720,9 @@ exports["default"] = vue_property_decorator_1.Vue.directive('resizeable', {
         el.addEventListener('mousedown', ctrl.handleDown);
     },
     unbind: function (el) {
+        if (!el) {
+            return;
+        }
         var ctrl = el.__resizeable__;
         document.removeEventListener('mouseup', ctrl.handleUp);
         el.removeEventListener('mousedown', ctrl.handleDown);
@@ -6722,6 +6833,9 @@ exports["default"] = vue_property_decorator_1.Vue.directive('visibility-observer
         }
     },
     unbind: function (el) {
+        if (!el) {
+            return;
+        }
         var ctrl = el.__visibility__;
         ctrl.stopCheck();
     },
@@ -7253,12 +7367,12 @@ function columnTotalWidth(columns) {
     if (columns) {
         for (var _i = 0, columns_1 = columns; _i < columns_1.length; _i++) {
             var c = columns_1[_i];
-            if (c.hidden) {
+            if (c.hidden || !c.visible) {
                 continue;
             }
             // const has = Boolean(prop && c[prop]);
             // const width = c.hidden ? 0 : has ? c[prop] : c.width;
-            var width = c.hidden ? 0 : c.width;
+            var width = c.hidden || !c.visible ? 0 : c.width || c.$$oldWidth;
             if (typeof width === 'string') {
                 width = parseFloat(width);
             }
@@ -7284,7 +7398,7 @@ function columnsTotalWidth(columns /* , prop?: any */) {
 exports.columnsTotalWidth = columnsTotalWidth;
 function columnsByPinArr(val) {
     var colsByPinArr = [];
-    var colsByPin = columnsByPin(val);
+    var colsByPin = val; // columnsByPin(val);
     colsByPinArr.push({ type: 'left', columns: colsByPin['left'] });
     colsByPinArr.push({ type: 'center', columns: colsByPin['center'] });
     colsByPinArr.push({ type: 'right', columns: colsByPin['right'] });
@@ -7538,6 +7652,9 @@ function forceFillColumnWidths(allColumns, expectedWidth, startIdx, allowBleed, 
                 col.$$oldWidth = col.width;
             }
             col.width = 0;
+        }
+        else if (!col.width && col.$$oldWidth) {
+            col.width = col.$$oldWidth;
         }
     });
     allColumns = allColumns.filter(function (c) { return c.visible && !c.hidden; });
@@ -8216,6 +8333,8 @@ var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.groupRowsByParents = exports.optionalGetterForProp = void 0;
+var sort_direction_type_1 = __webpack_require__(/*! types/sort-direction.type */ "./src/types/sort-direction.type.ts");
+var sort_1 = __webpack_require__(/*! utils/sort */ "./src/utils/sort.ts");
 var column_prop_getters_1 = __webpack_require__(/*! ./column-prop-getters */ "./src/utils/column-prop-getters.ts");
 function optionalGetterForProp(prop) {
     return prop && (function (row) { return (0, column_prop_getters_1.getterForProp)(prop)(row, prop); });
@@ -8257,7 +8376,7 @@ exports.optionalGetterForProp = optionalGetterForProp;
  * @param rows
  *
  */
-function groupRowsByParents(rows, from, to, lazyTree) {
+function groupRowsByParents(rows, from, to, columns, sortDirs, lazyTree) {
     if (lazyTree === void 0) { lazyTree = false; }
     if (!rows) {
         return rows;
@@ -8298,6 +8417,7 @@ function groupRowsByParents(rows, from, to, lazyTree) {
             }
         }
         var temp = [];
+        var toSortSet = new Set();
         do {
             temp.length = 0;
             while (notResolvedNodes.length) {
@@ -8309,10 +8429,16 @@ function groupRowsByParents(rows, from, to, lazyTree) {
                 else {
                     node.row['level'] = node.parent.row['level'] + 1;
                     node.parent.children.push(node);
+                    if (sortDirs === null || sortDirs === void 0 ? void 0 : sortDirs.length) {
+                        toSortSet.add(node.parent);
+                    }
                 }
             }
             notResolvedNodes = __spreadArray([], temp, true);
         } while (notResolvedNodes.length);
+        if (sortDirs === null || sortDirs === void 0 ? void 0 : sortDirs.length) {
+            toSortSet.forEach(function (value) { return value.sortTreeNodes(columns, sortDirs); });
+        }
         var resolvedRows_1 = [];
         nodeById[0].flatten(function () {
             resolvedRows_1 = __spreadArray(__spreadArray([], resolvedRows_1, true), [this.row], false);
@@ -8335,6 +8461,73 @@ var TreeNode = /** @class */ (function () {
         this.parent = null;
         this.children = [];
     }
+    TreeNode.prototype.sortTreeNodes = function (columns, dirs) {
+        var nodes = this.children;
+        if (!nodes || !columns || !dirs) {
+            return;
+        }
+        if (!dirs || !dirs.length) {
+            return;
+        }
+        /**
+         * record the row ordering of results from prior sort operations (if applicable)
+         * this is necessary to guarantee stable sorting behavior
+         */
+        var rowToIndexMap = new Map();
+        nodes.forEach(function (node, index) { return rowToIndexMap.set(node.row, index); });
+        var cols = {};
+        if (Array.isArray(columns)) {
+            columns.forEach(function (col) {
+                if (col.comparator && typeof col.comparator === 'function') {
+                    cols[col.prop] = col.comparator;
+                }
+            });
+        }
+        // cache valueGetter and compareFn so that they
+        // do not need to be looked-up in the sort function body
+        var cachedDirs = dirs.map(function (dir) {
+            var prop = dir.prop;
+            return {
+                prop: prop,
+                dir: dir.dir,
+                valueGetter: (0, column_prop_getters_1.getterForProp)(prop),
+                compareFn: cols[prop] || sort_1.orderByComparator,
+            };
+        });
+        nodes.sort(function (nodeA, nodeB) {
+            for (var _i = 0, cachedDirs_1 = cachedDirs; _i < cachedDirs_1.length; _i++) {
+                var cachedDir = cachedDirs_1[_i];
+                // Get property and valuegetters for column to be sorted
+                var prop = cachedDir.prop, valueGetter = cachedDir.valueGetter;
+                // Get A and B cell values from rows based on properties of the columns
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                var propA = valueGetter(nodeA.row, prop);
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+                var propB = valueGetter(nodeB.row, prop);
+                // Compare function gets five parameters:
+                // Two cell values to be compared as propA and propB
+                // Two rows corresponding to the cells as rowA and rowB
+                // Direction of the sort for this column as SortDirection
+                // Compare can be a standard JS comparison function (a,b) => -1|0|1
+                // as additional parameters are silently ignored. The whole row and sort
+                // direction enable more complex sort logic.
+                var comparison = cachedDir.dir !== sort_direction_type_1.SortDirection.desc
+                    ? cachedDir.compareFn(propA, propB, nodeA.row, nodeB.row, cachedDir.dir)
+                    : -cachedDir.compareFn(propA, propB, nodeA.row, nodeB.row, cachedDir.dir);
+                // Don't return 0 yet in case of needing to sort by next property
+                if (comparison !== 0) {
+                    return comparison;
+                }
+            }
+            if (!(rowToIndexMap.has(nodeA.row) && rowToIndexMap.has(nodeB.row))) {
+                return 0;
+            }
+            /**
+             * all else being equal, preserve original order of the rows (stable sort)
+             */
+            return rowToIndexMap.get(nodeA.row) < rowToIndexMap.get(nodeB.row) ? -1 : 1;
+        });
+    };
     TreeNode.prototype.flatten = function (f, recursive, lazyTree) {
         if (lazyTree === void 0) { lazyTree = false; }
         if (this.row['treeStatus'] === 'expanded') {
@@ -8547,14 +8740,6 @@ var render = function () {
   return _c(
     "div",
     {
-      directives: [
-        {
-          name: "show",
-          rawName: "v-show",
-          value: _vm.column.visible,
-          expression: "column.visible",
-        },
-      ],
       staticClass: "datatable-body-cell",
       class: _vm.cssClasses,
       style: _vm.styles,
@@ -8916,7 +9101,7 @@ var render = function () {
             ref: "datatableHeader",
             staticClass: "datatable-header",
             attrs: {
-              sorts: _vm.sorts,
+              sorts: _vm.mySorts,
               sortType: _vm.mySortType,
               scrollbarWidth: _vm.scrollbarWidth,
               scrollbarH: _vm.scrollbarH,
@@ -8932,6 +9117,8 @@ var render = function () {
               sortDescendingIcon: _vm.cssClasses.sortDescending,
               allRowsSelected: _vm.allRowsSelected,
               selectionType: _vm.selectionType,
+              columnGroupWidths: _vm.columnGroupWidths,
+              columnsByPin: _vm.columnsByPinArray,
             },
             on: {
               sort: function ($event) {
@@ -8948,6 +9135,9 @@ var render = function () {
               },
               columnContextmenu: function ($event) {
                 return _vm.onColumnContextmenu($event)
+              },
+              "column-visible-changed": function ($event) {
+                return _vm.onColumnChangeVisible($event)
               },
             },
           })
@@ -8996,6 +9186,8 @@ var render = function () {
           rowDetailSlot: _vm.rowDetailSlot,
           renderTracking: _vm.renderTracking,
           beforeSelectRowCheck: _vm.beforeSelectRowCheck,
+          columnGroupWidths: _vm.columnGroupWidths,
+          columnsByPin: _vm.columnsByPinArray,
         },
         on: {
           page: _vm.onBodyPage,
@@ -9298,29 +9490,35 @@ var render = function () {
             },
           },
         },
-        _vm._l(colGroup.columns, function (column, ii) {
-          return _c("datatable-body-cell", {
-            key: column.$$id + "-" + _vm.counter,
-            attrs: {
-              tabIndex: "-1",
-              rowContext: _vm.rowContext,
-              column: column,
-              cellSlot: _vm.slots()[column.prop],
-              renderTracking: _vm.renderTracking,
-              displayCheck: _vm.displayCheck,
-            },
-            on: {
-              activate: function ($event) {
-                return _vm.onActivate($event, ii)
-              },
-              "tree-action": _vm.onTreeAction,
-              mouseenter: _vm.onMouseenter,
-              "cell-created": _vm.onCellRendered,
-              "cell-updated": _vm.onCellRendered,
-            },
-          })
-        }),
-        1
+        [
+          _vm._l(colGroup.columns, function (column, ii) {
+            return [
+              column.visible
+                ? _c("datatable-body-cell", {
+                    key: column.$$id + "-" + _vm.counter,
+                    attrs: {
+                      tabIndex: "-1",
+                      rowContext: _vm.rowContext,
+                      column: column,
+                      cellSlot: _vm.slots()[column.prop],
+                      renderTracking: _vm.renderTracking,
+                      displayCheck: _vm.displayCheck,
+                    },
+                    on: {
+                      activate: function ($event) {
+                        return _vm.onActivate($event, ii)
+                      },
+                      "tree-action": _vm.onTreeAction,
+                      mouseenter: _vm.onMouseenter,
+                      "cell-created": _vm.onCellRendered,
+                      "cell-updated": _vm.onCellRendered,
+                    },
+                  })
+                : _vm._e(),
+            ]
+          }),
+        ],
+        2
       )
     }),
     0

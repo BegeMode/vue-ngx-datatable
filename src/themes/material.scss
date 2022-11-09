@@ -216,7 +216,7 @@ $datatable-summary-row-background-hover: #ddd !default;
         .draggable::after {
           transition: transform 400ms ease, opacity 400ms ease;
           opacity: 0.5;
-          transform: scale(1);
+          transform: scale(.8);
         }
       }
 

@@ -156,6 +156,8 @@ export function forceFillColumnWidths(
         col.$$oldWidth = col.width;
       }
       col.width = 0;
+    } else if (!col.width && col.$$oldWidth) {
+      col.width = col.$$oldWidth;
     }
   });
 

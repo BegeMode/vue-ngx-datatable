@@ -1,5 +1,5 @@
 /**
- * vue-data-table v"1.4.5" (https://github.com/begemode/vue-ngx-data-table)
+ * vue-ngx-datatable v"1.4.7" (https://github.com/begemode/vue-ngx-datatable)
  * Copyright 2018
  * Licensed under MIT
  */
@@ -132,7 +132,7 @@ That's all.
       .ngx-datatable.material .datatable-header .datatable-header-cell.longpress .draggable::after {
         transition: transform 400ms ease, opacity 400ms ease;
         opacity: 0.5;
-        transform: scale(1); }
+        transform: scale(0.8); }
       .ngx-datatable.material .datatable-header .datatable-header-cell .draggable::after {
         content: ' ';
         position: absolute;

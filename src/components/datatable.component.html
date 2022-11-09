@@ -10,7 +10,7 @@
     ref="datatableHeader"
     class="datatable-header"
     v-if="headerHeight"
-    :sorts="sorts"
+    :sorts="mySorts"
     :sortType="mySortType"
     :scrollbarWidth="scrollbarWidth"
     :scrollbarH="scrollbarH"
@@ -24,11 +24,14 @@
     :sortDescendingIcon="cssClasses.sortDescending"
     :allRowsSelected="allRowsSelected"
     :selectionType="selectionType"
+    :columnGroupWidths="columnGroupWidths"
+    :columnsByPin="columnsByPinArray"
     @sort="onColumnSort($event)"
     @resize="onColumnResize($event)"
     @reorder="onColumnReorder($event)"
     @select="onHeaderSelect($event)"
     @columnContextmenu="onColumnContextmenu($event)"
+    @column-visible-changed="onColumnChangeVisible($event)"
   >
   </datatable-header>
   <datatable-body
@@ -73,6 +76,8 @@
     :rowDetailSlot="rowDetailSlot"
     :renderTracking="renderTracking"
     :beforeSelectRowCheck="beforeSelectRowCheck"
+    :columnGroupWidths="columnGroupWidths"
+    :columnsByPin="columnsByPinArray"
     @page="onBodyPage"
     @activate="$emit('activate', $event)"
     @rowContextmenu="onRowContextmenu"

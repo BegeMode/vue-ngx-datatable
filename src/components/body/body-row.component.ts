@@ -106,12 +106,12 @@ export default class DataTableBodyRowComponent extends Vue {
   get styles(): Record<string, string> {
     if (this.rowContext) {
       return {
-        width: `${this.columnGroupWidths.total}px`,
+        width: `${this.columnGroupWidths?.total ?? 0}px`,
         height: this.rowContext.rowHeight === 'auto' ? this.rowContext.rowHeight : `${this.rowContext.rowHeight}px`,
       };
     }
     return {
-      width: `${this.columnGroupWidths.total}px`,
+      width: `${this.columnGroupWidths?.total ?? 0}px`,
     };
   }
 

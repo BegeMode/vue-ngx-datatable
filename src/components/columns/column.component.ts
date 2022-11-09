@@ -50,17 +50,35 @@ export default class DataTableColumnComponent extends Vue {
 
   @Watch('frozenLeft') onFrozenLeftChanged(newVal: boolean): void {
     this.column.frozenLeft = newVal;
-    (this.$parent as DatatableComponent).onColumnChangeVisible(this.column);
   }
 
   @Watch('frozenRight') onFrozenRightChanged(newVal: boolean): void {
     this.column.frozenRight = newVal;
-    (this.$parent as DatatableComponent).onColumnChangeVisible(this.column);
   }
 
-  // @Watch('column.width') onWidthChanged(): void {
-  //   this.$emit('update-width', this.column.width);
-  // }
+  @Watch('flexGrow') onFlexGrowChanged(newVal: number): void {
+    this.column.flexGrow = newVal;
+  }
+
+  @Watch('resizeable') onResizeableChanged(newVal: boolean): void {
+    this.column.resizeable = newVal;
+  }
+
+  @Watch('sortable') onSortableChanged(newVal: boolean): void {
+    this.column.sortable = newVal;
+  }
+
+  @Watch('draggable') onDraggableChanged(newVal: boolean): void {
+    this.column.draggable = newVal;
+  }
+
+  @Watch('checkboxable') onCheckboxableChanged(newVal: boolean): void {
+    this.column.checkboxable = newVal;
+  }
+
+  @Watch('width') onWidthChanged(newVal: number): void {
+    this.column.width = newVal;
+  }
 
   mounted(): void {
     this.$set(this.column, 'name', this.name);

@@ -10,6 +10,7 @@ import { SelectionType } from 'types/selection.type';
 import { SortType } from 'types/sort.type';
 import { ISortEvent, ISortPropDir } from 'types/sort-prop-dir.type';
 import { TableColumn } from 'types/table-column.type';
+import { columnGroupWidths, columnsByPin, columnsByPinArr, IColumnsByPinRecord, IColumnsWidth } from 'utils/column';
 import { setColumnDefaults, setColumnsDefaults } from 'utils/column-helper';
 import { isArrayEqual } from 'utils/equal.array';
 import { adjustColumnWidths, forceFillColumnWidths } from 'utils/math';
@@ -358,6 +359,7 @@ export default class DatatableComponent extends Vue {
   internalColumns: TableColumn[] = null;
   myColumnMode: ColumnMode = ColumnMode.standard;
   mySortType: SortType = SortType.single;
+  mySorts: Array<ISortPropDir> = [];
   innerOffset = 0; // page number after scrolling
   mySelected: Array<Record<string, unknown>> = [];
   myChecked: Array<Record<string, unknown>> = [];
@@ -373,34 +375,20 @@ export default class DatatableComponent extends Vue {
   footerSlot: (obj: Record<string, unknown>) => VNode[] = null;
   // isColumnsInited = false;
   // isColumnsInitedTimeoutId: number;
+  columnGroupWidths: IColumnsWidth = null;
+  columnsByPinArray: IColumnsByPinRecord[] = null;
 
   private readonly scrollbarHelper: ScrollbarHelper = new ScrollbarHelper();
   private readonly dimensionsHelper: DimensionsHelper = new DimensionsHelper();
   private needToCalculateDims = true;
   private activeGroupRow: IGroupedRows = null;
+  private recalculateColumnsTimer: number;
 
   @Watch('rows', { immediate: true }) onRowsChanged(val: Array<Record<string, unknown>>): void {
     if (val) {
       this.internalRows = [...val];
     }
-    const treeFrom = optionalGetterForProp(this.treeFromRelation);
-    const treeTo = optionalGetterForProp(this.treeToRelation);
-    if (treeFrom && treeTo) {
-      this.initialRows = this.internalRows;
-    }
-
-    // auto sort on new updates
-    if (!this.externalSorting) {
-      this.sortInternalRows();
-    }
-
-    // auto group by parent on new update
-    this.internalRows = groupRowsByParents(
-      this.internalRows as Array<{ level: number; treeStatus?: string }>,
-      treeFrom,
-      treeTo,
-      this.lazyTree
-    );
+    this.innerSortRows();
     this.groupedRows = null;
     if (this.rows && this.groupRowsBy) {
       // this.groupedRows = this.groupArrayBy(this.rows, this.groupRowsBy);
@@ -497,7 +485,11 @@ export default class DatatableComponent extends Vue {
     this.myChecked = this.checked;
   }
 
-  @Watch('sorts') onSortsChanged(): void {
+  @Watch('sorts', { immediate: true }) onSortsChanged(): void {
+    this.mySorts = this.sorts;
+  }
+
+  @Watch('mySorts') onMySortsChanged(): void {
     this.innerSortRows();
   }
 
@@ -544,12 +536,13 @@ export default class DatatableComponent extends Vue {
       this.needToCalculateDims = false;
       this.resizeObserver = new (window as Window).ResizeObserver(entries => {
         let height = 0;
+        let width = 0;
         if (entries.length && entries[0].contentRect) {
-          this.innerWidth = Math.floor(entries[0].contentRect.width);
-          height = entries[0].contentRect.height;
+          width = Math.round(entries[0].contentRect.width);
+          height = Math.round(entries[0].contentRect.height);
         } else {
           height = this.$el.clientHeight;
-          this.innerWidth = this.$el.clientWidth;
+          width = this.$el.clientWidth;
         }
         if (this.scrollbarV) {
           if (this.headerHeight) {
@@ -558,8 +551,12 @@ export default class DatatableComponent extends Vue {
           if (this.footerHeight) {
             height = height - this.footerHeight;
           }
-          this.bodyHeight = height;
         }
+        if (this.innerWidth === width && this.bodyHeight === height) {
+          return;
+        }
+        this.innerWidth = width;
+        this.bodyHeight = height;
         if (typeof requestAnimationFrame === 'undefined') {
           this.recalculate();
         } else {
@@ -788,6 +785,11 @@ export default class DatatableComponent extends Vue {
       width = width - this.scrollbarHelper.width;
     }
     this.calculateColumnsWidth(width, columns, forceIdx, allowBleed);
+    this.$nextTick(() => {
+      const colsByPin = columnsByPin(columns);
+      this.columnsByPinArray = columnsByPinArr(colsByPin);
+      this.columnGroupWidths = columnGroupWidths(colsByPin, columns, width);
+    });
     return columns;
   }
 
@@ -801,10 +803,6 @@ export default class DatatableComponent extends Vue {
       forceFillColumnWidths(columns, width, forceIdx, allowBleed);
     } else if (this.myColumnMode === ColumnMode.flex) {
       adjustColumnWidths(columns, width);
-    }
-    const hiddenColumns = columns.filter(col => col.hidden);
-    if (hiddenColumns.length && this.bodyComponent) {
-      this.bodyComponent.onInnerWidthChanged();
     }
   }
 
@@ -1002,6 +1000,19 @@ export default class DatatableComponent extends Vue {
   }
 
   /**
+   * Force change order of columns
+   * @param order Array<naumber> (index - new position of column; value - old position of column)
+   */
+  reorderColumns(order: Array<number>): void {
+    const oldColumnsOrder = new Map<number, TableColumn>();
+    this.internalColumns.forEach((c, i) => oldColumnsOrder.set(i, c));
+    order.forEach((oldPos, newPos) => {
+      this.internalColumns[newPos] = oldColumnsOrder.get(oldPos);
+    });
+    this.recalculateColumns();
+  }
+
+  /**
    * The header triggered a column re-order event.
    */
   onColumnReorder({ column, newValue, prevValue }: { column: TableColumn; newValue: number; prevValue: number }): void {
@@ -1029,6 +1040,7 @@ export default class DatatableComponent extends Vue {
     }
 
     this.internalColumns = cols;
+    this.recalculateColumns();
 
     this.$emit('reorder', {
       column,
@@ -1050,16 +1062,13 @@ export default class DatatableComponent extends Vue {
     }
 
     // this.mySorts = event.sorts;
-    if (Array.isArray(this.sorts) && Array.isArray(event.sorts)) {
-      this.sorts.length = 0;
-      event.sorts.forEach(item => this.sorts.push(item));
-      if (this.sorts.length === 0) {
-        this.sorts.push({ dir: null, prop: null });
+    if (Array.isArray(this.mySorts) && Array.isArray(event.sorts)) {
+      this.mySorts = [];
+      event.sorts.forEach(item => this.mySorts.push(item));
+      if (!this.mySorts.length) {
+        this.mySorts.push({ dir: null, prop: null });
       }
     }
-
-    // let rows = this.internalRows;
-    this.innerSortRows();
 
     // Go to first page when sorting to see the newly sorted data
     if (this.goToFirstAfterSort) {
@@ -1173,45 +1182,36 @@ export default class DatatableComponent extends Vue {
     if (!this.internalColumns) {
       this.internalColumns = [column];
     } else {
-      this.internalColumns = [...this.internalColumns, column];
+      //   this.internalColumns = [...this.internalColumns, column];
+      // }
+      const key = `${column.prop}${column.name}`;
+      const i = this.internalColumns.findIndex(c => `${c.prop}${c.name}` === key);
+      if (i >= 0) {
+        this.internalColumns[i] = column;
+      }
+      this.internalColumns.push(column); // = [...this.internalColumns, column];
     }
-    // if (!this.internalColumns) {
-    //   setColumnDefaults(column, this);
-    //   this.internalColumns = [column];
-    // }
-    // const colIndex = this.internalColumns.findIndex(c => {
-    //   if (column.prop) {
-    //     return c.prop === column.prop;
-    //   } else {
-    //     return c.name === column.name;
-    //   }
-    // });
-    // if (colIndex < 0) {
-    //   setColumnDefaults(column, this);
-    //   this.internalColumns = [...this.internalColumns, column];
-    // } else {
-    //   const col = this.internalColumns[colIndex];
-    //   this.$set(col, 'headerTemplate', column.headerTemplate);
-    //   this.$set(col, 'cellTemplate', column.cellTemplate);
-    // }
-    if (this.isVisible) {
-      this.recalculateColumns();
-    }
+    this.onColumnChangeVisible();
     // clearTimeout(this.isColumnsInitedTimeoutId);
     // this.isColumnsInitedTimeoutId = setTimeout(() => this.$set(this, 'isColumnsInited', true), 50) as unknown as number;
   }
 
   onColumnRemoved(column: TableColumn): void {
+    if (!column) {
+      return;
+    }
     const colIndex = this.internalColumns.findIndex(c => c.name === column.name);
-    const cols = [...this.internalColumns];
-    cols.splice(colIndex, 1);
-    this.internalColumns = [...cols];
-    this.recalculateColumns();
+    if (colIndex >= 0) {
+      this.internalColumns.splice(colIndex, 1);
+    }
+    this.onColumnChangeVisible();
   }
 
-  onColumnChangeVisible(column: TableColumn): void {
-    // we have to allow the cell's element to set it's width
-    setTimeout(() => this.recalculateColumns(), 100);
+  onColumnChangeVisible(column?: TableColumn): void {
+    clearTimeout(this.recalculateColumnsTimer);
+    this.recalculateColumnsTimer = setTimeout(() => {
+      this.recalculateColumns();
+    }, 100) as unknown as number;
   }
 
   /**
@@ -1305,22 +1305,16 @@ export default class DatatableComponent extends Vue {
   private innerSortRows(): void {
     const treeFrom = optionalGetterForProp(this.treeFromRelation);
     const treeTo = optionalGetterForProp(this.treeToRelation);
-    if (treeFrom && treeTo) {
-      this.internalRows = this.initialRows;
-    }
-
-    // this could be optimized better since it will resort
-    // the rows again on the 'push' detection...
     if (this.externalSorting === false) {
-      // don't use normal setter so we don't resort
       this.sortInternalRows();
     }
-
     // auto group by parent on new update
     this.internalRows = groupRowsByParents(
       this.internalRows as Array<{ level: number; treeStatus?: string }>,
       treeFrom,
       treeTo,
+      this.internalColumns,
+      this.mySorts,
       this.lazyTree
     );
   }
@@ -1470,7 +1464,7 @@ export default class DatatableComponent extends Vue {
       this.groupedRows = this.sortGroupedRows(this.groupedRows);
       this.internalRows = this.processGroupedRows(this.groupedRows) as Array<Record<string, unknown>>;
     } else {
-      this.internalRows = sortRows(this.internalRows, this.internalColumns, this.sorts);
+      this.internalRows = sortRows(this.internalRows, this.internalColumns, this.mySorts);
     }
   }
 
@@ -1486,10 +1480,10 @@ export default class DatatableComponent extends Vue {
         gr.groups = this.sortGroupedRows(gr.groups);
       }
       if (gr.rows && gr.rows) {
-        gr.rows = sortRows(gr.rows, this.internalColumns, this.sorts);
+        gr.rows = sortRows(gr.rows, this.internalColumns, this.mySorts);
       }
     });
-    const sortedRows = sortRows(rows, this.internalColumns, this.sorts);
+    const sortedRows = sortRows(rows, this.internalColumns, this.mySorts);
     const result = sortedRows.map(r => r.__group);
     return result as IGroupedRows[];
   }

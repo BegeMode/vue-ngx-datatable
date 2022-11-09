@@ -8,7 +8,7 @@ const { ENV, dir, APP_VERSION } = require('./helpers');
 
 const banner =
 `/**
- * vue-data-table v${APP_VERSION} (https://github.com/begemode/vue-ngx-data-table)
+ * vue-ngx-datatable v${APP_VERSION} (https://github.com/begemode/vue-ngx-datatable)
  * Copyright 2018
  * Licensed under MIT
  */`;

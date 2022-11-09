@@ -15,16 +15,6 @@ export default class ScrollerComponent extends Vue {
 
   fromPager = true;
   innerWidth = 0;
-
-  get styleObject(): Record<string, unknown> {
-    return {
-      height: this.scrollHeight ? `${this.scrollHeight}px` : null,
-      width: '100%', // `${this.scrollWidth}px`,
-      position: 'relative',
-      transform: 'translateZ(0)',
-    };
-  }
-
   scrollYPos = 0;
   scrollXPos = 0;
   prevScrollYPos = 0;
@@ -50,9 +40,7 @@ export default class ScrollerComponent extends Vue {
   mounted(): void {
     // manual bind so we don't always listen
     if (this.scrollbarV || this.scrollbarH) {
-      // const renderer = this.renderer;
       this.parentElement = this.$el.closest('.datatable-body');
-      // .parentElement; //  renderer.parentNode(renderer.parentNode(this.element));
       // this.onScrollListener = this.onScrolled.bind(this) as (event: MouseEvent) => void;
       // this.parentElement.addEventListener('scroll', this.onScrollListener, {
       //   passive: true,
@@ -108,21 +96,22 @@ export default class ScrollerComponent extends Vue {
   }
 
   // onScrolled(event: MouseEvent): void {
-  //   if (this.scrollbarV || this.scrollbarH) {
-  //     if (!this.scrollDirty) {
-  //       this.scrollDirty = true;
-  //       const dom: Element = <Element>event.currentTarget;
-  //       requestAnimationFrame(() => {
-  //         this.scrollYPos = dom.scrollTop;
-  //         this.scrollXPos = dom.scrollLeft;
-  //         this.updateOffset();
-  //         this.scrollDirty = false;
-  //       });
-  //     } else {
-  //       // eslint-disable-next-line no-console
-  //       console.log('this.scrollDirty is true');
-  //     }
+  // if (this.scrollbarV || this.scrollbarH) {
+  //   if (!this.scrollDirty) {
+  //     this.scrollDirty = true;
+  //     const dom: Element = <Element>event.currentTarget;
+  //     requestAnimationFrame(() => {
+  //       this.scrollYPos = dom.scrollTop;
+  //       this.scrollXPos = dom.scrollLeft;
+  //       this.updateOffset();
+  //       this.scrollDirty = false;
+  //     });
+  //   } else {
+  //     // eslint-disable-next-line no-console
+  //     console.log('this.scrollDirty is true');
   //   }
+  // this.currScrollTop = event.target.scrollTop;
+  // this.currScrollLeft = event.target.scrollLeft;
   // }
 
   tick(): void {
@@ -130,14 +119,12 @@ export default class ScrollerComponent extends Vue {
       return;
     }
     requestAnimationFrame(() => this.tick());
-    // this.loading = Boolean(this.scrollTo !== ScrollTo.None);
     if (this.scrollbarV || this.scrollbarH) {
-      const list: Element = this.parentElement; // this.$refs.list as HTMLElement;
-      if (!list) {
+      if (!this.parentElement) {
         return;
       }
-      const scrollTop = list.scrollTop;
-      const scrollLeft = list.scrollLeft;
+      const scrollTop = this.parentElement.scrollTop;
+      const scrollLeft = this.parentElement.scrollLeft;
       if (this.scrollYPos === scrollTop && this.scrollXPos === scrollLeft) {
         return;
       }
@@ -168,5 +155,14 @@ export default class ScrollerComponent extends Vue {
     }
     this.prevScrollYPos = this.scrollYPos;
     this.prevScrollXPos = this.scrollXPos;
+  }
+
+  get styleObject(): Record<string, unknown> {
+    return {
+      height: this.scrollHeight ? `${this.scrollHeight}px` : null,
+      width: '100%', // `${this.scrollWidth}px`,
+      position: 'relative',
+      transform: 'translateZ(0)',
+    };
   }
 }
