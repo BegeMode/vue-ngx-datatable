@@ -178,6 +178,9 @@ export default Vue.directive('long-press', {
     (el as IHasLongPressController).__longpress__ = ctrl;
   },
   unbind(el: Element) {
+    if (!el) {
+      return;
+    }
     const ctrl: LongPressController = (el as IHasLongPressController).__longpress__;
     ctrl.element.removeEventListener('mousedown', ctrl.handleDown);
     ctrl.unsubscribe();

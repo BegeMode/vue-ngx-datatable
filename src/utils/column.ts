@@ -68,12 +68,12 @@ export function columnTotalWidth(columns: TableColumn[]): number {
 
   if (columns) {
     for (const c of columns) {
-      if (c.hidden) {
+      if (c.hidden || !c.visible) {
         continue;
       }
       // const has = Boolean(prop && c[prop]);
       // const width = c.hidden ? 0 : has ? c[prop] : c.width;
-      let width = c.hidden ? 0 : c.width;
+      let width = c.hidden || !c.visible ? 0 : c.width || c.$$oldWidth;
       if (typeof width === 'string') {
         width = parseFloat(width);
       }
@@ -99,9 +99,9 @@ export function columnsTotalWidth(columns: TableColumn[] /* , prop?: any */): nu
   return totalWidth;
 }
 
-export function columnsByPinArr(val: TableColumn[]): Array<IColumnsByPinRecord> {
+export function columnsByPinArr(val: IColumnsByPin): Array<IColumnsByPinRecord> {
   const colsByPinArr: Array<{ type: 'left' | 'center' | 'right'; columns: TableColumn[] }> = [];
-  const colsByPin = columnsByPin(val);
+  const colsByPin = val; // columnsByPin(val);
 
   colsByPinArr.push({ type: 'left', columns: colsByPin['left'] });
   colsByPinArr.push({ type: 'center', columns: colsByPin['center'] });

@@ -143,6 +143,9 @@ export default Vue.directive('draggable', {
     ctrl.dragEvent = (binding as { value: { dragEvent: MouseEvent } }).value.dragEvent;
   },
   unbind(el: HTMLElement) {
+    if (!el) {
+      return;
+    }
     const ctrl: DraggableController = (el as IDraggableElement).__draggable__;
     ctrl.unsubscribe();
   },

@@ -6,7 +6,7 @@ import { IGroupedRows } from 'types/grouped-rows';
 import { IRowContext } from 'types/row-context.type';
 import { SelectionType } from 'types/selection.type';
 import { TableColumn } from 'types/table-column.type';
-import { columnGroupWidths, columnsByPin, columnsByPinArr, IColumnsByPinRecord, IColumnsWidth } from 'utils/column';
+import { IColumnsByPinRecord, IColumnsWidth } from 'utils/column';
 import { RowHeightCache } from 'utils/row-height-cache';
 import { translateXY } from 'utils/translate';
 import { VNode } from 'vue';
@@ -77,6 +77,8 @@ export default class DataTableBodyComponent extends Vue {
   @Prop() groupHeaderSlot: (obj: Record<string, unknown>) => VNode[];
   @Prop() rowDetailSlot: (obj: Record<string, unknown>) => VNode[];
   @Prop() renderTracking: boolean;
+  @Prop() columnGroupWidths: IColumnsWidth;
+  @Prop() columnsByPin: IColumnsByPinRecord[];
   @Prop() beforeSelectRowCheck: (
     newRow: Record<string, unknown>,
     oldSelected: Record<string, unknown>[]
@@ -89,12 +91,9 @@ export default class DataTableBodyComponent extends Vue {
   myOffset = 0;
   myOffsetX = 0;
   indexes: { first: number; last: number } = { first: 0, last: 0 };
-  columnGroupWidths: IColumnsWidth = null;
-  // columnGroupWidthsWithoutGroup = null;
   rowIndexes = new Map<Record<string, unknown>, number>();
   rowExpansions = new Map<Record<string, unknown> | IGroupedRows, boolean>();
   myBodyHeight: string = null;
-  columnsByPin: IColumnsByPinRecord[] = null;
   groupStyles = {
     left: {},
     center: {},
@@ -113,6 +112,7 @@ export default class DataTableBodyComponent extends Vue {
   private readonly scrollbarHelper = new ScrollbarHelper();
   private renderCounter = 0;
   private renderId: number = null;
+  private pageRowCount = 0;
 
   @Watch('pageSize') onPageSize(): void {
     this.recalcLayout();
@@ -133,13 +133,8 @@ export default class DataTableBodyComponent extends Vue {
         await this.$nextTick();
       }
     }
+    this.lastFirst = -1;
     this.recalcLayout();
-    // this.$nextTick(() => {
-    //   this.scroller = this.$refs.scroller;
-    //   if (updateOffset) {
-    //     this.updateOffsetY(this.offset, true);
-    //   }
-    // });
   }
 
   // @Watch('groupedRows') onGroupedRowsChanged() {
@@ -162,7 +157,6 @@ export default class DataTableBodyComponent extends Vue {
   }
 
   @Watch('columns', { immediate: true }) onColumnsChanged(): void {
-    this.recalculateColumns();
     this.buildStylesByGroup();
   }
 
@@ -178,8 +172,11 @@ export default class DataTableBodyComponent extends Vue {
     this.buildStylesByGroup();
   }
 
+  @Watch('columnGroupWidths') onColumnGroupWidthsChanged() {
+    this.buildStylesByGroup();
+  }
+
   @Watch('innerWidth') onInnerWidthChanged(): void {
-    this.recalculateColumns();
     this.buildStylesByGroup();
   }
 
@@ -204,6 +201,7 @@ export default class DataTableBodyComponent extends Vue {
     } else {
       this.myBodyHeight = 'auto';
     }
+    this.pageRowCount = 0;
     this.recalcLayout();
   }
 
@@ -327,16 +325,6 @@ export default class DataTableBodyComponent extends Vue {
     this.$emit('select', event);
   }
 
-  recalculateColumns(width?: number): void {
-    const colsByPin = columnsByPin(this.columns);
-    this.columnsByPin = columnsByPinArr(this.columns);
-    // eslint-disable-next-line no-undefined
-    if (width === null || width === undefined) {
-      width = this.scroller ? this.scroller.$el.clientWidth : this.innerWidth;
-    }
-    this.columnGroupWidths = columnGroupWidths(colsByPin, this.columns, width);
-  }
-
   /**
    * Updates the Y offset given a new offset.
    */
@@ -365,7 +353,7 @@ export default class DataTableBodyComponent extends Vue {
   }
 
   onScrollerWidthChanged(width: number) {
-    this.recalculateColumns(width);
+    this.buildStylesByGroup();
   }
 
   onScrollSetup(event: { scrollYPos: number; scrollXPos: number }): void {
@@ -502,7 +490,8 @@ export default class DataTableBodyComponent extends Vue {
     }
     // }
     this.rowContexts = temp;
-    // console.log('updateRows first = ', first);
+    // eslint-disable-next-line no-console
+    // console.log('updateRows first = ', first, last);
   }
 
   /**
@@ -576,7 +565,7 @@ export default class DataTableBodyComponent extends Vue {
    * @memberOf DataTableBodyComponent
    */
   getRowWrapperStyles(rowContext: IRowContext): Record<string, string> {
-    if (!rowContext) {
+    if (!rowContext || !this.columnGroupWidths) {
       return null;
     }
     const styles = {};
@@ -677,7 +666,12 @@ export default class DataTableBodyComponent extends Vue {
           last = this.rowHeightsCache.getRowIndex(height + this.offsetY) + 1;
         } else {
           first = Math.floor(this.offsetY / this.rowHeight);
-          last = Math.ceil((height + this.offsetY + this.rowHeight) / this.rowHeight);
+          if (!this.pageRowCount) {
+            last = Math.ceil((height + this.offsetY + this.rowHeight) / this.rowHeight);
+            this.pageRowCount = last - first;
+          } else {
+            last = first + this.pageRowCount;
+          }
         }
       } else {
         // If virtual rows are not needed
@@ -803,13 +797,6 @@ export default class DataTableBodyComponent extends Vue {
 
   onGroupToggle($event: { value: Record<string, unknown> }): void {
     this.$emit('group-toggle', $event);
-    // if ($event.type === 'group') {
-    //   this.toggleRowExpansion($event.value);
-    // } else if ($event.type === 'all') {
-    //   this.toggleAllRows($event.value);
-    // }
-    // this.updateIndexes();
-    // this.updateRows(true);
   }
 
   /**
@@ -939,10 +926,14 @@ export default class DataTableBodyComponent extends Vue {
   }
 
   calcStylesByGroup(group: keyof IColumnsWidth): Record<string, string> {
+    if (!this.columnGroupWidths) {
+      return null;
+    }
     const widths = this.columnGroupWidths;
     const offsetX = this.myOffsetX;
     const styles = {
       width: `${widths[group]}px`,
+      // 'will-change': 'transform',
     };
     if (group === 'left') {
       translateXY(styles, offsetX, 0);
@@ -957,6 +948,9 @@ export default class DataTableBodyComponent extends Vue {
   }
 
   getGroupStyles(colGroup: { type: 'left' | 'center' | 'right' }): Record<string, string | number> {
+    if (!this.columnGroupWidths) {
+      return null;
+    }
     if (colGroup && colGroup.type) {
       return {
         width: `${this.columnGroupWidths.total}px`,

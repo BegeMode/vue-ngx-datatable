@@ -20,21 +20,23 @@
       <!-- <div v-for="(column, ii) of colGroup.columns" :key="column.$$id">
       <span>{{row[column.prop]}}</span>
       </div>-->
-      <datatable-body-cell
-        v-for="(column, ii) of colGroup.columns"
-        :key="`${column.$$id}-${counter}`"
-        tabIndex="-1"
-        :rowContext="rowContext"
-        :column="column"
-        :cellSlot="slots()[column.prop]"
-        :renderTracking="renderTracking"
-        :displayCheck="displayCheck"
-        @activate="onActivate($event, ii)"
-        @tree-action="onTreeAction"
-        @mouseenter="onMouseenter"
-        @cell-created="onCellRendered"
-        @cell-updated="onCellRendered"
-      ></datatable-body-cell>
+      <template v-for="(column, ii) of colGroup.columns">
+        <datatable-body-cell
+          v-if="column.visible"
+          :key="`${column.$$id}-${counter}`"
+          tabIndex="-1"
+          :rowContext="rowContext"
+          :column="column"
+          :cellSlot="slots()[column.prop]"
+          :renderTracking="renderTracking"
+          :displayCheck="displayCheck"
+          @activate="onActivate($event, ii)"
+          @tree-action="onTreeAction"
+          @mouseenter="onMouseenter"
+          @cell-created="onCellRendered"
+          @cell-updated="onCellRendered"
+        ></datatable-body-cell>
+      </template>
       <!-- <datatable-body-cell v-for="(column, ii) of colGroup.columns" :key="column.$$id"
       tabindex="-1"
       :row="row"

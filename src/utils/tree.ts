@@ -1,4 +1,7 @@
-import { TableColumnProp } from '../types/table-column.type';
+import { SortDirection } from 'types/sort-direction.type';
+import { ISortPropDir } from 'types/sort-prop-dir.type';
+import { orderByComparator } from 'utils/sort';
+import { TableColumn, TableColumnProp, TComparator } from '../types/table-column.type';
 import { getterForProp } from './column-prop-getters';
 
 export type OptionalValueGetter = (row: Record<string, unknown>) => unknown | undefined;
@@ -46,6 +49,8 @@ export function groupRowsByParents(
   rows: Array<{ level: number; treeStatus?: string }>,
   from?: OptionalValueGetter,
   to?: OptionalValueGetter,
+  columns?: TableColumn[],
+  sortDirs?: ISortPropDir[],
   lazyTree: boolean = false
 ): Record<string, unknown>[] {
   if (!rows) {
@@ -89,6 +94,7 @@ export function groupRowsByParents(
       }
     }
     const temp = [];
+    const toSortSet = new Set<TreeNode>();
     do {
       temp.length = 0;
       while (notResolvedNodes.length) {
@@ -99,10 +105,16 @@ export function groupRowsByParents(
         } else {
           node.row['level'] = node.parent.row['level'] + 1;
           node.parent.children.push(node);
+          if (sortDirs?.length) {
+            toSortSet.add(node.parent);
+          }
         }
       }
       notResolvedNodes = [...temp];
     } while (notResolvedNodes.length);
+    if (sortDirs?.length) {
+      toSortSet.forEach(value => value.sortTreeNodes(columns, sortDirs));
+    }
 
     let resolvedRows: Record<string, unknown>[] = [];
     nodeById[0].flatten(
@@ -132,6 +144,81 @@ class TreeNode {
     this.row = row;
     this.parent = null;
     this.children = [];
+  }
+
+  sortTreeNodes(columns: TableColumn[], dirs: ISortPropDir[]): void {
+    const nodes: TreeNode[] = this.children;
+    if (!nodes || !columns || !dirs) {
+      return;
+    }
+    if (!dirs || !dirs.length) {
+      return;
+    }
+
+    /**
+     * record the row ordering of results from prior sort operations (if applicable)
+     * this is necessary to guarantee stable sorting behavior
+     */
+    const rowToIndexMap = new Map<Record<string, unknown>, number>();
+    nodes.forEach((node, index) => rowToIndexMap.set(node.row, index));
+    const cols: Record<string, TComparator> = {};
+    if (Array.isArray(columns)) {
+      columns.forEach(col => {
+        if (col.comparator && typeof col.comparator === 'function') {
+          cols[col.prop] = col.comparator;
+        }
+      });
+    }
+
+    // cache valueGetter and compareFn so that they
+    // do not need to be looked-up in the sort function body
+    const cachedDirs = dirs.map(dir => {
+      const prop = dir.prop;
+      return {
+        prop,
+        dir: dir.dir,
+        valueGetter: getterForProp(prop),
+        compareFn: cols[prop] || orderByComparator,
+      };
+    });
+
+    nodes.sort((nodeA: TreeNode, nodeB: TreeNode) => {
+      for (const cachedDir of cachedDirs) {
+        // Get property and valuegetters for column to be sorted
+        const { prop, valueGetter } = cachedDir;
+        // Get A and B cell values from rows based on properties of the columns
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        const propA = valueGetter(nodeA.row, prop);
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+        const propB = valueGetter(nodeB.row, prop);
+
+        // Compare function gets five parameters:
+        // Two cell values to be compared as propA and propB
+        // Two rows corresponding to the cells as rowA and rowB
+        // Direction of the sort for this column as SortDirection
+        // Compare can be a standard JS comparison function (a,b) => -1|0|1
+        // as additional parameters are silently ignored. The whole row and sort
+        // direction enable more complex sort logic.
+        const comparison =
+          cachedDir.dir !== SortDirection.desc
+            ? cachedDir.compareFn(propA as string, propB as string, nodeA.row, nodeB.row, cachedDir.dir)
+            : -cachedDir.compareFn(propA as string, propB as string, nodeA.row, nodeB.row, cachedDir.dir);
+
+        // Don't return 0 yet in case of needing to sort by next property
+        if (comparison !== 0) {
+          return comparison;
+        }
+      }
+
+      if (!(rowToIndexMap.has(nodeA.row) && rowToIndexMap.has(nodeB.row))) {
+        return 0;
+      }
+
+      /**
+       * all else being equal, preserve original order of the rows (stable sort)
+       */
+      return rowToIndexMap.get(nodeA.row) < rowToIndexMap.get(nodeB.row) ? -1 : 1;
+    });
   }
 
   flatten(f: () => void, recursive: boolean, lazyTree: boolean = false): void {

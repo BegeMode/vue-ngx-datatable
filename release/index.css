@@ -1,11 +1,11 @@
 /**
- * vue-data-table v"1.4.5" (https://github.com/begemode/vue-ngx-data-table)
+ * vue-ngx-datatable v"1.4.7" (https://github.com/begemode/vue-ngx-datatable)
  * Copyright 2018
  * Licensed under MIT
  */
-/*!*************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[3]!./src/themes/material.scss ***!
-  \*************************************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-5.use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5.use[3]!./src/themes/material.scss ***!
+  \*************************************************************************************************************************************************************************************************************/
 /*
   This stylesheet uses scss valiables for most of the colors / background-colors of the table
   to enable the customization of the displayed table without cloning the stylesheet into the
@@ -132,7 +132,7 @@ That's all.
       .ngx-datatable.material .datatable-header .datatable-header-cell.longpress .draggable::after {
         transition: transform 400ms ease, opacity 400ms ease;
         opacity: 0.5;
-        transform: scale(1); }
+        transform: scale(0.8); }
       .ngx-datatable.material .datatable-header .datatable-header-cell .draggable::after {
         content: ' ';
         position: absolute;
@@ -330,9 +330,9 @@ That's all.
     opacity: 0;
     transform: translateX(-50%) scale(0, 1); } }
 
-/*!*********************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[3]!./src/themes/dark.scss ***!
-  \*********************************************************************************************************************************************************************************************************************************/
+/*!*********************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-5.use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5.use[3]!./src/themes/dark.scss ***!
+  \*********************************************************************************************************************************************************************************************************/
 .ngx-datatable.dark {
   box-shadow: none;
   background: #1b1e27;
@@ -409,9 +409,9 @@ That's all.
     .ngx-datatable.dark .datatable-summary-row.datatable-body-row .datatable-body-cell {
       font-weight: bold; }
 
-/*!**************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[3]!./src/themes/bootstrap.scss ***!
-  \**************************************************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-5.use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5.use[3]!./src/themes/bootstrap.scss ***!
+  \**************************************************************************************************************************************************************************************************************/
 /*
 bootstrap table theme
 */
@@ -480,9 +480,9 @@ bootstrap table theme
   .ngx-datatable.bootstrap .datatable-summary-row.datatable-body-row .datatable-body-cell {
     font-weight: bold; }
 
-/*!*****************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[3]!./assets/icons.css ***!
-  \*****************************************************************************************************************************************************************************************************************************/
+/*!*****************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-5.use[1]!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5.use[3]!./assets/icons.css ***!
+  \*****************************************************************************************************************************************************************************************************/
 @font-face {
   font-family: "data-table";
   src: url(fonts/data-table.eot);
@@ -562,9 +562,9 @@ bootstrap table theme
 .datatable-icon-prev:before {
   content: "\72"; }
 
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5[0].rules[0].use[3]!./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-5.use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js??clonedRuleSet-5.use[3]!./src/components/datatable.component.scss?vue&type=style&index=0&lang=scss& ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************************************************/
 .ngx-datatable {
   display: block;
   overflow: hidden;
