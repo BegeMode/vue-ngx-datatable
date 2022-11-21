@@ -1,5 +1,5 @@
 /**
- * vue-ngx-datatable v"1.4.7" (https://github.com/begemode/vue-ngx-datatable)
+ * vue-ngx-datatable v"1.4.8" (https://github.com/begemode/vue-ngx-datatable)
  * Copyright 2018
  * Licensed under MIT
  */
@@ -2192,6 +2192,12 @@ var DatatableComponent = /** @class */ (function (_super) {
         if (val) {
             this.internalRows = __spreadArray([], val, true);
         }
+        var treeFrom = (0, tree_1.optionalGetterForProp)(this.treeFromRelation);
+        var treeTo = (0, tree_1.optionalGetterForProp)(this.treeToRelation);
+        if (treeFrom && treeTo) {
+            // it's need to rebuild tree after sorting
+            this.initialRows = this.internalRows;
+        }
         this.innerSortRows();
         this.groupedRows = null;
         if (this.rows && this.groupRowsBy) {
@@ -3117,6 +3123,10 @@ var DatatableComponent = /** @class */ (function (_super) {
     DatatableComponent.prototype.innerSortRows = function () {
         var treeFrom = (0, tree_1.optionalGetterForProp)(this.treeFromRelation);
         var treeTo = (0, tree_1.optionalGetterForProp)(this.treeToRelation);
+        if (treeFrom && treeTo) {
+            // restore rows after tree sorting
+            this.internalRows = this.initialRows;
+        }
         if (this.externalSorting === false) {
             this.sortInternalRows();
         }

@@ -388,6 +388,12 @@ export default class DatatableComponent extends Vue {
     if (val) {
       this.internalRows = [...val];
     }
+    const treeFrom = optionalGetterForProp(this.treeFromRelation);
+    const treeTo = optionalGetterForProp(this.treeToRelation);
+    if (treeFrom && treeTo) {
+      // it's need to rebuild tree after sorting
+      this.initialRows = this.internalRows;
+    }
     this.innerSortRows();
     this.groupedRows = null;
     if (this.rows && this.groupRowsBy) {
@@ -1305,6 +1311,10 @@ export default class DatatableComponent extends Vue {
   private innerSortRows(): void {
     const treeFrom = optionalGetterForProp(this.treeFromRelation);
     const treeTo = optionalGetterForProp(this.treeToRelation);
+    if (treeFrom && treeTo) {
+      // restore rows after tree sorting
+      this.internalRows = this.initialRows;
+    }
     if (this.externalSorting === false) {
       this.sortInternalRows();
     }
