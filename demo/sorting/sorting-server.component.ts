@@ -1,4 +1,4 @@
-import { ISortEvent } from 'types/sort-prop-dir.type';
+import { ISortPropDir } from 'types/sort-prop-dir.type';
 import { Component, Vue } from 'vue-property-decorator';
 import DatatableComponent from '../../src/components/datatable.component.vue';
 
@@ -61,7 +61,7 @@ export default class ServerSortingComponent extends Vue {
     req.send();
   }
 
-  onSort(event: { sorts: ISortEvent }) {
+  onSort(event: { sorts: ISortPropDir[] }) {
     // event was triggered, start sort sequence
     console.log('Sort Event', event);
     this.loading = true;

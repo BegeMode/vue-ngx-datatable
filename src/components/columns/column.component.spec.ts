@@ -17,15 +17,13 @@ let counter = 0;
   template: `
     <div>
       <ngx-datatable-column id="t1"></ngx-datatable-column>
-      <ngx-datatable-column id="t2" :name="columnName">
-        <!-- <ng-template></ng-template>
-      <ng-template></ng-template> -->
-      </ngx-datatable-column>
+      <ngx-datatable-column id="t2" :name="columnName" :visible="visible"></ngx-datatable-column>
     </div>
   `,
 })
 class TestFixtureComponent extends Vue {
   columnName = '';
+  visible = true;
 
   onColumnInsert(column: TableColumn) {
     counter++;
@@ -41,7 +39,7 @@ class TestFixtureComponent extends Vue {
 async function setupTest(componentClass: VueConstructor) {
   try {
     counter = 0;
-    wrapper = mount(componentClass, { sync: false }) as Wrapper<TestFixtureComponent>;
+    wrapper = mount(componentClass) as Wrapper<TestFixtureComponent>;
     // await Vue.nextTick();
     await flushPromises();
     component = wrapper.vm;
@@ -137,7 +135,7 @@ describe('DataTableColumnDirective', () => {
     it('notifies of visible changes', async () => {
       const spy = spyOn(component, 'onColumnChangeVisible');
 
-      column.visible = false;
+      component.visible = false;
       await column.$nextTick();
 
       expect(spy).toHaveBeenCalled();

@@ -11,7 +11,6 @@ let component: DataTableRowWrapperComponent;
 async function setupTest(componentClass: VueConstructor) {
   try {
     wrapper = mount(componentClass, {
-      sync: false,
       propsData: {
         row: {},
         rowDetail: false,

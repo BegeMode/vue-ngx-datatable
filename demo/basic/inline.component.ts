@@ -70,8 +70,7 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
   `
 })
 export default class InlineEditComponent extends Vue {
-
-  editing = {};
+  editing: { [key: string]: boolean } = {};
   rows: Array<Record<string, unknown>> = [];
 
   created() {

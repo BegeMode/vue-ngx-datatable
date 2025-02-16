@@ -113,8 +113,7 @@ class DraggableController {
   }
 
   private emit(name: string, data: unknown): void {
-    const handlers =
-      (this.vnode.data && this.vnode.data.on) || (this.vnode.componentOptions && this.vnode.componentOptions.listeners);
+    const handlers = (this.vnode.data?.on || this.vnode.componentOptions?.listeners) as { [key: string]: { fns: (data: unknown) => unknown } };
     if (handlers && handlers[name]) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
       handlers[name].fns(data);

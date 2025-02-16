@@ -13,7 +13,6 @@ let component: DataTableBodyCellComponent;
 async function setupTest(componentClass: VueConstructor) {
   try {
     wrapper = mount(componentClass, {
-      sync: false,
       propsData: {
         column: {
           visible: true,
@@ -51,7 +50,7 @@ describe('DataTableBodyCellComponent', () => {
     // verify there wasn't a mistake where the falsey 0 value
     // resulted in a code path for missing column prop
     it('should get value from zero-index prop', async () => {
-      const columns: TableColumn[] = [{ name: 'First Column', prop: 0, value: 'Hello' }];
+      const columns: TableColumn[] = [{ name: 'First Column', prop: 0 }];
       // users should never set columns on DataTableBodyCellComponent directly
       // setColumnDefaults will be run on columns before they are set on BodyCellComponent
       setColumnDefaults(columns[0], wrapper.vm);

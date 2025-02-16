@@ -63,7 +63,7 @@ class ResizeableDirectiveController {
   }
 
   private emit(vnode: VNode, name: string, data: unknown) {
-    const handlers = (vnode.data && vnode.data.on) || (vnode.componentOptions && vnode.componentOptions.listeners);
+    const handlers = ((vnode.data && vnode.data.on) || (vnode.componentOptions && vnode.componentOptions.listeners)) as { [key: string]: { fns: (data: unknown) => unknown } };
     if (handlers && handlers[name]) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
       handlers[name].fns(data);
@@ -82,7 +82,6 @@ export interface IHasResizeableDirectiveController extends HTMLElement {
 }
 
 export default Vue.directive('resizeable', {
-  resizing: false,
   bind(el: HTMLElement, binding: DirectiveBinding, vnode: VNode) {
     const ctrl = new ResizeableDirectiveController(_id++, vnode, el);
     const value = binding.value as IDirValue;

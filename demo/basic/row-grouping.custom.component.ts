@@ -123,7 +123,7 @@ export default class RowGroupingCustomComponent  extends Vue {
   // pending = [];
   // groups = [];
   
-  editing = {};  
+  editing: { [key: string]: boolean } = {};
   rows: Array<IRow> = [];
   groupRowsBy = ['age', [{ title: 'Gender', prop: 'gender' }, { title: 'Firm', prop: 'company' }, { title: 'Date', prop: 'dt', valueGetter: (dt: string) => new Date(dt).getFullYear() }]];
   
@@ -243,7 +243,7 @@ export default class RowGroupingCustomComponent  extends Vue {
 
   updateValue(event: { target: { checked: boolean; value: any }}, cell: string, rowIndex: number) {
     this.editing[rowIndex + '-' + cell] = false;
-    const row = this.rows[rowIndex];
+    const row: IRow & { [key: string]: any } = this.rows[rowIndex];
     row[cell] = event.target.value;
   }
 

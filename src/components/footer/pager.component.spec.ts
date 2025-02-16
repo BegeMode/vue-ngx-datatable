@@ -10,7 +10,7 @@ describe('DataTablePagerComponent', () => {
   // let element;
 
   beforeEach(async () => {
-    wrapper = mount(DataTablePagerComponent, { sync: false });
+    wrapper = mount(DataTablePagerComponent);
     // await Vue.nextTick();
     await flushPromises();
     pager = wrapper.vm;

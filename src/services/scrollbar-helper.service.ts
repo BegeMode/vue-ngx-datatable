@@ -15,7 +15,7 @@ export class ScrollbarHelper {
     const outer: HTMLElement = this.document.createElement('div');
     outer.style.visibility = 'hidden';
     outer.style.width = '100px';
-    outer.style['msOverflowStyle'] = 'scrollbar';
+    (outer.style as any).msOverflowStyle = 'scrollbar';
     this.document.body.appendChild(outer);
 
     const widthNoScroll = outer.offsetWidth;

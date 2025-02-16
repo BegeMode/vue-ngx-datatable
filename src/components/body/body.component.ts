@@ -296,7 +296,7 @@ export default class DataTableBodyComponent extends Vue {
   }
 
   get cellSlots(): () => Record<string, (arg?: Record<string, unknown>) => VNode[]> {
-    const result = {};
+    const result: Record<string, (arg?: Record<string, unknown>) => VNode[]> = {};
     if (this.columns) {
       this.columns.forEach(column => {
         if (column.cellTemplate) {
@@ -568,7 +568,7 @@ export default class DataTableBodyComponent extends Vue {
     if (!rowContext || !this.columnGroupWidths) {
       return null;
     }
-    const styles = {};
+    const styles: Record<string, string> = {};
     // only add styles for the group if there is a group
     if (this.groupRowsBy) {
       styles['width'] = `${this.columnGroupWidths.total}px`;

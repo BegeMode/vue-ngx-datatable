@@ -93,7 +93,7 @@ export function deepValueGetter(obj: Record<string, unknown>, path: string): unk
 
   // check if path matches a root-level field
   // { "a.b.c": 123 }
-  let current = obj[path];
+  let current: unknown = obj[path];
   // eslint-disable-next-line no-undefined
   if (current !== undefined) {
     return current;
@@ -105,7 +105,7 @@ export function deepValueGetter(obj: Record<string, unknown>, path: string): unk
   if (split.length) {
     // eslint-disable-next-line @typescript-eslint/prefer-for-of
     for (let i = 0; i < split.length; i++) {
-      current = current[split[i]] as Record<string, unknown>;
+      current = (current as Record<string, unknown>)[split[i]];
 
       // if found undefined, return empty string
       // eslint-disable-next-line no-undefined

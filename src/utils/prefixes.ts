@@ -2,12 +2,12 @@
 import { camelCase } from './camel-case';
 
 const cache: Record<string, string> = {};
-const testStyle = typeof document !== 'undefined' ? document.createElement('div').style : undefined;
+const testStyle: CSSStyleDeclaration | undefined = typeof document !== 'undefined' ? document.createElement('div').style : undefined;
 
 // Get Prefix
 // http://davidwalsh.name/vendor-prefix
 // eslint-disable-next-line prettier/prettier
-const prefix = (function () {
+const prefix: { dom: string; lowercase: string; css: string; js: string } | undefined = (function () {
   const styles = typeof window !== 'undefined' ? window.getComputedStyle(document.documentElement, '') : undefined;
   let match: RegExpMatchArray = null;
   if (styles) {
@@ -35,12 +35,13 @@ export function getVendorPrefixedName(property: string): string {
   const name = camelCase(property);
 
   if (!cache[name]) {
-    if (prefix !== undefined && testStyle[prefix.css + property] !== undefined) {
-      cache[name] = prefix.css + property;
-    } else if (testStyle[property] !== undefined) {
+    const prefixedName = prefix ? prefix.css + property : '';
+    if (prefixedName && testStyle?.getPropertyValue(prefixedName) !== undefined) {
+      cache[name] = prefixedName;
+    } else if (testStyle?.getPropertyValue(property) !== undefined) {
       cache[name] = property;
     }
   }
 
-  return cache[name];
+  return cache[name] || '';
 }

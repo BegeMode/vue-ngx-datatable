@@ -10,7 +10,7 @@ describe('DataTableHeaderCellComponent', () => {
   // let element: Element;
 
   beforeEach(async () => {
-    wrapper = mount(DataTableHeaderCellComponent, { sync: false, propsData: { column: {} } });
+    wrapper = mount(DataTableHeaderCellComponent, { propsData: { column: {} } });
     await flushPromises();
     component = wrapper.vm;
     // element = component.$el;

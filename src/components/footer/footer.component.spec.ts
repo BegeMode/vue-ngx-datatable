@@ -344,7 +344,7 @@ class TestFixtureTemplateComponent extends Vue {
 
 async function setupTest(componentClass: VueConstructor) {
   try {
-    wrapper = mount(componentClass, { sync: false }) as Wrapper<TestFixtureComponent>;
+    wrapper = mount(componentClass) as Wrapper<TestFixtureComponent>;
     // await Vue.nextTick();
     await flushPromises();
     component = wrapper.vm;

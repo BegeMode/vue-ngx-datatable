@@ -16,8 +16,6 @@
     "noImplicitUseStrict": false,
     "noFallthroughCasesInSwitch": false,
     "allowSyntheticDefaultImports": true,
-    "suppressExcessPropertyErrors": true,
-    "suppressImplicitAnyIndexErrors": true,
     "outDir": "dist",
     "lib": ["es6", "dom"],
     "skipLibCheck": true,

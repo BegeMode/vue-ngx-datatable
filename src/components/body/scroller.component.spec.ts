@@ -8,10 +8,9 @@ import ScrollerComponent from './scroller.component';
 let wrapper: Wrapper<ScrollerComponent>;
 let component: ScrollerComponent;
 
-async function setupTest(componentClass: VueConstructor) {
+async function setupTest(componentClass: VueConstructor<ScrollerComponent>) {
   try {
     wrapper = mount(componentClass, {
-      sync: false,
       propsData: {
         //
       },
@@ -28,7 +27,7 @@ async function setupTest(componentClass: VueConstructor) {
 
 describe('ScrollerComponent', () => {
   beforeEach(async () => {
-    await setupTest(ScrollerComponent);
+    await setupTest(ScrollerComponent as VueConstructor<ScrollerComponent>);
   });
 
   describe('fixture', () => {

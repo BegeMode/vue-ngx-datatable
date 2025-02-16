@@ -494,9 +494,7 @@ describe('DatatableComponent With Custom Templates', () => {
 
 async function setupTest(componentClass: VueConstructor) {
   try {
-    wrapper = mount(componentClass, { sync: false }) as Wrapper<
-      TestFixtureComponent | TestFixtureComponentWithCustomTemplates
-    >;
+    wrapper = mount(componentClass) as Wrapper<TestFixtureComponent | TestFixtureComponentWithCustomTemplates>;
     // await Vue.nextTick();
     await flushPromises();
     component = wrapper.vm;

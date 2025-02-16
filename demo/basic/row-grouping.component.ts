@@ -122,7 +122,7 @@ export default class RowGroupingComponent  extends Vue {
   // pending = [];
   // groups = [];
   
-  editing = {};  
+  editing: { [key: string]: boolean } = {};  
   rows: Array<IRow> = [];
   groupRowsBy = ['age', [{ title: 'Gender', prop: 'gender' }, { title: 'Firm', prop: 'company' }, { title: 'Date', prop: 'dt', valueGetter: (dt: string) => new Date(dt).getFullYear() }]];
   
@@ -242,7 +242,7 @@ export default class RowGroupingComponent  extends Vue {
 
   updateValue(event: { target: { checked: boolean; value: unknown }}, cell: string, rowIndex: number) {
     this.editing[rowIndex + '-' + cell] = false;
-    const row = this.rows[rowIndex];
+    const row = this.rows[rowIndex] as unknown as Record<string, unknown>;
     row[cell] = event.target.value;
   }
 

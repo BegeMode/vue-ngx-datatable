@@ -110,7 +110,7 @@ export default class DatatableComponent extends Vue {
    * Example: flex, force, standard
    */
   @Prop({ type: String, validator: (value: string) => ['standard', 'flex', 'force'].indexOf(value) !== -1 })
-  columnMode: string;
+  columnMode: keyof typeof ColumnMode;
   /**
    * The minimum header height in pixels.
    * Pass a falsey for no header
@@ -190,7 +190,8 @@ export default class DatatableComponent extends Vue {
   /**
    * The type of sorting
    */
-  @Prop({ type: String, validator: (value: string) => ['single', 'multi'].indexOf(value) !== -1 }) sortType: string;
+  @Prop({ type: String, validator: (value: string) => ['single', 'multi'].indexOf(value) !== -1 })
+  sortType: keyof typeof SortType;
   /**
    * Array of sorted columns by property and type.
    * Default value: `[]`
@@ -459,12 +460,12 @@ export default class DatatableComponent extends Vue {
   }
 
   @Watch('columnMode', { immediate: true }) onColumnModeChanged(): void {
-    this.myColumnMode = ColumnMode[this.columnMode] as ColumnMode;
+    this.myColumnMode = ColumnMode[this.columnMode];
   }
 
   @Watch('sortType', { immediate: true }) onSortTypeChanged(): void {
     if (SortType[this.sortType]) {
-      this.mySortType = SortType[this.sortType] as SortType;
+      this.mySortType = SortType[this.sortType];
     }
   }
 
@@ -1276,7 +1277,6 @@ export default class DatatableComponent extends Vue {
       this.expandCollapseRow(row, true);
     });
     this.onGroupToggle({
-      type: 'all',
       value: true,
     });
   }
@@ -1289,7 +1289,6 @@ export default class DatatableComponent extends Vue {
       this.expandCollapseRow(row, false);
     });
     this.onGroupToggle({
-      type: 'all',
       value: false,
     });
   }
@@ -1481,7 +1480,7 @@ export default class DatatableComponent extends Vue {
   private sortGroupedRows(groupedRows: IGroupedRows[]): IGroupedRows[] {
     const rows: Array<Record<string, unknown>> = [];
     groupedRows.forEach(gr => {
-      const row = { __group: gr };
+      const row: Record<string, unknown> = { __group: gr };
       gr.keys.forEach(keyDescr => {
         row[keyDescr.prop] = keyDescr.value;
       });

@@ -61,10 +61,10 @@ import DataTableColumnComponent from '../../src/components/columns/column.compon
       </ngx-datatable>
     </div>
   `,
-  styles: [
-    '.icon {height: 10px; width: 10px; }',
-    '.disabled {opacity: 0.5; }'
-  ],
+  // styles: [
+  //   '.icon {height: 10px; width: 10px; }',
+  //   '.disabled {opacity: 0.5; }'
+  // ],
 })
 export default class FullScreenTreeComponent extends Vue {
 

@@ -38,7 +38,7 @@ import { TableColumn } from 'types/table-column.type';
       </ng-template>
     </div>
   `,
-  styleUrls: [ './summary-row-custom-template.component.scss' ]
+  // styleUrls: [ './summary-row-custom-template.component.scss' ]
 })
 
 export default class SummaryRowCustomTemplateComponent extends Vue {

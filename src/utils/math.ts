@@ -53,7 +53,7 @@ function scaleColumns(colsByGroup: IColumnsByPin, maxWidth: number, totalFlexGro
   // calculate total width and flexgrow points for coulumns that can be resized
   let column: TableColumn;
   for (const attr in colsByGroup) {
-    for (column of colsByGroup[attr]) {
+    for (column of colsByGroup[attr as keyof IColumnsByPin]) {
       if (!column.canAutoResize) {
         maxWidth -= column.width;
         totalFlexGrow -= column.flexGrow ? column.flexGrow : 0;
@@ -62,7 +62,7 @@ function scaleColumns(colsByGroup: IColumnsByPin, maxWidth: number, totalFlexGro
       }
     }
   }
-  const hasMinWidth = {};
+  const hasMinWidth: Record<string, boolean> = {};
   let remainingWidth = maxWidth;
 
   // resize columns until no width is left to be distributed
@@ -70,7 +70,7 @@ function scaleColumns(colsByGroup: IColumnsByPin, maxWidth: number, totalFlexGro
     const widthPerFlexPoint = remainingWidth / totalFlexGrow;
     remainingWidth = 0;
     for (const attr in colsByGroup) {
-      for (column of colsByGroup[attr]) {
+      for (column of colsByGroup[attr as keyof IColumnsByPin]) {
         // if the column can be resize and it hasn't reached its minimum width yet
         if (column.canAutoResize) {
           if (!hasMinWidth[column.prop]) {

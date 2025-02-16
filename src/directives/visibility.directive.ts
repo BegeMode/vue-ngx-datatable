@@ -54,8 +54,7 @@ class VisibilityController {
   }
 
   private emit(name: string, data: unknown) {
-    const handlers =
-      (this.vnode.data && this.vnode.data.on) || (this.vnode.componentOptions && this.vnode.componentOptions.listeners);
+    const handlers = (this.vnode.data?.on || this.vnode.componentOptions?.listeners) as { [key: string]: { fns: (data: unknown) => unknown } };
 
     if (handlers && handlers[name]) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call
@@ -76,7 +75,6 @@ class VisibilityController {
  *
  */
 export default Vue.directive('visibility-observer', {
-  resizing: false,
   bind(el: HTMLElement, binding: DirectiveBinding, vnode: VNode) {
     const ctrl = new VisibilityController(vnode, el);
     (el as unknown as { __visibility__: VisibilityController }).__visibility__ = ctrl;

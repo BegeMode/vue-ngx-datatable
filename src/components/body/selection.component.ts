@@ -118,12 +118,12 @@ export default class DataTableSelectionComponent extends Vue {
       select = false;
     }
     if (select) {
-      this.selectRow(event, index, row);
+      void this.selectRow(event, index, row);
     } else if (type === 'checkbox' && this.checkMode === CheckMode.checkNoSelect) {
       this.checkRow(event, index, row);
     } else if (type === 'keydown') {
       if ((<KeyboardEvent>event).keyCode === Keys.return) {
-        this.selectRow(event, index, row);
+        void this.selectRow(event, index, row);
       } else {
         this.onKeyboardFocus(model);
       }
