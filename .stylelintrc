@@ -1,6 +1,5 @@
 {
   "extends": ["stylelint-prettier/recommended"],
    "rules": {
-        "unicode-bom": "never"
     }
 }
